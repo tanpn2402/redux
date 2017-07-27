@@ -148,10 +148,13 @@ var menu_items = [
   
 ]
 
+
 function renderSubItem (item, parentId) {
   return item.subitems.map((sub) => {
     return (
-      <MenuItem eventKey={sub.id}>
+      <MenuItem eventKey={sub.id} onSelect={(eventKey) => {
+          console.log("Clicked " + sub.id)
+          }} >
       {sub.text}
       </MenuItem>
     )
@@ -161,7 +164,9 @@ function renderSubItem (item, parentId) {
 function renderMenuItems () {
   return menu_items.map((item) => {
     return (
-      <NavDropdown eventKey={item.id} title={item.text} id='nav-dropdown'>
+      <NavDropdown eventKey={item.id} title={item.text} id='nav-dropdown' onSelect={() => {
+          console.log("Clicked " + item.id)
+          }}>
         {renderSubItem(item, item.id)}
       </NavDropdown>
       
