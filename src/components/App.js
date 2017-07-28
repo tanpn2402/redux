@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import MenuBar from '../containers/MenuBar'
-import FooterButtons from './FooterButtons'
+
 import PageContent from './PageContent'
 
 export default class App extends Component {
@@ -13,14 +14,9 @@ export default class App extends Component {
 */
   render() {
     console.log('render in App')
+    ReactDOM.render(<PageContent />,document.getElementById('app'));
     return (
-      <div>
-        <MenuBar />
-        <PageContent />
-        <FooterButtons />
-        </div>
-             
-      
+       <PageContent/>
     )
   }
 }
