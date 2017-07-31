@@ -3,13 +3,12 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import App from './components/App';
-
-const store = createStore(reducer)
+import LoginForm from './components/LoginForm';
+import store from './store';
 
 render(
   <Provider store={store}>
-    <App />
+      <LoginForm />
   </Provider>,
   document.getElementById('app')
 )

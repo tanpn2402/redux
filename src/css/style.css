@@ -1,0 +1,27 @@
+#app
+{
+    padding: 20px;
+    width: 400px;
+    height: 175px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border:1px solid;
+    border-radius: 3px;
+}
+
+.msg
+{
+    margin: 40px;
+}
+
+body
+{
+    background-image: url('./1.jpg');
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
