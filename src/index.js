@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import App from './components/App'
 import MenuBar from './containers/MenuBar'
-import FooterPagination from './components/FooterPagination'
 import PageContent from './components/PageContent'
 
 const store = createStore(reducer)

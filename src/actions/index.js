@@ -1,8 +1,9 @@
 import {setTracks, addTrack} from './track';
-import {clicked} from './click'
+import {menuSelected, menuRemoved} from './menu_selected';
 
 export {
   setTracks,
   addTrack,
-  clicked
+  menuSelected,
+  menuRemoved
 };

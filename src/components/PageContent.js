@@ -1,22 +1,17 @@
-import React, {Component} from 'react';
-import FooterPagination from "../components/FooterPagination";
+import React, { Component } from "react";
 
 export default class PageContent extends Component {
-
   /* constructor(){
      super()
    }
 */
-  render () {
+  render() {
     return (
       <div>
-        <div className='left'>
+        <div className="left">
           <h2>Page Content</h2>
         </div>
-        <div className='right'>
-          < FooterPagination fixed/>
-        </div>
       </div>
-    )
+    );
   }
 }
