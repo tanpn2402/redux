@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import App from '../components/App';
 import '../css/style.css';
 import { Form, FormGroup, Col, ControlLabel, FormControl, Button } from 'react-bootstrap';
 
@@ -14,8 +15,9 @@ class LoginForm extends Component {
 
     render() {
         let { isLoginSuccess, loginError, isLoginPending } = this.props;
+
         return (
-            <Form horizontal onSubmit={this.onSubmit}>
+            <Form horizontal onSubmit={this.onSubmit} className="login">
                 <FormGroup controlId="formHorizontalUser">
                     <Col componentClass={ControlLabel} sm={3}>
                         Username
@@ -34,14 +36,14 @@ class LoginForm extends Component {
                 </FormGroup>
                 <FormGroup>
                     <Col>
-                        <Button className="btn btn-default" type="submit" onClick={this.onClick}>
+                        <Button className="btn btn-default" type="submit">
                             Login
                         </Button>
                     </Col>
                 </FormGroup>
                 <div className="msg">
                     {isLoginPending && <div>Please wait...</div>}
-                    {isLoginSuccess && <div>Success.</div>}
+                    {/* {isLoginSuccess && <App />} */}
                     {loginError && <div>{loginError.message}</div>}
                 </div>
             </Form>

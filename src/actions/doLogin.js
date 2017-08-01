@@ -8,10 +8,8 @@ export function doLogin(username, password) {
         dispatch(setLoginError(null));
 
         authorize(username, password, error => {
-            console.log(username);
             dispatch(setLoginPending(false));
             if (!error) {
-                console.log('OK');
                 dispatch(setLoginSuccess(true));
             } else {
                 dispatch(setLoginError(error));
