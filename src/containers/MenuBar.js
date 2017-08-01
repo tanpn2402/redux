@@ -196,7 +196,7 @@ class MenuBar extends React.Component {
       <div>
         <Navbar fluid collapseOnSelect className="nomargin">
           <div className='left'>
-            <Navbar.Toggle />
+            <Navbar.Toggle className="togglebutton"/>
           </div>
           <Navbar.Collapse>
             <Nav>
