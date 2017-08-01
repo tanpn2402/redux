@@ -163,7 +163,7 @@ class MenuBar extends React.Component {
   renderMenuItems () {
     return menu_items.map(item => {
       return (
-        <NavDropdown
+        <NavDropdown 
           className='pad20'
           eventKey={item.id}
           title={item.text}
@@ -194,14 +194,14 @@ class MenuBar extends React.Component {
     console.log(this.props)
     return (
       <div>
-        <Navbar fluid collapseOnSelect>
+        <Navbar fluid collapseOnSelect className="nomargin">
           <div className='left'>
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
             <Nav>
               {this.renderMenuItems()}
-              <NavItem eventKey='6' title='Item'>
+              <NavItem eventKey='6' title='Item' className="pad20">
                 Save Layout
               </NavItem>
             </Nav>

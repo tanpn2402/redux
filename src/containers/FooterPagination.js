@@ -21,8 +21,8 @@ export default class FooterPagination extends React.Component {
       <div className="row">
         <div className="col-md-12">
           <div className="right">
-            <ButtonGroup>
-              <Button>1</Button>
+            <ButtonGroup >
+              <Button active>1</Button>
               <Button>2</Button>
               <Button>3</Button>
             </ButtonGroup>
