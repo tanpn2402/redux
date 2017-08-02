@@ -1,9 +1,7 @@
-import {setTracks, addTrack} from './track';
-import {doLogin, onLogin, loginDone} from './login';
+import {menuSelected, menuRemoved, onPageClicked} from './menu_selected';
+
 export {
-  setTracks,
-  addTrack,
-  doLogin,
-  onLogin,
-  loginDone,
+  menuSelected,
+  menuRemoved,
+  onPageClicked,
 };

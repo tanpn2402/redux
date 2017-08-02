@@ -1,0 +1,12 @@
+#app {
+  direction: ltr;
+}
+
+#app button {
+  float: left;
+}
+
+#app p {
+  color: blue;
+  font-size: large;
+}
