@@ -4,7 +4,6 @@ import { sessionService } from 'redux-react-session';
 import App from './components/App';
 import Home from './components/Home';
 import Login from './components/LoginForm';
-
 export default (
     <Route path="/" component={App}>
         <IndexRoute onEnter={sessionService.checkAuth} component={Home} />

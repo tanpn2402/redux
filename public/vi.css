@@ -1,0 +1,12 @@
+#app {
+  direction: rtl;
+}
+
+#app button {
+  float: left;
+}
+
+#app p {
+  color: darkred;
+  font-size: larger;
+}

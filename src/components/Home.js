@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
+import MenuBar from '../containers/MenuBar'
+import PageContent from '../containers/PageContent'
+import Header from '../containers/Header'
 
-class Home extends Component {
+class House extends Component {
 
     constructor(props) {
         super(props);
@@ -15,12 +18,11 @@ class Home extends Component {
 
         return (
             <div>
-                <h3>Welcome {user.email}, {user.name}</h3>
-                <h5>{authenticated ? 'You are authenticated :)' : 'Error'}</h5>
-                <button onClick={this.onClick}>
-                    LOGOUT
-                </button>
+                <Header />
+                <MenuBar />
+                <PageContent />
             </div>
+
         )
     }
 
@@ -41,4 +43,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(House);
