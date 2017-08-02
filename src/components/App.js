@@ -1,24 +1,15 @@
-import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
-import {connect} from 'react-redux'
-import MenuBar from '../containers/MenuBar'
+import React, { Component } from 'react';
 
-import PageContent from './PageContent'
-
-export default class App extends Component {
-
- /* constructor(){
-    super()
-  }
-*/
-  render() {
-    console.log('render in App')
-    ReactDOM.render(<PageContent />,document.getElementById('app'));
-    return (
-       <PageContent/>
+class App extends Component{
+  render()
+  {
+    let {children} = this.props;
+    return(
+      <div>
+        {children}
+      </div>
     )
   }
 }
 
-
-
+export default App;

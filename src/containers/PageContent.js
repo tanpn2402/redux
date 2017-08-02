@@ -1,5 +1,5 @@
 import React from 'react';
-import BaseLayout from '../containers/BaseLayout.js';
+import BaseLayout from './BaseLayout.js';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 
