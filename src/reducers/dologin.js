@@ -1,6 +1,6 @@
 import { ActionTypes } from '../core/constants';
 
-export default function reducer(state = {
+export default function(state = {
     isLoginSuccess: false,
     isLoginPending: false,
     loginError: null

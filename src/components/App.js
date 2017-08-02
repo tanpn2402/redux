@@ -1,51 +1,15 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import * as actions from '../actions';
-import TrackList from '../containers/TrackList'
-class App extends Component {
+import React, { PropTypes } from 'react';
 
- /* constructor(){
-    super()
-  }
-*/
-  render() {
-    console.log('render in App')
-    return (
-      <div>
-        <input ref={node => {
-          this.input = node
-        }} />
-        <a href=""
-          onClick={(e) => {
-            e.preventDefault()
-            if (!this.input.value.trim()) {
-              return
-            }
-            this.props.onClick(this.input.value)
-          }}
-        >
-          click me!
-        </a>
+const App = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 
-        <TrackList />
-      </div>
-    )
-  }
-}
+const { object } = PropTypes;
 
-const mapStateToProps = (state, props) => ({
+App.propTypes = {
+  children: object.isRequired
+};
 
-})
-
-const mapDispatchToProps = (dispatch, props) => ({
-  onClick: (temp) => {
-    dispatch(actions.addTrack(temp))
-  }
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-
+export default App;
