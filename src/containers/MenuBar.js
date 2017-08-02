@@ -44,7 +44,7 @@ var menu_items = [
       }
     ]
   },
-  /*{
+  {
     id: '2',
     text: 'Account',
     link: '',
@@ -135,7 +135,7 @@ var menu_items = [
     text: 'Default Group',
     link: '',
     subitems: []
-  }*/
+  }
 ]
 
 class MenuBar extends React.Component {
@@ -144,6 +144,8 @@ class MenuBar extends React.Component {
     super(props);
 
   }
+
+  
 
   renderMenuItems () {
     return menu_items.map(item => {
@@ -198,7 +200,11 @@ class MenuBar extends React.Component {
   
   
   render () {
+    console.log("Menubar")
     console.log(this.props);
+
+    const data = this.props.data;
+    
     return (
       <div>
         <Navbar fluid collapseOnSelect >
@@ -210,7 +216,7 @@ class MenuBar extends React.Component {
               {this.renderMenuItems()}
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={6} href="#">Save Layout</NavItem>
+              <NavItem eventKey={6} href="#">{ data.savelayout } </NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -219,6 +225,8 @@ class MenuBar extends React.Component {
                     onRemove={this.onRemove.bind(this)} 
                     onPageClicked={this.onPageClicked.bind(this)}
                     />
+
+                     
       </div>
     )
   }
@@ -247,3 +255,4 @@ const mapDispatchToProps = (dispatch, props) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
+
