@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../actions/index';
 import '../css/style.css';
-import Home from '../components/Home';
-import { Form, FormGroup, Col, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap';
 
 class LoginForm extends Component {
 
@@ -14,7 +13,7 @@ class LoginForm extends Component {
     }
 
     render() {
-        let { isLoginSuccess, loginError, isLoginPending, authenticated } = this.props;
+        let { isLoginError } = this.props;
 
         return (
             <Form horizontal onSubmit={this.onSubmit} className="login">
@@ -42,10 +41,7 @@ class LoginForm extends Component {
                     </Col>
                 </FormGroup>
                 <div className="msg">
-                    {isLoginPending && <div>Something Wrong</div>} 
-                    {/* {isLoginPending ? <Home /> : <div>Something Wrong</div>}
-                    {authenticated ? <Home/> : authenticated} */}
-                    {/* {loginError && <div>{loginError.message}</div>} */}
+                    {isLoginError && <div>Something Wrong</div>}
                 </div>
             </Form>
         )
@@ -59,7 +55,7 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoginPending: state.dologin.isLoginPending,
+        isLoginError: state.dologin.isLoginError,
     };
 }
 

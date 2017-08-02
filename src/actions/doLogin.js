@@ -23,7 +23,6 @@ export function doLogin(username, password) {
     return dispatch => {
         authorize(username, password, error => {
             if (!error) {
-                //console.log(login(user[0]));
                 sessionApi.login(user[0]).then(response => {
                     const { token, data } = response;
                     sessionService.saveSession({ token })
@@ -36,32 +35,16 @@ export function doLogin(username, password) {
                 });
             } else {
                 console.log('Everything is not okay');
-                dispatch(setLoginPending(true));
+                dispatch(setLoginError(true));
             }
         });
     }
 }
 
-    
-
-export function setLoginPending(isLoginPending) {
-    return {
-        type: ActionTypes.SET_LOGIN_PENDING,
-        isLoginPending
-    };
-}
-
-export function setLoginSuccess(isLoginSuccess) {
-    return {
-        type: ActionTypes.SET_LOGIN_SUCCESS,
-        isLoginSuccess
-    };
-}
-
-export function setLoginError(loginError) {
+export function setLoginError(isLoginError) {
     return {
         type: ActionTypes.SET_LOGIN_ERROR,
-        loginError
+        isLoginError
     }
 }
 

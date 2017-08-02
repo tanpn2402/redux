@@ -1,25 +1,13 @@
 import { ActionTypes } from '../core/constants';
 
 export default function(state = {
-    isLoginSuccess: false,
-    isLoginPending: false,
-    loginError: null
+    isLoginError: null
 }, action) {
     switch (action.type) {
-        case ActionTypes.SET_LOGIN_PENDING:
-            return Object.assign({}, state, {
-                isLoginPending: action.isLoginPending
-            });
-        case ActionTypes.SET_LOGIN_SUCCESS:
-            return Object.assign({}, state, {
-                isLoginSuccess: action.isLoginSuccess
-            });
-
         case ActionTypes.SET_LOGIN_ERROR:
             return Object.assign({}, state, {
-                loginError: action.loginError
+                isLoginError: action.isLoginError
             });
-
         default:
             return state;
     }
