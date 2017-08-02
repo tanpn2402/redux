@@ -2,7 +2,7 @@ import React from 'react'
 import { NavDropdown, NavItem, Nav, Navbar, MenuItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import PageContent from '../components/PageContent'
+import PageContent from './PageContent'
 import FooterPagination from './FooterPagination'
 
 
