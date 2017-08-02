@@ -9,7 +9,8 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import PageContent from '../components/PageContent'
 import FooterPagination from './FooterPagination'
-
+import { withTranslate, IntlActions } from 'react-redux-multilingual'
+import App from './App'
 
 var menu_items = [
   {
@@ -153,7 +154,8 @@ var menu_items = [
   }
 ]
 
-class MenuBar extends React.Component {
+
+class MenuBar extends React.Component  {
 
   constructor () {
     super()
@@ -177,7 +179,7 @@ class MenuBar extends React.Component {
   renderSubItem (item, parentId) {
     return item.subitems.map(sub => {
       return (
-        <MenuItem eventKey={sub.id} onSelect={eventKey => {this.props.onSelect(eventKey, this.props.tabList)}}>
+        <MenuItem eventKey={sub.id} onSelect={eventKey => {this.props.onSelect(sub.text, this.props.tabList)}}>
         {sub.text}
         </MenuItem>
 
@@ -192,22 +194,25 @@ class MenuBar extends React.Component {
 
   render () {
     console.log(this.props)
+    
     return (
       <div>
         <Navbar fluid collapseOnSelect className="nomargin">
           <div className='left'>
-            <Navbar.Toggle className="togglebutton"/>
+            <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
             <Nav>
               {this.renderMenuItems()}
               <NavItem eventKey='6' title='Item' className="pad20">
-                Save Layout
+               Save Layout
               </NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         < FooterPagination tabList={this.props.tabList} onRemove={this.onRemove.bind(this)} />
+        <App />
+      
       </div>
     )
   }
@@ -225,7 +230,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
   onRemoveTab: (menuid, tabList) => {
     dispatch(actions.menuRemoved(menuid, tabList))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

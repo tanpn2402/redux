@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 import tracks from './tracks';
 import menuSelected from './menu_selected';
-export default combineReducers({
+import { IntlReducer as Intl, IntlProvider } from 'react-redux-multilingual'
+export default combineReducers(({
   tracks,
-  menuSelected
-});
+  menuSelected,
+  Intl
+}))
