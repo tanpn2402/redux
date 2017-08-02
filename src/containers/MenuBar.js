@@ -1,16 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { NavDropdown } from 'react-bootstrap'
-import { NavItem } from 'react-bootstrap'
-import { Nav } from 'react-bootstrap'
-import { Navbar } from 'react-bootstrap'
-import { MenuItem } from 'react-bootstrap'
+import { NavDropdown, NavItem, Nav, Navbar, MenuItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import PageContent from '../components/PageContent'
 import FooterPagination from './FooterPagination'
-import { withTranslate, IntlActions } from 'react-redux-multilingual'
-import App from './App'
+
 
 var menu_items = [
   {
@@ -19,48 +13,38 @@ var menu_items = [
     link: '',
     subitems: [
       {
-        id: '1.1',
+        id: 'signorder',
         text: 'Enter Order',
         link: ''
       },
       {
-        id: '1.2',
+        id: 'orderhistory',
         text: 'Stock Market Inform',
         link: ''
       },
       {
-        id: '1.3',
+        id: 'oddlot',
         text: 'Watch List',
         link: ''
       },
       {
-        id: '1.4',
+        id: 'buystock',
         text: 'Oder Journal',
         link: ''
       },
       {
-        id: '1.5',
+        id: 'orderenquiry',
         text: 'Account No',
         link: ''
       },
       {
-        id: '1.6',
+        id: 'porfolio',
         text: 'Portfolio',
-        link: ''
-      },
-      {
-        id: '1.7',
-        text: 'Technical Analysis',
-        link: ''
-      },
-      {
-        id: '1.8',
-        text: 'Orders Confirmation',
         link: ''
       }
     ]
   },
-  {
+  /*{
     id: '2',
     text: 'Account',
     link: '',
@@ -151,23 +135,23 @@ var menu_items = [
     text: 'Default Group',
     link: '',
     subitems: []
-  }
+  }*/
 ]
 
+class MenuBar extends React.Component {
 
-class MenuBar extends React.Component  {
+  constructor (props) {
+    super(props);
 
-  constructor () {
-    super()
-    this.tabID = 1
   }
 
   renderMenuItems () {
     return menu_items.map(item => {
       return (
-        <NavDropdown 
+        <NavDropdown
           className='pad20'
           eventKey={item.id}
+          key={item.id}
           title={item.text}
           id='nav-dropdown'>
           {this.renderSubItem(item, item.id)}
@@ -179,7 +163,7 @@ class MenuBar extends React.Component  {
   renderSubItem (item, parentId) {
     return item.subitems.map(sub => {
       return (
-        <MenuItem eventKey={sub.id} onSelect={eventKey => {this.props.onSelect(sub.text, this.props.tabList)}}>
+        <MenuItem key={sub.id} eventKey={sub.id} onSelect={this.onMenuSelected.bind(this)}>
         {sub.text}
         </MenuItem>
 
@@ -188,49 +172,78 @@ class MenuBar extends React.Component  {
   }
 
   onRemove (e) {
-    console.log(e.target.id)
-    this.props.onRemoveTab(e.target.id, this.props.tabList)
+    this.props.onRemoveTab(e.target.id, this.props.pageId, this.props.tabList, this.props.reload)
   }
 
+  onMenuSelected(eventKey){
+    var isExist = false
+
+    for(var i = 1; i <= this.props.tabList.length; i++){
+      if(this.props.tabList[i] !== undefined && this.props.tabList[i].filter(el => el === eventKey ).length === 1){
+        isExist = true
+        break
+      }
+    }
+
+    if(!isExist)
+      this.props.onSelect(eventKey, this.props.pageId, this.props.tabList, this.props.reload)
+    else
+      console.log('Exist')
+  }
+
+  onPageClicked(e){
+    var pageId = e.target.id
+    this.props.onPageClicked(pageId, this.props.tabList)
+  }
+  
+  
   render () {
-    console.log(this.props)
-    
+    console.log(this.props);
     return (
       <div>
-        <Navbar fluid collapseOnSelect className="nomargin">
+        <Navbar fluid collapseOnSelect >
           <div className='left'>
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
             <Nav>
               {this.renderMenuItems()}
-              <NavItem eventKey='6' title='Item' className="pad20">
-               Save Layout
-              </NavItem>
+            </Nav>
+            <Nav pullRight>
+              <NavItem eventKey={6} href="#">Save Layout</NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        < FooterPagination tabList={this.props.tabList} onRemove={this.onRemove.bind(this)} />
-        <App />
-      
+        <FooterPagination tabList={this.props.tabList[this.props.pageId]} 
+                    page={this.props.pageId}
+                    onRemove={this.onRemove.bind(this)} 
+                    onPageClicked={this.onPageClicked.bind(this)}
+                    />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  tabList: state.menuSelected,
-  
-})
+const mapStateToProps = (state) => {
+  return {
+    tabList: state.menuSelected.tabList,
+    pageId: state.menuSelected.page,
+    reload: state.menuSelected.reload
+  }
+}
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onSelect: (menuid, tabList) => {
-    dispatch(actions.menuSelected(menuid, tabList))
+  onSelect: (menuid, pageid, tabList, reload) => {
+    dispatch(actions.menuSelected(menuid, pageid, tabList, reload))
   },
 
-  onRemoveTab: (menuid, tabList) => {
-    dispatch(actions.menuRemoved(menuid, tabList))
+  onRemoveTab: (menuid,pageid, tabList, reload) => {
+    dispatch(actions.menuRemoved(menuid, pageid, tabList, reload))
   },
+
+  onPageClicked: (pageid, tabList) => {
+    dispatch(actions.onPageClicked(pageid, tabList))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

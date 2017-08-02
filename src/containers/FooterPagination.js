@@ -1,39 +1,39 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Nav } from "react-bootstrap";
-import { NavDropdown } from "react-bootstrap";
-import { ButtonGroup } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-
-
-
+import React from "react"
+import { ButtonGroup, Button } from "react-bootstrap"
 
 export default class FooterPagination extends React.Component {
   constructor() {
     super();
   }
 
-  
-
   render() {
-    console.log(this.props.tabList);
+    if(this.props.tabList === undefined){
+      this.tabList = []
+    }
+    else{
+      this.tabList = this.props.tabList
+      
+    }
+
     return (
-      <div className="row">
+      <div className="row tabbar">
         <div className="col-md-12">
           <div className="right">
-            <ButtonGroup >
-              <Button active>1</Button>
-              <Button>2</Button>
-              <Button>3</Button>
+            <ButtonGroup bsSize="small">
+              <Button id='1' bsStyle={ this.props.page === '1' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>1</Button>
+              <Button id='2' bsStyle={ this.props.page === '2' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>2</Button>
+              <Button id='3' bsStyle={ this.props.page === '3' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>3</Button>
+              <Button id='4' bsStyle={ this.props.page === '4' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>4</Button>
             </ButtonGroup>
           </div>
-          <ul id="tab-list" className="nav nav-pills" role="tablist">
-            {this.props.tabList.map(id => {
-              console.log(id);
+          <ul className="nav nav-pills tab-list" role="tablist">
+            {
+
+              this.tabList.map(id => {
 
               return ( 
-                <li id={id}>
-                  <a href="#tab" role="tab" data-toggle="tab" 
+                <li id={id} key={id}>
+                  <a href="javascript:void(0);" role="tab" data-toggle="tab" 
                    className="customtab" >
                     {id}
                     <button
@@ -48,7 +48,8 @@ export default class FooterPagination extends React.Component {
                   </a>
                 </li>
               );
-            })}
+              })
+            }
           </ul>
         </div>
       </div>
