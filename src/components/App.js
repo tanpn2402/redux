@@ -1,25 +1,13 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
-import * as actions from '../actions';
-import MenuBar from '../containers/MenuBar'
-
-import PageContent from './PageContent'
-
+import SampleTable from '../containers/SampleTable'
 export default class App extends Component {
 
- /* constructor(){
-    super()
-  }
-*/
   render() {
     console.log('render in App')
-    ReactDOM.render(<PageContent />,document.getElementById('app'));
     return (
-       <PageContent/>
+      <SampleTable />
     )
   }
 }
-
 
 
