@@ -8,153 +8,154 @@ import FooterPagination from './FooterPagination'
 
 var menu_items = [
   {
-    id: '1',
-    text: 'Trading Platform',
+    id: 'tradingplatform',
+    text: 'tradingplatform',
     link: '',
     subitems: [
       {
-        id: 'signorder',
-        text: 'Enter Order',
+        id: 'enterorder',
+        text: "enterorder",
         link: ''
       },
       {
-        id: 'orderhistory',
-        text: 'Stock Market Inform',
+        id: 'stockmarketinform',
+        text: 'stockmarketinform',
         link: ''
       },
       {
-        id: 'oddlot',
-        text: 'Watch List',
+        id: 'watchlist',
+        text: 'watchlist',
         link: ''
       },
       {
-        id: 'buystock',
-        text: 'Oder Journal',
+        id: 'oderjournal',
+        text: 'oderjournal',
         link: ''
       },
       {
-        id: 'orderenquiry',
-        text: 'Account No',
+        id: 'accountno',
+        text: 'accountno',
         link: ''
       },
       {
         id: 'porfolio',
-        text: 'Portfolio',
+        text: 'portfolio',
         link: ''
       }
     ]
   },
   {
-    id: '2',
-    text: 'Account',
+    id: 'account',
+    text: 'account',
     link: '',
     subitems: [
       {
-        id: '2.1',
-        text: 'Matching Orders History',
+        id: 'matchingordershistory',
+        text: 'matchingordershistory',
         link: ''
       },
       {
-        id: '2.2',
-        text: 'Cash Transaction History',
+        id: 'cashtransactionhistory',
+        text: 'cashtransactionhistory',
         link: ''
       },
       {
-        id: '2.3',
-        text: 'Cash Statement',
+        id: 'cashstatement',
+        text: 'cashstatement',
         link: ''
       },
       {
-        id: '2.4',
-        text: 'Stock Statement',
+        id: 'stockstatement',
+        text: 'stockstatement',
         link: ''
       },
       {
-        id: '2.5',
-        text: 'Margin loan Statement',
+        id: 'marginloanstatement',
+        text: 'marginloanstatement',
         link: ''
       },
       {
-        id: '2.6',
-        text: 'Personal Profile',
+        id: 'personalprofile',
+        text: 'personalprofile',
         link: ''
       }
     ]
   },
   {
-    id: '3',
-    text: 'Other Service',
+    id: 'otherservice',
+    text: 'otherservice',
     link: '',
     subitems: [
       {
-        id: '3.1',
-        text: 'Cash Transfer',
+        id: 'cashtransfer',
+        text: 'cashtransfer',
         link: ''
       },
       {
-        id: '3.2',
-        text: 'Cash Advance',
+        id: 'cashadvance',
+        text: 'cashadvance',
         link: ''
       },
       {
-        id: '3.3',
-        text: 'Cash Advance (Bank)',
+        id: 'cashadvance(bank)',
+        text: 'cashadvance(bank)',
         link: ''
       },
       {
-        id: '3.4',
-        text: 'Odd Lot Trading',
+        id: 'oddlottrading',
+        text: 'oddlottrading',
         link: ''
       },
       {
-        id: '3.5',
-        text: 'Entitlement',
+        id: 'entitlement',
+        text: 'entitlement',
         link: ''
       },
       {
-        id: '3.6',
-        text: 'Loan Refund',
+        id: 'loanrefund',
+        text: 'loanrefund',
         link: ''
       }
     ]
   },
   {
-    id: '4',
-    text: 'Help',
+    id: 'help',
+    text: 'help',
     link: '',
     subitems: [
       {
-        id: '4.1',
-        text: 'Available',
+        id: 'available',
+        text: 'available',
         link: ''
       }
     ]
-  },
-  {
-    id: '5',
-    text: 'Default Group',
-    link: '',
-    subitems: []
   }
+  // },
+  // {
+  //   id: 'defaultgroup',
+  //   text: 'defaultgroup',
+  //   link: '',
+  //   subitems: []
+  // }
 ]
 
 class MenuBar extends React.Component {
 
   constructor (props) {
     super(props);
-
   }
 
   
 
   renderMenuItems () {
+    
     return menu_items.map(item => {
       return (
         <NavDropdown
           className='pad20'
           eventKey={item.id}
           key={item.id}
-          title={item.text}
+          title={this.props.data[item.text]}
           id='nav-dropdown'>
           {this.renderSubItem(item, item.id)}
         </NavDropdown>
@@ -166,7 +167,7 @@ class MenuBar extends React.Component {
     return item.subitems.map(sub => {
       return (
         <MenuItem key={sub.id} eventKey={sub.id} onSelect={this.onMenuSelected.bind(this)}>
-        {sub.text}
+        {this.props.data[sub.text]}
         </MenuItem>
 
       )
@@ -200,11 +201,6 @@ class MenuBar extends React.Component {
   
   
   render () {
-    console.log("Menubar")
-    console.log(this.props);
-
-    const data = this.props.data;
-    
     return (
       <div>
         <Navbar fluid collapseOnSelect >
@@ -216,7 +212,7 @@ class MenuBar extends React.Component {
               {this.renderMenuItems()}
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={6} href="#">{ data.savelayout } </NavItem>
+              <NavItem eventKey={6} href="#">{ this.props.data.savelayout } </NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
