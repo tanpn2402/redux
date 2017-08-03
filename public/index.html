@@ -1,21 +1,91 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Redux Todos Example</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 
-      To begin the development, run `npm start` in this folder.
-      To create a production bundle, use `npm run build`.
-    -->
-  </body>
-</html>
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <title>React App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .tab-list .close {
+      margin-left: 7px;
+      
+    }
+    .left {
+      float: left;
+    }
+
+    .right {
+      float: right;
+    }
+    .pad20{
+      padding-right: 10px;
+      height: 40px;
+    }
+    .customtab{
+      color: #fff;
+      background-color: #337ab7;
+    }
+
+    .row.tabbar {
+      margin-right: 0px;
+      margin-left: 0px;
+      padding: 5px 0px;
+      background-color: #f8f8f8;
+      
+    }
+
+    .navbar.navbar-default{
+      margin-bottom: 0px;
+      height: 40px;
+    }
+
+    .container-fluid {
+      height: 40px;
+    }
+
+    .navbar-default.navbar-collapse {
+      height: 40px;
+    }
+
+    .navbar-nav {
+      height: 40px;
+    }
+
+    .tab-list>li>a {
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+    }
+
+    .tab-list>li>a:hover{
+      opacity: 0.8;
+    }
+  </style>
+
+</head>
+
+<body>
+    <div id="app">
+      
+       <div>
+        <div id="header"></div>
+        <div id="menubar"></div>
+      </div>
+      <div id="content"></div>
+      <div id="footer"></div>
+
+    </div>
+
+     
+  
+</body>
+

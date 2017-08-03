@@ -1,6 +1,11 @@
 import {combineReducers} from 'redux';
-import tracks from './tracks';
+import dologin from './dologin';
+import { sessionReducer } from 'redux-react-session';
 
+
+import menuSelected from './menu_selected';
 export default combineReducers({
-  tracks
+  dologin,
+  session: sessionReducer,
+  menuSelected
 });

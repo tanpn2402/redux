@@ -1,5 +1,10 @@
-import {setTracks, addTrack} from './track';
+import { doLogin,logout } from './doLogin';
+import {menuSelected, menuRemoved, onPageClicked} from './menu_selected';
+
 export {
-  setTracks,
-  addTrack
+  doLogin,
+  logout,
+  menuSelected,
+  menuRemoved,
+  onPageClicked,
 };
