@@ -19,14 +19,17 @@ let Page = React.createClass ({
            <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
               <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
               </ul>
+
+     
         </div>
       );
     } else {
       return;
     }
+    
   }
 });
-
+ 
 module.exports = ReactRedux.connect(
   (state) => ({content: state.lang_reducers.content}),
   (dispatch) => ({switchLanguage: (lang) => dispatch(actions.switchLanguage(lang))})

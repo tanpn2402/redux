@@ -5,5 +5,5 @@ import lang_reducers from './lang_reducers'
 
 export default combineReducers({
   menuSelected,
-  lang_reducers
+  lang_reducers,
 });

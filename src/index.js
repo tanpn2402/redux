@@ -10,12 +10,14 @@ import './css/index.css';
 import './css/react-bootstrap-table-all.min.css';
 import './css/App.css';
 
+
+
 require('react-grid-layout/css/styles.css')
 
 
 render(
   <Provider {... { store }}>
-    <Page />
+      <Page />
   </Provider>,
   document.getElementById('menubar')
 )
