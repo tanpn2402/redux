@@ -2,7 +2,6 @@ const vi = require('../languages/vi.json');
 const en = require('../languages/en.json');
 var mergeJSON = require("merge-json") ;
 
-
 const content = mergeJSON.merge(vi,en)
 let api = {
 

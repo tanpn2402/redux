@@ -2,7 +2,7 @@ import React from 'react'
 import { NavDropdown, NavItem, Nav, Navbar, MenuItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import PageContent from '../components/PageContent'
+import PageContent from './PageContent'
 import FooterPagination from './FooterPagination'
 
 
@@ -130,25 +130,16 @@ var menu_items = [
       }
     ]
   }
-  // },
-  // {
-  //   id: 'defaultgroup',
-  //   text: 'defaultgroup',
-  //   link: '',
-  //   subitems: []
-  // }
 ]
 
 class MenuBar extends React.Component {
 
   constructor (props) {
     super(props);
+
   }
 
-  
-
   renderMenuItems () {
-    
     return menu_items.map(item => {
       return (
         <NavDropdown
@@ -201,6 +192,7 @@ class MenuBar extends React.Component {
   
   
   render () {
+    console.log(this.props);
     return (
       <div>
         <Navbar fluid collapseOnSelect >
@@ -212,7 +204,7 @@ class MenuBar extends React.Component {
               {this.renderMenuItems()}
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={6} href="#">{ this.props.data.savelayout } </NavItem>
+              <NavItem eventKey={6} href="#">{this.props.data.savelayout}</NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -221,8 +213,6 @@ class MenuBar extends React.Component {
                     onRemove={this.onRemove.bind(this)} 
                     onPageClicked={this.onPageClicked.bind(this)}
                     />
-
-                     
       </div>
     )
   }
@@ -251,4 +241,3 @@ const mapDispatchToProps = (dispatch, props) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
-

@@ -7,7 +7,6 @@
   <meta name="theme-color" content="#000000">
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 
-<link rel="stylesheet" type="text/css" href="/themes/simplex/bootstrap.min.css"
    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
   <title>React App</title>
@@ -70,14 +69,20 @@
     .tab-list>li>a:hover{
       opacity: 0.8;
     }
-  </style>              
+  </style>
+
 </head>
 
 <body>
-    <div>
-      <div id="header"></div>
-      <div id="menubar"></div>
+    <div id="app">
+      
+       <div>
+        <div id="header"></div>
+        <div id="menubar"></div>
+      </div>
+      <div id="content"></div>
+      <div id="footer"></div>
+
     </div>
-    <div id="content"></div>
-    <div id="footer"></div>
 </body>
+</html>
