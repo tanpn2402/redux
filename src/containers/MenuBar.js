@@ -189,13 +189,13 @@ class MenuBar extends React.Component {
     var pageId = e.target.id
     this.props.onPageClicked(pageId, this.props.tabList)
   }
-  
-  
+
+
   render () {
     console.log(this.props);
     return (
       <div>
-        <Navbar fluid collapseOnSelect >
+        <Navbar fluid collapseOnSelect style={this.props.theme.background}>
           <div className='left'>
             <Navbar.Toggle />
           </div>
