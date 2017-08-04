@@ -1,0 +1,33 @@
+[{
+    "lang": "vi",
+    "page": {
+      "menu": {
+       "tradingplatform": "Giao dịch",
+        "enterorder": "Đặt lệnh giao dịch",
+        "stockmarketinform": "Thông tin chứng khoán",
+        "watchlist": "Danh mục quan tâm",
+        "oderjournal": "Tra cứu lệnh giao dịch",
+        "accountno": "Thông tin tài khoản",
+        "portfolio": "Danh mục đầu tư",
+        "account": "Tài khoản",
+        "matchingordershistory": "Tra cứu lịch sử giao dịch",
+        "cashtransactionhistory": "Tra cứu lịch sử giao dịch tiền",
+        "cashstatement": "Sao kê tài khoản tiền",
+        "stockstatement": "Sao kê tài khoản chứng khoán",
+        "marginloanstatement": "Sao kê nợ GDKQ",
+        "personalprofile": "Thông tin nhà đầu tư",
+        "otherservice": "Dịch vụ",
+        "cashtransfer": "Chuyển tiền",
+        "cashadvance": "Ứng trước tiền bán chứng khoán",
+        "cashadvance(bank)": "Ứng trước tiền bán chứng khoán (ngân hàng)",
+        "oddlottrading": "Bán chứng khoán lô lẻ",
+        "entitlement": "Thực hiện quyền online",
+        "loanrefund": "Hoàn trả vay ký quỹ",
+        "help": "Giúp đỡ",
+        "available": "Danh mục chứng khoán ký quỹ",
+        "defaultgroup": "Danh sách cửa sổ hệ thống",
+        "savelayout": "Lưu cách trình bày"
+      }
+  }
+  }
+]

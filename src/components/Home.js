@@ -5,42 +5,44 @@ import MenuBar from '../containers/MenuBar'
 import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
 
-class House extends Component {
+class Home extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.onClick = this.onClick.bind(this);
+    // constructor(props) {
+    //     super(props)        
+    // }
+
+    componentWillMount(){
+        this.theme = require('../themes/' + this.props.theme)
+        //console.log(this.theme)
     }
 
     render() {
-        let { authenticated, user } = this.props;
+        //let { authenticated, user } = this.props
 
         return (
             <div>
-                <Header />
-                <MenuBar />
-                <PageContent />
+                {/*<Header theme={this.theme.default}/>*/}
+                <MenuBar data= {this.props.language.page.menu} theme={this.theme.default}/>
+                <PageContent theme={this.theme.default}/>
+            {/* <ul>
+                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
+                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
+            </ul> */}
             </div>
-
         )
-    }
-
-    onClick(e) {
-        e.preventDefault();
-        this.props.logout();
     }
 }
 
 const mapStateToProps = (state) => ({
     user: state.session.user,
-    authenticated: state.session.authenticated
+    authenticated: state.session.authenticated,
+    language: state.config.language,
+    theme: state.config.style,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    logout: () => {
-        dispatch(actions.logout())
-    }
+    //switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(House);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+

@@ -1,5 +1,6 @@
-import { doLogin,logout } from './doLogin';
-import {menuSelected, menuRemoved, onPageClicked} from './menu_selected';
+import { doLogin,logout } from './doLogin'
+import {menuSelected, menuRemoved, onPageClicked} from './menu_selected'
+import {changeConfig} from './configurations'
 
 export {
   doLogin,
@@ -7,4 +8,6 @@ export {
   menuSelected,
   menuRemoved,
   onPageClicked,
+  changeConfig
+
 };

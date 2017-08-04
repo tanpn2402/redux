@@ -1,11 +1,12 @@
-import {combineReducers} from 'redux';
-import dologin from './dologin';
-import { sessionReducer } from 'redux-react-session';
+import {combineReducers} from 'redux'
+import dologin from './dologin'
+import { sessionReducer } from 'redux-react-session'
+import menuSelected from './menu_selected'
+import config from './configurations'
 
-
-import menuSelected from './menu_selected';
 export default combineReducers({
   dologin,
   session: sessionReducer,
-  menuSelected
+  menuSelected,
+  config,
 });

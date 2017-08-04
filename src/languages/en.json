@@ -1,0 +1,35 @@
+[
+  {
+    "lang": "en",
+    "page": {
+      "menu": {
+        "tradingplatform": "Trading Platform",
+        "enterorder": "Enter Order",
+        "stockmarketinform": "Stock Market Inform",
+        "watchlist": "Watch List",
+        "oderjournal": "Oder Journal",
+        "accountno": "Account No",
+        "portfolio": "Portfolio",
+        "account": "Account",
+        "matchingordershistory": "Matching Orders History",
+        "cashtransactionhistory": "Cash Transaction History",
+        "cashstatement": "Cash Statement",
+        "stockstatement": "Stock Statement",
+        "marginloanstatement": "Margin loan Statement",
+        "personalprofile": "Personal Profile",
+        "otherservice": "Other Service",
+        "cashtransfer": "Cash Transfer",
+        "cashadvance": "Cash Advance",
+        "cashadvance(bank)": "Cash Advance (Bank)",
+        "oddlottrading": "Odd Lot Trading",
+        "entitlement": "Entitlement",
+        "loanrefund": "Loan Refund",
+        "help": "Help",
+        "available": "Available",
+        "defaultgroup": "Default Group",
+        "savelayout": "Save Layout"
+
+      }
+  }
+  }
+]
