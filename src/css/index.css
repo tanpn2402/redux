@@ -17,7 +17,6 @@ body {
 }
 .pad20{
   padding-right: 10px;
-  height: 40px;
 }
 .customtab{
   color: #fff;
@@ -29,25 +28,15 @@ body {
   margin-left: 0px;
   padding: 5px 0px;
   background-color: #f8f8f8;
+  
 
 }
 
 .navbar.navbar-default{
   margin-bottom: 0px;
-  height: 40px;
 }
 
-.container-fluid {
-  height: 40px;
-}
 
-.navbar-default.navbar-collapse {
-  height: 40px;
-}
-
-.navbar-nav {
-  height: 40px;
-}
 
 .tab-list>li>a {
   padding-top: 5px;

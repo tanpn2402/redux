@@ -2,6 +2,8 @@ import React from 'react';
 import BasicTable from './BasicTable';
 import SearchArea from './SearchArea';
 import DropdownCheckBox from './DropdownCheckBox';
+import $ from 'jquery';
+
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 var _ = require('lodash');
 var WidthProvider = require('react-grid-layout').WidthProvider;
@@ -41,7 +43,7 @@ class BaseLayout extends React.Component {
                     </div>
                         
                 </div>
-                <div className="child-grid-body" onClick={this.props.onWindowBodyClick}>
+                <div id='abc' className="child-grid-body" onClick={this.props.onWindowBodyClick}>
                         <div className="layout-body">
                             <div>
                                 <SearchArea></SearchArea>
@@ -132,6 +134,7 @@ class BaseLayout extends React.Component {
     onLayoutChange(layout){
         //console.log('onLayoutChange', layout);
     }
+    
     render () {
         //console.log(this.props.layout);
         return (

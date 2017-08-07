@@ -5,6 +5,7 @@ import MenuBar from '../containers/MenuBar'
 import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
 
+
 class Home extends Component {
 
     // constructor(props) {
@@ -15,7 +16,7 @@ class Home extends Component {
         this.theme = require('../themes/' + this.props.theme)
         //console.log(this.theme)
     }
-
+     
     render() {
         //let { authenticated, user } = this.props
 
@@ -24,10 +25,8 @@ class Home extends Component {
                 {/*<Header theme={this.theme.default}/>*/}
                 <MenuBar data= {this.props.language.page.menu} theme={this.theme.default}/>
                 <PageContent theme={this.theme.default}/>
-            {/* <ul>
-                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
-                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
-            </ul> */}
+                {/* <a href="#" data-target="#" onClick={this.props.switchLanguage('en','dark')}>EN</a>
+                <a href="#" data-target="#" onClick={this.props.switchLanguage('vi','light')}>VI</a> */}
             </div>
         )
     }
@@ -41,7 +40,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    //switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
+   //switchLanguage: (lang, style) => {dispatch(actions.changeConfig(lang, style))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
