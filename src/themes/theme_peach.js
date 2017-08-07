@@ -1,8 +1,8 @@
 export default {
   background: {
-    backgroundColor: '#FFFAFA',
+    backgroundColor: '#8B7765',
   },
   textcolor: {
-      color: "#00008B",
+      color: "#FFDAB9",
   },
 }

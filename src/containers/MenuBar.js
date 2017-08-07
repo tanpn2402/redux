@@ -12,134 +12,131 @@ class MenuBar extends React.Component {
   constructor(props) {
     super(props)
     this.menuitem = [
-  {
-    id: "tradingplatform",
-    text: "tradingplatform",
-    link: "",
-    subitems: [
       {
-        id: "enterorder",
-        text: "enterorder",
-        link: ""
+        id: "tradingplatform",
+        text: "tradingplatform",
+        link: "",
+        subitems: [
+          {
+            id: "enterorder",
+            text: "enterorder",
+            link: ""
+          },
+          {
+            id: "stockmarketinform",
+            text: "stockmarketinform",
+            link: ""
+          },
+          {
+            id: "watchlist",
+            text: "watchlist",
+            link: ""
+          },
+          {
+            id: "oderjournal",
+            text: "oderjournal",
+            link: ""
+          },
+          {
+            id: "accountno",
+            text: "accountno",
+            link: ""
+          },
+          {
+            id: "porfolio",
+            text: "portfolio",
+            link: ""
+          }
+        ]
       },
       {
-        id: "stockmarketinform",
-        text: "stockmarketinform",
-        link: ""
+        id: "account",
+        text: "account",
+        link: "",
+        subitems: [
+          {
+            id: "matchingordershistory",
+            text: "matchingordershistory",
+            link: ""
+          },
+          {
+            id: "cashtransactionhistory",
+            text: "cashtransactionhistory",
+            link: ""
+          },
+          {
+            id: "cashstatement",
+            text: "cashstatement",
+            link: ""
+          },
+          {
+            id: "stockstatement",
+            text: "stockstatement",
+            link: ""
+          },
+          {
+            id: "marginloanstatement",
+            text: "marginloanstatement",
+            link: ""
+          },
+          {
+            id: "personalprofile",
+            text: "personalprofile",
+            link: ""
+          }
+        ]
       },
       {
-        id: "watchlist",
-        text: "watchlist",
-        link: ""
+        id: "otherservice",
+        text: "otherservice",
+        link: "",
+        subitems: [
+          {
+            id: "cashtransfer",
+            text: "cashtransfer",
+            link: ""
+          },
+          {
+            id: "cashadvance",
+            text: "cashadvance",
+            link: ""
+          },
+          {
+            id: "cashadvance(bank)",
+            text: "cashadvance(bank)",
+            link: ""
+          },
+          {
+            id: "oddlottrading",
+            text: "oddlottrading",
+            link: ""
+          },
+          {
+            id: "entitlement",
+            text: "entitlement",
+            link: ""
+          },
+          {
+            id: "loanrefund",
+            text: "loanrefund",
+            link: ""
+          }
+        ]
       },
       {
-        id: "oderjournal",
-        text: "oderjournal",
-        link: ""
-      },
-      {
-        id: "accountno",
-        text: "accountno",
-        link: ""
-      },
-      {
-        id: "porfolio",
-        text: "portfolio",
-        link: ""
+        id: "help",
+        text: "help",
+        link: "",
+        subitems: [
+          {
+            id: "available",
+            text: "available",
+            link: ""
+          }
+        ]
       }
-    ]
-  },
-  {
-    id: "account",
-    text: "account",
-    link: "",
-    subitems: [
-      {
-        id: "matchingordershistory",
-        text: "matchingordershistory",
-        link: ""
-      },
-      {
-        id: "cashtransactionhistory",
-        text: "cashtransactionhistory",
-        link: ""
-      },
-      {
-        id: "cashstatement",
-        text: "cashstatement",
-        link: ""
-      },
-      {
-        id: "stockstatement",
-        text: "stockstatement",
-        link: ""
-      },
-      {
-        id: "marginloanstatement",
-        text: "marginloanstatement",
-        link: ""
-      },
-      {
-        id: "personalprofile",
-        text: "personalprofile",
-        link: ""
-      }
-    ]
-  },
-  {
-    id: "otherservice",
-    text: "otherservice",
-    link: "",
-    subitems: [
-      {
-        id: "cashtransfer",
-        text: "cashtransfer",
-        link: ""
-      },
-      {
-        id: "cashadvance",
-        text: "cashadvance",
-        link: ""
-      },
-      {
-        id: "cashadvance(bank)",
-        text: "cashadvance(bank)",
-        link: ""
-      },
-      {
-        id: "oddlottrading",
-        text: "oddlottrading",
-        link: ""
-      },
-      {
-        id: "entitlement",
-        text: "entitlement",
-        link: ""
-      },
-      {
-        id: "loanrefund",
-        text: "loanrefund",
-        link: ""
-      }
-    ]
-  },
-  {
-    id: "help",
-    text: "help",
-    link: "",
-    subitems: [
-      {
-        id: "available",
-        text: "available",
-        link: ""
-      }
-    ]
+    ];
   }
-];
-  }
-
- 
-
   
   onRemove(e) {
     this.props.onRemoveTab(
@@ -188,10 +185,13 @@ class MenuBar extends React.Component {
           <div className="container-fluid">
             <ToggleButton/>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <MenuItem menu_items={this.menuitem} theme={this.props.theme} 
-              data={this.props.data} onMenuSelected={this.onMenuSelected.bind(this)}/>
+              <MenuItem 
+              menu_items={this.menuitem} 
+              theme={this.props.theme} 
+              data={this.props.data} 
+              onMenuSelected={this.onMenuSelected.bind(this)}/>
               <ul className="nav navbar-nav navbar-right">
-                <li><a href="#">{this.props.data.savelayout}</a></li>
+                <li><a style={this.props.theme.textcolor} href="#">{this.props.data.savelayout}</a></li>
               </ul>
             </div>
           </div>
