@@ -5,7 +5,7 @@ export default class MenuItem extends React.Component {
     constructor(){
         super()
     }
-
+    
     render(){
         return (
             <ul className="nav navbar-nav" >
@@ -17,12 +17,12 @@ export default class MenuItem extends React.Component {
                         <a  style={this.props.theme.textcolor} href="#" className="dropdown-toggle" 
                         data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
                         >
-                        {this.props.data[item.text]} 
+                        {this.props.language[item.text]} 
                         <span className="caret"></span></a>
                         
                         <DropdownItem 
                         onMenuSelected={this.props.onMenuSelected} 
-                        theme={this.props.theme} data={this.props.data} 
+                        theme={this.props.theme} language={this.props.language} 
                         subitems={item.subitems} />
                      </li>
                 );

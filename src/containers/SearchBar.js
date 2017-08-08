@@ -14,54 +14,59 @@ class SearchBar extends React.Component {
   render() {
     return (
       <Form className='form-inline search-bar'>
-        <Button type="submit">Hủy GD</Button>
+        <Button type="submit">{this.props.language.cancel}</Button>
         <FormGroup controlId="formInlineName">
-          <ControlLabel>Trạng thái</ControlLabel>
+          <ControlLabel>{this.props.language.status}</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
-            <option value="select">ALL</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Chờ khớp</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
+            <option value="ALL">{this.props.language.all}</option>
+            <option value="FULLYFILLED">{this.props.language.fullyfilled}</option>
+            <option value="QUEUE">{this.props.language.queue}</option>
+            <option value="PARTIALLYFILL">{this.props.language.partiallyfill}</option>
+            <option value="REJECTED">{this.props.language.rejected}</option>
+            <option value="CANCELLED">{this.props.language.cancelled}</option>
+            <option value="READYTOSEND">{this.props.language.readytosend}</option>
+            <option value="SENDING">{this.props.language.sending}</option>
+            <option value="PENDINGAPPROVAL">{this.props.language.pendingapproval}</option>
+            <option value="STOP">{this.props.language.stop}</option>
+            <option value="WAITINGCANCEL">{this.props.language.waitingcancel}</option>
+            <option value="WAITINGMODIFY">{this.props.language.waitingmodify}</option>
+            <option value="INACTIVE">{this.props.language.inactive}</option>
+            <option value="EXPIRED">{this.props.language.expired}</option>
           </FormControl>
         </FormGroup>
 
         <FormGroup controlId="formInlineName">
-          <ControlLabel>Loại lệnh</ControlLabel>
+          <ControlLabel>{this.props.language.type}</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
-            <option value="select">ALL</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Chờ khớp</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
-            <option value="other">Khớp toàn bộ</option>
+            <option value="ALL">{this.props.language.all}</option>
+            <option value="NORMAL">{this.props.language.normal}</option>
+            <option value="ATO">{this.props.language.ato}</option>
+            <option value="ATC">{this.props.language.atc}</option>
+            <option value="PUTTHROUGH">{this.props.language.putthrough}</option>
+            <option value="MP">{this.props.language.mp}</option>
+            <option value="MOK">{this.props.language.mok}</option>
+            <option value="MAK">{this.props.language.mak}</option>
+            <option value="MTL">{this.props.language.mtl}</option>
           </FormControl>
         </FormGroup>
 
         <FormGroup controlId="formInlineName">
-          <ControlLabel>Mua/Bán</ControlLabel>
+          <ControlLabel>{this.props.language.buysell}</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
-            <option value="select">ALL</option>
-            <option value="other">Mua</option>
-            <option value="other">Bán</option>
+            <option value="ALL">{this.props.language.all}</option>
+            <option value="BUY">{this.props.language.buy}</option>
+            <option value="SELL">{this.props.language.sell}</option>
           </FormControl>
         </FormGroup>
         {' | '}
         <FormGroup controlId="formInlineName">
           <FormControl componentClass="select" placeholder="select">
-            <option value="select">VNM</option>
-            <option value="other">ACB</option>
-            <option value="other">SAM</option>
+            <option value="VNM">VNM</option>
+            <option value="ACB">ACB</option>
+            <option value="SAM">SAM</option>
           </FormControl>
         </FormGroup>
           {'   '}
@@ -70,7 +75,7 @@ class SearchBar extends React.Component {
         </FormGroup>
        
        <FormGroup controlId="formInlineEmail">
-          <ControlLabel>Tổng (Phí + thuế): <span>3.111.111 đ</span></ControlLabel>
+          <ControlLabel>{this.props.language.totalfeetax}<span>3.111.111 đ</span></ControlLabel>
         </FormGroup>
 
 

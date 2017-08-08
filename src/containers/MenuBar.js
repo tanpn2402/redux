@@ -188,10 +188,10 @@ class MenuBar extends React.Component {
               <MenuItem 
               menu_items={this.menuitem} 
               theme={this.props.theme} 
-              data={this.props.data} 
+              language={this.props.language} 
               onMenuSelected={this.onMenuSelected.bind(this)}/>
               <ul className="nav navbar-nav navbar-right">
-                <li><a style={this.props.theme.textcolor} href="#">{this.props.data.savelayout}</a></li>
+                <li><a style={this.props.theme.textcolor} href="#">{this.props.language.savelayout}</a></li>
               </ul>
             </div>
           </div>

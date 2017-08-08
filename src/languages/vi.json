@@ -27,7 +27,55 @@
         "available": "Danh mục chứng khoán ký quỹ",
         "defaultgroup": "Danh sách cửa sổ hệ thống",
         "savelayout": "Lưu cách trình bày"
+      },
+      "pagecontent": {
+        "searchbar": {
+            "cancel": "Huỷ GD",
+            "status": "Trạng thái",
+            "type": "Loại lệnh",
+            "buysell": "Mua/Bán",
+            "totalfeetax": "Tổng (Phí + thuế): ",
+            "all": "Tất cả",
+            "normal": "Thường",
+            "ato": "ATO",
+            "atc": "ATC",
+            "putthrough": "Thỏa thuận",
+            "mp": "Thị trường",
+            "mok": "MOK",
+            "mak": "MAK",
+            "mtl": "MTL",
+            "buy": "Mua",
+            "sell": "Bán",
+            "fullyfilled": "Khớp toàn bộ",
+            "queue": "Chờ khớp",
+            "partiallyfill": "Khớp một phần",
+            "rejected": "Không hợp lệ",
+            "cancelled": "Đã hủy",
+            "readytosend": "Chờ xử lý",
+            "sending": "Đang gửi",
+            "pendingapproval": "Chờ xác nhận",
+            "stop": "Lệnh điều khiển",
+            "waitingcancel": "Chờ hủy",
+            "waitingmodify": "Chờ sửa",
+            "inactive": "Không hiệu lực",
+            "expired": "Hết hiệu lực"
+        },
+        "tableheader": {
+              "cancelmodify": "Hủy/Sửa",
+              "price": "Giá",
+              "vol": "Khối lượng",
+              "pendingvol": "Khối lượng chờ khớp",
+              "executedvol": "Khối lượng khớp",
+              "avgprice": "Giá trung bình",
+              "status": "Trạng thái",
+              "type": "Loại lệnh",
+              "feetax": "(Phí + Thuế)",
+              "bankid": "Ngân hàng",
+              "expirydate": "Hiệu lực tới",
+              "rejectreason": "Lý do khước từ",
+              "time": "Thời gian"
+          }
       }
-  }
+    }
   }
 ]

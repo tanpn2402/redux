@@ -17,7 +17,7 @@ export default class DropdownItem extends React.Component {
                         <li ><a id={sub.text} key={sub.text} style={this.props.theme.textcolor} 
                         href="javascript:void(0);" onClick={this.props.onMenuSelected}
                         >
-                        {this.props.data[sub.text]}
+                        {this.props.language[sub.text]}
                         </a></li>
                         )
                     }
