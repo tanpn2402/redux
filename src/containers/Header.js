@@ -1,51 +1,56 @@
 import React from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
-
+import ReactTable from 'react-table'
 
 export default class App extends React.Component {
+  constructor(){
+    super()
+
+    this.columns =  [
+    {
+          Header: 'HSX | Trạng thái: ',
+          accessor: 'col1'
+    },{
+          Header: 'HNX | Trạng thái: ',
+          accessor: 'col2'
+    },{
+          Header: 'UPCOM | Trạng thái: ',
+          accessor: 'col3'
+    },
+        ]
+  }
   render() {
     return (
-        <Row className="grid-header" style={{border: "1px solid black"}} style={{height: "100px"}}>
-          <Col xs={3} md={2}>
-            <img src={require('../assets/images/logoMAS.png')} />
+        <Row className="header">
+          <Col xs={9} style={{paddingLeft: '0px',}}>
+            
+            <div className="logo">
+              <img src={require('../assets/images/logo_MAS.png')}/>
+            </div>
+         
+            <ReactTable
+              style={{fontSize: '12px',}}
+              data={this.data}
+              columns={this.columns}
+              showPagination= {false}
+              defaultPageSize={4}
+              sortable={false}
+              resizable={false}
+              className="-striped -highlight header-market"
+            />
+
+    
           </Col>
-          <Col xs={5} md={8}>
-          <div style={{background: "#f9f9f9"}}>
-            <Table striped bordered condensed hover>
-            <thead>
-             <tr>
-             <th>HSX | Trạng thái: </th>
-             <th>HNX | Trạng thái: </th>
-             <th>UPCOM | Trạng thái: </th>
-             </tr>
-             </thead>
-             <tbody>
-             <tr>
-             <th>VN-INDEX 0 <img src={require('../assets/images/n.gif')}/> 0</th>
-             <th>HNX-INDEX 0 <img src={require('../assets/images/n.gif')}/> 0</th>
-             <th>UPCOM-INDEX 0 <img src={require('../assets/images/n.gif')}/> 0</th>
-             </tr>
-             <tr>
-             <th>TĂNG/GIẢM 0 <img src={require('../assets/images/u.gif')} /> 0 <img src={require('../assets/images/n.gif')} /> 0 <img src={require('../assets/images/d.gif')} /></th>
-             <th>TĂNG/GIẢM 0<img src={require('../assets/images/u.gif')} /> 0 <img src={require('../assets/images/n.gif')} /> 0 <img src={require('../assets/images/d.gif')} /> </th>
-             <th>TĂNG/GIẢM 0 <img src={require('../assets/images/u.gif')} /> 0 <img src={require('../assets/images/n.gif')} /> 0 <img src={require('../assets/images/d.gif')} /></th>
-             </tr>
-             <tr>
-             <th>KLGD:0</th>
-             <th>KLGD:0</th>
-             <th>KLGD:0</th>
-             </tr>
-             </tbody>
-             </Table>
-             </div>
-          </Col>
-          <Col xs={4} md={2}>
-          <Table>
-          <tr><th><Button bsStyle="default" bsSize="xsmall">Eng</Button>  <Button bsStyle="default" bsSize="xsmall">Viet</Button>  <Button bsStyle="primary" bsSize="xsmall">Logout</Button> </th></tr>
-          <tr><th>Welcome AccountName</th></tr>
-          <tr><th> AccoundID </th></tr>
-          <tr><th>Date Time</th></tr>
-          </Table>
+          <Col xs={3} style={{ fontSize: '12px', textAlign: 'right', paddingRight: '5px', paddingTop: '1px',}}>
+           
+            <span><Button bsStyle="default" bsSize="xsmall">Eng</Button>  <Button bsStyle="default" bsSize="xsmall">Viet</Button>  <Button bsStyle="primary" bsSize="xsmall">Logout</Button> </span>
+   
+            <div><strong>077C086378</strong></div>
+            <div><strong>Nguyễn Văn Sự</strong></div>
+            <div><strong>Giao dịch kí quỹ</strong></div>
+            <div>Ngày GD 01/01/2017 14:26:22</div>
+      
+         
           </Col>
         </Row>
     );

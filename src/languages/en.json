@@ -28,8 +28,55 @@
         "available": "Available",
         "defaultgroup": "Default Group",
         "savelayout": "Save Layout"
-
+      },
+      "pagecontent": {
+          "searchbar": {
+              "cancel": "Cancel",
+              "status": "Status",
+              "type": "Type",
+              "buysell": "Buy/Sell",
+              "totalfeetax": "Total (Fee+Tax): ",
+              "all": "ALL",
+              "normal": "Normal",
+              "ato": "ATO",
+              "atc": "ATC",
+              "putthrough": "Put through",
+              "mp": "MP",
+              "mok": "MOK",
+              "mak": "MAK",
+              "mtl": "MTL",
+              "buy": "Buy",
+              "sell": "Sell",
+              "fullyfilled": "Fully Filled",
+              "queue": "Queue",
+              "partiallyfill": "Partially Fill",
+              "rejected": "Rejected",
+              "cancelled": "Cancelled",
+              "readytosend": "Ready to send",
+              "sending": "Sending",
+              "pendingapproval": "Pending Approval",
+              "stop": "Stop",
+              "waitingcancel": "Waiting Cancel",
+              "waitingmodify": "Waiting Modify",
+              "inactive": "Inactive",
+              "expired": "Expired"
+          },
+          "tableheader": {
+              "cancelmodify": "Cancel/Modify",
+              "price": "Price",
+              "vol": "Vol",
+              "pendingvol": "Pending Vol",
+              "executedvol": "Executed Vol",
+              "avgprice": "Avg Price",
+              "status": "Status",
+              "type": "Type",
+              "feetax": "(Fee + Tax)",
+              "bankid": "Bank ID",
+              "expirydate": "Expiry Date",
+              "rejectreason": "Reject Reason",
+              "time": "Time"
+          }
       }
-  }
+    }
   }
 ]

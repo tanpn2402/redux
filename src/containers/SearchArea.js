@@ -1,4 +1,6 @@
 import React from 'react';
+import DropdownCheckBox from './DropdownCheckBox';
+import '../css/style.css';
 
 class SearchArea extends React.Component {
 
@@ -44,7 +46,11 @@ class SearchArea extends React.Component {
           <li>
             <button className="btn btn-primary btn-register">Search</button>
           </li>
+          <div className="inline">
+            <DropdownCheckBox />
+          </div>
         </ul>
+        
       </div>
     );
   }

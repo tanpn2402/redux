@@ -1,7 +1,8 @@
-import React from 'react';
-import BasicTable from './BasicTable';
-import SearchArea from './SearchArea';
-import DropdownCheckBox from './DropdownCheckBox';
+import React from 'react'
+import "react-table/react-table.css"
+import $ from 'jquery'
+import generateWindow from './view'
+
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 var _ = require('lodash');
 var WidthProvider = require('react-grid-layout').WidthProvider;
@@ -15,73 +16,35 @@ class BaseLayout extends React.Component {
         console.log("BaseLayout constructor")
 
         this.layout = []
+
+        this.style = {
+            height: '100%',
+            width: '100%',
+        }
     }
 
-    generateChild(p){
-        var products = [{
-              id: 1,
-              name: "Product1",
-              price: 120
-          }, {
-              id: 2,
-              name: "Product2",
-              price: 80
-          }];
-        return (
-            <div key={p.i} data-grid={{x: p.x, y: p.y, w: p.w, h: p.h, minW: p.minW, minH: p.minH, static: p.static}}>
-                <div className="child-grid-header" onClick={this.props.onWindowTitleClick}>
-                    <div className="col-md-8 window-title">
-                        <span>{p.i.split('-')[0]}</span>
-                    </div>
-                    <div className="col-md-4 window-action">
-                        <ul className="btn-action">
-                            <li className="btn-pin"><a href="javascript:void(0);" id={p.i}  onClick={this.onPinLayout.bind(this)}>!</a></li>
-                            <li className="btn-close"><a href="javascript:void(0);" id={p.i}  onClick={this.onCloseLayout.bind(this)}>x</a></li>
-                        </ul>
-                    </div>
-                        
-                </div>
-                <div className="child-grid-body" onClick={this.props.onWindowBodyClick}>
-                        <div className="layout-body">
-                            <div>
-                                <SearchArea></SearchArea>
-                            </div>
-                            <BasicTable></BasicTable>
-                        </div>
-                </div>
-            </div>
-
-        )
-    }
-
-    generateChildTest(menuid){
+    generateChild(menuid){
        
         return (
-            <div key={menuid} data-grid={{x: this.layout[menuid]['x'], y: this.layout[menuid]['y'], w: this.layout[menuid]['w'], h: this.layout[menuid]['h'], minW: this.layout[menuid]['minW'], minH: this.layout[menuid]['minH'], static: false}}>
+            <div key={menuid} data-grid={{x: this.layout[menuid]['x'], y: this.layout[menuid]['y'], w: this.layout[menuid]['w'], h: this.layout[menuid]['h'], minW: this.layout[menuid]['minW'], minH: this.layout[menuid]['minH'], maxW: this.layout[menuid]['maxW'], maxH: this.layout[menuid]['maxH'], static: false}}>
                 <div className="child-grid-header" >
                     <div className="col-md-8 window-title">
                         <span>{menuid}</span>
                     </div>
                     <div className="col-md-4 window-action">
                         <ul className="btn-action">
-
-                        
-                            <li className="btn-settings">
-                                <DropdownCheckBox />
-                            </li>
-
                             <li className="btn-pin"><a href="javascript:void(0);" id={menuid}  onClick={this.onPinLayout.bind(this)} >!</a></li>
                             <li className="btn-close"><a href="javascript:void(0);" id={menuid} onClick={this.onCloseLayout.bind(this)} >x</a></li>
-
-
                         </ul>
                     </div>
                         
                 </div>
-                <div className="child-grid-body" >
-                        <div className="layout-body">
-                            <SearchArea></SearchArea>
-                            <BasicTable></BasicTable>
+                <div id={menuid + '-main'} className="child-grid-body" >
+                        <div id={menuid + '-body'} className="layout-body">
+                            {
+
+                                generateWindow(menuid, this.props)
+                            }
                         </div>
                 </div>
             </div>
@@ -89,6 +52,7 @@ class BaseLayout extends React.Component {
     }
 
     generateDOM(p){
+        console.log(this.props)
         var child = [];
         console.log(p)
         if(p == undefined)
@@ -97,13 +61,14 @@ class BaseLayout extends React.Component {
         for (var i = 0; i < p.length; i += 1) {
             
             if(this.layout[p[i]] === undefined )
-                this.layout[p[i]] = {i: p[i], x:0, y:0, w: 10, h: 12, minX: 10, minY: 10};
+                this.layout[p[i]] = {i: p[i], x:0, y:0, w: 25, h: 15, minW: 25, minH: 15, maxW: 30, maxH: 15};
 
             console.log(this.layout)
-            child.push( this.generateChildTest(p[i]) );
+            child.push( this.generateChild(p[i]) );
             
         };
 
+        
         return child;
     }
 
@@ -116,6 +81,23 @@ class BaseLayout extends React.Component {
     onResizeStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
                      placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
         this.layout[newItem.i] = newItem
+
+        var mainH = $('#' + newItem.i + '-main').height()
+        var bodyH = mainH - 70;
+        $('#' + newItem.i + '-body').height(bodyH)
+
+        console.log('onResizeStop', $('#' + newItem.i + '-main').height()    )
+    }
+
+    onResize(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
+                     placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
+        this.layout[newItem.i] = newItem
+
+        var mainH = $('#' + newItem.i + '-main').height()
+        var bodyH = mainH - 70;
+        $('#' + newItem.i + '-body').height(bodyH)
+
+        console.log('onResize', $('#' + newItem.i + '-main').height()    )
     }
 
     onPinLayout(e){
@@ -130,14 +112,23 @@ class BaseLayout extends React.Component {
 
 
     onLayoutChange(layout){
-        //console.log('onLayoutChange', layout);
+        console.log('onLayoutChange', layout);
+
+    }
+
+    componentWillUpdate(){
+        //console.log('sdasdsa', $('#abc').height()    )
+    }
+
+    componentDidUpdate(){
+        //console.log('sdasdsa', $('#abc').height()    )
     }
     render () {
         //console.log(this.props.layout);
         return (
 
-            <ReactGridLayout className="layout" cols={20} rowHeight={30} width={1320} 
-                //onResize={this.props.onResize}
+            <ReactGridLayout className="layout" cols={30} rowHeight={30} width={1320} 
+                onResize={this.onResize.bind(this)}
                 onResizeStop={this.onResizeStop.bind(this)}
                 //onResizeStart={this.props.onResizeStart}
                 //onDrag={this.props.onDrag}

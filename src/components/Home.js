@@ -21,9 +21,9 @@ class Home extends Component {
 
         return (
             <div>
-                {/*<Header theme={this.theme.default}/>*/}
+                <Header theme={this.theme.default}/>
                 <MenuBar data= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent theme={this.theme.default}/>
+                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent}/>
             {/* <ul>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
