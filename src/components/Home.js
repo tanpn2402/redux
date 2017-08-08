@@ -5,7 +5,6 @@ import MenuBar from '../containers/MenuBar'
 import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
 
-
 class Home extends Component {
 
     // constructor(props) {

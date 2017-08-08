@@ -3,6 +3,7 @@ import BasicTable from './BasicTable';
 import SearchArea from './SearchArea';
 import DropdownCheckBox from './DropdownCheckBox';
 import $ from 'jquery';
+import SearchBar from './SearchBar'
 
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 var _ = require('lodash');
@@ -82,7 +83,7 @@ class BaseLayout extends React.Component {
                 </div>
                 <div className="child-grid-body" >
                         <div className="layout-body">
-                            <SearchArea></SearchArea>
+                            <SearchBar></SearchBar>
                             <BasicTable></BasicTable>
                         </div>
                 </div>

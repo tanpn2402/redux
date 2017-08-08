@@ -1,12 +1,20 @@
 import React from 'react';
-
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 class SearchArea extends React.Component {
 
   constructor () {
       super()
       this.state = {
-
+        startDate: moment()
       };
+      this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
       
   render() {
@@ -14,32 +22,35 @@ class SearchArea extends React.Component {
       <div>
         <ul className="search-area">
           <li>
-            <button className="btn btn-primary btn-register">Register</button>
+            Stock: 
+            <select className="selectpicker">
+              <option>ALL</option>
+              <option>ACB</option>
+              <option>ADC</option>
+              <option>AGC</option>
+              <option>ALT</option>
+              <option>ALV</option>
+            </select>
           </li>
           <li>
             Order Type: 
             <select className="selectpicker">
-              <option>Mustard</option>
-              <option>Ketchup</option>
-              <option>Relish</option>
-            </select>
-
-          </li>
-          <li>
-            Stock Code: 
-            <select className="selectpicker">
-              <option>Mustard</option>
-              <option>Ketchup</option>
-              <option>Relish</option>
+              <option>ALL</option>
+              <option>Buy</option>
+              <option>Sell</option>
             </select>
           </li>
           <li>
-            Market: 
-            <select className="selectpicker">
-              <option>Mustard</option>
-              <option>Ketchup</option>
-              <option>Relish</option>
-            </select>
+            <DatePicker 
+              dateFormat="DD/MM/YYYY"
+              selected={this.state.startDate}
+              onChange={this.handleChange}/>
+          </li>
+          <li>
+            <DatePicker 
+              dateFormat="DD/MM/YYYY"
+              selected={this.state.startDate}
+              onChange={this.handleChange}/>
           </li>
           <li>
             <button className="btn btn-primary btn-register">Search</button>
