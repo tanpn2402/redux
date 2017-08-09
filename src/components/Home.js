@@ -13,13 +13,21 @@ class Home extends Component {
 
     componentWillMount(){
         this.theme = require('../themes/' + this.props.theme)
+        //console.log(this.theme)
     }
-     
+
     render() {
+        //let { authenticated, user } = this.props
+
         return (
             <div>
-                <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent language= {this.props.language.page.pagecontent} theme={this.theme.default}/>
+                <Header theme={this.theme.default}/>
+                <MenuBar data= {this.props.language.page.menu} theme={this.theme.default}/>
+                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent}/>
+            {/* <ul>
+                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
+                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
+            </ul> */}
             </div>
         )
     }
@@ -33,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  // switchLanguage: (lang, style) => {dispatch(actions.changeConfig(lang, style))}
+    //switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

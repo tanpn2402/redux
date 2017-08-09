@@ -13,8 +13,8 @@ class PageContent extends React.Component {
         return (
             <div>
                 <BaseLayout 
+                    language={this.props.language}
                     layout={this.props.mvLayout[this.props.mvPage]} 
-                    language= {this.props.language}
                     /*onResize={this.onResize.bind(this)} 
                     onResizeStart={this.onResizeStart.bind(this)}
                     onResizeStop={this.onResizeStop.bind(this)}

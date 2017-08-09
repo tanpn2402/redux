@@ -1,6 +1,9 @@
-import React from 'react';
-import DropdownCheckBox from './DropdownCheckBox';
-import '../css/style.css';
+import React from 'react'
+import DropdownCheckBox from './DropdownCheckBox'
+import '../css/style.css'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
+
 import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstrap'
 class SearchBar extends React.Component {
 
@@ -10,13 +13,24 @@ class SearchBar extends React.Component {
 
       };
   }
-      
+  
+  onSearch(){
+    var x = document.getElementById("form-oderjournal")
+    var tmp = {}
+    for (var i = 0; i < x.length; i++) {
+        tmp[x.elements[i].id] = x.elements[i].value
+    }
+    console.log(tmp)
+    this.props.onEnquiryOrder(tmp)
+  }
+
   render() {
+    console.log(this.props.language)
     return (
-      <Form className='form-inline search-bar'>
-        <Button type="submit">{this.props.language.cancel}</Button>
-        <FormGroup controlId="formInlineName">
-          <ControlLabel>{this.props.language.status}</ControlLabel>
+      <Form className='form-inline search-bar' id="form-oderjournal">
+        <Button type="button" onClick={this.onSearch.bind(this)}>Hủy GD</Button>
+        <FormGroup controlId="mvStatus">
+          <ControlLabel>Trạng thái</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
             <option value="ALL">{this.props.language.all}</option>
@@ -36,8 +50,8 @@ class SearchBar extends React.Component {
           </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="formInlineName">
-          <ControlLabel>{this.props.language.type}</ControlLabel>
+        <FormGroup controlId="mvOrderType">
+          <ControlLabel>Loại lệnh</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
             <option value="ALL">{this.props.language.all}</option>
@@ -52,35 +66,39 @@ class SearchBar extends React.Component {
           </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="formInlineName">
-          <ControlLabel>{this.props.language.buysell}</ControlLabel>
+        <FormGroup controlId="mvBuysell">
+          <ControlLabel>Mua/Bán</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
-            <option value="ALL">{this.props.language.all}</option>
+             <option value="ALL">{this.props.language.all}</option>
             <option value="BUY">{this.props.language.buy}</option>
             <option value="SELL">{this.props.language.sell}</option>
           </FormControl>
         </FormGroup>
         {' | '}
-        <FormGroup controlId="formInlineName">
-          <FormControl componentClass="select" placeholder="select">
-            <option value="VNM">VNM</option>
-            <option value="ACB">ACB</option>
-            <option value="SAM">SAM</option>
-          </FormControl>
+        <FormGroup controlId="mvStockId">
+          <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Mã CK"/>
+          <datalist id="stockList">
+            {
+              this.props.stockList.map(e => {
+                  return( <option value={e.stockCode}>{e.stockName}</option> )
+              })
+            }
+          </datalist>
+         
         </FormGroup>
           {'   '}
-        <FormGroup controlId="formInlineEmail">
+        <FormGroup controlId="mvInput">
           <FormControl type="text" />
         </FormGroup>
        
-       <FormGroup controlId="formInlineEmail">
-          <ControlLabel>{this.props.language.totalfeetax}<span>3.111.111 đ</span></ControlLabel>
+       <FormGroup>
+          <ControlLabel>Tổng (Phí + thuế): <span>3.111.111 đ</span></ControlLabel>
         </FormGroup>
 
 
         
-        <FormGroup controlId="formInlineEmail" style={{float: 'right', marginTop: '2px',}}>
+        <FormGroup style={{float: 'right', marginTop: '2px',}}>
           <DropdownCheckBox />
         </FormGroup>
 
@@ -95,6 +113,17 @@ class SearchBar extends React.Component {
         
 }
 
+const mapStateToProps = (state) => {
+  return {
+    
+  }
+}
 
-export default SearchBar;
+const mapDispatchToProps = (dispatch, props) => ({
+  onEnquiryOrder: (param) => {
+    dispatch(actions.enquiryOrder(param))
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
 

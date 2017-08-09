@@ -172,10 +172,10 @@
 }
 
 .dropdown-list {
+  text-align: left;
   z-index: 99;
   position: absolute;
   background-color: #efefef;
-  left: 46px;
   width: 100px;
   transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);

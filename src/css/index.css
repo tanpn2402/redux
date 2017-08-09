@@ -17,6 +17,7 @@ body {
 }
 .pad20{
   padding-right: 10px;
+  height: 40px;
 }
 .customtab{
   color: #fff;
@@ -28,15 +29,25 @@ body {
   margin-left: 0px;
   padding: 5px 0px;
   background-color: #f8f8f8;
-  
 
 }
 
 .navbar.navbar-default{
   margin-bottom: 0px;
+  height: 40px;
 }
 
+.container-fluid {
+  height: 40px;
+}
 
+.navbar-default.navbar-collapse {
+  height: 40px;
+}
+
+.navbar-nav {
+  height: 40px;
+}
 
 .tab-list>li>a {
   padding-top: 5px;
@@ -268,8 +279,42 @@ body {
         text-align: center;
         margin-top: 10px;
     }
-
 }
+
+
+
+
+
+
+.datatable .rt-tbody .rt-td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    line-height: 1.8;
+}
+
+.pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.header-market .rt-tbody .rt-td, .header-market .rt-thead.-header,.header-market .rt-thead .rt-th {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    height: 18px;
+}
+
+.logo{
+    float: left;
+    padding-top: 1px;
+    width: 241px;
+    height: 92px;
+}
+.header {
+    height: 95px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
 .search-bar {
     font-size: 12px;
     font-weight: normal;
@@ -292,5 +337,6 @@ body {
     height: 24px;
 }
 
-
-
+.search-bar .stockSearch {
+    width: 80px;
+}
