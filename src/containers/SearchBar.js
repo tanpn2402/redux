@@ -3,6 +3,7 @@ import DropdownCheckBox from './DropdownCheckBox'
 import '../css/style.css'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import Popup from './Popup';
 
 import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstrap'
 class SearchBar extends React.Component {
@@ -10,22 +11,26 @@ class SearchBar extends React.Component {
   constructor () {
       super()
       this.state = {
-
+         lgShow: false,
       };
   }
   
-  onSearch(){
+  onSearch() {
     var x = document.getElementById("form-oderjournal")
     var tmp = {}
     for (var i = 0; i < x.length; i++) {
-        tmp[x.elements[i].id] = x.elements[i].value
+      tmp[x.elements[i].id] = x.elements[i].value
     }
     console.log(tmp)
     this.props.onEnquiryOrder(tmp)
+    this.setState({
+      lgShow: true
+    });
+    Console.log()
   }
 
   render() {
-    console.log(this.props.language)
+    let lgClose = () => this.setState({ lgShow: false });
     return (
       <Form className='form-inline search-bar' id="form-oderjournal">
         <Button type="button" onClick={this.onSearch.bind(this)}>Hủy GD</Button>
@@ -95,17 +100,15 @@ class SearchBar extends React.Component {
        <FormGroup>
           <ControlLabel>Tổng (Phí + thuế): <span>3.111.111 đ</span></ControlLabel>
         </FormGroup>
-
-
-        
         <FormGroup style={{float: 'right', marginTop: '2px',}}>
-          <DropdownCheckBox />
+          <DropdownCheckBox columns={this.props.columns} hiddenColumns={this.props.hiddenColumns} 
+          changeColumn={this.props.changeColumn}/>
         </FormGroup>
 
         {/*<FormGroup controlId="formInlineEmail" style={{float: 'right', marginTop: '2px',}}>
           <ControlLabel>1-5/5</ControlLabel>
         </FormGroup>*/}
-        
+        <Popup show={this.state.lgShow} onHide={lgClose} />
       </Form>
 
     );

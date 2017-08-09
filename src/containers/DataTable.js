@@ -161,56 +161,6 @@ export default class App extends React.Component {
 
     ]
 
-    this.columns = [
-    {
-      id: 'cb',
-      Header: props => <input type='checkbox' />,
-      maxWidth: 50,
-      Cell: props => <input type='checkbox' />,
-      sortable: false
-    },
-    {
-        Header: 'Code',
-        accessor: 'stockid',
-        width: 80,
-    },
-    {
-        Header: 'Name',
-        accessor: 'title',
-        width: 100
-    },
-    {
-        Header: 'Order Type',
-        accessor: 'ordertype',
-        width: 100
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-        width: 80
-    },
-    {
-        Header: 'Price',
-        accessor: 'price',
-        width: 80
-    },
-    {
-        Header: 'Quantity',
-        accessor: 'quantity',
-        width: 80
-    },
-    {
-        Header: 'Can Quantity',
-        accessor: 'canQty',
-        width: 100
-    },
-    {
-        Header: 'Datetime',
-        accessor: 'date',
-        width: 150
-    },
-
-    ]
 
     this.style = {
       height: '100%',
@@ -221,13 +171,14 @@ export default class App extends React.Component {
     }
   }
   render() {
+    
     return (
         <div style={this.style}>
           <ReactTable
             className={'datatable'}
             style={this.style1}
             data={this.data}
-            columns={this.columns}
+            columns={this.props.columns}
             showPagination= {false}
             defaultPageSize={15}
             /*className="-striped -highlight"*/

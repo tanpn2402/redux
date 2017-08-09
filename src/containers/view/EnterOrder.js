@@ -1,28 +1,12 @@
-/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import '../css/style.css';
+import '../../css/style.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import moment from 'moment';
-
-const MyLargeModal = React.createClass({
-    render() {
-        return (
-            <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Wrapped Text</h4>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.props.onHide}>Close</Button>
-                </Modal.Footer>
-            </Modal>
-        );
-    }
-});
+import Popup from '../Popup';
+import { connect } from 'react-redux';
+//import * as actions from '../../actions';
 
 class EnterOrder extends Component {
     constructor(props) {
@@ -32,12 +16,12 @@ class EnterOrder extends Component {
             startDate: moment(),
             isCheck: false,
             lgShow: false,
-            isOkay: false,
         };
         //this.onSubmit = this.onSubmit.bind(this);
-        this.onChange =  this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -58,17 +42,17 @@ class EnterOrder extends Component {
     render() {
         let lgClose = () => this.setState({ lgShow: false });
         return (
-            <Form>
+            <Form onSubmit={this.handleSubmit} id="form-enterorder">
                 <FormGroup>
                     <Table responsive bordered>
                         <tbody className="enterorder">
                             <tr>
                                 <th>Buy/Sell</th>
                                 <td>
-                                    <Radio name="radioGroup" inline required>
+                                    <Radio name="radioGroup" inline value="buy" id="mvStatus" required>
                                         <div className="Radiobox">Buy</div>
                                     </Radio>
-                                    <Radio name="radioGroup" inline >
+                                    <Radio name="radioGroup" inline value="sell" id="mvStatus">
                                         <div className="Radiobox">Sell</div>
                                     </Radio>
                                 </td>
@@ -76,10 +60,10 @@ class EnterOrder extends Component {
                             <tr>
                                 <th>Buy all/Sell all</th>
                                 <td>
-                                    <Radio name="radioGroup" inline >
+                                    <Radio name="radioGroup" inline value="buy all" id="mvStatus">
                                         <div className="Radiobox">Buy</div>
                                     </Radio>
-                                    <Radio name="radioGroup" inline >
+                                    <Radio name="radioGroup" inline value="sell all" id="mvStatus">
                                         <div className="Radiobox">Sell</div>
                                     </Radio>
                                 </td>
@@ -87,14 +71,24 @@ class EnterOrder extends Component {
                             <tr>
                                 <th>Stock</th>
                                 <td>
-                                    <input list="Stock" name="stock" required/>
-                                        <datalist id="Stock">
-                                            <option value="ACB"/>
-                                            <option value="VNM"/>
-                                            <option value="HKS"/>
-                                            <option value="PGS"/>
-                                            <option value="HSG"/>
-                                        </datalist>
+                                    <input list="Stock" name="stock" id="mvStock" required />
+                                    <datalist id="Stock">
+                                        <option value="ACB" />
+                                        <option value="VNM" />
+                                        <option value="HKS" />
+                                        <option value="PGS" />
+                                        <option value="HSG" />
+                                    </datalist>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Bank</th>
+                                <td>
+                                    <input list="Bank" name="bank" id="mvbank" required />
+                                    <datalist id="Bank">
+                                        <option value="ACB" />
+                                        <option value="SHB" />
+                                    </datalist>
                                 </td>
                             </tr>
                             <tr>
@@ -103,39 +97,48 @@ class EnterOrder extends Component {
                             </tr>
                             <tr>
                                 <th>Buying Power(Expected)</th>
-                                <td>0</td>
+                                <td>
+                                    <input type="hidden" id="mvBuyPower" value="0"/>
+                                    0
+                                </td>
                             </tr>
                             <tr>
                                 <th>Order Type</th>
                                 <td>
-                                    <input list="ordertype" name="ordertype" required/>
-                                    <datalist id="ordertype">
-                                        <option value="LO" />
-                                        <option value="ATC" />
-                                        <option value="MAK" />
-                                        <option value="MOK" />
-                                        <option value="MTL" />
-                                        <option value="LO(Odd Lot)" />
-                                    </datalist>
+                                    <FormGroup controlId="mvOrderType">
+                                        <input id="mvOrderType" list="ordertype" name="ordertype" required />
+                                        <datalist id="ordertype">
+                                            <option value="LO" />
+                                            <option value="ATC" />
+                                            <option value="MAK" />
+                                            <option value="MOK" />
+                                            <option value="MTL" />
+                                            <option value="LO(Odd Lot)" />
+                                        </datalist>
+                                    </FormGroup>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Volume</th>
                                 <td>
-                                    <input type="number" name="volume" onChange={this.onChange} required/>
+                                    <FormGroup controlId="mvVolume">
+                                        <input type="number" name="volume" onChange={this.onChange} required />
+                                    </FormGroup>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Price (x1000VND)</th>
                                 <td>
-                                    <input type="number" name="price" onChange={this.onChange} required/>
+                                    <FormGroup controlId="mvPrice">
+                                        <input type="number" name="price" onChange={this.onChange} required />
+                                    </FormGroup>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Value (VND)</th>
                                 <td>
                                     {this.calculate() || 0}
-                                </td> 
+                                </td>
                             </tr>
                             <tr>
                                 <th>Net fee</th>
@@ -143,13 +146,15 @@ class EnterOrder extends Component {
                             </tr>
                             <tr>
                                 <th>Expiry date</th>
-                                <td className = "date">
-                                    <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange}/>
-                                    <DatePicker
-                                        selected={this.state.startDate}
-                                        onChange={this.handleChange}
-                                        disabled={!this.state.isCheck}
-                                    />
+                                <td className="date">
+                                    <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange} id="mvDate" value={this.state.startDate}/>
+                                    
+                                        <DatePicker
+                                            
+                                            selected={this.state.startDate}
+                                            onChange={this.handleChange}
+                                            disabled={!this.state.isCheck}
+                                        />
                                 </td>
                             </tr>
                         </tbody>
@@ -157,7 +162,7 @@ class EnterOrder extends Component {
                 </FormGroup>
                 <FormGroup>
                     <div className="button">
-                        <Button className="btn btn-default" type="submit" onClick={() => this.setState({ lgShow: true })}>
+                        <Button className="btn btn-default" type="submit" >
                             Submit
                         </Button>
                     </div>
@@ -166,15 +171,29 @@ class EnterOrder extends Component {
                             Cancel
                         </Button>
                     </div>
-                    <br className="clear"/>
-                    
+                    <br className="clear" />
+
                 </FormGroup>
-                
-                {this.state.lgShow && <MyLargeModal show={this.state.lgShow} onHide={lgClose} />}
-                
+
+                <Popup show={this.state.lgShow} onHide={lgClose} />
+
             </Form>
         );
-        
+
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log('onSearch')
+        var x = document.getElementById("form-enterorder");
+        var tmp = {};
+        console.log(tmp + x.length);
+        for (var i = 0; i < x.length; i++) {
+            tmp[x.elements[i].id] = x.elements[i].value;
+        }
+        console.log(tmp);
+        //this.props.onCheck(tmp);
+        this.setState({ lgShow: true });
     }
 
     onChange(e) {
@@ -193,4 +212,10 @@ class EnterOrder extends Component {
     }
 }
 
-export default EnterOrder;*/
+// const mapDispatchToProps = (dispatch, props) => ({
+//     onCheck: () => {
+//         dispatch(actions.checkenterorder())
+//     },
+// })
+
+export default EnterOrder;

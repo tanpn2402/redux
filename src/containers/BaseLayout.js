@@ -42,7 +42,7 @@ class BaseLayout extends React.Component {
                 <div id={menuid + '-main'} className="child-grid-body" >
                         <div id={menuid + '-body'} className="layout-body">
                             {
-
+                                
                                 generateWindow(menuid, this.props)
                             }
                         </div>
