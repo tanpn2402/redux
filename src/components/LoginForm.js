@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
-import '../css/style.css';
 import { Form, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap';
 
 class LoginForm extends Component {

@@ -7,159 +7,8 @@ export default class App extends React.Component {
   constructor() {
     super();
     
-    this.data = [
-    {
-        stockid:  'ABC',
-        title: 'ABC bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VCB',
-        title: 'VietcomBank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'SAM',
-        title: 'SacomBank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
-    {
-        stockid:  'VPB',
-        title: 'VP Bank',
-        ordertype: 'B',
-        status: 'CAN',
-        date: '01/01/2010',
-        quantity: 200,
-        price: 300,
-        canQty: 120,
-    },
+    
 
-    ]
 
 
     this.style = {
@@ -171,13 +20,12 @@ export default class App extends React.Component {
     }
   }
   render() {
-    
     return (
         <div style={this.style}>
           <ReactTable
             className={'datatable'}
             style={this.style1}
-            data={this.data}
+            data={this.props.data}
             columns={this.props.columns}
             showPagination= {false}
             defaultPageSize={15}

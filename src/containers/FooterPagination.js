@@ -28,9 +28,7 @@ export default class FooterPagination extends React.Component {
           </div>
           <ul className="nav nav-pills tab-list" role="tablist">
             {
-
               this.tabList.map(id => {
-
               return ( 
                 <li id={id} key={id}>
                   <a href="javascript:void(0);" role="tab" data-toggle="tab" 

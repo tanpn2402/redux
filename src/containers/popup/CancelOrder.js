@@ -3,101 +3,103 @@ import React, { Component } from 'react';
 import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 export default class CancelOrder extends Component{
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.data = [
-        {
-            stockid:  'ABC',
-            title: 'ABC bank',
-            ordertype: 'B',
-            status: 'CAN',
-            date: '01/01/2010',
-            quantity: 200,
-            price: 300,
-            canQty: 120,
-        }]
-        this.columns = [
-            {
-                id: 'cb',
-                Header: props => <input type='checkbox' />,
-                maxWidth: 50,
-                Cell: props => <input type='checkbox' />,
-                sortable: false
-            },
-            {
-                id: 'code',
-                Header: 'Code',
-                accessor: 'stockid',
-            },
-            {
-                id: 'name',
-                Header: 'Name',
-                accessor: 'title',
-            },
-            {
-                id: 'ordertype',
-                Header: 'Order Type',
-                accessor: 'ordertype',
-            },
-            {
-                id: 'status',
-                Header: 'Status',
-                accessor: 'status',
-            },
-            {
-                id: 'price',
-                Header: 'Price',
-                accessor: 'price',
-            },
-            {
-                id: 'quantity',
-                Header: 'Quantity',
-                accessor: 'quantity',
-            },
-            {
-                id: 'canQty',
-                Header: 'Can Quantity',
-                accessor: 'canQty',
-            },
-            {
-                id: 'date',
-                Header: 'Datetime',
-                accessor: 'date',
-            },
+        this.columns = [{
+                    id: 'mvStockID',
+                    Header: this.props.language.tableheader.stockid,
+                    accessor: 'mvStockID',
+                    width: 80,
+                },
+                {
+                    id: 'mvBS',
+                    Header: this.props.language.tableheader.buysell,
+                    accessor: 'mvBS',
+                    width: 50,
+                },
+                {
+                    id: 'mvPrice',
+                    Header: this.props.language.tableheader.price,
+                    accessor: 'mvPrice',
+                    width: 80,
+                },
+                {
+                    id: 'mvQty',
+                    Header: this.props.language.tableheader.quantity,
+                    accessor: 'mvQty',
+                    width: 80,
+                },
+                {
+                    id: 'mvPendingQty',
+                    Header: this.props.language.tableheader.pendingQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                },
+                {
+                    id: 'mvExecutedQty',
+                    Header: this.props.language.tableheader.executedQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                },
+                {
+                    id: 'mvAvgPrice',
+                    Header: this.props.language.tableheader.avgprice,
+                    accessor: 'mvAvgPriceValue',
+                    width: 80,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: this.props.language.tableheader.status,
+                    accessor: 'mvStatus',
+                    width: 80,
+                },
+                {
+                    id: 'mvOrderType',
+                    Header: this.props.language.tableheader.ordertype,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                },
+                {
+                    id: 'mvFeeTax',
+                    Header: this.props.language.tableheader.feetax,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                },
+                {
+                    id: 'mvBankID',
+                    Header: this.props.language.tableheader.bankid,
+                    accessor: 'mvBankID',
+                    width: 80,
+                },
+                {
+                    id: 'mvExpiryDate',
+                    Header: this.props.language.tableheader.expirydate,
+                    accessor: 'mvDateTime',
+                    width: 80,
+                },
+                {
+                    id: 'mvRejectReason',
+                    Header: this.props.language.tableheader.rejectreason,
+                    accessor: 'mvRejectReason',
+                    width: 80,
+                },
 
-        ]
+            ],
+            this.style = {
+                height: '200px',
+            }
     }
     render(){
         return(
             <div>
                 <Modal.Body>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Default</td>
-                            <td>Defaultson</td>
-                            <td>def@somemail.com</td>
-                        </tr>      
-                        <tr className="success">
-                            <td>Success</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr className="danger">
-                            <td>Danger</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
+                    <ReactTable
+                        className={'datatable'}
+                        data={this.props.rowSelected}
+                        columns={this.columns}
+                        style={this.style}
+                        showPagination= {false}
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.onHide}>Cancel</Button>

@@ -63,17 +63,19 @@
         "tableheader": {
               "cancelmodify": "Hủy/Sửa",
               "price": "Giá",
-              "vol": "Khối lượng",
-              "pendingvol": "Khối lượng chờ khớp",
-              "executedvol": "Khối lượng khớp",
-              "avgprice": "Giá trung bình",
+              "quantity": "Khối lượng",
+              "pendingQty": "Khối lượng chờ khớp",
+              "executedQty": "Khối lượng khớp",
+              "avgprice": "Giá TB",
               "status": "Trạng thái",
-              "type": "Loại lệnh",
+              "ordertype": "Loại lệnh",
               "feetax": "(Phí + Thuế)",
               "bankid": "Ngân hàng",
               "expirydate": "Hiệu lực tới",
-              "rejectreason": "Lý do khước từ",
-              "time": "Thời gian"
+              "rejectreason": "Từ chối",
+              "time": "Thời gian",
+              "stockid": "Mã CK",
+              "buysell": "Mua/Bán"
           }
       }
     }

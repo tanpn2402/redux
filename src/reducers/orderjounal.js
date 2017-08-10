@@ -3,7 +3,8 @@ const {ActionTypes} = require('../core/constants');
 const initialState = {
   stockSearchList: [],
   mvIsEnableMultiMarket: true,
-  mvResult: null
+  mvResult: null,
+  data: [],
 };
 
 export default function (state = initialState, action) {
@@ -18,9 +19,14 @@ export default function (state = initialState, action) {
         });
 
       case ActionTypes.ENQUIRYORDER:
-      console.log('ENQUIRYORDER', action.data)
+      //console.log('ENQUIRYORDER', action.data)
         return Object.assign({},state,{          
-          
+          data: action.data,
+          stockSearchList: action.stockList.stockSearchList,
+          mvIsEnableMultiMarket: action.stockList.mvIsEnableMultiMarket,
+          mvResult: action.stockList.mvResult,
+          language: action.language,
+          reload: !action.reload,
         });
 
     default:

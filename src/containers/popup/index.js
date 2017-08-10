@@ -6,5 +6,5 @@ export default function  (props){
 	// 		return (<CancelOrder/>)
 	// 	default: return
     // }
-    return(<CancelOrder onHide={props.onHide}/>)
+    return(<CancelOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 }

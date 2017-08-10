@@ -37,12 +37,11 @@ class BaseLayout extends React.Component {
                             <li className="btn-close"><a href="javascript:void(0);" id={menuid} onClick={this.onCloseLayout.bind(this)} >x</a></li>
                         </ul>
                     </div>
-                        
                 </div>
                 <div id={menuid + '-main'} className="child-grid-body" >
                         <div id={menuid + '-body'} className="layout-body">
                             {
-                                
+
                                 generateWindow(menuid, this.props)
                             }
                         </div>

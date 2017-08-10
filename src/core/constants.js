@@ -8,5 +8,6 @@ export const ActionTypes = {
 
   STOCKSEARCH: 'STOCKSEARCH',
   ENQUIRYORDER: 'ENQUIRYORDER',
+  CANELORDER: 'CANELORDER',
   
 }
