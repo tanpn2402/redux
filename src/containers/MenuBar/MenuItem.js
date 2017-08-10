@@ -5,18 +5,11 @@ export default class MenuItem extends React.Component {
     constructor(){
         super()
         this.state={
-            hover: false
         }
         
     }
     
-    onhover(){
-        this.setState({hover: true})
-    }
-    offhover(){
-        console.log("aaaaaaaaaaaaaaa")
-        this.setState({hover: false})
-    }
+    
     render(){
         
         return (
@@ -34,8 +27,7 @@ export default class MenuItem extends React.Component {
                      <li className="dropdown">
                         <a  style={cus} href="#" className="dropdown-toggle" 
                         data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-                        onMouseOverCapture={this.onhover.bind(this)}
-                        onMouseLeave={this.offhover.bind(this)}
+                        
                         >
                         {this.props.language[item.text]} 
                         <span className="caret"></span></a>
