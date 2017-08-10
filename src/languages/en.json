@@ -74,7 +74,9 @@
               "bankid": "Bank ID",
               "expirydate": "Expiry Date",
               "rejectreason": "Reject Reason",
-              "time": "Time"
+              "time": "Time",
+              "stockid": "Stock ID",
+              "buysell": "Buy/Sell"
           }
       }
     }

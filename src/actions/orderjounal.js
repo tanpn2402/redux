@@ -56,3 +56,14 @@ export function onCancelSubmit(param) {
       selectedRows: _selectedValue
     }
 }
+export function onModifySubmit(param) {
+    var tmp={};
+    tmp.mvStockID=param[0].mvStockID;
+    tmp.mvPrice=param[0].mvPrice;
+    tmp.mvQty=param[0].mvQty;
+    tmp.mvPendingQty=param[0].mvPendingQty;
+    return {
+      type: ActionTypes.MODIFYSUBMIT,
+      updateRow: tmp
+    }
+}

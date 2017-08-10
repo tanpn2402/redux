@@ -1,10 +1,13 @@
 import React from 'react'
 import CancelOrder from './CancelOrder'
+import ModifyOrder from './ModifyOrder'
 export default function  (props){
-	// switch(popupid){
-	// 	case 'cancelorder':
-	// 		return (<CancelOrder/>)
-	// 	default: return
-    // }
-    return(<CancelOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+	
+	switch(props.popupType){
+		case 'CANCELORDER':
+			return(<CancelOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+		case 'MODIFYORDER':
+			return(<ModifyOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+	}
+    
 }

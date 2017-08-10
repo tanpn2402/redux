@@ -21,7 +21,7 @@ class Home extends Component {
 
         return (
             <div>
-                <Header theme={this.theme.default}/>
+                <Header theme={this.theme.default} switchLanguage={this.props.switchLanguage}/>
                 <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
                 <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent}/>
             {/* <ul>
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    //switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
+    switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

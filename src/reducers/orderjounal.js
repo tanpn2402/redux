@@ -34,7 +34,11 @@ export default function (state = initialState, action) {
           returnCode: '1',
           message: "ok"
         });
-       
+      case ActionTypes.MODIFYSUBMIT:
+        return Object.assign({},state,{          
+          returnCode: '1',
+          message: "update success"
+        });
 
     default:
       return state;

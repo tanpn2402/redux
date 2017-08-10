@@ -1,7 +1,7 @@
 import { doLogin,logout } from './doLogin'
 import {menuSelected, menuRemoved, onPageClicked} from './menu_selected'
 import {changeConfig} from './configurations'
-import {stockSearch, enquiryOrder, cancelOrder, onCancelSubmit} from './orderjounal'
+import {stockSearch, enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit} from './orderjounal'
 export {
   doLogin,
   logout,
@@ -13,4 +13,5 @@ export {
   enquiryOrder,
   cancelOrder,
   onCancelSubmit,
+  onModifySubmit,
 };

@@ -34,9 +34,11 @@ class OrderJournal extends Component {
               Cell: props =>{ 
                                 var child = []
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
-                                    child.push(<Button bsStyle="primary" bsSize="xsmall" type="button">Hủy</Button>)
+                                    child.push(<Button id="cancel-button" bsStyle="primary" bsSize="xsmall" type="button"
+                                    onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
                                 if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
-                                    child.push(<Button bsStyle="primary" bsSize="xsmall" type="button">Sửa</Button>)     
+                                    child.push(<Button bsStyle="primary" bsSize="xsmall" type="button" 
+                                    onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
                                     return (
                                         <span>
                                             {
@@ -156,9 +158,9 @@ class OrderJournal extends Component {
         lgShow: false
         }
 
-        this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.onCancelOrder()}>Hủy GD</Button>,]
+        this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
-
+        this.popupType='none'
             
     }
 
@@ -176,10 +178,29 @@ class OrderJournal extends Component {
                             onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                             param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}/>
                 <DataTable onRowSelected={this.onRowSelected.bind(this)} columns={this.state.columns} data={data}/>
-                <Popup show={this.state.lgShow} onHide={lgClose} rowSelected={this.rowSelected} language={this.props.language}/>
+                <Popup 
+                    show={this.state.lgShow} onHide={lgClose} 
+                    rowSelected={this.rowSelected} language={this.props.language}
+                    popupType={this.popupType}/>
+                    {this.popupType}
             </div>
         )
         
+    }
+
+    onCancelButton(param){
+        console.log(param)
+        this.rowSelected=[]
+        this.rowSelected.push(param)
+        this.showPopup();
+        
+    }
+
+    onModifyButton(param){
+        this.rowSelected=[]
+        this.rowSelected.push(param)
+        this.showPopup();
+        this.popupType= 'MODIFYORDER'
     }
 
     onRowSelected(param){
@@ -212,11 +233,12 @@ class OrderJournal extends Component {
         console.log('onRowSelected', this.rowSelected)
     }
     
-    onCancelOrder(){
+    showPopup(){
         // get all row selected
         this.setState({
             lgShow: true
         });
+        this.popupType= 'CANCELORDER'
         //console.log('onCancelOrder', this.rowSelected)
     }
 
@@ -225,7 +247,6 @@ class OrderJournal extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         });
-        //console.log(this.state.columns)
     }
 
 
