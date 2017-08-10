@@ -29,6 +29,13 @@ export default function (state = initialState, action) {
           reload: !action.reload,
         });
 
+      case ActionTypes.CANCELSUBMIT:
+        return Object.assign({},state,{          
+          returnCode: '1',
+          message: "ok"
+        });
+       
+
     default:
       return state;
   }

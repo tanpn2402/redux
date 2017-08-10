@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
-export default class CancelOrder extends Component{
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
+class CancelOrder extends Component{
     constructor(props) {
         super(props)
         this.columns = [{
@@ -89,6 +91,10 @@ export default class CancelOrder extends Component{
                 height: '200px',
             }
     }
+    onCancelSubmit() {
+        this.props.onCancelSubmit(this.props.rowSelected)
+       
+    }
     render(){
         return(
             <div>
@@ -103,9 +109,22 @@ export default class CancelOrder extends Component{
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.onHide}>Cancel</Button>
-                    <Button> Submit</Button>
+                    <Button onClick={this.onCancelSubmit.bind(this)}> Submit</Button>
                 </Modal.Footer>
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+  return {
+    code: state.orderjounal.returnCode
+  }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    onCancelSubmit: (param) => {
+        dispatch(actions.onCancelSubmit(param))
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CancelOrder)

@@ -32,3 +32,27 @@ export function cancelOrder(param) {
       data: data,
     }
 }
+
+export function onCancelSubmit(param) {
+  var _selectedValue=[];
+  for(var i=0;i<param.length;i++){
+    var tmp={};
+    tmp.mvBS=param[i].mvBS;
+    tmp.mvOrderID=param[i].mvOrderID;
+    tmp.mvOrderGroupID=param[i].mvOrderGroupID;
+    // tmp.mvInstrumentId=param[i].mvInstrumentId;
+    // tmp.mvMarketID=param[i].mvMarketID;
+    // tmp.mvPrice=param[i].mvPrice;
+    // tmp.mvQty=param[i].mvQty;
+    // tmp.mvOrderType=param[i].mvOrderType;
+    // tmp.mvGoodTillDate=param[i].mvGoodTillDate;
+    // tmp.mvFilledQty=param[i].mvFilledQty;
+    // tmp.mvOSQty=param[i].mvOSQty;
+    _selectedValue.push(tmp)
+  }
+  console.log(_selectedValue)
+    return {
+      type: ActionTypes.CANCELSUBMIT,
+      selectedRows: _selectedValue
+    }
+}
