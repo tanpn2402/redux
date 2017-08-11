@@ -6,7 +6,7 @@ const initialState = {
   mvResult: null,
   data: [],
 };
-
+const modifyResult={"mvResult":null,"mvReturnResult":"ModifyOrderFail","returnCode":0,"savedAuthen":"true","success":true}
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.STOCKSEARCH:
@@ -36,9 +36,14 @@ export default function (state = initialState, action) {
         });
       case ActionTypes.MODIFYSUBMIT:
         return Object.assign({},state,{          
-          returnCode: '1',
-          message: "update success"
+          result: modifyResult,
+          respone: action.updateRow
         });
+
+      case ActionTypes.GETMODIFYDATA:
+          return Object.assign({},state,{    
+            dataresult: action.modifyData,
+          });
 
     default:
       return state;

@@ -181,7 +181,7 @@ class OrderJournal extends Component {
                 <Popup 
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
-                    popupType={this.popupType}/>
+                    popupType={this.popupType} modifyData={this.props.modifyData}/>
             </div>
         )
         
@@ -254,6 +254,7 @@ const mapStateToProps = (state) => {
   return {
     stockSearchList: state.orderjounal.stockSearchList,
     data: state.orderjounal.data,
+    modifyData: state.orderjounal.dataresult,
   }
 }
 

@@ -39,7 +39,9 @@ class ModifyOrder extends Component{
                 mvQty: this.props.rowSelected[0].mvQty,
                 alertVisible: false,
             };
+    
     }
+    
     onModifySubmit() {
         if(this.checkPrice(this.state.mvPrice) && this.checkQty(this.state.mvQty)){
             this.props.onModifySubmit(this.props.rowSelected)
@@ -48,7 +50,6 @@ class ModifyOrder extends Component{
         else{
             this.setState({alertVisible: true});
         }
-        
     }
     onInput(id, newValue){
         if(id==="price"){
@@ -62,13 +63,13 @@ class ModifyOrder extends Component{
         }
     }
     checkQty(qtyValue){
-        if(qtyValue%10 === 0 )
+        if(qtyValue%100 === 0 )
             return true
         else
             return false
     }
     checkPrice(price){
-        if(Number(price) <= 24 && price >=22)
+        if(Number(price) <= this.props.modifyData.ceiling && price >=this.props.modifyData.floor)
             return true
         else
             return false
@@ -78,8 +79,6 @@ class ModifyOrder extends Component{
     }
    
     render(){
-        console.log(this.props.returnCode)
-        console.log(this.props.returnMessage)
         return(
             <div>
                 <Modal.Body>
@@ -104,8 +103,8 @@ class ModifyOrder extends Component{
                             </tr>
                             <tr>
                                 <th>Floor/Ceil: </th>
-                                <td><font color='green'><b> 22.000</b></font>
-                                <font color='red'><b>/24.000</b></font></td>
+                                <td><font color='green'><b>{this.props.modifyData.floor}</b></font>
+                                <font color='red'><b>/{this.props.modifyData.ceiling}</b></font></td>
                             </tr>
                         </tbody>
                     </table>
@@ -121,8 +120,8 @@ class ModifyOrder extends Component{
 }
 const mapStateToProps = (state) => {
   return {
-      returnCode: state.orderjounal.returnCode,
-      returnMessage: state.orderjounal.message,
+      result: state.orderjounal.result,
+      respone: state.orderjounal.respone,
   }
 }
 
@@ -130,6 +129,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onModifySubmit: (param) => {
         dispatch(actions.onModifySubmit(param))
     },
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModifyOrder)

@@ -46,6 +46,7 @@ class SearchBar extends React.Component {
 
   componentDidMount(){
     this.props.onSearch({'mvBuysell': 'B'})
+    this.props.getModifyData()
   }
 
   componentWillMount(){
@@ -203,6 +204,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
   onSearch: (param) => {
     dispatch(actions.enquiryOrder(param))
+  },
+  getModifyData: () => {
+    dispatch(actions.getModifyData())
   }
 })
 

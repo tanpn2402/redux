@@ -7,7 +7,8 @@ export default function  (props){
 		case 'CANCELORDER':
 			return(<CancelOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 		case 'MODIFYORDER':
-			return(<ModifyOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return(<ModifyOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}
+			modifyData={props.modifyData}/>)
 	}
     
 }
