@@ -45,7 +45,18 @@ class MenuBar extends React.Component {
             id: "porfolio",
             text: "portfolio",
             link: ""
-          }
+          },
+          {
+            id: "techanalysis",
+            text: "techanalysis",
+            link: ""
+          },
+          {
+            id: "orderconfirm",
+            text: "orderconfirm",
+            link: ""
+          },
+
         ]
       },
       {

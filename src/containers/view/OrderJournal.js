@@ -182,7 +182,6 @@ class OrderJournal extends Component {
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
                     popupType={this.popupType}/>
-                    {this.popupType}
             </div>
         )
         

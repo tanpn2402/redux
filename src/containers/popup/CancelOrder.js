@@ -93,7 +93,7 @@ class CancelOrder extends Component{
     }
     onCancelSubmit() {
         this.props.onCancelSubmit(this.props.rowSelected)
-       
+        this.props.onHide()
     }
     render(){
         return(

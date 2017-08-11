@@ -62,6 +62,7 @@ export function onModifySubmit(param) {
     tmp.mvPrice=param[0].mvPrice;
     tmp.mvQty=param[0].mvQty;
     tmp.mvPendingQty=param[0].mvPendingQty;
+    console.log(tmp)
     return {
       type: ActionTypes.MODIFYSUBMIT,
       updateRow: tmp
