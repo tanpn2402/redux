@@ -159,13 +159,13 @@ class OrderJournal extends Component {
             lgShow: false
         }
 
-        this.buttonAction = [<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
 	    this.popupType='none'
     }
 
   
     render() {
+        this.buttonAction = [<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         console.log('render in OrderJournal', this.props.data)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
