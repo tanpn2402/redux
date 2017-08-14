@@ -170,8 +170,7 @@ class OrderJournal extends Component {
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
 	    let lgClose = () => this.setState({ lgShow: false })
-
-        console.log('dasdsaddsaad', this.props.modifyData)
+        console.log('modify Data', this.props.modifyData)
         return (
             <div id={'orderjournal-body'} className="layout-body">
                 <SearchBar
@@ -214,6 +213,7 @@ class OrderJournal extends Component {
         this.rowSelected.push(param)
         this.showPopup();
         this.popupType= 'MODIFYORDER'
+        this.props.onModifyButton(param)
     }
 
     onRowSelected(param){
@@ -290,6 +290,9 @@ const mapDispatchToProps = (dispatch, props) => ({
 
   onSearch: (param, reload) => {
     dispatch(actions.enquiryOrder(param, reload))
+  },
+  onModifyButton: (param) => {
+    dispatch(actions.getModifyData(param))
   },
 
 })

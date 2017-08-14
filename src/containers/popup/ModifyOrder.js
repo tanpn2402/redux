@@ -44,6 +44,9 @@ class ModifyOrder extends Component{
     
     onModifySubmit() {
         if(this.checkPrice(this.state.mvPrice) && this.checkQty(this.state.mvQty)){
+            this.props.rowSelected.mvPrice=this.state.mvPrice,
+            this.props.rowSelected.mvQty=this.state.mvQty,
+            console.log("this.props.rowSelected "+this.props.rowSelected[0])
             this.props.onModifySubmit(this.props.rowSelected)
             this.props.onHide()
         }
