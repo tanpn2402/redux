@@ -3,7 +3,7 @@ const api = require('../api/api_change_language');
 
 const initialState = {
   language: api.getContent(), // Loads default language content (en) as an initial state
-  style: 'theme_light',
+  style: 'theme_brown',
 };
 
 export default function (state = initialState, action) {

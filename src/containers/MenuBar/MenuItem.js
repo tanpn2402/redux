@@ -5,29 +5,32 @@ export default class MenuItem extends React.Component {
     constructor(){
         super()
         this.state={
+            hover: false,
+            focusID: "null"
         }
         
     }
-    
+    toggleHover(e){
+        console.log(e.target.id)
+        this.setState({hover: !this.state.hover, focusID: e.target.id})
+    }
     
     render(){
-        
         return (
             <ul className="nav navbar-nav" >
             {
                 this.props.menu_items.map(item => {
-                var cus=this.props.theme.textcolor;
-                if(this.state.hover=== true){
-                    cus=this.props.theme.dark
-                }
-                else{
-                    cus=this.props.theme.textcolor
-                }
+                    var linkStyle;
+                    if (this.state.hover && item.id===this.state.focusID) {
+                        linkStyle = this.props.theme.onFocus
+                    } else {
+                        linkStyle = this.props.theme.normal
+                    }
                 return (
                      <li className="dropdown">
-                        <a  style={cus} href="#" className="dropdown-toggle" 
+                        <a  style={linkStyle} href="#" className="dropdown-toggle" id={item.id}
                         data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-                        
+                        onFocus={(e) =>this.toggleHover(e)} onBlur={(e)=>this.toggleHover(e)}
                         >
                         {this.props.language[item.text]} 
                         <span className="caret"></span></a>
