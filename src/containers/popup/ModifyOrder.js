@@ -79,6 +79,7 @@ class ModifyOrder extends Component{
     }
    
     render(){
+        console.log(this.props.result)
         return(
             <div>
                 <Modal.Body>
@@ -98,13 +99,13 @@ class ModifyOrder extends Component{
                             <tr>
                                 <th>{this.props.language.tableheader.quantity}</th>
                                 <td><input id='quantity' type='number' className='form-control' 
-                                value={this.state.mvQty} min='0' step='10'
+                                value={this.state.mvQty} min='0' step='100'
                                 onChange={e => this.onInput(e.target.id, e.target.value)}/></td>
                             </tr>
                             <tr>
                                 <th>Floor/Ceil: </th>
-                                <td><font color='green'><b>{this.props.modifyData.floor}</b></font>
-                                <font color='red'><b>/{this.props.modifyData.ceiling}</b></font></td>
+                                <td><font color='#3399CC'><b>{this.props.modifyData.floor}</b></font>
+                                <font color='#FF66CC'><b>/{this.props.modifyData.ceiling}</b></font></td>
                             </tr>
                         </tbody>
                     </table>
@@ -113,7 +114,8 @@ class ModifyOrder extends Component{
                     <Button onClick={this.props.onHide}>Cancel</Button>
                     <Button onClick={this.onModifySubmit.bind(this)}> Submit</Button>
                 </Modal.Footer>
-            <Warning alertVisible={this.state.alertVisible} handleAlertDismiss={this.handleAlertDismiss.bind(this)}/>
+            <Warning alertVisible={this.state.alertVisible} handleAlertDismiss={this.handleAlertDismiss.bind(this)}
+                     modifyData={this.props.modifyData}/>
             </div>
         )
     }
@@ -121,7 +123,6 @@ class ModifyOrder extends Component{
 const mapStateToProps = (state) => {
   return {
       result: state.orderjounal.result,
-      respone: state.orderjounal.respone,
   }
 }
 

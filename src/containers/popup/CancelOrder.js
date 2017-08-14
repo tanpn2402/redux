@@ -85,7 +85,6 @@ class CancelOrder extends Component{
                     accessor: 'mvRejectReason',
                     width: 80,
                 },
-
             ],
             this.style = {
                 height: '200px',
@@ -96,6 +95,8 @@ class CancelOrder extends Component{
         this.props.onHide()
     }
     render(){
+        console.log(this.props.returnCode)
+        console.log(this.props.message)
         return(
             <div>
                 <Modal.Body>
@@ -117,7 +118,8 @@ class CancelOrder extends Component{
 }
 const mapStateToProps = (state) => {
   return {
-    code: state.orderjounal.returnCode
+    returnCode: state.orderjounal.returnCode,
+    message: state.orderjounal.message,
   }
 }
 

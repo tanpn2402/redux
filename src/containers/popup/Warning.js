@@ -10,7 +10,7 @@ export default class Warning extends Component{
             return(
                 <Alert  bsStyle="danger" onDismiss={this.props.handleAlertDismiss}>
                     <h4>Lỗi!</h4>
-                    <p>Khối lượng phải là bội của 10. Và giá từ 22.000 đến 24.000</p>
+                    <p>Khối lượng phải là bội của 100. Và giá từ {this.props.modifyData.floor} đến {this.props.modifyData.ceiling}</p>
                 </Alert>
             )
         }

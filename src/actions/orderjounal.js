@@ -60,14 +60,16 @@ export function onCancelSubmit(param) {
     }
 }
 export function onModifySubmit(param) {
-    var response = modify
+  var respone=modify
+  respone.mvGenModifyOrderBean.mvPrice=param[0].mvPrice,
+  respone.mvGenModifyOrderBean.mvQty=param[0].mvQty
+  console.log(respone)
     return {
       type: ActionTypes.MODIFYSUBMIT,
-      updateRow: response
+      updateRow: respone
     }
 }
 export function getModifyData() {
-  console.log("modify.mvGenModifyOrderBean")
   return {
     type: ActionTypes.GETMODIFYDATA,
     modifyData: modify.mvGenModifyOrderBean
