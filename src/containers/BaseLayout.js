@@ -31,7 +31,8 @@ class BaseLayout extends React.Component {
             <div key={menuid} 
                 data-grid={{x: layout[menuid]['x'], y: layout[menuid]['y'], w: layout[menuid]['w'], 
                     h: layout[menuid]['h'], minW: layout[menuid]['minW'], minH: layout[menuid]['minH'], 
-                    maxW: layout[menuid]['maxW'], maxH: layout[menuid]['maxH'], static: layout[menuid]['static']}}>
+                    maxW: layout[menuid]['maxW'], maxH: layout[menuid]['maxH'], static: layout[menuid]['static'],
+                    isResizable: layout[menuid]['isResizable']}}>
 
                 <div className="child-grid-header" >
                         {this.props.title[menuid]}
@@ -109,7 +110,7 @@ class BaseLayout extends React.Component {
 
         if (document.getElementById(newItem.i + '-table') !== null) {
             document.getElementById(newItem.i + '-body').style.height =
-                document.getElementById('orderjournal-main').offsetHeight - 25 + 'px'
+                document.getElementById(newItem.i + '-main').offsetHeight - 25 + 'px'
 
             document.getElementById(newItem.i + '-table').style.height =
                 document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'

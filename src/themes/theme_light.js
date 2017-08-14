@@ -18,5 +18,15 @@ export default {
     backgroundColor:"#337AB7",
     color: "#FFFAFA",
     borderColor: "#2E6DA4"
+  },
+  porfolio: {
+    'titlemoney': {
+      backgroundColor: '#043b72',
+      color: '#fff'
+    },
+    'titlestock': {
+      backgroundColor: '#f60',
+      color: '#fff'
+    }
   }
 }

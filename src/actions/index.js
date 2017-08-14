@@ -7,6 +7,7 @@ import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder,setPopup} f
 import { setAuthenFail, checkAuthen} from './checkAuthenAction'
 import {stockSearch} from './stockaction'
 import { onConfirmSubmit, enquiryConfirmOrder } from './confirmorder'
+import {getPorfolio} from './porfolio'
 
 export {
   doLogin,
@@ -32,5 +33,6 @@ export {
   openPopup,
   onConfirmSubmit,
   enquiryConfirmOrder,
+  getPorfolio,
   
 };
