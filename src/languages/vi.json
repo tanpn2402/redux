@@ -26,7 +26,9 @@
         "help": "Giúp đỡ",
         "available": "Danh mục chứng khoán ký quỹ",
         "defaultgroup": "Danh sách cửa sổ hệ thống",
-        "savelayout": "Lưu cách trình bày"
+        "savelayout": "Lưu cách trình bày",
+        "techanalysis": "Technical Analysis",        
+        "orderconfirmation": "Order Confirmation"
       },
       "searchbar": {
           "cancel": "Huỷ GD",
@@ -109,6 +111,21 @@
           "R":"Từ chối duyệt",
           "D":"Xóa"
         } 
+      },
+      "orderconfirmation": {
+        "header":{
+            "tradetime": "Thời gian GD",
+            "marketid": "Sàn",
+            "price": "Giá",
+            "quantity": "Khối lượng",
+            "filledquantity": "Khối lượng khớp",
+            "filledprice": "Giá khớp",
+            "cancelquantity": "Khối lượng hủy",
+            "status": "Trạng thái",
+            "ordertype": "Loại lệnh",
+            "stockid": "Mã CK",
+            "buysell": "Mua/Bán"
+        }  
       }
     }
   }

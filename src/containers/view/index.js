@@ -2,6 +2,7 @@ import React from 'react'
 import CashTransactionHistory from './CashTransactionHistory'
 import OrderJournal from './OrderJournal'
 import EnterOrder from './EnterOrder'
+import OrderConfirmation from './OrderConfirmation'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -17,6 +18,10 @@ export default function (menuid, props){
 		case 'orderjournal':
 			return (
 				<OrderJournal language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'orderconfirmation':
+			return(
+				<OrderConfirmation language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

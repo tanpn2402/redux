@@ -9,6 +9,7 @@ import orderjournal from './orderjournal'
 import pagination from './pagination'
 import stock from './stockreducer'
 import cashtranshistory from './cashtranshistory'
+import orderconfirmation from './orderconfirmation'
 
 export default combineReducers({
   dologin,
@@ -21,5 +22,6 @@ export default combineReducers({
   pagination,
   stock,
   cashtranshistory,
+  orderconfirmation,
   
 });

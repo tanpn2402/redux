@@ -2,6 +2,8 @@ import React from 'react'
 import CancelOrder from './CancelOrder'
 import ModifyOrder from './ModifyOrder'
 import EnterOrderPopup from './EnterOrder'
+import ConfirmOrder from './ConfirmOrder'
+
 export default function  (props){
 	
 	switch(props.id){
@@ -19,7 +21,10 @@ export default function  (props){
 				return (<EnterOrderPopup json={props.json} mvStockBean={props.mvStockBean} onHide={props.onHide}/>)
 			else
                     return(<h5 className="error">{props.error}</h5>)
-			
+		break;
+		
+		case 'orderconfirmation':
+			return (<ConfirmOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 	}
     
 }

@@ -27,7 +27,9 @@
         "help": "Help",
         "available": "Available",
         "defaultgroup": "Default Group",
-        "savelayout": "Save Layout"
+        "savelayout": "Save Layout",
+        "techanalysis": "Technical Analysis",        
+        "orderconfirmation": "Order Confirmation"
       },
       "searchbar": {
           "cancel": "Cancel",
@@ -110,6 +112,21 @@
             "R":"Rejected",
             "D":"Deleted"
         }
+      },
+      "orderconfirmation": {
+        "header":{
+            "tradetime": "Thời gian GD",
+            "marketid": "Sàn",
+            "price": "Giá",
+            "quantity": "Khối lượng",
+            "filledquantity": "Khối lượng khớp",
+            "filledprice": "Giá khớp",
+            "cancelquantity": "Khối lượng hủy",
+            "status": "Trạng thái",
+            "ordertype": "Loại lệnh",
+            "stockid": "Mã CK",
+            "buysell": "Mua/Bán"
+        }  
       }
     }
   }

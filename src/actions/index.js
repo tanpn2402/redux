@@ -6,6 +6,8 @@ import {changePage} from './pagination'
 import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder,setPopup} from './enterorder'
 import { setAuthenFail, checkAuthen} from './checkAuthenAction'
 import {stockSearch} from './stockaction'
+import { onConfirmSubmit, enquiryConfirmOrder } from './confirmorder'
+
 export {
   doLogin,
   logout,
@@ -28,5 +30,7 @@ export {
   getModifyData,
   pinWindow,
   openPopup,
+  onConfirmSubmit,
+  enquiryConfirmOrder,
   
 };

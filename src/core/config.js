@@ -34,7 +34,17 @@ const config = {
 		        id: 'porfolio',
 		        text: 'portfolio',
 		        link: ''
-		      }
+		      },
+			{
+				id: "techanalysis",
+				text: "techanalysis",
+				link: ''
+			},
+			{
+				id: "orderconfirmation",
+				text: "orderconfirmation",
+				link: ''
+			},	
 		    ]
 		},
 		{
@@ -129,6 +139,7 @@ const config = {
 		enterorder: {i: 'enterorder', x:0, y:0, w: 8, h: 14, minW: 8, minH: 14, maxW: 30, maxH: 15},
 		orderjournal: {i: 'orderjournal', x:0, y:0, w: 22, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15},
 		cashtransactionhistory: { i: 'cashtransactionhistory', x: 0, y: 0, w: 30, h: 14, minW: 30, minH: 14, maxW: 30, maxH: 15 },
+		orderconfirmation: {i: 'orderconfirmation', x:0, y:0, w: 30, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15, static: false},
 	}
 	,
 	orderstatus: [
