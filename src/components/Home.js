@@ -8,21 +8,23 @@ import Header from '../containers/Header'
 class Home extends Component {
 
     // constructor(props) {
-    //     super(props)        
+    //     super(props)    
     // }
 
     componentWillMount(){
-       // this.theme = require('../themes/' + this.props.theme)
-        //console.log(this.theme)
+    //  this.theme = require('../themes/' + this.props.theme)
+        
     }
 
     render() {
-        //let { authenticated, user } = this.props
-        console.log(this.props.language)
         this.theme = require('../themes/' + this.props.theme)
         return (
             <div>
-                <Header theme={this.theme.default} switchLanguage={this.props.switchLanguage} switchTheme={this.props.switchTheme}/>
+                <Header theme={this.theme.default} 
+                currentThemeName={this.props.theme} 
+                currentLanguage={this.props.language.lang}
+                changeConfig={this.props.changeConfig} 
+                />  
                 <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
                 <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent} title={this.props.language.page.menu}/>
             {/* <ul>
@@ -42,8 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))},
-    switchTheme: (theme) => {dispatch(actions.changeConfig('vi', theme))}
+    changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

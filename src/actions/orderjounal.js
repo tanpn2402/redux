@@ -56,6 +56,7 @@ export function onCancelSubmit(param) {
 }
 export function onModifySubmit(param) {
   var respone=modify
+  console.log("param "+param)
   respone.mvGenModifyOrderBean.mvNewPrice=param.mvPrice,
   respone.mvGenModifyOrderBean.mvNewQty=param.mvQty
     return {

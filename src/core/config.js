@@ -31,7 +31,7 @@ const config = {
 		        link: ''
 		      },
 		      {
-		        id: 'porfolio',
+		        id: 'portfolio',
 		        text: 'portfolio',
 		        link: ''
 		      }
