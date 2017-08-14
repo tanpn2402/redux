@@ -20,8 +20,10 @@ export default class App extends React.Component {
         ]
   }
   render() {
+    var currentThemeName=this.props.currentThemeName.substring(6,11)
+    var currentLanguage=this.props.currentLanguage
     return (
-        <Row className="header">
+        <Row className="header" /*style={{ backgroundColor: '#000', }}*/>
           <Col xs={9} style={{paddingLeft: '0px',}}>
             
             <div className="logo">
@@ -43,7 +45,14 @@ export default class App extends React.Component {
           </Col>
           <Col xs={3} style={{ fontSize: '12px', textAlign: 'right', paddingRight: '5px', paddingTop: '1px',}}>
            
-            <span><Button bsStyle="default" bsSize="xsmall">Eng</Button>  <Button bsStyle="default" bsSize="xsmall">Viet</Button>  <Button bsStyle="primary" bsSize="xsmall">Logout</Button> </span>
+            <span>
+              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'blue')} bsStyle="default" bsSize="xsmall">Blue</Button> 
+              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'dark')} bsStyle="default" bsSize="xsmall">Dark</Button> 
+              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'brown')} bsStyle="default" bsSize="xsmall">Brown</Button> 
+              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'light')} bsStyle="default" bsSize="xsmall">Light</Button> 
+              <Button onClick={this.props.changeConfig.bind(this,'en',currentThemeName)} bsStyle="default" bsSize="xsmall" >Eng</Button>  
+              <Button onClick={this.props.changeConfig.bind(this,'vi',currentThemeName)} bsStyle="default" bsSize="xsmall" >Viet</Button>  
+              <Button bsStyle="primary" bsSize="xsmall">Logout</Button> </span>
    
             <div><strong>077C086378</strong></div>
             <div><strong>Nguyễn Văn Sự</strong></div>

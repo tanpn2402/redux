@@ -10,15 +10,6 @@ class DropdownCheckBox extends React.Component {
           listVisible: false,
       };
 
-      this.colours = [{
-              name: "Porfolio",
-            }, {
-              name: "Sign Order",
-            }, {
-              name: "History",
-            }, {
-              name: "Odd Lot",
-            }];
   }
   
   select(item) {
@@ -52,11 +43,15 @@ class DropdownCheckBox extends React.Component {
   onClick(){
     this.setState({ listVisible: true, });
   }
+
+  onCheckBoxChange(e){
+    console.log(e.target)
+  }
       
   render() {
     return (
       <div className="dropdown-container">
-        <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}>s</div>
+        <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}><span className="glyphicon glyphicon-th-list"></span></div>
         <div className={"dropdown-list " + (this.state.listVisible ? "show": "hide")}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}>
@@ -68,15 +63,19 @@ class DropdownCheckBox extends React.Component {
         
   renderListItems() {
     var items = [];
-    for (var i = 0; i < this.colours.length; i++) {
-      var item = this.colours[i];
-      items.push(
-        <div className="dropdown-item">
-          
-          <Checkbox  defaultChecked='true' readOnly='false' inputRef={ref => { this.input = ref; }}>
-            {item.name}
-          </Checkbox>
-       </div>);
+    for (var i = 0; i < this.props.columns.length; i++) {
+      var item = this.props.columns[i]
+      if(item.skip === false){
+         items.push(
+          <div className="dropdown-item">
+            
+            <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
+              {item.Header}
+            </Checkbox>
+          </div>
+         );
+      }
+     
     }
     return items;
   }

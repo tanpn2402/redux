@@ -12,18 +12,23 @@ class Home extends Component {
     // }
 
     componentWillMount(){
-        this.theme = require('../themes/' + this.props.theme)
+       // this.theme = require('../themes/' + this.props.theme)
         //console.log(this.theme)
     }
 
     render() {
         //let { authenticated, user } = this.props
-
+        console.log(this.props.language)
+        this.theme = require('../themes/' + this.props.theme)
         return (
             <div>
-                <Header theme={this.theme.default}/>
-                <MenuBar data= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent}/>
+                <Header theme={this.theme.default} 
+                currentThemeName={this.props.theme} 
+                currentLanguage={this.props.language.lang}
+                changeConfig={this.props.changeConfig} 
+                />  
+                <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
+                <PageContent theme={this.theme.default} language= {this.props.language.page} title={this.props.language.page.menu}/>
             {/* <ul>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
@@ -41,7 +46,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    //switchLanguage: (lang) => {dispatch(actions.changeConfig(lang, 'dark'))}
+    changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

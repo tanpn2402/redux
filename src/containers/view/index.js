@@ -1,19 +1,22 @@
 import React from 'react'
 import CashTransactionHistory from './CashTransactionHistory'
 import OrderJournal from './OrderJournal'
+import EnterOrder from './EnterOrder'
 
 export default function (menuid, props){
 	console.log(menuid)
 	switch(menuid){
 		case 'enterorder':
-			return 
+			return (
+				<EnterOrder language={props.language} stockList={props.stockList}/>
+			)
 		case 'cashtransactionhistory':
 			return (
-				<CashTransactionHistory />
+				<CashTransactionHistory language={props.language} />
 			)
-		case 'oderjournal':
+		case 'orderjournal':
 			return (
-				<OrderJournal language={props.language.searchbar}/>
+				<OrderJournal language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

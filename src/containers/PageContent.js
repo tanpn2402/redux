@@ -9,40 +9,42 @@ class PageContent extends React.Component {
     }
 
     render () {
-        console.log('PageContent', this.props)
+        console.log('PageContent RENDER', this.props)
         return (
-            <div>
+            <div /*style={{ backgroundColor: '#000', height: '100%',}}*/ >
                 <BaseLayout 
                     language={this.props.language}
-                    layout={this.props.mvLayout[this.props.mvPage]} 
-                    /*onResize={this.onResize.bind(this)} 
-                    onResizeStart={this.onResizeStart.bind(this)}
-                    onResizeStop={this.onResizeStop.bind(this)}
-                    onDrag={this.onDrag.bind(this)} 
-                    onDragStart={this.onDragStart.bind(this)}
-                    onDragStop={this.onDragStop.bind(this)}
-                    onPinLayout={this.onPinLayout.bind(this)}
-                    onCloseLayout={this.onCloseLayout.bind(this)}*/
+                    layout={this.props.layout}
+                    page={[this.props.page]}
+                    title={this.props.title}
+                    stockList={this.props.stockList} 
+                    theme={this.props.theme}
                     >
                 </BaseLayout>
             </div>
         );
     }
 
+    componentDidMount(){
+        this.props.getStockIdList('vi')
+    }
+
     
 }
 
 const mapStateToProps = (state, props) => ({
-  mvLayout: state.menuSelected.tabList,
-  mvPage: state.menuSelected.page,
-  mvReload: state.menuSelected.reload
+  layout: state.menuSelected.tabList,
+  page: state.menuSelected.page,
+  reload: state.menuSelected.reload,
+  stockList: state.stock.stockList,
   
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onChangeLayout: (menuid,pageid, tabList, reload) => {
-        dispatch(actions.menuRemoved(menuid, pageid, tabList, reload))
-      },
+   
+    getStockIdList: (language) => {
+        dispatch(actions.stockSearch(language))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageContent)

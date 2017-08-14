@@ -1,28 +1,12 @@
-/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import '../css/style.css';
+import '../../css/App.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import moment from 'moment';
-
-const MyLargeModal = React.createClass({
-    render() {
-        return (
-            <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Wrapped Text</h4>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.props.onHide}>Close</Button>
-                </Modal.Footer>
-            </Modal>
-        );
-    }
-});
+import Popup from '../Popup';
+import { connect } from 'react-redux';
+import * as actions from '../../actions'
 
 class EnterOrder extends Component {
     constructor(props) {
@@ -31,13 +15,19 @@ class EnterOrder extends Component {
             formValues: {},
             startDate: moment(),
             isCheck: false,
-            lgShow: false,
-            isOkay: false,
+            json: {},
+            isShow: false,
         };
         //this.onSubmit = this.onSubmit.bind(this);
-        this.onChange =  this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.accountBalance();
+        this.props.stockInfo();
     }
 
     handleInputChange(event) {
@@ -56,134 +46,183 @@ class EnterOrder extends Component {
     }
 
     render() {
-        let lgClose = () => this.setState({ lgShow: false });
+        let lgClose = () => this.setState({ isShow: false });
         return (
-            <Form>
-                <FormGroup>
-                    <Table responsive bordered>
-                        <tbody className="enterorder">
-                            <tr>
-                                <th>Buy/Sell</th>
-                                <td>
-                                    <Radio name="radioGroup" inline required>
-                                        <div className="Radiobox">Buy</div>
-                                    </Radio>
-                                    <Radio name="radioGroup" inline >
-                                        <div className="Radiobox">Sell</div>
-                                    </Radio>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Buy all/Sell all</th>
-                                <td>
-                                    <Radio name="radioGroup" inline >
-                                        <div className="Radiobox">Buy</div>
-                                    </Radio>
-                                    <Radio name="radioGroup" inline >
-                                        <div className="Radiobox">Sell</div>
-                                    </Radio>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Stock</th>
-                                <td>
-                                    <input list="Stock" name="stock" required/>
-                                        <datalist id="Stock">
-                                            <option value="ACB"/>
-                                            <option value="VNM"/>
-                                            <option value="HKS"/>
-                                            <option value="PGS"/>
-                                            <option value="HSG"/>
+            <div id={'orderjournal-body'} className="layout-body">
+                <Form onSubmit={this.handleSubmit} id="form-enterorder">
+                    <FormGroup>
+                        <Table responsive >
+                            <tbody >
+                                <tr>
+                                    <th className="enterorder">Buy/Sell</th>
+                                    <td>
+                                        <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUY" }} required>
+                                            <div className="Radiobox">Buy</div>
+                                        </Radio>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "SELL" }}>
+                                            <div className="Radiobox">Sell</div>
+                                        </Radio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Buy all/Sell all</th>
+                                    <td>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUYALL" }}>
+                                            <div className="Radiobox">Buy</div>
+                                        </Radio>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "SELLALL" }}>
+                                            <div className="Radiobox">Sell</div>
+                                        </Radio>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Stock</th>
+                                    <td>
+                                        <input list="Stock" name="stock" id="mvStock" required />
+                                        <datalist id="Stock">{
+                                            this.props.stockList.map(e => {
+                                                return (<option value={e.stockCode}>{e.stockName}</option>)
+                                            })
+                                        }
+
                                         </datalist>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>% Lending</th>
-                                <td>0%</td>
-                            </tr>
-                            <tr>
-                                <th>Buying Power(Expected)</th>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th>Order Type</th>
-                                <td>
-                                    <input list="ordertype" name="ordertype" required/>
-                                    <datalist id="ordertype">
-                                        <option value="LO" />
-                                        <option value="ATC" />
-                                        <option value="MAK" />
-                                        <option value="MOK" />
-                                        <option value="MTL" />
-                                        <option value="LO(Odd Lot)" />
-                                    </datalist>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Volume</th>
-                                <td>
-                                    <input type="number" name="volume" onChange={this.onChange} required/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Price (x1000VND)</th>
-                                <td>
-                                    <input type="number" name="price" onChange={this.onChange} required/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Value (VND)</th>
-                                <td>
-                                    {this.calculate() || 0}
-                                </td> 
-                            </tr>
-                            <tr>
-                                <th>Net fee</th>
-                                <td>0.00</td>
-                            </tr>
-                            <tr>
-                                <th>Expiry date</th>
-                                <td className = "date">
-                                    <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange}/>
-                                    <DatePicker
-                                        selected={this.state.startDate}
-                                        onChange={this.handleChange}
-                                        disabled={!this.state.isCheck}
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </FormGroup>
-                <FormGroup>
-                    <div className="button">
-                        <Button className="btn btn-default" type="submit" onClick={() => this.setState({ lgShow: true })}>
-                            Submit
-                        </Button>
-                    </div>
-                    <div className="button">
-                        <Button className="btn btn-default" type="reset">
-                            Cancel
-                        </Button>
-                    </div>
-                    <br className="clear"/>
-                    
-                </FormGroup>
-                
-                {this.state.lgShow && <MyLargeModal show={this.state.lgShow} onHide={lgClose} />}
-                
-            </Form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Bank</th>
+                                    <td>
+                                        <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
+                                        <datalist id="Bank">
+                                            <option value="ACB-125137309" />
+                                        </datalist>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">% Lending</th>
+                                    <td>0%</td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Buying Power(Expected)</th>
+                                    <td>
+                                        <input type="hidden" id="mvBuyPower" value={this.props.account} />
+                                        {this.props.account}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Order Type</th>
+                                    <td>
+                                        <FormGroup controlId="mvOrderType">
+                                            <input id="mvOrderType" list="ordertype" name="ordertype" required />
+                                            <datalist id="ordertype">
+                                                <option value="LO" />
+                                                <option value="ATC" />
+                                                <option value="MAK" />
+                                                <option value="MOK" />
+                                                <option value="MTL" />
+                                                <option value="LO(Odd Lot)" />
+                                            </datalist>
+                                        </FormGroup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Volume</th>
+                                    <td>
+                                        <FormGroup controlId="mvVolume">
+                                            <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" required />
+
+                                        </FormGroup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Price (x1000VND)</th>
+                                    <td>
+                                        <FormGroup controlId="mvPrice">
+                                            <input type="number" min="0" name="price" onChange={this.onChange} id="mvPrice" required />
+                                        </FormGroup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Value (VND)</th>
+                                    <td>
+                                        <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
+                                        {this.calculate() || 0}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Net fee</th>
+                                    <td>0.00</td>
+                                </tr>
+                                <tr>
+                                    <th className="enterorder">Expiry date</th>
+                                    <td className="date">
+                                        <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange} value={this.state.startDate} />
+                                        <DatePicker
+                                            id="mvDate"
+                                            selected={this.state.startDate}
+                                            onChange={this.handleChange}
+                                            disabled={!this.state.isCheck}
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div className="button">
+                                            <Button className="btn btn-default" type="submit" className="submit">
+                                                Submit
+                                            </Button>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div className="button">
+                                            <Button className="btn btn-default" type="reset" className="cancel">
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
+
+                    </FormGroup>
+                    <FormGroup>
+
+
+                    </FormGroup>
+                    <Popup
+                        id='enterorder' 
+                        show={this.state.isShow} 
+                        onHide={lgClose} 
+                        json={this.state.json} 
+                        error={this.props.isError} 
+                        mvStockBean={this.props.mvStockBean} />
+                </Form>
+            </div>
         );
-        
+
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        var x = document.getElementById("form-enterorder");
+
+        for (var i = 0; i < x.length; i++) {
+            this.state.json[x.elements[i].id] = x.elements[i].value;
+        }
+        if (this.state.isCheck === false)
+            this.state.json.mvDate = null
+        this.props.checkPre(this.state.json, this.props.mvStockBalanceInfo, this.props.mvStockBean)
+        this.setState({ isShow: true })
     }
 
     onChange(e) {
         e.preventDefault();
         let formValues = this.state.formValues;
         let name = e.target.name;
-        let value = name === 'checkbox' ? e.target.checked : e.target.value;
+        let value = e.target.value;
 
         formValues[name] = value;
+        console.log(formValues);
         this.setState({ formValues })
     }
 
@@ -193,4 +232,25 @@ class EnterOrder extends Component {
     }
 }
 
-export default EnterOrder;*/
+const mapStateToProps = (state) => {
+    return {
+        account: state.enterOrder.account,
+        mvStockBalanceInfo: state.enterOrder.stockInfoList,
+        mvStockBean: state.enterOrder.stockInfoACB,
+        isError: state.enterOrder.isError,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    accountBalance: () => {
+        dispatch(actions.accountBalance())
+    },
+    stockInfo: () => {
+        dispatch(actions.stockInfo())
+    },
+    checkPre: (json, stockBalanceInfo, stockBeanInfo) => {
+        dispatch(actions.checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo))
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder);

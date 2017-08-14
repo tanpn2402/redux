@@ -19,25 +19,25 @@ export default class FooterPagination extends React.Component {
       <div className="row tabbar">
         <div className="col-md-12">
           <div className="right">
-            <ButtonGroup bsSize="small">
-              <Button id='1' bsStyle={ this.props.page === '1' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>1</Button>
-              <Button id='2' bsStyle={ this.props.page === '2' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>2</Button>
-              <Button id='3' bsStyle={ this.props.page === '3' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>3</Button>
-              <Button id='4' bsStyle={ this.props.page === '4' ? "primary" : 'default'}  bsSize='small' onClick={this.props.onPageClicked}>4</Button>
-            </ButtonGroup>
+            <div className="btn-group btn-group-sm" role="group" aria-label="...">
+              <button style={this.props.page === '1' ? this.props.theme.buttonClicked : this.props.theme.button} type="button" className={"btn btn-default"} id='1' onClick={this.props.onPageClicked}>1</button>
+              <button style={this.props.page === '2' ? this.props.theme.buttonClicked : this.props.theme.button} type="button" className={"btn btn-default"} id='2' onClick={this.props.onPageClicked}>2</button>
+              <button style={this.props.page === '3' ? this.props.theme.buttonClicked : this.props.theme.button} type="button" className={"btn btn-default"} id='3' onClick={this.props.onPageClicked}>3</button>
+              <button style={this.props.page === '4' ? this.props.theme.buttonClicked : this.props.theme.button} type="button" className={"btn btn-default"} id='4' onClick={this.props.onPageClicked}>4</button>
+            </div>
           </div>
           <ul className="nav nav-pills tab-list" role="tablist">
             {
 
-              this.tabList.map(id => {
+              this.tabList.map(tab => {
 
               return ( 
-                <li id={id} key={id}>
+                <li id={tab} key={tab}>
                   <a href="javascript:void(0);" role="tab" data-toggle="tab" 
                    className="customtab" >
-                    {id}
+                    {this.props.title[tab]}
                     <button
-                      id={id}
+                      id={tab}
                       className="close"
                       type="button"
                       title="Remove this page"
