@@ -16,7 +16,7 @@ export default function (menuid, props){
 			)
 		case 'oderjournal':
 			return (
-				<OrderJournal language={props.language}/>
+				<OrderJournal language={props.language} theme={props.theme}/>
 			)
 		default: return
 	}

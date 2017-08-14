@@ -2,7 +2,7 @@ const {ActionTypes} = require('../core/constants');
 const api = require('../api/api_change_language');
 
 const initialState = {
-  language: api.getContent(), // Loads default language content (en) as an initial state
+  language: api.getContent(), // Loads default language content (vi) as an initial state
   style: 'theme_brown',
 };
 

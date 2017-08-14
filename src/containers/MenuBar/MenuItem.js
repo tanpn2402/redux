@@ -20,12 +20,12 @@ export default class MenuItem extends React.Component {
             <ul className="nav navbar-nav" >
             {
                 this.props.menu_items.map(item => {
-                    var linkStyle;
-                    if (this.state.hover && item.id===this.state.focusID) {
-                        linkStyle = this.props.theme.onFocus
-                    } else {
-                        linkStyle = this.props.theme.normal
-                    }
+                var linkStyle;
+                if (this.state.hover && item.id===this.state.focusID) {
+                    linkStyle = this.props.theme.onFocus
+                } else {
+                    linkStyle = this.props.theme.normal
+                }
                 return (
                      <li className="dropdown">
                         <a  style={linkStyle} href="#" className="dropdown-toggle" id={item.id}

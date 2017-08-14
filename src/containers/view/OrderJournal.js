@@ -34,10 +34,10 @@ class OrderJournal extends Component {
               Cell: props =>{ 
                                 var child = []
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
-                                    child.push(<Button id="cancel-button" bsStyle="primary" bsSize="xsmall" type="button"
+                                    child.push(<Button style={this.props.theme.background} id="cancel-button" bsStyle="primary" bsSize="xsmall" type="button"
                                     onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
                                 if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
-                                    child.push(<Button bsStyle="primary" bsSize="xsmall" type="button" 
+                                    child.push(<Button style={this.props.theme.background} bsStyle="primary" bsSize="xsmall" type="button" 
                                     onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
                                     return (
                                         <span>
@@ -158,7 +158,7 @@ class OrderJournal extends Component {
         lgShow: false
         }
 
-        this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
+        this.buttonAction = [<Button style={this.props.theme.background} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
         this.popupType='none'
             
@@ -176,7 +176,9 @@ class OrderJournal extends Component {
                             language={this.props.language.searchbar} 
                             columns={this.state.columns}
                             onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                            param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}/>
+                            param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}
+                            theme={this.props.theme}
+                            />
                 <DataTable onRowSelected={this.onRowSelected.bind(this)} columns={this.state.columns} data={data}/>
                 <Popup 
                     show={this.state.lgShow} onHide={lgClose} 

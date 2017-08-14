@@ -43,9 +43,15 @@ export default class App extends React.Component {
           </Col>
           <Col xs={3} style={{ fontSize: '12px', textAlign: 'right', paddingRight: '5px', paddingTop: '1px',}}>
            
-            <span><Button onClick={this.props.switchLanguage.bind(this,'en')} bsStyle="default" bsSize="xsmall">Eng</Button>  
-            <Button bsStyle="default" bsSize="xsmall" onClick={this.props.switchLanguage.bind(this,'vi')}>Viet</Button>  
-            <Button bsStyle="primary" bsSize="xsmall">Logout</Button> </span>
+            <span>
+              <Button onClick={this.props.switchTheme.bind(this,'blue')} bsStyle="default" bsSize="xsmall">Blue</Button> 
+              <Button onClick={this.props.switchTheme.bind(this,'dark')} bsStyle="default" bsSize="xsmall">Dark</Button> 
+              <Button onClick={this.props.switchTheme.bind(this,'brown')} bsStyle="default" bsSize="xsmall">Brown</Button> 
+              <Button onClick={this.props.switchTheme.bind(this,'light')} bsStyle="default" bsSize="xsmall">Light</Button> 
+              <Button onClick={this.props.switchLanguage.bind(this,'en')} bsStyle="default" bsSize="xsmall">Eng</Button>  
+              <Button bsStyle="default" bsSize="xsmall" onClick={this.props.switchLanguage.bind(this,'vi')}>Viet</Button>  
+              <Button bsStyle="primary" bsSize="xsmall">Logout</Button> 
+            </span>
    
             <div><strong>077C086378</strong></div>
             <div><strong>Nguyễn Văn Sự</strong></div>

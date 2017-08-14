@@ -148,7 +148,7 @@ class SearchBar extends React.Component {
           <FormControl type="text" />
         </FormGroup>
         
-        <Button bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>Tìm kiếm</Button>
+        <Button style={this.props.theme.background} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>Tìm kiếm</Button>
 
         <FormGroup bsClass="form-group dropdowncheckbox">
           <DropdownCheckBox columns={this.props.columns} onChangeStateColumn={this.props.onChangeStateColumn}/>

@@ -42,7 +42,7 @@ class MenuBar extends React.Component {
             link: ""
           },
           {
-            id: "porfolio",
+            id: "portfolio",
             text: "portfolio",
             link: ""
           },
@@ -56,7 +56,6 @@ class MenuBar extends React.Component {
             text: "orderconfirm",
             link: ""
           },
-
         ]
       },
       {
@@ -201,7 +200,7 @@ class MenuBar extends React.Component {
               language={this.props.language} 
               onMenuSelected={this.onMenuSelected.bind(this)}/>
               <ul className="nav navbar-nav navbar-right">
-                <li><a style={this.props.theme.textcolor} href="#">{this.props.language.savelayout}</a></li>
+                <li><a style={this.props.theme.normal} href="#">{this.props.language.savelayout}</a></li>
               </ul>
             </div>
           </div>
@@ -211,6 +210,7 @@ class MenuBar extends React.Component {
             page={this.props.pageId}
             onRemove={this.onRemove.bind(this)}
             onPageClicked={this.onPageClicked.bind(this)}
+            theme={this.props.theme}
         />  
       </div>
     );
