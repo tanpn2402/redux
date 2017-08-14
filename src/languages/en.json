@@ -7,7 +7,7 @@
         "enterorder": "Enter Order",
         "stockmarketinform": "Stock Market Inform",
         "watchlist": "Watch List",
-        "oderjournal": "Oder Journal",
+        "orderjournal": "Oder Journal",
         "accountno": "Account No",
         "portfolio": "Portfolio",
         "account": "Account",
@@ -27,9 +27,7 @@
         "help": "Help",
         "available": "Available",
         "defaultgroup": "Default Group",
-        "savelayout": "Save Layout",
-        "techanalysis": "Technical Analysis",
-        "orderconfirm": "Order Confirmation"
+        "savelayout": "Save Layout"
       },
       "pagecontent": {
           "searchbar": {
@@ -76,9 +74,7 @@
               "bankid": "Bank ID",
               "expirydate": "Expiry Date",
               "rejectreason": "Reject Reason",
-              "time": "Time",
-              "stockid": "Stock ID",
-              "buysell": "Buy/Sell"
+              "time": "Time"
           }
       }
     }

@@ -14,9 +14,9 @@ export default function (menuid, props){
 			return (
 				<CashTransactionHistory />
 			)
-		case 'oderjournal':
+		case 'orderjournal':
 			return (
-				<OrderJournal language={props.language} theme={props.theme}/>
+				<OrderJournal language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

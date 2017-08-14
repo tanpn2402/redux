@@ -1,21 +1,21 @@
 export default {
   background: {
-    backgroundColor: '#fff',
-    color: '#444'
+    backgroundColor: '#FFFAFA',
+    color: '#79CDCD'
   },
   normal: {
-      color: "#FFDAB9",
+      color: "#0000FF",
   },
   onFocus:{
-    backgroundColor:"#FFFACD",
-    color: "#8B7765"
+    backgroundColor:"#C1CDC1",
+    color: "#0000FF"
   },
   button:{
-    backgroundColor:"#FFFACD",
-    color: "#8B7765"
+    backgroundColor:"#FFFAFA",
+    color: "#0000FF"
   },
   buttonClicked:{
-    backgroundColor:"#8B7765",
-    color: "#FFFACD"
+    backgroundColor:"#0000FF",
+    color: "#FFFAFA"
   }
 }

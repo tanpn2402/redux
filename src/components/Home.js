@@ -12,18 +12,19 @@ class Home extends Component {
     // }
 
     componentWillMount(){
-        //this.theme = require('../themes/' + this.props.theme)
+       // this.theme = require('../themes/' + this.props.theme)
         //console.log(this.theme)
     }
 
     render() {
         //let { authenticated, user } = this.props
+        console.log(this.props.language)
         this.theme = require('../themes/' + this.props.theme)
         return (
             <div>
                 <Header theme={this.theme.default} switchLanguage={this.props.switchLanguage} switchTheme={this.props.switchTheme}/>
                 <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent}/>
+                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent} title={this.props.language.page.menu}/>
             {/* <ul>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>

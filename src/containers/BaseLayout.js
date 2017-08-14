@@ -2,6 +2,9 @@ import React from 'react'
 import "react-table/react-table.css"
 import $ from 'jquery'
 import generateWindow from './view'
+import config from '../core/config'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 var _ = require('lodash');
@@ -14,55 +17,61 @@ class BaseLayout extends React.Component {
     constructor () {
         super()
         console.log("BaseLayout constructor")
-
-        this.layout = []
-
-        this.style = {
-            height: '100%',
-            width: '100%',
+        this.state= {
+            reload: false,
+            layout: []
         }
     }
 
     generateChild(menuid){
-       
+        //console.log(this.layout[menuid])
+        const layout = this.state.layout
+        console.log(layout)
         return (
-            <div key={menuid} data-grid={{x: this.layout[menuid]['x'], y: this.layout[menuid]['y'], w: this.layout[menuid]['w'], h: this.layout[menuid]['h'], minW: this.layout[menuid]['minW'], minH: this.layout[menuid]['minH'], maxW: this.layout[menuid]['maxW'], maxH: this.layout[menuid]['maxH'], static: false}}>
+            <div key={menuid} 
+                data-grid={{x: layout[menuid]['x'], y: layout[menuid]['y'], w: layout[menuid]['w'], 
+                    h: layout[menuid]['h'], minW: layout[menuid]['minW'], minH: layout[menuid]['minH'], 
+                    maxW: layout[menuid]['maxW'], maxH: layout[menuid]['maxH'], static: layout[menuid]['static']}}>
+
                 <div className="child-grid-header" >
-                    <div className="col-md-8 window-title">
-                        <span>{menuid}</span>
-                    </div>
-                    <div className="col-md-4 window-action">
+                        {this.props.title[menuid]}
                         <ul className="btn-action">
-                            <li className="btn-pin"><a href="javascript:void(0);" id={menuid}  onClick={this.onPinLayout.bind(this)} >!</a></li>
-                            <li className="btn-close"><a href="javascript:void(0);" id={menuid} onClick={this.onCloseLayout.bind(this)} >x</a></li>
+                            <li>
+                                <a href="javascript:void(0);"   onClick={e => this.onPinLayout(menuid)} >
+                                    <span className="glyphicon glyphicon-pushpin"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" onClick={e => this.onCloseLayout(menuid)} >
+                                    <span className="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </li>
                         </ul>
-                    </div>
+                        
                 </div>
                 <div id={menuid + '-main'} className="child-grid-body" >
-                        <div id={menuid + '-body'} className="layout-body">
-                            {
-
-                                generateWindow(menuid, this.props)
-                            }
-                        </div>
+                        {
+                            generateWindow(menuid, this.props)
+                        }
+                        
                 </div>
             </div>
         )
     }
 
     generateDOM(p){
-        console.log(this.props)
         var child = [];
-        console.log(p)
-        if(p == undefined)
+        if(p === undefined)
             return
        
         for (var i = 0; i < p.length; i += 1) {
+            if(this.state.layout[p[i]] === undefined )
+            {
+                console.log('load from default layout')
+                this.state.layout[p[i]] = config.layoutdefault[p[i]]
+            }
             
-            if(this.layout[p[i]] === undefined )
-                this.layout[p[i]] = {i: p[i], x:0, y:0, w: 25, h: 15, minW: 25, minH: 15, maxW: 30, maxH: 15};
-
-            console.log(this.layout)
+            console.log('accc', this.state.layout[p[i]])
             child.push( this.generateChild(p[i]) );
             
         };
@@ -74,44 +83,67 @@ class BaseLayout extends React.Component {
     onDragStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
                      placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
 
-        this.layout[newItem.i] = newItem
+        const _layout = this.state.layout
+        _layout[newItem.i] = newItem
+        this.setState(layout: _layout)
     }
 
     onResizeStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
                      placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
         this.layout[newItem.i] = newItem
-
-        var mainH = $('#' + newItem.i + '-main').height()
-        var bodyH = mainH - 70;
-        $('#' + newItem.i + '-body').height(bodyH)
-
-        console.log('onResizeStop', $('#' + newItem.i + '-main').height()    )
+        
+        if(document.getElementById(newItem.i + '-table') !== null){
+            document.getElementById(newItem.i + '-body').style.height = newItem.h * 39 - 25 + 'px'
+            document.getElementById(newItem.i + '-table').style.height = 
+                document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
+        }
     }
 
     onResize(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
                      placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
         this.layout[newItem.i] = newItem
 
-        var mainH = $('#' + newItem.i + '-main').height()
-        var bodyH = mainH - 70;
-        $('#' + newItem.i + '-body').height(bodyH)
-
-        console.log('onResize', $('#' + newItem.i + '-main').height()    )
+        if(document.getElementById(newItem.i + '-table') !== null){
+            document.getElementById(newItem.i + '-body').style.height = 
+                document.getElementById('orderjournal-main').offsetHeight - 25 + 'px'
+            
+            document.getElementById(newItem.i + '-table').style.height = 
+                document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
+        }
     }
 
-    onPinLayout(e){
-        //this.layout[e.target.id]['static'] = !this.layout[e.target.id]['static']
+    onPinLayout(menuid){
+        //console.log(menuid)
+        /*console.log(this.layout)
+        this.layout[menuid]['static'] = !this.layout[menuid]['static']
+        this.setState({reload: !this.state.reload});
+        console.log(this.layout)*/
+        console.log('onPinLayout ---', this.state.layout)
+        var _layout = this.state.layout
+        var temp = this.state.layout[menuid].static
+        _layout[menuid].static = !temp
+         this.setState({layout: _layout})
+
+        console.log('onPinLayout',this.state.layout)
     }
 
-    onCloseLayout(e){
-        /*this.setState({
-            mvLayout: this.state.mvLayout.filter(el => el.i !== e.target.id)
-        });*/
+    onCloseLayout(menuid){
+        this.props.onRemoveTab(menuid, this.props.page, this.props.layout, true)
     }
 
 
     onLayoutChange(layout){
         console.log('onLayoutChange', layout);
+        
+        /*for(var i = 0; i < layout.length; i++){
+            console.log('123')
+            if(document.getElementById(layout[i].i + '-table') !== null){
+                console.log(layout[i].h)
+                document.getElementById(layout[i].i + '-body').style.height = layout[i].h * 39 - 25 + 'px'
+                document.getElementById(layout[i].i + '-table').style.height = 
+                    document.getElementById(layout[i].i + '-body').offsetHeight - 65 + 'px'
+            }
+        }*/
 
     }
 
@@ -119,11 +151,14 @@ class BaseLayout extends React.Component {
         //console.log('sdasdsa', $('#abc').height()    )
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
         //console.log('sdasdsa', $('#abc').height()    )
+
+        
     }
     render () {
-        //console.log(this.props.layout);
+        console.log('render in BaseLayout');
+        const layout = this.props.layout[this.props.page]
         return (
 
             <ReactGridLayout className="layout" cols={30} rowHeight={30} width={1320} 
@@ -135,10 +170,18 @@ class BaseLayout extends React.Component {
                 onDragStop={this.onDragStop.bind(this)}
                 onLayoutChange={this.onLayoutChange}
                 >
-                {this.generateDOM(this.props.layout)}
+                {this.generateDOM(layout)}
             </ReactGridLayout>
         );
     }
 }
+const mapStateToProps = (state, props) => ({
+})
 
-export default BaseLayout;
+const mapDispatchToProps = (dispatch, props) => ({
+    onRemoveTab: (menuid,pageid, tabList, reload) => {
+        dispatch(actions.menuRemoved(menuid, pageid, tabList, reload))
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

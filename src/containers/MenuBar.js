@@ -5,146 +5,12 @@ import PageContent from "./PageContent";
 import FooterPagination from "./FooterPagination";
 import MenuItem from "./MenuBar/MenuItem"
 import ToggleButton from './MenuBar/ToggleButton'
-
+import config from '../core/config'
 
 class MenuBar extends React.Component {
   constructor(props) {
     super(props)
-    this.menuitem = [
-      {
-        id: "tradingplatform",
-        text: "tradingplatform",
-        link: "",
-        subitems: [
-          {
-            id: "enterorder",
-            text: "enterorder",
-            link: ""
-          },
-          {
-            id: "stockmarketinform",
-            text: "stockmarketinform",
-            link: ""
-          },
-          {
-            id: "watchlist",
-            text: "watchlist",
-            link: ""
-          },
-          {
-            id: "oderjournal",
-            text: "oderjournal",
-            link: ""
-          },
-          {
-            id: "accountno",
-            text: "accountno",
-            link: ""
-          },
-          {
-            id: "portfolio",
-            text: "portfolio",
-            link: ""
-          },
-          {
-            id: "techanalysis",
-            text: "techanalysis",
-            link: ""
-          },
-          {
-            id: "orderconfirm",
-            text: "orderconfirm",
-            link: ""
-          },
-        ]
-      },
-      {
-        id: "account",
-        text: "account",
-        link: "",
-        subitems: [
-          {
-            id: "matchingordershistory",
-            text: "matchingordershistory",
-            link: ""
-          },
-          {
-            id: "cashtransactionhistory",
-            text: "cashtransactionhistory",
-            link: ""
-          },
-          {
-            id: "cashstatement",
-            text: "cashstatement",
-            link: ""
-          },
-          {
-            id: "stockstatement",
-            text: "stockstatement",
-            link: ""
-          },
-          {
-            id: "marginloanstatement",
-            text: "marginloanstatement",
-            link: ""
-          },
-          {
-            id: "personalprofile",
-            text: "personalprofile",
-            link: ""
-          }
-        ]
-      },
-      {
-        id: "otherservice",
-        text: "otherservice",
-        link: "",
-        subitems: [
-          {
-            id: "cashtransfer",
-            text: "cashtransfer",
-            link: ""
-          },
-          {
-            id: "cashadvance",
-            text: "cashadvance",
-            link: ""
-          },
-          {
-            id: "cashadvance(bank)",
-            text: "cashadvance(bank)",
-            link: ""
-          },
-          {
-            id: "oddlottrading",
-            text: "oddlottrading",
-            link: ""
-          },
-          {
-            id: "entitlement",
-            text: "entitlement",
-            link: ""
-          },
-          {
-            id: "loanrefund",
-            text: "loanrefund",
-            link: ""
-          }
-        ]
-      },
-      {
-        id: "help",
-        text: "help",
-        link: "",
-        subitems: [
-          {
-            id: "available",
-            text: "available",
-            link: ""
-          }
-        ]
-      }
-    ];
+    this.menuitem = config.menu_items
   }
   
   onRemove(e) {
@@ -187,7 +53,7 @@ class MenuBar extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    console.log('menu bar',  this.props);
     return (
       <div>
         <nav className="navbar navbar-default" style={this.props.theme.background}>
@@ -210,6 +76,7 @@ class MenuBar extends React.Component {
             page={this.props.pageId}
             onRemove={this.onRemove.bind(this)}
             onPageClicked={this.onPageClicked.bind(this)}
+            title={this.props.language}
             theme={this.props.theme}
         />  
       </div>
@@ -220,7 +87,7 @@ class MenuBar extends React.Component {
 const mapStateToProps = state => ({
   tabList: state.menuSelected.tabList,
   pageId: state.menuSelected.page,
-  reload: state.menuSelected.reload
+  reload: state.menuSelected.reload,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

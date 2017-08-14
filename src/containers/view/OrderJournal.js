@@ -4,7 +4,8 @@ import SearchBar from '../SearchBar'
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Popup from '../Popup';
+import Footer from '../DataTableFooter'
+import Popup from '../Popup'
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -14,13 +15,13 @@ class OrderJournal extends Component {
             columns : [
             {
               id: 'cb',
-              Header: props => <input id="orderjounal-cb-all" type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+              Header: props => <input id="orderjournal-cb-all" type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
               maxWidth: 50,
               width: 40,
               Cell: props => { 
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
                                     return (
-                                        <input type='checkbox' className="orderjounal-row-checkbox"
+                                        <input type='checkbox' className="orderjournal-row-checkbox"
                                             onChange={() => { this.onRowSelected(props.original)}} />
                                     ) 
                              },
@@ -34,11 +35,11 @@ class OrderJournal extends Component {
               Cell: props =>{ 
                                 var child = []
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
-                                    child.push(<Button style={this.props.theme.background} id="cancel-button" bsStyle="primary" bsSize="xsmall" type="button"
-                                    onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
+                                    child.push(<Button style={this.props.theme.buttonClicked} bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button" 
+				                        onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
                                 if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
-                                    child.push(<Button style={this.props.theme.background} bsStyle="primary" bsSize="xsmall" type="button" 
-                                    onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
+                                    child.push(<Button style={this.props.theme.buttonClicked} bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
+				                        onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
                                     return (
                                         <span>
                                             {
@@ -155,32 +156,42 @@ class OrderJournal extends Component {
             },
 
             ],
-        lgShow: false
+            lgShow: false
         }
 
-        this.buttonAction = [<Button style={this.props.theme.background} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
+        this.buttonAction = [<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
-        this.popupType='none'
-            
+	    this.popupType='none'
     }
 
   
     render() {
-        console.log('render in OrderJournal', this.props.language.tableheader.stockid)
+        console.log('render in OrderJournal', this.props.data)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
-        let lgClose = () => this.setState({ lgShow: false });
+        var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
+	    let lgClose = () => this.setState({ lgShow: false })
+
+        console.log('dasdsaddsaad', this.props.modifyData)
         return (
-            <div>
-                <SearchBar  buttonAction={this.buttonAction} 
-                            stockList={this.props.stockSearchList} 
-                            language={this.props.language.searchbar} 
-                            columns={this.state.columns}
-                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                            param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}
-                            theme={this.props.theme}
-                            />
-                <DataTable onRowSelected={this.onRowSelected.bind(this)} columns={this.state.columns} data={data}/>
-                <Popup 
+            <div id={'orderjournal-body'} className="layout-body">
+                <SearchBar
+                    onSearch={this.onSearch.bind(this)}
+                    buttonAction={this.buttonAction} 
+                    stockList={this.props.stockList} 
+                    language={this.props.language.searchbar} 
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}
+                    theme={this.props.theme}
+                    />
+                <DataTable
+                    id="orderjournal-table" 
+                    onRowSelected={this.onRowSelected.bind(this)} 
+                    columns={this.state.columns} 
+                    data={data}/>
+
+                <Footer page={page} onPageChange={this.onPageChange.bind(this)}/>
+		        <Popup 
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
                     popupType={this.popupType} modifyData={this.props.modifyData}/>
@@ -193,6 +204,7 @@ class OrderJournal extends Component {
         console.log(param)
         this.rowSelected=[]
         this.rowSelected.push(param)
+        console.log(this.rowSelected, 'ádads')
         this.showPopup();
         
     }
@@ -206,8 +218,8 @@ class OrderJournal extends Component {
 
     onRowSelected(param){
         if(param === 'ALL'){
-            var current = document.getElementById('orderjounal-cb-all').checked
-            var  checkboxes = document.getElementsByClassName('orderjounal-row-checkbox')
+            var current = document.getElementById('orderjournal-cb-all').checked
+            var  checkboxes = document.getElementsByClassName('orderjournal-row-checkbox')
             for(var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked=current;
             }
@@ -226,10 +238,10 @@ class OrderJournal extends Component {
                 this.rowSelected.splice(index, 1)
             }
 
-            if(document.getElementsByClassName("orderjounal-row-checkbox").length === this.rowSelected.length)
-                document.getElementById("orderjounal-cb-all").checked = true
+            if(document.getElementsByClassName("orderjournal-row-checkbox").length === this.rowSelected.length)
+                document.getElementById("orderjournal-cb-all").checked = true
             else
-                document.getElementById("orderjounal-cb-all").checked = false
+                document.getElementById("orderjournal-cb-all").checked = false
         }
         console.log('onRowSelected', this.rowSelected)
     }
@@ -240,7 +252,7 @@ class OrderJournal extends Component {
             lgShow: true
         });
         this.popupType= 'CANCELORDER'
-        //console.log('onCancelOrder', this.rowSelected)
+        console.log('onCancelOrder', this.rowSelected)
     }
 
     onChangeStateColumn(e){
@@ -248,15 +260,26 @@ class OrderJournal extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         });
+
+        //console.log(this.state.columns)
+    }
+
+    onPageChange(pageIndex){
+        console.log('orderjournal onPageChange', pageIndex)
+    }
+
+    onSearch(param){
+        console.log('orderjournal onSearch', param)
+        this.props.onSearch(param, !this.props.reload)
     }
 
 
 }
 const mapStateToProps = (state) => {
   return {
-    stockSearchList: state.orderjounal.stockSearchList,
-    data: state.orderjounal.data,
-    modifyData: state.orderjounal.dataresult,
+    data: state.orderjournal.data,
+    reload: state.orderjournal.reload,
+    modifyData: state.orderjournal.dataresult,
   }
 }
 
@@ -264,6 +287,11 @@ const mapDispatchToProps = (dispatch, props) => ({
   onCancelOrder: (param) => {
     dispatch(actions.cancelOrder(param))
   },
+
+  onSearch: (param, reload) => {
+    dispatch(actions.enquiryOrder(param, reload))
+  },
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderJournal)

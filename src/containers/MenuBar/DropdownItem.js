@@ -14,7 +14,7 @@ export default class DropdownItem extends React.Component {
         this.setState({hover: !this.state.hover, focusID: e.target.id})
     }
     render(){
-        console.log(this.props)
+        console.log('DropdownItem', this.props)
         return (
             <ul className="dropdown-menu" style={this.props.theme.background} 
             onSelect={this.props.onMenuSelected}>

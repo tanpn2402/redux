@@ -51,7 +51,7 @@ class DropdownCheckBox extends React.Component {
   render() {
     return (
       <div className="dropdown-container">
-        <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}>s</div>
+        <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}><span className="glyphicon glyphicon-th-list"></span></div>
         <div className={"dropdown-list " + (this.state.listVisible ? "show": "hide")}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}>

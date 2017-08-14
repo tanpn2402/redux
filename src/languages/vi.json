@@ -6,7 +6,7 @@
         "enterorder": "Đặt lệnh giao dịch",
         "stockmarketinform": "Thông tin chứng khoán",
         "watchlist": "Danh mục quan tâm",
-        "oderjournal": "Tra cứu lệnh giao dịch",
+        "orderjournal": "Tra cứu lệnh giao dịch",
         "accountno": "Thông tin tài khoản",
         "portfolio": "Danh mục đầu tư",
         "account": "Tài khoản",
@@ -26,9 +26,7 @@
         "help": "Giúp đỡ",
         "available": "Danh mục chứng khoán ký quỹ",
         "defaultgroup": "Danh sách cửa sổ hệ thống",
-        "savelayout": "Lưu cách trình bày",
-        "techanalysis": "Technical Analysis",
-        "orderconfirm": "Order Confirmation"
+        "savelayout": "Lưu cách trình bày"
       },
       "pagecontent": {
         "searchbar": {

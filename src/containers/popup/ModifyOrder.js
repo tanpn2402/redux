@@ -122,7 +122,7 @@ class ModifyOrder extends Component{
 }
 const mapStateToProps = (state) => {
   return {
-      result: state.orderjounal.result,
+      result: state.orderjournal.result,
   }
 }
 

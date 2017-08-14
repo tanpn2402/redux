@@ -118,8 +118,8 @@ class CancelOrder extends Component{
 }
 const mapStateToProps = (state) => {
   return {
-    returnCode: state.orderjounal.returnCode,
-    message: state.orderjounal.message,
+    returnCode: state.orderjournal.returnCode,
+    message: state.orderjournal.message,
   }
 }
 
