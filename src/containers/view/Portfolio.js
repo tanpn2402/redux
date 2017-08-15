@@ -8,229 +8,220 @@ import Footer from '../DataTableFooter'
 class Portfolio extends Component {
 	constructor(props) {
      	super(props)
+
      	this.state= {
 	     	columns : [
 		    {
-		        Header: 'STT',
+		        Header: 'Ord',
 		        accessor: 'STT',
 		        maxWidth: 50
 		    },
 		    {
-		        Header: 'Mã CK',
+		        Header: this.props.language.portfolio.header.mvStockID,
 		        accessor: 'mvStockID',
 		        maxWidth: 60
 		    },
 		    {
-		        Header: 'Khối lượng',
+		        Header: 'Volume',
 		        headerClassName: 'volume',
 		        columns: [{
-		          	Header: 'Tổng khối lượng',
+		          	Header: this.props.language.portfolio.header.mvTradableQty,
 		          	accessor: 'mvTradableQty',
 		        }, {
-		          	Header: 'Số dư GD',
+		          	Header: this.props.language.portfolio.header.mvTSettled,
 		          	accessor: 'mvTSettled'
 		        }, {
-		          	Header: 'Số dư khoanh giữ',
-		          	accessor: 'mvHoldingAmt' // not sure
+		          	Header: this.props.language.portfolio.header.mvHoldingAmt,
+		          	accessor: 'mvHoldingAmt' //not sure
 		        }, {
-		          	Header: 'Mua T0',
+		          	Header: this.props.language.portfolio.header.mvQueuingBuy,
 		          	accessor: 'mvQueuingBuy' //not sure
 		        }, {
-		          	Header: 'Mua T1',
+		          	Header: this.props.language.portfolio.header.mvTT1UnsettleBuy,
 		          	accessor: 'mvTT1UnsettleBuy' // not sure
 		        }, {
-		          	Header: 'Mua T2',
+		          	Header: this.props.language.portfolio.header.mvTDueBuy,
 		          	accessor: 'mvTDueBuy'
 		        }, {
-		          	Header: 'Cầm cố',
+		          	Header: this.props.language.portfolio.header.mvTMortgageQty,
 		          	accessor: 'mvTMortgageQty'
 		        }, {
-		          	Header: 'Phong tỏa (BT+DK)',
-		          	accessor: 'conditionalHold' //not sure
+		          	Header: this.props.language.portfolio.header.mvTManualHold,
+		          	accessor: 'mvTManualHold'
 		        }, {
-		          	Header: 'Chờ THQ',
+		          	Header: this.props.language.portfolio.header.mvTEntitlementQty,
 		          	accessor: 'mvTEntitlementQty'
 		        }, {
-		          	Header: 'Chờ giao dịch',
+		          	Header: this.props.language.portfolio.header.mvTAwaitingTraceCert,
 		          	accessor: 'mvTAwaitingTraceCert'
 		        }, {
-		          	Header: 'Chờ lưu kí',
+		          	Header: this.props.language.portfolio.header.mvTAwaitingDepositCert,
 		          	accessor: 'mvTAwaitingDepositCert'
 		        }, {
-		          	Header: 'Chờ rút',
+		          	Header: this.props.language.portfolio.header.mvTAwaitingWithdrawalCert,
 		          	accessor: 'mvTAwaitingWithdrawalCert'
 		        }]
 		    },
 		    {
-		        Header: 'Giá',
+		        Header: 'Price',
 		        headerClassName: 'price',
 		        columns: [{
-		          	Header: 'Giá TB',
+		          	Header: this.props.language.portfolio.header.mvAvgPrice,
 		          	accessor: 'mvAvgPrice'
 		        }, {
-		          	Header: 'Giá hiện tại',
+		          	Header: this.props.language.portfolio.header.mvMarketPrice,
 		          	accessor: 'mvMarketPrice'
 		        }]
 		    },
 		    {
-		        Header: 'Đánh giá danh mục',
+		        Header: 'Pofolio assessment',
 		        headerClassName: 'rate',
 		        columns: [{
-		          	Header: 'Giá trị mua',
+		          	Header: this.props.language.portfolio.header.mvWAC,
 		          	accessor: 'mvWAC'
 		        }, {
-		          	Header: 'Giá trị thị trường',
+		          	Header: this.props.language.portfolio.header.mvMarketValue,
 		          	accessor: 'mvMarketValue'
 		        }, {
-		          	Header: 'Lãi/Lỗ',
+		          	Header: this.props.language.portfolio.header.mvPL,
 		          	accessor: 'mvPL'
 		        }, {
-		          	Header: '% Lãi/Lỗ',
+		          	Header: this.props.language.portfolio.header.mvPLPercent,
 		          	accessor: 'mvPLPercent'
 		        }]
 		    },
 		    {
-		        Header: '(%) Ký quỹ',
+		        Header: '(%) Margin',
 		        headerClassName: 'deposit',
 		        columns: [{
-		          	Header: '% Cho vay',
+		          	Header: this.props.language.portfolio.header.mvMarginPercentage,
 		          	accessor: 'mvMarginPercentage'
 		        }, {
-		          	Header: 'Giá trị vay',
+		          	Header: this.props.language.portfolio.header.mvMartginValue,
 		          	accessor: 'mvMartginValue'
 		        }, {
-		          Header: '% Đảm báo',
+		          Header: this.props.language.portfolio.header.maintenancePercentage,
 		          accessor: 'maintenancePercentage'
 		        }, {
-		          Header: 'Giá trị đảm bảo',
+		          Header: this.props.language.portfolio.header.maintenanceValue,
 		          accessor: 'maintenanceValue'
 		        }]
 		    }],
 
-		    header1: ['Tổng quan', 'Giá trị (VND)'],
-		    header2: ['Thông tin tài khoản tiền', 'Giá trị (VND)'],
-		    header3: ['Đánh giá tài sản', 'Giá trị (VND)'],
-		    header4: ['Trạng thái kí quỹ', 'Giá trị'],
+		    header1: ['Sumary', 'Value (VND)'],
+		    header2: ['Cash information', 'Value(VND)'],
+		    header3: ['Portfolio assessment', 'Value(VND)'],
+		    header4: ['Margin position', 'Values'],
 
 		    title1: [
 			    {
-	            	Header: 'Tổng tài sản',
+	            	Header: this.props.language.portfolio.header.totalAsset,
 	            	accessor: 'totalAsset',
 	          	}, {
-	            	Header: 'Tài sản thực có',
+	            	Header: this.props.language.portfolio.header.equity,
 	            	accessor: 'equity'
 	          	}, {
-	            	Header: 'Tổng giá trị chứng khoán',
+	            	Header: this.props.language.portfolio.header.stockValue,
 	            	accessor: 'stockValue'
 	          	}, {
-	            	Header: 'Lãi/Lỗ',
+	            	Header: this.props.language.portfolio.header.profitLoss,
 	            	accessor: 'profitLoss'
 	          	}, {
-	            	Header: '% Lãi/lỗ (trên tài sản thực có)',
+	            	Header: this.props.language.portfolio.header.PLPercent,
 	            	accessor: 'PLPercent'
 	          	},
-	          	/*{
-	            	Header: 's ',
-	            	accessor: ' '
-	          	}, {
-	            	Header: ' d',
-	            	accessor: ' '
-	          	}, {
-	            	Header: ' f',
-	            	accessor: ' '
-	          	}*/
           	],
 		    title2: [
 			    {
-		            Header: 'Số dư tiền mặt',
+		            Header: this.props.language.portfolio.header.cashBalance,
 		            accessor: 'cashBalance'
 	          	}, {
-		            Header: 'Số dư ứng trước',
+		            Header: this.props.language.portfolio.header.mvAvailAdvanceMoney,
 		            accessor: 'mvAvailAdvanceMoney'
 	          	}, {
-		            Header: 'Tiền mua CK đã khớp',
-		            accessor: 'aaa1' //not
+		            Header: this.props.language.portfolio.header.mvBuyHoldAmount,
+		            accessor: 'mvBuyHoldAmount'
 	          	}, {
-		            Header: 'Tiền mua CK chờ khớp',
-		            accessor: 'aaa2' // chưa tìm dc
+		            Header: this.props.language.portfolio.header.mvHoldAmount,
+		            accessor: 'mvHoldAmount'
 	          	}, {
-		            Header: 'Tiền(rút, chuyển khoản) chờ duyệt',
+		            Header: this.props.language.portfolio.header.CPendingWithdrawal,
 		            accessor: 'CPendingWithdrawal'
 	          	}, {
-		            Header: 'Tiền bán T+0',
-		            accessor: 'aaa3' //chưa dc
+		            Header: this.props.language.portfolio.header.soldT0,
+		            accessor: 'soldT0'
 	          	}, {
-		            Header: 'Tiền bán T+1',
-		            accessor: 'CDueSell'
+		            Header: this.props.language.portfolio.header.soldT1,
+		            accessor: 'soldT1'
 	          	}, {
-		            Header: 'Tiền bán T+2',
-		            accessor: 'aaa4' //chưa dc
+		            Header: this.props.language.portfolio.header.soldT2,
+		            accessor: 'soldT2'
 	          	}
           	],
 		    title3: [
 			    {
-		            Header: 'Tổng tài sản đảm bảo',
+		            Header: this.props.language.portfolio.header.equityMar,
 		            accessor: 'equityMar'
 	          	}, {
-		            Header: 'Vốn thực có',
+		            Header: this.props.language.portfolio.header.totalAssetMaintenance,
 		            accessor: 'totalAssetMaintenance'
 	          	}, {
-		            Header: 'Giá trị chứng khoán đảm bảo',
+		            Header: this.props.language.portfolio.header.stockMaintenance,
 		            accessor: 'stockMaintenance'
 	          	}, {
-		            Header: 'Giá trị tiền mặt đảm bảo',
+		            Header: this.props.language.portfolio.header.cashMaintenance,
 		            accessor: 'cashMaintenance'
 	          	}, {
-		            Header: 'Dư nợ kí quỹ',
-		            accessor: 'aaa5' //chưa dc
+		            Header: this.props.language.portfolio.header.mvOutstandingLoan,
+		            accessor: 'mvOutstandingLoan'
 	          	}, {
-		            Header: 'Tăng nợ do lệnh mua',
-		            accessor: 'aaa6' //chưa dc
+		            Header: this.props.language.portfolio.header.debtIncByPurchase,
+		            accessor: 'debtIncByPurchase'
 	          	}, {
-		            Header: 'Lãi vay cộng dồn',
-		            accessor: 'aaa7' //chưa dc
+		            Header: this.props.language.portfolio.header.debitAccruedInterest,
+		            accessor: 'debitAccruedInterest'
 	          	}, {
-		            Header: 'Hạn mức tín dụng',
-		            accessor: 'aaa8' //chưa dc
+		            Header: this.props.language.portfolio.header.mvCreditLimit,
+		            accessor: 'mvCreditLimit'
 	          	}
           	],
 		    title4: [
 			    {
-		            Header: 'Khả năng vay kí quỹ',
-		            accessor: 'aaa9' //not
+		            Header: this.props.language.portfolio.header.lendableValue,
+		            accessor: 'lendableValue'
           		}, {
-		            Header: 'Tỉ lệ kí quỹ tối thiểu bắt buộc',
-		            accessor: 'aaa10' //not
+		            Header: this.props.language.portfolio.header.minMarginReq,
+		            accessor: 'minMarginReq'
           		}, {
-		            Header: 'Tỉ lệ kí quỹ hiện tại',
+		            Header: this.props.language.portfolio.header.curLiqMargin,
 		            accessor: 'curLiqMargin'
           		}, {
-		            Header: 'Gọi bổ sung ký quỹ (tùy chọn)',
-		            accessor: 'aaa11' // chưa tìm dc
+		            Header: this.props.language.portfolio.header.marginableBalf,
+		            accessor: 'marginableBalf'
           		}, {
-		            Header: 'Nộp tiền mặt',
-		            accessor: 'aaa12' //chưa dc
+		            Header: this.props.language.portfolio.header.cashDeposit,
+		            accessor: 'cashDeposit'
           		}, {
-          		  	Header: 'Bán CK trong danh mục ký quỹ',
-		            accessor: 'aaa13' //chưa dc
+          		  	Header: this.props.language.portfolio.header.sellStkInMarPort,
+		            accessor: 'sellStkInMarPort'
           		}, {
-		            Header: 'Bán CK ngoài danh mục ký quỹ',
-		            accessor: 'aaa14' //chưa dc
+		            Header: this.props.language.portfolio.header.sellStkNotInMarPort,
+		            accessor: 'sellStkNotInMarPort'
           		}
           	],
           	pageIndex: 1,
 		}
-		
+
 
 	    this.id = 'porfolio'
 
      }
 
     render(){
-    	
-    	
+
+
     	var data = this.props.data.mvPortfolioBeanList === undefined ? [] : this.props.data.mvPortfolioBeanList
-    	console.log('render in porfolio', data.slice( (this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1) )
+    	console.log('render in porfolio', this.state.columns )
     	var d = this.props.data.mvPortfolioAccSummaryBean
 
     	if(d !== undefined && d !== [])
@@ -246,31 +237,31 @@ class Portfolio extends Component {
 	    	var data2 = {
 	    		'cashBalance' : [d.cashBalance],
 	    		'mvAvailAdvanceMoney': [d.mvAvailAdvanceMoney],
-	    		'aaa1': ['',],
-	    		'aaa2': ['',],
+	    		'mvBuyHoldAmount': [d.mvBuyHoldAmount],
+	    		'mvHoldAmount': [d.mvHoldAmount],
 	    		'CPendingWithdrawal': [d.CPendingWithdrawal],
-	    		'aaa3': ['',],
-	    		'CDueSell': [d.CDueSell],
-	    		'aaa4': ['',],
+	    		'soldT0': [d.soldT0],
+	    		'soldT1': [d.soldT1],
+	    		'soldT2': [d.soldT2],
 	    	}
 	    	var data3 = {
 	    		'equityMar': [d.equityMar],
 	    		'totalAssetMaintenance': [d.totalAssetMaintenance],
 	    		'stockMaintenance': [d.stockMaintenance],
 	    		'cashMaintenance': [d.cashMaintenance],
-	    		'aaa5': ['',],
-	    		'aaa6': ['',],
-	    		'aaa7': ['',],
-	    		'aaa8': ['',],
+	    		'mvOutstandingLoan': [d.mvOutstandingLoan],
+	    		'debtIncByPurchase': [d.debtIncByPurchase],
+	    		'debitAccruedInterest': [d.debitAccruedInterest],
+	    		'mvCreditLimit': [d.mvCreditLimit],
 	    	}
 	    	var data4= {
-	    		'aaa9': ['',],
-	    		'aaa10': ['',],
+	    		'lendableValue': [d.lendableValue],
+	    		'minMarginReq': [d.minMarginReq],
 	    		'curLiqMargin': [d.curLiqMargin],
-	    		'aaa11': ['',],
-	    		'aaa12': ['',],
-	    		'aaa13': ['',],
-	    		'aaa14': ['',],
+	    		'marginableBalf': [d.marginableBalf],
+	    		'cashDeposit': [d.cashDeposit],
+	    		'sellStkInMarPort': [d.sellStkInMarPort],
+	    		'sellStkNotInMarPort': [d.sellStkNotInMarPort],
 	    	}
 	    }
 	    else
@@ -285,65 +276,66 @@ class Portfolio extends Component {
 	    	var data2 = {
 	    		'cashBalance' : [],
 	    		'mvAvailAdvanceMoney': [],
-	    		'aaa1': [],
-	    		'aaa2': [],
+	    		'mvBuyHoldAmount': [],
+	    		'mvHoldAmount': [],
 	    		'CPendingWithdrawal': [],
-	    		'aaa3': [],
-	    		'CDueSell': [],
-	    		'aaa4': [],
+	    		'soldT0': [],
+	    		'soldT1': [],
+	    		'soldT2': [],
 	    	}
 	    	var data3 = {
 	    		'equityMar': [],
 	    		'totalAssetMaintenance': [],
 	    		'stockMaintenance': [],
 	    		'cashMaintenance': [],
-	    		'aaa5': [],
-	    		'aaa6': [],
-	    		'aaa7': [],
-	    		'aaa8': [],
+	    		'mvOutstandingLoan': [],
+	    		'debtIncByPurchase': [],
+	    		'debitAccruedInterest': [],
+	    		'mvCreditLimit': [],
 	    	}
 	    	var data4= {
-	    		'aaa9': [],
-	    		'aaa10': [],
+	    		'lendableValue': [],
+	    		'minMarginReq': [],
 	    		'curLiqMargin': [],
-	    		'aaa11': [],
-	    		'aaa12': [],
-	    		'aaa13': [],
-	    		'aaa14': [],
+	    		'marginableBalf': [],
+	    		'cashDeposit': [],
+	    		'sellStkInMarPort': [],
+	    		'sellStkNotInMarPort': [],
 	    	}
 	    }
 	     return(
 	     	<div id={this.id + '-body'} className="layout-body">
 		        	<div className="title" style={this.props.theme.porfolio.titlemoney}>
-		          		<span>TIỀN</span>
+		          		<span>CASH</span>
 		        	</div>
 
 		        	<div>
 			          	<div className="col-md-3">
-			            		<VerticalTable header={this.state.header1} title={this.state.title1} data={data1}/>
+			            		<VerticalTable header={this.state.header1} title={this.state.title1} language={this.props.language.header} data={data1}/>
 			          	</div>
 			          	<div className="col-md-3">
-			            		<VerticalTable header={this.state.header2} title={this.state.title2} data={data2}/>
+			            		<VerticalTable header={this.state.header2} title={this.state.title2} language={this.props.language.header} data={data2}/>
 			          	</div>
 			          	<div className="col-md-3">
-			            		<VerticalTable header={this.state.header3} title={this.state.title3} data={data3}/>
+			            		<VerticalTable header={this.state.header3} title={this.state.title3} language={this.props.language.header} data={data3}/>
 			          	</div>
 			          	<div className="col-md-3">
-			            		<VerticalTable header={this.state.header4} title={this.state.title4} data={data4}/>
+			            		<VerticalTable header={this.state.header4} title={this.state.title4} language={this.props.language.header} data={data4}/>
 			          	</div>
 	        		</div>
 	        		<div className="clearfix"></div>
 	       	 		<div className="title" style={this.props.theme.porfolio.titlestock}>
-		          		<span>CHỨNG KHOÁN</span>
+		          		<span>STOCK</span>
 		        	</div>
 	        		<div>
 	          			<DataTable
-		                    id={this.id + "-table"} 
-		                    columns={this.state.columns} 
+		                    id={this.id + "-table"}
+                        // language={this.props.language.portfolio.header}
+		                    columns={this.state.columns}
 		                    data={data.slice( (this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}/>
-	                   	<Footer 
-	                   		pageIndex={this.state.pageIndex} 
-	                   		totalRecord={data.length} 
+	                   	<Footer
+	                   		pageIndex={this.state.pageIndex}
+	                   		totalRecord={data.length}
 	                   		onPageChange={this.onPageChange.bind(this)}/>
 	        		</div>
 	      	</div>

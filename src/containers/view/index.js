@@ -27,7 +27,7 @@ export default function (menuid, props){
 			)
 		case 'porfolio':
 			return (
-				<Portfolio language={props.language.searchbar} theme={props.theme}/>
+				<Portfolio language={props.language} theme={props.theme}/>
 			)
 		case 'ordershistory':
 			return (
