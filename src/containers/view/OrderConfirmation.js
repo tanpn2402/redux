@@ -16,12 +16,12 @@ class OrderConfirmation extends Component {
                 {
                     // Create a select-all checkbox
                     id: 'cb',
-                    Header: props => <input id="orderconfirmation-cb-all" type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => { 
                                         return (
-                                            <input type='checkbox' className="orderconfirmation-row-checkbox"
+                                            <input type='checkbox' className={this.id + "-row-checkbox"}
                                                 onChange={() => { this.onRowSelected(props.original)}} />
                                         ) 
                                    },
@@ -169,8 +169,7 @@ class OrderConfirmation extends Component {
                 checkboxes[i].checked=current;
             }
             if(current)
-                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ? 
-                    this.props.data.mvOrderBeanList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
+                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ? this.props.data.mvOrderBeanList : []
             else
                 this.rowSelected = []
         }

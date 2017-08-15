@@ -4,6 +4,8 @@ import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import DataTable from '../DataTable'
+
 class CancelOrder extends Component{
     constructor(props) {
         super(props)
@@ -86,9 +88,10 @@ class CancelOrder extends Component{
                     width: 80,
                 },
             ],
-            this.style = {
-                height: '200px',
-            }
+        this.style = {
+            height: '200px',
+        }
+        this.id = 'cancelorder-popup'
     }
     onCancelSubmit() {
         this.props.onCancelSubmit(this.props.rowSelected)
@@ -100,12 +103,11 @@ class CancelOrder extends Component{
         return(
             <div>
                 <Modal.Body>
-                    <ReactTable
-                        className={'datatable'}
+                    <DataTable
+                        id={this.id + "-table"} 
                         data={this.props.rowSelected}
                         columns={this.columns}
-                        style={this.style}
-                        showPagination= {false}
+                        defaultPageSize={5}
                     />
                 </Modal.Body>
                 <Modal.Footer>
