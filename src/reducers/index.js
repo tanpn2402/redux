@@ -14,6 +14,7 @@ import porfolio from './porfolio'
 import orderhistory from './orderhistory'
 import stockstatement from './stockstatement'
 import cashstatement from './cashstatement'
+import watchlist from './watchlist'
 
 export default combineReducers({
   dologin,
@@ -31,5 +32,6 @@ export default combineReducers({
   orderhistory,
   stockstatement,
   cashstatement,
+  watchlist,
   
 });

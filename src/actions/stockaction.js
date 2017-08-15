@@ -11,7 +11,7 @@ export function stockSearch(param) {
     }
 }
 
-export function stockListResponse(response){
+function stockListResponse(response){
 	console.log('stockListResponse' ,response)
 	return {
       type: ActionTypes.STOCKSEARCH,

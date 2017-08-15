@@ -144,7 +144,8 @@ const config = {
 		ordershistory: {i: 'ordershistory', x:0, y:0, w: 22, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15},
 		stockstatement: {i: 'stockstatement', x:0, y:0, w: 30, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15,},
 		cashstatement: {i: 'cashstatement',  x:0, y:0, w: 20, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15},
-
+		watchlist: {i: 'watchlist', x:0, y:0, w: 30, h: 14, minW: 20, minH: 14, maxW: 30, maxH: 14},
+	
 	}
 	,
 	orderstatus: [
