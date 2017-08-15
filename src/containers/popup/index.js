@@ -18,7 +18,7 @@ export default function  (props){
 		break;	
 		case 'enterorder':
 			if(props.error === 'Success all' )
-				return (<EnterOrderPopup json={props.json} mvStockBean={props.mvStockBean} onHide={props.onHide}/>)
+				return (<EnterOrderPopup json={props.json} mvStockBean={props.mvStockBean} onHide={props.onHide} language={props.language}/>)
 			else
                     return(<h5 className="error">{props.error}</h5>)
 		break;

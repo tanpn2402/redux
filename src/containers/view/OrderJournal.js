@@ -201,7 +201,7 @@ class OrderJournal extends Component {
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
-                    popupType={this.popupType} modifyData={this.props.modifyData}/>
+                    popupType={this.popupType} modifyData={this.props.modifyData} title={this.title}/>
             </div>
         )
         
@@ -227,8 +227,9 @@ class OrderJournal extends Component {
     onModifyButton(param){
         this.rowSelected=[]
         this.rowSelected.push(param)
-        this.showPopup();
+        this.showPopup()
         this.popupType= 'MODIFYORDER'
+        this.title = this.props.language.orderjournal.popup.title.modify
         this.props.onModifyButton(param)
     }
 
@@ -267,6 +268,7 @@ class OrderJournal extends Component {
         this.setState({
             lgShow: true
         });
+        this.title = this.props.language.orderjournal.popup.title.cancel
         this.popupType= 'CANCELORDER'
         console.log('onCancelOrder', this.rowSelected)
     }

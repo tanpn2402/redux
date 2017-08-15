@@ -152,6 +152,7 @@ class OrderConfirmation extends Component {
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
+                    title = {this.props.language.orderconfirmation.popup.title}
                 />
             </div>
         )

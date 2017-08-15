@@ -94,6 +94,12 @@
             "time": "Time",
             "stockid": "Stock ID",
             "buysell": "Buy/Sell"
+        },
+	      "popup": {
+          "title": {
+            "modify": "Modify Order",
+            "cancel": "Cancel Order"
+          }
         }
       },
       "cashstatement": {
@@ -136,6 +142,9 @@
             "ordertype": "Loại lệnh",
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
+        },
+        "popup": {
+          "title": "Order confirmation"
         }
       },
       "portfolio": {
@@ -209,6 +218,48 @@
             "value": "Value",
             "percentage": "%",
             "description": "Description"
+        }
+      },
+      "enterorder": {
+        "header": {
+          "buysell": "Buy/Sell",
+          "buysellall": "Buy all/Sell all",
+          "stock": "Stock",
+          "bank": "Bank",
+          "lending": "% Lending",
+          "buyingpower": "Buying Power(Expected)",
+          "ordertype": "Order Type",
+          "volume": "Volume",
+          "price": "Price (x1000VND)",
+          "value": "Value (VND)",
+          "netfee": "Net Fee",
+          "expirydate": "Expiry date"
+        },
+        "popup":{
+          "title": "Enter Order",
+          "stockname": "Name",
+          "expirydate": "Expiry date",
+          "checknum": "Matrix card number",
+          "verifiednum": "Verified matrix card number",
+          "saveauthentication":"Save Authentication"
+        },
+        "error":{
+          "oddlotrange": "LO(Odd Lot)'s Volume need in range [1,100]",
+          "otherrange": "Range of Volume must be multiples of 100 and larger than 0",
+          "ordertypeavailable": "Order Type is unavailable",
+          "sellvolume": "It's out of your stock's volume range",
+          "pricerange": "It's out of the price's range",
+          "stockavailable": "Stock Code is unavailable",
+          "money": "You don't have enough money",
+          "bank": "Bank is unavailable"
+        }
+      },
+      "matrixcard": {
+        "error": {
+          "isLock": "Your account is locked, please contact us to unlock",
+          "cardnoneexist": "Your Matrix Card is not exist",
+          "attemptlimit": "The remain number of times input is ",
+          "attempt": "You have out of the number of times input. So your account is locked, please contact us to unlock"
         }
       }
     }

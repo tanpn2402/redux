@@ -112,7 +112,7 @@ class ConfirmOrder extends Component{
 
     render(){
         return (
-            <div>
+            <div className="modalbody">
                 <Modal.Body>
                     <DataTable
                         id={this.id + "-table"} 

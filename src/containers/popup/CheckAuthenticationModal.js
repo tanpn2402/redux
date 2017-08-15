@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
 
-import { connect } from 'react-redux';
 
 class CheckAuthenticationModal extends Component {
     
@@ -32,16 +31,14 @@ class CheckAuthenticationModal extends Component {
     render() {
         let { isAuthenFail } = this.props;
         return (
-            
-                
                     <tbody>
                         <tr> 
-                            <th className="enterorder">CheckNum</th>
+                        <th className="enterorder">{this.props.language.enterorder.popup.checknum}</th>
                             <td id="code1"> [{this.generateNum()},{this.generateChar()}] </td>
                             <td id="code2"> [{this.generateNum()},{this.generateChar()}] </td>
                         </tr>
                         <tr>
-                            <th className="enterorder">VerifiedNum</th>
+                        <th className="enterorder">{this.props.language.enterorder.popup.verifiednum}</th>
                             <td>
                                 <input type="text" maxLength="1" id="input1" required/>
                             </td>
@@ -52,7 +49,7 @@ class CheckAuthenticationModal extends Component {
                         <tr>
                             <th></th>
                             <td colSpan="2">
-                                <input type="checkbox" id="saveAuthen"/> Save Authentication
+                                <input type="checkbox" id="saveAuthen" /> {this.props.language.enterorder.popup.saveauthentication}
                             </td>
                         </tr>
                     </tbody>
@@ -61,11 +58,7 @@ class CheckAuthenticationModal extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenFail: state.checkAuthen.isAuthenFail,
-    };
-}
 
 
-export default connect(mapStateToProps) (CheckAuthenticationModal);
+
+export default (CheckAuthenticationModal);

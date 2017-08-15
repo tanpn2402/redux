@@ -84,28 +84,28 @@ class ModifyOrder extends Component{
     render(){
         console.log(this.props.result)
         return(
-            <div>
+            <div >
                 <Modal.Body>
-                    <table className="table table-bordered">
-                        <tbody>
-                            <tr>
+                    <table className="table table-bordered" >
+                        <tbody >
+                            <tr className="modalbody">
                                 <th>{this.props.language.orderjournal.header.stockid}</th>
                                 <td><input type='text' className='form-control' 
                                 value={this.props.rowSelected[0].mvStockID} disabled/></td>
                             </tr>
-                            <tr>
+                            <tr className="modalbody">
                                 <th>{this.props.language.orderjournal.header.price}</th>
                                 <td><input id='price' type='text' className='form-control' 
                                 value={this.state.mvPrice} 
                                 onChange={e => this.onInput(e.target.id, e.target.value)}/></td>
                             </tr>
-                            <tr>
+                            <tr className="modalbody">
                                 <th>{this.props.language.orderjournal.header.quantity}</th>
                                 <td><input id='quantity' type='number' className='form-control' 
                                 value={this.state.mvQty} min='0' step='100'
                                 onChange={e => this.onInput(e.target.id, e.target.value)}/></td>
                             </tr>
-                            <tr>
+                            <tr className="modalbody">
                                 <th>Floor/Ceil: </th>
                                 <td><font color='#3399CC'><b>{this.props.modifyData.floor}</b></font>
                                 <font color='#FF66CC'><b>/{this.props.modifyData.ceiling}</b></font></td>

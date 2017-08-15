@@ -54,7 +54,7 @@ class EnterOrder extends Component {
                         <Table responsive >
                             <tbody >
                                 <tr>
-                                    <th className="enterorder">Buy/Sell</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.buysell}</th>
                                     <td>
                                         <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
                                         <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUY" }} required>
@@ -66,7 +66,7 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Buy all/Sell all</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.buysellall}</th>
                                     <td>
                                         <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUYALL" }}>
                                             <div className="Radiobox">Buy</div>
@@ -77,7 +77,7 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Stock</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.stock}</th>
                                     <td>
                                         <input list="Stock" name="stock" id="mvStock" required />
                                         <datalist id="Stock">{
@@ -90,7 +90,7 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Bank</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.bank}</th>
                                     <td>
                                         <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
                                         <datalist id="Bank">
@@ -99,18 +99,18 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">% Lending</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.lending}</th>
                                     <td>0%</td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Buying Power(Expected)</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.buyingpower})</th>
                                     <td>
                                         <input type="hidden" id="mvBuyPower" value={this.props.account} />
                                         {this.props.account}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Order Type</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.ordertype}</th>
                                     <td>
                                         <FormGroup controlId="mvOrderType">
                                             <input id="mvOrderType" list="ordertype" name="ordertype" required />
@@ -126,7 +126,7 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Volume</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.volume}</th>
                                     <td>
                                         <FormGroup controlId="mvVolume">
                                             <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" required />
@@ -135,26 +135,26 @@ class EnterOrder extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Price (x1000VND)</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.price}</th>
                                     <td>
                                         <FormGroup controlId="mvPrice">
-                                            <input type="number" min="0" name="price" onChange={this.onChange} id="mvPrice" required />
+                                            <input type="number" min="0" step="any" name="price" onChange={this.onChange} id="mvPrice" required />
                                         </FormGroup>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Value (VND)</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.value}</th>
                                     <td>
                                         <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
                                         {this.calculate() || 0}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Net fee</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.netfee}</th>
                                     <td>0.00</td>
                                 </tr>
                                 <tr>
-                                    <th className="enterorder">Expiry date</th>
+                                    <th className="enterorder">{this.props.language.enterorder.header.expirydate}</th>
                                     <td className="date">
                                         <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange} value={this.state.startDate} />
                                         <DatePicker
@@ -195,7 +195,10 @@ class EnterOrder extends Component {
                         onHide={lgClose} 
                         json={this.state.json} 
                         error={this.props.isError} 
-                        mvStockBean={this.props.mvStockBean} />
+                        mvStockBean={this.props.mvStockBean} 
+                        language={this.props.language}
+                        title = {this.props.language.enterorder.popup.title}/>
+                    {console.log("Lange??", this.props.language.enterorder.popup.title)}
                 </Form>
             </div>
         );
@@ -211,7 +214,7 @@ class EnterOrder extends Component {
         }
         if (this.state.isCheck === false)
             this.state.json.mvDate = null
-        this.props.checkPre(this.state.json, this.props.mvStockBalanceInfo, this.props.mvStockBean)
+        this.props.checkPre(this.state.json, this.props.mvStockBalanceInfo, this.props.mvStockBean, this.props.language.enterorder.error)
         this.setState({ isShow: true })
     }
 
@@ -248,8 +251,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     stockInfo: () => {
         dispatch(actions.stockInfo())
     },
-    checkPre: (json, stockBalanceInfo, stockBeanInfo) => {
-        dispatch(actions.checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo))
+    checkPre: (json, stockBalanceInfo, stockBeanInfo, language) => {
+        dispatch(actions.checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo, language))
     },
 })
 

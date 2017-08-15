@@ -93,7 +93,14 @@
             "time": "Thời gian",
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
-        }  
+        },
+	      "popup":
+        {
+            "title":{
+              "modify": "Sửa lệnh",
+              "cancel": "Hủy lệnh"
+            }
+        }
       },
       "cashstatement": {
         "header":{
@@ -135,7 +142,10 @@
             "ordertype": "Loại lệnh",
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
-        }  
+        },
+        "popup":{
+            "title": "Ký nhận lệnh"
+        }
       },
       "ordershistory": {
         "header":{
@@ -228,6 +238,48 @@
           "value": "Giá trị",
           "percentage": "%",
           "description": "Mô tả"
+        }
+      },
+      "enterorder": {
+        "header": {
+          "buysell": "Mua/Bán",
+          "buysellall": "Mua/Bán (tất cả)",
+          "stock": "Mã CK",
+          "bank": "Ngân hàng",
+          "lending": "Tỷ lệ cho vay",
+          "buyingpower": "Sức mua dự kiến",
+          "ordertype": "Loại lệnh",
+          "volume": "Khối lượng",
+          "price": "Giá (x1000VND)",
+          "value": "Giá trị GD",
+          "netfee": "Phí tạm tính",
+          "expirydate": "Lệnh đến hạn"
+        },
+        "popup": {
+          "title": "Đặt lệnh",
+          "stockname": "Tên CK",
+          "expirydate": "Hiệu lực đến ngày",
+          "checknum": "Mã số kiểm tra",
+          "verifiednum": "Mã số xác nhận",
+          "saveauthentication": "Lưu xác thực"
+        },
+        "error": {
+          "oddlotrange": "Khối lượng của LO(Odd Lot) phải nằm trong khoảng [1,99]",
+          "otherrange": "Khối lượng phải chia hết cho 100 và lớn hơn 0",
+          "ordertypeavailable": "Loại lệnh này không tồn tại",
+          "sellvolume": "Vượt quá khối lượng của mã chứng khoán đang có",
+          "pricerange": "Giá nằm ngoài khoảng",
+          "stockavailable": "Mã Ck này không tồn tại",
+          "money": "Tài khoản của bạn không đủ tiền",
+          "bank": "Ngân hàng không tồn tại"
+        }
+      },
+      "matrixcard": {
+        "error": {
+          "isLock":"Tài khoản của bạn hiện đang bị khóa, xin vui lòng liên hệ chúng tôi để mở khóa",
+          "cardnoneexist":"Matrix card của bạn không tồn tại",
+          "attemptlimit":"Bạn đã vượt quá số lần nhập. Vì vậy, tài khoản của bạn bị khóa, xin vui lòng liên hệ chúng tôi để mở khóa",
+          "attempt":"Số lần nhập còn lại là "
         }
       }
     }

@@ -460,3 +460,44 @@ body {
 #porfolio-body .col-md-3 {
   padding: 0px 1px;
 }
+
+/*POPUP*/
+.title{
+  text-align: center;
+  font-size: 14px;
+}
+.modalbody{
+  font-size: 12px;
+}
+
+/* override from bootstrap*/
+.modal-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.modal-footer {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.modal-footer .btn-default {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.modal-body input {
+      padding-top: 2px;
+    padding-bottom: 2px;
+    height: 26px;
+}
+
+@media (min-width: 992px){
+  .modal-lg {
+    width: 700px;
+  }
+}
+@media (min-width: 768){
+  .modal-lg {
+    width: 500px;
+  }
+}

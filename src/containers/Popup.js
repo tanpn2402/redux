@@ -7,7 +7,7 @@ class Popup extends Component {
         return (
             <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-lg">Cancel Orders</Modal.Title>
+                    <Modal.Title id="contained-modal-title-lg" className="title">{this.props.title}</Modal.Title>
                 </Modal.Header>
                 {generatePopup(this.props)}
             </Modal>
