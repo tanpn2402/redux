@@ -9,6 +9,8 @@ import {stockSearch} from './stockaction'
 import { onConfirmSubmit, enquiryConfirmOrder } from './confirmorder'
 import {getPorfolio} from './porfolio'
 import {enquiryOrderHistory,} from './orderhistory'
+import {enquiryCashTransaction} from './cashtranshistory'
+import { enquiryStockStatement } from './stockstatement'
 
 export {
   doLogin,
@@ -36,5 +38,7 @@ export {
   enquiryConfirmOrder,
   getPorfolio,
   enquiryOrderHistory,
+  enquiryCashTransaction,
+  enquiryStockStatement,
   
 };

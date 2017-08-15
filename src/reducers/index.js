@@ -12,6 +12,7 @@ import cashtranshistory from './cashtranshistory'
 import orderconfirmation from './orderconfirmation'
 import porfolio from './porfolio'
 import orderhistory from './orderhistory'
+import stockstatement from './stockstatement'
 
 export default combineReducers({
   dologin,
@@ -27,5 +28,6 @@ export default combineReducers({
   orderconfirmation,
   porfolio,
   orderhistory,
+  stockstatement,
   
 });

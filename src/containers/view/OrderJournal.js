@@ -15,13 +15,13 @@ class OrderJournal extends Component {
             columns : [
             {
               id: 'cb',
-              Header: props => <input id="orderjournal-cb-all" type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+              Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
               maxWidth: 50,
               width: 40,
               Cell: props => { 
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
                                     return (
-                                        <input type='checkbox' className="orderjournal-row-checkbox"
+                                        <input type='checkbox' className={this.id + "-row-checkbox"}
                                             onChange={() => { this.onRowSelected(props.original)}} />
                                     ) 
                              },
@@ -208,20 +208,13 @@ class OrderJournal extends Component {
     }
 
     componentDidMount() {
-        this.props.onSearch(this.id, { 'mvBuysell': 'ALL' })
+        this.props.onSearch( { 'mvBuysell': 'ALL' })
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    /*shouldComponentUpdate(nextProps, nextState) {
         console.log('should update order journal', nextProps, nextState)
         return nextProps.menuid === this.id
-    }
-    componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps order journal', nextProps)
-        /*if (!this.props.isBarGreaterThanEqual3 && nextProps.isBarGreaterThanEqual3) {
-            this.props.dispatch({
-                type : "foo"
-            });
-        }*/
-    }
+    }*/
+    
     onCancelButton(param){
         console.log(param)
         this.rowSelected=[]
@@ -293,7 +286,7 @@ class OrderJournal extends Component {
 
     onSearch(param){
         console.log('orderjournal onSearch', param)
-        this.props.onSearch('orderjournal', param, !this.props.reload)
+        this.props.onSearch( param, !this.props.reload)
     }
 
 
@@ -304,24 +297,17 @@ const mapStateToProps = (state) => {
     reload: state.orderjournal.reload,
     modifyData: state.orderjournal.dataresult,
     menuid: state.orderjournal.menuid,
-    //isPopupOpen: state.orderjournal.isPopupOpen,
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onCancelOrder: (param) => {
-    dispatch(actions.cancelOrder(param))
-  },
 
-  onSearch: (menuid, param, reload) => {
-    dispatch(actions.enquiryOrder(menuid, param, reload))
+  onSearch: (param, reload) => {
+    dispatch(actions.enquiryOrder(param, reload))
   },
   onModifyButton: (param) => {
     dispatch(actions.getModifyData(param))
   },
-  /*onOpenPopup: (menuid) => {
-    dispatch(actions.openPopup(menuid))
-  },*/
 
 })
 

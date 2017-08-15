@@ -1,14 +1,13 @@
-const { ActionTypes } = require('../core/constants');
+const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-    data: [],
+  data: [],
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-
-        case ActionTypes.ENQUIRYCASHTRANSACTION:
-            return Object.assign({}, state, {
+        case ActionTypes.ENQUIRYSTOCKSTATEMENT:
+            return Object.assign({},state,{          
                 data: action.data,
                 language: action.language,
                 reload: action.reload,

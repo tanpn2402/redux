@@ -116,10 +116,10 @@ class CashTransactionHistory extends Component {
         
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    /*shouldComponentUpdate(nextProps, nextState) {
         console.log('should update cash trans', nextProps, nextState)
         return nextProps.menuid === this.id
-    }
+    }*/
 
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -152,26 +152,25 @@ class CashTransactionHistory extends Component {
     }
 
     onPageChange(pageIndex) {
-        console.log('orderjournal onPageChange', pageIndex)
+        console.log('cashtranshistory onPageChange', pageIndex)
     }
 
     onSearch(param) {
         console.log(this.id + ' onSearch', param)
-        this.props.onSearch(this.id, param, !this.props.reload)
+        this.props.onSearch(param, !this.props.reload)
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        data: state.orderjournal.data,
-        menuid: state.orderjournal.menuid,
-        reload: state.orderjournal.reload,
+        data: state.cashtranshistory.data,
+        reload: state.cashtranshistory.reload,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (menuid, param, reload) => {
-        dispatch(actions.enquiryOrder(menuid, param, reload))
+    onSearch: (param, reload) => {
+        dispatch(actions.enquiryCashTransaction(param, reload))
     },
 
 })

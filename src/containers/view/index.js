@@ -5,6 +5,7 @@ import EnterOrder from './EnterOrder'
 import OrderConfirmation from './OrderConfirmation'
 import Portfolio from './Portfolio'
 import OrderHistory from './OrderHistory'
+import StockStatement from './StockStatement'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -32,6 +33,10 @@ export default function (menuid, props){
 		case 'ordershistory':
 			return (
 				<OrderHistory language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'stockstatement':
+			return (
+				<StockStatement language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

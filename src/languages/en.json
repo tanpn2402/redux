@@ -183,6 +183,23 @@
             "sellStkInMarPort": "Selling stock in margin portfolio",
             "sellStkNotInMarPort": "Selling stock not in margin portfolio"
         }
+      },
+      "stockstatement": {
+        "header": {
+            "order": "Ord",
+            "transactiondate": "TransDate",
+            "stockcode": "Stock",
+            "action": "Action",
+            "credit": "Credit",
+            "debit": "Debit",
+            "quantity": "Quantity",
+            "avgprice": "Avg Price",
+            "amt": "Amt",
+            "feetax": "Fee + Tax",
+            "value": "Value",
+            "percentage": "%",
+            "description": "Description"
+        }
       }
     }
   }

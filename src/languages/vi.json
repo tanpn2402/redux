@@ -202,6 +202,23 @@
             "sellStkInMarPort": "Bán CK trong danh mục ký quỹ",
             "sellStkNotInMarPort": "Bán CK ngoài danh mục ký quỹ"
         }
+      },
+      "stockstatement": {
+        "header": {
+          "order": "STT",
+          "transactiondate": "Ngày GD",
+          "stockcode": "Mã CK",
+          "action": "Loại GD",
+          "credit": "Phát sinh tăng",
+          "debit": "Phát sinh giảm",
+          "quantity": "Khối lượng",
+          "avgprice": "Giá TB",
+          "amt": "Tổng cộng",
+          "feetax": "Phí + Thuế",
+          "value": "Giá trị",
+          "percentage": "%",
+          "description": "Mô tả"
+        }
       }
     }
   }
