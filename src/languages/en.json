@@ -96,6 +96,16 @@
             "buysell": "Buy/Sell"
         }
       },
+      "cashstatement": {
+        "header":{
+            "date": "Date",
+            "description": "Description",
+            "beginningbalance": "Beginning Balance",
+            "creditamount": "Credit Amount",
+            "debitamount": "Dedit Amount",
+            "endingbalance": "Ending Balance"
+        }
+      },
       "cashtransaction": {
         "header":{
             "transid": "Trans ID",

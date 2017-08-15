@@ -6,6 +6,7 @@ import OrderConfirmation from './OrderConfirmation'
 import Portfolio from './Portfolio'
 import OrderHistory from './OrderHistory'
 import StockStatement from './StockStatement'
+import CashStatement from './CashStatement'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -37,6 +38,10 @@ export default function (menuid, props){
 		case 'stockstatement':
 			return (
 				<StockStatement language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'cashstatement':
+			return (
+				<CashStatement language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

@@ -144,7 +144,7 @@ class StockStatement extends Component {
             ]
         }
 
-        this.buttonAction = [<Button style={buttonStyle} bsStyle="primary" type="button"></Button>,]
+        //this.buttonAction = [<Button style={buttonStyle} bsStyle="primary" type="button"></Button>,]
         this.id='stockstatement'
     }
 
@@ -157,7 +157,7 @@ class StockStatement extends Component {
                 <SearchBar
                     id={this.id}
                     onSearch={this.onSearch.bind(this)}
-                    buttonAction={this.buttonAction} 
+                    buttonAction={[]} 
                     stockList={this.props.stockList} 
                     language={this.props.language.searchbar} 
                     theme={this.props.theme}

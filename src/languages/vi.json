@@ -95,6 +95,16 @@
             "buysell": "Mua/Bán"
         }  
       },
+      "cashstatement": {
+        "header":{
+            "date": "Ngày",
+            "description": "Mô tả",
+            "beginningbalance": "Số dư đầu kỳ",
+            "creditamount": "Phát sinh tăng",
+            "debitamount": "Phát sinh giảm",
+            "endingbalance": "Số dư cuối kỳ"
+        }
+      },
       "cashtransaction":{
         "header":{
             "transid": "Mã GD",

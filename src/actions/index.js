@@ -11,6 +11,7 @@ import {getPorfolio} from './porfolio'
 import {enquiryOrderHistory,} from './orderhistory'
 import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
+import { enquiryCashStatement} from './cashstatement'
 
 export {
   doLogin,
@@ -40,5 +41,6 @@ export {
   enquiryOrderHistory,
   enquiryCashTransaction,
   enquiryStockStatement,
+  enquiryCashStatement
   
 };
