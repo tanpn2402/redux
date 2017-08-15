@@ -15,7 +15,18 @@ export default {
     color: "#0000FF"
   },
   buttonClicked:{
-    backgroundColor:"#0000FF",
-    color: "#FFFAFA"
+    backgroundColor:"#337AB7",
+    color: "#FFFAFA",
+    borderColor: "#2E6DA4"
+  },
+  porfolio: {
+    'titlemoney': {
+      backgroundColor: '#043b72',
+      color: '#fff'
+    },
+    'titlestock': {
+      backgroundColor: '#f60',
+      color: '#fff'
+    }
   }
 }

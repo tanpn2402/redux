@@ -16,7 +16,7 @@ export default class MenuItem extends React.Component {
     
     
     render(){
-        console.log('menu_items', this.props.menu_items)
+        //console.log('menu_items', this.props.menu_items)
         return (
             <ul className="nav navbar-nav" >
             {

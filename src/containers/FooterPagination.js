@@ -29,15 +29,15 @@ export default class FooterPagination extends React.Component {
           <ul className="nav nav-pills tab-list" role="tablist">
             {
 
-              this.tabList.map(id => {
+              this.tabList.map(tab => {
 
               return ( 
-                <li id={id} key={id}>
+                <li id={tab} key={tab}>
                   <a href="javascript:void(0);" role="tab" data-toggle="tab" 
-                   className="customtab" style={this.props.theme.buttonClicked}>
-                    {this.props.title[id]}
+                   className="customtab" >
+                    {this.props.title[tab]}
                     <button
-                      id={id}
+                      id={tab}
                       className="close"
                       type="button"
                       title="Remove this page"

@@ -8,15 +8,17 @@ import Header from '../containers/Header'
 class Home extends Component {
 
     // constructor(props) {
-    //     super(props)    
+    //     super(props)        
     // }
 
     componentWillMount(){
-    //  this.theme = require('../themes/' + this.props.theme)
-        
+       // this.theme = require('../themes/' + this.props.theme)
+        //console.log(this.theme)
     }
 
     render() {
+        //let { authenticated, user } = this.props
+        console.log(this.props.language)
         this.theme = require('../themes/' + this.props.theme)
         return (
             <div>
@@ -26,7 +28,7 @@ class Home extends Component {
                 changeConfig={this.props.changeConfig} 
                 />  
                 <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent theme={this.theme.default} language= {this.props.language.page.pagecontent} title={this.props.language.page.menu}/>
+                <PageContent theme={this.theme.default} language= {this.props.language.page} title={this.props.language.page.menu}/>
             {/* <ul>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
                 <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>

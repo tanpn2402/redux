@@ -30,15 +30,15 @@ class OrderJournal extends Component {
             },
             {
               id: 'can',
-              Header: this.props.language.tableheader.cancelmodify,
+              Header: this.props.language.orderjournal.header.cancelmodify,
               maxWidth: 80,
               Cell: props =>{ 
                                 var child = []
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
-                                    child.push(<Button style={this.props.theme.buttonClicked} bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button" 
+                                    child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button" 
 				                        onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
                                 if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
-                                    child.push(<Button style={this.props.theme.buttonClicked} bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
+                                    child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
 				                        onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
                                     return (
                                         <span>
@@ -52,7 +52,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvStockID',
-                Header: this.props.language.tableheader.stockid,
+                Header: this.props.language.orderjournal.header.stockid,
                 accessor: 'mvStockID',
                 width: 80,
                 skip: false,
@@ -60,7 +60,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvBS',
-                Header: this.props.language.tableheader.buysell,
+                Header: this.props.language.orderjournal.header.buysell,
                 accessor: 'mvBS',
                 width: 50,
                 skip: false,
@@ -68,7 +68,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvPrice',
-                Header: this.props.language.tableheader.price,
+                Header: this.props.language.orderjournal.header.price,
                 accessor: 'mvPrice',
                 width: 80,
                 skip: false,
@@ -76,7 +76,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvQty',
-                Header: this.props.language.tableheader.quantity,
+                Header: this.props.language.orderjournal.header.quantity,
                 accessor: 'mvQty',
                 width: 80,
                 skip: false,
@@ -84,7 +84,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvPendingQty',
-                Header: this.props.language.tableheader.pendingQty,
+                Header: this.props.language.orderjournal.header.pendingQty,
                 accessor: 'mvPendingQty',
                 width: 80,
                 skip: false,
@@ -92,7 +92,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvExecutedQty',
-                Header: this.props.language.tableheader.executedQty,
+                Header: this.props.language.orderjournal.header.executedQty,
                 accessor: 'mvPendingQty',
                 width: 80,
                 skip: false,
@@ -100,7 +100,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvAvgPrice',
-                Header: this.props.language.tableheader.avgprice,
+                Header: this.props.language.orderjournal.header.avgprice,
                 accessor: 'mvAvgPriceValue',
                 width: 80,
                 skip: false,
@@ -108,7 +108,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvStatus',
-                Header: this.props.language.tableheader.status,
+                Header: this.props.language.orderjournal.header.status,
                 accessor: 'mvStatus',
                 width: 80,
                 skip: false,
@@ -116,7 +116,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvOrderType',
-                Header: this.props.language.tableheader.ordertype,
+                Header: this.props.language.orderjournal.header.ordertype,
                 accessor: 'mvOrderType',
                 width: 80,
                 skip: false,
@@ -124,7 +124,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvFeeTax',
-                Header: this.props.language.tableheader.feetax,
+                Header: this.props.language.orderjournal.header.feetax,
                 accessor: 'mvOrderType',
                 width: 80,
                 skip: false,
@@ -132,7 +132,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvBankID',
-                Header: this.props.language.tableheader.bankid,
+                Header: this.props.language.orderjournal.header.bankid,
                 accessor: 'mvBankID',
                 width: 80,
                 skip: false,
@@ -140,7 +140,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvExpiryDate',
-                Header: this.props.language.tableheader.expirydate,
+                Header: this.props.language.orderjournal.header.expirydate,
                 accessor: 'mvDateTime',
                 width: 80,
                 skip: false,
@@ -148,7 +148,7 @@ class OrderJournal extends Component {
             },
             {
                 id: 'mvRejectReason',
-                Header: this.props.language.tableheader.rejectreason,
+                Header: this.props.language.orderjournal.header.rejectreason,
                 accessor: 'mvRejectReason',
                 width: 80,
                 skip: false,
@@ -159,38 +159,46 @@ class OrderJournal extends Component {
             lgShow: false
         }
 
+        //this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
-	    this.popupType='none'
+        this.popupType='none'
+        this.id = 'orderjournal'
     }
 
   
     render() {
-        this.buttonAction = [<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
+        console.log(this.props)
+        this.buttonAction = [
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" 
+                onClick={() => this.showPopup()}>Hủy GD</Button>,
+        ]
         console.log('render in OrderJournal', this.props.data)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
 	    let lgClose = () => this.setState({ lgShow: false })
-        console.log('modify Data', this.props.modifyData)
+
+        console.log('dasdsaddsaad', this.props.modifyData)
         return (
             <div id={'orderjournal-body'} className="layout-body">
                 <SearchBar
+                    id={this.id}
                     onSearch={this.onSearch.bind(this)}
                     buttonAction={this.buttonAction} 
                     stockList={this.props.stockList} 
                     language={this.props.language.searchbar} 
+                    theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}
-                    theme={this.props.theme}
-                    />
+                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}/>
                 <DataTable
                     id="orderjournal-table" 
                     onRowSelected={this.onRowSelected.bind(this)} 
                     columns={this.state.columns} 
                     data={data}/>
 
-                <Footer page={page} onPageChange={this.onPageChange.bind(this)}/>
+                <Footer pageIndex={page} totalRecord={this.props.data.mvTotalOrders} onPageChange={this.onPageChange.bind(this)}/>
 		        <Popup 
+                    id={this.id}
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
                     popupType={this.popupType} modifyData={this.props.modifyData}/>
@@ -199,6 +207,21 @@ class OrderJournal extends Component {
         
     }
 
+    componentDidMount() {
+        this.props.onSearch(this.id, { 'mvBuysell': 'ALL' })
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('should update order journal', nextProps, nextState)
+        return nextProps.menuid === this.id
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps order journal', nextProps)
+        /*if (!this.props.isBarGreaterThanEqual3 && nextProps.isBarGreaterThanEqual3) {
+            this.props.dispatch({
+                type : "foo"
+            });
+        }*/
+    }
     onCancelButton(param){
         console.log(param)
         this.rowSelected=[]
@@ -270,7 +293,7 @@ class OrderJournal extends Component {
 
     onSearch(param){
         console.log('orderjournal onSearch', param)
-        this.props.onSearch(param, !this.props.reload)
+        this.props.onSearch('orderjournal', param, !this.props.reload)
     }
 
 
@@ -280,6 +303,8 @@ const mapStateToProps = (state) => {
     data: state.orderjournal.data,
     reload: state.orderjournal.reload,
     modifyData: state.orderjournal.dataresult,
+    menuid: state.orderjournal.menuid,
+    //isPopupOpen: state.orderjournal.isPopupOpen,
   }
 }
 
@@ -288,12 +313,15 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(actions.cancelOrder(param))
   },
 
-  onSearch: (param, reload) => {
-    dispatch(actions.enquiryOrder(param, reload))
+  onSearch: (menuid, param, reload) => {
+    dispatch(actions.enquiryOrder(menuid, param, reload))
   },
   onModifyButton: (param) => {
     dispatch(actions.getModifyData(param))
   },
+  /*onOpenPopup: (menuid) => {
+    dispatch(actions.openPopup(menuid))
+  },*/
 
 })
 

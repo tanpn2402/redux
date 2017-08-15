@@ -11,7 +11,7 @@ class PageContent extends React.Component {
     render () {
         console.log('PageContent RENDER', this.props)
         return (
-            <div>
+            <div /*style={{ backgroundColor: '#000', height: '100%',}}*/ >
                 <BaseLayout 
                     language={this.props.language}
                     layout={this.props.layout}

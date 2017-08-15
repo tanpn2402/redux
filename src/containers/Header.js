@@ -23,7 +23,7 @@ export default class App extends React.Component {
     var currentThemeName=this.props.currentThemeName.substring(6,11)
     var currentLanguage=this.props.currentLanguage
     return (
-        <Row className="header">
+        <Row className="header" /*style={{ backgroundColor: '#000', }}*/>
           <Col xs={9} style={{paddingLeft: '0px',}}>
             
             <div className="logo">

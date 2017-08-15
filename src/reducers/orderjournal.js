@@ -12,6 +12,7 @@ export default function (state = initialState, action) {
           data: action.data,
           language: action.language,
           reload: action.reload,
+          menuid: action.menuid,
         });
 	
       case ActionTypes.CANCELSUBMIT:
@@ -28,6 +29,12 @@ export default function (state = initialState, action) {
       case ActionTypes.GETMODIFYDATA:
           return Object.assign({},state,{    
             dataresult: action.modifyData,
+          });
+
+      case ActionTypes.OPENPOPUP:
+          return Object.assign({},state,{    
+            isPopupOpen: false,
+            menuid: action.menuid
           });
 
     default:

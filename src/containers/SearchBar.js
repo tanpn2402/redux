@@ -24,7 +24,7 @@ export default class SearchBar extends React.Component {
   }
   
   onSearch(pageIndex){
-    var x = document.getElementById("form-search")
+    var x = document.getElementById(this.props.id + "form-search")
     var tmp = {}
     for (var i = 0; i < x.length; i++) {
       if(x.elements[i].value == 'on' || x.elements[i].id === '') 
@@ -46,10 +46,6 @@ export default class SearchBar extends React.Component {
             endDate: date
         });
     }
-
-  componentDidMount(){
-    this.props.onSearch({'mvBuysell': 'ALL'})
-  }
 
   componentWillMount(){
     for(var i = 0; i < this.props.param.length; i++){
@@ -146,9 +142,13 @@ export default class SearchBar extends React.Component {
         <ControlLabel>Loại giao dịch</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
-          <option value="HA">Rút tiền</option>
-          <option value="HO">Nộp tiền</option>
-          <option value="UPCOM">....</option>
+          {
+              config.transtype.map(e => {
+                return (
+                  <option value={e}>{this.props.language[e]}</option>
+                )
+              })
+          }
         </FormControl>
       </FormGroup>
     )
@@ -214,7 +214,7 @@ export default class SearchBar extends React.Component {
 
   render() {
     return (
-      <Form className='form-inline search-bar' id="form-search">
+      <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
         {
           this.props.buttonAction.map(e => {
                   return( e )
@@ -234,15 +234,6 @@ export default class SearchBar extends React.Component {
         <FormGroup bsClass="form-group dropdowncheckbox">
           <DropdownCheckBox columns={this.props.columns} onChangeStateColumn={this.props.onChangeStateColumn}/>
         </FormGroup>
-
-        {/*<FormGroup style={{float: 'right', marginTop: '2px',}}>
-          <ControlLabel>Tổng (Phí + thuế): <span>3.111.111 đ</span></ControlLabel>
-        </FormGroup>*/}
-
-        {/*<FormGroup controlId="formInlineEmail" style={{float: 'right', marginTop: '2px',}}>
-          <ControlLabel>1-5/5</ControlLabel>
-        </FormGroup>*/}
-        
       </Form>
 
     );

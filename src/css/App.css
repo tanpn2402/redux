@@ -325,6 +325,9 @@ body {
 
 
 /*ENTER ORDER*/
+.table>tbody>tr>td, .table>tbody>tr>th {
+  padding: 4px 8px;
+}
 .login
 {
     padding: 20px;
@@ -351,12 +354,13 @@ body {
     margin: 40px;
 }
 
+
 .inline
 {
     float:right;
 }
 
-.enterorder th
+.enterorder
 {
     background-color: #5C6BC0;
     color: white;
@@ -370,6 +374,7 @@ body {
 .form-group
 {
     margin:0;
+    font-size: 12px;
 }
 
 .date
@@ -377,16 +382,28 @@ body {
     position: relative;
 }
 
-.button{
-    float: left;
-    margin: 0px 15%;
-}
-
-.clear
+.button
 {
-    clear: both;
+    margin: 0px 35%;
+    
 }
 
+.submit
+{
+    background-color: #5C6BC0;
+    color: white;
+}
+
+.cancel
+{
+    background-color: rgb(255, 102, 0);
+    color: white;
+}
+
+.error
+{
+    margin: 15px 15px;
+}
 /*END ENTER ORDER*/
 
 
@@ -394,4 +411,34 @@ body {
 .btn-orderjournal {
     margin: 0px 2px;
     height: 21px;
+}
+
+/*PORFOLIO*/
+.vertical-table{
+   font-size: 12px;
+   margin-bottom: 2px;
+}
+.vertical-table > thead {
+    background-color: #043b72;
+    color: #fff;
+}
+.vertical-table > thead > tr >th, .vertical-table > tbody > tr > td{
+  padding: 2px 8px;
+  text-align: center;
+}
+
+.vertical-table .vertical-table-title {
+    text-align: left;
+    background-color: #e6e6e6;
+}
+.vertical-table .vertical-table-value {
+    text-align: right;
+    padding-right: 10px;
+}
+#porfolio-body .title {
+  text-align: center;
+}
+
+#porfolio-body .col-md-3 {
+  padding: 0px 1px;
 }

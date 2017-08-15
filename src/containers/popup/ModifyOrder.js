@@ -12,22 +12,22 @@ class ModifyOrder extends Component{
         this.columns = [
                 {
                     id: 'mvStockID',
-                    Header: this.props.language.tableheader.stockid,
+                    Header: this.props.language.orderjournal.header.stockid,
                     accessor: 'mvStockID',
                 },
                 {
                     id: 'mvPrice',
-                    Header: this.props.language.tableheader.price,
+                    Header: this.props.language.orderjournal.header.price,
                     accessor: 'mvPrice',
                 },
                 {
                     id: 'mvQty',
-                    Header: this.props.language.tableheader.quantity,
+                    Header: this.props.language.orderjournal.header.quantity,
                     accessor: 'mvQty',
                 },
                 {
                     id: 'mvPendingQty',
-                    Header: this.props.language.tableheader.pendingQty,
+                    Header: this.props.language.orderjournal.header.pendingQty,
                     accessor: 'mvPendingQty',
                 },
             ],
@@ -89,18 +89,18 @@ class ModifyOrder extends Component{
                     <table className="table table-bordered">
                         <tbody>
                             <tr>
-                                <th>{this.props.language.tableheader.stockid}</th>
+                                <th>{this.props.language.orderjournal.header.stockid}</th>
                                 <td><input type='text' className='form-control' 
                                 value={this.props.rowSelected[0].mvStockID} disabled/></td>
                             </tr>
                             <tr>
-                                <th>{this.props.language.tableheader.price}</th>
+                                <th>{this.props.language.orderjournal.header.price}</th>
                                 <td><input id='price' type='text' className='form-control' 
                                 value={this.state.mvPrice} 
                                 onChange={e => this.onInput(e.target.id, e.target.value)}/></td>
                             </tr>
                             <tr>
-                                <th>{this.props.language.tableheader.quantity}</th>
+                                <th>{this.props.language.orderjournal.header.quantity}</th>
                                 <td><input id='quantity' type='number' className='form-control' 
                                 value={this.state.mvQty} min='0' step='100'
                                 onChange={e => this.onInput(e.target.id, e.target.value)}/></td>
