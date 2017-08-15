@@ -43,12 +43,14 @@ class WatchList extends Component {
                     Header: 'Name',
                     //headerClassName: 'name-header-group',
                     columns: [{
+                        id: 'mvStockId',
                         Header: 'Stock',
-                        accessor: '',
+                        accessor: 'mvStockId',
                         width: 60,
                     }, {
+                        id: 'mvStockName',
                         Header: 'Market',
-                        accessor: '',
+                        accessor: 'mvStockName',
                         width: 60,
                     }]
                 },
@@ -186,14 +188,14 @@ class WatchList extends Component {
 
   
     render() {
-        
-console.log("stock:  "+this.props.stockList)
+        var data=this.props.watchListData
         return (
             <div id={'watchlist-body'} className="layout-body">
                 <WatchListToolbar stockList={this.props.stockList} />
                 <DataTable
                     id="watchlist-table" 
                     columns={this.state.columns} 
+                    data={[]}
                     />
             </div>
         )
@@ -201,7 +203,7 @@ console.log("stock:  "+this.props.stockList)
     }
 
     componentDidMount() {
-        // this.props.onRefresh()
+       this.props.onRefresh()
     }
     
     
@@ -211,14 +213,14 @@ console.log("stock:  "+this.props.stockList)
 }
 const mapStateToProps = (state) => {
   return {
-    
+    watchListData: state.watchlist.watchListData,
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    // onRefresh: () => {
-    //     dispatch(actions.loadWatchList())
-    //   },
+    onRefresh: () => {
+        dispatch(actions.loadWatchList())
+      },
 
 })
 

@@ -232,7 +232,6 @@ class Portfolio extends Component {
     	var data = this.props.data.mvPortfolioBeanList === undefined ? [] : this.props.data.mvPortfolioBeanList
     	console.log('render in porfolio', data.slice( (this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1) )
     	var d = this.props.data.mvPortfolioAccSummaryBean
-
     	if(d !== undefined && d !== [])
 	    {
 	    	console.log(d.totalAsset)

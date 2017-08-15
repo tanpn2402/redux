@@ -11,7 +11,7 @@ import stock from './stockreducer'
 import cashtranshistory from './cashtranshistory'
 import orderconfirmation from './orderconfirmation'
 import porfolio from './porfolio'
-
+import watchlist from './watchlist'
 export default combineReducers({
   dologin,
   session: sessionReducer,
@@ -25,5 +25,5 @@ export default combineReducers({
   cashtranshistory,
   orderconfirmation,
   porfolio,
-  
+  watchlist,
 });

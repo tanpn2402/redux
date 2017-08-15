@@ -8,7 +8,7 @@ import { setAuthenFail, checkAuthen} from './checkAuthenAction'
 import {stockSearch} from './stockaction'
 import { onConfirmSubmit, enquiryConfirmOrder } from './confirmorder'
 import {getPorfolio} from './porfolio'
-
+import {loadWatchList} from './watchlist'
 export {
   doLogin,
   logout,
@@ -34,4 +34,5 @@ export {
   onConfirmSubmit,
   enquiryConfirmOrder,
   getPorfolio,
+  loadWatchList,
 };
