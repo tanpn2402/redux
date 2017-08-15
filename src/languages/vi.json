@@ -126,6 +126,42 @@
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
         }  
+      },
+      "watchlist":{
+        "toolbar":{
+          "addstock": "Thêm CK",
+          "removestock": "Xóa CK"
+        },
+        "header":{
+          "name": "Tên CK",
+          "reference": "Tham chiếu",
+          "bestbid": "Dư mua",
+          "matching": "Khớp lệnh",
+          "bestask": "Dư bán",
+          "pricehistory": "Lịch sử giá",
+          "foreigninvestment": "Giao dịch NN",
+          "stock": "Mã CK",
+          "market": "Sàn",
+          "ce": "Trần",
+          "fl": "Sàn",
+          "ref": "TC",
+          "pri3": "Giá 3",
+          "vol3": "KL 3",
+          "pri2": "Giá 2",
+          "vol2": "KL 2",
+          "pri1": "Giá 1",
+          "vol1": "KL 1",
+          "price": "Giá",
+          "volume": "KL",
+          "totalvol": "Tổng KL",
+          "open": "Mở",
+          "high": "Cao",
+          "low": "Thấp",
+          "avg": "TB",
+          "forbuy": "NN Mua",
+          "forsell": "NN Bán",
+          "room": "Room"
+        }
       }
     }
   }

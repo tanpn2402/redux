@@ -1,7 +1,6 @@
 //render modal body + footer 
 import React, { Component } from 'react';
-import { Button, Modal, FormControl, Alert } from 'react-bootstrap';
-import ReactTable from "react-table"
+import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Warning from './Warning'

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../SearchBar'
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Popup from '../Popup'
 import WatchListToolbar from './WatchListToolbar'
 
 class WatchList extends Component {
@@ -17,9 +14,7 @@ class WatchList extends Component {
                     Header: props => < input id = "watchlist-cb-all"
                     type = 'checkbox'
                     className = "row-checkbox"
-                    onChange = {
-                        () => this.onRowSelected('ALL')
-                    }
+                    
                     />,
                     maxWidth: 50,
                     width: 40,
@@ -28,11 +23,11 @@ class WatchList extends Component {
                             return ( <
                                 input type = 'checkbox'
                                 className = "watchlist-row-checkbox"
-                                onChange = {
-                                    () => {
-                                        this.onRowSelected(props.original)
-                                    }
-                                }
+                                // onChange = {
+                                //     () => {
+                                //       //  this.onRowSelected(props.original)
+                                //     }
+                                // }
                                 />
                             )
                     },
@@ -40,73 +35,72 @@ class WatchList extends Component {
                     skip: true
                 },
                 {
-                    Header: 'Name',
-                    //headerClassName: 'name-header-group',
+                    Header: this.props.language.header.name,
                     columns: [{
                         id: 'mvStockId',
-                        Header: 'Stock',
+                        Header: this.props.language.header.stock,
                         accessor: 'mvStockId',
                         width: 60,
                     }, {
                         id: 'mvStockName',
-                        Header: 'Market',
+                        Header: this.props.language.header.market,
                         accessor: 'mvStockName',
                         width: 60,
                     }]
                 },
                 {
-                    Header: 'Reference',
+                    Header: this.props.language.header.reference,
                     columns: [{
-                        Header: 'CE',
+                        Header: this.props.language.header.ce,
                         accessor: '',
                         width: 60,
                     }, {
-                        Header: 'FL',
+                        Header: this.props.language.header.fl,
                         accessor: '',
                         width: 60,
                     }, {
-                        Header: 'Ref',
+                        Header: this.props.language.header.ref,
                         accessor: '',
                         width: 60,
                     }]
                 },
                 {
-                    Header: 'Best Bid',
+                    Header: this.props.language.header.bestbid,
                     columns: [{
-                            Header: 'Pri.3',
+                            Header: this.props.language.header.pri3,
                             accessor: '',
                             width: 60,
                         }, {
-                            Header: 'Vol.3',
+                            Header: this.props.language.header.vol3,
                             accessor: '',
                             width: 60,
                         },
                         {
-                            Header: 'Pri.2',
+                            Header: this.props.language.header.pri2,
                             accessor: '',
                             width: 60,
                         }, {
-                            Header: 'Vol.2',
+                            Header: this.props.language.header.vol2,
                             accessor: '',
                             width: 60,
                         }, {
-                            Header: 'Pri.1',
+                            Header: this.props.language.header.pri1,
                             accessor: '',
                             width: 60,
                         }, {
-                            Header: 'Vol.1',
+                            Header: this.props.language.header.vol1,
                             accessor: '',
                             width: 60,
                         }
                     ]
                 },
                 {
-                    Header: 'MATCHING',
+                    Header: this.props.language.header.matching,
                     columns: [{
-                        Header: 'Price',
+                        Header: this.props.language.header.price,
                         width: 60,
                     }, {
-                        Header: 'Volume',
+                        Header: this.props.language.header.volume,
                         width: 60,
                     }, {
                         Header: '+/-',
@@ -115,66 +109,66 @@ class WatchList extends Component {
                         Header: '%',
                         width: 60,
                     }, {
-                        Header: 'Total Vol',
+                        Header: this.props.language.header.totalvol,
                         width: 60,
                     }]
                 },
                 {
-                    Header: 'Best Ask',
+                    Header: this.props.language.header.bestask,
                     columns: [{
-                            Header: 'Pri.3',
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: 'Vol.3',
-                            accessor: '',
-                            width: 60,
-                        },
-                        {
-                            Header: 'Pri.2',
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: 'Vol.2',
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: 'Pri.1',
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: 'Vol.1',
-                            accessor: '',
-                            width: 60,
-                        }
+                        Header: this.props.language.header.pri1,
+                        accessor: '',
+                        width: 60,
+                    }, {
+                        Header: this.props.language.header.vol1,
+                        accessor: '',
+                        width: 60,
+                    },
+                    {
+                        Header: this.props.language.header.pri2,
+                        accessor: '',
+                        width: 60,
+                    }, {
+                        Header: this.props.language.header.vol2,
+                        accessor: '',
+                        width: 60,
+                    }, {
+                        Header: this.props.language.header.pri3,
+                        accessor: '',
+                        width: 60,
+                    }, {
+                        Header: this.props.language.header.vol3,
+                        accessor: '',
+                        width: 60,
+                    }
                     ]
                 },
                 {
-                    Header: 'Price history',
+                    Header: this.props.language.header.pricehistory,
                     columns: [{
-                        Header: 'Open',
+                        Header: this.props.language.header.open,
                         width: 60,
                     }, {
-                        Header: 'High',
+                        Header: this.props.language.header.high,
                         width: 60,
                     }, {
-                        Header: 'Low',
+                        Header: this.props.language.header.low,
                         width: 60,
                     }, {
-                        Header: 'Avg',
+                        Header: this.props.language.header.avg,
                         width: 60,
                     }]
                 },
                 {
-                    Header: 'Foreign investment',
+                    Header: this.props.language.header.foreigninvestment,
                     columns: [{
-                        Header: 'For. Buy',
+                        Header: this.props.language.header.forbuy,
                         width: 60,
                     }, {
-                        Header: 'For. Sell',
+                        Header: this.props.language.header.forsell,
                         width: 60,
                     }, {
-                        Header: 'Room',
+                        Header: this.props.language.header.room,
                         width: 60
                     }]
                 }
@@ -188,6 +182,7 @@ class WatchList extends Component {
 
   
     render() {
+        console.log(this.props.language)
         var data=this.props.watchListData
         return (
             <div id={'watchlist-body'} className="layout-body">
@@ -206,10 +201,6 @@ class WatchList extends Component {
        this.props.onRefresh()
     }
     
-    
-
-    
-
 }
 const mapStateToProps = (state) => {
   return {
