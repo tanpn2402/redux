@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
 import ReactTable from 'react-table'
 
 export default class App extends React.Component {
@@ -23,7 +23,7 @@ export default class App extends React.Component {
     var currentThemeName=this.props.currentThemeName.substring(6,11)
     var currentLanguage=this.props.currentLanguage
     return (
-        <Row className="header" /*style={{ backgroundColor: '#000', }}*/>
+        <Row className="header" id="pageheader" style={this.props.theme.pagebackground} >
           <Col xs={9} style={{paddingLeft: '0px',}}>
             
             <div className="logo">
@@ -46,6 +46,12 @@ export default class App extends React.Component {
           <Col xs={3} style={{ fontSize: '12px', textAlign: 'right', paddingRight: '5px', paddingTop: '1px',}}>
            
             <span>
+              {/*<select onChange={e => on}> 
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="brown">Brown</option>
+                <option value="blue">Blue</option>
+              </select>*/}
               <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'blue')} bsStyle="default" bsSize="xsmall">Blue</Button> 
               <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'dark')} bsStyle="default" bsSize="xsmall">Dark</Button> 
               <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'brown')} bsStyle="default" bsSize="xsmall">Brown</Button> 

@@ -55,7 +55,7 @@ class MenuBar extends React.Component {
   render() {
     console.log('menu bar',  this.props);
     return (
-      <div>
+      <div id="pagemenu">
         <nav className="navbar navbar-default" style={this.props.theme.background}>
           <div className="container-fluid">
             <ToggleButton/>
