@@ -4,6 +4,7 @@ import OrderJournal from './OrderJournal'
 import EnterOrder from './EnterOrder'
 import OrderConfirmation from './OrderConfirmation'
 import Portfolio from './Portfolio'
+import OrderHistory from './OrderHistory'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -14,7 +15,7 @@ export default function (menuid, props){
 			)
 		case 'cashtransactionhistory':
 			return (
-				<CashTransactionHistory language={props.language} />
+				<CashTransactionHistory language={props.language} theme={props.theme}/>
 			)
 		case 'orderjournal':
 			return (
@@ -27,6 +28,10 @@ export default function (menuid, props){
 		case 'porfolio':
 			return (
 				<Portfolio language={props.language.searchbar} theme={props.theme}/>
+			)
+		case 'ordershistory':
+			return (
+				<OrderHistory language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

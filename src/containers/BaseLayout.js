@@ -37,11 +37,11 @@ class BaseLayout extends React.Component {
                 <div className="child-grid-header" >
                         {this.props.title[menuid]}
                         <ul className="btn-action">
-                            <li>
+                            {/*<li>
                                 <a href="javascript:void(0);"   onClick={e => this.onPinLayout(menuid)} >
                                     <span className="glyphicon glyphicon-pushpin"></span>
                                 </a>
-                            </li>
+                            </li>*/}
                             <li>
                                 <a href="javascript:void(0);" onClick={e => this.onCloseLayout(menuid)} >
                                     <span className="glyphicon glyphicon-remove"></span>

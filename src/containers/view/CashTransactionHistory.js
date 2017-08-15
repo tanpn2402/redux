@@ -101,6 +101,7 @@ class CashTransactionHistory extends Component {
                     stockList={[]}
                     language={this.props.language.searchbar}
                     columns={this.state.columns}
+                    theme={this.props.theme}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     param={['mvTrade', 'mvStartDate', 'mvEndDate',]} />
                 <DataTable
