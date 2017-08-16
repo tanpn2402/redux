@@ -122,8 +122,6 @@ class OrderHistory extends Component {
         }
 
         this.id = 'ordershistory'
-
-
     }
 
     componentWillReceiveProps(nextProps){

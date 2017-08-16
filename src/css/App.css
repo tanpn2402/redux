@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-color: #efefef;
+  //overflow-y: hidden;
 }
 
 ::-webkit-scrollbar-track
@@ -501,3 +502,66 @@ body {
     width: 500px;
   }
 }
+/*END OVERRIDE BOOTSTRAP*/
+
+/*PAGE CONTENT*/
+#pagecontent {
+  //overflow-y: scroll;
+}
+
+/*END PAGE CONTENT*/
+
+/*HEADER*/
+#pageheader .row{
+  margin: 0;
+}
+.header-sm{
+  font-size: 12px;
+  background-color: #fff;
+  padding: 2px 0px;
+}
+.header-sm .header-action{
+  text-align: right;
+  padding-right: 18px;
+}
+.header-sm .header-action button{
+  margin: 0 2px;
+}
+
+.header-user > ul{
+  list-style-type: none;
+  margin: 0px;
+  height: 100%;
+  padding-right: 5px;
+  overflow-y: scroll;
+}
+
+.header-user > ul > li button{
+  margin: 0 2px;
+}
+
+.header-left {
+  padding-left: 0px;
+  height: 100%;
+
+}
+.header-lg > .header-left, .header-lg > .header-user,
+.header-left .logo, .header-left .logo > img , 
+.header-left .ReactTable,
+.header-sm > div, .header-sm > div > span,
+.header-sm > div > span > div > span {
+  height: 100%;
+  
+}
+
+.header-market .rt-noData {
+  display: none;
+}
+
+.header-user {
+  font-size: 12px;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 1px;
+}
+/*END HEADER*/
