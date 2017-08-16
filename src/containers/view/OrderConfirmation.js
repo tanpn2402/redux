@@ -124,8 +124,118 @@ class OrderConfirmation extends Component {
         this.id='orderconfirmation'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns : [
+                {
+                    // Create a select-all checkbox
+                    id: 'cb',
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                    maxWidth: 50,
+                    width: 40,
+                    Cell: props => { 
+                                        return (
+                                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                                onChange={() => { this.onRowSelected(props.original)}} />
+                                        ) 
+                                   },
+                    sortable: false,
+                    skip: true
+                  },
+                  {
+                    id: 'mvTradeTime',
+                    Header: nextProps.language.orderconfirmation.header.tradetime,
+                    accessor: 'mvTradeTime',
+                    width: 140,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvMarketID',
+                    Header: nextProps.language.orderconfirmation.header.marketid,
+                    accessor: 'mvMarketID',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvStockID',
+                    Header: nextProps.language.orderconfirmation.header.stockid,
+                    accessor: 'mvStockID',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvBS',
+                    Header: nextProps.language.orderconfirmation.header.buysell,
+                    accessor: 'mvBS',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvOrderType',
+                    Header: nextProps.language.orderconfirmation.header.ordertype,
+                    accessor: 'mvOrderType',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvQty',
+                    Header: nextProps.language.orderconfirmation.header.quantity,
+                    accessor: 'mvQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvPrice',
+                    Header: nextProps.language.orderconfirmation.header.price,
+                    accessor: 'mvPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvStatus',
+                    Header: nextProps.language.orderconfirmation.header.status,
+                    accessor: 'mvStatus',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvFilledQty',
+                    Header: nextProps.language.orderconfirmation.header.filledquantity,
+                    accessor: 'mvFilledQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvFilledPrice',
+                    Header: nextProps.language.orderconfirmation.header.filledprice,
+                    accessor: 'mvFilledPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+                  {
+                    id: 'mvCancelQty',
+                    Header: nextProps.language.orderconfirmation.header.cancelquantity,
+                    accessor: 'mvCancelQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                  },
+            ],
+        })
+    }
+
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         let lgClose = () => this.setState({ lgShow: false })

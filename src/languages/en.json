@@ -32,6 +32,12 @@
         "orderconfirmation": "Order Confirmation"
       },
       "searchbar": {
+          "search": "Search",
+          "startdate": "Start date",
+          "enddate": "End date",
+          "transtype": "Trans Type",
+          "market": "Market",
+          "ordertype": "Order Type",
           "cancel": "Cancel",
           "status": "Status",
           "type": "Type",
@@ -100,6 +106,9 @@
             "modify": "Modify Order",
             "cancel": "Cancel Order"
           }
+        },
+        "action": {
+            "cancelorder": "Cancel"
         }
       },
       "cashstatement": {
@@ -131,7 +140,7 @@
       },
       "orderconfirmation": {
         "header":{
-            "tradetime": "Thời gian GD",
+            "tradetime": "Trade Time",
             "marketid": "Sàn",
             "price": "Giá",
             "quantity": "Khối lượng",
@@ -147,8 +156,36 @@
           "title": "Order confirmation"
         }
       },
+      "ordershistory": {
+        "header":{
+            "ordergroupid": "Order ID",
+            "matcheddate": "Matched Date",
+            "matchedorderstatus": "Matched Status",
+            "tradingtype": "Trand type",
+            "matchedvalue" : "Giá trị khớp",
+            "tradetime": "Thời gian GD",
+            "marketid": "Sàn",
+            "price": "Giá",
+            "quantity": "Khối lượng",
+            "filledquantity": "Khối lượng khớp",
+            "filledprice": "Giá khớp",
+            "cancelquantity": "Khối lượng hủy",
+            "status": "Trạng thái",
+            "ordertype": "Loại lệnh",
+            "stockid": "Mã CK",
+            "buysell": "Mua/Bán"
+        }  
+      },
       "portfolio": {
         "header":{
+            "sumary": "Sumary",
+            "valuevnd": "Value (VND)",
+            "value": "Value",
+            "cashinfo": "Cash information",
+            "portfolioassessment": "Portfolio assessment",
+            "marginposition": "Margin position",
+            "cash": "Cash",
+            "stock": "Stock",
             "mvStockID": "Stock",
             "mvTradableQty": "Total volume",
             "mvTSettled": "Usable",

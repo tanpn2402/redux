@@ -48,38 +48,43 @@ export default class SearchBar extends React.Component {
     }
 
   componentWillMount(){
-    for(var i = 0; i < this.props.param.length; i++){
-      this.parameter[this.props.param[i]] = true
-    }
-
-    console.log('SearchBar componentWillMount',  this.props.stockList)
+    const language = this.props.language
     this.component = {
-        'mvStatus': this.genStatusComponent(),
-        'mvBuysell': this.genBSComponent(),
-        'mvTrade': this.genTradeComponent(),
-        'mvMarket': this.genMarketComponent(),
-        'mvOrderType': this.genOrderTypeComponent(),
-        'mvStockId': this.genStockListComponent(),
-        'mvStartDate': this.genStartDateComponent(),
-        'mvEndDate': this.genEndDateComponent(),
+        'mvStatus': this.genStatusComponent(language),
+        'mvBuysell': this.genBSComponent(language),
+        'mvTrade': this.genTradeComponent(language),
+        'mvMarket': this.genMarketComponent(language),
+        'mvOrderType': this.genOrderTypeComponent(language),
+        'mvStockId': this.genStockListComponent(language),
+        'mvStartDate': this.genStartDateComponent(language),
+        'mvEndDate': this.genEndDateComponent(language),
       }
   }
 
-  componentWillUpdate(){
-    console.log('SearchBar componentWillUpdate',  this.props.stockList)
-    
+  componentWillReceiveProps(nextProps){
+    const language = nextProps.language
+    this.component = {
+        'mvStatus': this.genStatusComponent(language),
+        'mvBuysell': this.genBSComponent(language),
+        'mvTrade': this.genTradeComponent(language),
+        'mvMarket': this.genMarketComponent(language),
+        'mvOrderType': this.genOrderTypeComponent(language),
+        'mvStockId': this.genStockListComponent(language),
+        'mvStartDate': this.genStartDateComponent(language),
+        'mvEndDate': this.genEndDateComponent(language),
+      }
   }
 
-  genStatusComponent(){
+  genStatusComponent(language){
     return (
         <FormGroup controlId="mvStatus" >
-          <ControlLabel>Trạng thái</ControlLabel>
+          <ControlLabel>{language.status}</ControlLabel>
           {'   '}
           <FormControl componentClass="select" placeholder="select">
             {
               config.orderstatus.map(e => {
                 return (
-                  <option value={e}>{this.props.language[e.toLowerCase()]}</option>
+                  <option value={e}>{language[e.toLowerCase()]}</option>
                 )
               })
             }
@@ -88,44 +93,44 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genOrderTypeComponent(){
+  genOrderTypeComponent(language){
      return (
       <FormGroup controlId="mvOrderType" >
-        <ControlLabel>Loại lệnh</ControlLabel>
+        <ControlLabel>{language.ordertype}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
-          <option value="ALL">{this.props.language.all}</option>
-          <option value="NORMAL">{this.props.language.normal}</option>
-          <option value="ATO">{this.props.language.ato}</option>
-          <option value="ATC">{this.props.language.atc}</option>
-          <option value="PUTTHROUGH">{this.props.language.putthrough}</option>
-          <option value="MP">{this.props.language.mp}</option>
-          <option value="MOK">{this.props.language.mok}</option>
-          <option value="MAK">{this.props.language.mak}</option>
-          <option value="MTL">{this.props.language.mtl}</option>
+          <option value="ALL">{language.all}</option>
+          <option value="NORMAL">{language.normal}</option>
+          <option value="ATO">{language.ato}</option>
+          <option value="ATC">{language.atc}</option>
+          <option value="PUTTHROUGH">{language.putthrough}</option>
+          <option value="MP">{language.mp}</option>
+          <option value="MOK">{language.mok}</option>
+          <option value="MAK">{language.mak}</option>
+          <option value="MTL">{language.mtl}</option>
         </FormControl>
       </FormGroup>
     )
   }
 
-  genBSComponent(){
+  genBSComponent(language){
     return (
       <FormGroup controlId="mvBuysell" >
-        <ControlLabel>Mua/Bán</ControlLabel>
+        <ControlLabel>{language.buysell}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
-          <option value="ALL">{this.props.language.all}</option>
-          <option value="B">{this.props.language.buy}</option>
-          <option value="S">{this.props.language.sell}</option>
+          <option value="ALL">{language.all}</option>
+          <option value="B">{language.buy}</option>
+          <option value="S">{language.sell}</option>
         </FormControl>
       </FormGroup>
     )
   }
 
-  genMarketComponent(){
+  genMarketComponent(language){
     return (
       <FormGroup controlId="mvMarket" >
-        <ControlLabel>Sàn</ControlLabel>
+        <ControlLabel>{language.market}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
           <option value="HA">HN</option>
@@ -136,16 +141,16 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genTradeComponent(){
+  genTradeComponent(language){
     return (
       <FormGroup controlId="mvTrade" >
-        <ControlLabel>Loại giao dịch</ControlLabel>
+        <ControlLabel>{language.transtype}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
           {
               config.transtype.map(e => {
                 return (
-                  <option value={e}>{this.props.language[e]}</option>
+                  <option value={e}>{language[e]}</option>
                 )
               })
           }
@@ -154,8 +159,7 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genStockListComponent(){
-    console.log('asdadasd',  this.props.stockList)
+  genStockListComponent(language){
     return (
       <FormGroup controlId="mvStockId">
         <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Mã CK"/>
@@ -170,10 +174,10 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genStartDateComponent(){
+  genStartDateComponent(language){
     return (
       <FormGroup bsClass="form-group datepicker" >
-        <ControlLabel>Từ ngày</ControlLabel>
+        <ControlLabel>{language.startdate}</ControlLabel>
         {'   '}
         <DatePicker   
             id="mvStartDate"
@@ -187,10 +191,10 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genEndDateComponent(){
+  genEndDateComponent(language){
     return (
       <FormGroup bsClass="form-group datepicker" >
-        <ControlLabel>Đến ngày</ControlLabel>
+        <ControlLabel>{language.enddate}</ControlLabel>
         {'   '}
         <DatePicker
             id="mvEndDate"
@@ -204,7 +208,7 @@ export default class SearchBar extends React.Component {
     )
   }
 
-  genInputComponent(){
+  genInputComponent(language){
     return (
       <FormGroup controlId="mvInput">
         <FormControl type="text" />
@@ -229,7 +233,7 @@ export default class SearchBar extends React.Component {
         }
        
         
-        <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>Tìm kiếm</Button>
+        <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
 
         <FormGroup bsClass="form-group dropdowncheckbox">
           <DropdownCheckBox columns={this.props.columns} onChangeStateColumn={this.props.onChangeStateColumn}/>

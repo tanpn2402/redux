@@ -1,8 +1,9 @@
-[{
+[
+  {
     "lang": "vi",
     "page": {
       "menu": {
-       "tradingplatform": "Giao dịch",
+        "tradingplatform": "Giao dịch",
         "enterorder": "Đặt lệnh giao dịch",
         "stockmarketinform": "Thông tin chứng khoán",
         "watchlist": "Danh mục quan tâm",
@@ -31,6 +32,12 @@
         "orderconfirmation": "Order Confirmation"
       },
       "searchbar": {
+          "search": "Tìm kiếm",
+          "startdate": "Từ ngày",
+          "enddate": "Đến ngày",
+          "transtype": "Loại GD",
+          "market": "Sàn",
+          "ordertype": "Loại lệnh",
           "cancel": "Huỷ GD",
           "status": "Trạng thái",
           "type": "Loại lệnh",
@@ -94,12 +101,14 @@
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
         },
-	      "popup":
-        {
+	      "popup": {
             "title":{
               "modify": "Sửa lệnh",
               "cancel": "Hủy lệnh"
             }
+        },
+        "action": {
+            "cancelorder": "Hủy lệnh"
         }
       },
       "cashstatement": {
@@ -169,6 +178,14 @@
       },
       "portfolio": {
         "header":{
+            "sumary": "Tổng quan",
+            "valuevnd": "Giá trị(VND)",
+            "value": "Giá trị",
+            "cashinfo": "Thông tin tài khoản tiền",
+            "portfolioassessment": "Đánh giá tài sản",
+            "marginposition": "Trạng thái ký quỹ",
+            "cash": "Tiền",
+            "stock": "Chứng khoán",
             "mvStockID": "Mã CK",
             "mvTradableQty": "Tổng khối lượng",
             "mvTSettled": "Số dư GD",

@@ -165,12 +165,162 @@ class OrderJournal extends Component {
         this.id = 'orderjournal'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns : [
+            {
+                id: 'cb',
+                Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                maxWidth: 50,
+                width: 40,
+                Cell: props => { 
+                                    if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
+                                        return (
+                                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                                onChange={() => { this.onRowSelected(props.original)}} />
+                                        ) 
+                                 },
+                sortable: false,
+                skip: true
+                },
+                {
+                id: 'can',
+                Header: nextProps.language.orderjournal.header.cancelmodify,
+                maxWidth: 80,
+                Cell: props =>{ 
+                                    var child = []
+                                    if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
+                                        child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button" 
+                                            onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
+                                    if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
+                                        child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
+                                            onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
+                                        return (
+                                            <span>
+                                                {
+                                                    child
+                                                }
+                                            </span>) 
+                                },
+                sortable: false,
+                skip: true
+                },
+                {
+                    id: 'mvStockID',
+                    Header: nextProps.language.orderjournal.header.stockid,
+                    accessor: 'mvStockID',
+                    width: 80,
+                    skip: false,
+                    show: true, 
+                },
+                {
+                    id: 'mvBS',
+                    Header: nextProps.language.orderjournal.header.buysell,
+                    accessor: 'mvBS',
+                    width: 50,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPrice',
+                    Header: nextProps.language.orderjournal.header.price,
+                    accessor: 'mvPrice',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvQty',
+                    Header: nextProps.language.orderjournal.header.quantity,
+                    accessor: 'mvQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPendingQty',
+                    Header: nextProps.language.orderjournal.header.pendingQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvExecutedQty',
+                    Header: nextProps.language.orderjournal.header.executedQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvAvgPrice',
+                    Header: nextProps.language.orderjournal.header.avgprice,
+                    accessor: 'mvAvgPriceValue',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: nextProps.language.orderjournal.header.status,
+                    accessor: 'mvStatus',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvOrderType',
+                    Header: nextProps.language.orderjournal.header.ordertype,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFeeTax',
+                    Header: nextProps.language.orderjournal.header.feetax,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvBankID',
+                    Header: nextProps.language.orderjournal.header.bankid,
+                    accessor: 'mvBankID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvExpiryDate',
+                    Header: nextProps.language.orderjournal.header.expirydate,
+                    accessor: 'mvDateTime',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvRejectReason',
+                    Header: nextProps.language.orderjournal.header.rejectreason,
+                    accessor: 'mvRejectReason',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+
+            ],
+
+        });
+    }
+
+
   
     render() {
-        console.log(this.props)
         this.buttonAction = [
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" 
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
+                onClick={() => this.showPopup()}>{this.props.language.orderjournal.action.cancelorder}</Button>,
         ]
         console.log('render in OrderJournal', this.props.data)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList

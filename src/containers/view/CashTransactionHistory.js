@@ -86,6 +86,79 @@ class CashTransactionHistory extends Component {
         this.id = 'cashtransactionhistory'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns: [
+                {
+                    id: 'mvTransId',
+                    Header: nextProps.language.cashtransaction.header.transid,
+                    accessor: 'tranID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvDateTrans',
+                    Header: nextProps.language.cashtransaction.header.datetrans,
+                    accessor: 'trandate',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvTransType',
+                    Header: nextProps.language.cashtransaction.header.transtype,
+                    
+
+                    width: 150,
+                    Cell: props => {
+                        return (
+                            <span>{nextProps.language.searchbar[props.original.transType]}</span>
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'mvAmount',
+                    Header: nextProps.language.cashtransaction.header.amount,
+                    accessor: 'totalLendingAmt',
+                    width: 150,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: nextProps.language.cashtransaction.header.status,
+                    width: 70,
+                    maxWidth: 80,
+                    Cell: props => {
+                        return(
+                            <span>{nextProps.language.cashtransaction.status[props.original.status]}</span>
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'mvNotes',
+                    Header: nextProps.language.cashtransaction.header.notes,
+                    accessor: 'remark',
+                    width: 625,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvLastUpdate',
+                    Header: nextProps.language.cashtransaction.header.lastupdate,
+                    accessor: 'lastApprovaltime',
+                    width: 200,
+                    skip: false,
+                    show: true,
+                }
+            ]
+        });
+    }
   
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list

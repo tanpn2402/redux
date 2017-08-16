@@ -13,7 +13,6 @@ class CashStatement extends Component {
 
         this.state = {
             columns : [
-
             {
                 id: 'Date',
                 Header: this.props.language.cashstatement.header.date,
@@ -72,9 +71,64 @@ class CashStatement extends Component {
         this.id = 'cashstatement'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns : [
+                {
+                    id: 'Date',
+                    Header: nextProps.language.cashstatement.header.date,
+                    accessor: 'TRANDATE',
+                    width: 110,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'description',
+                    Header: nextProps.language.cashstatement.header.description,
+                    accessor: 'REMARKS',
+                    width: 210,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'BALBF',
+                    Header: nextProps.language.cashstatement.header.beginningbalance,
+                    accessor: 'BALBF',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'CREDITAMT',
+                    Header: nextProps.language.cashstatement.header.creditamount,
+                    accessor: 'CREDITAMT',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'DEBITAMT',
+                    Header: nextProps.language.cashstatement.header.debitamount,
+                    accessor: 'DEBITAMT',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'BALCF',
+                    Header: nextProps.language.cashstatement.header.endingbalance,
+                    accessor: 'BALCF',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+            ],
+        })
+    }
+
 
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         this.buttonAction = [
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
                 onClick={() => this.showPopup()}>Hủy GD</Button>,
@@ -116,19 +170,19 @@ class CashStatement extends Component {
     }
 
     componentDidMount() {
-    this.props.onSearch()
-  }
+        this.props.onSearch('', !this.props.reload)
+    }
 
 
-  onPageChange(pageIndex){
-      console.log('cashstatement onPageChange', pageIndex)
-  }
+    onPageChange(pageIndex){
+        console.log('cashstatement onPageChange', pageIndex)
+    }
 
-  onChangeStateColumn(e){
-      const id = e.target.id
-      this.setState({
-          columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
-      });
+    onChangeStateColumn(e){
+        const id = e.target.id
+        this.setState({
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+        });
 
       //console.log(this.state.columns)
   }
