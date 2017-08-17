@@ -13,6 +13,7 @@ import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
 import {loadWatchList} from './watchlist'
+import {getProfile} from './profile'
 
 export {
   doLogin,
@@ -44,5 +45,6 @@ export {
   enquiryStockStatement,
   enquiryCashStatement,
   loadWatchList,
+  getProfile,
   
 };

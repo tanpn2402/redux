@@ -9,6 +9,7 @@ import StockStatement from './StockStatement'
 import CashStatement from './CashStatement'
 import WatchList from './WatchList'
 import StockMarketInfo from './StockMarketInfo'
+import Profile from './Profile'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -52,6 +53,10 @@ export default function (menuid, props){
 		case 'stockmarketinform':
 			return (
 				<StockMarketInfo language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'personalprofile' :
+			return (
+				<Profile/>
 			)
 		default: return
 	}
