@@ -176,7 +176,7 @@ class CashTransactionHistory extends Component {
                     columns={this.state.columns}
                     theme={this.props.theme}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvTrade', 'mvStartDate', 'mvEndDate',]} />
+                    param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                 <DataTable
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}

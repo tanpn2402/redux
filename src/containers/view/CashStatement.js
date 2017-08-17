@@ -151,7 +151,7 @@ class CashStatement extends Component {
                 language={this.props.language.searchbar}
                 columns={this.state.columns}
                 onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                param={['mvStartDate', 'mvEndDate', ]}/>
+                param={['mvStartDate', 'mvEndDate', 'dropdown']}/>
             <DataTable
                 columns={this.state.columns}
                 data={data}

@@ -250,7 +250,7 @@ class OrderConfirmation extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']}/>
+                    param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                 <DataTable 
                     id={this.id + '-table'}
                     onRowSelected={this.onRowSelected.bind(this)} 

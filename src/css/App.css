@@ -565,3 +565,9 @@ body {
   padding-top: 1px;
 }
 /*END HEADER*/
+
+/*STOCK INFO*/
+.stock-stat , .stock-info {
+  padding: 0;
+}
+/*END STOCK INFO*/

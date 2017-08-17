@@ -298,6 +298,30 @@
           "attemptlimit": "The remain number of times input is ",
           "attempt": "You have out of the number of times input. So your account is locked, please contact us to unlock"
         }
+      },
+      "stockmarketinform": {
+        "header":{
+            "Current": "Current",
+            "ChangeRate": "Change Rate(%)",
+            "Ref": "Ref",
+            "FloorCell": "Floor/Cell",
+            "LowHigh": "Low/High",
+            "Open": "Open",
+            "Avg": "Giá trung bình",
+            "Volume": "Volume",
+            "Total": "Total",
+            "ForBuySell": "ForBuy/Sell",
+            "Room": "Room",
+
+            "BestBid": "Best Bid",
+            "BestAsk": "Best Ask",
+
+            "MatchingOrderInfo": "Matching Order Info",
+            "Time": "Time",
+            "Price": "Price",
+            "Volume": "Volume",
+            "Total": "Total"
+        }
       }
     }
   }

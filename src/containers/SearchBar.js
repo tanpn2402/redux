@@ -58,6 +58,7 @@ export default class SearchBar extends React.Component {
         'mvStockId': this.genStockListComponent(language),
         'mvStartDate': this.genStartDateComponent(language),
         'mvEndDate': this.genEndDateComponent(language),
+        'dropdown': this.genDropdownCheckbox(this.props.columns, this.props.onChangeStateColumn),
       }
   }
 
@@ -72,6 +73,7 @@ export default class SearchBar extends React.Component {
         'mvStockId': this.genStockListComponent(language),
         'mvStartDate': this.genStartDateComponent(language),
         'mvEndDate': this.genEndDateComponent(language),
+        'dropdown': this.genDropdownCheckbox(nextProps.columns, nextProps.onChangeStateColumn),
       }
   }
 
@@ -216,6 +218,14 @@ export default class SearchBar extends React.Component {
     )
   }
 
+  genDropdownCheckbox(columns, onChangeStateColumn){
+    return(
+      <FormGroup bsClass="form-group dropdowncheckbox">
+            <DropdownCheckBox columns={columns} onChangeStateColumn={onChangeStateColumn}/>
+      </FormGroup>
+    )
+  }
+
   render() {
     return (
       <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
@@ -235,9 +245,7 @@ export default class SearchBar extends React.Component {
         
         <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
 
-        <FormGroup bsClass="form-group dropdowncheckbox">
-          <DropdownCheckBox columns={this.props.columns} onChangeStateColumn={this.props.onChangeStateColumn}/>
-        </FormGroup>
+        
 
         
 

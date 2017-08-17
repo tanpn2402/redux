@@ -257,7 +257,7 @@ class OrderHistory extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', ]}/>
+                    param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                 
                 <DataTable
                     id={this.id + "-table" }

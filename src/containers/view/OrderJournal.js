@@ -339,7 +339,7 @@ class OrderJournal extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}/>
+                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', 'dropdown' ]}/>
                 <DataTable
                     id="orderjournal-table" 
                     onRowSelected={this.onRowSelected.bind(this)} 

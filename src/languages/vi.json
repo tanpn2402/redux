@@ -298,6 +298,30 @@
           "attemptlimit":"Bạn đã vượt quá số lần nhập. Vì vậy, tài khoản của bạn bị khóa, xin vui lòng liên hệ chúng tôi để mở khóa",
           "attempt":"Số lần nhập còn lại là "
         }
+      },
+      "stockmarketinform": {
+        "header":{
+            "Current": "Giá khớp",
+            "ChangeRate": "(%) Tỉ lệ thay đổi",
+            "Ref": "Giá tham chiếu",
+            "FloorCell": "Giá sàn/trần",
+            "LowHigh": "Gá TN/CN",
+            "Open": "Giá mở cửa",
+            "Avg": "Giá trung bình",
+            "Volume": "Khối lượng",
+            "Total": "Giá trị GD",
+            "ForBuySell": "NDT NN Mua/Bán",
+            "Room": "Phòng",
+
+            "BestBid": "Dư mua",
+            "BestAsk": "Dư bán",
+
+            "MatchingOrderInfo": "Thông tin khớp lệnh",
+            "Time": "Thời gian",
+            "Price": "Giá",
+            "Volume": "Khối lượng",
+            "Total": "Tổng"
+        }
       }
     }
   }

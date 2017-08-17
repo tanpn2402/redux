@@ -295,7 +295,7 @@ class StockStatement extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStartDate', 'mvEndDate']}
+                    param={['mvStartDate', 'mvEndDate', 'dropdown']}
                 />
                 <DataTable 
                     id={this.id + '-table'}

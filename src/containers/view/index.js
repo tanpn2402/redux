@@ -8,6 +8,7 @@ import OrderHistory from './OrderHistory'
 import StockStatement from './StockStatement'
 import CashStatement from './CashStatement'
 import WatchList from './WatchList'
+import StockMarketInfo from './StockMarketInfo'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -47,6 +48,10 @@ export default function (menuid, props){
 		case 'watchlist':
 			return(
 				<WatchList language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'stockmarketinform':
+			return (
+				<StockMarketInfo language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}
