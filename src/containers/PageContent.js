@@ -36,7 +36,7 @@ class PageContent extends React.Component {
         var h1 = document.getElementById('pageheader').offsetHeight
         var h2 = document.getElementById('pagemenu').offsetHeight
         var h3 = window.innerHeight
-        document.getElementById('pagecontent').style.minHeight  = h3 - h1 - h2 +  'px'
+        document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
 
         this.props.getStockIdList(param)
     }

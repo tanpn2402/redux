@@ -3,7 +3,10 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-color: #efefef;
-  //overflow-y: hidden;
+  overflow-y:hidden;
+  height:100%;
+  width: 100%;
+  position: fixed;
 }
 
 ::-webkit-scrollbar-track
@@ -506,7 +509,7 @@ body {
 
 /*PAGE CONTENT*/
 #pagecontent {
-  //overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 /*END PAGE CONTENT*/
@@ -564,6 +567,8 @@ body {
   padding-right: 5px;
   padding-top: 1px;
 }
+
+
 /*END HEADER*/
 
 /*STOCK INFO*/
