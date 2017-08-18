@@ -11,23 +11,23 @@ class WatchList extends Component {
         this.state = {
             columns: [{
                     id: 'cb',
-                    Header: props => < input id = "watchlist-cb-all"
+                    Header: props => < input id={this.id + "-cb-all"}
                     type = 'checkbox'
                     className = "row-checkbox"
-                    
+                    onChange={() => this.onRowSelected('ALL')}
                     />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
-                        if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
+                        //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
                             return ( <
                                 input type = 'checkbox'
-                                className = "watchlist-row-checkbox"
-                                // onChange = {
-                                //     () => {
-                                //       //  this.onRowSelected(props.original)
-                                //     }
-                                // }
+                                className={this.id + "-row-checkbox"}
+                                onChange = {
+                                    () => {
+                                       this.onRowSelected(props.original)
+                                    }
+                                }
                                 />
                             )
                     },
@@ -48,149 +48,188 @@ class WatchList extends Component {
                         width: 60,
                     }]
                 },
-                {
-                    Header: this.props.language.header.reference,
-                    columns: [{
-                        Header: this.props.language.header.ce,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.fl,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.ref,
-                        accessor: '',
-                        width: 60,
-                    }]
-                },
-                {
-                    Header: this.props.language.header.bestbid,
-                    columns: [{
-                            Header: this.props.language.header.pri3,
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: this.props.language.header.vol3,
-                            accessor: '',
-                            width: 60,
-                        },
-                        {
-                            Header: this.props.language.header.pri2,
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: this.props.language.header.vol2,
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: this.props.language.header.pri1,
-                            accessor: '',
-                            width: 60,
-                        }, {
-                            Header: this.props.language.header.vol1,
-                            accessor: '',
-                            width: 60,
-                        }
-                    ]
-                },
-                {
-                    Header: this.props.language.header.matching,
-                    columns: [{
-                        Header: this.props.language.header.price,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.volume,
-                        width: 60,
-                    }, {
-                        Header: '+/-',
-                        width: 60,
-                    }, {
-                        Header: '%',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.totalvol,
-                        width: 60,
-                    }]
-                },
-                {
-                    Header: this.props.language.header.bestask,
-                    columns: [{
-                        Header: this.props.language.header.pri1,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.vol1,
-                        accessor: '',
-                        width: 60,
-                    },
-                    {
-                        Header: this.props.language.header.pri2,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.vol2,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.pri3,
-                        accessor: '',
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.vol3,
-                        accessor: '',
-                        width: 60,
-                    }
-                    ]
-                },
-                {
-                    Header: this.props.language.header.pricehistory,
-                    columns: [{
-                        Header: this.props.language.header.open,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.high,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.low,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.avg,
-                        width: 60,
-                    }]
-                },
-                {
-                    Header: this.props.language.header.foreigninvestment,
-                    columns: [{
-                        Header: this.props.language.header.forbuy,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.forsell,
-                        width: 60,
-                    }, {
-                        Header: this.props.language.header.room,
-                        width: 60
-                    }]
-                }
+                // {
+                //     Header: this.props.language.header.reference,
+                //     columns: [{
+                //         Header: this.props.language.header.ce,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.fl,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.ref,
+                //         accessor: '',
+                //         width: 60,
+                //     }]
+                // },
+                // {
+                //     Header: this.props.language.header.bestbid,
+                //     columns: [{
+                //             Header: this.props.language.header.pri3,
+                //             accessor: '',
+                //             width: 60,
+                //         }, {
+                //             Header: this.props.language.header.vol3,
+                //             accessor: '',
+                //             width: 60,
+                //         },
+                //         {
+                //             Header: this.props.language.header.pri2,
+                //             accessor: '',
+                //             width: 60,
+                //         }, {
+                //             Header: this.props.language.header.vol2,
+                //             accessor: '',
+                //             width: 60,
+                //         }, {
+                //             Header: this.props.language.header.pri1,
+                //             accessor: '',
+                //             width: 60,
+                //         }, {
+                //             Header: this.props.language.header.vol1,
+                //             accessor: '',
+                //             width: 60,
+                //         }
+                //     ]
+                // },
+                // {
+                //     Header: this.props.language.header.matching,
+                //     columns: [{
+                //         Header: this.props.language.header.price,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.volume,
+                //         width: 60,
+                //     }, {
+                //         Header: '+/-',
+                //         width: 60,
+                //     }, {
+                //         Header: '%',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.totalvol,
+                //         width: 60,
+                //     }]
+                // },
+                // {
+                //     Header: this.props.language.header.bestask,
+                //     columns: [{
+                //         Header: this.props.language.header.pri1,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.vol1,
+                //         accessor: '',
+                //         width: 60,
+                //     },
+                //     {
+                //         Header: this.props.language.header.pri2,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.vol2,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.pri3,
+                //         accessor: '',
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.vol3,
+                //         accessor: '',
+                //         width: 60,
+                //     }
+                //     ]
+                // },
+                // {
+                //     Header: this.props.language.header.pricehistory,
+                //     columns: [{
+                //         Header: this.props.language.header.open,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.high,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.low,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.avg,
+                //         width: 60,
+                //     }]
+                // },
+                // {
+                //     Header: this.props.language.header.foreigninvestment,
+                //     columns: [{
+                //         Header: this.props.language.header.forbuy,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.forsell,
+                //         width: 60,
+                //     }, {
+                //         Header: this.props.language.header.room,
+                //         width: 60
+                //     }]
+                // }
             ],
-            lgShow: false
+            lgShow: false,
         }
 
         this.rowSelected = []
         this.id = 'watchlist'
+        this.data=this.props.watchListData
     }
 
-  
+    onRowSelected(param){
+        if(param === 'ALL'){
+            var current = document.getElementById('watchlist-cb-all').checked
+            var  checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+            for(var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked=current;
+            }
+            if(current)
+                this.rowSelected = this.props.watchListData !== undefined ? 
+                    this.props.watchListData : []
+            else
+                this.rowSelected = []
+        }
+        else{
+            var index = this.rowSelected.indexOf(param)
+            if(index === -1){
+                this.rowSelected.push(param)
+            }
+            else{
+                this.rowSelected.splice(index, 1)
+            }
+
+            if(document.getElementsByClassName("watchlist-row-checkbox").length === this.rowSelected.length)
+                document.getElementById("watchlist-cb-all").checked = true
+            else
+                document.getElementById("watchlist-cb-all").checked = false
+        }
+        console.log('onRowSelected', this.rowSelected)
+    }
+    
+    onAddStock(value){
+        this.props.onAddStock(value);
+        this.props.onRefresh()
+        
+    }
     render() {
-        console.log(this.props.language)
-        var data=this.props.watchListData
+        console.log("value and name: "+ this.props.newName + this.props.newStock)
+        
         return (
             <div id={'watchlist-body'} className="layout-body">
-                <WatchListToolbar stockList={this.props.stockList} language={this.props.language.toolbar}/>
+                <WatchListToolbar 
+                    stockList={this.props.stockList} 
+                    language={this.props.language.toolbar} 
+                    onAddStock={this.onAddStock.bind(this)}
+                    />
                 <DataTable
                     id="watchlist-table" 
                     columns={this.state.columns} 
-                    data={[]}
+                    data={this.props.watchListData}
                     />
             </div>
         )
@@ -198,6 +237,7 @@ class WatchList extends Component {
     }
 
     componentDidMount() {
+        
        this.props.onRefresh()
     }
     
@@ -211,6 +251,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     onRefresh: () => {
         dispatch(actions.loadWatchList())
+      },
+    onAddStock: (value) => {
+        dispatch(actions.addStock(value))
       },
 
 })

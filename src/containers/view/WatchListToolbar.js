@@ -11,15 +11,25 @@ export default class WatchListToolbar extends React.Component {
 
   constructor () {
       super()
-     
+     this.inputValue=""
   }
-  
+  onAddStock(value){
+      this.props.onAddStock(value);
+  }
+  onChange(e){
+      console.log(e.target.value)
+      this.inputValue=e.target.value
+  }
   render() {
     return (
       <Form className='form-inline search-bar' id='watchlisttoolbar'>
         <Button  bsStyle="default" type="button" ><span className="glyphicon glyphicon-refresh"></span></Button>
             <FormGroup controlId="mvStockId">
-                <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Mã CK"/>
+                <FormControl bsClass='form-control stockSearch' 
+                componentClass="input" list="stockList" 
+                placeholder="Mã CK"
+                onChange={e => this.onChange(e)}
+                />
                     <datalist id="stockList">
                     {
                         this.props.stockList.map(e => {
@@ -28,8 +38,14 @@ export default class WatchListToolbar extends React.Component {
                     }
                     </datalist>
             </FormGroup>
-        <Button  bsStyle="primary" type="button" ><span className="glyphicon glyphicon-plus"></span> {this.props.language.addstock}</Button>
-        <Button  bsStyle="default" type="button" ><span className="glyphicon glyphicon-remove"></span> {this.props.language.removestock}</Button>
+        <Button  bsStyle="primary" type="button" onClick={e => this.onAddStock(this.inputValue)}>
+            <span className="glyphicon glyphicon-plus" ></span> 
+            {this.props.language.addstock}
+        </Button>
+        <Button  bsStyle="default" type="button" >
+            <span className="glyphicon glyphicon-remove"></span> 
+            {this.props.language.removestock}
+        </Button>
       </Form>
     );
   }

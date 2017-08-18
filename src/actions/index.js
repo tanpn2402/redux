@@ -12,7 +12,7 @@ import {enquiryOrderHistory,} from './orderhistory'
 import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
-import {loadWatchList} from './watchlist'
+import {loadWatchList, addStock} from './watchlist'
 import {getProfile} from './profile'
 
 export {
@@ -45,6 +45,7 @@ export {
   enquiryStockStatement,
   enquiryCashStatement,
   loadWatchList,
+  addStock,
   getProfile,
   
 };
