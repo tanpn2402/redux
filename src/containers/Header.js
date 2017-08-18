@@ -79,7 +79,9 @@ export default class App extends React.Component {
 		    				<strong>Nguyễn Văn Sự</strong>
 	    				</span>
 		    			<span>
-		    				<Button bsStyle="primary" bsSize="xsmall" onClick={this.onShowHeader.bind(this)}><span className="glyphicon glyphicon-chevron-down"></span></Button>
+		    				<Button className="header-expand" bsStyle="primary" bsSize="xsmall" onClick={this.onShowHeader.bind(this)}>
+		    					<span className="glyphicon glyphicon-chevron-down"></span>
+		    				</Button>
 		    				<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
 		    					<span className="glyphicon glyphicon-cog"></span>
 		    				</Button>
@@ -111,7 +113,7 @@ export default class App extends React.Component {
 			            <ul>
 			            	<li>
 			            		<span>
-				            		<Button bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>
+				            		<Button className="header-expand" bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>
 				            			<span className="glyphicon glyphicon-chevron-up"></span>
 				            		</Button>
 	    							<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
@@ -134,7 +136,18 @@ export default class App extends React.Component {
   	}
 
   	componentDidMount(){
-  		this.maxHeight = document.getElementById('pageheader')
+  		
+  		if(window.innerWidth <= 600)
+  		{
+  			document.getElementById('header-sm').style.display = 'block'
+        	document.getElementById('header-lg').style.display = 'none'
+
+        	var child = document.getElementsByClassName('header-expand')
+        	for (var i = child.length - 1; i >= 0; i--) {
+        		child[i].style.display = 'none'
+        	}
+  		}
+
   	}
 
   	onHideHeader(e){
@@ -183,22 +196,3 @@ export default class App extends React.Component {
     	document.getElementById("settingnav").style.width = "300px";
   	}
 }
-
-
-  {/*<span>
-			              <select onChange={e => on}> 
-			                <option value="light">Light</option>
-			                <option value="dark">Dark</option>
-			                <option value="brown">Brown</option>
-			                <option value="blue">Blue</option>
-			              </select>*/}
-			              {/*<Button onClick={this.props.changeConfig.bind(this,currentLanguage,'blue')} bsStyle="default" bsSize="xsmall">Blue</Button> 
-			              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'dark')} bsStyle="default" bsSize="xsmall">Dark</Button> 
-			              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'brown')} bsStyle="default" bsSize="xsmall">Brown</Button> 
-			              <Button onClick={this.props.changeConfig.bind(this,currentLanguage,'light')} bsStyle="default" bsSize="xsmall">Light</Button> 
-			              <Button onClick={this.props.changeConfig.bind(this,'en',currentThemeName)} bsStyle="default" bsSize="xsmall" >Eng</Button>  
-			              <Button onClick={this.props.changeConfig.bind(this,'vi',currentThemeName)} bsStyle="default" bsSize="xsmall" >Viet</Button>  
-			              
-				              	<Button bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>Ẩn</Button>
-				              	<Button bsStyle="primary" bsSize="xsmall">Logout</Button> 
-				            </span>*/}

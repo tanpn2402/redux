@@ -514,16 +514,16 @@ class Portfolio extends Component {
 		        	</div>
 
 		        	<div>
-			          	<div className="col-md-3">
+			          	<div className="col-sm-3 col-xs-6">
 			            		<VerticalTable header={this.state.header1} title={this.state.title1} language={this.props.language.header} data={data1}/>
 			          	</div>
-			          	<div className="col-md-3">
+			          	<div className="col-sm-3 col-xs-6">
 			            		<VerticalTable header={this.state.header2} title={this.state.title2} language={this.props.language.header} data={data2}/>
 			          	</div>
-			          	<div className="col-md-3">
+			          	<div className="col-sm-3 col-xs-6">
 			            		<VerticalTable header={this.state.header3} title={this.state.title3} language={this.props.language.header} data={data3}/>
 			          	</div>
-			          	<div className="col-md-3">
+			          	<div className="col-sm-3 col-xs-6">
 			            		<VerticalTable header={this.state.header4} title={this.state.title4} language={this.props.language.header} data={data4}/>
 			          	</div>
 	        		</div>
