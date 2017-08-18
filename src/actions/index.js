@@ -15,6 +15,7 @@ import { enquiryCashStatement} from './cashstatement'
 import {loadWatchList} from './watchlist'
 import {getProfile} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
+import {getCashtransfer, getCashdatatable} from './cashtransfer'
 
 export {
   doLogin,
@@ -50,4 +51,7 @@ export {
   getOddlotEnquiry,
   getOddlotHistory,
   onOddLotSubmit,
+  getCashtransfer,
+  getCashdatatable,
+  
 };

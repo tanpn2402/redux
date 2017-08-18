@@ -11,6 +11,7 @@ import WatchList from './WatchList'
 import StockMarketInfo from './StockMarketInfo'
 import Profile from './Profile'
 import OddLotTrading from './OddLotTrading'
+import CashTransfer from './CashTransfer'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -62,6 +63,10 @@ export default function (menuid, props){
 		case 'oddlottrading':
 			return(
 				<OddLotTrading language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'cashtransfer':
+			return(
+				<CashTransfer language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

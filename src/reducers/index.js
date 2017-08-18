@@ -17,6 +17,7 @@ import cashstatement from './cashstatement'
 import watchlist from './watchlist'
 import profile from './profile'
 import oddlottrading from './oddlottrading'
+import cashtransfer from './cashtransfer'
 
 export default combineReducers({
   dologin,
@@ -37,5 +38,6 @@ export default combineReducers({
   cashstatement,
   watchlist,
   profile,
+  cashtransfer,
   
 });

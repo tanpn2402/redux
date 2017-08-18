@@ -354,6 +354,30 @@
             "Volume": "Khối lượng",
             "Total": "Tổng"
         }
+      },
+      "cashtransfer": {
+        "header":{
+            "cashbalance": "Số dư tiền mặt",
+            "cashwithdrawable": "Số dư được rút ",
+            "transfertype": "Loại hình chuyển khoản",
+            "beneficiaryaccountnumber": "Tài khoản thụ hưởng",
+            "accounttype": "Loại tài khoản",
+            "beneficiaryfullname": "Người thụ hưởng",
+            "bankname": "Tên ngân hàng",
+            "bankbranch": "Chi nhánh",
+            "transferamount": "Số tiền chuyển khoản",
+            "remark": "Ghi chú",
+
+            "cashtransferplace": "Thực hiện chuyển tiền",
+            "cashtransfertransaction": "Giao dịch chuyển tiền trong ngày",
+            "beneficiaryaccount": "Tổng giá trị chứng khoán",
+            "status": "Trạng thái",
+            "approvetime": "Thời gian xác nhận",
+            "date": "Ngày GD",
+            "cancel": "Hủy GD",
+
+            "bankordertype": "Tài khoản ngân hàng"
+        }
       }
     }
   }

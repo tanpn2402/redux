@@ -354,6 +354,36 @@
             "Volume": "Volume",
             "Total": "Total"
         }
+      },
+      "cashtransfer": {
+        "header":{
+            "cashbalance": "Cash balance",
+            "cashwithdrawable": "Cash withdrawable",
+            "transfertype": "Transfer type",
+            "beneficiaryaccountnumber": "Beneficiary account number",
+            "accounttype": "Account type",
+            "beneficiaryfullname": "Beneficiary fullname",
+            "bankname": "Bank name",
+            "bankbranch": "Bank branch",
+            "transferamount": "Transfer amount",
+            "remark": "Remark",
+
+            "cashtransferplace": "Cash transfer place",
+            "cashtransfertransaction": "Cash transfer transaction",
+            "beneficiaryaccount": "Beneficiary account",
+            "status": "Status",
+            "approvetime": "Approve time",
+            "date": "Date",
+            "cancel": "Cancel",
+
+            "bankordertype": "Order Type"
+        },
+        "error":{
+          "transtype": "Choose transfer type",
+          "beneficiary": "Beneficiary account number is unavailable",
+          "bank": "Bank is unavailable",
+          "branch": "Bank branch is unavailable"
+        }
       }
     }
   }
