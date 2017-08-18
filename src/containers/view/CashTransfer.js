@@ -76,6 +76,62 @@ class CashTransfer extends Component {
         this.id = 'cashtransfer'
     }
 
+    componentWillReceiveProps(nextProps){
+      this.setState({
+        columns: [
+          {
+            id: 'transfertype',
+            Header: nextProps.language.cashtransfer.header.transfertype,
+            accessor: 'transType',
+          },
+          {
+            id: 'transferamount',
+            Header: nextProps.language.cashtransfer.header.transferamount,
+            accessor: 'totalLendingAmt',
+          },
+          {
+            id: 'beneficiaryaccount',
+            Header: nextProps.language.cashtransfer.header.beneficiaryaccount,
+            accessor: 'receiveClientID',
+          },
+          {
+            id: 'beneficiaryfullname',
+            Header: nextProps.language.cashtransfer.header.beneficiaryfullname,
+            accessor: 'ownerName',
+          },
+          {
+            id: 'bankname',
+            Header: nextProps.language.cashtransfer.header.bankname,
+            accessor: 'bankName',
+          },
+          {
+            id: 'bankbranch',
+            Header: nextProps.language.cashtransfer.header.bankbranch,
+            accessor: 'bankBranch',
+          },
+          {
+            id: 'status',
+            Header: nextProps.language.cashtransfer.header.status,
+            accessor: 'status',
+          },
+          {
+            id: 'approvetime',
+            Header: nextProps.language.cashtransfer.header.approvetime,
+            accessor: 'lastApprovaltime',
+          },
+          {
+            id: 'date',
+            Header: nextProps.language.cashtransfer.header.date,
+            accessor: 'createTime',
+          },
+          {
+            id: 'cancel',
+            Header: nextProps.language.cashtransfer.header.cancel,
+          }
+          ]
+      });
+    }
+
     handleInputChange(event) {
     }
 
