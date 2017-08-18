@@ -11,6 +11,15 @@ class CashStatement extends Component {
     constructor(props) {
         super(props)
 
+        this.params = {
+            mvLastAction:'',
+            mvStartDate:'',
+            mvEndDate:'',
+            mvStart:'0',
+            mvLimit:'15',
+            timePeriod:'Customize'
+        }
+
         this.state = {
             columns : [
             {
@@ -170,7 +179,12 @@ class CashStatement extends Component {
     }
 
     componentDidMount() {
-        this.props.onSearch('', !this.props.reload)
+        console.log('did mount', this.params)
+        var d = new Date()
+        var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
+        this.params['mvStartDate'] = today
+        this.params['mvEndDate'] = today
+        this.props.onSearch(this.params)
     }
 
 
@@ -187,8 +201,9 @@ class CashStatement extends Component {
       //console.log(this.state.columns)
   }
     onSearch(param){
-        console.log('cashstatement onSearch', param)
-        this.props.onSearch(param, !this.props.reload)
+        this.params['mvStartDate'] = param['mvStartDate']
+        this.params['mvEndDate'] = param['mvEndDate']
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
 
@@ -200,8 +215,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: () => {
-      dispatch(actions.enquiryCashStatement())
+    onSearch: (params) => {
+      dispatch(actions.enquiryCashStatement(params))
     },
 })
 

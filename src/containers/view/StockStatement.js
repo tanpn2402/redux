@@ -13,7 +13,15 @@ const buttonStyle = {
 class StockStatement extends Component {
     constructor(props) {
         super(props)
-
+        this.params = {
+            mvLastAction:'',
+            mvChildLastAction:'',
+            mvStartDate :'01/01/2001',
+            mvEndDate :'01/01/2017',
+            start:'0',
+            limit:'15',
+            timePeriod:'Customize'
+        }
         this.state = {
             columns : [
                 {
@@ -309,7 +317,11 @@ class StockStatement extends Component {
     }
     
     componentDidMount() {
-        this.props.onSearch(this.id)
+        var d = new Date()
+        var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
+        this.params['mvStartDate'] = today
+        this.params['mvEndDate'] = today
+        this.props.onSearch(this.params)
     }
 
     onChangeStateColumn(e){
@@ -324,8 +336,9 @@ class StockStatement extends Component {
     }
 
     onSearch(param){
-        console.log('stockstatement onSearch', param)
-        this.props.onSearch(param, !this.props.reload)
+        this.params['mvStartDate'] = param['mvStartDate']
+        this.params['mvEndDate'] = param['mvEndDate']
+        this.props.onSearch(this.params, !this.props.reload)
     }
 }
 

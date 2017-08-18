@@ -10,6 +10,16 @@ class CashTransactionHistory extends Component {
     constructor(props) {
         super(props)
 
+        this.params = {
+            mvLastAction:'',
+            tradeType:'ALL',
+            mvStartDate:'',
+            mvEndDate:'',
+            start:'0',
+            limit:'15',
+            page:'1'
+        }
+
         this.state = {
             columns: [
                 {
@@ -189,10 +199,15 @@ class CashTransactionHistory extends Component {
         
     }
 
-    /*shouldComponentUpdate(nextProps, nextState) {
-        console.log('should update cash trans', nextProps, nextState)
-        return nextProps.menuid === this.id
-    }*/
+
+    // componentDidMount() {
+    //     console.log('did mount', this.params)
+    //     var d = new Date()
+    //     var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
+    //     this.params['mvStartDate'] = today
+    //     this.params['mvEndDate'] = today
+    //     this.props.onSearch(this.params)
+    // }
 
     onRowSelected(param) {
         if (param === 'ALL') {
