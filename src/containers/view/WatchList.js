@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import WatchListToolbar from './WatchListToolbar'
+import SearchBar from '../SearchBar'
+import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstrap'
 
 class WatchList extends Component {
     constructor(props) {
@@ -41,11 +42,13 @@ class WatchList extends Component {
                         Header: this.props.language.header.stock,
                         accessor: 'mvStockId',
                         width: 60,
+                        show: true,
                     }, {
                         id: 'mvStockName',
                         Header: this.props.language.header.market,
                         accessor: 'mvStockName',
                         width: 60,
+                        show: true,
                     }]
                 },
                 // {
@@ -173,9 +176,7 @@ class WatchList extends Component {
                 //     }]
                 // }
             ],
-            lgShow: false,
-            data: this.props.watchListData   
-        
+            showAlert: false
         }
         this.rowSelected = []
         this.id = 'watchlist'
@@ -212,27 +213,78 @@ class WatchList extends Component {
     }
     
     onAddStock(value){
-        this.props.onAddStock(value);
-        this.props.onRefresh()
-        
+        if(!this.isInList(value)){
+            this.props.onAddStock(value);
+            this.props.onRefresh()
+        }else{
+            //show Alert
+            console.log("alert")
+        }
+            
     }
     onRemoveStock(param){
         this.props.onRemoveStock(param)
+        this.props.onRefresh()
+    }
+    onChange(e){
+        console.log(e.target.value)
+        this.inputValue=e.target.value
+    }
+    isInList(value){
+        var i=0;
+        this.props.watchListData.map(stock => {
+            if(value === stock.mvStockId)
+                i++
+        })
+        return i=0 ? false:true
     }
     render() {
+        this.buttonAction = [
+            <Button  bsStyle="default" type="button" >
+                <span className="glyphicon glyphicon-refresh"></span>
+            </Button>,
+            <FormGroup controlId="mvStockId">
+                <FormControl bsClass='form-control stockSearch' 
+                componentClass="input" list="stockList" 
+                placeholder="Mã CK"
+                onChange={e => this.onChange(e)}
+                />
+                    <datalist id="stockList">
+                    {
+                        this.props.stockList.map(e => {
+                            return( <option value={e.stockCode}>{e.stockName}</option> )
+                        })
+                    }
+                    </datalist>
+            </FormGroup>,
+            <Button  bsStyle="primary" type="button" 
+                onClick={e => this.onAddStock(this.inputValue)}>
+                <span className="glyphicon glyphicon-plus" ></span> 
+                 {this.props.language.toolbar.addstock}
+            </Button>,
+            <Button  bsStyle="default" type="button" 
+                onClick={e => this.props.onRemoveStock(this.rowSelected)}>
+                <span className="glyphicon glyphicon-remove"></span> 
+                 {this.props.language.toolbar.removestock}
+            </Button>
+        ]
         return (
             <div id={'watchlist-body'} className="layout-body">
-                <WatchListToolbar 
-                    stockList={this.props.stockList} 
-                    language={this.props.language.toolbar} 
-                    onAddStock={this.onAddStock.bind(this)}
-                    onRemoveStock={this.onRemoveStock.bind(this)}
-                    rowSelected={this.rowSelected}
+                <SearchBar
+                    id={this.id}
+                    onSearch={[]}
+                    buttonAction={this.buttonAction} 
+                    stockList={[]} 
+                    language={[]} 
+                    theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={[]}
+                    param={[]}
                     />
                 <DataTable
                     id="watchlist-table" 
                     columns={this.state.columns} 
-                    data={this.props.watchListData }
+                    data={this.props.watchListData}
                     onRowSelected={this.onRowSelected.bind(this)} 
                     />
             </div>

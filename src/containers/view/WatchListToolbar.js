@@ -12,6 +12,7 @@ export default class WatchListToolbar extends React.Component {
   constructor () {
       super()
         this.inputValue=""
+       
   }
   onAddStock(value){
       this.props.onAddStock(value);

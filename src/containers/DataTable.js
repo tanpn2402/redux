@@ -11,8 +11,10 @@ export default class App extends React.Component {
       fontSize: '12px',
       height: '100%',
     }
+   
   }
   render() {
+    console.log("Annn ",this.props.data)
     const defaultPageSize = this.props.defaultPageSize === undefined ? 15 : this.props.defaultPageSize
     return (
         <div id={this.props.id} >
