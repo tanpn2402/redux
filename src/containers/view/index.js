@@ -4,7 +4,12 @@ import OrderJournal from './OrderJournal'
 import EnterOrder from './EnterOrder'
 import OrderConfirmation from './OrderConfirmation'
 import Portfolio from './Portfolio'
+import OrderHistory from './OrderHistory'
+import StockStatement from './StockStatement'
+import CashStatement from './CashStatement'
 import WatchList from './WatchList'
+import StockMarketInfo from './StockMarketInfo'
+import Profile from './Profile'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -15,7 +20,7 @@ export default function (menuid, props){
 			)
 		case 'cashtransactionhistory':
 			return (
-				<CashTransactionHistory language={props.language} />
+				<CashTransactionHistory language={props.language} theme={props.theme}/>
 			)
 		case 'orderjournal':
 			return (
@@ -27,11 +32,31 @@ export default function (menuid, props){
 			)
 		case 'porfolio':
 			return (
-				<Portfolio language={props.language.searchbar} theme={props.theme}/>
+				<Portfolio language={props.language} theme={props.theme}/>
+			)
+		case 'ordershistory':
+			return (
+				<OrderHistory language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'stockstatement':
+			return (
+				<StockStatement language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'cashstatement':
+			return (
+				<CashStatement language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		case 'watchlist':
 			return(
 				<WatchList language={props.language.watchlist} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'stockmarketinform':
+			return (
+				<StockMarketInfo language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'personalprofile' :
+			return (
+				<Profile/>
 			)
 		default: return
 	}

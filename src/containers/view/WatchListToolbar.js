@@ -28,8 +28,8 @@ export default class WatchListToolbar extends React.Component {
                     }
                     </datalist>
             </FormGroup>
-        <Button  bsStyle="primary" type="button" ><span className="glyphicon glyphicon-plus"></span> Add Stock</Button>
-        <Button  bsStyle="default" type="button" ><span className="glyphicon glyphicon-remove"></span> Remove Stock</Button>
+        <Button  bsStyle="primary" type="button" ><span className="glyphicon glyphicon-plus"></span> {this.props.language.addstock}</Button>
+        <Button  bsStyle="default" type="button" ><span className="glyphicon glyphicon-remove"></span> {this.props.language.removestock}</Button>
       </Form>
     );
   }

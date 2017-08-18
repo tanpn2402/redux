@@ -35,20 +35,19 @@ export function setError(isError) {
     }
 }
 
-export function checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo) {
+export function checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo, language) {
     return dispatch => {
-        if (checkmvOrderType(json.mvOrderType, json.mvVolume) !== "SUCCESS")
-            return dispatch(setError(checkmvOrderType(json.mvOrderType, json.mvVolume)))
-        if (checkmvRange(json.mvStatus, stockBalanceInfo, stockBeanInfo, json.mvPrice, json.mvStock, json.mvVolume) !== "SUCCESS")
-            return dispatch(setError(checkmvRange(json.mvStatus, stockBalanceInfo, stockBeanInfo, json.mvPrice, json.mvStock, json.mvVolume)))
-        if (checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus,json.mvBank) !== "SUCCESS")
-            return dispatch(setError(checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus, json.mvBank)))
+        if (checkmvOrderType(json.mvOrderType, json.mvVolume, language) !== "SUCCESS")
+            return dispatch(setError(checkmvOrderType(json.mvOrderType, json.mvVolume, language)))
+        if (checkmvRange(json.mvStatus, stockBalanceInfo, stockBeanInfo, json.mvPrice, json.mvStock, json.mvVolume, language) !== "SUCCESS")
+            return dispatch(setError(checkmvRange(json.mvStatus, stockBalanceInfo, stockBeanInfo, json.mvPrice, json.mvStock, json.mvVolume, language)))
+        if (checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus,json.mvBank, language) !== "SUCCESS")
+            return dispatch(setError(checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus, json.mvBank, language)))
         return dispatch(setError('Success all'))
-        // dispatch(setPopup(true))
     }
 }
 
-function checkmvOrderType(mvOrderType, mvVolume) {
+function checkmvOrderType(mvOrderType, mvVolume, language) {
     var orderType = ["LO", "ATC", "MAK", "MOK", "MTL", "LO(Odd Lot)"];
     if (orderType.includes(mvOrderType)) {
         if (mvOrderType === "LO(Odd Lot)") {
@@ -56,7 +55,7 @@ function checkmvOrderType(mvOrderType, mvVolume) {
                 return "SUCCESS";
             }
             else {
-                return "LO(Odd Lot)'s Volume need in range [1,100]";
+                return language.oddlotrange;
             }
 
         }
@@ -65,18 +64,18 @@ function checkmvOrderType(mvOrderType, mvVolume) {
                 return "SUCCESS";
             }
             else {
-                return "Range of Volume need more than 100 or must be multiples of 100";
+                return language.otherrange;
             }
         }
     }
     else
-        return "Order Type is unavailable";
+        return language.ordertypeavailable;
 
 }
 
-function checkmvRange(mvStatus, stockBalanceInfo, stockBeanInfo, mvPrice, mvStock, mvVolume) {
-    if ((parseInt(mvPrice, 10) >= parseInt(stockBeanInfo.mvFloor, 10)) && (parseInt(mvPrice, 10) <= parseInt(stockBeanInfo.mvCeiling, 10))) {
-        if (mvStock === "ACB") {
+function checkmvRange(mvStatus, stockBalanceInfo, stockBeanInfo, mvPrice, mvStock, mvVolume, language) {
+    if (mvStock === "ACB") {
+        if ((parseInt(mvPrice, 10) >= parseInt(stockBeanInfo.mvFloor, 10)) && (parseInt(mvPrice, 10) <= parseInt(stockBeanInfo.mvCeiling, 10))) {
             if (mvStatus === "BUY" || mvStatus === "BUYALL") {
                 return "SUCCESS";
             }
@@ -85,21 +84,21 @@ function checkmvRange(mvStatus, stockBalanceInfo, stockBeanInfo, mvPrice, mvStoc
                     return "SUCCESS";
                 }
                 else {
-                    return "It's out of your Stock range";
+                    return language.sellvolume;
                 }
             }
         }
         else {
-            return "Stock Code is unavailable";
+            var error = language.pricerange + "[" + stockBeanInfo.mvFloor + "," + stockBeanInfo.mvCeiling + "]"
+            return error;
         }
     }
     else {
-        var error = "It's out of the range [" + stockBeanInfo.mvFloor + "," + stockBeanInfo.mvCeiling + "]"
-        return error;
+        return language.stockavailable;
     }
 }
 
-function checkMoney(mvPrice, mvBuyPower, mvStatus, mvBank) {
+function checkMoney(mvPrice, mvBuyPower, mvStatus, mvBank, language) {
     if (mvBank === "ACB-125137309") {
         if (mvStatus === "SELL" || mvStatus === "SELLALL") {
             return "SUCCESS";
@@ -109,11 +108,10 @@ function checkMoney(mvPrice, mvBuyPower, mvStatus, mvBank) {
                 return "SUCCESS";
             }
             else {
-                return "You don't have enough money";
+                return language.money;
             }
         }
     }
     else
-        return "Bank is unavailable"
-
+        return language.bank;
 }

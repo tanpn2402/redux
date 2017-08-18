@@ -37,11 +37,11 @@ class BaseLayout extends React.Component {
                 <div className="child-grid-header" >
                         {this.props.title[menuid]}
                         <ul className="btn-action">
-                            <li>
+                            {/*<li>
                                 <a href="javascript:void(0);"   onClick={e => this.onPinLayout(menuid)} >
                                     <span className="glyphicon glyphicon-pushpin"></span>
                                 </a>
-                            </li>
+                            </li>*/}
                             <li>
                                 <a href="javascript:void(0);" onClick={e => this.onCloseLayout(menuid)} >
                                     <span className="glyphicon glyphicon-remove"></span>
@@ -50,7 +50,7 @@ class BaseLayout extends React.Component {
                         </ul>
                         
                 </div>
-                <div id={menuid + '-main'} className="child-grid-body" >
+                <div id={menuid + '-main'} className="child-grid-body" onMouseDown={ e => e.stopPropagation() }>
                         {
                             generateWindow(menuid, this.props)
                         }
@@ -139,17 +139,6 @@ class BaseLayout extends React.Component {
 
     onLayoutChange(layout){
         console.log('onLayoutChange', layout);
-        
-        /*for(var i = 0; i < layout.length; i++){
-            console.log('123')
-            if(document.getElementById(layout[i].i + '-table') !== null){
-                console.log(layout[i].h)
-                document.getElementById(layout[i].i + '-body').style.height = layout[i].h * 39 - 25 + 'px'
-                document.getElementById(layout[i].i + '-table').style.height = 
-                    document.getElementById(layout[i].i + '-body').offsetHeight - 65 + 'px'
-            }
-        }*/
-
     }
 
     componentWillUpdate(){
@@ -169,9 +158,6 @@ class BaseLayout extends React.Component {
             <ReactGridLayout className="layout" cols={30} rowHeight={30} width={1320} 
                 onResize={this.onResize.bind(this)}
                 onResizeStop={this.onResizeStop.bind(this)}
-                //onResizeStart={this.props.onResizeStart}
-                //onDrag={this.props.onDrag}
-                //onDragStart={this.props.onDragStart}
                 onDragStop={this.onDragStop.bind(this)}
                 onLayoutChange={this.onLayoutChange}
                 >

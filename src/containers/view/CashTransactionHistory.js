@@ -86,6 +86,79 @@ class CashTransactionHistory extends Component {
         this.id = 'cashtransactionhistory'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns: [
+                {
+                    id: 'mvTransId',
+                    Header: nextProps.language.cashtransaction.header.transid,
+                    accessor: 'tranID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvDateTrans',
+                    Header: nextProps.language.cashtransaction.header.datetrans,
+                    accessor: 'trandate',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvTransType',
+                    Header: nextProps.language.cashtransaction.header.transtype,
+                    
+
+                    width: 150,
+                    Cell: props => {
+                        return (
+                            <span>{nextProps.language.searchbar[props.original.transType]}</span>
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'mvAmount',
+                    Header: nextProps.language.cashtransaction.header.amount,
+                    accessor: 'totalLendingAmt',
+                    width: 150,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: nextProps.language.cashtransaction.header.status,
+                    width: 70,
+                    maxWidth: 80,
+                    Cell: props => {
+                        return(
+                            <span>{nextProps.language.cashtransaction.status[props.original.status]}</span>
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'mvNotes',
+                    Header: nextProps.language.cashtransaction.header.notes,
+                    accessor: 'remark',
+                    width: 625,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvLastUpdate',
+                    Header: nextProps.language.cashtransaction.header.lastupdate,
+                    accessor: 'lastApprovaltime',
+                    width: 200,
+                    skip: false,
+                    show: true,
+                }
+            ]
+        });
+    }
   
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -101,8 +174,9 @@ class CashTransactionHistory extends Component {
                     stockList={[]}
                     language={this.props.language.searchbar}
                     columns={this.state.columns}
+                    theme={this.props.theme}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvTrade', 'mvStartDate', 'mvEndDate',]} />
+                    param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                 <DataTable
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
@@ -115,10 +189,10 @@ class CashTransactionHistory extends Component {
         
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    /*shouldComponentUpdate(nextProps, nextState) {
         console.log('should update cash trans', nextProps, nextState)
         return nextProps.menuid === this.id
-    }
+    }*/
 
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -151,26 +225,25 @@ class CashTransactionHistory extends Component {
     }
 
     onPageChange(pageIndex) {
-        console.log('orderjournal onPageChange', pageIndex)
+        console.log('cashtranshistory onPageChange', pageIndex)
     }
 
     onSearch(param) {
         console.log(this.id + ' onSearch', param)
-        this.props.onSearch(this.id, param, !this.props.reload)
+        this.props.onSearch(param, !this.props.reload)
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        data: state.orderjournal.data,
-        menuid: state.orderjournal.menuid,
-        reload: state.orderjournal.reload,
+        data: state.cashtranshistory.data,
+        reload: state.cashtranshistory.reload,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (menuid, param, reload) => {
-        dispatch(actions.enquiryOrder(menuid, param, reload))
+    onSearch: (param, reload) => {
+        dispatch(actions.enquiryCashTransaction(param, reload))
     },
 
 })

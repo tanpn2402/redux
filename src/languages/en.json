@@ -11,7 +11,7 @@
         "accountno": "Account No",
         "porfolio": "Porfolio",
         "account": "Account",
-        "matchingordershistory": "Matching Orders History",
+        "ordershistory": "Matching Orders History",
         "cashtransactionhistory": "Cash Transaction History",
         "cashstatement": "Cash Statement",
         "stockstatement": "Stock Statement",
@@ -32,6 +32,12 @@
         "orderconfirmation": "Order Confirmation"
       },
       "searchbar": {
+          "search": "Search",
+          "startdate": "Start date",
+          "enddate": "End date",
+          "transtype": "Trans Type",
+          "market": "Market",
+          "ordertype": "Order Type",
           "cancel": "Cancel",
           "status": "Status",
           "type": "Type",
@@ -94,6 +100,25 @@
             "time": "Time",
             "stockid": "Stock ID",
             "buysell": "Buy/Sell"
+        },
+	      "popup": {
+          "title": {
+            "modify": "Modify Order",
+            "cancel": "Cancel Order"
+          }
+        },
+        "action": {
+            "cancelorder": "Cancel"
+        }
+      },
+      "cashstatement": {
+        "header":{
+            "date": "Date",
+            "description": "Description",
+            "beginningbalance": "Beginning Balance",
+            "creditamount": "Credit Amount",
+            "debitamount": "Dedit Amount",
+            "endingbalance": "Ending Balance"
         }
       },
       "cashtransaction": {
@@ -115,6 +140,29 @@
       },
       "orderconfirmation": {
         "header":{
+            "tradetime": "Trade Time",
+            "marketid": "Sàn",
+            "price": "Giá",
+            "quantity": "Khối lượng",
+            "filledquantity": "Khối lượng khớp",
+            "filledprice": "Giá khớp",
+            "cancelquantity": "Khối lượng hủy",
+            "status": "Trạng thái",
+            "ordertype": "Loại lệnh",
+            "stockid": "Mã CK",
+            "buysell": "Mua/Bán"
+        },
+        "popup": {
+          "title": "Order confirmation"
+        }
+      },
+      "ordershistory": {
+        "header":{
+            "ordergroupid": "Order ID",
+            "matcheddate": "Matched Date",
+            "matchedorderstatus": "Matched Status",
+            "tradingtype": "Trand type",
+            "matchedvalue" : "Giá trị khớp",
             "tradetime": "Thời gian GD",
             "marketid": "Sàn",
             "price": "Giá",
@@ -127,6 +175,153 @@
             "stockid": "Mã CK",
             "buysell": "Mua/Bán"
         }  
+      },
+      "portfolio": {
+        "header":{
+            "sumary": "Sumary",
+            "valuevnd": "Value (VND)",
+            "value": "Value",
+            "cashinfo": "Cash information",
+            "portfolioassessment": "Portfolio assessment",
+            "marginposition": "Margin position",
+            "cash": "Cash",
+            "stock": "Stock",
+            "mvStockID": "Stock",
+            "mvTradableQty": "Total volume",
+            "mvTSettled": "Usable",
+            "mvHoldingAmt": "Hold in day",
+            "mvQueuingBuy": "T0 buy",
+            "mvTT1UnsettleBuy": "T1 buy",
+            "mvTDueBuy": "T2 buy",
+            "mvTMortgageQty": "Mortgage",
+            "mvTManualHold": "Hold",
+            "mvTEntitlementQty": "Pend.entitlement",
+            "mvTAwaitingTraceCert": "Await trading",
+            "mvTAwaitingDepositCert": "Await deposit",
+            "mvTAwaitingWithdrawalCert": "Await withdraw",
+            "mvAvgPrice": "Avg price",
+            "mvMarketPrice": "Current price",
+            "mvWAC": "Buy value",
+            "mvMarketValue": "Market value",
+            "mvPL": "P/L",
+            "mvPLPercent": "% P/L",
+            "mvMarginPercentage": "% Lend",
+            "mvMartginValue": "Lending value",
+            "maintenancePercentage": "% Maintenance",
+            "maintenanceValue": "Maintenance value",
+
+            "totalAsset": "Total asset",
+            "equity": "equity",
+            "stockValue": "Total stock market value",
+            "profitLoss": "Profit/Loss",
+            "PLPercent": "% Profit/Loss (per equity)",
+            "cashBalance": "Cash balance(withdrawable)",
+            "mvAvailAdvanceMoney": "Cash advanceable",
+            "mvBuyHoldAmount": "Hold for executed purchase",
+            "mvHoldAmount": "Hold for pending purchase",
+            "CPendingWithdrawal": "Pending approval for withdrawal",
+            "soldT0": "Sold T+0",
+            "soldT1": "Sold T+1",
+            "soldT2": "Sold T+2",
+            "equityMar": "Total asset maintenance",
+            "totalAssetMaintenance": "Equity (margin portfolio)",
+            "stockMaintenance": "Stock maintenance",
+            "cashMaintenance": "Cash maintenance",
+            "mvOutstandingLoan": "Outstanding loan",
+            "debtIncByPurchase": "Debt increase by purchase",
+            "debitAccruedInterest": "Accured debit interest",
+            "mvCreditLimit": "Credit limit",
+            "lendableValue": "Lendable value",
+            "minMarginReq": "Minimum margin requirement",
+            "curLiqMargin": "Current liquidating margin",
+            "marginableBalf": "Margin call (by options)",
+            "cashDeposit": "Cash deposit",
+            "sellStkInMarPort": "Selling stock in margin portfolio",
+            "sellStkNotInMarPort": "Selling stock not in margin portfolio"
+        }
+      },
+      "stockstatement": {
+        "header": {
+            "order": "Ord",
+            "transactiondate": "TransDate",
+            "stockcode": "Stock",
+            "action": "Action",
+            "credit": "Credit",
+            "debit": "Debit",
+            "quantity": "Quantity",
+            "avgprice": "Avg Price",
+            "amt": "Amt",
+            "feetax": "Fee + Tax",
+            "value": "Value",
+            "percentage": "%",
+            "description": "Description"
+        }
+      },
+      "enterorder": {
+        "header": {
+          "buysell": "Buy/Sell",
+          "buysellall": "Buy all/Sell all",
+          "stock": "Stock",
+          "bank": "Bank",
+          "lending": "% Lending",
+          "buyingpower": "Buying Power(Expected)",
+          "ordertype": "Order Type",
+          "volume": "Volume",
+          "price": "Price (x1000VND)",
+          "value": "Value (VND)",
+          "netfee": "Net Fee",
+          "expirydate": "Expiry date"
+        },
+        "popup":{
+          "title": "Enter Order",
+          "stockname": "Name",
+          "expirydate": "Expiry date",
+          "checknum": "Matrix card number",
+          "verifiednum": "Verified matrix card number",
+          "saveauthentication":"Save Authentication"
+        },
+        "error":{
+          "oddlotrange": "LO(Odd Lot)'s Volume need in range [1,100]",
+          "otherrange": "Range of Volume must be multiples of 100 and larger than 0",
+          "ordertypeavailable": "Order Type is unavailable",
+          "sellvolume": "It's out of your stock's volume range",
+          "pricerange": "It's out of the price's range",
+          "stockavailable": "Stock Code is unavailable",
+          "money": "You don't have enough money",
+          "bank": "Bank is unavailable"
+        }
+      },
+      "matrixcard": {
+        "error": {
+          "isLock": "Your account is locked, please contact us to unlock",
+          "cardnoneexist": "Your Matrix Card is not exist",
+          "attemptlimit": "The remain number of times input is ",
+          "attempt": "You have out of the number of times input. So your account is locked, please contact us to unlock"
+        }
+      },
+      "stockmarketinform": {
+        "header":{
+            "Current": "Current",
+            "ChangeRate": "Change Rate(%)",
+            "Ref": "Ref",
+            "FloorCell": "Floor/Cell",
+            "LowHigh": "Low/High",
+            "Open": "Open",
+            "Avg": "Giá trung bình",
+            "Volume": "Volume",
+            "Total": "Total",
+            "ForBuySell": "ForBuy/Sell",
+            "Room": "Room",
+
+            "BestBid": "Best Bid",
+            "BestAsk": "Best Ask",
+
+            "MatchingOrderInfo": "Matching Order Info",
+            "Time": "Time",
+            "Price": "Price",
+            "Volume": "Volume",
+            "Total": "Total"
+        }
       },
       "watchlist":{
         "toolbar":{

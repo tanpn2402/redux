@@ -13,6 +13,7 @@ export default class App extends React.Component {
     }
   }
   render() {
+    const defaultPageSize = this.props.defaultPageSize === undefined ? 15 : this.props.defaultPageSize
     return (
         <div id={this.props.id} >
           <ReactTable
@@ -21,7 +22,7 @@ export default class App extends React.Component {
             data={this.props.data}
             columns={this.props.columns}
             showPagination= {false}
-            defaultPageSize={15}
+            defaultPageSize={defaultPageSize}
             /*className="-striped -highlight"*/
           />
         </div>

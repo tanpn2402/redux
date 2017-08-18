@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
 import SearchBar from '../SearchBar'
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
@@ -15,13 +15,13 @@ class OrderJournal extends Component {
             columns : [
             {
               id: 'cb',
-              Header: props => <input id="orderjournal-cb-all" type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+              Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
               maxWidth: 50,
               width: 40,
               Cell: props => { 
                                 if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
                                     return (
-                                        <input type='checkbox' className="orderjournal-row-checkbox"
+                                        <input type='checkbox' className={this.id + "-row-checkbox"}
                                             onChange={() => { this.onRowSelected(props.original)}} />
                                     ) 
                              },
@@ -165,12 +165,162 @@ class OrderJournal extends Component {
         this.id = 'orderjournal'
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns : [
+            {
+                id: 'cb',
+                Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                maxWidth: 50,
+                width: 40,
+                Cell: props => { 
+                                    if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
+                                        return (
+                                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                                onChange={() => { this.onRowSelected(props.original)}} />
+                                        ) 
+                                 },
+                sortable: false,
+                skip: true
+                },
+                {
+                id: 'can',
+                Header: nextProps.language.orderjournal.header.cancelmodify,
+                maxWidth: 80,
+                Cell: props =>{ 
+                                    var child = []
+                                    if(props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') 
+                                        child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button" 
+                                            onClick={()=>this.onCancelButton(props.original)}>Hủy</Button>)
+                                    if(props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') 
+                                        child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
+                                            onClick={()=>this.onModifyButton(props.original)}>Sửa</Button>)     
+                                        return (
+                                            <span>
+                                                {
+                                                    child
+                                                }
+                                            </span>) 
+                                },
+                sortable: false,
+                skip: true
+                },
+                {
+                    id: 'mvStockID',
+                    Header: nextProps.language.orderjournal.header.stockid,
+                    accessor: 'mvStockID',
+                    width: 80,
+                    skip: false,
+                    show: true, 
+                },
+                {
+                    id: 'mvBS',
+                    Header: nextProps.language.orderjournal.header.buysell,
+                    accessor: 'mvBS',
+                    width: 50,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPrice',
+                    Header: nextProps.language.orderjournal.header.price,
+                    accessor: 'mvPrice',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvQty',
+                    Header: nextProps.language.orderjournal.header.quantity,
+                    accessor: 'mvQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPendingQty',
+                    Header: nextProps.language.orderjournal.header.pendingQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvExecutedQty',
+                    Header: nextProps.language.orderjournal.header.executedQty,
+                    accessor: 'mvPendingQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvAvgPrice',
+                    Header: nextProps.language.orderjournal.header.avgprice,
+                    accessor: 'mvAvgPriceValue',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: nextProps.language.orderjournal.header.status,
+                    accessor: 'mvStatus',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvOrderType',
+                    Header: nextProps.language.orderjournal.header.ordertype,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFeeTax',
+                    Header: nextProps.language.orderjournal.header.feetax,
+                    accessor: 'mvOrderType',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvBankID',
+                    Header: nextProps.language.orderjournal.header.bankid,
+                    accessor: 'mvBankID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvExpiryDate',
+                    Header: nextProps.language.orderjournal.header.expirydate,
+                    accessor: 'mvDateTime',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvRejectReason',
+                    Header: nextProps.language.orderjournal.header.rejectreason,
+                    accessor: 'mvRejectReason',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+
+            ],
+
+        });
+    }
+
+
   
     render() {
-        console.log(this.props)
         this.buttonAction = [
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" 
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
+                onClick={() => this.showPopup()}>{this.props.language.orderjournal.action.cancelorder}</Button>,
         ]
         console.log('render in OrderJournal', this.props.data)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
@@ -189,7 +339,7 @@ class OrderJournal extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', ]}/>
+                    param={['mvStatus', 'mvStockId', 'mvOrderType', 'mvBuysell', 'dropdown' ]}/>
                 <DataTable
                     id="orderjournal-table" 
                     onRowSelected={this.onRowSelected.bind(this)} 
@@ -201,27 +351,20 @@ class OrderJournal extends Component {
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose} 
                     rowSelected={this.rowSelected} language={this.props.language}
-                    popupType={this.popupType} modifyData={this.props.modifyData}/>
+                    popupType={this.popupType} modifyData={this.props.modifyData} title={this.title}/>
             </div>
         )
         
     }
 
     componentDidMount() {
-        this.props.onSearch(this.id, { 'mvBuysell': 'ALL' })
+        this.props.onSearch( { 'mvBuysell': 'ALL' })
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    /*shouldComponentUpdate(nextProps, nextState) {
         console.log('should update order journal', nextProps, nextState)
         return nextProps.menuid === this.id
-    }
-    componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps order journal', nextProps)
-        /*if (!this.props.isBarGreaterThanEqual3 && nextProps.isBarGreaterThanEqual3) {
-            this.props.dispatch({
-                type : "foo"
-            });
-        }*/
-    }
+    }*/
+    
     onCancelButton(param){
         console.log(param)
         this.rowSelected=[]
@@ -234,8 +377,9 @@ class OrderJournal extends Component {
     onModifyButton(param){
         this.rowSelected=[]
         this.rowSelected.push(param)
-        this.showPopup();
+        this.showPopup()
         this.popupType= 'MODIFYORDER'
+        this.title = this.props.language.orderjournal.popup.title.modify
         this.props.onModifyButton(param)
     }
 
@@ -274,6 +418,7 @@ class OrderJournal extends Component {
         this.setState({
             lgShow: true
         });
+        this.title = this.props.language.orderjournal.popup.title.cancel
         this.popupType= 'CANCELORDER'
         console.log('onCancelOrder', this.rowSelected)
     }
@@ -293,7 +438,7 @@ class OrderJournal extends Component {
 
     onSearch(param){
         console.log('orderjournal onSearch', param)
-        this.props.onSearch('orderjournal', param, !this.props.reload)
+        this.props.onSearch( param, !this.props.reload)
     }
 
 
@@ -304,24 +449,17 @@ const mapStateToProps = (state) => {
     reload: state.orderjournal.reload,
     modifyData: state.orderjournal.dataresult,
     menuid: state.orderjournal.menuid,
-    //isPopupOpen: state.orderjournal.isPopupOpen,
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onCancelOrder: (param) => {
-    dispatch(actions.cancelOrder(param))
-  },
 
-  onSearch: (menuid, param, reload) => {
-    dispatch(actions.enquiryOrder(menuid, param, reload))
+  onSearch: (param, reload) => {
+    dispatch(actions.enquiryOrder(param, reload))
   },
   onModifyButton: (param) => {
     dispatch(actions.getModifyData(param))
   },
-  /*onOpenPopup: (menuid) => {
-    dispatch(actions.openPopup(menuid))
-  },*/
 
 })
 

@@ -3,6 +3,7 @@ import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import DataTable from '../DataTable'
 
 class ConfirmOrder extends Component{
     constructor(props) {
@@ -10,47 +11,47 @@ class ConfirmOrder extends Component{
         this.columns = [
             {
                 id: 'mvTradeTime',
-                Header: this.props.language.tableheader.tradetime,
+                Header: this.props.language.orderconfirmation.header.tradetime,
                 accessor: 'mvTradeTime',
-                width: 140,
+                width: 100,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvMarketID',
-                Header: this.props.language.tableheader.marketid,
+                Header: this.props.language.orderconfirmation.header.marketid,
                 accessor: 'mvMarketID',
-                width: 80,
+                width: 50,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvStockID',
-                Header: this.props.language.tableheader.stockid,
+                Header: this.props.language.orderconfirmation.header.stockid,
                 accessor: 'mvStockID',
-                width: 80,
+                width: 60,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvBS',
-                Header: this.props.language.tableheader.buysell,
+                Header: this.props.language.orderconfirmation.header.buysell,
                 accessor: 'mvBS',
-                width: 80,
+                width: 60,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvOrderType',
-                Header: this.props.language.tableheader.ordertype,
+                Header: this.props.language.orderconfirmation.header.ordertype,
                 accessor: 'mvOrderType',
-                width: 80,
+                width: 60,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvQty',
-                Header: this.props.language.tableheader.quantity,
+                Header: this.props.language.orderconfirmation.header.quantity,
                 accessor: 'mvQty',
                 width: 80,
                 skip: false,
@@ -58,7 +59,7 @@ class ConfirmOrder extends Component{
               },
               {
                 id: 'mvPrice',
-                Header: this.props.language.tableheader.price,
+                Header: this.props.language.orderconfirmation.header.price,
                 accessor: 'mvPrice',
                 width: 80,
                 skip: false,
@@ -66,33 +67,33 @@ class ConfirmOrder extends Component{
               },
               {
                 id: 'mvStatus',
-                Header: this.props.language.tableheader.status,
+                Header: this.props.language.orderconfirmation.header.status,
                 accessor: 'mvStatus',
-                width: 80,
+                width: 100,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvFilledQty',
-                Header: this.props.language.tableheader.filledquantity,
+                Header: this.props.language.orderconfirmation.header.filledquantity,
                 accessor: 'mvFilledQty',
-                width: 80,
+                width: 70,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvFilledPrice',
-                Header: this.props.language.tableheader.filledprice,
+                Header: this.props.language.orderconfirmation.header.filledprice,
                 accessor: 'mvFilledPrice',
-                width: 80,
+                width: 70,
                 skip: false,
                 show: true,
               },
               {
                 id: 'mvCancelQty',
-                Header: this.props.language.tableheader.cancelquantity,
+                Header: this.props.language.orderconfirmation.header.cancelquantity,
                 accessor: 'mvCancelQty',
-                width: 80,
+                width: 100,
                 skip: false,
                 show: true,
               },
@@ -100,6 +101,8 @@ class ConfirmOrder extends Component{
         this.style = {
             height: '200px',
         }
+
+        this.id = 'confirmorder-popup'
     }
 
     onConfirmSubmit() {
@@ -109,14 +112,13 @@ class ConfirmOrder extends Component{
 
     render(){
         return (
-            <div>
+            <div className="modalbody">
                 <Modal.Body>
-                    <ReactTable
-                        className={'datatable'}
+                    <DataTable
+                        id={this.id + "-table"} 
                         data={this.props.rowSelected}
                         columns={this.columns}
-                        style={this.style}
-                        showPagination= {false}
+                        defaultPageSize={5}
                     />
                 </Modal.Body>
                 <Modal.Footer>

@@ -186,7 +186,7 @@ class WatchList extends Component {
         var data=this.props.watchListData
         return (
             <div id={'watchlist-body'} className="layout-body">
-                <WatchListToolbar stockList={this.props.stockList} />
+                <WatchListToolbar stockList={this.props.stockList} language={this.props.language.toolbar}/>
                 <DataTable
                     id="watchlist-table" 
                     columns={this.state.columns} 

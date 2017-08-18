@@ -28,5 +28,9 @@ export default {
       backgroundColor: '#f60',
       color: '#fff'
     }
+  },
+  pagebackground: {
+    backgroundColor: '#f5f5f5',
+    
   }
 }

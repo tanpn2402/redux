@@ -11,7 +11,7 @@ class PageContent extends React.Component {
     render () {
         console.log('PageContent RENDER', this.props)
         return (
-            <div /*style={{ backgroundColor: '#000', height: '100%',}}*/ >
+            <div style={this.props.theme.pagebackground} id="pagecontent">
                 <BaseLayout 
                     language={this.props.language}
                     layout={this.props.layout}
@@ -26,7 +26,19 @@ class PageContent extends React.Component {
     }
 
     componentDidMount(){
-        this.props.getStockIdList('vi')
+        var param = {
+            type: 'bycode',
+            value: 'all',
+            INSTRUMENTNAME: '',
+            MARKETID: ''
+        }
+        
+        var h1 = document.getElementById('pageheader').offsetHeight
+        var h2 = document.getElementById('pagemenu').offsetHeight
+        var h3 = window.innerHeight
+        document.getElementById('pagecontent').style.minHeight  = h3 - h1 - h2 +  'px'
+
+        this.props.getStockIdList(param)
     }
 
     
@@ -42,8 +54,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
    
-    getStockIdList: (language) => {
-        dispatch(actions.stockSearch(language))
+    getStockIdList: (param) => {
+        dispatch(actions.stockSearch(param))
     }
 })
 
