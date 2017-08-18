@@ -14,6 +14,10 @@ export default function (state = initialState, action) {
           return Object.assign({}, state, {
             watchListData: action.watchListData,
           });
+        case ActionTypes.REMOVESTOCK:
+          return Object.assign({}, state, {
+            watchListData: action.watchListData,
+          });
       default:
         return state;
     }

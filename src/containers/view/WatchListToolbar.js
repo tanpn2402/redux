@@ -11,7 +11,7 @@ export default class WatchListToolbar extends React.Component {
 
   constructor () {
       super()
-     this.inputValue=""
+        this.inputValue=""
   }
   onAddStock(value){
       this.props.onAddStock(value);
@@ -21,6 +21,7 @@ export default class WatchListToolbar extends React.Component {
       this.inputValue=e.target.value
   }
   render() {
+    console.log("qazsw " +this.props.rowSelected)
     return (
       <Form className='form-inline search-bar' id='watchlisttoolbar'>
         <Button  bsStyle="default" type="button" ><span className="glyphicon glyphicon-refresh"></span></Button>
@@ -42,7 +43,7 @@ export default class WatchListToolbar extends React.Component {
             <span className="glyphicon glyphicon-plus" ></span> 
             {this.props.language.addstock}
         </Button>
-        <Button  bsStyle="default" type="button" >
+        <Button  bsStyle="default" type="button" onClick={e => this.props.onRemoveStock(this.props.rowSelected)}>
             <span className="glyphicon glyphicon-remove"></span> 
             {this.props.language.removestock}
         </Button>

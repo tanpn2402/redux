@@ -174,11 +174,11 @@ class WatchList extends Component {
                 // }
             ],
             lgShow: false,
+            data: this.props.watchListData   
+        
         }
-
         this.rowSelected = []
         this.id = 'watchlist'
-        this.data=this.props.watchListData
     }
 
     onRowSelected(param){
@@ -216,20 +216,24 @@ class WatchList extends Component {
         this.props.onRefresh()
         
     }
+    onRemoveStock(param){
+        this.props.onRemoveStock(param)
+    }
     render() {
-        console.log("value and name: "+ this.props.newName + this.props.newStock)
-        
         return (
             <div id={'watchlist-body'} className="layout-body">
                 <WatchListToolbar 
                     stockList={this.props.stockList} 
                     language={this.props.language.toolbar} 
                     onAddStock={this.onAddStock.bind(this)}
+                    onRemoveStock={this.onRemoveStock.bind(this)}
+                    rowSelected={this.rowSelected}
                     />
                 <DataTable
                     id="watchlist-table" 
                     columns={this.state.columns} 
-                    data={this.props.watchListData}
+                    data={this.props.watchListData }
+                    onRowSelected={this.onRowSelected.bind(this)} 
                     />
             </div>
         )
@@ -237,8 +241,8 @@ class WatchList extends Component {
     }
 
     componentDidMount() {
-        
        this.props.onRefresh()
+       
     }
     
 }
@@ -255,7 +259,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onAddStock: (value) => {
         dispatch(actions.addStock(value))
       },
-
+    onRemoveStock: (param) => {
+        dispatch(actions.removeStock(param))
+      },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)
