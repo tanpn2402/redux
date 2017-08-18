@@ -378,6 +378,32 @@
 
             "bankordertype": "Tài khoản ngân hàng"
         }
+      },
+      "cashadvance": {
+        "header": {
+            "cashadvance": "Ứng trước tiền bán chứng khoán",
+            "ordermatchinglist": "Danh sách lệnh khớp",
+            "cashadvanceavailable": "Khả năng ứng trước",
+            "advancefee": "Phí ứng trước",
+            "advanceamount": "Số tiền ứng",
+            "cashadvanceplace": "Thực hiện ứng trước",
+            "cashadvancetransaction": "Giao dịch ứng trước trong ngày",
+            "title": "Ứng trước tiền chứng khoán",
+            "date": "Ngày giao dịch",
+            "processingstatus": "Trạng thái xử lý",
+            "lastupdate": "Thời gian cập nhật",
+            "note": "Lưu ý",
+            "id": "Mã giao dịch",
+            "matchingdate": "Ngày khớp",
+            "paymentdate": "Ngày thanh toán",
+            "stock": "Mã CK",
+            "volume": "Khối lượng",
+            "value": "Giá trị",
+            "fee": "Phí+Thuế"
+        },
+        "popup": {
+          "title": "Ứng trước tiền chứng khoán"
+        }
       }
     }
   }

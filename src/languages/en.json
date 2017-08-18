@@ -384,6 +384,32 @@
           "bank": "Bank is unavailable",
           "branch": "Bank branch is unavailable"
         }
+      },
+      "cashadvance": {
+        "header": {
+            "cashadvance": "Cash Advance",
+            "ordermatchinglist": "Order Matching List",
+            "cashadvanceavailable": "Cash Advance Available",
+            "advancefee": "Advance Fee",
+            "advanceamount": "Advance Amount",
+            "cashadvanceplace": "Cash Advance Place",
+            "cashadvancetransaction": "Cash Advance Transaction",
+            "title": "Cash Advance",
+            "date": "Date",
+            "processingstatus": "Processing Status",
+            "lastupdate": "Last Update",
+            "note": "Remark",
+            "id": "ID",
+            "matchingdate": "Matching Date",
+            "paymentdate": "Payment Date",
+            "stock": "Stock",
+            "volume": "Volume",
+            "value": "Value",
+            "fee": "Fee+Tax"
+        },
+        "popup": {
+           "title": "Cash Advance"
+        }
       }
     }
   }
