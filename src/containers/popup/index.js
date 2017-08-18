@@ -3,6 +3,7 @@ import CancelOrder from './CancelOrder'
 import ModifyOrder from './ModifyOrder'
 import EnterOrderPopup from './EnterOrder'
 import ConfirmOrder from './ConfirmOrder'
+import OddLotTrading from './OddLotTrading'
 
 export default function  (props){
 	
@@ -25,6 +26,10 @@ export default function  (props){
 		
 		case 'orderconfirmation':
 			return (<ConfirmOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			break;
+
+		case 'oddlottrading' :
+			return (<OddLotTrading onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 	}
     
 }

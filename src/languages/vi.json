@@ -176,6 +176,38 @@
             "buysell": "Mua/Bán"
         }  
       },
+      "oddlottrading": {
+        "header":{
+          "stockid": "Mã CK",
+          "tradingquantity": "Số dư GD",
+          "oddlotquantity": "SL lô lẻ",
+          "currentprice" : "Giá hiện tại",
+          "exeprice": "Giá GD lô lẻ",
+          "transdate": "Ngày GD",
+          "approvedate": "Ngày xác nhận",
+          "stockidH": "Mã CK",
+          "oddlotquantityH": "SL lô lẻ",
+          "exepriceH": "Giá thực hiện",
+          "tax": "Thuế",
+          "fee": "Phí",
+          "value":"Giá trị (VND)",
+          "status": "Trạng thái",
+          "oddlotorder": "ĐẶT LỆNH GIAO DỊCH LÔ LẺ",
+          "oddlotransactionhistory": "TRA CỨU LỊCH SỬ GIAO DỊCH CHỨNG KHOÁN LÔ LẺ",
+          "register":"Đăng ký",
+          "notes":"Ghi chú",
+          "notesinfo":"  - MAS thực hiện mua cổ phiếu lô lẻ của khách hàng vào các ngày làm việc của tuần thứ 2 mỗi tháng. -  MAS thực hiện các nghiệp vụ chuyển khoản lô lẻ với Cơ quan Nhà nước và thanh toán tiền vào tài khoản giao dịch chứng khoán của Khách hàng tại MAS sau khi giao dịch lô lẻ được Cơ quan Nhà nước chấp thuận."
+        },
+        "popup":{
+          "title": "Giao dịch lô lẻ - Xác nhận",
+          "checknum": "Mã số kiểm tra",
+          "verifiednum": "Mã số xác nhận",
+          "saveauthentication": "Lưu xác thực",
+          "cancel":"Hủy",
+          "submit":"Gửi",
+          "bankaccount":"Tài khoản"
+        }
+      },
       "portfolio": {
         "header":{
             "sumary": "Tổng quan",

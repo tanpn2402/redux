@@ -176,6 +176,38 @@
             "buysell": "Mua/Bán"
         }  
       },
+      "oddlottrading": {
+        "header":{
+            "stockid": "Stock",
+            "tradingquantity": "Trading qtty",
+            "oddlotquantity": "Odd lot qtty",
+            "currentprice" : "Current Price",
+            "exeprice": "Exe Price",
+            "transdate": "Trans Date",
+            "approvedate": "Approve Date",
+            "stockidH": "Stock",
+            "oddlotquantityH": "Odd lot qtty",
+            "exepriceH": "Exe Price",
+            "tax": "Tax",
+            "fee": "Fee",
+            "value":"Value",
+            "status": "Status",
+            "oddlotorder": "ODD LOT ORDER",
+            "oddlotransactionhistory": "ODD LOT TRANSACTION HISTORY",
+            "register":"Register",
+            "notes": "Notes",
+            "notesinfo":"-  MAS buys odd-lot shares on working days of the second week of every month.  -  MAS makes odd-lot shares transfer procedures with the State Agency and makes payment on Clientï¿½s trading account after odd-lot transaction has been approved by the State Agency."
+        },
+        "popup":{
+          "title": "Odd Lot Confirmation",
+          "checknum": "Matrix card number",
+          "verifiednum": "Verified matrix card number",
+          "saveauthentication":"Save Authentication",
+          "cancel":"Cancel",
+          "submit":"Submit",
+          "bankaccount":"Bank Account"
+        }
+      },
       "portfolio": {
         "header":{
             "sumary": "Sumary",

@@ -28,6 +28,18 @@ export default {
       color: '#fff'
     }
   },
+  oddlottrading: {
+    'titleoddlotorder': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    },
+    'titleoddlottransactionhistory': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    }
+  },
   pagebackground: {
     backgroundColor: '#999',
     

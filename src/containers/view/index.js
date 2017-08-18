@@ -10,6 +10,7 @@ import CashStatement from './CashStatement'
 import WatchList from './WatchList'
 import StockMarketInfo from './StockMarketInfo'
 import Profile from './Profile'
+import OddLotTrading from './OddLotTrading'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -57,6 +58,10 @@ export default function (menuid, props){
 		case 'personalprofile' :
 			return (
 				<Profile/>
+			)
+		case 'oddlottrading':
+			return(
+				<OddLotTrading language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

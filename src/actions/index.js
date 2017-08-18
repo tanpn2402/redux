@@ -14,6 +14,7 @@ import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
 import {loadWatchList} from './watchlist'
 import {getProfile} from './profile'
+import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 
 export {
   doLogin,
@@ -46,5 +47,7 @@ export {
   enquiryCashStatement,
   loadWatchList,
   getProfile,
-  
+  getOddlotEnquiry,
+  getOddlotHistory,
+  onOddLotSubmit,
 };

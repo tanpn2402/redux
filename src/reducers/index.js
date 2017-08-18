@@ -16,6 +16,7 @@ import stockstatement from './stockstatement'
 import cashstatement from './cashstatement'
 import watchlist from './watchlist'
 import profile from './profile'
+import oddlottrading from './oddlottrading'
 
 export default combineReducers({
   dologin,
@@ -30,6 +31,7 @@ export default combineReducers({
   cashtranshistory,
   orderconfirmation,
   porfolio,
+  oddlottrading,
   orderhistory,
   stockstatement,
   cashstatement,
