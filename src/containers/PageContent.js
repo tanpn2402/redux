@@ -2,6 +2,8 @@ import React from 'react';
 import BaseLayout from './BaseLayout.js';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import SlideNav from './SlideNav'
+import SettingNav from './SettingNav'
 
 class PageContent extends React.Component {
     constructor () {
@@ -21,8 +23,17 @@ class PageContent extends React.Component {
                     theme={this.props.theme}
                     >
                 </BaseLayout>
+                <SlideNav language={this.props.language.menu}/>
+                <SettingNav language={this.props.language} />
+                <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
             </div>
         );
+    }
+
+    onHideSlidePanel(){
+        document.getElementById("slidenav").style.width = "0"
+        document.getElementById("settingnav").style.width = "0"
+        document.getElementById("overlay").style.display = 'none'
     }
 
     componentDidMount(){

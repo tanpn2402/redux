@@ -80,7 +80,7 @@ export default class App extends React.Component {
 	    				</span>
 		    			<span>
 		    				<Button bsStyle="primary" bsSize="xsmall" onClick={this.onShowHeader.bind(this)}><span className="glyphicon glyphicon-chevron-down"></span></Button>
-		    				<Button bsStyle="primary" bsSize="xsmall">
+		    				<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
 		    					<span className="glyphicon glyphicon-cog"></span>
 		    				</Button>
 			              	<Button bsStyle="primary" bsSize="xsmall"><span className="glyphicon glyphicon-log-out"></span></Button>
@@ -114,7 +114,7 @@ export default class App extends React.Component {
 				            		<Button bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>
 				            			<span className="glyphicon glyphicon-chevron-up"></span>
 				            		</Button>
-	    							<Button bsStyle="primary" bsSize="xsmall">
+	    							<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
 	    								<span className="glyphicon glyphicon-cog"></span>
 	    							</Button>
 		              				<Button bsStyle="primary" bsSize="xsmall">
@@ -176,6 +176,11 @@ export default class App extends React.Component {
             }
         },1);
 
+  	}
+
+  	onOpenSettingPanel(e){
+  		document.getElementById("overlay").style.display = 'block';
+    	document.getElementById("settingnav").style.width = "300px";
   	}
 }
 

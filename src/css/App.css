@@ -165,6 +165,17 @@ body {
   height: 70px;
   background-color: #efefef;
 }
+
+
+.main-menu {
+  float: left;
+  margin-right: 10px;
+}
+
+.main-menu > span > button {
+  padding: 4px 6px;
+  margin: 0 10px;
+}
 /*END MAIN MENU NAV BAR*/
 
 /*DATATABLE*/
@@ -186,6 +197,9 @@ body {
 .pagination {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.header-market {
+  border: 0px;
 }
 
 .header-market .rt-tbody .rt-td, .header-market .rt-thead.-header,.header-market .rt-thead .rt-th {
@@ -576,3 +590,149 @@ body {
   padding: 0;
 }
 /*END STOCK INFO*/
+
+
+/*OVERLAY*/
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(153, 153, 153, 0.5);
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+/*END OVERLAY*/
+
+
+/*SLIDE NAV*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 10px 0px;
+}
+.settingnav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 10px 0px;
+}
+
+/*@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #999;
+  }
+}*/
+/*END SLIDE NAV*/
+
+
+/*SIDE MENU*/
+.input-group-search {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.input-group-search .input-group-addon{
+    background: white !important; 
+}
+.input-group-search .form-control{
+  border-right:0; 
+  box-shadow:0 0 0; 
+  border-color:#ccc;
+}
+.input-group-search button{
+    border:0;
+    background:transparent;
+}
+
+.nav-list {
+  padding: 0px 10px;
+}
+
+.main-menu-header {
+  padding-left: 5px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 15px;
+  border-top: 1px solid #efefef;
+}
+
+.main-menu-sub > li > a{
+  padding: 7px 10px;
+}
+/*END SIDE MENU*/
+
+
+
+/*SETIING NAV*/
+.settingnav > hr {
+  margin: 0px 5px;
+}
+.setting-user-info > ul{
+  list-style-type: none;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-right: 0px;
+}
+
+.setting-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.setting-panel {
+  padding: 0px 10px;
+}
+
+.setting-panel > div {
+  margin-bottom: 20px;
+}
+
+.setting-btn {
+  padding: 0;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+}
+
+.setting-panel .selected {
+  border: 1px solid #e7e7e7;
+  background-color: #e7e7e7;
+
+}
+
+
+.setting-theme > div > div {
+  margin: 5px 0px;
+}
+
+.setting-btn.btn-theme{
+  padding: 2px 2px;
+}
+
+.btn-theme.selected{
+  padding: 5px 1px;
+}
+/*END SETTING NAV*/
