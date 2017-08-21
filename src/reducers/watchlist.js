@@ -1,8 +1,7 @@
 const {ActionTypes} = require('../core/constants');
 const initialState = {
     watchListData: [],
-    newStock: "",
-  newName: "",
+    
   };
 export default function (state = initialState, action) {
     switch (action.type) {

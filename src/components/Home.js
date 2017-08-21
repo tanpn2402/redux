@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions/index';
-import MenuBar from '../containers/MenuBar'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../actions/index'
 import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
+import MenuNav from '../containers/MenuNav'
 
 class Home extends Component {
 
@@ -27,12 +27,10 @@ class Home extends Component {
                 currentLanguage={this.props.language.lang}
                 changeConfig={this.props.changeConfig} 
                 />  
-                <MenuBar language= {this.props.language.page.menu} theme={this.theme.default}/>
+                <MenuNav language= {this.props.language.page.menu} theme={this.theme.default}/>
                 <PageContent theme={this.theme.default} language= {this.props.language.page} title={this.props.language.page.menu}/>
-            {/* <ul>
-                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'en')}>EN</a></li>
-                <li><a href="#" data-target="#" onClick={switchLanguage.bind(this,'vi')}>VI</a></li>
-            </ul> */}
+
+                
             </div>
         )
     }

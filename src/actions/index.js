@@ -12,8 +12,10 @@ import {enquiryOrderHistory,} from './orderhistory'
 import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
-import {loadWatchList, addStock, removeStock} from './watchlist'
+import {loadWatchList,addStock, removeStock} from './watchlist'
 import {getProfile} from './profile'
+import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
+import {getCashtransfer, getCashdatatable} from './cashtransfer'
 
 export {
   doLogin,
@@ -48,5 +50,10 @@ export {
   addStock,
   removeStock,
   getProfile,
+  getOddlotEnquiry,
+  getOddlotHistory,
+  onOddLotSubmit,
+  getCashtransfer,
+  getCashdatatable,
   
 };

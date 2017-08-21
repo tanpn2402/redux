@@ -122,6 +122,16 @@ class OrderHistory extends Component {
         }
 
         this.id = 'ordershistory'
+        this.pageIndex = 1
+
+        this.params = {
+            start: 1,
+            limit: 15,
+            mvBS: 'ALL',
+            mvStartTime: '',
+            mvEndTime: '',
+        }
+
     }
 
     componentWillReceiveProps(nextProps){
@@ -238,7 +248,6 @@ class OrderHistory extends Component {
         });
     }
 
-
     render() {
         console.log('render in OrderHistory', this.props.language.ordershistory.header.stockid)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
@@ -272,10 +281,20 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        this.props.enquiryOrderHistory('null')
+        var d = new Date()
+        var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
+        this.params['mvStartTime'] = today
+        this.params['mvEndTime'] = today
+        this.props.enquiryOrderHistory(this.param)
     }
 
     onSearch(param){
+        
+        this.params['start'] = ( this.pageIndex - 1 ) * 15
+        this.params['limit'] = 15
+        this.params['mvStartTime'] = param['mvStartDate']
+        this.params['mvEndTime'] = param['mvStartDate']
+        console.log(this.params)
         this.props.enquiryOrderHistory(param)
     }
 

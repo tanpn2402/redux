@@ -346,9 +346,7 @@ class OrderJournal extends Component {
                     columns={this.state.columns} 
                     data={data}/>
 
-                <Footer pageIndex={page} 
-                    totalRecord={this.props.data.mvTotalOrders} 
-                    onPageChange={this.onPageChange.bind(this)}/>
+                <Footer pageIndex={page} totalRecord={this.props.data.mvTotalOrders} onPageChange={this.onPageChange.bind(this)}/>
 		        <Popup 
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose} 

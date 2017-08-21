@@ -2,6 +2,8 @@ import React from 'react';
 import BaseLayout from './BaseLayout.js';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import SlideNav from './SlideNav'
+import SettingNav from './SettingNav'
 
 class PageContent extends React.Component {
     constructor () {
@@ -21,8 +23,17 @@ class PageContent extends React.Component {
                     theme={this.props.theme}
                     >
                 </BaseLayout>
+                <SlideNav language={this.props.language.menu}/>
+                <SettingNav language={this.props.language} />
+                <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
             </div>
         );
+    }
+
+    onHideSlidePanel(){
+        document.getElementById("slidenav").style.width = "0"
+        document.getElementById("settingnav").style.width = "0"
+        document.getElementById("overlay").style.display = 'none'
     }
 
     componentDidMount(){
@@ -36,7 +47,7 @@ class PageContent extends React.Component {
         var h1 = document.getElementById('pageheader').offsetHeight
         var h2 = document.getElementById('pagemenu').offsetHeight
         var h3 = window.innerHeight
-        document.getElementById('pagecontent').style.minHeight  = h3 - h1 - h2 +  'px'
+        document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
 
         this.props.getStockIdList(param)
     }

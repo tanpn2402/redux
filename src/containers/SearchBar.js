@@ -234,12 +234,15 @@ export default class SearchBar extends React.Component {
                   return( e )
               })
         }
+        
         {
           this.props.param.map(e => {
               this.parameter[e] = true
               return this.component[e]
           })
         }
+       
+        
         <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
 
         

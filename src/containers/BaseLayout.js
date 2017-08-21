@@ -6,11 +6,11 @@ import config from '../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 
-var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-var _ = require('lodash');
-var WidthProvider = require('react-grid-layout').WidthProvider;
-var ReactGridLayout = require('react-grid-layout');
-ReactGridLayout = WidthProvider(ReactGridLayout);
+var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin')
+var _ = require('lodash')
+var WidthProvider = require('react-grid-layout').WidthProvider
+var ResponsiveReactGridLayout  = require('react-grid-layout').Responsive
+ResponsiveReactGridLayout  = WidthProvider(ResponsiveReactGridLayout )
 
 class BaseLayout extends React.Component {
 
@@ -21,6 +21,7 @@ class BaseLayout extends React.Component {
             reload: false,
             layout: []
         }
+        this.layoutCols =  {lg: 30, md: 25, sm: 20, xs: 10, xxs: 2}
     }
 
     generateChild(menuid){
@@ -37,11 +38,6 @@ class BaseLayout extends React.Component {
                 <div className="child-grid-header" >
                         {this.props.title[menuid]}
                         <ul className="btn-action">
-                            {/*<li>
-                                <a href="javascript:void(0);"   onClick={e => this.onPinLayout(menuid)} >
-                                    <span className="glyphicon glyphicon-pushpin"></span>
-                                </a>
-                            </li>*/}
                             <li>
                                 <a href="javascript:void(0);" onClick={e => this.onCloseLayout(menuid)} >
                                     <span className="glyphicon glyphicon-remove"></span>
@@ -68,11 +64,26 @@ class BaseLayout extends React.Component {
         for (var i = 0; i < p.length; i += 1) {
             if(this.state.layout[p[i]] === undefined )
             {
-                console.log('load from default layout')
+                
                 this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                /*if(window.innerWidth > 1100)
+                {
+                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                }
+                else if(window.innerWidth > 800)
+                {
+                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                }
+                else if(window.innerWidth > 600)
+                {
+                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                }
+                else{
+                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                }*/
+
             }
-            
-            console.log('accc', this.state.layout[p[i]])
+
             child.push( this.generateChild(p[i]) );
             
         };
@@ -117,21 +128,6 @@ class BaseLayout extends React.Component {
         }
     }
 
-    onPinLayout(menuid){
-        //console.log(menuid)
-        /*console.log(this.layout)
-        this.layout[menuid]['static'] = !this.layout[menuid]['static']
-        this.setState({reload: !this.state.reload});
-        console.log(this.layout)*/
-        console.log('onPinLayout ---', this.state.layout)
-        var _layout = this.state.layout
-        var temp = this.state.layout[menuid].static
-        _layout[menuid].static = !temp
-         this.setState({layout: _layout})
-
-        console.log('onPinLayout',this.state.layout)
-    }
-
     onCloseLayout(menuid){
         this.props.onRemoveTab(menuid, this.props.page, this.props.layout, true)
     }
@@ -155,14 +151,14 @@ class BaseLayout extends React.Component {
         const layout = this.props.layout[this.props.page]
         return (
 
-            <ReactGridLayout className="layout" cols={30} rowHeight={30} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={30} width={1320} 
                 onResize={this.onResize.bind(this)}
                 onResizeStop={this.onResizeStop.bind(this)}
                 onDragStop={this.onDragStop.bind(this)}
                 onLayoutChange={this.onLayoutChange}
                 >
                 {this.generateDOM(layout)}
-            </ReactGridLayout>
+            </ResponsiveReactGridLayout>
         );
     }
 }

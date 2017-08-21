@@ -6,10 +6,10 @@ import "react-table/react-table.css"
 export default class App extends React.Component {
   constructor() {
     super()
-   
+
     this.style = {
       fontSize: '12px',
-      height: '100%',
+      height: '250px',
     }
   }
   render() {
@@ -23,7 +23,7 @@ export default class App extends React.Component {
             columns={this.props.columns}
             showPagination= {false}
             defaultPageSize={defaultPageSize}
-            /*className="-striped -highlight"*/
+            minRows={8}
           />
         </div>
     );

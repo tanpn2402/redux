@@ -2,10 +2,10 @@ import axios from 'axios'
 export const GET = 'GET'
 export const POST = 'POST'
 export const PUT = 'PUT'
-export const INSERT = 'INSERT'
+export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
 const SERVER = 'http://localhost:'
-const PORT = '8080/iTradeMAS/'
+const PORT = '2018/iTradeMAS/'
 
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'
@@ -30,15 +30,17 @@ export async  function FetchAPI(id,JsonData,method) {
             for (var k in JsonData) {
                 formData+= k +'='+JsonData[k] +'&'
                 }
+    console.log(url,formData)
     // method GET
     if(method===GET){
        // url += GET;  
         if(formData != null){
+            url += '?'+formData
             return new Promise((resolve, reject) => {
                var response = window.fetch(url,{
                     method: GET,
                     headers: HEADERS,
-                    body: formData
+                    credentials: 'include'
                 })
 
                 response.then(res => {
@@ -75,9 +77,9 @@ export async  function FetchAPI(id,JsonData,method) {
              let response = fetch(url,{
                 method: POST,
                 headers: HEADERS,
+                credentials: 'include',
                 body:formData
             })
-            console.log(response)
             response.then(res => {
                     if (res.ok) {
                        res.json().then(resolve).catch(reject)
@@ -89,13 +91,14 @@ export async  function FetchAPI(id,JsonData,method) {
         })
     }
     
-    //method INSERT
-    if(method===INSERT){
-        //url += INSERT
+    //method LOGIN
+    if(method===LOGIN){
+        //url += LOGIN
          return new Promise((resolve, reject) => {
              var response = window.fetch(url,{
                 method: POST,
                 headers: HEADERS,
+                credentials: 'include',
                 body:formData
             })
                 response.then(res => {
@@ -117,6 +120,7 @@ export async  function FetchAPI(id,JsonData,method) {
              var response = window.fetch(url,{
                 method:POST ,
                 headers: HEADERS,
+                credentials: 'include',
                 body:formData
             })
                 response.then(res => {

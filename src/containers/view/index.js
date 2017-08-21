@@ -10,6 +10,9 @@ import CashStatement from './CashStatement'
 import WatchList from './WatchList'
 import StockMarketInfo from './StockMarketInfo'
 import Profile from './Profile'
+import OddLotTrading from './OddLotTrading'
+import CashTransfer from './CashTransfer'
+import CashAdvance from './CashAdvance'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -48,7 +51,7 @@ export default function (menuid, props){
 			)
 		case 'watchlist':
 			return(
-				<WatchList language={props.language.watchlist} stockList={props.stockList} theme={props.theme}/>
+				<WatchList language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		case 'stockmarketinform':
 			return (
@@ -57,6 +60,18 @@ export default function (menuid, props){
 		case 'personalprofile' :
 			return (
 				<Profile/>
+			)
+		case 'oddlottrading':
+			return(
+				<OddLotTrading language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'cashtransfer':
+			return(
+				<CashTransfer language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'cashadvance':
+			return (
+				<CashAdvance language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

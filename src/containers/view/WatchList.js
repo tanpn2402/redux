@@ -36,74 +36,74 @@ class WatchList extends Component {
                     skip: true
                 },
                 {
-                    Header: this.props.language.header.name,
+                    Header: this.props.language.watchlist.header.name,
                     columns: [{
                         id: 'mvStockId',
-                        Header: this.props.language.header.stock,
+                        Header: this.props.language.watchlist.header.stock,
                         accessor: 'mvStockId',
                         width: 60,
                         show: true,
                     }, {
                         id: 'mvStockName',
-                        Header: this.props.language.header.market,
+                        Header: this.props.language.watchlist.header.market,
                         accessor: 'mvStockName',
                         width: 60,
                         show: true,
                     }]
                 },
                 // {
-                //     Header: this.props.language.header.reference,
+                //     Header: this.props.language.watchlist.header.reference,
                 //     columns: [{
-                //         Header: this.props.language.header.ce,
+                //         Header: this.props.language.watchlist.header.ce,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.fl,
+                //         Header: this.props.language.watchlist.header.fl,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.ref,
+                //         Header: this.props.language.watchlist.header.ref,
                 //         accessor: '',
                 //         width: 60,
                 //     }]
                 // },
                 // {
-                //     Header: this.props.language.header.bestbid,
+                //     Header: this.props.language.watchlist.header.bestbid,
                 //     columns: [{
-                //             Header: this.props.language.header.pri3,
+                //             Header: this.props.language.watchlist.header.pri3,
                 //             accessor: '',
                 //             width: 60,
                 //         }, {
-                //             Header: this.props.language.header.vol3,
+                //             Header: this.props.language.watchlist.header.vol3,
                 //             accessor: '',
                 //             width: 60,
                 //         },
                 //         {
-                //             Header: this.props.language.header.pri2,
+                //             Header: this.props.language.watchlist.header.pri2,
                 //             accessor: '',
                 //             width: 60,
                 //         }, {
-                //             Header: this.props.language.header.vol2,
+                //             Header: this.props.language.watchlist.header.vol2,
                 //             accessor: '',
                 //             width: 60,
                 //         }, {
-                //             Header: this.props.language.header.pri1,
+                //             Header: this.props.language.watchlist.header.pri1,
                 //             accessor: '',
                 //             width: 60,
                 //         }, {
-                //             Header: this.props.language.header.vol1,
+                //             Header: this.props.language.watchlist.header.vol1,
                 //             accessor: '',
                 //             width: 60,
                 //         }
                 //     ]
                 // },
                 // {
-                //     Header: this.props.language.header.matching,
+                //     Header: this.props.language.watchlist.header.matching,
                 //     columns: [{
-                //         Header: this.props.language.header.price,
+                //         Header: this.props.language.watchlist.header.price,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.volume,
+                //         Header: this.props.language.watchlist.header.volume,
                 //         width: 60,
                 //     }, {
                 //         Header: '+/-',
@@ -112,66 +112,66 @@ class WatchList extends Component {
                 //         Header: '%',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.totalvol,
+                //         Header: this.props.language.watchlist.header.totalvol,
                 //         width: 60,
                 //     }]
                 // },
                 // {
-                //     Header: this.props.language.header.bestask,
+                //     Header: this.props.language.watchlist.header.bestask,
                 //     columns: [{
-                //         Header: this.props.language.header.pri1,
+                //         Header: this.props.language.watchlist.header.pri1,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.vol1,
+                //         Header: this.props.language.watchlist.header.vol1,
                 //         accessor: '',
                 //         width: 60,
                 //     },
                 //     {
-                //         Header: this.props.language.header.pri2,
+                //         Header: this.props.language.watchlist.header.pri2,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.vol2,
+                //         Header: this.props.language.watchlist.header.vol2,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.pri3,
+                //         Header: this.props.language.watchlist.header.pri3,
                 //         accessor: '',
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.vol3,
+                //         Header: this.props.language.watchlist.header.vol3,
                 //         accessor: '',
                 //         width: 60,
                 //     }
                 //     ]
                 // },
                 // {
-                //     Header: this.props.language.header.pricehistory,
+                //     Header: this.props.language.watchlist.header.pricehistory,
                 //     columns: [{
-                //         Header: this.props.language.header.open,
+                //         Header: this.props.language.watchlist.header.open,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.high,
+                //         Header: this.props.language.watchlist.header.high,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.low,
+                //         Header: this.props.language.watchlist.header.low,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.avg,
+                //         Header: this.props.language.watchlist.header.avg,
                 //         width: 60,
                 //     }]
                 // },
                 // {
-                //     Header: this.props.language.header.foreigninvestment,
+                //     Header: this.props.language.watchlist.header.foreigninvestment,
                 //     columns: [{
-                //         Header: this.props.language.header.forbuy,
+                //         Header: this.props.language.watchlist.header.forbuy,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.forsell,
+                //         Header: this.props.language.watchlist.header.forsell,
                 //         width: 60,
                 //     }, {
-                //         Header: this.props.language.header.room,
+                //         Header: this.props.language.watchlist.header.room,
                 //         width: 60
                 //     }]
                 // }
@@ -236,7 +236,7 @@ class WatchList extends Component {
             if(value === stock.mvStockId)
                 i++
         })
-        return i=0 ? false:true
+        return i===0 ? false:true
     }
     render() {
         this.buttonAction = [
@@ -260,12 +260,12 @@ class WatchList extends Component {
             <Button  bsStyle="primary" type="button" 
                 onClick={e => this.onAddStock(this.inputValue)}>
                 <span className="glyphicon glyphicon-plus" ></span> 
-                 {this.props.language.toolbar.addstock}
+                 {this.props.language.watchlist.toolbar.addstock}
             </Button>,
             <Button  bsStyle="default" type="button" 
                 onClick={e => this.props.onRemoveStock(this.rowSelected)}>
                 <span className="glyphicon glyphicon-remove"></span> 
-                 {this.props.language.toolbar.removestock}
+                 {this.props.language.watchlist.toolbar.removestock}
             </Button>
         ]
         return (
