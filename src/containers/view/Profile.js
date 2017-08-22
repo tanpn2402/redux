@@ -6,6 +6,14 @@ import * as actions from '../../actions'
 class Profile extends Component {
     constructor(props) {
         super(props)
+        this.params={
+          oldPassword: '',
+          password: '',
+          mvSeriNo: '',
+          mvAnswer: '',
+          mvSaveAuthenticate: true
+        }
+        this.retypePass=''
     }
 
     render() {
@@ -116,33 +124,33 @@ class Profile extends Component {
           <Row className="show-grid">
             <Col xs={5} md={5}>
               <Form horizontal>
-                <FormGroup controlId="formHorizontalAuName" bsSize="small">
+                <FormGroup controlId="currentPass" bsSize="small">
                       <Col componentClass={ControlLabel} sm={4} style={{fontWeight:"normal", fontSize: "12px"}}>
                       Current Password
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="auname"/>
+                      <FormControl type="password" onChange={e => this.onChange(e)}/>
                       </Col>
                 </FormGroup>
-                <FormGroup controlId="formHorizontalauid" bsSize="small">
+                <FormGroup controlId="newPass" bsSize="small">
                       <Col componentClass={ControlLabel} sm={4} style={{fontWeight:"normal", fontSize: "12px"}}>
                       New Password
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="auid"/>
+                      <FormControl type="password" onChange={e => this.onChange(e)}/>
                       </Col>
                 </FormGroup>
-                <FormGroup controlId="formHorizontalTelephone" bsSize="small">
+                <FormGroup controlId="retypeNewPass" bsSize="small">
                       <Col componentClass={ControlLabel} sm={4} style={{fontWeight:"normal", fontSize: "12px"}}>
                       Retype New Password
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="telephone"/>
+                      <FormControl type="password" onChange={e => this.onChange(e)}/>
                       </Col>
                 </FormGroup>
                 <FormGroup>
                       <Col smOffset={3} sm={9}>
-                      <Button type="save" bsSize="xsmall" style={{float:"left"}}>
+                      <Button  bsSize="xsmall" style={{float:"left"}} onClick={e => this.onChangePassword()}>
                       Save
                       </Button>
                       </Col>
@@ -164,17 +172,40 @@ class Profile extends Component {
     componentDidMount(){
         this.props.getdata([])
     }
-
+    onChangePassword(){
+      if(this.retypePass === this.params['password']){
+        this.props.changePassword(this.params)
+        console.log("changePassthis.params ",this.params)
+        console.log("changePassResult ",this.props.changePassResult)
+      }
+        
+    }
+    onChange(e){
+      console.log("e.target. ",e.target.id, e.target.value)
+      switch(e.target.id){
+        case 'currentPass':
+          this.params['oldPassword']= e.target.value
+        case 'newPass':
+          this.params['password']= e.target.value
+        case 'retypeNewPass':
+          this.retypePass= e.target.value
+      }
+      //this.inputValue=e.target.value
+  }
 }
 const mapStateToProps = (state) => {
   return {
     clientDetails: state.profile.clientDetails,
+    changePassResult: state.profile.changePassword
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
   getdata: (param) => {
     dispatch(actions.getProfile(param))
+  },
+  changePassword: (param) => {
+    dispatch(actions.changePassword(param))
   },
 })
 

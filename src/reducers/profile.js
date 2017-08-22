@@ -11,6 +11,10 @@ export default function (state = initialState, action) {
           clientDetails: action.clientDetails,
         });
 
+    case ActionTypes.CHANGEPASSWORD:
+        return Object.assign({},state,{
+          changePassword: action.changePassword,
+        });
     default:
       return state;
   }

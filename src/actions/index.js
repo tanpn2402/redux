@@ -13,7 +13,7 @@ import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
 import {loadWatchList,addStock, removeStock} from './watchlist'
-import {getProfile} from './profile'
+import {getProfile, changePassword} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
 
@@ -50,6 +50,7 @@ export {
   addStock,
   removeStock,
   getProfile,
+  changePassword,
   getOddlotEnquiry,
   getOddlotHistory,
   onOddLotSubmit,
