@@ -65,18 +65,18 @@ class DropdownCheckBox extends React.Component {
     var items = [];
     for (var i = 0; i < this.props.columns.length; i++) {
       var item = this.props.columns[i]
-      if(item.skip === false){
-         items.push(
-          <div className="dropdown-item">
-            
-            <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
-              {item.Header}
-            </Checkbox>
-          </div>
-         );
+      console.log("item.skip ",item.skip)
+        if(item.skip === false){
+          console.log("item dropdown ",item)
+          items.push(
+           <div className="dropdown-item">
+             <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
+               {item.Header}
+             </Checkbox>
+           </div>
+          );
+       }
       }
-     
-    }
     return items;
   }
 }

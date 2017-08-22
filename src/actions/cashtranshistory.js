@@ -9,8 +9,9 @@ export function enquiryCashTransaction(params, reload) {
 }
 
 function responseCashTransaction(response){
+    console.log("aaaaa",response)
     return {
         type: ActionTypes.ENQUIRYCASHTRANSACTION,
-        data: response,
+        data: response.list,
     }
 }

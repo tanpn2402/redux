@@ -12,12 +12,11 @@ class CashTransactionHistory extends Component {
 
         this.params = {
             mvLastAction:'',
-            tradeType:'ALL',
-            mvStartDate:'',
-            mvEndDate:'',
+            mvStartDate:'21/8/2010',
+            mvEndDate:'21/8/2017',
             start:'0',
             limit:'15',
-            page:'1'
+            tradeType:'ALL',
         }
 
         this.state = {

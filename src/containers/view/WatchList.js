@@ -9,33 +9,45 @@ class WatchList extends Component {
     constructor(props) {
         super(props)
 
+        
         this.state = {
-            columns: [{
-                    id: 'cb',
-                    Header: props => < input id={this.id + "-cb-all"}
-                    type = 'checkbox'
-                    className = "row-checkbox"
-                    onChange={() => this.onRowSelected('ALL')}
-                    />,
-                    maxWidth: 50,
-                    width: 40,
-                    Cell: props => {
-                        //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
+            columns: [
+                {
+                    columns: [{
+                        id: 'cb',
+                        Header: props => < input id = {
+                            this.id + "-cb-all"
+                        }
+                        type = 'checkbox'
+                        className = "row-checkbox"
+                        onChange = {
+                            () => this.onRowSelected('ALL')
+                        }
+                        />,
+                        maxWidth: 50,
+                        width: 40,
+                        Cell: props => {
+                            //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
                             return ( <
                                 input type = 'checkbox'
-                                className={this.id + "-row-checkbox"}
+                                className = {
+                                    this.id + "-row-checkbox"
+                                }
                                 onChange = {
                                     () => {
-                                       this.onRowSelected(props.original)
+                                        this.onRowSelected(props.original)
                                     }
                                 }
                                 />
                             )
-                    },
-                    sortable: false,
+                        },
+                        sortable: false,
+                        skip: true
+                    }],
                     skip: true
                 },
                 {
+                    id: 'headergroup',
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
                         id: 'mvStockId',
@@ -43,13 +55,17 @@ class WatchList extends Component {
                         accessor: 'mvStockId',
                         width: 60,
                         show: true,
+                        skip: false
                     }, {
                         id: 'mvStockName',
                         Header: this.props.language.watchlist.header.market,
                         accessor: 'mvStockName',
                         width: 60,
                         show: true,
-                    }]
+                        skip: false
+                    }],
+                    skip: false,
+                    show: true,
                 },
                 // {
                 //     Header: this.props.language.watchlist.header.reference,
@@ -180,6 +196,18 @@ class WatchList extends Component {
         }
         this.rowSelected = []
         this.id = 'watchlist'
+        this.addRemoveParams= {
+            mvTimelyUpdate: 'Y',
+            mvAddOrRemove: '',
+            mvCategory: '1',
+            mvStockCode: '',
+            mvMarketID: 'HA'
+        }
+        
+        this.getDataParams={
+            key: '',
+            mvCategory: '1'
+        }
     }
 
     onRowSelected(param){
@@ -211,42 +239,58 @@ class WatchList extends Component {
         }
         console.log('onRowSelected', this.rowSelected)
     }
-    
-    onAddStock(value){
-        if(!this.isInList(value)){
-            this.props.onAddStock(value);
-            this.props.onRefresh()
+    componentDidMount() {
+        this.onRefresh()
+    }
+    onRefresh(){
+         var time=(new Date()).getTime()
+         this.getDataParams['key']=time
+         this.props.onRefresh(this.getDataParams)
+    }
+    onAddStock(stockID){
+        if(!this.isInList(stockID)){
+            this.addRemoveParams['mvAddOrRemove']= 'Add'
+            this.addRemoveParams['mvStockCode']= stockID
+            this.props.onAddStock(this.addRemoveParams);
+            this.onRefresh()
         }else{
             //show Alert
             console.log("alert")
         }
             
     }
-    onRemoveStock(param){
-        this.props.onRemoveStock(param)
-        this.props.onRefresh()
+    onRemoveStock(removeList){
+        this.addRemoveParams['mvAddOrRemove']= 'Remove'
+        removeList.map(stock => {
+            this.addRemoveParams['mvStockCode']= stock.mvStockId
+            this.props.onRemoveStock(this.addRemoveParams )
+        })
+        
+        this.onRefresh()
     }
     onChange(e){
         console.log(e.target.value)
         this.inputValue=e.target.value
     }
-    isInList(value){
+    isInList(stockID){
         var i=0;
         this.props.watchListData.map(stock => {
-            if(value === stock.mvStockId)
+            if(stockID === stock.mvStockId)
                 i++
         })
         return i===0 ? false:true
     }
+    
     render() {
+        var disableRemove =this.rowSelected.length === 0? true:false;
         this.buttonAction = [
-            <Button  bsStyle="default" type="button" >
+            <Button  bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
             </Button>,
             <FormGroup controlId="mvStockId">
                 <FormControl bsClass='form-control stockSearch' 
                 componentClass="input" list="stockList" 
-                placeholder="Mã CK"
+                placeholder= {this.props.language.watchlist.header.stock}
                 onChange={e => this.onChange(e)}
                 />
                     <datalist id="stockList">
@@ -263,11 +307,12 @@ class WatchList extends Component {
                  {this.props.language.watchlist.toolbar.addstock}
             </Button>,
             <Button  bsStyle="default" type="button" 
-                onClick={e => this.props.onRemoveStock(this.rowSelected)}>
+                onClick={e => this.onRemoveStock(this.rowSelected)} disabled={disableRemove}>
                 <span className="glyphicon glyphicon-remove"></span> 
                  {this.props.language.watchlist.toolbar.removestock}
             </Button>
         ]
+
         return (
             <div id={'watchlist-body'} className="layout-body">
                 <SearchBar
@@ -289,15 +334,12 @@ class WatchList extends Component {
                     />
             </div>
         )
-        
     }
 
-    componentDidMount() {
-       this.props.onRefresh()
-       
-    }
+    
     
 }
+
 const mapStateToProps = (state) => {
   return {
     watchListData: state.watchlist.watchListData,
@@ -305,11 +347,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onRefresh: () => {
-        dispatch(actions.loadWatchList())
+    onRefresh: (param) => {
+        dispatch(actions.loadWatchList(param))
       },
-    onAddStock: (value) => {
-        dispatch(actions.addStock(value))
+    onAddStock: (param) => {
+        dispatch(actions.addStock(param))
       },
     onRemoveStock: (param) => {
         dispatch(actions.removeStock(param))
