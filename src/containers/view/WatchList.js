@@ -8,8 +8,6 @@ import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstra
 class WatchList extends Component {
     constructor(props) {
         super(props)
-
-        
         this.state = {
             columns: [
                 {
@@ -44,22 +42,23 @@ class WatchList extends Component {
                         sortable: false,
                         skip: true
                     }],
-                    skip: true
+                    skip: true,
+                    show: true
                 },
                 {
-                    id: 'headergroup',
+                    id: 'name',
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
-                        id: 'mvStockId',
+                        id: 'mvStockCode',
                         Header: this.props.language.watchlist.header.stock,
-                        accessor: 'mvStockId',
+                        accessor: 'mvStockCode',
                         width: 60,
                         show: true,
                         skip: false
                     }, {
-                        id: 'mvStockName',
+                        id: 'mvMarketID',
                         Header: this.props.language.watchlist.header.market,
-                        accessor: 'mvStockName',
+                        accessor: 'mvMarketID',
                         width: 60,
                         show: true,
                         skip: false
@@ -67,130 +66,236 @@ class WatchList extends Component {
                     skip: false,
                     show: true,
                 },
-                // {
-                //     Header: this.props.language.watchlist.header.reference,
-                //     columns: [{
-                //         Header: this.props.language.watchlist.header.ce,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.fl,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.ref,
-                //         accessor: '',
-                //         width: 60,
-                //     }]
-                // },
-                // {
-                //     Header: this.props.language.watchlist.header.bestbid,
-                //     columns: [{
-                //             Header: this.props.language.watchlist.header.pri3,
-                //             accessor: '',
-                //             width: 60,
-                //         }, {
-                //             Header: this.props.language.watchlist.header.vol3,
-                //             accessor: '',
-                //             width: 60,
-                //         },
-                //         {
-                //             Header: this.props.language.watchlist.header.pri2,
-                //             accessor: '',
-                //             width: 60,
-                //         }, {
-                //             Header: this.props.language.watchlist.header.vol2,
-                //             accessor: '',
-                //             width: 60,
-                //         }, {
-                //             Header: this.props.language.watchlist.header.pri1,
-                //             accessor: '',
-                //             width: 60,
-                //         }, {
-                //             Header: this.props.language.watchlist.header.vol1,
-                //             accessor: '',
-                //             width: 60,
-                //         }
-                //     ]
-                // },
-                // {
-                //     Header: this.props.language.watchlist.header.matching,
-                //     columns: [{
-                //         Header: this.props.language.watchlist.header.price,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.volume,
-                //         width: 60,
-                //     }, {
-                //         Header: '+/-',
-                //         width: 60,
-                //     }, {
-                //         Header: '%',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.totalvol,
-                //         width: 60,
-                //     }]
-                // },
-                // {
-                //     Header: this.props.language.watchlist.header.bestask,
-                //     columns: [{
-                //         Header: this.props.language.watchlist.header.pri1,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.vol1,
-                //         accessor: '',
-                //         width: 60,
-                //     },
-                //     {
-                //         Header: this.props.language.watchlist.header.pri2,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.vol2,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.pri3,
-                //         accessor: '',
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.vol3,
-                //         accessor: '',
-                //         width: 60,
-                //     }
-                //     ]
-                // },
-                // {
-                //     Header: this.props.language.watchlist.header.pricehistory,
-                //     columns: [{
-                //         Header: this.props.language.watchlist.header.open,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.high,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.low,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.avg,
-                //         width: 60,
-                //     }]
-                // },
-                // {
-                //     Header: this.props.language.watchlist.header.foreigninvestment,
-                //     columns: [{
-                //         Header: this.props.language.watchlist.header.forbuy,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.forsell,
-                //         width: 60,
-                //     }, {
-                //         Header: this.props.language.watchlist.header.room,
-                //         width: 60
-                //     }]
-                // }
+                {
+                    id: 'reference',
+                    Header: this.props.language.watchlist.header.reference,
+                    columns: [{
+                        id: 'mvCeilingPrice',
+                        Header: this.props.language.watchlist.header.ce,
+                        accessor: 'mvCeilingPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvFloorPrice',
+                        Header: this.props.language.watchlist.header.fl,
+                        accessor: 'mvFloorPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvReferencePrice',
+                        Header: this.props.language.watchlist.header.ref,
+                        accessor: 'mvReferencePrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'bestbid',
+                    Header: this.props.language.watchlist.header.bestbid,
+                    columns: [{
+                            id: 'mvBestBid3Price',
+                            Header: this.props.language.watchlist.header.pri3,
+                            accessor: 'mvBestBid3Price',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'mvBestBid3Volume',
+                            Header: this.props.language.watchlist.header.vol3,
+                            accessor: 'mvBestBid3Volume',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'mvBestBid2Price',
+                            Header: this.props.language.watchlist.header.pri2,
+                            accessor: 'mvBestBid2Price',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'mvBestBid2Volume',
+                            Header: this.props.language.watchlist.header.vol2,
+                            accessor: 'mvBestBid2Volume',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'mvBestBid1Price',
+                            Header: this.props.language.watchlist.header.pri1,
+                            accessor: 'mvBestBid1Price',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'mvBestBid1Volume',
+                            Header: this.props.language.watchlist.header.vol1,
+                            accessor: 'mvBestBid1Volume',
+                            width: 60,
+                            skip: false,
+                            show: true,
+                        }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'matching',
+                    Header: this.props.language.watchlist.header.matching,
+                    columns: [{
+                        id: 'mvNominalPrice',
+                        Header: this.props.language.watchlist.header.price,
+                        accessor: 'mvNominalPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvNoalPriSubRefPri',
+                        Header: this.props.language.watchlist.header.volume,
+                        accessor: 'mvNoalPriSubRefPri',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvTotalTradingQty',
+                        Header: '+/-',
+                        accessor: 'mvTotalTradingQty',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'ce',
+                        Header: '%',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'ce',
+                        Header: this.props.language.watchlist.header.totalvol,
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'bestask',
+                    Header: this.props.language.watchlist.header.bestask,
+                    columns: [{
+                        id: 'mvBestOffer1Price',
+                        Header: this.props.language.watchlist.header.pri1,
+                        accessor: 'mvBestOffer1Price',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvBestOffer1Volume',
+                        Header: this.props.language.watchlist.header.vol1,
+                        accessor: 'mvBestOffer1Volume',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvBestOffer2Price',
+                        Header: this.props.language.watchlist.header.pri2,
+                        accessor: 'mvBestOffer2Price',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvBestOffer2Volume',
+                        Header: this.props.language.watchlist.header.vol2,
+                        accessor: 'mvBestOffer2Volume',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvBestOffer3Price',
+                        Header: this.props.language.watchlist.header.pri3,
+                        accessor: 'mvBestOffer3Price',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvBestOffer3Volume',
+                        Header: this.props.language.watchlist.header.vol3,
+                        accessor: 'mvBestOffer3Volume',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'pricehistory',
+                    Header: this.props.language.watchlist.header.pricehistory,
+                    columns: [{
+                        id: 'mvOpenPrice',
+                        Header: this.props.language.watchlist.header.open,
+                        accessor: 'mvOpenPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvHighPrice',
+                        Header: this.props.language.watchlist.header.high,
+                        accessor: 'mvHighPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'mvLowPrice',
+                        Header: this.props.language.watchlist.header.low,
+                        accessor: 'mvLowPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'avgPrice',
+                        Header: this.props.language.watchlist.header.avg,
+                        accessor: 'avgPrice',
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'foreigninvestment',
+                    Header: this.props.language.watchlist.header.foreigninvestment,
+                    columns: [{
+                        id: 'ce',
+                        Header: this.props.language.watchlist.header.forbuy,
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'ce',
+                        Header: this.props.language.watchlist.header.forsell,
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'ce',
+                        Header: this.props.language.watchlist.header.room,
+                        width: 60,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                }
             ],
             showAlert: false
         }
@@ -201,7 +306,7 @@ class WatchList extends Component {
             mvAddOrRemove: '',
             mvCategory: '1',
             mvStockCode: '',
-            mvMarketID: 'HA'
+            mvMarketID: ''
         }
         
         this.getDataParams={
@@ -248,9 +353,14 @@ class WatchList extends Component {
          this.props.onRefresh(this.getDataParams)
     }
     onAddStock(stockID){
-        if(!this.isInList(stockID)){
-            this.addRemoveParams['mvAddOrRemove']= 'Add'
-            this.addRemoveParams['mvStockCode']= stockID
+        this.props.stockList.map(stock => {
+            if(stockID === stock.stockCode){
+                this.addRemoveParams['mvAddOrRemove']= 'Add'
+                this.addRemoveParams['mvStockCode']= stockID
+                this.addRemoveParams['mvMarketID']= stock.mvMarketID
+            }
+        })
+        if(!this.alreadyInList(stockID)){
             this.props.onAddStock(this.addRemoveParams);
             this.onRefresh()
         }else{
@@ -272,7 +382,7 @@ class WatchList extends Component {
         console.log(e.target.value)
         this.inputValue=e.target.value
     }
-    isInList(stockID){
+    alreadyInList(stockID){
         var i=0;
         this.props.watchListData.map(stock => {
             if(stockID === stock.mvStockId)
@@ -296,6 +406,7 @@ class WatchList extends Component {
                     <datalist id="stockList">
                     {
                         this.props.stockList.map(e => {
+                            console.log(e)
                             return( <option value={e.stockCode}>{e.stockName}</option> )
                         })
                     }

@@ -6,12 +6,11 @@ import * as actions from '../../actions'
 class Profile extends Component {
     constructor(props) {
         super(props)
-
     }
 
     render() {
-        var data = this.props.data.mvPersonnalProfileBean === undefined ? [] : this.props.data.mvPersonnalProfileBean
-        console.log('render in PersonalProfile', data)
+        var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
+        console.log('render in PersonalProfile', clientDetails)
         return (
           <Grid style={{paddingTop:"30px"}}>
             <Row className="show-grid">
@@ -22,7 +21,7 @@ class Profile extends Component {
                       Holder Name
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="holdername" value={data.mvName}/>
+                      <FormControl type="holdername" value={clientDetails.mvName}/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalNum" bsSize="small">
@@ -30,7 +29,7 @@ class Profile extends Component {
                       Account No.
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="accountnum" value={data.mvIDNumber}/>
+                      <FormControl type="accountnum" value={clientDetails.mvAccountNumber}/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalEmail" bsSize="small">
@@ -38,7 +37,7 @@ class Profile extends Component {
                       Email
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="email" value={data.mvEmail} readonly/>
+                      <FormControl type="email" value={clientDetails.mvEmail} readonly/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalPassword" bsSize="small">
@@ -58,7 +57,7 @@ class Profile extends Component {
                       Address
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="address" value="ADDRESS 1 ADDRESS 2 ADDRESS 3"/>
+                      <FormControl type="address" value={clientDetails.mvAddress}/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalID" bsSize="small">
@@ -66,7 +65,7 @@ class Profile extends Component {
                       Personal ID
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="id" value="12345678"/>
+                      <FormControl type="id" value={clientDetails.mvIDNumber}/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -80,7 +79,7 @@ class Profile extends Component {
                       Authorized Name
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="auname" value="Su"/>
+                      <FormControl type="auname" value=""/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalauid" bsSize="small">
@@ -88,7 +87,7 @@ class Profile extends Component {
                       ID No.
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="auid" value="22334455"/>
+                      <FormControl type="auid" value=""/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -100,7 +99,7 @@ class Profile extends Component {
                       Telephone
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="telephone"/>
+                      <FormControl type="telephone" value=""/>
                       </Col>
                   </FormGroup>
                   <FormGroup controlId="formHorizontalAu" bsSize="small">
@@ -108,7 +107,7 @@ class Profile extends Component {
                       Authorization
                       </Col>
                       <Col sm={8}>
-                      <FormControl type="au" value="Place Order"/>
+                      <FormControl type="au" value=""/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -163,14 +162,13 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        var param = []
-        this.props.getdata(param)
+        this.props.getdata([])
     }
 
 }
 const mapStateToProps = (state) => {
   return {
-    data: state.profile.data,
+    clientDetails: state.profile.clientDetails,
   }
 }
 

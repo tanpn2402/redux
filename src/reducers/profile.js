@@ -1,14 +1,14 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  data: [],
+  clientDetails: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.PROFILE:
         return Object.assign({},state,{
-          data: action.data,
+          clientDetails: action.clientDetails,
         });
 
     default:
