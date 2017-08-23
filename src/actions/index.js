@@ -16,6 +16,7 @@ import {loadWatchList,addStock, removeStock} from './watchlist'
 import {getClientInfo, changePassword} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
+import {getRightlist, getAdditionalshareinfo, getHistorylist} from './entitlement'
 
 export {
   doLogin,
@@ -56,5 +57,9 @@ export {
   onOddLotSubmit,
   getCashtransfer,
   getCashdatatable,
+
+  getRightlist, 
+  getAdditionalshareinfo, 
+  getHistorylist,
   
 };

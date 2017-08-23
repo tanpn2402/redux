@@ -4,13 +4,38 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import SlideNav from './SlideNav'
 import SettingNav from './SettingNav'
-
+import FlashPopup from './commom/FlashPopup'
+import MessageBox from './commom/MessageBox'
 class PageContent extends React.Component {
     constructor () {
         super()
+
+        this.state = {
+            listMessage: [
+                {
+                    'id': '1-id',
+                    'type': 1,
+                    'message': '1',
+                },
+                {
+                    'id': '2-id',
+                    'type': 1,
+                    'message': '2',
+                },
+                {
+                    'id': '3-id',
+                    'type': 1,
+                    'message': '3',
+                }
+
+            ],
+        }
+
     }
 
     render () {
+        console.log(this.state.listMessage)
+
         console.log('PageContent RENDER', this.props)
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent">
@@ -26,15 +51,60 @@ class PageContent extends React.Component {
                 <SlideNav language={this.props.language.menu}/>
                 <SettingNav language={this.props.language} />
                 <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
+
+                <div className="flashpopup" id="flashpopup">
+                    {
+
+                        this.state.listMessage.map(e => {
+                            console.log(e)
+                            return(
+                                <FlashPopup
+                                    id={e.id}
+                                    show={true}
+                                    message={e.message}
+                                    type={e.type}
+                                 />
+
+                            )
+                        })
+                    }
+                                
+
+                </div>
+
+                <MessageBox />
+                 <MessageBox />
             </div>
         );
+    }
+
+    componentWillReceiveProps(nextProps){
+
     }
 
     onHideSlidePanel(){
         document.getElementById("slidenav").style.width = "0"
         document.getElementById("settingnav").style.width = "0"
         document.getElementById("overlay").style.display = 'none'
-    }
+
+        var s = [
+                    {
+                        'id': '1-id',
+                        'type': 1,
+                        'message': '1',
+                    }
+
+                ]
+        this.setState({
+            listMessage: this.state.listMessage.push(s  )
+        });
+/*
+        var newDiv = document.createElement("MessageBox")
+        console.log(newDiv)
+        var currentDiv = document.getElementById("flashpopup")
+
+        document.body.insertBefore(newDiv, currentDiv )*/
+    }   
 
     componentDidMount(){
         var param = {
@@ -61,6 +131,9 @@ const mapStateToProps = (state, props) => ({
   reload: state.menuSelected.reload,
   stockList: state.stock.stockList,
   
+  // notification
+  message: state.notification.message,
+  type: state.notification.type,
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

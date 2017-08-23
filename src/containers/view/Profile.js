@@ -135,7 +135,7 @@ class Profile extends Component {
           <Row className="show-grid">
             <Col xs={5} md={5}>
               <Form horizontal>
-                  <FormGroup controlId="currentPass" bsSize="small" validationState="error" >
+                  <FormGroup controlId="currentPass" bsSize="small" >
                         <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
                         {this.props.language.currentpassword}
                         </Col>
@@ -151,13 +151,12 @@ class Profile extends Component {
                         <FormControl type="password" onChange={e => this.onChangeValue(e)} style={this.formControlStyle}/>
                         </Col>
                   </FormGroup>
-                  <FormGroup controlId="retypeNewPass" bsSize="small" validationState="error" >
+                  <FormGroup controlId="retypeNewPass" bsSize="small" >
                         <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
                         {this.props.language.retypepassword}
                         </Col>
                         <Col sm={8}>
                         <FormControl type="password" onChange={e => this.onChangeValue(e)} style={this.formControlStyle}/>
-                        <FormControl.Feedback/>
                         </Col>
                   </FormGroup>
                 
@@ -170,7 +169,7 @@ class Profile extends Component {
                 </FormGroup>
               </Form>
             </Col>
-            <Col xs={5} md={5} style={{fontSize: "12px", textAlign: "left"}}>
+            <Col xs={6} md={6} style={{fontSize: "12px", textAlign: "left"}}>
               <div><strong>{this.props.language.warning}</strong></div>
               <div><strong>{this.props.language.expiredate}</strong></div>
               <div>{this.props.language.warndetail1}</div>

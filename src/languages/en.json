@@ -468,6 +468,47 @@
         "warndetail1": "-  Your password will be efficient in 90 days after the last time you change it.",
         "warndetail2": "-  After 90 days, you will receive a notice for changing your password",
         "save": "Save"
+      },
+      "entitlement": {
+        "header":{
+            "bankaccount": "Bank Account",
+            "cashbalance": "Cash balance",
+            "cashavailable": "Cash available",
+            "buyingpower": "Buying power",
+            "stockcode": "Stock code",
+            "availableqty": "Available Qty",
+            "registerqty": "Register Qty",
+            "actionprice": "Action price",
+            "amountVND": "Amount VND",
+
+            "stock": "Stock",
+            "actiontype": "Action type",
+            "recorddate": "Record date",
+            "owningvolume": "Owning volume",
+            "ratecash": "Rate Cash(VND/Share)",
+            "rate": "Rate (Stock)",
+            "pervalue": "Per value",
+            "recievecash": "Recieved Cash",
+            "receivedstock": "Received Stock",
+            "status": "Status",
+            "payabledate": "Payable Date",
+            "paiddate": "Paid Date",
+
+            "rightrate": "Right rate",
+            "actionrate": "Action rate",
+            "startdate": "Start Date",
+            "transferdeadline": "Transfer Deadline",
+            "registerdeadline": "Register Deadline",
+
+            "registerdate": "Register date",
+            "volume": "Volume",
+            "amount": "Amount",
+
+            "entitlementplace": "Entitlement Place",
+            "corporateactionlist": "Corporate Action List",
+            "additionalissuesharesinformation": "Additional issue shares information",
+            "additionalissuesharesbuyinghistory": "Additional issue shares buying history"
+        }
       }
     }
   }

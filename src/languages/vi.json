@@ -462,6 +462,47 @@
         "warndetail1": "- Mật khẩu của quý khách có tác dụng trong 90 ngày kể từ lần thay đổi mật khẩu cuối cùng.",
         "warndetail2": "- Sau 90 ngày, quý khách sẽ nhận được thông báo yêu cầu đổi mật khẩu từ hệ thống Giao dịch trực tuyến.",
         "save": "Lưu lại"
+      },
+      "entitlement": {
+        "header":{
+            "bankaccount": "Tài khoản",
+            "cashbalance": "Số dư tiền mặt",
+            "cashavailable": "Số dư khả dụng",
+            "buyingpower": "Sức mua tối đa",
+            "stockcode": "Mã CK",
+            "availableqty": "SL được phép mua",
+            "registerqty": "Số lượng đăng kí",
+            "actionprice": "Giá thực hiện",
+            "amountVND": "Số tiền (VND)",
+
+            "stock": "Mã CK",
+            "actiontype": "Loại",
+            "recorddate": "Ngày chốt quyền",
+            "owningvolume": "Số lượng CK sở hữu",
+            "ratecash": "Tỉ lệ tiền (VND/CP)",
+            "rate": "Tỉ lệ(CK)",
+            "pervalue": "Giá(VND)",
+            "recievecash": "Số tiền",
+            "receivedstock": "Số lượng CK",
+            "status": "Trạng thái",
+            "payabledate": "Ngày phân bố dự kiến",
+            "paiddate": "Ngày phân bố",
+
+            "rightrate": "Tỉ lệ quyền",
+            "actionrate": "Tỉ lệ thực hiện",
+            "startdate": "Ngày bắt đầu DK/CK",
+            "transferdeadline": "Ngày hết hạn chuyển nhượng",
+            "registerdeadline": "Ngày hết hạn",
+
+            "registerdate": "Ngày đăng kí mua",
+            "volume": "Số lượng chứng khoán mua",
+            "amount": "Số tiền",
+
+            "entitlementplace": "Đăng kí thực hiện quyền",
+            "corporateactionlist": "Danh sách quyền",
+            "additionalissuesharesinformation": "Thông tin mua cổ phiếu phát hành tiền",
+            "additionalissuesharesbuyinghistory": "Tra cứu lịch sử giao dịch mua cổ phiếu phát hành tiền"
+        }
       }
     }
   }
