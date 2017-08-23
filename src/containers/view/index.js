@@ -59,7 +59,7 @@ export default function (menuid, props){
 			)
 		case 'personalprofile' :
 			return (
-				<Profile/>
+				<Profile language={props.language.personalprofile} theme={props.theme}/>
 			)
 		case 'oddlottrading':
 			return(

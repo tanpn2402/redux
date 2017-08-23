@@ -327,7 +327,6 @@ class OrderJournal extends Component {
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
 	    let lgClose = () => this.setState({ lgShow: false })
 
-        console.log('dasdsaddsaad', this.props.modifyData)
         return (
             <div id={'orderjournal-body'} className="layout-body">
                 <SearchBar

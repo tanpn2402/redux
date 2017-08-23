@@ -440,6 +440,28 @@
           "forsell": "NN Bán",
           "room": "Room"
         }
+      },
+      "personalprofile":{
+        "holderinformation": "Thông tin chủ tài khoản",
+        "holdername": "Tên chủ tài khoản",
+        "accountno": "Số tài khoản",
+        "email": "E-mail",
+        "telephone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "personalid": "CMND",
+        "personinformation": "Thông tin người ủy quyền",
+        "authorizedname": "Tên người ủy quyền",
+        "idno": "Số CMND/ĐKKD",
+        "authorization": "Ủy quyền",
+        "changepassword": "Đổi mật khẩu",
+        "currentpassword": "Mật khẩu cũ",
+        "newpassword": "Mật khẩu mới",
+        "retypepassword": "Nhập lại mật khẩu mới",
+        "warning": "Quý khách lưu ý",
+        "expiredate": " - Thời hạn hiệu lực của mật khẩu: 07/06/2291 16:10:40. ",
+        "warndetail1": "- Mật khẩu của quý khách có tác dụng trong 90 ngày kể từ lần thay đổi mật khẩu cuối cùng.",
+        "warndetail2": "- Sau 90 ngày, quý khách sẽ nhận được thông báo yêu cầu đổi mật khẩu từ hệ thống Giao dịch trực tuyến.",
+        "save": "Lưu lại"
       }
     }
   }

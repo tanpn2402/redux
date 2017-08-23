@@ -446,6 +446,28 @@
           "forsell": "For. Sell",
           "room": "Room"
         }
+      },
+      "personalprofile":{
+        "holderinformation": "Account Holder Information",
+        "holdername": "Holder Name",
+        "accountno": "Account.No",
+        "email": "E-mail",
+        "telephone": "Telephone",
+        "address": "Address",
+        "personalid": "Personal ID",
+        "personinformation": "Authorized Person Information",
+        "authorizedname": "Authorized Name",
+        "idno": "ID No",
+        "authorization": "Authorization",
+        "changepassword": "Change Password",
+        "currentpassword": "Current Password",
+        "newpassword": "New Password",
+        "retypepassword": "Retype New Password",
+        "warning": "Warning",
+        "expiredate": "-  Expiry date of password : 07/06/2291 16:10:40",
+        "warndetail1": "-  Your password will be efficient in 90 days after the last time you change it.",
+        "warndetail2": "-  After 90 days, you will receive a notice for changing your password",
+        "save": "Save"
       }
     }
   }

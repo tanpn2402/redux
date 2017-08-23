@@ -5,7 +5,6 @@ import EnterOrderPopup from './EnterOrder'
 import ConfirmOrder from './ConfirmOrder'
 import OddLotTrading from './OddLotTrading'
 import CashAdvancePopup from './CashAdvance'
-
 export default function  (props){
 	
 	switch(props.id){
@@ -34,6 +33,7 @@ export default function  (props){
 		
 		case 'cashadvance':
 			return (<CashAdvancePopup onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)	
+		
 	}
     
 }

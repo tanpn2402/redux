@@ -214,7 +214,7 @@ const mapStateToProps = (state) => {
   
   const mapDispatchToProps = (dispatch, props) => ({
 	getClientInfo: (param) => {
-		dispatch(actions.getProfile(param))
+		dispatch(actions.getClientInfo(param))
 	},
 	  
   })
