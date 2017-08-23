@@ -127,17 +127,52 @@ function checkMoney(mvPrice, mvBuyPower, mvStatus, mvBank, language) {
         return language.bank;
 }
 
-export function submitEnterOrder(param){
-    console.log(param,"action")
+export function submitEnterOrder(matrix_param,enter_param){
+    console.log(matrix_param,"action")
     return function (dispatch) {
-        (api.post(ACTION.ENTERORDER, param, dispatch, getEnterOrderMsg))
+        api.authCardMatrix(ACTION.AUTHCARD, matrix_param, dispatch, getMsg, enter_param)
     }
 }
 
-export function getEnterOrderMsg(response) {
-    console.log("Enterorder", response)
+export function getMsg(param,response) {
+    console.log("Enterorder", response,param)
+    if (response.mvSuccess === "SUCCESS"){
+        return function (dispatch){
+            api.post(ACTION.ENTERORDER,param,dispatch,msgEnter)
+        }
+    }
+    else{
+        return{
+            type: ActionTypes.NOTIFICATION,
+            message: response.mvClientCardBean.mvErrorMsg,
+            notification_type: 1,
+        }
+    }
+}
+
+function msgEnter(response){
+    console.log("Enterorder get response", response)
+    if (response.success === "true"){
+        return {
+            type: ActionTypes.NOTIFICATION,
+            message: "Enteroder Success",
+            notification_type: 0,
+        }
+    }
+    else{
+        var param = {};
+        var date = new Date()
+        param.key = date.getTime();
+        return function (dispatch){
+            api.post(ActionTypes.ENTERORDERFAIL,param,dispatch,msgEnterError)
+        }
+    }
+}
+
+function msgEnterError(response){
     return {
-        type: ActionTypes.ENTERORDER,
-        data: response
+        type: ActionTypes.NOTIFICATION,
+        message: response.mvFailBean.mvErrorMsg,
+        notification_type: 1,
     }
 }

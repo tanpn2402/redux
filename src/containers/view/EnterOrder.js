@@ -234,8 +234,13 @@ class EnterOrder extends Component {
     onStockChange(e) {
         var stockID = document.getElementById("mvStock").value;
         var marketid = document.getElementById("mvMarketID").value;
-        //console.log(marketid,"HO or HA");
         this.state.data['mvInstrument'] = stockID
+        // var tmp = this.props.stockList.filter(e => e.stockCode === this.state.data.mvInstrument);
+        // this.setState({data:{
+        //     "mvMarketId": tmp[0].mvMarketID
+        // }})
+        // //this.state.data['mvMarketId'] = tmp[0].mvMarketID
+        // console.log("HA HO", this.state.data['mvMarketId'])
         this.state.data['mvMarketId'] = "HO"
         this.state.data['mvEnableGetStockInfo'] = 'N'
         this.state.data['mvAction'] = 'OI,BP,FE'
@@ -267,7 +272,6 @@ class EnterOrder extends Component {
         let value = e.target.value;
 
         formValues[name] = value;
-        console.log('dasd', formValues);
         this.setState({ formValues })
     }
 

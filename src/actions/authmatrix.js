@@ -9,7 +9,7 @@ export function setAuthenFail(isAuthenFail) {
     }
 }
 
-export function getMatrixCard(param) {
+export function authMatrixCard(param) {
     console.log('MatrixCard Action call: ', param)
     return function (dispatch) {
         api.post(ACTION.AUTHCARD, param, dispatch, matrixCardResponse)

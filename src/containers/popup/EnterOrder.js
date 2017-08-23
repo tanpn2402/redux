@@ -58,7 +58,8 @@ class EnterOrderPopup extends Component {
             "mvSaveAuthenticate": "true",
         }
         
-        this.props.getMatrixCard(this.param);
+        this.props.getMatrixCard(json,this.param);
+        this.props.onHide();
     }
 
     render() {
@@ -118,8 +119,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getMatrixCard: (param) => {
-        dispatch(actions.submitEnterOrder(param))
+    getMatrixCard: (json,param) => {
+        dispatch(actions.submitEnterOrder(json,param))
     }
 })
 

@@ -15,7 +15,7 @@
         "cashtransactionhistory": "Tra cứu lịch sử giao dịch tiền",
         "cashstatement": "Sao kê tài khoản tiền",
         "stockstatement": "Sao kê tài khoản chứng khoán",
-        "marginloanstatement": "Sao kê nợ GDKQ",
+        "marginloan": "Sao kê nợ GDKQ",
         "personalprofile": "Thông tin nhà đầu tư",
         "otherservice": "Dịch vụ",
         "cashtransfer": "Chuyển tiền",
@@ -287,6 +287,19 @@
           "value": "Giá trị",
           "percentage": "%",
           "description": "Mô tả"
+        }
+      },
+      "marginloan": {
+        "header": {
+            "rownum": "STT",
+            "transactiondate": "Ngày phát sinh",
+            "description": "Nội dung phát sinh",
+            "marginusage": "Phát sinh tiền Margin",
+            "debt": "Nợ",
+            "payment": "Trả nợ",
+            "finaldept": "Dư nợ lũy kế",
+            "margincall": "Lệnh gọi bổ sung ký quỹ",
+            "forcesell": "Bán giải chấp"
         }
       },
       "enterorder": {

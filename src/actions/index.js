@@ -16,7 +16,8 @@ import {loadWatchList} from './watchlist'
 import {getProfile} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
-
+import { enquiryMarginLoan } from './marginloan'
+ 
 export {
   doLogin,
   logout,
@@ -64,4 +65,6 @@ export {
   getMsgError,
   getError,
   submitEnterOrder,
+  enquiryMarginLoan,
+  
 };

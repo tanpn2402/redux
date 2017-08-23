@@ -14,9 +14,9 @@ class CashTransactionHistory extends Component {
             tradeType: 'ALL',
             mvStartDate: '',
             mvEndDate: '',
-            start: '0',
-            limit: '15',
-            page: '1'
+            start: 0,
+            limit: 15,
+            page: 1
         }
 
         this.state = {
@@ -88,9 +88,10 @@ class CashTransactionHistory extends Component {
                     skip: false,
                     show: true,
                 }
-            ]
+            ],
+            pageIndex: 1,
         }
-
+        this.pageIndex = 1
         this.rowSelected = []
         this.id = 'cashtransactionhistory'
     }
@@ -167,6 +168,7 @@ class CashTransactionHistory extends Component {
                 }
             ]
         });
+        
     }
 
     render() {
@@ -190,9 +192,8 @@ class CashTransactionHistory extends Component {
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
                     data={data}
-                    page={page}
                     windowid="cashtransactionhistory" />
-                <Footer pageIndex={page} totalRecord={this.props.data.totalCount} onPageChange={this.onPageChange.bind(this)} />
+                <Footer pageIndex={this.pageIndex} totalRecord={this.props.data.totalCount} onPageChange={this.onPageChange.bind(this)} />
             </div>
         )
 
@@ -239,7 +240,12 @@ class CashTransactionHistory extends Component {
     }
 
     onPageChange(pageIndex) {
-        console.log('cashtranshistory onPageChange', pageIndex)
+        this.setState({ pageIndex: pageIndex });
+        this.pageIndex = pageIndex;
+        this.params['page'] = this.pageIndex;
+        this.params['start'] = (this.pageIndex - 1) * 15;
+        console.log(this.params)
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
     onSearch(param) {
@@ -247,6 +253,9 @@ class CashTransactionHistory extends Component {
         this.params['tradeType'] = param.mvTrade.toUpperCase();
         this.params['mvStartDate'] = param.mvStartDate;
         this.params['mvEndDate'] = param.mvEndDate;
+        // this.params['page'] = this.pageIndex;
+        // this.params['start'] = (this.pageIndex - 1) * 15;
+        console.log(this.params)
         this.props.onSearch(this.params, !this.props.reload)
     }
 }

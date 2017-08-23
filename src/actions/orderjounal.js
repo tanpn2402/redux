@@ -21,11 +21,29 @@ export function getEnquiryData(response) {
 
 export function getMsgCancelError(response) {
   console.log('Msg Enquiry data', response)
+  if (response.mvReturnResult === "CancelOrderFail") {
+    var json = {};
+    var date = new Date()
+    json.key = date.getTime();
+    return function (dispatch) {
+      (api.post(ACTION.HKSCANCELORDERFAIL, json, dispatch, getError))
+    }
+  }
+  else {
+    return {
+      type: ActionTypes.NOTIFICATION,
+      message: "Cancel success",
+      notification_type: 0,
+    }
+  }
+}
+
+function getCancelError(response){
   
   return {
-    type: ActionTypes.CANELORDER,
-    data: response,
-    reload: true,
+    type: ActionTypes.NOTIFICATION,
+    message: response.cancelOrderFailBean.mvErrorMsg,
+    notification_type: 1,
   }
 }
 
@@ -138,8 +156,6 @@ export function onModifySubmit(param, newPrice, newQty) {
 export function getMsgModify(response) {
   console.log('getModifyData', response)
   if (response.mvReturnResult === "ModifyOrderFail") {
-    count += 1;
-    console.log(count, "khi fail")
     var json = {};
     var date = new Date()
     json.key = date.getTime();
@@ -148,26 +164,20 @@ export function getMsgModify(response) {
     }
   }
   else {
-    console.log(count, "khi success")
-    console.log(response,"sau success")
-    getSuccess(true)
-  }
-}
-
-export function getSuccess(response) {
-  return {
-    type: ActionTypes.MODIFYSUCCESS,
-    data: response,
-    reload: true,
+    return {
+      type: ActionTypes.NOTIFICATION,
+      message: "Modify success",
+      notification_type: 0,
+    }
   }
 }
 
 function getError(response) {
-  console.log(response, count)
+  console.log(response.modifyOrderFailBean.mvErrorMsg, "error")
   return {
-    type: ActionTypes.MODIFYERROR,
-    data: response.modifyOrderFailBean.mvErrorMsg,
-    count: count,
+    type: ActionTypes.NOTIFICATION,
+    message: response.modifyOrderFailBean.mvErrorMsg,
+    notification_type: 1,
   }
 }
 

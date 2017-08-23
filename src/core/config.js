@@ -73,8 +73,8 @@ const config = {
 		        link: ''
 		      },
 		      {
-		        id: 'marginloanstatement',
-		        text: 'marginloanstatement',
+		        id: 'marginloan',
+		        text: 'marginloan',
 		        link: ''
 		      },
 		      {
@@ -150,7 +150,8 @@ const config = {
 		oddlottrading: {i: 'oddlottrading',  x:0, y:0, w: 30, h: 20, minW: 22, minH: 20, maxW: 30, maxH: 25, static: false, isResizable: false},
 		cashtransfer: {i: 'cashtransfer', x:0, y:0, w: 30, h: 14, minW: 20, minH: 14, maxW: 30, maxH: 14, static: false, isResizable: false},
 		cashadvance: {i: 'cashadvance', x:0, y:0, w: 30, h: 14, minW: 20, minH: 14, maxW: 30, maxH: 15,},
-		
+		marginloan: {i: 'marginloan', x:0, y:0, w: 30, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15,},
+	
 	}
 	,
 	orderstatus: [
