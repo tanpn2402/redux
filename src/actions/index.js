@@ -1,12 +1,12 @@
 import { doLogin,logout } from './doLogin'
 import {menuSelected, menuRemoved, onPageClicked, pinWindow} from './menu_selected'
 import {changeConfig} from './configurations'
-import {enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, getModifyData, openPopup} from './orderjounal'
+import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
-import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder,setPopup} from './enterorder'
-import { setAuthenFail, checkAuthen} from './authmatrix'
+import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder, setPopup, getstockInfo, getStockB, submitEnterOrder } from './enterorder'
+import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import {stockSearch} from './stockaction'
-import { onConfirmSubmit, enquiryConfirmOrder } from './confirmorder'
+import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData } from './confirmorder'
 import {getPorfolio} from './porfolio'
 import {enquiryOrderHistory,} from './orderhistory'
 import {enquiryCashTransaction} from './cashtranshistory'
@@ -36,7 +36,6 @@ export {
   changePage,
   onCancelSubmit,
   onModifySubmit,
-  getModifyData,
   pinWindow,
   openPopup,
   onConfirmSubmit,
@@ -53,5 +52,16 @@ export {
   onOddLotSubmit,
   getCashtransfer,
   getCashdatatable,
-  
+  getstockInfo,
+  getMatrixCard,
+  matrixCardResponse,
+  getStockB,
+  getOrderCofirm,
+  getData,
+  getEnquiry,
+  getEnquiryData,
+  submitCancel,
+  getMsgError,
+  getError,
+  submitEnterOrder,
 };

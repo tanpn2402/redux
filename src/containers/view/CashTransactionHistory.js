@@ -11,13 +11,12 @@ class CashTransactionHistory extends Component {
         super(props)
 
         this.params = {
-            mvLastAction:'',
-            tradeType:'ALL',
-            mvStartDate:'',
-            mvEndDate:'',
-            start:'0',
-            limit:'15',
-            page:'1'
+            tradeType: 'ALL',
+            mvStartDate: '',
+            mvEndDate: '',
+            start: '0',
+            limit: '15',
+            page: '1'
         }
 
         this.state = {
@@ -41,7 +40,7 @@ class CashTransactionHistory extends Component {
                 {
                     id: 'mvTransType',
                     Header: this.props.language.cashtransaction.header.transtype,
-                    
+
 
                     width: 150,
                     Cell: props => {
@@ -66,7 +65,7 @@ class CashTransactionHistory extends Component {
                     width: 70,
                     maxWidth: 80,
                     Cell: props => {
-                        return(
+                        return (
                             <span>{this.props.language.cashtransaction.status[props.original.status]}</span>
                         )
                     },
@@ -96,7 +95,7 @@ class CashTransactionHistory extends Component {
         this.id = 'cashtransactionhistory'
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             columns: [
                 {
@@ -118,7 +117,7 @@ class CashTransactionHistory extends Component {
                 {
                     id: 'mvTransType',
                     Header: nextProps.language.cashtransaction.header.transtype,
-                    
+
 
                     width: 150,
                     Cell: props => {
@@ -143,7 +142,7 @@ class CashTransactionHistory extends Component {
                     width: 70,
                     maxWidth: 80,
                     Cell: props => {
-                        return(
+                        return (
                             <span>{nextProps.language.cashtransaction.status[props.original.status]}</span>
                         )
                     },
@@ -169,7 +168,7 @@ class CashTransactionHistory extends Component {
             ]
         });
     }
-  
+
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         console.log('data' + this.id, this.props.data)
@@ -196,7 +195,7 @@ class CashTransactionHistory extends Component {
                 <Footer pageIndex={page} totalRecord={this.props.data.totalCount} onPageChange={this.onPageChange.bind(this)} />
             </div>
         )
-        
+
     }
 
 
@@ -212,7 +211,7 @@ class CashTransactionHistory extends Component {
     onRowSelected(param) {
         if (param === 'ALL') {
             var current = document.getElementById('orderjournal-cb-all').checked
-            
+
             if (current)
                 this.rowSelected = this.props.data.List !== undefined ?
                     this.props.data.List.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
@@ -244,8 +243,11 @@ class CashTransactionHistory extends Component {
     }
 
     onSearch(param) {
-        console.log(this.id + ' onSearch', param)
-        this.props.onSearch(param, !this.props.reload)
+        console.log(this.id + ' onSearch', this.params)
+        this.params['tradeType'] = param.mvTrade.toUpperCase();
+        this.params['mvStartDate'] = param.mvStartDate;
+        this.params['mvEndDate'] = param.mvEndDate;
+        this.props.onSearch(this.params, !this.props.reload)
     }
 }
 

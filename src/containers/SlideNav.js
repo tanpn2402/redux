@@ -19,7 +19,7 @@ class SlideNav extends Component {
             <div id="slidenav" className="sidenav">
             
                 <div className="input-group input-group-search">
-                    <input type="text" className="form-control" placeholder="Menu" onChange={e => this.onChange(e.target.value, this.props.language)}/>
+                    <input type="text" id="main-menu-search" className="form-control" placeholder="Menu" onChange={e => this.onChange(e.target.value, this.props.language)}/>
                     <span className="input-group-addon">
                         <button type="submit">
                             <span className="glyphicon glyphicon-search"></span>

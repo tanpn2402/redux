@@ -101,15 +101,15 @@ export default class SearchBar extends React.Component {
         <ControlLabel>{language.ordertype}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
-          <option value="ALL">{language.all}</option>
-          <option value="NORMAL">{language.normal}</option>
-          <option value="ATO">{language.ato}</option>
-          <option value="ATC">{language.atc}</option>
-          <option value="PUTTHROUGH">{language.putthrough}</option>
-          <option value="MP">{language.mp}</option>
-          <option value="MOK">{language.mok}</option>
-          <option value="MAK">{language.mak}</option>
-          <option value="MTL">{language.mtl}</option>
+           <option value="ALL">{this.props.language.all}</option>
+           <option value="L">{this.props.language.normal}</option>
+           <option value="O">{this.props.language.ato}</option>
+           <option value="C">{this.props.language.atc}</option>
+           <option value="P">{this.props.language.putthrough}</option>
+           <option value="M">{this.props.language.mp}</option>
+           <option value="B">{this.props.language.mok}</option>
+           <option value="Z">{this.props.language.mak}</option>
+           <option value="R">{this.props.language.mtl}</option>
         </FormControl>
       </FormGroup>
     )
@@ -135,6 +135,7 @@ export default class SearchBar extends React.Component {
         <ControlLabel>{language.market}</ControlLabel>
         {'   '}
         <FormControl componentClass="select" placeholder="select">
+          <option value="ALL">{this.props.language.all}</option>
           <option value="HA">HN</option>
           <option value="HO">HO</option>
           <option value="UPCOM">UPCOM</option>
@@ -183,6 +184,7 @@ export default class SearchBar extends React.Component {
         {'   '}
         <DatePicker   
             id="mvStartDate"
+            dateFormat="DD/MM/YYYY"
             selected={this.state.startDate}
             selectsStart
             startDate={this.state.startDate}
@@ -200,6 +202,7 @@ export default class SearchBar extends React.Component {
         {'   '}
         <DatePicker
             id="mvEndDate"
+            dateFormat="DD/MM/YYYY"
             selected={this.state.endDate}
             selectsEnd
             startDate={this.state.startDate}

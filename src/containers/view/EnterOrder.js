@@ -7,27 +7,31 @@ import moment from 'moment';
 import Popup from '../Popup';
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
+import loading from '../../assets/images/loading_apple.gif'
 
 class EnterOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formValues: {},
+            formValues: {
+            },
             startDate: moment(),
             isCheck: false,
             json: {},
+            data: {},
             isShow: false,
+            value: 0,
         };
         //this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onStockChange = this.onStockChange.bind(this);
     }
 
     componentWillMount() {
-        this.props.accountBalance();
-        this.props.stockInfo();
+        this.props.getStock();
     }
 
     handleInputChange(event) {
@@ -45,6 +49,11 @@ class EnterOrder extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        nextProps.mvStockInfo;
+        
+    }
+
     render() {
         let lgClose = () => this.setState({ isShow: false });
         return (
@@ -57,10 +66,10 @@ class EnterOrder extends Component {
                                     <th className="enterorder">{this.props.language.enterorder.header.buysell}</th>
                                     <td>
                                         <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
-                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUY" }} required>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }} required>
                                             <div className="Radiobox">Buy</div>
                                         </Radio>
-                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "SELL" }}>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
                                             <div className="Radiobox">Sell</div>
                                         </Radio>
                                     </td>
@@ -68,10 +77,10 @@ class EnterOrder extends Component {
                                 <tr>
                                     <th className="enterorder">{this.props.language.enterorder.header.buysellall}</th>
                                     <td>
-                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "BUYALL" }}>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }}>
                                             <div className="Radiobox">Buy</div>
                                         </Radio>
-                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "SELLALL" }}>
+                                        <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
                                             <div className="Radiobox">Sell</div>
                                         </Radio>
                                     </td>
@@ -79,10 +88,12 @@ class EnterOrder extends Component {
                                 <tr>
                                     <th className="enterorder">{this.props.language.enterorder.header.stock}</th>
                                     <td>
-                                        <input list="Stock" name="stock" id="mvStock" required />
+                                        <input type='hidden' id="mvMarketID" ref={(ref) => this.input = ref} />
+                                        <input list="Stock" name="stock" id="mvStock" required onChange={this.onStockChange} />
                                         <datalist id="Stock">{
                                             this.props.stockList.map(e => {
-                                                return (<option value={e.stockCode}>{e.stockName}</option>)
+                                                return (<option value={e.stockCode}>{e.stockName}
+                                                </option>)
                                             })
                                         }
 
@@ -100,13 +111,20 @@ class EnterOrder extends Component {
                                 </tr>
                                 <tr>
                                     <th className="enterorder">{this.props.language.enterorder.header.lending}</th>
-                                    <td>0%</td>
+                                    <td>{this.isEmptyA(this.props.mvStockInfo) === true ? "0" : parseInt(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage)}%</td>
                                 </tr>
                                 <tr>
+
                                     <th className="enterorder">{this.props.language.enterorder.header.buyingpower})</th>
                                     <td>
-                                        <input type="hidden" id="mvBuyPower" value={this.props.account} />
-                                        {this.props.account}
+                                        <input type="hidden" id="mvBuyPower" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
+                                            ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
+                                                (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
+                                            )} />
+                                        {this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
+                                            ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
+                                                (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
+                                            )}
                                     </td>
                                 </tr>
                                 <tr>
@@ -115,7 +133,7 @@ class EnterOrder extends Component {
                                         <FormGroup controlId="mvOrderType">
                                             <input id="mvOrderType" list="ordertype" name="ordertype" required />
                                             <datalist id="ordertype">
-                                                <option value="LO" />
+                                                <option value="L" />
                                                 <option value="ATC" />
                                                 <option value="MAK" />
                                                 <option value="MOK" />
@@ -151,7 +169,11 @@ class EnterOrder extends Component {
                                 </tr>
                                 <tr>
                                     <th className="enterorder">{this.props.language.enterorder.header.netfee}</th>
-                                    <td>0.00</td>
+                                    <td><input type="hidden" id="mvNetFee" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
+                                        : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))} />
+                                        {this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
+                                            : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th className="enterorder">{this.props.language.enterorder.header.expirydate}</th>
@@ -159,10 +181,12 @@ class EnterOrder extends Component {
                                         <input name="isCheck" type="checkbox" checked={this.state.isCheck} onChange={this.handleInputChange} value={this.state.startDate} />
                                         <DatePicker
                                             id="mvDate"
+                                            dateFormat="DD/MM/YYYY"
                                             selected={this.state.startDate}
                                             onChange={this.handleChange}
                                             disabled={!this.state.isCheck}
                                         />
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -183,26 +207,42 @@ class EnterOrder extends Component {
                                 </tr>
                             </tbody>
                         </Table>
-
-                    </FormGroup>
-                    <FormGroup>
-
-
                     </FormGroup>
                     <Popup
-                        id='enterorder' 
-                        show={this.state.isShow} 
-                        onHide={lgClose} 
-                        json={this.state.json} 
-                        error={this.props.isError} 
-                        mvStockBean={this.props.mvStockBean} 
+                        id='enterorder'
+                        show={this.state.isShow}
+                        onHide={lgClose}
+                        json={this.state.json}
+                        error={this.props.isError}
+                        mvStockBean={this.props.mvStockInfo}
                         language={this.props.language}
-                        title = {this.props.language.enterorder.popup.title}/>
-                    {console.log("Lange??", this.props.language.enterorder.popup.title)}
+                        title={this.props.language.enterorder.popup.title} />
                 </Form>
             </div>
         );
 
+    }
+
+
+    isEmptyA(obj) {
+        for (var prop in obj) {
+            return false;
+        }
+        return true;
+    }
+
+    onStockChange(e) {
+        var stockID = document.getElementById("mvStock").value;
+        var marketid = document.getElementById("mvMarketID").value;
+        //console.log(marketid,"HO or HA");
+        this.state.data['mvInstrument'] = stockID
+        this.state.data['mvMarketId'] = "HO"
+        this.state.data['mvEnableGetStockInfo'] = 'N'
+        this.state.data['mvAction'] = 'OI,BP,FE'
+        this.state.data['mvBS'] = 'B'
+        this.props.getStockInfo(this.state.data)
+        this.state.data.mvAction = 'SB'
+        this.props.getStockInfo(this.state.data);
     }
 
     handleSubmit(e) {
@@ -214,7 +254,9 @@ class EnterOrder extends Component {
         }
         if (this.state.isCheck === false)
             this.state.json.mvDate = null
-        this.props.checkPre(this.state.json, this.props.mvStockBalanceInfo, this.props.mvStockBean, this.props.language.enterorder.error)
+        this.state.json.mvMarketID = "HO";
+        console.log(this.state.json);
+        this.props.checkPre(this.state.json, this.props.language.enterorder.error)
         this.setState({ isShow: true })
     }
 
@@ -225,7 +267,7 @@ class EnterOrder extends Component {
         let value = e.target.value;
 
         formValues[name] = value;
-        console.log(formValues);
+        console.log('dasd', formValues);
         this.setState({ formValues })
     }
 
@@ -238,22 +280,21 @@ class EnterOrder extends Component {
 const mapStateToProps = (state) => {
     return {
         account: state.enterOrder.account,
-        mvStockBalanceInfo: state.enterOrder.stockInfoList,
-        mvStockBean: state.enterOrder.stockInfoACB,
+        mvStockInfo: state.enterOrder.stockInfoList,
         isError: state.enterOrder.isError,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    accountBalance: () => {
-        dispatch(actions.accountBalance())
+    checkPre: (json, language) => {
+        dispatch(actions.checkPreEnterOrder(json, language))
     },
-    stockInfo: () => {
-        dispatch(actions.stockInfo())
+    getStockInfo: (param) => {
+        dispatch(actions.getstockInfo(param))
     },
-    checkPre: (json, stockBalanceInfo, stockBeanInfo, language) => {
-        dispatch(actions.checkPreEnterOrder(json, stockBalanceInfo, stockBeanInfo, language))
-    },
+    getStock: () => {
+        dispatch(actions.getStockB())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder);

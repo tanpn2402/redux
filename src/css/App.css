@@ -736,3 +736,15 @@ body {
   padding: 5px 1px;
 }
 /*END SETTING NAV*/
+
+
+/* LOADING */
+.loading > img {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}
+.loading {
+  text-align: center;
+  padding: 20px 20px;
+}

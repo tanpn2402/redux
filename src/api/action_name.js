@@ -19,10 +19,11 @@ export const ENTERORDERFAIL = 'enterorderfail.action';	// get info fail in enter
 export const GENENTERORDER = 'genenterorder.action';	// get info order type, bank account,...
 export const HKSCANCELORDER = 'hksCancelOrder.action';
 export const HKSMODIFYORDER = 'hksModifyOrder.action';
+export const HKSMODIFYORDERFAIL = 'hksModifyOrderFail';
 export const GENFUNDTRANSFER = 'genfundtransfer.action';	//fund transfer info
 export const CHECKFUNDTRANSFERTIME = 'checkFundTransferTime.action';	//Check Time For Service Cash Transfer
 export const DOFOUNDTRANSFER = 'dofundtransfer.action';	// cash transfer place
-export const HKSCASHTRANSACTIONHISTORY = 'hksCashTransactionHistory.action';	//Cash Transfer History
+export const HKSCASHTRANSACTIONHISTORY = 'queryCashTranHistory.action';	//Cash Transfer History
 export const CANCELFUNDTRANSFER = 'cancelFundTransfer.action';	// Cancel Cash Transfer (Cancel when status == pending)
 export const GETLOCALADVANCECREATION = 'getLocalAdvanceCreation.action';	// get advance available
 export const GETCASHADVANCEHISTORY = 'getCashAdvanceHistory.action';	// Cash Advance History
@@ -51,4 +52,5 @@ export const QUERYSOLDORDERS = 'querySoldOrders.action';	// Get list of sold ord
 export const QUERYADVANCEPAYMENTINFO = 'queryAdvancePaymentInfo.action';	// get list of advances
 export const SUBMITBANKADVANCEPAYMENT = 'submitBankAdvancePayment.action';	// Request advance using bank account
 export const CANCULATEINTERESTAMT = 'canculateInterestAmt.action';
-
+export const ENQUIRYSIGNORDER = 'enquirysignorder.action';
+export const SUBMITSIGNORDER = 'submitSignOrder.action';
