@@ -17,11 +17,12 @@ function responseGetClientDetails(response){
 export function changePassword(params) {
   return (dispatch)=>{
     api.get(ACTION.CHANGEPASSWORD,params,dispatch,responseChangePassword)
+    
   }
 }
 function responseChangePassword(response){
   return {
-      type: ActionTypes.CHANGEPASSWORD,
+      type: ActionTypes.CHANGEPASSWORD, 
       changePassword: response,
   }
 }

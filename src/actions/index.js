@@ -17,7 +17,7 @@ import {getClientInfo, changePassword} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
 import {getRightlist, getAdditionalshareinfo, getHistorylist} from './entitlement'
-
+import {showNotif} from './notification'
 export {
   doLogin,
   logout,
@@ -61,5 +61,7 @@ export {
   getRightlist, 
   getAdditionalshareinfo, 
   getHistorylist,
+
+  showNotif,
   
 };

@@ -185,12 +185,14 @@ class Profile extends Component {
         this.props.getClientInfo([])
     }
     onChangePassword(){
+      console.log("changePassthis.params ",this.params, this.retypePass)
+      
       if(this.retypePass === this.params['password']){
         this.props.changePassword(this.params)
-        console.log("changePassthis.params ",this.params)
+        console.log("changePassthis.params ",this.params, this.retypePass)
         console.log("changePassResult ",this.props.changePassResult)
       }else{
-        
+        this.props.showNotif("Sai password")
       }
     }
     onChangeValue(e){
@@ -217,6 +219,9 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
   changePassword: (param) => {
     dispatch(actions.changePassword(param))
+  },
+  showNotif: (notif) => {
+    dispatch(actions.showNotif(notif))
   },
 })
 

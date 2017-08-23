@@ -8,7 +8,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.NOTIFICATION:
-        
         return Object.assign({},state,{          
         	message: action.message,
           type: action.notification_type,

@@ -411,7 +411,7 @@ class Entitlement extends Component {
                   <span>{this.props.language.entitlement.header.corporateactionlist}</span>
                 </div>
                   <SearchBar
-                    id={this.id}
+                    id={this.id + 'search1'}
                     onSearch={this.onSearch1.bind(this)}
                     buttonAction={[]}
                     stockList={this.props.stockList}
@@ -447,7 +447,7 @@ class Entitlement extends Component {
                   <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
                 </div>
                   <SearchBar
-                    id={this.id}
+                    id={this.id + 'search2'}
                     onSearch={this.onSearch2.bind(this)}
                     buttonAction={[]}
                     stockList={this.props.stockList}

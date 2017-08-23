@@ -29,14 +29,16 @@ class PageContent extends React.Component {
                 }
 
             ],
+            show: false
         }
 
     }
 
     render () {
-        console.log(this.state.listMessage)
+        console.log("mess type ", this.props.message)
 
         console.log('PageContent RENDER', this.props)
+        
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent">
                 <BaseLayout 
@@ -52,7 +54,7 @@ class PageContent extends React.Component {
                 <SettingNav language={this.props.language} />
                 <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
 
-                <div className="flashpopup" id="flashpopup">
+                {/* <div className="flashpopup" id="flashpopup">
                     {
 
                         this.state.listMessage.map(e => {
@@ -64,22 +66,30 @@ class PageContent extends React.Component {
                                     message={e.message}
                                     type={e.type}
                                  />
-
                             )
                         })
                     }
                                 
 
-                </div>
+                </div> */}
 
-                <MessageBox />
-                 <MessageBox />
+                <MessageBox message={this.props.message} messageType={this.props.type} 
+                    show={this.state.show} onHide={this.onHide.bind(this)}/>
             </div>
         );
     }
 
     componentWillReceiveProps(nextProps){
-
+        if(nextProps.message !== '123'){
+            this.setState({
+                show: true
+            })
+        }
+    }
+    onHide(){
+        this.setState({
+            show: false
+        })
     }
 
     onHideSlidePanel(){
@@ -95,9 +105,9 @@ class PageContent extends React.Component {
                     }
 
                 ]
-        this.setState({
-            listMessage: this.state.listMessage.push(s  )
-        });
+        // this.setState({
+        //     listMessage: this.state.listMessage.push(s  )
+        // });
 /*
         var newDiv = document.createElement("MessageBox")
         console.log(newDiv)

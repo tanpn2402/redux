@@ -4,9 +4,7 @@ export default class MessageBox extends Component {
 
     constructor(){
         super()
-        this.state = {
-            show :true,
-        }
+       
     }
     componentDidMount(){
         
@@ -14,27 +12,22 @@ export default class MessageBox extends Component {
 
 
     render() {
+        
         return (
             <Modal
-                show={this.state.show}
+                show={this.props.show}
                 aria-labelledby="contained-modal-title">
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title">Contained Modal</Modal.Title>
+                    <Modal.Title id="contained-modal-title">{this.props.messageType}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Elit est explicabo ipsum eaque dolorem blanditiis doloribus sed id ipsam, beatae, rem fuga id earum? Inventore et facilis obcaecati.
+                    {this.props.message}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={e => this.onHide()}>OK</Button>
+                    <Button onClick={e => this.props.onHide()}>OK</Button>
                 </Modal.Footer>
             </Modal>
         );
     }
 
-
-    onHide(){
-        this.setState({
-            show: false,
-        });
-    }
 }
