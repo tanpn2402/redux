@@ -470,11 +470,9 @@ body {
     margin: 15px 15px;
 }
 
-
-
-.enterorder-action {
-  margin-top: 6px;
+.group-btn-action {
   text-align: center;
+  margin-top: 6px;
 }
 
 .enterorder-action button{
@@ -879,3 +877,36 @@ body {
   text-align: center;
 }
 /*END MESSAGE BOX*/
+
+
+/*CASH TRANSFER*/
+.form-cashtransfer tbody > tr,
+.form-cashtransfer tbody > tr > th,
+.form-cashtransfer tbody > tr > td{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.form-cashtransfer tbody {
+  border: 1px solid #dcdcdc;
+}
+
+
+.form-cashtransfer tbody > tr > th {
+  background-color: #efefef;
+}
+
+.cashtransfer-action{
+  margin-top: -10px;
+}
+
+.cashtransfer-action button{
+  margin: 0 10px 0 10px;
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 0;
+  border: 0;
+}
+
+/*END CASH TRANSFER*/

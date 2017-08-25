@@ -10,6 +10,14 @@ import CheckAuthenticationModal from './CheckAuthenticationModal'
 class OddLotSubmit extends Component{
     constructor(props) {
         super(props)
+        this.params = {
+            mvOddList:'HA|ACB|TDCN|40',
+            annoucementId:'10003413',
+            mvInterfaceSeq:'-1',
+            mvSeriNo:'[5,A]|[4,F]',
+            mvAnswer:'7|4',
+            mvSaveAuthenticate:'true',
+        }
         this.checkAuthentication = this.checkAuthentication.bind(this);
         this.columns = [
         {
@@ -58,9 +66,10 @@ class OddLotSubmit extends Component{
         }
         this.id = 'canceloddlot-popup'
     }
-    onOddLotSubmit() {
-        this.props.onOddLotSubmit(this.props.rowSelected)
+    getOddLotSubmit() {
+        this.props.getOddLotSubmit(this.props.rowSelected)
         this.props.onHide()
+        console.log('OH MY GODDDDDD', this.props.rowSelected)
     }
 
     checkAuthentication(e) {
@@ -100,7 +109,7 @@ class OddLotSubmit extends Component{
                 </div>
                 <Modal.Footer>
                     <Button  className="oddlotcancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
-                    <Button  className="oddlotsubmit" onClick={this.onOddLotSubmit.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
+                    <Button  className="oddlotsubmit" onClick={this.getOddLotSubmit.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
                 </Modal.Footer>
             </div>
         )
@@ -115,8 +124,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onOddLotSubmit: (param) => {
-        dispatch(actions.onOddLotSubmit(param))
+    getOddLotSubmit: (params) => {
+        dispatch(actions.getOddLotSubmit(this.params))
     },
     checkAuthen: (code1, code2, input1, input2, language) => {
         dispatch(actions.checkAuthen(code1, code2, input1, input2, language))

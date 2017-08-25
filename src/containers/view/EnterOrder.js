@@ -210,7 +210,7 @@ class EnterOrder extends Component {
 
                         </Col>
                         <div className="clearfix"></div>
-                        <div className="enterorder-action">
+                        <div className="group-btn-action enterorder-action">
                             <span>
                                 <Button className="btn btn-default" type="submit" className="submit">
                                     Submit

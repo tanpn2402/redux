@@ -16,6 +16,8 @@ import CashAdvance from './CashAdvance'
 import MarginLoan from './MarginLoan'
 import AvaibleMarginList from './AvaibleMarginList'
 import AccountInfo from './AccountInfo'
+import LoanRefund from './LoanRefund'
+import Entitlement from './Entitlement'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -87,6 +89,14 @@ export default function (menuid, props){
 		case 'accountinfo':
 			return (
 				<AccountInfo language={props.language} theme={props.theme}/>
+			)
+		case 'loanrefund':
+			return(
+				<LoanRefund language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'entitlement':
+			return(
+				<Entitlement language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
 		default: return
 	}

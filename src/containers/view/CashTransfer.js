@@ -10,13 +10,47 @@ import Footer from '../DataTableFooter'
 
 class CashTransfer extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+
+    this.paramsfund = {
+      mvBankIdL: 'MAS',
+      mvDestClientID: '',
+      mvDestBankID: '',
+      inputBankName: '',
+      inputBankBranch: '',
+      mvDestAccountName: 'Test',
+      mvAmount: '1000',
+      mvTransferType: '',
+      mvRemark: 'FUND TRANSFER',
+      mvSeriNo: '[5,A][4,f]',
+      mvAnswer: '7|4',
+      mvSaveAuthenticate: 'true',
+      mvPersonCharged: '1',
+      mvWithdrawAmt: '1,000,000',
+      mvAvaiableAmt: '15,000,000',
+      mvTransferFee: '0',
+    }
+
+    this.paramshkscashtranhis = {
+      mvLastAction: 'ACCOUNT',
+      mvChildLastAction: 'FUNDTRANSFER',
+      tradeType: 'FUND',
+      start: '0',
+      limit: '20',
+      key: '211121121112121',
+    }
+
+    this.paramsgenfund = {
+      mvLastAction: 'OTHERSERVICES',
+      mvChildLastAction: 'FUNDTRANSFER',
+    }
+
       this.state = {
         columns: [
           {
             id: 'transfertype',
             Header: this.props.language.cashtransfer.header.transfertype,
-    		    accessor: 'transType',
+    		    accessor: 'action',
     		  },
     		  {
             id: 'transferamount',
@@ -76,13 +110,17 @@ class CashTransfer extends Component {
         this.id = 'cashtransfer'
     }
 
+    getranSubmit() {
+      this.props.gettranSubmit()
+    }
+
     componentWillReceiveProps(nextProps){
       this.setState({
         columns: [
           {
             id: 'transfertype',
             Header: nextProps.language.cashtransfer.header.transfertype,
-            accessor: 'transType',
+            accessor: 'action',
           },
           {
             id: 'transferamount',
@@ -127,8 +165,7 @@ class CashTransfer extends Component {
           {
             id: 'cancel',
             Header: nextProps.language.cashtransfer.header.cancel,
-          }
-          ]
+          }]
       });
     }
 
@@ -140,33 +177,31 @@ class CashTransfer extends Component {
 
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
-        console.log(this.props.data.list);
-        console.log(this.props.data2.mvBalance);
         let lgClose = () => this.setState({ isShow: false })
         return (
             <div id={this.id +'-body'} className="layout-body">
-              <div className="col-md-4" style={{marginLeft: "-15px"}}>
+              <div className="col-sm-4" style={{ paddingRight:"5px", paddingLeft: "0px", }}>
                 <div className="title" style={this.props.theme.porfolio.titlestock}>
                   <span>{this.props.language.cashtransfer.header.cashtransferplace}</span>
                 </div>
-                <Form onSubmit={this.handleSubmit} id="form-enterorder">
+                <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className={"form-" + this.id}>
                   <FormGroup>
                     <Table responsive >
                       <tbody >
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.cashbalance}</th>
+                          <th>{this.props.language.cashtransfer.header.cashbalance}</th>
                           <td>
-                            {this.props.data2.mvBalance}
+                            {this.props.datagenfund.mvBalance}
                           </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.cashwithdrawable}</th>
+                          <th>{this.props.language.cashtransfer.header.cashwithdrawable}</th>
                           <td>
                             <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
                           </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.transfertype}</th>
+                          <th>{this.props.language.cashtransfer.header.transfertype}</th>
                           <td>
                             <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
                             <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "External" }} checked="checked" required>
@@ -178,61 +213,61 @@ class CashTransfer extends Component {
                           </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
+                          <th>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                             <td>
                               <input list="beneficiaryaccountnumber" name="bank" id="beneficiaryaccountnumber" style={{width: "180px"}} required />
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.accounttype}</th>
+                          <th>{this.props.language.cashtransfer.header.accounttype}</th>
                             <td>
                               {this.props.language.cashtransfer.header.bankordertype}
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
+                          <th>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
                             <td>
                               <input name="beneficiaryfullname" id="beneficiaryfullname" style={{width: "180px"}} required />
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.bankname}</th>
+                          <th>{this.props.language.cashtransfer.header.bankname}</th>
                             <td>
                               <input name="bankname" id="bankname" style={{width: "180px"}} required />
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.bankbranch}</th>
+                          <th>{this.props.language.cashtransfer.header.bankbranch}</th>
                             <td>
                               <input name="bankbranch" id="bankbranch" style={{width: "180px"}} required />
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.transferamount}</th>
+                          <th>{this.props.language.cashtransfer.header.transferamount}</th>
                             <td>
                               <input name="transferamount" id="transferamount" style={{width: "180px"}} required />
                             </td>
                         </tr>
                         <tr>
-                          <th className="enterorder">{this.props.language.cashtransfer.header.remark}</th>
+                          <th>{this.props.language.cashtransfer.header.remark}</th>
                             <td>
-                              <input style={{height: "100px", width: "180px"}} name="remark" id="remark" required />
+                              <textarea rows="3" cols="26">
+                              </textarea>
                             </td>
-                        </tr>
-                        <tr>
-                          <th>
-                            <div className="button">
-                            <Button className="btn btn-default" type="submit" className="submit">Submit</Button>
-                            </div>
-                          </th>
-                          <td>
-                            <div className="button">
-                            <Button className="btn btn-default" type="reset" className="cancel">Cancel</Button>
-                            </div>
-                          </td>
                         </tr>
                       </tbody>
                     </Table>
+
+                    <div className="group-btn-action cashtransfer-action">
+                        <span>
+                            <Button className="btn btn-default" onClick={this.getranSubmit.bind(this)} type="submit" className="submit">
+                                Submit
+                            </Button>
+                            <Button className="btn btn-default" type="reset" className="cancel">Cancel</Button>
+                        </span>
+                    </div>
+                            
+
                   </FormGroup>
                   <Popup
                     id='cashtransfer'
@@ -245,7 +280,7 @@ class CashTransfer extends Component {
                     title = {this.props.language.enterorder.popup.title}/>
                 </Form>
               </div>
-              <div className="col-md-8" style={{padding:"0px"}}>
+              <div className="col-sm-8" style={{paddingRight:"0px", paddingLeft: "5px",}}>
                 <div className="title" style={this.props.theme.porfolio.titlestock}>
   		         		<span>{this.props.language.cashtransfer.header.cashtransfertransaction}</span>
   		          </div>
@@ -254,8 +289,11 @@ class CashTransfer extends Component {
                     id={this.id + "-table"}
                     language={this.props.language.cashtransfer.header}
                     columns={this.state.columns}
-                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}/>
-                  <Footer pageIndex={this.state.pageIndex} totalRecord={data.length} onPageChange={this.onPageChange.bind(this)}/>
+                    data={data}/>
+                  <Footer
+                    pageIndex={this.state.pageIndex}
+                    totalRecord={data.length}
+                    onPageChange={this.onPageChange.bind(this)}/>
   	        		</div>
               </div>
             </div>
@@ -263,34 +301,40 @@ class CashTransfer extends Component {
     }
 
     handleSubmit(e) {
+      e.preventDefault();
     }
 
     onChange(e) {
     }
 
     onPageChange(pageIndex){
+      console.log(this.id + ' onPageChange', pageIndex)
+      this.setState({pageIndex: pageIndex });
     }
 
     componentDidMount() {
-      this.props.getdatacashtransfer()
-      this.props.getdatacashtable()
+      this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload);
+      this.props.getgenfundtransfer(this.paramsgenfund, !this.props.reload);
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        data: state.cashtransfer.datacashtransfer,
-        data2: state.cashtransfer.datacashtable,
+        data: state.cashtransfer.datahkscashtranhis,
+        datagenfund: state.cashtransfer.datagenfundtransfer,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getdatacashtransfer: () => {
-        dispatch(actions.getCashtransfer())
+    gethkscashtranhis: (paramshkscashtranhis) => {
+        dispatch(actions.gethksCachTranHis(paramshkscashtranhis))
       },
-    getdatacashtable: () => {
-        dispatch(actions.getCashdatatable())
-      },
+    gettranSubmit: (paramsfund) => {
+      dispatch(actions.getFundtransfer(paramsfund))
+    },
+    getgenfundtransfer: (paramsgenfund) => {
+      dispatch(actions.getGenfundtransfer(paramsgenfund))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CashTransfer);

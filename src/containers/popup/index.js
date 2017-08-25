@@ -5,6 +5,8 @@ import EnterOrderPopup from './EnterOrder'
 import ConfirmOrder from './ConfirmOrder'
 import OddLotTrading from './OddLotTrading'
 import CashAdvancePopup from './CashAdvance'
+import LoanRefund from './LoanRefund'
+import AdvancePayment from './AdvancePayment'
 
 export default function  (props){
 	
@@ -33,7 +35,13 @@ export default function  (props){
 			return (<OddLotTrading onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 		
 		case 'cashadvance':
-			return (<CashAdvancePopup onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)	
+			return (<CashAdvancePopup onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+
+		case 'loanrefund':
+			return (<LoanRefund onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+
+		case 'advancepayment':
+			return (<AdvancePayment onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 	}
     
 }

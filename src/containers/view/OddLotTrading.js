@@ -12,6 +12,14 @@ class OddLotTrading extends Component {
     constructor(props) {
         super(props)
 
+        this.params = {
+            mvLastAction:'',
+            mvChildLastAction:'',
+            key:'',
+            start:'0',
+            limit:'15',
+        }
+
         this.state = {
           isShow: false,
 
@@ -296,7 +304,7 @@ class OddLotTrading extends Component {
 
 
     render() {
-        //console.log(this.props)
+        console.log(this.props.language)
         console.log('render in OddLotTrading',this.props.oddlothistory,this.props.oddlotenquiry)
         var oddlotenquiry = this.props.oddlotenquiry.oddLotList === undefined ? [] : this.props.oddlotenquiry.oddLotList
         var oddlothistory = this.props.oddlothistory.historyList === undefined ? [] : this.props.oddlothistory.historyList
@@ -428,10 +436,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     onshowenquiry: () => {
-      dispatch(actions.getOddlotEnquiry())
+      dispatch(actions.getOddlotEnquiry({mvLastAction:'',mvChildLastAction:''}))
     },
     onshowhistory: () => {
-      dispatch(actions.getOddlotHistory())
+      dispatch(actions.getOddlotHistory({mvLastAction:'',mvChildLastAction:'',key:'',start:'0',limit:'15'}))
     },
 })
 
