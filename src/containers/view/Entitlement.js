@@ -525,7 +525,8 @@ class Entitlement extends Component {
 
     componentDidMount() {
       this.props.getEntitlementadditional('', !this.props.reload);
-      this.props.onSearch1(this.params);
+      this.props.onSearch1(this.paramsright);
+      this.props.onSearch1(this.paramshis);
     }
 }
 

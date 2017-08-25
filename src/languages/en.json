@@ -467,7 +467,17 @@
         "expiredate": "-  Expiry date of password : 07/06/2291 16:10:40",
         "warndetail1": "-  Your password will be efficient in 90 days after the last time you change it.",
         "warndetail2": "-  After 90 days, you will receive a notice for changing your password",
-        "save": "Save"
+        "save": "Save",
+        "message": {
+          "error": "Error",
+          "notification": "Notification",
+          "changesuccess": "Your password has been changed successfully",
+          "changefailed": "Password change failed",
+          "passwordincorrect": "Password incorrect. Please try again.",
+          "notmatched": "The new password and the verify password do not have the same value.",
+          "newpassunaccepted": "The new Password only accept 6 to 30 characters.",
+          "emptypass": "Old password cannot be empty."
+        }
       },
       "entitlement": {
         "header":{

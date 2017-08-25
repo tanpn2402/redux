@@ -11,6 +11,7 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{          
         	message: action.message,
           type: action.notification_type,
+          reloadPopup: action.reloadPopup
         });
         
     default:

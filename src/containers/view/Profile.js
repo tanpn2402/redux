@@ -13,7 +13,6 @@ class Profile extends Component {
           mvAnswer: '',
           mvSaveAuthenticate: true
         }
-        this.retypePass=''
         this.labelStyle={
           fontWeight:"normal", 
           fontSize: "12px",
@@ -22,6 +21,9 @@ class Profile extends Component {
           marginTop: "2px",
           marginBottom: "2px"
         }
+        this.reloadPopup =true 
+        this.retypePass=''
+        
     }
     
       
@@ -29,7 +31,16 @@ class Profile extends Component {
 
     render() {
         var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
-        console.log('render in PersonalProfile', clientDetails)
+        var result= this.props.changePassResult.changePasswordBean
+        if(result !== undefined){
+          if(result.PData === 'fail_to_change'){
+            this.reloadPopup=!this.reloadPopup
+            this.props.showNotif(this.props.language.message.error,this.props.language.message.changefailed, this.reloadPopup)
+          }else{
+            this.reloadPopup=!this.reloadPopup
+            this.props.showNotif(this.props.language.message.notification,this.props.language.message.changesuccess, this.reloadPopup)
+          }
+        }
         return (
           <Grid style={{paddingTop:"30px"}}>
             <Row className="show-grid">
@@ -178,6 +189,7 @@ class Profile extends Component {
           </Row>
         </Grid>
         )
+        
 
     }
 
@@ -185,33 +197,40 @@ class Profile extends Component {
         this.props.getClientInfo([])
     }
     onChangePassword(){
-      console.log("changePassthis.params ",this.params, this.retypePass)
-      
-      if(this.retypePass === this.params['password']){
+      if(this.params['oldPassword']=== ''){
+        this.reloadPopup=!this.reloadPopup
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.emptypass, this.reloadPopup)
+      }
+      else if(this.params['password'].length <6 || this.params['password'].length >30 ){
+        this.reloadPopup=!this.reloadPopup
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.newpassunaccepted, this.reloadPopup)
+      }
+      else if(this.retypePass !== this.params['password']){
+        this.reloadPopup=!this.reloadPopup
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.notmatched, this.reloadPopup)
+      }
+      else{  
         this.props.changePassword(this.params)
-        console.log("changePassthis.params ",this.params, this.retypePass)
-        console.log("changePassResult ",this.props.changePassResult)
-      }else{
-        this.props.showNotif("Sai password")
       }
     }
     onChangeValue(e){
       switch(e.target.id){
         case 'currentPass':
           this.params['oldPassword']= e.target.value
+          break;
         case 'newPass':
           this.params['password']= e.target.value
+          break;
         case 'retypeNewPass':
           this.retypePass= e.target.value
+          break;
       }
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    clientDetails: state.profile.clientDetails,
-    changePassResult: state.profile.changePassword
-  }
-}
+const mapStateToProps = (state, props) => ({
+  clientDetails: state.profile.clientDetails,
+  changePassResult: state.profile.changePassword
+}) 
 
 const mapDispatchToProps = (dispatch, props) => ({
   getClientInfo: (param) => {
@@ -220,8 +239,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   changePassword: (param) => {
     dispatch(actions.changePassword(param))
   },
-  showNotif: (notif) => {
-    dispatch(actions.showNotif(notif))
+  showNotif: (notifType, notifDetail, reloadPopup) => {
+    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup))
   },
 })
 

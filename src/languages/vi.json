@@ -461,7 +461,17 @@
         "expiredate": " - Thời hạn hiệu lực của mật khẩu: 07/06/2291 16:10:40. ",
         "warndetail1": "- Mật khẩu của quý khách có tác dụng trong 90 ngày kể từ lần thay đổi mật khẩu cuối cùng.",
         "warndetail2": "- Sau 90 ngày, quý khách sẽ nhận được thông báo yêu cầu đổi mật khẩu từ hệ thống Giao dịch trực tuyến.",
-        "save": "Lưu lại"
+        "save": "Lưu lại",
+        "message": {
+          "error": "Lỗi",
+          "notification": "Thông báo",
+          "changesuccess": "Mật khẩu đã được đổi thành công.",
+          "changefailed": "Không đổi được mật khẩu",
+          "passwordincorrect": "Mật khẩu cũ không đúng. Xin vui lòng thử lại.",
+          "notmatched": "Mật khẩu mới và mật khẩu nhập lại không trùng khớp.",
+          "newpassunaccepted": "Mật khẩu mới phải từ 6 đến 30 kí tự.",
+          "emptypass": "Không được để trống mật khẩu cũ."
+        }
       },
       "entitlement": {
         "header":{

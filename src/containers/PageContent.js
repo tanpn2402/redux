@@ -37,8 +37,6 @@ class PageContent extends React.Component {
     render () {
         console.log("mess type ", this.props.message)
 
-        console.log('PageContent RENDER', this.props)
-        
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent">
                 <BaseLayout 
@@ -86,6 +84,7 @@ class PageContent extends React.Component {
             })
         }
     }
+   
     onHide(){
         this.setState({
             show: false
@@ -144,6 +143,7 @@ const mapStateToProps = (state, props) => ({
   // notification
   message: state.notification.message,
   type: state.notification.type,
+  reloadPopup: state.notification.reloadPopup
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

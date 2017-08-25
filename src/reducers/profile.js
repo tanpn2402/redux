@@ -2,6 +2,7 @@ const {ActionTypes} = require('../core/constants');
 
 const initialState = {
   clientDetails: [],
+  changePassword: []
 };
 
 export default function (state = initialState, action) {
@@ -12,6 +13,7 @@ export default function (state = initialState, action) {
         });
 
     case ActionTypes.CHANGEPASSWORD:
+    console.log("action.changePassword  ",action.changePassword)
         return Object.assign({},state,{
           changePassword: action.changePassword,
         });
