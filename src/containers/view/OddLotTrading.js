@@ -21,7 +21,7 @@ class OddLotTrading extends Component {
         }
 
         this.state = {
-          isShow: false,
+            isShow: false,
 
             enquirycolumns : [
               {
@@ -82,7 +82,7 @@ class OddLotTrading extends Component {
             ],
             historycolumns : [
               {
-                  id: 'TransDate',
+                  id: 'createTime',
                   Header: this.props.language.oddlottrading.header.transdate,
                   accessor: 'createTime',
                   width: 120,
@@ -98,7 +98,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'StockIDH',
+                  id: 'instrumentId',
                   Header: this.props.language.oddlottrading.header.StockIDH,
                   accessor: 'instrumentId',
                   width: 120,
@@ -106,7 +106,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'oddlotquantityH',
+                  id: 'appliedQty',
                   Header: this.props.language.oddlottrading.header.oddlotquantityH,
                   accessor: 'appliedQty',
                   width: 120,
@@ -114,7 +114,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'exepriceH',
+                  id: 'price',
                   Header: this.props.language.oddlottrading.header.exepriceH,
                   accessor: 'price',
                   width: 120,
@@ -122,7 +122,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'tax',
+                  id: 'fee',
                   Header: this.props.language.oddlottrading.header.tax,
                   accessor: 'fee',
                   width: 120,
@@ -130,7 +130,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'fee',
+                  id: 'aaa',
                   Header: this.props.language.oddlottrading.header.fee,
                   accessor: '',
                   width: 120,
@@ -138,7 +138,7 @@ class OddLotTrading extends Component {
                   show: true,
               },
               {
-                  id: 'value',
+                  id: 'settleAmt',
                   Header: this.props.language.oddlottrading.header.value,
                   accessor: 'settleAmt',
                   width: 120,
@@ -154,10 +154,10 @@ class OddLotTrading extends Component {
                   show: true,
               },
             ],
-
+            oddLotOrderPageIndex: 1,
+            oddLotTransPageIndex: 1,
         }
 
-        //this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
         this.popupType='none'
         this.id = 'oddlottrading'
@@ -300,7 +300,7 @@ class OddLotTrading extends Component {
             ],
 
         })
-      }
+    }
 
 
     render() {
@@ -309,61 +309,74 @@ class OddLotTrading extends Component {
         var oddlotenquiry = this.props.oddlotenquiry.oddLotList === undefined ? [] : this.props.oddlotenquiry.oddLotList
         var oddlothistory = this.props.oddlothistory.historyList === undefined ? [] : this.props.oddlothistory.historyList
         var page = this.props.oddlothistory.mvPage === undefined ? [] : this.props.oddlothistory.mvPage
-	  let lgClose = () => this.setState({ isShow: false });
+
+
+        console.log( oddlotenquiry.length, this.state.oddLotOrderPageIndex, oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*10, this.state.oddLotOrderPageIndex*10 ))
+	      let lgClose = () => this.setState({ isShow: false });
 
         return (
           <div id={'oddlottrading-body'} className="layout-body">
 
             <div>
               <div>
-                <Form onSubmit={this.handleSubmit}>
+                <form className="oddlottrading-form-action" onSubmit={this.handleSubmit}>
                     <Button type="submit" bsStyle="primary" >
                         {this.props.language.oddlottrading.header.register}
                     </Button>
-                </Form>
+                </form>
               </div>
-              <div style={{float:'left',width:'75%'}}>
+              <div className="col-sm-9" style={{padding: "0px 1px", }}>
                 <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
                 <span>{this.props.language.oddlottrading.header.oddlotorder}</span>
                 </div>
                 <DataUpperTable
-                columns={this.state.enquirycolumns}
-                data={oddlotenquiry}
-                page={page}
-                windowid="oddlotenquiry"/>
+                  columns={this.state.enquirycolumns}
+                  data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*6, this.state.oddLotOrderPageIndex*6 )}
+                  maxRows={6}
+                  defaultPageSize={6}/>
+                <Footer
+                  pageSize={6} 
+                  pageIndex={this.state.oddLotOrderPageIndex} 
+                  totalRecord={oddlotenquiry.length} 
+                  onPageChange={this.onOddLotOrderPageChange.bind(this)}/>
               </div>
 
-              <div>
-              <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
-              <span>{this.props.language.oddlottrading.header.notes}</span>
-              </div>
-              <div>
-              <span>{this.props.language.oddlottrading.header.notesinfo}</span>
-              </div>
+              <div className="col-sm-3" style={{padding: "0px 1px", }}>
+                <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
+                  <span>{this.props.language.oddlottrading.header.notes}</span>
+                </div>
+                <div style={{ padding: "5px", fontSize: "12px", }}>
+                  <span>{this.props.language.oddlottrading.header.notesinfo}</span>
+                </div>
               </div>
 
             </div>
 
-              <div style={{clear:'both'}}>
-                <div className="title" style={this.props.theme.oddlottrading.titleoddlottransactionhistory}>
+            <div style={{clear:'both'}}>
+              <div className="title" style={this.props.theme.oddlottrading.titleoddlottransactionhistory}>
                 <span>{this.props.language.oddlottrading.header.oddlotransactionhistory}</span>
-                </div>
-                <DataTable
+              </div>
+              <DataUpperTable
                 columns={this.state.historycolumns}
                 data={oddlothistory}
-                page={page}
-                windowid="oddlothistory"/>
-              </div>
+                maxRows={15}
+                defaultPageSize={15}/>
+              <Footer 
+                pageSize={15} 
+                pageIndex={this.state.oddLotTransPageIndex} 
+                totalRecord={this.props.oddlothistory.totalCount} 
+                onPageChange={this.onOddLotTransPageChange.bind(this)}/>
+            </div>
 
-              <Popup
-                  id='oddlottrading'
-                  show={this.state.isShow}
-                  onHide={lgClose}
-                  rowSelected={this.rowSelected}
-                  language={this.props.language}
-                  title = {this.props.language.oddlottrading.popup.title}/>
+            <Popup
+                id='oddlottrading'
+                show={this.state.isShow}
+                onHide={lgClose}
+                rowSelected={this.rowSelected}
+                language={this.props.language}
+                title = {this.props.language.oddlottrading.popup.title}/>
 
-                <Footer pageIndex={page} totalRecord={this.props.oddlothistory.totalCount} onPageChange={this.onPageChange.bind(this)}/>
+                
 
           </div>
         )
@@ -400,7 +413,6 @@ class OddLotTrading extends Component {
             else
                 document.getElementById(this.id + "-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     handleSubmit(e) {
@@ -408,8 +420,14 @@ class OddLotTrading extends Component {
         this.setState({ isShow: true })
     }
 
-    onPageChange(pageIndex){
+    onOddLotTransPageChange(pageIndex){
         console.log('cashstatement onPageChange', pageIndex)
+    }
+
+    onOddLotOrderPageChange(pageIndex){
+      this.setState({
+          oddLotOrderPageIndex: pageIndex
+      });
     }
 
     onChangeStateColumn(e){
@@ -417,9 +435,7 @@ class OddLotTrading extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         });
-
-      //console.log(this.state.columns)
-  }
+    }
     onSearch(param){
         console.log('cashstatement onSearch', param)
         this.props.onSearch(param, !this.props.reload)

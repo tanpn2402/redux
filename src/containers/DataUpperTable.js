@@ -8,23 +8,20 @@ export default class App extends React.Component {
     super()
 
     this.style = {
-      fontSize: '12px',
-      height: '250px',
+      fontSize: '12px'
     }
   }
   render() {
-    const defaultPageSize = this.props.defaultPageSize === undefined ? 15 : this.props.defaultPageSize
+    let height = this.props.maxRows * 24 + 27 + 'px'
     return (
         <div id={this.props.id} >
           <ReactTable
             className={'datatable'}
-            style={this.style}
+            style={{height: height}}
             data={this.props.data}
             columns={this.props.columns}
             showPagination= {false}
-            defaultPageSize={defaultPageSize}
-            minRows={8}
-          />
+            defaultPageSize= {this.props.defaultPageSize} />
         </div>
     );
   }
