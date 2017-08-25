@@ -10,15 +10,21 @@ export default class VerticalTable extends Component {
 		console.log('VerticalTable', this.props)
 		return(
 			<Table bordered className={'vertical-table'}>
-		    	<thead>
-		      	<tr>
-		      		{
-		      			this.props.header.map(e => {
-		      				return ( <th> {e} </th>)
-		      			})
-		      		}
-		      	</tr>
-		    	</thead>
+				{
+					this.props.showHeader !== undefined ? '' : 
+						this.props.showHeader === false ? '' :
+							(
+						    	<thead>
+							      	<tr>
+							      		{
+							      			this.props.header.map(e => {
+							      				return ( <th> {e} </th>)
+							      			})
+							      		}
+							      	</tr>
+						    	</thead>
+							)
+				}
 		    	<tbody>
 		    		{
 		    			this.props.title.map(e => {
@@ -28,9 +34,9 @@ export default class VerticalTable extends Component {
 		    						{
 		    							this.props.data[e.accessor] !== undefined ? 
 			    							this.props.data[e.accessor].map(el => {
-			    								return ( <td  className="vertical-table-value"> {el} </td>)
+			    								return ( <td  className="vertical-table-value" style={{minWidth: '80px'}}> {el} </td>)
 			    							})
-			    						: (<td> </td>)
+			    						: (<td style={{minWidth: '80px'}}> </td>)
 		    						}
 		    					</tr>
 		    				)

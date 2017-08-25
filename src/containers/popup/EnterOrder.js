@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Table, Modal,Button} from 'react-bootstrap';
+import { Table, Modal, Button } from 'react-bootstrap';
 import '../../css/App.css';
 import CheckAuthenticationModal from './CheckAuthenticationModal';
 import { connect } from 'react-redux';
@@ -10,8 +10,38 @@ class EnterOrderPopup extends Component {
         super(props);
         this.state = {};
         this.checkAuthentication = this.checkAuthentication.bind(this);
+        this.param ={
+            "mvBS": this.props.json.mvStatus,
+            "mvStockCode": this.props.json.mvStock,
+            "mvLending": this.props.mvStockBean.mvStockInfoBean.mvMarginPercentage,
+            "mvBuyingPower": this.props.json.mvBuyPower,
+            "mvOrderTypeValue": this.props.json.mvOrderType,
+            "mvQuantity": this.props.json.mvVolume,
+            "mvPrice": this.props.json.mvPrice,
+            "mvGrossAmt": this.props.json.mvTotalPrice,
+            "mvNetFee": this.props.json.mvNetFee,
+            "mvMarketID": this.props.json.mvMarketID,
+            "refId": "",
+            "mvWaitOrder": "off", // not sure
+            "mvGoodTillDate": "",
+            "mvAfterServerVerification": "Y", // not sure
+            "ext-gen1360": this.props.mvStockBean.mvStockInfoBean.mvTemporaryFee,
+            "ext-gen1361": this.props.mvStockBean.mvStockInfoBean.mvStockName,
+            "ext-gen1362": "",
+            "mvBankID": "",
+            "mvBankACID": "",
+        }
     }
 
+    // shouldComponentUpdate(nextProps) {
+    //     if(nextProps.matrixResponse === "SUCCESS")
+    //         return true;
+    // }
+
+    // componentWillUpdate(nextProps) {   
+    //     console.log("will update")
+    //     this.props.onHide();
+    // }
     checkAuthentication(e) {
         // Prevent from reloading page when submit
         e.preventDefault();
@@ -19,13 +49,22 @@ class EnterOrderPopup extends Component {
         const code2 = document.getElementById("code2").innerText;
         const input1 = document.getElementById("input1").value;
         const input2 = document.getElementById("input2").value;
-        this.props.checkAuthen(code1, code2, input1, input2, this.props.language.matrixcard);
+        var json = {
+            "wordMatrixKey01": code1,
+            "wordMatrixValue01": input1,
+            "wordMatrixKey02": code2,
+            "wordMatrixValue02": input2,
+            "serialnumber": input2,
+            "mvSaveAuthenticate": "true",
+        }
+        
+        this.props.getMatrixCard(json,this.param);
+        this.props.onHide();
     }
 
     render() {
-        console.log(this.props.language);
         return (
-            <div className="modalbody">  
+            <div className="modalbody">
                 <Modal.Body>
                     <Table responsive bordered>
                         <tbody >
@@ -35,7 +74,7 @@ class EnterOrderPopup extends Component {
                             </tr>
                             <tr>
                                 <th className="enterorder">{this.props.language.enterorder.popup.stockname} </th>
-                                <td colSpan="2">{this.props.mvStockBean.mvStockName}</td>
+                                <td colSpan="2">{this.props.mvStockBean.mvStockInfoBean.mvStockName}</td>
                             </tr>
                             <tr>
                                 <th className="enterorder">{this.props.language.enterorder.header.price} </th>
@@ -58,8 +97,8 @@ class EnterOrderPopup extends Component {
                                 <td colSpan="2">{this.props.json.mvDate}</td>
                             </tr>
                         </tbody>
-                        <CheckAuthenticationModal language={this.props.language}/>
-                        
+                        <CheckAuthenticationModal language={this.props.language} />
+
                     </Table>
                     <div>{this.props.isAuthenFail && <h5>{this.props.isAuthenFail}</h5>}</div>
                 </Modal.Body>
@@ -75,13 +114,14 @@ class EnterOrderPopup extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenFail: state.checkAuthen.isAuthenFail,
+        matrixResponse: state.checkAuthen.matrixResponse,
     };
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    checkAuthen: (code1, code2, input1, input2, language) => {
-        dispatch(actions.checkAuthen(code1, code2, input1, input2, language))
+    getMatrixCard: (json,param) => {
+        dispatch(actions.submitEnterOrder(json,param))
     }
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(EnterOrderPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(EnterOrderPopup);

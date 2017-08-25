@@ -21,7 +21,7 @@ class BaseLayout extends React.Component {
             reload: false,
             layout: []
         }
-        this.layoutCols =  {lg: 30, md: 25, sm: 20, xs: 10, xxs: 2}
+        this.layoutCols =  {lg: 8, md: 8, sm: 6, xs: 4, xxs: 2}
     }
 
     generateChild(menuid){
@@ -36,12 +36,12 @@ class BaseLayout extends React.Component {
                     isResizable: layout[menuid]['isResizable']}}>
 
                 <div className="child-grid-header" >
-                        {this.props.title[menuid]}
+                        <span className="content-block-head">
+                            {this.props.title[menuid]}
+                        </span>
                         <ul className="btn-action">
-                            <li>
-                                <a href="javascript:void(0);" onClick={e => this.onCloseLayout(menuid)} >
-                                    <span className="glyphicon glyphicon-remove"></span>
-                                </a>
+                            <li className="btn-close">
+                                <span className="glyphicon glyphicon-remove" onClick={e => this.onCloseLayout(menuid)}></span>
                             </li>
                         </ul>
                         
@@ -102,7 +102,7 @@ class BaseLayout extends React.Component {
 
     onResizeStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
         placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        var _layout = this.state.layout
+        /*var _layout = this.state.layout
         _layout[newItem.i] = newItem
         this.setState({ layout: _layout })
 
@@ -110,12 +110,12 @@ class BaseLayout extends React.Component {
             document.getElementById(newItem.i + '-body').style.height = newItem.h * 39 - 25 + 'px'
             document.getElementById(newItem.i + '-table').style.height =
                 document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
-        }
+        }*/
     }
 
     onResize(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
         placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        var _layout = this.state.layout
+        /*var _layout = this.state.layout
         _layout[newItem.i] = newItem
         this.setState({ layout: _layout })
 
@@ -125,7 +125,7 @@ class BaseLayout extends React.Component {
 
             document.getElementById(newItem.i + '-table').style.height =
                 document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
-        }
+        }*/
     }
 
     onCloseLayout(menuid){
@@ -151,7 +151,7 @@ class BaseLayout extends React.Component {
         const layout = this.props.layout[this.props.page]
         return (
 
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={30} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={50} width={1320} 
                 onResize={this.onResize.bind(this)}
                 onResizeStop={this.onResizeStop.bind(this)}
                 onDragStop={this.onDragStop.bind(this)}

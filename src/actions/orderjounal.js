@@ -1,68 +1,185 @@
-const {ActionTypes} = require('../core/constants');
+import * as api from '../api/web_service_api'
+import * as ACTION from '../api/action_name'
+const { ActionTypes } = require('../core/constants');
 
-const orderjournal = {"mvCurrentPage":0,"mvEnableGridHeadMenu":false,"mvMessage":null,"mvOrderBeanList":[{"matchedDate":null,"mvAON":null,"mvAction":null,"mvActivationDate":"2015-12-10","mvAllorNothing":"N","mvApprovalReason":null,"mvApprovalRemark":null,"mvApprovalTime":null,"mvAvgPrice":"0.000","mvAvgPriceValue":"22.2500","mvBS":"Mua","mvBSValue":"B","mvBankACID":"125137309","mvBankID":"ACB","mvBranchID":null,"mvBrokerID":null,"mvCancelIcon":null,"mvCancelQty":"10","mvCancelQtyValue":"10","mvChannelID":"INR","mvClientID":"C086378","mvClientRemarks":null,"mvContactPhone":"","mvCreateTime":null,"mvCurrencyID":"VND","mvDNSeq":null,"mvDateTime":null,"mvEntityID":null,"mvExceededAmt":null,"mvFilledPrice":null,"mvFilledQty":"0","mvGoodTillDate":"","mvGrossAmt":"0.000","mvHedge":null,"mvHoldConfirmQty":null,"mvHostId":null,"mvInActive":null,"mvInputTime":"11:23:03","mvInstrumentId":null,"mvInstrumentShortName":null,"mvInvestorClassId":null,"mvInvestorGroupId":null,"mvIsManualTrade":null,"mvIsOddLot":null,"mvIsPostExecutedOrder":null,"mvIsPriceWarningResubmit":null,"mvIsReleased":null,"mvLastModifiedUserId":null,"mvLastTradeTime":null,"mvLotSize":10,"mvMarketID":"HO","mvModifiedDate":null,"mvModifiedDateTime":null,"mvModifiedTime":"14:45:07","mvModifyIcon":null,"mvModifyOrderID":null,"mvNetAmt":"0.000","mvNetAmtValue":"0.000","mvNotifiedFlag":null,"mvOSQty":"0","mvOSQtyValue":"0","mvOgackTime":null,"mvOrderBeanID":0,"mvOrderGroupID":"10016571","mvOrderID":"10019056","mvOrderType":"Thường","mvOrderTypeValue":"L","mvOrigin":null,"mvPendAction":null,"mvPendingPrice":"0.000","mvPendingQty":"0","mvPrevtradeConsideration":null,"mvPrice":"22.250","mvPriceValue":"22.2500","mvQty":"10","mvQtyValue":"10","mvRejectReason":"","mvRejectReasonDetail":null,"mvRemark":"","mvRepOrterGroupId":null,"mvReporTackTime":null,"mvReporTime":null,"mvSCRIP":"N","mvShortName":null,"mvShortsell":null,"mvShowCancelIcon":"Y","mvShowModifyIcon":null,"mvStatus":"CAN","mvStatusInternal":null,"mvStatusTarget":"CAN","mvStatus_Internal":null,"mvStockID":"SSI","mvStockName":"CT CP CHUNG KHOAN SAI GON","mvStopOrderExpiryDate":null,"mvStopOrderType":"Không","mvStopPrice":"Không","mvStopPriceValue":"0.0000","mvStopTriggerTime":null,"mvStopType":"STN","mvStopTypeValue":"N","mvSupervisorId":null,"mvSupervisorrejected":null,"mvTradeConsideration":null,"mvTradeTime":null,"mvUserID":null,"mvValidityDate":null,"price":null,"stockCode":null,"stockName":null},{"matchedDate":null,"mvAON":null,"mvAction":null,"mvActivationDate":"2015-12-10","mvAllorNothing":"N","mvApprovalReason":null,"mvApprovalRemark":null,"mvApprovalTime":null,"mvAvgPrice":"0.000","mvAvgPriceValue":"22.2500","mvBS":"Mua","mvBSValue":"B","mvBankACID":"125137309","mvBankID":"ACB","mvBranchID":null,"mvBrokerID":null,"mvCancelIcon":null,"mvCancelQty":"10","mvCancelQtyValue":"10","mvChannelID":"INR","mvClientID":"C086378","mvClientRemarks":null,"mvContactPhone":"","mvCreateTime":null,"mvCurrencyID":"VND","mvDNSeq":null,"mvDateTime":null,"mvEntityID":null,"mvExceededAmt":null,"mvFilledPrice":null,"mvFilledQty":"0","mvGoodTillDate":"","mvGrossAmt":"0.000","mvHedge":null,"mvHoldConfirmQty":null,"mvHostId":null,"mvInActive":null,"mvInputTime":"10:54:35","mvInstrumentId":null,"mvInstrumentShortName":null,"mvInvestorClassId":null,"mvInvestorGroupId":null,"mvIsManualTrade":null,"mvIsOddLot":null,"mvIsPostExecutedOrder":null,"mvIsPriceWarningResubmit":null,"mvIsReleased":null,"mvLastModifiedUserId":null,"mvLastTradeTime":null,"mvLotSize":10,"mvMarketID":"HO","mvModifiedDate":null,"mvModifiedDateTime":null,"mvModifiedTime":"14:46:59","mvModifyIcon":null,"mvModifyOrderID":null,"mvNetAmt":"0.000","mvNetAmtValue":"0.000","mvNotifiedFlag":null,"mvOSQty":"0","mvOSQtyValue":"0","mvOgackTime":null,"mvOrderBeanID":1,"mvOrderGroupID":"10016570","mvOrderID":"10019055","mvOrderType":"Thường","mvOrderTypeValue":"L","mvOrigin":null,"mvPendAction":null,"mvPendingPrice":"0.000","mvPendingQty":"0","mvPrevtradeConsideration":null,"mvPrice":"22.250","mvPriceValue":"22.2500","mvQty":"10","mvQtyValue":"10","mvRejectReason":"","mvRejectReasonDetail":null,"mvRemark":"","mvRepOrterGroupId":null,"mvReporTackTime":null,"mvReporTime":null,"mvSCRIP":"N","mvShortName":null,"mvShortsell":null,"mvShowCancelIcon":"Y","mvShowModifyIcon":"Y","mvStatus":"CAN","mvStatusInternal":null,"mvStatusTarget":"CAN","mvStatus_Internal":null,"mvStockID":"SSI","mvStockName":"CT CP CHUNG KHOAN SAI GON","mvStopOrderExpiryDate":null,"mvStopOrderType":"Không","mvStopPrice":"Không","mvStopPriceValue":"0.0000","mvStopTriggerTime":null,"mvStopType":"STN","mvStopTypeValue":"N","mvSupervisorId":null,"mvSupervisorrejected":null,"mvTradeConsideration":null,"mvTradeTime":null,"mvUserID":null,"mvValidityDate":null,"price":null,"stockCode":null,"stockName":null},{"matchedDate":null,"mvAON":null,"mvAction":null,"mvActivationDate":"2015-12-10","mvAllorNothing":"N","mvApprovalReason":null,"mvApprovalRemark":null,"mvApprovalTime":null,"mvAvgPrice":"0.000","mvAvgPriceValue":"22.2500","mvBS":"Mua","mvBSValue":"B","mvBankACID":"","mvBankID":"","mvBranchID":null,"mvBrokerID":null,"mvCancelIcon":null,"mvCancelQty":"10","mvCancelQtyValue":"10","mvChannelID":"INT","mvClientID":"C086378","mvClientRemarks":null,"mvContactPhone":"","mvCreateTime":null,"mvCurrencyID":"VND","mvDNSeq":null,"mvDateTime":null,"mvEntityID":null,"mvExceededAmt":null,"mvFilledPrice":null,"mvFilledQty":"0","mvGoodTillDate":"","mvGrossAmt":"0.000","mvHedge":null,"mvHoldConfirmQty":null,"mvHostId":null,"mvInActive":null,"mvInputTime":"11:14:14","mvInstrumentId":null,"mvInstrumentShortName":null,"mvInvestorClassId":null,"mvInvestorGroupId":null,"mvIsManualTrade":null,"mvIsOddLot":null,"mvIsPostExecutedOrder":null,"mvIsPriceWarningResubmit":null,"mvIsReleased":null,"mvLastModifiedUserId":null,"mvLastTradeTime":null,"mvLotSize":10,"mvMarketID":"HO","mvModifiedDate":null,"mvModifiedDateTime":null,"mvModifiedTime":"14:56:12","mvModifyIcon":null,"mvModifyOrderID":null,"mvNetAmt":"0.000","mvNetAmtValue":"0.000","mvNotifiedFlag":null,"mvOSQty":"0","mvOSQtyValue":"0","mvOgackTime":null,"mvOrderBeanID":2,"mvOrderGroupID":"10016569","mvOrderID":"10019054","mvOrderType":"Thường","mvOrderTypeValue":"L","mvOrigin":null,"mvPendAction":null,"mvPendingPrice":"0.000","mvPendingQty":"0","mvPrevtradeConsideration":null,"mvPrice":"22.250","mvPriceValue":"22.2500","mvQty":"10","mvQtyValue":"10","mvRejectReason":"","mvRejectReasonDetail":null,"mvRemark":"","mvRepOrterGroupId":null,"mvReporTackTime":null,"mvReporTime":null,"mvSCRIP":"N","mvShortName":null,"mvShortsell":null,"mvShowCancelIcon":"N","mvShowModifyIcon":"Y","mvStatus":"CAN","mvStatusInternal":null,"mvStatusTarget":"CAN","mvStatus_Internal":null,"mvStockID":"SSI","mvStockName":"CT CP CHUNG KHOAN SAI GON","mvStopOrderExpiryDate":null,"mvStopOrderType":"Không","mvStopPrice":"Không","mvStopPriceValue":"0.0000","mvStopTriggerTime":null,"mvStopType":"STN","mvStopTypeValue":"N","mvSupervisorId":null,"mvSupervisorrejected":null,"mvTradeConsideration":null,"mvTradeTime":null,"mvUserID":null,"mvValidityDate":null,"price":null,"stockCode":null,"stockName":null},{"matchedDate":null,"mvAON":null,"mvAction":null,"mvActivationDate":"2015-12-10","mvAllorNothing":"N","mvApprovalReason":null,"mvApprovalRemark":null,"mvApprovalTime":null,"mvAvgPrice":"0.000","mvAvgPriceValue":"23.0000","mvBS":"Mua","mvBSValue":"B","mvBankACID":"","mvBankID":"","mvBranchID":null,"mvBrokerID":null,"mvCancelIcon":null,"mvCancelQty":"50","mvCancelQtyValue":"50","mvChannelID":"INT","mvClientID":"C086378","mvClientRemarks":null,"mvContactPhone":"","mvCreateTime":null,"mvCurrencyID":"VND","mvDNSeq":null,"mvDateTime":null,"mvEntityID":null,"mvExceededAmt":null,"mvFilledPrice":null,"mvFilledQty":"0","mvGoodTillDate":"","mvGrossAmt":"0.000","mvHedge":null,"mvHoldConfirmQty":null,"mvHostId":null,"mvInActive":null,"mvInputTime":"17:47:32","mvInstrumentId":null,"mvInstrumentShortName":null,"mvInvestorClassId":null,"mvInvestorGroupId":null,"mvIsManualTrade":null,"mvIsOddLot":null,"mvIsPostExecutedOrder":null,"mvIsPriceWarningResubmit":null,"mvIsReleased":null,"mvLastModifiedUserId":null,"mvLastTradeTime":null,"mvLotSize":10,"mvMarketID":"HO","mvModifiedDate":null,"mvModifiedDateTime":null,"mvModifiedTime":"14:57:04","mvModifyIcon":null,"mvModifyOrderID":null,"mvNetAmt":"0.000","mvNetAmtValue":"0.000","mvNotifiedFlag":null,"mvOSQty":"0","mvOSQtyValue":"0","mvOgackTime":null,"mvOrderBeanID":3,"mvOrderGroupID":"10016567","mvOrderID":"10019052","mvOrderType":"Thường","mvOrderTypeValue":"L","mvOrigin":null,"mvPendAction":null,"mvPendingPrice":"0.000","mvPendingQty":"0","mvPrevtradeConsideration":null,"mvPrice":"23.000","mvPriceValue":"23.0000","mvQty":"50","mvQtyValue":"50","mvRejectReason":"","mvRejectReasonDetail":null,"mvRemark":"","mvRepOrterGroupId":null,"mvReporTackTime":null,"mvReporTime":null,"mvSCRIP":"N","mvShortName":null,"mvShortsell":null,"mvShowCancelIcon":null,"mvShowModifyIcon":null,"mvStatus":"CAN","mvStatusInternal":null,"mvStatusTarget":"CAN","mvStatus_Internal":null,"mvStockID":"SSI","mvStockName":"CT CP CHUNG KHOAN SAI GON","mvStopOrderExpiryDate":null,"mvStopOrderType":"Không","mvStopPrice":"Không","mvStopPriceValue":"0.0000","mvStopTriggerTime":null,"mvStopType":"STN","mvStopTypeValue":"N","mvSupervisorId":null,"mvSupervisorrejected":null,"mvTradeConsideration":null,"mvTradeTime":null,"mvUserID":null,"mvValidityDate":null,"price":null,"stockCode":null,"stockName":null},{"matchedDate":null,"mvAON":null,"mvAction":null,"mvActivationDate":"2015-12-10","mvAllorNothing":"N","mvApprovalReason":null,"mvApprovalRemark":null,"mvApprovalTime":null,"mvAvgPrice":"0.000","mvAvgPriceValue":"23.0000","mvBS":"Mua","mvBSValue":"B","mvBankACID":"","mvBankID":"","mvBranchID":null,"mvBrokerID":null,"mvCancelIcon":null,"mvCancelQty":"50","mvCancelQtyValue":"50","mvChannelID":"INT","mvClientID":"C086378","mvClientRemarks":null,"mvContactPhone":"","mvCreateTime":null,"mvCurrencyID":"VND","mvDNSeq":null,"mvDateTime":null,"mvEntityID":null,"mvExceededAmt":null,"mvFilledPrice":null,"mvFilledQty":"0","mvGoodTillDate":"","mvGrossAmt":"0.000","mvHedge":null,"mvHoldConfirmQty":null,"mvHostId":null,"mvInActive":null,"mvInputTime":"17:36:11","mvInstrumentId":null,"mvInstrumentShortName":null,"mvInvestorClassId":null,"mvInvestorGroupId":null,"mvIsManualTrade":null,"mvIsOddLot":null,"mvIsPostExecutedOrder":null,"mvIsPriceWarningResubmit":null,"mvIsReleased":null,"mvLastModifiedUserId":null,"mvLastTradeTime":null,"mvLotSize":10,"mvMarketID":"HO","mvModifiedDate":null,"mvModifiedDateTime":null,"mvModifiedTime":"14:57:16","mvModifyIcon":null,"mvModifyOrderID":null,"mvNetAmt":"0.000","mvNetAmtValue":"0.000","mvNotifiedFlag":null,"mvOSQty":"0","mvOSQtyValue":"0","mvOgackTime":null,"mvOrderBeanID":4,"mvOrderGroupID":"10016566","mvOrderID":"10019051","mvOrderType":"Thường","mvOrderTypeValue":"L","mvOrigin":null,"mvPendAction":null,"mvPendingPrice":"0.000","mvPendingQty":"0","mvPrevtradeConsideration":null,"mvPrice":"23.000","mvPriceValue":"23.0000","mvQty":"50","mvQtyValue":"50","mvRejectReason":"","mvRejectReasonDetail":null,"mvRemark":"","mvRepOrterGroupId":null,"mvReporTackTime":null,"mvReporTime":null,"mvSCRIP":"N","mvShortName":null,"mvShortsell":null,"mvShowCancelIcon":null,"mvShowModifyIcon":null,"mvStatus":"CAN","mvStatusInternal":null,"mvStatusTarget":"CAN","mvStatus_Internal":null,"mvStockID":"SSI","mvStockName":"CT CP CHUNG KHOAN SAI GON","mvStopOrderExpiryDate":null,"mvStopOrderType":"Không","mvStopPrice":"Không","mvStopPriceValue":"0.0000","mvStopTriggerTime":null,"mvStopType":"STN","mvStopTypeValue":"N","mvSupervisorId":null,"mvSupervisorrejected":null,"mvTradeConsideration":null,"mvTradeTime":null,"mvUserID":null,"mvValidityDate":null,"price":null,"stockCode":null,"stockName":null}],"mvOrderListSize":"5","mvOrderStatusList":[{"mvID":null,"mvOptionDisplay":"Chọn","mvOptionValue":"NONE"},{"mvID":null,"mvOptionDisplay":"ALL","mvOptionValue":"ALL"},{"mvID":null,"mvOptionDisplay":"Khớp toàn bộ","mvOptionValue":"FULLYFILLED"},{"mvID":null,"mvOptionDisplay":"Chờ khớp","mvOptionValue":"QUEUE"},{"mvID":null,"mvOptionDisplay":"Khớp một phần","mvOptionValue":"PARTIALLYFILL"},{"mvID":null,"mvOptionDisplay":"Không hợp lệ","mvOptionValue":"REJECTED"},{"mvID":null,"mvOptionDisplay":"Đã huỷ","mvOptionValue":"CANCELLED"},{"mvID":null,"mvOptionDisplay":"Chờ xử lý","mvOptionValue":"READYTOSEND"},{"mvID":null,"mvOptionDisplay":"Đang gửi","mvOptionValue":"SENDING"},{"mvID":null,"mvOptionDisplay":"Chờ xác nhận","mvOptionValue":"PENDINGAPPROVAL"},{"mvID":null,"mvOptionDisplay":"Lệnh điều kiện","mvOptionValue":"STOP"},{"mvID":null,"mvOptionDisplay":"Chờ huỷ","mvOptionValue":"WAITINGCANCEL"},{"mvID":null,"mvOptionDisplay":"Chờ sửa","mvOptionValue":"WAITINGMODIFY"},{"mvID":null,"mvOptionDisplay":"Không hiệu lực","mvOptionValue":"INACTIVE"},{"mvID":null,"mvOptionDisplay":"Hết hiệu lực","mvOptionValue":"EXPIRED"}],"mvPage":{"nextPage":1,"pageIndex":2,"pageNumbers":null,"pageRecords":null,"pageSize":20,"prePage":1,"totalPage":9,"totalRec":0},"mvResult":null,"mvTotalOrders":5,"mvTotalTaxFee":"0.0","svDefaultMarket":"HO","svEnableMultiMarket":true}
+let count = 0;
 
-const modify = {"mvGenModifyOrderBean":{"ceiling":"9.300","floor":"7.700","mvActivationDate":"2015-12-10","mvAllOrNothing":"N","mvAllowOddLot":"N","mvAonDisable":"N","mvAtauctionOrder":"false","mvAveragePrice":"9.3000","mvBSValue":"B","mvBaseNetAmtValue":"1860.000","mvBuyOrSell":"Buy","mvCancelQtyValue":"200","mvContactPhone":"","mvCurrencyId":"VND","mvDisableModifyQty":"Y","mvDisableModifyQtyHiddenField":"N","mvFilledQty":"0","mvGoodTillDate":"-","mvGoodTillDateDisable":"N","mvGoodTillDateValue":"","mvGoodTillDescription":"Lot Size","mvGrossAmtValue":"1860.000","mvInstrumentName":"Ngân hàng TMCP Sài Gòn - Hà Nội","mvIsDisplayCurrencyWarning":"N","mvIsFromPreviousErrorPage":"Y","mvIsPasswordSaved":"N","mvLotSizeValue":"100","mvMarketId":"HA","mvMaxLotPerOrder":"1","mvModifyOrderFor":"VNS","mvMultiMarketDisable":"Y","mvNetAmtValue":"1862.790","mvNewPrice":"9.300","mvNewQty":"2001","mvOrderGroupId":"10016584","mvOrderId":"10016584","mvOrderIdValue":"10019082","mvOrderType":"Limit","mvOrderTypeDescription":"List of available Order Type","mvOrderTypeValue":"L","mvOrigPriceValue":"{price}","mvOrigQtyValue":"200","mvOriginalQuantity":"200","mvPasswordConfirmation":"N","mvPrice":"9.3","mvPriceValue":null,"mvQty":null,"mvQuantityDescription":"quantityDescription","mvRemark":"","mvSCRIP":"N","mvSCodeEnableForOrdersModify":"false","mvSecurityCodeEnable":"false","mvStatus":"NEW","mvStockId":"SHB","mvStockName":null,"mvStopOrderExpiryDate":"","mvStopPrice":"0.0000","mvStopPriceValue":null,"mvStopTypeValue":"N","mvTriggerDisable":"N","mvValidityDate":""},"mvResult":null,"mvReturnResult":"success"}
+export function getEnquiry(param, page) {
+  console.log('Enquiry Action', param)
+  return function (dispatch) {
+    (api.post(ACTION.ENQUIRYORDER, param, dispatch, getEnquiryData))
+  }
+}
+export function getEnquiryData(response) {
+  console.log('Enquiry data', response)
 
-
-export function enquiryOrder(param, reload) {
   return {
     type: ActionTypes.ENQUIRYORDER,
-    data: orderjournal,
-    reload: reload
+    data: response
   }
 }
 
-export function cancelOrder(param) {
-  console.log('cancelOrder Action')
-    return {
-      type: ActionTypes.CANELORDER,
-      data: orderjournal,
+export function getMsgCancelError(response) {
+  console.log('Msg Enquiry data', response)
+  if (response.mvReturnResult === "CancelOrderFail") {
+    var json = {};
+    var date = new Date()
+    json.key = date.getTime();
+    return function (dispatch) {
+      (api.post(ACTION.HKSCANCELORDERFAIL, json, dispatch, getError))
     }
+  }
+  else {
+    return {
+      type: ActionTypes.NOTIFICATION,
+      message: "Cancel success",
+      notification_type: 0,
+    }
+  }
+}
+
+function getCancelError(response){
+  
+  return {
+    type: ActionTypes.NOTIFICATION,
+    message: response.cancelOrderFailBean.mvErrorMsg,
+    notification_type: 1,
+  }
 }
 
 export function onCancelSubmit(param) {
-  var _selectedValue=[];
-  for(var i=0;i<param.length;i++){
-    var tmp={};
-    tmp.mvBS=param[i].mvBS;
-    tmp.mvOrderID=param[i].mvOrderID;
-    tmp.mvOrderGroupID=param[i].mvOrderGroupID; 
-    // tmp.mvInstrumentId=param[i].mvInstrumentId;
-    // tmp.mvMarketID=param[i].mvMarketID;
-    // tmp.mvPrice=param[i].mvPrice;
-    // tmp.mvQty=param[i].mvQty;
-    // tmp.mvOrderType=param[i].mvOrderType;
-    // tmp.mvGoodTillDate=param[i].mvGoodTillDate;
-    // tmp.mvFilledQty=param[i].mvFilledQty;
-    // tmp.mvOSQty=param[i].mvOSQty;
+  var _selectedValue = [];
+  for (var i = 0; i < param.length; i++) {
+    var tmp = {};
+    tmp.AfterServerVerification = "Y"
+    tmp.BuySell = param[i].mvBSValue
+    tmp.ORDERID = param[i].mvOrderID;
+    tmp.ORDERGROUPID = param[i].mvOrderGroupID;
+    tmp.StockCode = param[i].mvStockID;
+    tmp.MarketID = param[i].mvMarketID;
+    tmp.Price = param[i].mvPrice;
+    tmp.Quantity = param[i].mvQtyValue;
+    tmp.OSQty = param[i].mvOSQty.replace(/,/g, '');
+    tmp.FILLEDQTY = param[i].mvFilledQty;
+    tmp.OrderTypeValue = param[i].mvOrderTypeValue;
+    tmp.GOODTILLDATE = param[i].mvGoodTillDate;
+    tmp.StopTypeValue = param[i].mvStopTypeValue;
+    tmp.StopPrice = param[i].mvStopPriceValue;
+    tmp.mvAllorNothing = param[i].mvAllorNothing;
+    tmp.SavePass = "N";
+    tmp.PasswordConfirmation = "";
+    tmp.mvOrderId = param[i].mvOrderID;
+    tmp.mvMarketId = param[i].mvMarketID;
+    tmp.mvStockId = param[i].mvStockID;
+    tmp.mvInstrumentName = ""; //undefined
+    tmp.mvPrice = param[i].mvPrice;
+    tmp.mvQutityFormat = param[i].mvOSQty.replace(/,/g, '');
+    tmp.mvFilledQty = param[i].mvFilledQty;
+    tmp.mvOSQty = param[i].mvOSQty.replace(/,/g, '');
+    tmp.mvOrderType = param[i].mvOrderTypeValue;
+    tmp.mvGoodTillDate = param[i].mvGoodTillDate;
+    tmp.password = "";
+    tmp.mvSecurityCode = "";
+    tmp.mvSeriNo = ""; //don't know
+    tmp.mvAnswer = "";
+    tmp.mvSaveAuthenticate = true; //hard code
+    tmp.mvInputTime = param[i].mvModifiedTime;
+    tmp.mvStatus = param[i].mvStatus;
     _selectedValue.push(tmp)
   }
-  console.log(_selectedValue)
-    return {
-      type: ActionTypes.CANCELSUBMIT,
-      selectedRows: _selectedValue
+  console.log(_selectedValue, "hello")
+  
+    return function (dispatch) {
+      for (var i = 0; i < _selectedValue.length; i++) {
+      (api.post(ACTION.HKSCANCELORDER, _selectedValue[i], dispatch, getMsgCancelError))
     }
+  }
 }
-export function onModifySubmit(param) {
-  var respone=modify
-  respone.mvGenModifyOrderBean.mvPrice=param[0].mvPrice,
-  respone.mvGenModifyOrderBean.mvQty=param[0].mvQty
-  console.log(respone)
-    return {
-      type: ActionTypes.MODIFYSUBMIT,
-      updateRow: respone
-    }
-}
-export function getModifyData() {
-	console.log('getModifyData', modify)
-  return {
-    type: ActionTypes.GETMODIFYDATA,
-    modifyData: modify.mvGenModifyOrderBean
+export function onModifySubmit(param, newPrice, newQty) {
+  console.log("what you have", param, newPrice, newQty)
+  var json = {};
+  json.mvCurrencyId = param[0].mvCurrencyID;
+  json.mvMaxLotPerOrder = "1"; //param.mvLotSize?
+  json.mvOrigPrice = param[0].mvAvgPriceValue;
+  json.mvOrigQty = param[0].mvOSQty.replace(/,/g, '');
+  json.mvOrigStopPrice = "";
+  json.mvStopPrice = ""; //param[0].mvStopPriceValue;
+  json.mvOrigQtyValue = param[0].mvOSQtyValue;
+  json.mvCancelQtyValue = param[0].mvOSQtyValue; //param[0].mvCancelQtyValue;
+  json.mvAveragePrice = param[0].mvAvgPriceValue;
+  json.mvAllOrNothing = param[0].mvAllorNothing;
+  json.mvStopOrderType = param[0].mvStopTypeValue;
+  json.mvValidityDate = ""; //(don't know)
+  json.mvActivationDate = param[0].mvActivationDate;
+  json.mvAllowOddLot = "N";
+  json.mvRemark = param[0].mvRemark;
+  json.mvContactPhone = param[0].mvContactPhone;
+  json.mvGrossAmtValue = param[0].mvGrossAmt;
+  json.mvNetAmtValue = param[0].mvNetAmtValue;
+  json.mvSCRIP = param[0].mvSCRIP;
+  json.mvIsPasswordSaved = "N";
+  json.mvStopTypeValue = param[0].mvStopTypeValue;
+  json.mvPasswordConfirmation = "N";
+  json.mvOrderId = param[0].mvOrderID;
+  json.mvGoodTillDate = param[0].mvGoodTillDate;
+  json.mvBS = param[0].mvBSValue;
+  json.mvOrderGroupId = param[0].mvOrderGroupID;
+  json.mvOrderType = param[0].mvOrderTypeValue;
+  json.mvFormIndexpage = "Y";
+  json.mvStopValue = ""; //param[0].mvStopPriceValue
+  json.mvFilledQty = param[0].mvFilledQty;
+  json.mvLotSizeValue = param[0].mvLotSize;
+  json.mvStopOrderExpiryDate = "";// param[0].mvStopOrderExpiryDate;
+  json.OrderId = param[0].mvOrderID;
+  json.mvMarketId = param[0].mvMarketID;
+  json.mvStockId = param[0].mvStockID;
+  json.mvStockName = param[0].mvStockName;
+  json.mvPrice = param[0].mvCurrencyID;
+  json.mvNewPrice = newPrice;
+  json.mvQty = param[0].mvQtyValue;
+  json.mvNewQty = newQty;
+  json.OrderType = "Giới hạn"//param[0].mvOrderTypeValue;
+  json.GoodTillDate = param[0].mvGoodTillDate;
+  json.mvGrossAmt = param[0].mvCurrencyID + " $0.00";
+  json.Password = ""
+  json.mvSecurityCode = "";
+  json.mvAnswer = "";
+  json.mvStatus = param[0].mvStatus;
+  json.mvSeriNo = "";
+  json.mvSaveAuthenticate = false;
+  console.log(json, "hello")
+  return function (dispatch) {
+    (api.post(ACTION.HKSMODIFYORDER, json, dispatch, getMsgModify))
   }
 }
 
+export function getMsgModify(response) {
+  console.log('getModifyData', response)
+  if (response.mvReturnResult === "ModifyOrderFail") {
+    var json = {};
+    var date = new Date()
+    json.key = date.getTime();
+    return function (dispatch) {
+      (api.post(ACTION.HKSMODIFYORDERFAIL, json, dispatch, getError))
+    }
+  }
+  else {
+    return {
+      type: ActionTypes.NOTIFICATION,
+      message: "Modify success",
+      notification_type: 0,
+    }
+  }
+}
 
+function getError(response) {
+  console.log(response.modifyOrderFailBean.mvErrorMsg, "error")
+  return {
+    type: ActionTypes.NOTIFICATION,
+    message: response.modifyOrderFailBean.mvErrorMsg,
+    notification_type: 1,
+  }
+}
 
 export function openPopup(menuid) {
   return {

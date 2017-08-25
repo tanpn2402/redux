@@ -2,18 +2,51 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { Form, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
+import { sessionService } from 'redux-react-session';
+import * as sessionApi from '../api/sessionApi';
+
+const user = [
+    {
+        email: 'linh@yahoo.com',
+        name: 'Jordan Walke',
+        clientID: 'linh',
+        password: '123'
+    },
+]
 
 class LoginForm extends Component {
 
     constructor(props) {
         super(props);
+        this.props = {
+            isLoginError: true,
+        };
+        this.params = {
+            mvClientID: '',
+            mvPassword: '',
+            securitycode: '12345'
+        }
         this.state = {};
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    render() {
-        let { isLoginError } = this.props;
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isLoginError === false) {
+            sessionApi.login(user[0]).then(response => {
+                const { token, data } = response;
+                sessionService.saveSession({ token })
+                    .then(() => {
+                        sessionService.saveUser(data)
+                            .then(() => {
+                                browserHistory.replace('/');
+                            });
+                    });
+            });
+        }
+    }
 
+    render() {
         return (
             <Form horizontal onSubmit={this.onSubmit} className="login">
                 <FormGroup controlId="formHorizontalUser">
@@ -40,7 +73,7 @@ class LoginForm extends Component {
                     </Col>
                 </FormGroup>
                 <div className="msg">
-                    {isLoginError && <div>Something Wrong</div>}
+                    {this.props.isLoginError && <div>Something Wrong</div>}
                 </div>
             </Form>
         )
@@ -48,7 +81,9 @@ class LoginForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.login(this.username.value, this.password.value);
+        this.params['mvClientID'] = this.username.value
+        this.params['mvPassword'] = this.password.value
+        this.props.login(this.params);
     }
 }
 
@@ -60,8 +95,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    login: (username, password) => {
-        dispatch(actions.doLogin(username, password))
+    login: (params) => {
+        dispatch(actions.doLogin(params))
     }
 })
 

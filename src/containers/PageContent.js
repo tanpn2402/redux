@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import SlideNav from './SlideNav'
 import SettingNav from './SettingNav'
-import FlashPopup from './commom/FlashPopup'
-import MessageBox from './commom/MessageBox'
+import FlashPopup from './commons/FlashPopup'
+import MessageBox from './commons/MessageBox'
 class PageContent extends React.Component {
     constructor () {
         super()
@@ -78,7 +78,7 @@ class PageContent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.message !== '123'){
+        if(nextProps.showPopup){
             this.setState({
                 show: true
             })
@@ -89,6 +89,7 @@ class PageContent extends React.Component {
         this.setState({
             show: false
         })
+        this.props.showNotif('','',false)
     }
 
     onHideSlidePanel(){
@@ -143,14 +144,18 @@ const mapStateToProps = (state, props) => ({
   // notification
   message: state.notification.message,
   type: state.notification.type,
-  reloadPopup: state.notification.reloadPopup
+  reloadPopup: state.notification.reloadPopup,
+  showPopup: state.notification.showPopup
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
    
     getStockIdList: (param) => {
         dispatch(actions.stockSearch(param))
-    }
+    },
+    showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
+        dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
+      },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageContent)

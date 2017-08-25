@@ -18,7 +18,9 @@ import watchlist from './watchlist'
 import profile from './profile'
 import oddlottrading from './oddlottrading'
 import cashtransfer from './cashtransfer'
-import entitlement from './entitlement'
+import marginloan from './marginloan'
+import avaiblemarginlist from './avaiblemarginlist'
+import accountinfo from './accountinfo'
 import notification from './notification'
 
 export default combineReducers({
@@ -41,7 +43,9 @@ export default combineReducers({
   watchlist,
   profile,
   cashtransfer,
+  marginloan,
+  avaiblemarginlist,
+  accountinfo,
   notification,
-  entitlement,
   
 });

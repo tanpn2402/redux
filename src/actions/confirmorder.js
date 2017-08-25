@@ -1,109 +1,42 @@
-const {ActionTypes} = require('../core/constants');
+import * as api from '../api/web_service_api'
+import * as ACTION from '../api/action_name'
+const { ActionTypes } = require('../core/constants');
 
-const data = {
-    "mvCurrentPage": 1,
-    "mvDefaultMarket": "HO",
-    "mvEnableGridHeadMenu": false,
-    "mvMessage": null,
-    "mvOrderBeanList": 
-    [
-        {
-            "mvBS": "Buy",
-            "mvCancelQty": "0",
-            "mvClientID": null,
-            "mvFilledPrice": "0.000",
-            "mvFilledQty": "680",
-            "mvMarketID": "HO        ",
-            "mvOrderBeanID": 0,
-            "mvOrderID": "10017450",
-            "mvOrderType": "Limit",
-            "mvPrice": "12.000",
-            "mvQty": "680",
-            "mvShortName": null,
-            "mvStatus": "FLL",
-            "mvStockID": "REE",
-            "mvStockName": " - ",
-            "mvTradeTime": "03\/08\/2015 00:00:00"
-        },
-        {
-            "mvBS": "Buy",
-            "mvCancelQty": "0",
-            "mvClientID": null,
-            "mvFilledPrice": "0.000",
-            "mvFilledQty": "680",
-            "mvMarketID": "HO        ",
-            "mvOrderBeanID": 1,
-            "mvOrderID": "10017450",
-            "mvOrderType": "Limit",
-            "mvPrice": "12.000",
-            "mvQty": "680",
-            "mvShortName": null,
-            "mvStatus": "FLL",
-            "mvStockID": "REE",
-            "mvStockName": " - ",
-            "mvTradeTime": "03\/08\/2015 00:00:00"
-        },
-        {
-            "mvBS": "Buy",
-            "mvCancelQty": "0",
-            "mvClientID": null,
-            "mvFilledPrice": "0.000",
-            "mvFilledQty": "680",
-            "mvMarketID": "HO        ",
-            "mvOrderBeanID": 2,
-            "mvOrderID": "10017450",
-            "mvOrderType": "Limit",
-            "mvPrice": "12.000",
-            "mvQty": "680",
-            "mvShortName": null,
-            "mvStatus": "FLL",
-            "mvStockID": "REE",
-            "mvStockName": " - ",
-            "mvTradeTime": "03\/08\/2015 00:00:00"
-        },
-    ],
-    "mvPage": 
-    {
-      "nextPage": 1,
-      "pageIndex": 1,
-      "pageNumbers": null,
-      "pageRecords": null,
-      "pageSize": 15,
-      "prePage": 1,
-      "totalPage": 1,
-      "totalRec": 0
-    },
-    "mvResult": null,
-    "mvShowOrderGroupID": true,
-    "mvTotalOrders": 10
-  }
+export function getOrderCofirm(param) {
+    console.log('OrderCofirm Action', param)
 
-export function enquiryConfirmOrder(param, reload) {
-    var d = data;
-    var k = data.mvOrderBeanList
-    console.log(k)
-    var x = k.filter(el => el['mvBSValue'] === param['mvBuysell'] || param['mvBuysell'] === 'ALL')
-    console.log(x)
-    d.mvOrderBeanList = x
+    return function (dispatch) {
+        (api.post(ACTION.ENQUIRYSIGNORDER, param, dispatch, getData))
+    }
+}
+export function getData(response) {
+    console.log('Orderconfirm data', response)
+
     return {
         type: ActionTypes.ENQUIRYCONFIRMORDER,
-        data: d,
-        reload: reload
+        data: response
     }
 }
 
 export function onConfirmSubmit(param) {
-    var _selectedValue=[];
-    for(var i=0;i<param.length;i++){
-        var tmp={};
-        tmp.mvBS=param[i].mvBS;
-        tmp.mvOrderID=param[i].mvOrderID;
-        _selectedValue.push(tmp)
+    var json = {}
+    var list = []
+    for (var i = 0; i < param.length; i++) {
+        list[i] = param[i].mvOrderID + "," + param[i].mvTradeTime;
     }
-    console.log(_selectedValue)
+    json.mvOrderList = list;
+    console.log(json, json.mvOrderList)
+
+    return function (dispatch) {
+        (api.post(ACTION.SUBMITSIGNORDER, json, dispatch, getMsgConfirmSubmit))
+    }
+}
+
+export function getMsgConfirmSubmit(response) {
+    console.log('Orderconfirm data', response)
 
     return {
         type: ActionTypes.CONFIRMORDERSUBMIT,
-        selectedRows: _selectedValue
+        data: response
     }
 }

@@ -36,5 +36,13 @@ export function dedete(id,param ,dispatch, callback){
 			return error
 		})
 	}
+export function authCardMatrix(id, paramOfAuthCard, dispatch, callback, paramOfCallback) {
+	return (FetchAPI(id, paramOfAuthCard, POST)).then(response => response).then(parseData => {
+		dispatch(callback(paramOfCallback, parseData))
+		return parseData
+	}).catch(error => {
+		return error
+	})
 
+}
 // }

@@ -2,25 +2,24 @@ const { ActionTypes } = require('../core/constants');
 
 const initialState = {
     stockInfoList: {},
-    stockInfoACB:{},
+    stockInfoACB: {},
     account: null,
-    isShow:false,
-    isError:null,
+    isShow: false,
+    isError: null,
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case ActionTypes.ACCOUNTBALANCE:
-            
+
             return Object.assign({}, state, {
                 account: action.clientInfo.mvList[0].mvBuyingPowerd
             });
 
         case ActionTypes.STOCKINFO:
-            console.log('reducer', action.stockInfoB.mvStockInfoBean)
+            console.log('reducer stockinfo', action.stockInfo)
             return Object.assign({}, state, {
-                stockInfoList: action.stockInfoS.mvStockBalanceInfo[8],
-                stockInfoACB: action.stockInfoB.mvStockInfoBean
+                stockInfoList: action.stockInfo
             });
 
         case ActionTypes.SET_POPUP:

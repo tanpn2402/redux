@@ -6,10 +6,6 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 
-const buttonStyle = {
-    display: 'none',
-}
-
 class StockStatement extends Component {
     constructor(props) {
         super(props)
@@ -27,7 +23,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvOrder',
                     Header: this.props.language.stockstatement.header.order,
-                    accessor: 'mvOrder',
+                    accessor: 'refId',
                     width: 60,
                     skip: false,
                     show: true,
@@ -35,7 +31,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvTransactionDate',
                     Header: this.props.language.stockstatement.header.transactiondate,
-                    accessor: 'mvTransactionDate',
+                    accessor: 'tradeDate',
                     width: 150,
                     skip: false,
                     show: true,
@@ -43,7 +39,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvStockCode',
                     Header: this.props.language.stockstatement.header.stockcode,
-                    accessor: 'mvStockCode',
+                    accessor: 'stockCode',
                     width: 80,
                     skip: false,
                     show: true,
@@ -51,7 +47,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvAction',
                     Header: this.props.language.stockstatement.header.action,
-                    accessor: 'mvAction',
+                    accessor: 'action',
                     width: 120,
                     skip: false,
                     show: true,
@@ -64,7 +60,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditQty',
                             Header: this.props.language.stockstatement.header.quantity,
-                            accessor: 'mvCreditQty',
+                            accessor: 'buyQty',
                             width: 80,
                             skip: false,
                             show: true,
@@ -72,7 +68,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditAvgPrice',
                             Header: this.props.language.stockstatement.header.avgprice,
-                            accessor: 'mvCreditAvgPrice',
+                            accessor: 'buyPrice',
                             width: 80,
                             skip: false,
                             show: true,
@@ -80,7 +76,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditAmt',
                             Header: this.props.language.stockstatement.header.amt,
-                            accessor: 'mvCreditAmt',
+                            accessor: 'buyAmount',
                             width: 100,
                             skip: false,
                             show: true,
@@ -95,7 +91,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitQty',
                             Header: this.props.language.stockstatement.header.quantity,
-                            accessor: 'mvDebitQty',
+                            accessor: 'sellQty',
                             width: 80,
                             skip: false,
                             show: true,
@@ -103,7 +99,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitAvgPrice',
                             Header: this.props.language.stockstatement.header.avgprice,
-                            accessor: 'mvDebitAvgPrice',
+                            accessor: 'sellPrice',
                             width: 80,
                             skip: false,
                             show: true,
@@ -111,7 +107,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitAmt',
                             Header: this.props.language.stockstatement.header.amt,
-                            accessor: 'mvDebitAmt',
+                            accessor: 'sellAmount',
                             width: 100,
                             skip: false,
                             show: true,
@@ -126,7 +122,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvValue',
                             Header: this.props.language.stockstatement.header.value,
-                            accessor: 'mvValue',
+                            accessor: 'fee',
                             width: 80,
                             skip: false,
                             show: true,
@@ -134,7 +130,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvPercentage',
                             Header: this.props.language.stockstatement.header.percentage,
-                            accessor: 'mvPercentage',
+                            accessor: 'feePercent',
                             width: 60,
                             skip: false,
                             show: true,
@@ -144,7 +140,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvDescription',
                     Header: this.props.language.stockstatement.header.description,
-                    accessor: 'mvDescription',
+                    accessor: 'desc',
                     width: 200,
                     skip: false,
                     show: true,
@@ -152,7 +148,6 @@ class StockStatement extends Component {
             ]
         }
 
-        //this.buttonAction = [<Button style={buttonStyle} bsStyle="primary" type="button"></Button>,]
         this.id='stockstatement'
     }
 
@@ -162,7 +157,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvOrder',
                     Header: nextProps.language.stockstatement.header.order,
-                    accessor: 'mvOrder',
+                    accessor: 'refId',
                     width: 60,
                     skip: false,
                     show: true,
@@ -170,7 +165,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvTransactionDate',
                     Header: nextProps.language.stockstatement.header.transactiondate,
-                    accessor: 'mvTransactionDate',
+                    accessor: 'tradeDate',
                     width: 150,
                     skip: false,
                     show: true,
@@ -178,7 +173,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvStockCode',
                     Header: nextProps.language.stockstatement.header.stockcode,
-                    accessor: 'mvStockCode',
+                    accessor: 'stockCode',
                     width: 80,
                     skip: false,
                     show: true,
@@ -186,7 +181,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvAction',
                     Header: nextProps.language.stockstatement.header.action,
-                    accessor: 'mvAction',
+                    accessor: 'action',
                     width: 120,
                     skip: false,
                     show: true,
@@ -199,7 +194,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditQty',
                             Header: nextProps.language.stockstatement.header.quantity,
-                            accessor: 'mvCreditQty',
+                            accessor: 'buyQty',
                             width: 80,
                             skip: false,
                             show: true,
@@ -207,7 +202,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditAvgPrice',
                             Header: nextProps.language.stockstatement.header.avgprice,
-                            accessor: 'mvCreditAvgPrice',
+                            accessor: 'buyPrice',
                             width: 80,
                             skip: false,
                             show: true,
@@ -215,7 +210,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvCreditAmt',
                             Header: nextProps.language.stockstatement.header.amt,
-                            accessor: 'mvCreditAmt',
+                            accessor: 'buyAmount',
                             width: 100,
                             skip: false,
                             show: true,
@@ -230,7 +225,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitQty',
                             Header: nextProps.language.stockstatement.header.quantity,
-                            accessor: 'mvDebitQty',
+                            accessor: 'sellQty',
                             width: 80,
                             skip: false,
                             show: true,
@@ -238,7 +233,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitAvgPrice',
                             Header: nextProps.language.stockstatement.header.avgprice,
-                            accessor: 'mvDebitAvgPrice',
+                            accessor: 'sellPrice',
                             width: 80,
                             skip: false,
                             show: true,
@@ -246,7 +241,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvDebitAmt',
                             Header: nextProps.language.stockstatement.header.amt,
-                            accessor: 'mvDebitAmt',
+                            accessor: 'sellAmount',
                             width: 100,
                             skip: false,
                             show: true,
@@ -261,7 +256,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvValue',
                             Header: nextProps.language.stockstatement.header.value,
-                            accessor: 'mvValue',
+                            accessor: 'fee',
                             width: 80,
                             skip: false,
                             show: true,
@@ -269,7 +264,7 @@ class StockStatement extends Component {
                         {
                             id: 'mvPercentage',
                             Header: nextProps.language.stockstatement.header.percentage,
-                            accessor: 'mvPercentage',
+                            accessor: 'feePercent',
                             width: 60,
                             skip: false,
                             show: true,
@@ -279,7 +274,7 @@ class StockStatement extends Component {
                 {
                     id: 'mvDescription',
                     Header: nextProps.language.stockstatement.header.description,
-                    accessor: 'mvDescription',
+                    accessor: 'desc',
                     width: 200,
                     skip: false,
                     show: true,
@@ -289,8 +284,17 @@ class StockStatement extends Component {
     }
 
     render() {
-        var data = this.props.data.mvStockStatementList === undefined ? [] : this.props.data.mvStockStatementList
-        var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
+        var data = this.props.data.list === undefined ? [] : this.props.data.list
+        var page = 1
+
+        for(let i = 0; i < data.length; i++) {
+            console.log(data[i])
+            for(let j in data[i]) {
+                if (data[i][j] === null || data[i][j] === "") {
+                    data[i][j] = 0
+                }
+            }
+        }
 
         return (
             <div id={this.id + '-body'} className="layout-body">

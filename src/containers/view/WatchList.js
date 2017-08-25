@@ -13,30 +13,13 @@ class WatchList extends Component {
                 {
                     columns: [{
                         id: 'cb',
-                        Header: props => < input id = {
-                            this.id + "-cb-all"
-                        }
-                        type = 'checkbox'
-                        className = "row-checkbox"
-                        onChange = {
-                            () => this.onRowSelected('ALL')
-                        }
-                        />,
+                        Header: props => <input id = {this.id + "-cb-all"} type = 'checkbox' className = "row-checkbox"
+                                            onChange = { () => this.onRowSelected('ALL') }/>,
                         maxWidth: 50,
                         width: 40,
                         Cell: props => {
-                            //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
-                            return ( <
-                                input type = 'checkbox'
-                                className = {
-                                    this.id + "-row-checkbox"
-                                }
-                                onChange = {
-                                    () => {
-                                        this.onRowSelected(props.original)
-                                    }
-                                }
-                                />
+                            return ( <input type = 'checkbox' className = { this.id + "-row-checkbox" }
+                                onChange = { () => { this.onRowSelected(props.original) } } />
                             )
                         },
                         sortable: false,
@@ -397,6 +380,7 @@ class WatchList extends Component {
             <Button  bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
             </Button>,
+
             <FormGroup controlId="mvStockId">
                 <FormControl bsClass='form-control stockSearch' 
                 componentClass="input" list="stockList" 
@@ -436,6 +420,7 @@ class WatchList extends Component {
                     columns={this.state.columns}
                     onChangeStateColumn={[]}
                     param={[]}
+                    hideSearchButton={true}
                     />
                 <DataTable
                     id="watchlist-table" 

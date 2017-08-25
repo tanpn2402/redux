@@ -8,19 +8,19 @@
         "stockmarketinform": "Stock Market Inform",
         "watchlist": "Watch List",
         "orderjournal": "Oder Journal",
-        "accountno": "Account No",
+        "accountinfo": "Account Info",
         "porfolio": "Porfolio",
         "account": "Account",
         "ordershistory": "Matching Orders History",
         "cashtransactionhistory": "Cash Transaction History",
         "cashstatement": "Cash Statement",
         "stockstatement": "Stock Statement",
-        "marginloanstatement": "Margin loan Statement",
+        "marginloan": "Margin Loan Statement",
         "personalprofile": "Personal Profile",
         "otherservice": "Other Service",
         "cashtransfer": "Cash Transfer",
         "cashadvance": "Cash Advance",
-        "cashadvance(bank)": "Cash Advance (Bank)",
+        "cashadvancebank": "Cash Advance (Bank)",
         "oddlottrading": "Odd Lot Trading",
         "entitlement": "Entitlement",
         "loanrefund": "Loan Refund",
@@ -42,6 +42,9 @@
           "status": "Status",
           "type": "Type",
           "buysell": "Buy/Sell",
+          "exchange":"Exchange",
+          "stock": "Stock",
+          "persentlength": "% Length",
           "totalfeetax": "Total (Fee+Tax): ",
           "all": "ALL",
           "normal": "Normal",
@@ -208,6 +211,24 @@
           "bankaccount":"Bank Account"
         }
       },
+      "accountinfo": {
+        "header": {
+          "cashbank":"Cash-Bank",
+          "stock": "Stock",
+          "buyingpower": "Buying Power",
+          "cashblance": "Cash balance(withrawable)",
+          "holdexecute": "Hold for executed purchase",
+          "holdpending": "Hold for pending purchase",
+          "duesell": "Due Sell",
+          "vol": "Volume",
+          "tradeinday":"Trade in day",
+          "bought": "Bought",
+          "sold": "Sold",
+          "cash": "Cash",
+          "overduedebt": "Overdue Debt",
+          "upcomingdebt": "Upcoming Debt"
+        }
+      },
       "portfolio": {
         "header":{
             "sumary": "Sumary",
@@ -289,6 +310,19 @@
             "description": "Description"
         }
       },
+      "marginloan": {
+        "header": {
+            "rownum": "No.",
+            "transactiondate": "Date",
+            "description": "Description",
+            "marginusage": "Margin Usage",
+            "debt": "Debt",
+            "payment": "Payment",
+            "finaldept": "Final Debt",
+            "margincall": "Margin Call",
+            "forcesell": "Force Sell"
+        }
+      },
       "enterorder": {
         "header": {
           "buysell": "Buy/Sell",
@@ -353,6 +387,15 @@
             "Price": "Price",
             "Volume": "Volume",
             "Total": "Total"
+        }
+      },
+      "avaiblemarginlist" : {
+        "header":{
+          "No": "No.",
+          "Stockcode": "Stock code",
+          "Fullname": "Fullname",
+          "Exchange": "Exchange",
+          "psentlending": "% Lending"
         }
       },
       "cashtransfer": {

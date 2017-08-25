@@ -1,7 +1,8 @@
 import { ActionTypes } from '../core/constants';
 
 const initialState = {
-    isAuthenFail: null
+    isAuthenFail: null,
+    matrixResponse: null,
 };
 
 export default function (state = initialState, action) {
@@ -10,7 +11,12 @@ export default function (state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenFail: action.isAuthenFail
             });
-        default: 
+        case ActionTypes.MATRIXCARD:
+            console.log(action.data.mvSuccess)
+            return Object.assign({}, state, {
+                matrixResponse: action.data.mvSuccess
+            });
+        default:
             return state;
     }
 };

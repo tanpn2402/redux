@@ -1,10 +1,8 @@
 import React from 'react';
 import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
 import ReactTable from 'react-table'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
 
-class Header extends React.Component {
+export default class App extends React.Component {
 	constructor(){
 		super()
 		this.columns =  [
@@ -19,23 +17,18 @@ class Header extends React.Component {
 				accessor: 'col3'
 		    },
        	]
-		
+
+
        	this.minheight = 0
        	this.maxheight = 95
        	this.time = 100
        	this.timer = null
-		this.toggle = false
-		   
-		
+       	this.toggle = false
 	}
 
 	render() {
 	    var currentThemeName=this.props.currentThemeName.substring(6,11)
-		var currentLanguage=this.props.currentLanguage
-		var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
-		var today= new Date()
-		var datetime= today.getDate() + "/" +  today.getMonth() + "/" +  today.getFullYear() 
-		+"  "+  today.getHours() + ":"+  today.getMinutes() +":"+  today.getSeconds()
+	    var currentLanguage=this.props.currentLanguage
 	    return (
 	    	<div id="pageheader" style={this.props.theme.pagebackground} >
 	    		<div className="row header-sm"  id="header-sm" style={{ display: 'none', }}>
@@ -131,10 +124,10 @@ class Header extends React.Component {
 		              				</Button>
 					            </span>
 			            	</li>
-			            	<li>{clientDetails.mvAccountNumber}</li>
-			            	<li>{clientDetails.mvName}</li>
+			            	<li>077C086378</li>
+			            	<li>Nguyễn Văn Sự</li>
 			            	<li>Giao dịch kí quỹ</li>
-			            	<li>Ngày GD {datetime}</li>
+			            	<li>Ngày GD 01/01/2017 14:26:22</li>
 			            </ul>
 			        </div>
 		        </div>
@@ -153,11 +146,9 @@ class Header extends React.Component {
         	for (var i = child.length - 1; i >= 0; i--) {
         		child[i].style.display = 'none'
         	}
-		}
-		this.props.getClientInfo([])
-		
-	  }
-	  
+  		}
+
+  	}
 
   	onHideHeader(e){
 
@@ -205,18 +196,3 @@ class Header extends React.Component {
     	document.getElementById("settingnav").style.width = "300px";
   	}
 }
-
-const mapStateToProps = (state) => {
-	return {
-		clientDetails: state.profile.clientDetails,
-	}
-  }
-  
-  const mapDispatchToProps = (dispatch, props) => ({
-	getClientInfo: (param) => {
-		dispatch(actions.getClientInfo(param))
-	},
-	  
-  })
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Header)

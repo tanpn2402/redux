@@ -79,6 +79,7 @@ class MenuNav extends Component {
     onOpenMenuPanel(e){
         document.getElementById("overlay").style.display = 'block';
         document.getElementById("slidenav").style.width = "250px";
+        document.getElementById("main-menu-search").focus();
     }
 
 

@@ -19,11 +19,12 @@ class Profile extends Component {
         }
         this.formControlStyle={
           marginTop: "2px",
-          marginBottom: "2px"
+          marginBottom: "2px",
+          paddingTop: "2px",
+          paddingBottom: "2px",
+          height: "24px",
         }
-        this.reloadPopup =true 
-        this.retypePass=''
-        
+        this.showPopup=false
     }
     
       
@@ -34,48 +35,51 @@ class Profile extends Component {
         var result= this.props.changePassResult.changePasswordBean
         if(result !== undefined){
           if(result.PData === 'fail_to_change'){
-            this.reloadPopup=!this.reloadPopup
-            this.props.showNotif(this.props.language.message.error,this.props.language.message.changefailed, this.reloadPopup)
+            this.props.showNotif(this.props.language.message.error, 
+                                 this.props.language.message.changefailed, 
+                                !this.reloadPopup, this.showPopup)
           }else{
-            this.reloadPopup=!this.reloadPopup
-            this.props.showNotif(this.props.language.message.notification,this.props.language.message.changesuccess, this.reloadPopup)
+            this.props.showNotif(this.props.language.message.notification,
+                                 this.props.language.message.changesuccess, 
+                                 !this.reloadPopup, this.showPopup)
           }
+          this.showPopup=false
         }
         return (
-          <Grid style={{paddingTop:"30px"}}>
+          <div className="profile-wrapper">
             <Row className="show-grid">
               <Col xs={5} md={5}>
                 <Form horizontal>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle} accessor='a1'>
-                      {this.props.language.holdername}
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
+                        {this.props.language.holdername}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvName} style={this.formControlStyle}/>
-                      </Col>
-                  </FormGroup>
-                  <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
-                      {this.props.language.accountno}
-                      </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAccountNumber} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                        <FormControl value={clientDetails.mvName} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
+                        {this.props.language.accountno}
+                      </Col>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.mvAccountNumber} style={this.formControlStyle} disabled/>
+                      </Col>
+                  </FormGroup>
+                  <FormGroup bsSize="small">
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.email}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvEmail} readonly style={this.formControlStyle} />
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.mvEmail} readonly style={this.formControlStyle}  disabled/>
                       </Col>
                   </FormGroup>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.telephone}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvPhoneNumber} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.mvPhoneNumber} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -83,19 +87,19 @@ class Profile extends Component {
               <Col xs={5} md={5}>
                 <Form horizontal>
                   <FormGroup  bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.address}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAddress} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.mvAddress} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.personalid}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvIDNumber} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.mvIDNumber} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -105,19 +109,19 @@ class Profile extends Component {
               <Col xs={5} md={5}>
                 <Form horizontal>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.authorizedname}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAgentList[0].agentName} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.length !== 0 ? clientDetails.mvAgentList[0].agentName : ''} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.idno}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAgentList[0].agentIDNumber} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.length !== 0 ? clientDetails.mvAgentList[0].agentIDNumber : ''} style={this.formControlStyle} disabled />
                       </Col>
                   </FormGroup>
                 </Form>
@@ -125,19 +129,19 @@ class Profile extends Component {
               <Col xs={5} md={5}>
                 <Form horizontal>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.telephone}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAgentList[0].agentPhone} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.length !== 0 ? clientDetails.mvAgentList[0].agentPhone : ''} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                   <FormGroup bsSize="small">
-                      <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                      <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                       {this.props.language.authorization}
                       </Col>
-                      <Col sm={8}>
-                      <FormControl value={clientDetails.mvAgentList[0].agentAttorney} style={this.formControlStyle}/>
+                      <Col xs={6}>
+                      <FormControl value={clientDetails.length !== 0 ? clientDetails.mvAgentList[0].agentAttorney : ''} style={this.formControlStyle} disabled/>
                       </Col>
                   </FormGroup>
                 </Form>
@@ -147,26 +151,26 @@ class Profile extends Component {
             <Col xs={5} md={5}>
               <Form horizontal>
                   <FormGroup controlId="currentPass" bsSize="small" >
-                        <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                        <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                         {this.props.language.currentpassword}
                         </Col>
-                        <Col sm={8}>
+                        <Col xs={6}>
                         <FormControl type="password" onChange={e => this.onChangeValue(e)} style={this.formControlStyle}/>
                         </Col>
                   </FormGroup>
                   <FormGroup controlId="newPass" bsSize="small">
-                        <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                        <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                         {this.props.language.newpassword}
                         </Col>
-                        <Col sm={8}>
+                        <Col xs={6}>
                         <FormControl type="password" onChange={e => this.onChangeValue(e)} style={this.formControlStyle}/>
                         </Col>
                   </FormGroup>
                   <FormGroup controlId="retypeNewPass" bsSize="small" >
-                        <Col componentClass={ControlLabel} sm={4} style={this.labelStyle}>
+                        <Col componentClass={ControlLabel} xs={6} style={this.labelStyle}>
                         {this.props.language.retypepassword}
                         </Col>
-                        <Col sm={8}>
+                        <Col xs={6}>
                         <FormControl type="password" onChange={e => this.onChangeValue(e)} style={this.formControlStyle}/>
                         </Col>
                   </FormGroup>
@@ -187,9 +191,8 @@ class Profile extends Component {
               <div>{this.props.language.warndetail2}</div>
             </Col>
           </Row>
-        </Grid>
+        </div>
         )
-        
 
     }
 
@@ -198,19 +201,17 @@ class Profile extends Component {
     }
     onChangePassword(){
       if(this.params['oldPassword']=== ''){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.emptypass, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.emptypass, !this.reloadPopup, true)
       }
       else if(this.params['password'].length <6 || this.params['password'].length >30 ){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.newpassunaccepted, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.newpassunaccepted, !this.reloadPopup, true)
       }
       else if(this.retypePass !== this.params['password']){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.notmatched, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.notmatched, !this.reloadPopup, true)
       }
       else{  
         this.props.changePassword(this.params)
+        this.showPopup=true
       }
     }
     onChangeValue(e){
@@ -239,8 +240,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   changePassword: (param) => {
     dispatch(actions.changePassword(param))
   },
-  showNotif: (notifType, notifDetail, reloadPopup) => {
-    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup))
+  showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
+    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
   },
 })
 

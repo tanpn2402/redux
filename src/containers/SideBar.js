@@ -4,7 +4,7 @@ import config from '../core/config'
 import { connect } from "react-redux"
 import * as actions from "../actions"
 
-class SlideNav extends Component {
+class SideBar extends Component {
 
     constructor(props) {
         super(props)
@@ -16,33 +16,27 @@ class SlideNav extends Component {
 
     render() {
         return (
-            <div id="slidenav" className="sidenav">
+            <div className="sidebar-wrapper" id="sidebar-wrapper">
             
-                <div className="input-group input-group-search">
-                    <input type="text" id="main-menu-search" className="form-control" placeholder="Menu" onChange={e => this.onChange(e.target.value, this.props.language)}/>
-                    <span className="input-group-addon">
-                        <button type="submit">
-                            <span className="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
+                <div className="sidebar-body">
+
                 </div>
                 
-                {
-                    this.state.menuitem.map(item => {
-                        return(
-                            <MenuItem 
-                                id={item.id} 
-                                subitems={item.subitems} 
-                                language={this.props.language} 
-                                text={this.props.language[item.text]} 
-                                onMenuSelected={this.onMenuSelected.bind(this)}/>
-                        )
-                    })
-                }
-                    
+                <div className="sidebar-footer">
+
+                </div>
           
             </div>
         );
+    }
+
+    componentDidMount(){
+        /*var h1 = document.getElementById('pageheader').offsetHeight
+        var h2 = document.getElementById('pagemenu').offsetHeight
+        var h3 = window.innerHeight
+        
+        document.getElementById('sidebar-wrapper').style.height  = h3 - h1 - h2 +  'px'*/
+
     }
 
     onMenuSelected(e){
@@ -124,4 +118,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SlideNav)
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar)
