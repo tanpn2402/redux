@@ -1,11 +1,28 @@
+import * as api from '../api/web_service_api'
+import * as ACTION from '../api/action_name'
 const {ActionTypes} = require('../core/constants')
 
-const profile= {"mvPersonnalProfileBean":{"mvAccountNumber":"077C086378","mvAddress":"ADDRESS1 ADDRESS2 ADDRESS3","mvAgentList":[{"agentAttorney":"Place Order","agentIDNumber":"22334455","agentName":"Son","agentPhone":""}],"mvEmail":"","mvIDNumber":"123456789","mvName":"Tú Hoa Kiểm Tra sssssssssssssssssssssssssss","mvPhoneNumber":""},"mvResult":null}
-
-
-export function getProfile(param) {
-    return {
+export function getClientInfo(params) {
+  return (dispatch)=>{
+    api.get(ACTION.GETCLIENTDETAIL,params,dispatch,responseGetClientDetails)
+  }
+}
+function responseGetClientDetails(response){
+  return {
       type: ActionTypes.PROFILE,
-      data: profile
-    }
+      clientDetails: response,
+  }
+}
+
+export function changePassword(params) {
+  return (dispatch)=>{
+    api.get(ACTION.CHANGEPASSWORD,params,dispatch,responseChangePassword)
+    
+  }
+}
+function responseChangePassword(response){
+  return {
+      type: ActionTypes.CHANGEPASSWORD, 
+      changePassword: response,
+  }
 }

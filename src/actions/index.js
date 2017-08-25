@@ -12,14 +12,15 @@ import {enquiryOrderHistory,} from './orderhistory'
 import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
-import {loadWatchList} from './watchlist'
-import {getProfile} from './profile'
+import {loadWatchList,addStock, removeStock} from './watchlist'
+import {getClientInfo, changePassword} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
 import {getStockInfo, getAccountBalance} from './accountinfo'
- 
+import {showNotif} from './notification'
+
 export {
   doLogin,
   logout,
@@ -48,14 +49,14 @@ export {
   enquiryCashTransaction,
   enquiryStockStatement,
   enquiryCashStatement,
-  loadWatchList,
-  getProfile,
+  getClientInfo,
   getOddlotEnquiry,
   getOddlotHistory,
   onOddLotSubmit,
   getCashtransfer,
   getCashdatatable,
   getstockInfo,
+  changePassword,
   getMatrixCard,
   matrixCardResponse,
   getStockB,
@@ -71,4 +72,8 @@ export {
   avaiblemarginlist,
   getAccountBalance,
   getStockInfo,
+  showNotif,
+  loadWatchList,
+  addStock, 
+  removeStock
 };

@@ -447,6 +447,115 @@
         "popup": {
           "title": "Ứng trước tiền chứng khoán"
         }
+      },
+      "watchlist":{
+        "toolbar":{
+          "addstock": "Thêm CK",
+          "removestock": "Xóa CK"
+        },
+        "header":{
+          "name": "Tên CK",
+          "reference": "Tham chiếu",
+          "bestbid": "Dư mua",
+          "matching": "Khớp lệnh",
+          "bestask": "Dư bán",
+          "pricehistory": "Lịch sử giá",
+          "foreigninvestment": "Giao dịch NN",
+          "stock": "Mã CK",
+          "market": "Sàn",
+          "ce": "Trần",
+          "fl": "Sàn",
+          "ref": "TC",
+          "pri3": "Giá 3",
+          "vol3": "KL 3",
+          "pri2": "Giá 2",
+          "vol2": "KL 2",
+          "pri1": "Giá 1",
+          "vol1": "KL 1",
+          "price": "Giá",
+          "volume": "KL",
+          "totalvol": "Tổng KL",
+          "open": "Mở",
+          "high": "Cao",
+          "low": "Thấp",
+          "avg": "TB",
+          "forbuy": "NN Mua",
+          "forsell": "NN Bán",
+          "room": "Room"
+        }
+      },
+      "personalprofile":{
+        "holderinformation": "Thông tin chủ tài khoản",
+        "holdername": "Tên chủ tài khoản",
+        "accountno": "Số tài khoản",
+        "email": "E-mail",
+        "telephone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "personalid": "CMND",
+        "personinformation": "Thông tin người ủy quyền",
+        "authorizedname": "Tên người ủy quyền",
+        "idno": "Số CMND/ĐKKD",
+        "authorization": "Ủy quyền",
+        "changepassword": "Đổi mật khẩu",
+        "currentpassword": "Mật khẩu cũ",
+        "newpassword": "Mật khẩu mới",
+        "retypepassword": "Nhập lại mật khẩu mới",
+        "warning": "Quý khách lưu ý",
+        "expiredate": " - Thời hạn hiệu lực của mật khẩu: 07/06/2291 16:10:40. ",
+        "warndetail1": "- Mật khẩu của quý khách có tác dụng trong 90 ngày kể từ lần thay đổi mật khẩu cuối cùng.",
+        "warndetail2": "- Sau 90 ngày, quý khách sẽ nhận được thông báo yêu cầu đổi mật khẩu từ hệ thống Giao dịch trực tuyến.",
+        "save": "Lưu lại",
+        "message": {
+          "error": "Lỗi",
+          "notification": "Thông báo",
+          "changesuccess": "Mật khẩu đã được đổi thành công.",
+          "changefailed": "Không đổi được mật khẩu",
+          "passwordincorrect": "Mật khẩu cũ không đúng. Xin vui lòng thử lại.",
+          "notmatched": "Mật khẩu mới và mật khẩu nhập lại không trùng khớp.",
+          "newpassunaccepted": "Mật khẩu mới phải từ 6 đến 30 kí tự.",
+          "emptypass": "Không được để trống mật khẩu cũ."
+        }
+      },
+      "entitlement": {
+        "header":{
+            "bankaccount": "Tài khoản",
+            "cashbalance": "Số dư tiền mặt",
+            "cashavailable": "Số dư khả dụng",
+            "buyingpower": "Sức mua tối đa",
+            "stockcode": "Mã CK",
+            "availableqty": "SL được phép mua",
+            "registerqty": "Số lượng đăng kí",
+            "actionprice": "Giá thực hiện",
+            "amountVND": "Số tiền (VND)",
+
+            "stock": "Mã CK",
+            "actiontype": "Loại",
+            "recorddate": "Ngày chốt quyền",
+            "owningvolume": "Số lượng CK sở hữu",
+            "ratecash": "Tỉ lệ tiền (VND/CP)",
+            "rate": "Tỉ lệ(CK)",
+            "pervalue": "Giá(VND)",
+            "recievecash": "Số tiền",
+            "receivedstock": "Số lượng CK",
+            "status": "Trạng thái",
+            "payabledate": "Ngày phân bố dự kiến",
+            "paiddate": "Ngày phân bố",
+
+            "rightrate": "Tỉ lệ quyền",
+            "actionrate": "Tỉ lệ thực hiện",
+            "startdate": "Ngày bắt đầu DK/CK",
+            "transferdeadline": "Ngày hết hạn chuyển nhượng",
+            "registerdeadline": "Ngày hết hạn",
+
+            "registerdate": "Ngày đăng kí mua",
+            "volume": "Số lượng chứng khoán mua",
+            "amount": "Số tiền",
+
+            "entitlementplace": "Đăng kí thực hiện quyền",
+            "corporateactionlist": "Danh sách quyền",
+            "additionalissuesharesinformation": "Thông tin mua cổ phiếu phát hành tiền",
+            "additionalissuesharesbuyinghistory": "Tra cứu lịch sử giao dịch mua cổ phiếu phát hành tiền"
+        }
       }
     }
   }

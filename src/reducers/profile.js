@@ -1,16 +1,21 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  data: [],
+  clientDetails: [],
+  changePassword: []
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.PROFILE:
         return Object.assign({},state,{
-          data: action.data,
+          clientDetails: action.clientDetails,
         });
 
+    case ActionTypes.CHANGEPASSWORD:
+        return Object.assign({},state,{
+          changePassword: action.changePassword,
+        });
     default:
       return state;
   }

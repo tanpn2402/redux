@@ -258,8 +258,11 @@ export default class SearchBar extends React.Component {
         }
        
         
-        <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
+        {
+          this.props.hideSearchButton !== undefined ? '' : this.props.hideSearchButton === true ? '' :
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
 
+        }
         
 
         

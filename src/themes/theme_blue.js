@@ -41,7 +41,7 @@ export default {
     'titleoddlotnotes': {
       backgroundColor: '#f60',
       color: '#fff',
-      margin-left:'5px',
+      marginLeft:'5px',
       fontWeight: 'bold'
     }
   },
