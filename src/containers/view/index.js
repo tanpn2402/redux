@@ -14,6 +14,8 @@ import OddLotTrading from './OddLotTrading'
 import CashTransfer from './CashTransfer'
 import CashAdvance from './CashAdvance'
 import MarginLoan from './MarginLoan'
+import AvaibleMarginList from './AvaibleMarginList'
+import AccountInfo from './AccountInfo'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -77,6 +79,14 @@ export default function (menuid, props){
 		case 'marginloan':
 			return (
 				<MarginLoan language={props.language} theme={props.theme}/>
+			)
+		case 'available':
+			return (
+				<AvaibleMarginList language={props.language} stockList={props.stockList} theme={props.theme}/>
+			)
+		case 'accountinfo':
+			return (
+				<AccountInfo language={props.language} theme={props.theme}/>
 			)
 		default: return
 	}

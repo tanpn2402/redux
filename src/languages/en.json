@@ -8,7 +8,7 @@
         "stockmarketinform": "Stock Market Inform",
         "watchlist": "Watch List",
         "orderjournal": "Oder Journal",
-        "accountno": "Account No",
+        "accountinfo": "Account Info",
         "porfolio": "Porfolio",
         "account": "Account",
         "ordershistory": "Matching Orders History",
@@ -20,7 +20,7 @@
         "otherservice": "Other Service",
         "cashtransfer": "Cash Transfer",
         "cashadvance": "Cash Advance",
-        "cashadvance(bank)": "Cash Advance (Bank)",
+        "cashadvancebank": "Cash Advance (Bank)",
         "oddlottrading": "Odd Lot Trading",
         "entitlement": "Entitlement",
         "loanrefund": "Loan Refund",
@@ -42,6 +42,9 @@
           "status": "Status",
           "type": "Type",
           "buysell": "Buy/Sell",
+          "exchange":"Exchange",
+          "stock": "Stock",
+          "persentlength": "% Length",
           "totalfeetax": "Total (Fee+Tax): ",
           "all": "ALL",
           "normal": "Normal",
@@ -208,6 +211,24 @@
           "bankaccount":"Bank Account"
         }
       },
+      "accountinfo": {
+        "header": {
+          "cashbank":"Cash-Bank",
+          "stock": "Stock",
+          "buyingpower": "Buying Power",
+          "cashblance": "Cash balance(withrawable)",
+          "holdexecute": "Hold for executed purchase",
+          "holdpending": "Hold for pending purchase",
+          "duesell": "Due Sell",
+          "vol": "Volume",
+          "tradeinday":"Trade in day",
+          "bought": "Bought",
+          "sold": "Sold",
+          "cash": "Cash",
+          "overduedebt": "Overdue Debt",
+          "upcomingdebt": "Upcoming Debt"
+        }
+      },
       "portfolio": {
         "header":{
             "sumary": "Sumary",
@@ -368,6 +389,15 @@
             "Total": "Total"
         }
       },
+      "avaiblemarginlist" : {
+        "header":{
+          "No": "No.",
+          "Stockcode": "Stock code",
+          "Fullname": "Fullname",
+          "Exchange": "Exchange",
+          "psentlending": "% Lending"
+        }
+      },
       "cashtransfer": {
         "header":{
             "cashbalance": "Cash balance",
@@ -422,6 +452,40 @@
         },
         "popup": {
            "title": "Cash Advance"
+        }
+      },
+      "cashadvancebank": {
+        "header": {
+            "advancefee": "Advance Fee",
+            "bankaccount": "Bank Account",
+            "cashadvanceavailable": "Cash Advance Available",
+            "cashadvance": "Cash Advance",
+            "ordermatchinglist": "Order Matching List",
+            "advanceamount": "Advance Amount",
+            "cashadvanceplace": "Cash Advance Place",
+            "cashadvancetransaction": "Cash Advance Transaction",
+            "title": "Cash Advance",
+            "date": "Date",
+            "processingstatus": "Processing Status",
+            "lastupdate": "Last Update",
+            "note": "Remark",
+            "id": "ID",
+            "matchingdate": "Matching Date",
+            "paymentdate": "Payment Date",
+            "stock": "Stock",
+            "volume": "Volume",
+            "value": "Value",
+            "fee": "Fee+Tax",
+            "contractid": "Contract ID",
+            "orderid":"Order ID",
+            "settlementdate":"Settlement Date",
+            "tradedate":"Trade Date",
+            "stockid": "Stock ID",
+            "price": "Price",
+            "quantity": "Quantity"
+        },
+        "popup": {
+          "title": "Cash Advance Bank"
         }
       }
     }

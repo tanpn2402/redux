@@ -57,3 +57,5 @@ export const ENQUIRYSIGNORDER = 'enquirysignorder.action';
 export const SUBMITSIGNORDER = 'submitSignOrder.action';
 export const DOLOGIN = 'dologin.action';
 export const MARGINLOAN = 'marginLoan.action'
+export const CASHADVANCEBANK = ''; // not already support in itrade
+export const ACCOUNTBALANCE = 'accountbalance.action' // not already support in itrade

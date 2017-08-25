@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component {
       };
 
       this.parameter = {'mvStatus': false, 'mvBuysell': false, 'mvMarket': false, 'mvTrade': false, 'mvOrderType': false,
-                        'mvStockId': false, 'mvStartDate': false, 'mvEndDate' : false }
+                        'mvStockId': false, 'mvStartDate': false, 'mvEndDate' : false, 'mvLending': false }
 
       
 
@@ -58,6 +58,7 @@ export default class SearchBar extends React.Component {
         'mvStockId': this.genStockListComponent(language),
         'mvStartDate': this.genStartDateComponent(language),
         'mvEndDate': this.genEndDateComponent(language),
+        'mvLending': this.genPerLengthComponent(language),
         'dropdown': this.genDropdownCheckbox(this.props.columns, this.props.onChangeStateColumn),
       }
   }
@@ -73,6 +74,7 @@ export default class SearchBar extends React.Component {
         'mvStockId': this.genStockListComponent(language),
         'mvStartDate': this.genStartDateComponent(language),
         'mvEndDate': this.genEndDateComponent(language),
+        'mvLending': this.genPerLengthComponent(language),
         'dropdown': this.genDropdownCheckbox(nextProps.columns, nextProps.onChangeStateColumn),
       }
   }
@@ -129,6 +131,16 @@ export default class SearchBar extends React.Component {
     )
   }
 
+  genPerLengthComponent(language){
+    return (
+      <FormGroup controlId="mvLending" >
+        <ControlLabel>{language.persentlength}</ControlLabel>
+        {'   '}
+        <FormControl type="text" />
+      </FormGroup>
+    )
+  }
+
   genMarketComponent(language){
     return (
       <FormGroup controlId="mvMarket" >
@@ -136,7 +148,7 @@ export default class SearchBar extends React.Component {
         {'   '}
         <FormControl componentClass="select" placeholder="select">
           <option value="ALL">{this.props.language.all}</option>
-          <option value="HA">HN</option>
+          <option value="HA">HA</option>
           <option value="HO">HO</option>
           <option value="UPCOM">UPCOM</option>
         </FormControl>

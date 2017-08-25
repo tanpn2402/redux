@@ -212,6 +212,7 @@ body {
 
 .datatable .rt-tbody {
     overflow-x: hidden;
+    font-size: 11px;
 }
 
 .datatable .rt-tbody .rt-td {

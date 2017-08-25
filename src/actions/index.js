@@ -17,6 +17,8 @@ import {getProfile} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,onOddLotSubmit} from './oddlottrading'
 import {getCashtransfer, getCashdatatable} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
+import {avaiblemarginlist} from './avaiblemarginlist'
+import {getStockInfo, getAccountBalance} from './accountinfo'
  
 export {
   doLogin,
@@ -66,5 +68,7 @@ export {
   getError,
   submitEnterOrder,
   enquiryMarginLoan,
-  
+  avaiblemarginlist,
+  getAccountBalance,
+  getStockInfo,
 };

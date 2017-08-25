@@ -19,6 +19,8 @@ import profile from './profile'
 import oddlottrading from './oddlottrading'
 import cashtransfer from './cashtransfer'
 import marginloan from './marginloan'
+import avaiblemarginlist from './avaiblemarginlist'
+import accountinfo from './accountinfo'
 
 export default combineReducers({
   dologin,
@@ -41,5 +43,7 @@ export default combineReducers({
   profile,
   cashtransfer,
   marginloan,
+  avaiblemarginlist,
+  accountinfo,
   
 });
