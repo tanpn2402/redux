@@ -42,7 +42,7 @@ export default {
     },
   },
   pagebackground: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     
   }
 }
