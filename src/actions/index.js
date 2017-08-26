@@ -20,7 +20,7 @@ import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
 import {getStockInfo, getAccountBalance} from './accountinfo'
 import {showNotif} from './notification'
-import {getRightlist, getAdditionalshareinfo, getHistorylist} from './entitlement'
+import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit} from './loanrefund'
 
 export {
@@ -91,4 +91,6 @@ export {
   getRightlist,
   getAdditionalshareinfo,
   getHistorylist,
+  getDynamicdata,
+  
 };

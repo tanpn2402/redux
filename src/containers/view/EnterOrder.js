@@ -92,7 +92,7 @@ class EnterOrder extends Component {
                         </Col>
                         <Col xs={7} className="value-wapper">
                             <input type='hidden' id="mvMarketID" ref={(ref) => this.input = ref} />
-                            <input list="Stock" name="stock" id="mvStock" required onChange={this.onStockChange} />
+                            <input list="Stock" name="stock" id="mvStock" placeholder="ex: ACB" required onChange={this.onStockChange} />
                             <datalist id="Stock">{
                                 this.props.stockList.map(e => {
                                     return (<option value={e.stockCode}>{e.stockName}
@@ -107,7 +107,7 @@ class EnterOrder extends Component {
                             {this.props.language.enterorder.header.bank}
                         </Col>
                         <Col xs={7} className="value-wapper">
-                            <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
+                            <input id="mvBank" list="Bank" name="bank" id="mvBank" placeholder="ex: ACB-125137309" required />
                             <datalist id="Bank">
                                 <option value="ACB-125137309" />
                             </datalist>
@@ -140,7 +140,7 @@ class EnterOrder extends Component {
                         </Col>
                         <Col xs={7} className="value-wapper">
                             <FormGroup controlId="mvOrderType">
-                                <input id="mvOrderType" list="ordertype" name="ordertype" required />
+                                <input id="mvOrderType" list="ordertype" name="ordertype" placeholder="ex: L" required />
                                 <datalist id="ordertype">
                                     <option value="L" />
                                     <option value="ATC" />
@@ -157,7 +157,7 @@ class EnterOrder extends Component {
                         </Col>
                         <Col xs={7} className="value-wapper">
                             <FormGroup controlId="mvVolume">
-                                <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" required />
+                                <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" placeholder="ex: 100" required />
 
                             </FormGroup>
                         </Col>
@@ -167,7 +167,7 @@ class EnterOrder extends Component {
                         </Col>
                         <Col xs={7} className="value-wapper">
                             <FormGroup controlId="mvPrice">
-                                <input type="number" min="0" step="any" name="price" onChange={this.onChange} id="mvPrice" required />
+                                <input type="number" min="0" step="any" name="price" onChange={this.onChange} id="mvPrice" placeholder="ex: 10" required />
                             </FormGroup>
                         </Col>
 

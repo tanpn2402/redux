@@ -17,7 +17,7 @@ export default class App extends React.Component {
         <div id={this.props.id} >
           <ReactTable
             className={'datatable'}
-            style={{height: height}}
+            style={{height: height, fontSize: '12px'}}
             data={this.props.data}
             columns={this.props.columns}
             showPagination= {false}

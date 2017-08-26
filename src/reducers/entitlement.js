@@ -4,6 +4,7 @@ const initialState = {
   datarightlist: [],
   datahistorylist: [],
   dataadditionalsharelist: [],
+  dynamicdata: [],
 };
 
 export default function (state = initialState, action) {
@@ -19,6 +20,10 @@ export default function (state = initialState, action) {
     case ActionTypes.ENTITLEMENTHISTORYLIST:
         return Object.assign({},state,{
           datahistorylist: action.data,
+        });
+    case ActionTypes.DYNAMICDATA:
+        return Object.assign({},state,{
+          dynamicdata: action.data,
         });
     default:
       return state;

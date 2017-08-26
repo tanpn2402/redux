@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import Popup from '../Popup'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -36,11 +38,11 @@ class OrderJournal extends Component {
                     Cell: props => {
                         var child = []
                         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
-                            child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
-                                onClick={() => this.onCancelButton(props.original)}>Hủy</Button>)
+                            child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                onClick={() => this.onCancelButton(props.original)}><span className="glyphicon glyphicon-remove"></span></Button>)
                         if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y')
-                            child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
-                                onClick={() => this.onModifyButton(props.original)}>Sửa</Button>)
+                            child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                onClick={() => this.onModifyButton(props.original)}><span className="glyphicon glyphicon-edit"></span></Button>)
                         return (
                             <span>
                                 {
@@ -180,6 +182,12 @@ class OrderJournal extends Component {
     render() {
         console.log(this.props)
         this.buttonAction = [
+            <Pagination 
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={this.props.data.mvTotalOrders} 
+                    onPageChange={this.onPageChange.bind(this)}
+                />,
+
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
                 onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
@@ -188,7 +196,7 @@ class OrderJournal extends Component {
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         let lgClose = () => this.setState({ lgShow: false })
 
-        console.log('dasdsaddsaad', this.props.modifyData)
+        console.log('RENDER IN OrderJournal')
         return (
             <div id={'orderjournal-body'} className="layout-body">
                 <SearchBar
@@ -200,15 +208,16 @@ class OrderJournal extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvOrderType', 'mvBuysell',]} />
-                <DataTable
+                    param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
+                <DataUpperTable
                     id="orderjournal-table"
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
-                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)} />
+                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
+                    maxRows={5}
+                    defaultPageSize={15} />
 
-                <Footer pageIndex={this.state.pageIndex} totalRecord={this.props.data.mvTotalOrders} onPageChange={this.onPageChange.bind(this)}
-                />
+                
                 <Popup
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose}
@@ -223,10 +232,6 @@ class OrderJournal extends Component {
         this.props.onSearch(this.param)
 
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('should update order journal', nextProps, nextState)
-    //     return nextProps.data.mvOrderBeanList.length !== this.props.data.mvOrderBeanList.length
-    // }
 
     onCancelButton(param) {
         console.log(param)
@@ -304,8 +309,8 @@ class OrderJournal extends Component {
 
     onPageChange(pageIndex) {
         console.log('orderjournal onPageChange', pageIndex)
-        this.setState({ pageIndex: pageIndex });
-        this.pageIndex = pageIndex;
+        // this.setState({ pageIndex: pageIndex });
+        // this.pageIndex = pageIndex;
     }
 
     onSearch(param) {

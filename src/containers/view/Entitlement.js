@@ -13,30 +13,37 @@ class Entitlement extends Component {
   constructor(props) {
     super(props)
 
+    this.paramsdynamic = {
+      FirstTime: '',
+      key: '1503634889395',
+      mvTimelyUpdate: 'N',
+      dynCashBalance: true,
+    }
+
     this.paramsright = {
         mvActionType: '',
         mvStockId: '',
-        mvStartDate: '',
-        mvEndDate: '',
+        mvStartDate: '24/08/2017',
+        mvEndDate: '24/08/2017',
         key: '1234',
         start: '0',
         limit: '15',
-        _dc: '3434343434',
-        page: 1,
-      },
+      }
+
     this.paramsaddition = {
         mvLastAction: 'OTHERSERVICES',
         mvChildLastAction: 'ENTITLEMENT',
         key: '4567',
         start: '0',
         limit: '15',
-      },
+      }
+
     this.paramshis= {
         mvLastAction: 'OTHERSERVICES',
         mvChildLastAction: 'ENTITLEMENT',
         mvStockId: '',
-        mvStartDate: '',
-        mvEndDate: '',
+        mvStartDate: '24/08/2017',
+        mvEndDate: '24/08/2017',
         key: '565656556',
         start: '0',
         limit: '15',
@@ -303,57 +310,67 @@ class Entitlement extends Component {
         });
     }
 
+    getEntitlementSubmit() {
+      this.props.getEntitlementSubmit()
+    }
+
     render() {
-      console.log("fdfdfdfdffdfd",this.props.datarightlist);
         var datarightlist = this.props.datarightlist.rightList === undefined ? [] : this.props.datarightlist.rightList
         var dataadditionalsharelist = this.props.dataadditionalsharelist.additionList === undefined ? [] : this.props.dataadditionalsharelist.additionList
         var datahistorylist = this.props.datahistorylist.historyList === undefined ? [] : this.props.datahistorylist.historyList
+        var dynamicdata = this.props.dynamicdata.mvList
+
         let lgClose = () => this.setState({ isShow: false })
+
         return (
           <div id={this.id +'-body'} className="layout-body">
-            <div className="col-md-4">
+
+            <div className="col-sm-3" style={{padding: "0px 1px"}}>
               <div className="title" style={this.props.theme.porfolio.titlestock}>
                 <span>{this.props.language.entitlement.header.entitlementplace}</span>
               </div>
-              <Form onSubmit={this.handleSubmit} id="form-enterorder">
+              <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className={"form-" + this.id}>
                 <FormGroup>
                   <Table responsive >
                     <tbody >
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.bankaccount}</th>
                         <td>
-                          <input id="mvBank" list="Bank" name="bank" required />
-                            <datalist id="Bank">
-                              <option value="ACB-125137309"/>
-                              <option value="MAS"/>
-                            </datalist>
-                          </td>
+                          <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
+                          <datalist id="Bank">
+                            <option value="MAS"/>
+                            <option value="HCM.01 - 123123"/>
+                          </datalist>
+                        </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.cashbalance}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvManualReserve}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.cashavailable}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvWithdrawableAmount}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.buyingpower}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvBuyingPowerd}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.stockcode}</th>
                         <td>
-                            <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
-                            <datalist id="Bank">
-                                <option value="ACB-125137309" />
-                            </datalist>
+                          <input list="Stock" name="stock" id="mvStock" required />
+                          <datalist id="Stock">{
+                            this.props.stockList.map(e => {
+                                return (<option value={e.stockCode}>{e.stockName}</option>)
+                            })
+                          }
+                        </datalist>
                         </td>
                       </tr>
                       <tr>
@@ -365,7 +382,7 @@ class Entitlement extends Component {
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.registerqty}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          <input name="cashwithdrawable" id="cashwithdrawable" required />
                         </td>
                       </tr>
                       <tr>
@@ -383,7 +400,7 @@ class Entitlement extends Component {
                       <tr>
                         <th>
                           <div className="button">
-                            <Button className="btn btn-default" type="submit" className="submit">Submit</Button>
+                            <Button className="btn btn-default" onClick={this.getEntitlementSubmit.bind(this)} type="submit" className="submit">Submit</Button>
                           </div>
                         </th>
                         <td>
@@ -407,8 +424,7 @@ class Entitlement extends Component {
               </Form>
             </div>
 
-
-            <div className="col-md-8">
+            <div className="col-sm-9" style={{padding: "0px 1px"}}>
 
               <div key={this.id + "-xtable1"}>
                   <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -439,7 +455,6 @@ class Entitlement extends Component {
                       onPageChange={this.onPageChange.bind(this)}/>
                   </div>
               </div>
-
 
               <div key={this.id + "-xtable3"}>
                   <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -487,10 +502,6 @@ class Entitlement extends Component {
                 </div>
               </div>
 
-
-
-
-
             </div>
           </div>
         );
@@ -533,10 +544,6 @@ class Entitlement extends Component {
       });
     }
 
-    getranSubmit() {
-      this.props.get()
-    }
-
     handleSubmit(e) {
       e.preventDefault();
     }
@@ -556,8 +563,7 @@ class Entitlement extends Component {
 
     componentDidMount() {
       this.props.getEntitlementadditional(this.paramsaddition, !this.props.reload);
-      this.props.onSearch1(this.paramsright, !this.props.reload);
-      this.props.onSearch2(this.paramshis, !this.props.reload);
+      this.props.getdynamicdata(this.paramsdynamic);
     }
 }
 
@@ -566,6 +572,7 @@ const mapStateToProps = (state) => {
         datarightlist: state.entitlement.datarightlist,
         dataadditionalsharelist: state.entitlement.dataadditionalsharelist,
         datahistorylist: state.entitlement.datahistorylist,
+        dynamicdata: state.entitlement.dynamicdata,
     }
 }
 
@@ -578,6 +585,9 @@ const mapDispatchToProps = (dispatch, props) => ({
       },
     getEntitlementadditional: (paramsaddition) => {
       dispatch(actions.getAdditionalshareinfo(paramsaddition))
+    },
+    getdynamicdata: (paramsdynamic) => {
+      dispatch(actions.getDynamicdata(paramsdynamic))
     },
 })
 
