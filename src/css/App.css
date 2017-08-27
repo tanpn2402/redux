@@ -28,6 +28,8 @@ body {
   border-radius: 2px;
 }
 
+
+
 /*COMMONS*/
 .hks-btn {
   border: none;
@@ -57,6 +59,16 @@ body {
 /*remove the red border in a required form input in FIREFOX*/
 input:required {
     box-shadow:none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
+input::-webkit-calendar-picker-indicator {
+  opacity: 1;
 }
 /*END COMMONS*/
 

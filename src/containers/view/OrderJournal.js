@@ -167,14 +167,14 @@ class OrderJournal extends Component {
         this.rowSelected = []
         this.popupType = 'none'
         this.id = 'orderjournal'
-        this.pageIndex = 1
+
         this.param = {
             mvStatus: "ALL",
             mvOrderType: "ALL",
             mvOrderBS: "ALL",
             page: 1,
             start: 0,
-            limit: 100,
+            limit: 15,
         }
     }
 
@@ -182,10 +182,13 @@ class OrderJournal extends Component {
     render() {
         console.log(this.props)
         this.buttonAction = [
-            <Pagination 
+            <Pagination
                     pageIndex={this.state.pageIndex} 
                     totalRecord={this.props.data.mvTotalOrders} 
                     onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                    onReloadPage={this.onReloadPage.bind(this)}
                 />,
 
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
@@ -213,7 +216,7 @@ class OrderJournal extends Component {
                     id="orderjournal-table"
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
-                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
+                    data={data}
                     maxRows={5}
                     defaultPageSize={15} />
 
@@ -308,18 +311,43 @@ class OrderJournal extends Component {
     }
 
     onPageChange(pageIndex) {
-        console.log('orderjournal onPageChange', pageIndex)
-        // this.setState({ pageIndex: pageIndex });
-        // this.pageIndex = pageIndex;
+        if(pageIndex > 0){
+            this.state.pageIndex = pageIndex
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }  
+    }
+
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onReloadPage(){
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param) {
         this.param['mvStatus'] = param.mvStatus
         this.param['mvOrderType'] = param.mvOrderType
         this.param['mvOrderBS'] = param.mvBuysell
-        console.log('orderjournal Page', this.pageIndex)
-        this.param['page'] = this.pageIndex;
-        this.param['start'] = (this.pageIndex - 1) * 15
+        console.log('orderjournal Page', this.state.pageIndex)
+        this.param['page'] = this.state.pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
         console.log('orderjournal onSearch', this.param)
         this.props.onSearch(this.param, !this.props.reload)

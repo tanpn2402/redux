@@ -1,31 +1,52 @@
-import React from "react";
-import {FormGroup, FormControl, Pagination as Pagi} from 'react-bootstrap'
-import ReactTable from "react-table"
-import "react-table/react-table.css"
-import { connect } from 'react-redux'
-import * as actions from '../../actions'
+import React from "react"
+import {FormControl} from 'react-bootstrap'
 
 export default class Pagination extends React.Component {
-	constructor() {
-    	super()
-  	}
+	constructor(props){
+		super(props)
 
-  	componentWillMount(){
-    
-  	}
+		this.state = {
+			page: 1,
+		}
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			page: nextProps.pageIndex,
+		});
+	}
 
   	render() {
-    	const windowid = this.props.windowid
-    	console.log(windowid)
+  		console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA")
     	return (
         	<div className="form-inline form-group pagination-top">
-        		<button type="button" className="hks-btn btn-pagination-top">«</button>
-        		<button type="button" className="hks-btn btn-pagination-top">‹</button>
+	        	{
+	        		this.props.onFirstPage === undefined ? '' : 
+	        		(
+	        			<button type="button" className="hks-btn btn-pagination-top" 
+	                	onClick={this.props.onFirstPage.bind(this)}>«</button>
+	        		)
+	        	}
+	        	
+	        	<button type="button" className="hks-btn btn-pagination-top" 
+                	onClick={this.props.onPrevPage.bind(this)}>‹</button>
         		<span>Page</span>
-        		<input type="number" placeholder="1" className="hks-input page-input" onKeyDown={ e => this.onPageChange(e) }/>
-        		<button type="button" className="hks-btn btn-pagination-top">›</button>
-        		<button type="button" className="hks-btn btn-pagination-top">»</button>
-        		<button type="button" className="hks-btn btn-pagination-top">
+        		<input type="number" value={this.state.page} id="pageinput" className="hks-input page-input" 
+        			onKeyDown={ e => this.onPageChange(e) } 
+        			onChange={e => e.target.value > 0 ? this.setState({ page: e.target.value }) : 0}/>
+        		<button type="button" className="hks-btn btn-pagination-top" 
+                	onClick={this.props.onNextPage.bind(this)}>›</button>
+
+	        	{
+	        		this.props.onLastPage === undefined ? '' : 
+	        		(
+	        			<button type="button" className="hks-btn btn-pagination-top" 
+	                	onClick={this.props.onFirstPage.bind(this)}>»</button>
+	        		)
+	        	}
+
+        		<button type="button" className="hks-btn btn-pagination-top" 
+                	onClick={this.props.onReloadPage.bind(this)}>
         			<span className="glyphicon glyphicon-refresh"></span>
         		</button>
         		{'  |  '}
@@ -39,4 +60,5 @@ export default class Pagination extends React.Component {
   			this.props.onPageChange(e.target.value)
   		}
   	}
+
 }
