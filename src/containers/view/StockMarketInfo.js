@@ -3,7 +3,7 @@ import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from '../DataTable'
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 
 class StockMarketInfo extends Component {
 	constructor(props) {

@@ -66,6 +66,10 @@ class BaseLayout extends React.Component {
             {
                 
                 this.state.layout[p[i]] = config.layoutdefault[p[i]]
+                if(window.innerWidth < 600){
+                    this.state.layout[p[i]].static = true
+
+                }
                 /*if(window.innerWidth > 1100)
                 {
                     this.state.layout[p[i]] = config.layoutdefault[p[i]]

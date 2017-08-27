@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstrap'
 
 class WatchList extends Component {

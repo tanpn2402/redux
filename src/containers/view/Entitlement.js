@@ -6,7 +6,7 @@ import Popup from '../Popup'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from '../DataTable'
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import Footer from '../DataTableFooter'
 
 class Entitlement extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import DataTable from '../DataTable'
 import DataUpperTable from '../DataUpperTable'
 import { connect } from 'react-redux'

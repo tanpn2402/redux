@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -142,7 +142,7 @@ class OrderConfirmation extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
+                    param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                 <DataTable
                     id={this.id + '-table'}
                     onRowSelected={this.onRowSelected.bind(this)}
