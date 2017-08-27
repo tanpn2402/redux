@@ -322,7 +322,7 @@ input::-webkit-calendar-picker-indicator {
     position: absolute;
     background-color: #fff;
     width: 115px;
-    max-height: 200px;
+    max-height: 170px;
     overflow-y: auto;
     transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
     box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.2);
