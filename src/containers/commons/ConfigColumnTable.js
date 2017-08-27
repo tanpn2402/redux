@@ -60,22 +60,22 @@ export default class ConfigColumnTable extends React.Component {
     }
 
     renderListItems() {
+        console.log(this.props.columns)
         var items = [];
         for (var i = 0; i < this.props.columns.length; i++) {
             var item = this.props.columns[i]
             if (item.skip === false) {
                 items.push(
                     <div className="dropdown-item">
-            
-            <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
-              {item.Header}
-            </Checkbox>
-          </div>
-                );
+                        <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
+                        {item.Header}
+                        </Checkbox>
+                    </div>
+                )
             }
 
         }
-        return items;
+        return items
     }
 }
 

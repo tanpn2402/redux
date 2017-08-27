@@ -155,7 +155,7 @@ class BaseLayout extends React.Component {
         const layout = this.props.layout[this.props.page]
         return (
 
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={54} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320} 
                 onResize={this.onResize.bind(this)}
                 onResizeStop={this.onResizeStop.bind(this)}
                 onDragStop={this.onDragStop.bind(this)}
