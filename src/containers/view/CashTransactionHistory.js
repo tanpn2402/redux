@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 import SearchBar from '../commons/SearchBar'
-import DataTable from '../DataTable';
-import Footer from '../DataTableFooter';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import Pagination from '../commons/Pagination'
+import DataUpperTable from '../DataUpperTable'
+import DataTable from '../DataTable'
+import Footer from '../DataTableFooter'
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
+import moment from 'moment'
 
 class CashTransactionHistory extends Component {
     constructor(props) {
@@ -12,8 +15,8 @@ class CashTransactionHistory extends Component {
 
         this.params = {
             tradeType: 'ALL',
-            mvStartDate: '',
-            mvEndDate: '',
+            mvStartDate: moment(),
+            mvEndDate: moment(),
             start: 0,
             limit: 15,
             page: 1
@@ -49,13 +52,15 @@ class CashTransactionHistory extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: false,
+                    show: true,
                 },
                 {
                     id: 'mvAmount',
                     Header: this.props.language.cashtransaction.header.amount,
                     accessor: 'totalLendingAmt',
                     width: 150,
+                    skip: false,
                     skip: false,
                     show: true,
                 },
@@ -69,14 +74,15 @@ class CashTransactionHistory extends Component {
                             <span>{this.props.language.cashtransaction.status[props.original.status]}</span>
                         )
                     },
-                    sortable: false,
-                    skip: true
+                    sortable: true,
+                    skip: false,
+                    show: true,
                 },
                 {
                     id: 'mvNotes',
                     Header: this.props.language.cashtransaction.header.notes,
                     accessor: 'remark',
-                    width: 625,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
@@ -84,7 +90,7 @@ class CashTransactionHistory extends Component {
                     id: 'mvLastUpdate',
                     Header: this.props.language.cashtransaction.header.lastupdate,
                     accessor: 'lastApprovaltime',
-                    width: 200,
+                    width: 150,
                     skip: false,
                     show: true,
                 }
@@ -127,7 +133,8 @@ class CashTransactionHistory extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: false,
+                    show: true,
                 },
                 {
                     id: 'mvAmount',
@@ -148,13 +155,14 @@ class CashTransactionHistory extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: false,
+                    show: true,
                 },
                 {
                     id: 'mvNotes',
                     Header: nextProps.language.cashtransaction.header.notes,
                     accessor: 'remark',
-                    width: 625,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
@@ -162,7 +170,7 @@ class CashTransactionHistory extends Component {
                     id: 'mvLastUpdate',
                     Header: nextProps.language.cashtransaction.header.lastupdate,
                     accessor: 'lastApprovaltime',
-                    width: 200,
+                    width: 150,
                     skip: false,
                     show: true,
                 }
@@ -175,39 +183,41 @@ class CashTransactionHistory extends Component {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         console.log('data' + this.id, this.props.data)
         var page = this.props.data.mvCurrentPage === undefined ? 1 : this.props.data.mvCurrentPage
+
+        let buttonAction = [
+            <Pagination
+                    pageIndex={this.pageIndex} 
+                    totalRecord={this.props.data.totalCount} 
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                    onReloadPage={this.onReloadPage.bind(this)}
+                />,
+        ]
+
         return (
 
             <div id={'cashtransactionhistory-body'} className="layout-body">
                 <SearchBar
                     id={this.id}
                     onSearch={this.onSearch.bind(this)}
-                    buttonAction={[]}
+                    buttonAction={buttonAction}
                     stockList={[]}
                     language={this.props.language.searchbar}
                     columns={this.state.columns}
                     theme={this.props.theme}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                <DataTable
+                <DataUpperTable
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
                     data={data}
-                    windowid="cashtransactionhistory" />
-                <Footer pageIndex={this.pageIndex} totalRecord={this.props.data.totalCount} onPageChange={this.onPageChange.bind(this)} />
+                    maxRows={19}
+                    defaultPageSize={19}/>
             </div>
         )
 
     }
-
-
-    // componentDidMount() {
-    //     console.log('did mount', this.params)
-    //     var d = new Date()
-    //     var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
-    //     this.params['mvStartDate'] = today
-    //     this.params['mvEndDate'] = today
-    //     this.props.onSearch(this.params)
-    // }
 
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -240,22 +250,41 @@ class CashTransactionHistory extends Component {
     }
 
     onPageChange(pageIndex) {
-        this.setState({ pageIndex: pageIndex });
-        this.pageIndex = pageIndex;
-        this.params['page'] = this.pageIndex;
-        this.params['start'] = (this.pageIndex - 1) * 15;
-        console.log(this.params)
+        //this.setState({ pageIndex: pageIndex })
+        if(pageIndex > 0){
+            this.pageIndex = pageIndex
+            this.params['page'] = this.pageIndex
+            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
+        }
+    }
+
+    onNextPage(){
+        if(this.pageIndex > 0){
+            this.pageIndex = parseInt(this.pageIndex) + 1
+            this.params['page'] = this.pageIndex
+            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
+        }
+    }
+
+    onPrevPage(){
+        if(this.pageIndex > 1){
+            this.pageIndex = parseInt(this.pageIndex) - 1
+            this.params['page'] = this.pageIndex
+            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
+        }
+    }
+
+    onReloadPage(){
         this.props.onSearch(this.params, !this.props.reload)
     }
 
     onSearch(param) {
-        console.log(this.id + ' onSearch', this.params)
-        this.params['tradeType'] = param.mvTrade.toUpperCase();
-        this.params['mvStartDate'] = param.mvStartDate;
-        this.params['mvEndDate'] = param.mvEndDate;
-        // this.params['page'] = this.pageIndex;
-        // this.params['start'] = (this.pageIndex - 1) * 15;
-        console.log(this.params)
+        this.params['tradeType'] = param.mvTrade.toUpperCase()
+        this.params['mvStartDate'] = param.mvStartDate
+        this.params['mvEndDate'] = param.mvEndDate
         this.props.onSearch(this.params, !this.props.reload)
     }
 }

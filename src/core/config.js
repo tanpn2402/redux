@@ -138,7 +138,7 @@ const config = {
 	layoutdefault : {
 		enterorder: {i: 'enterorder', x:0, y:0, w: 2, h: 6, minW: 1, minH: 6, maxW: 30, maxH: 15, isResizable: false},
 		orderjournal: {i: 'orderjournal', x:0, y:0, w: 8, h: 4, minW: 8, minH: 4, maxW: 8, maxH: 10},
-		cashtransactionhistory: { i: 'cashtransactionhistory', x: 0, y: 0, w: 30, h: 14, minW: 30, minH: 14, maxW: 30, maxH: 15 },
+		cashtransactionhistory: { i: 'cashtransactionhistory', x: 0, y: 0, w: 8, h: 10, minW: 5, minH: 10, maxW: 8, maxH: 10 },
 		orderconfirmation: {i: 'orderconfirmation', x:0, y:0, w: 30, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15, static: false},
 		porfolio: {i: 'porfolio', x:0, y:0, w: 30, h: 20, minW: 22, minH: 20, maxW: 30, maxH: 25, static: false, isResizable: false},
 		ordershistory: {i: 'ordershistory', x:0, y:0, w: 22, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15},
