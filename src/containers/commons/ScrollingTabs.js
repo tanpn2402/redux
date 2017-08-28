@@ -4,29 +4,20 @@ export default class ScrollingTabs extends Component {
 
     render() {
         return (
-            <div className="scrolling-tabs-main">
-               <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)}>
+            <div className="scrolling-tabs-main tab-bar">
+               <button className="hks-btn btn-tabbar-prev" onClick={e => this.onTabSlideClick(1)}>
                     <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
                </button>
-               <div className="scroll">
-                    <div className="scrolling-tabs" id="scrolling-tabs">
+               <div className="scroll tab-bar">
+                    <div className="scrolling-tabs" id="scrolling-tabbar">
                         <nav className='vertical-align-middle'>
                             {
                                 this.props.tabList.map(tab => {
-                                    console.log(tab)
                                     return ( 
-                                        <span id={tab} key={tab}  className='tabs-item'>
-                                            {this.props.language[tab]}
-                                            <button
-                                                id={tab}
-                                                className="hks-btn btn-tab-close"
-                                                type="button"
-                                                title="Remove this page"
-                                                onClick={this.props.onRemove.bind(this)}
-                                                >
-                                                ×
-                                                </button>
-                                        </span>
+                                        <button id={'tab-id-'+tab[0]} key={'tab-key-'+tab[0]} className={'tabs-item ' + tab[1] + ' tab-' + this.props.id}
+                                        onClick={e => this.onTabClick(e, tab[2])}>
+                                            {tab[0]}
+                                        </button>
                                     )
                                 })
                             }
@@ -34,25 +25,30 @@ export default class ScrollingTabs extends Component {
                         </nav>
                     </div>
                 </div>
-                <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)}>
+                <button className="hks-btn btn-tabbar-next" onClick={e => this.onTabSlideClick(2)}>
                     <span className="glyphicon glyphicon-menu-right"></span>
                 </button>
             </div>
         )
     }
-
+    onTabClick(e, tab){
+        if(e.target.className.indexOf('disabled') > 0)
+            return
+        let list = document.getElementsByClassName('tab-' + this.props.id)
+        for(var i = 0; i < list.length; i++){
+            list[i].className = list[i].className.replace('actived', 'normal')
+        }
+        e.target.className = e.target.className.replace('normal', 'actived')
+        this.props.onTabClick(tab, e)
+    }
     onTabSlideClick(i){
         console.log('sd')
         if(i === 1){
-            $("#scrolling-tabs").animate( { scrollLeft: '-=200' }, 500);
+            $("#scrolling-tabbar").animate( { scrollLeft: '-=200' }, 500);
         }
         else{
-            $("#scrolling-tabs").animate( { scrollLeft: '+=200' }, 500);
+            $("#scrolling-tabbar").animate( { scrollLeft: '+=200' }, 500);
         }
     }
-    componentDidMount(){
-
-
-    }
-
+    
 }

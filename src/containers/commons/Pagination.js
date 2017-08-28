@@ -44,10 +44,17 @@ export default class Pagination extends React.Component {
 	        		)
 	        	}
 
-        		<button type="button" className="hks-btn btn-pagination-top" 
-                	onClick={this.props.onReloadPage.bind(this)}>
-        			<span className="glyphicon glyphicon-refresh"></span>
-        		</button>
+        		{
+	        		this.props.onLastPage === undefined ? '' : 
+	        		(
+	        			<button type="button" className="hks-btn btn-pagination-top" 
+		                	onClick={this.props.onReloadPage.bind(this)}>
+		        			<span className="glyphicon glyphicon-refresh"></span>
+		        		</button>
+	        		)
+	        	}
+
+		        		
         		{'  |  '}
         	</div>
     	)

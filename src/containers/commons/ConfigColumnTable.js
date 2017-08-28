@@ -60,7 +60,6 @@ export default class ConfigColumnTable extends React.Component {
     }
 
     renderListItems() {
-        console.log(this.props.columns)
         var items = [];
         for (var i = 0; i < this.props.columns.length; i++) {
             var item = this.props.columns[i]

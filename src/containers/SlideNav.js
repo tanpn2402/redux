@@ -19,7 +19,8 @@ class SlideNav extends Component {
             <div id="slidenav" className="sidenav">
             
                 <div className="input-group input-group-search">
-                    <input type="text" id="main-menu-search" className="form-control" placeholder="Menu" onChange={e => this.onChange(e.target.value, this.props.language)}/>
+                    <input type="text" id="main-menu-search" className="form-control" placeholder="Menu"
+                        onChange={e => this.onChange(e.target.value, this.props.language)}/>
                     <span className="input-group-addon">
                         <button type="submit">
                             <span className="glyphicon glyphicon-search"></span>
@@ -71,7 +72,12 @@ class SlideNav extends Component {
     }
 
     onChange(value, language){
-        
+        console.log(value)
+        if(value === ']'){
+            document.getElementById('main-menu-search').value = 
+                document.getElementById('main-menu-search').value.replace(']', '')
+            value = ''
+        }
         var menuitems =   config.menu_items
 
         if(value === ''){

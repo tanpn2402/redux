@@ -9,7 +9,7 @@ export default class VerticalTable extends Component {
 	render() {
 		console.log('VerticalTable', this.props)
 		return(
-			<Table bordered className={'vertical-table'}>
+			<table className={'table table-bordered vertical-table'}>
 				{
 					this.props.showHeader !== undefined ? '' : 
 						this.props.showHeader === false ? '' :
@@ -25,7 +25,7 @@ export default class VerticalTable extends Component {
 						    	</thead>
 							)
 				}
-		    	<tbody>
+		    	<tbody style={{ height:'200px', overflowY:'auto' }}>
 		    		{
 		    			this.props.title.map(e => {
 		    				return(
@@ -43,7 +43,7 @@ export default class VerticalTable extends Component {
 		    			})
 		    		}
 		    	</tbody>
-		  </Table>
+		  	</table>
 		)
 	}
 }
