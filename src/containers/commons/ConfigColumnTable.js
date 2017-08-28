@@ -48,14 +48,14 @@ export default class ConfigColumnTable extends React.Component {
 
     render() {
         return (
-            <div className="dropdown-container">
-        <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}><span className="glyphicon glyphicon-th-list"></span></div>
-        <div className={"dropdown-list " + (this.state.listVisible ? "show": "hide")}
-          onMouseOver={this.onMouseOver.bind(this)}
-          onMouseOut={this.onMouseOut.bind(this)}>
-            {this.renderListItems()}
-        </div>
-      </div>
+            <div className="dropdown-container" id={this.props.id+"-columns"}>
+                <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}><span className="glyphicon glyphicon-th-list"></span></div>
+                <div className={"dropdown-list " + (this.state.listVisible ? "show": "hide")}
+                  onMouseOver={this.onMouseOver.bind(this)}
+                  onMouseOut={this.onMouseOut.bind(this)}>
+                    {this.renderListItems()}
+                </div>
+            </div>
         );
     }
 
@@ -66,7 +66,7 @@ export default class ConfigColumnTable extends React.Component {
             var item = this.props.columns[i]
             if (item.skip === false) {
                 items.push(
-                    <div className="dropdown-item">
+                    <div className="dropdown-item" key={item.id}>
                         <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
                         {item.Header}
                         </Checkbox>

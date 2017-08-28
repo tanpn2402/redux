@@ -950,3 +950,29 @@ input::-webkit-calendar-picker-indicator {
     width: 45px;
 }
 /*END PAGINATION*/
+/*CASH ADVANCE*/
+
+.form-cashadvance tbody > tr,
+.form-cashadvance tbody > tr > th,
+.form-cashadvance tbody > tr > td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.form-cashadvance tbody {
+    border: 1px solid #dcdcdc;
+}
+.form-cashadvance tbody > tr > th {
+    background-color: #efefef;
+}
+.cashadvance-action {
+    margin-top: -10px;
+}
+.cashadvance-action button {
+    margin: 0 10px 0 10px;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 0;
+    border: 0;
+}
+/*END CASH TRANSFER*/

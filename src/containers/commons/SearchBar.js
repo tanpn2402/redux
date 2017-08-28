@@ -307,7 +307,10 @@ export default class SearchBar extends React.Component {
                     this.props.param.indexOf('dropdown') < 0 ? '' :
                         (
                                 <FormGroup bsClass="form-group dropdowncheckbox">
-                                    <ConfigColumnTable columns={this.props.columns} onChangeStateColumn={this.props.onChangeStateColumn}/>
+                                    <ConfigColumnTable 
+                                        id={this.props.id}
+                                        columns={this.props.columns} 
+                                        onChangeStateColumn={this.props.onChangeStateColumn}/>
                                 </FormGroup>
                            
                         )

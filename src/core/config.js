@@ -149,7 +149,7 @@ const config = {
 		personalprofile: {i: 'personalprofile', x:0, y:0, w: 6, h:6, minW: 6, minH: 6, maxW: 6, maxH: 6, static: false, isResizable: false },
 		oddlottrading: {i: 'oddlottrading',  x:0, y:0, w: 8, h: 10, minW: 8, minH: 10, maxW: 8, maxH: 10, static: false, isResizable: false},
 		cashtransfer: {i: 'cashtransfer', x:0, y:0, w: 8, h: 10, minW: 8, minH: 8, maxW: 8, maxH: 8, static: false, isResizable: false},
-		cashadvance: {i: 'cashadvance', x:0, y:0, w: 30, h: 14, minW: 20, minH: 10, maxW: 30, maxH: 10,},
+		cashadvance: {i: 'cashadvance', x:0, y:0, w: 8, h: 10, minW: 8, minH: 10, maxW: 8, maxH: 10, static: false, isResizable: false},
 		marginloan: {i: 'marginloan', x:0, y:0, w: 30, h: 14, minW: 22, minH: 14, maxW: 30, maxH: 15,},
 		available : {i: 'available', x:0, y:0, w: 4, h: 8, minW: 4, minH: 8, maxW: 8, maxH: 6, static: false, isResizable: false},
 		accountinfo: {i: 'accountinfo', x:0, y:0, w: 3, h: 6, minW: 3, minH: 6, maxW: 8, maxH: 6, static: false, isResizable: true},

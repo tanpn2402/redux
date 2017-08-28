@@ -17,7 +17,6 @@ export default class Pagination extends React.Component {
 	}
 
   	render() {
-  		console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA")
     	return (
         	<div className="form-inline form-group pagination-top">
 	        	{
