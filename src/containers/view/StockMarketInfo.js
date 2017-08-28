@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import DataUpperTable from '../DataUpperTable'
 import SearchBar from '../commons/SearchBar'
+import HorizontalTable from './../commons/HorizontalTable'
 
 class StockMarketInfo extends Component {
 	constructor(props) {
@@ -130,13 +131,26 @@ class StockMarketInfo extends Component {
                     param={['mvStockId']}/>
 
  			
- 					<div className="col-xs-5 stock-stat">
- 						<VerticalTable header={this.state.header} title={this.state.title} data={this.data}/>
+ 					<div className=" col-sm-5 stock-stat" style={{minWidth: '200px'}}>
+ 						<HorizontalTable 
+							showHeader={false}
+							header={[]} 
+							title={this.state.title} 
+							language={this.props.language.header}
+							data={this.data}/>
  					</div>
- 					<div className="col-xs-7 stock-info">
+ 					<div className=" col-sm-7 stock-info">
  					
-	 					<DataTable id={this.id + "-table1"} columns={this.state.columns1} defaultPageSize={3}/>
-	 					<DataTable id={this.id + "-table2"} columns={this.state.columns2} defaultPageSize={3}/>
+	 					<DataUpperTable 
+	 						id={this.id + "-table1"} 
+	 						columns={this.state.columns1} 
+	 						maxRows={3}
+	 						defaultPageSize={3}/>
+	 					<DataUpperTable 
+	 						id={this.id + "-table2"} 
+	 						columns={this.state.columns2}
+	 						maxRows={4} 
+	 						defaultPageSize={15}/>
  					</div>
  			
  	      	</div>

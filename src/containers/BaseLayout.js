@@ -21,7 +21,7 @@ class BaseLayout extends React.Component {
             reload: false,
             layout: []
         }
-        this.layoutCols =  {lg: 8, md: 8, sm: 6, xs: 4, xxs: 2}
+        this.layoutCols =  {lg: 8, md: 6, sm: 4, xs: 2, xxs: 2}
     }
 
     generateChild(menuid){

@@ -1042,18 +1042,19 @@ input::-webkit-calendar-picker-indicator {
 .horizontal-table > .ht-body > .ht-tr:not(:first-child) {
     border-top: 1px solid #efefef;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td {
+.horizontal-table > .ht-body > .ht-tr > .ht-td,
+.horizontal-table > .ht-header > .ht-tr > .ht-th {
     display: inline-block;
 }
 .horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title {
-    width: 60%;
-    padding-left: 10px;
+    width: 50%;
+    padding-left: 5px;
     background-color: #dcdcdc;
     height: 100%;
 }
 .horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value {
-    width: 40%;
-    max-width: 150px;
-    min-width: 80px;
+    width: 50%;
+    max-width: 120px;
+    min-width: 50px;
     text-align: center;
 }
