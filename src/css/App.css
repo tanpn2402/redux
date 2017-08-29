@@ -21,6 +21,16 @@ body {
     background-color: #999;
     border-radius: 2px;
 }
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, 
+.col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, 
+.col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, 
+.col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, 
+.col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, 
+.col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, 
+.col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-left: 1px;
+  padding-right: 1px;
+}
 /*COMMONS*/
 
 .hks-btn {
@@ -59,19 +69,20 @@ input::-webkit-calendar-picker-indicator {
 /*END COMMONS*/
 /*LAYOUT*/
 
-.child-grid-body {
+.component-wrapper {
     width: 100%;
     height: 100%;
     background-color: #fff;
     border: 1px solid #c4c4c4;
-    /*box-shadow: 0.1px 0.1px 5px;*/
-    /*-moz-box-shadow: 2px 2px 5px;
-  -webkit-box-shadow: 2px 2px 5px;
-  -o-box-shadow: 5px 5px 5px;
-  -ms-box-shadow: 5px 5px 5px;*/
 }
-.child-grid-header {
-    //border: 1px solid #AEB5BA;  
+.component-main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 1px;
+}
+.component-header {
     background-color: #005899;
     width: 100%;
     height: 25px;
@@ -79,6 +90,7 @@ input::-webkit-calendar-picker-indicator {
     top: 0;
     padding-left: 10px;
     padding-top: 3px;
+    z-index: 1;
 }
 .content-block-head {
     font-size: 14px;
@@ -96,7 +108,7 @@ input::-webkit-calendar-picker-indicator {
 .react-resizable-handle {
     right: 5px;
 }
-.layout-body {
+.component-body {
     margin-top: 25px;
 }
 .closebtn {
@@ -183,9 +195,13 @@ input::-webkit-calendar-picker-indicator {
 }
 /*END MAIN MENU NAV BAR*/
 /*DATATABLE*/
-
+.hks-table {
+    height: 100%;
+}
 .datatable {
     text-align: center;
+    font-size: 12px;
+    height: 100%;
 }
 .datatable input[type=checkbox] {
     margin-top: 0px;
@@ -592,13 +608,7 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 1px;
 }
 /*END HEADER*/
-/*STOCK INFO*/
 
-.stock-stat,
-.stock-info {
-    padding: 0;
-}
-/*END STOCK INFO*/
 /*OVERLAY*/
 
 #overlay {
@@ -909,10 +919,12 @@ input::-webkit-calendar-picker-indicator {
 .hks-btn.btn-tab-prev.search-bar { /*for search-bar*/
     float: left;
     margin: 0;
+    height: 23px;
 }
 .hks-btn.btn-tab-next.search-bar { /*for search-bar*/
     float: right;
     margin-right: 3px;
+    height: 23px;
 }
 .scroll {
     position: absolute;
@@ -1027,15 +1039,14 @@ input::-webkit-calendar-picker-indicator {
 .horizontal-table {
     font-size: 12px;
     border: 1px solid #dcdcdc;
-}
-.horizontal-table > .ht-header {
-
+    height: 100%;
+    overflow: auto;
 }
 .horizontal-table > .ht-body {
-    overflow: auto;
-    height: 260px;
+    height: 100%;
 }
-.horizontal-table > .ht-body > .ht-tr {
+.horizontal-table > .ht-body > .ht-tr,
+.horizontal-table > .ht-header > .ht-tr {
     min-height: 21px;
     line-height: 1.9;
 }
@@ -1046,15 +1057,76 @@ input::-webkit-calendar-picker-indicator {
 .horizontal-table > .ht-header > .ht-tr > .ht-th {
     display: inline-block;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title {
+.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title {
     width: 50%;
     padding-left: 5px;
     background-color: #dcdcdc;
     height: 100%;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value {
+.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
     width: 50%;
     max-width: 120px;
     min-width: 50px;
     text-align: center;
 }
+.horizontal-table > .ht-header {
+
+}
+.horizontal-table > .ht-header > .ht-tr,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value{
+    color: #fff;
+    background-color: #005899;
+}
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
+    text-align: center;
+}
+/*END HORIZONTAL TABLE*/
+
+/*PORTFOLIO*/
+.component-main.portfolio {
+    padding-top: 0px;
+}
+.component-main.portfolio > .dtable {
+    position: absolute;
+    padding-top: 292px;
+    height: 100%;
+    width: 100%;
+}
+.component-main.portfolio > .statment {
+    position: absolute;
+    width: 100%;
+    padding-top: 25px;
+    z-index: 1;
+}
+.component-main.portfolio > .statment .statment-table {
+    padding-top: 2px;
+}
+@media (max-width: 768px){
+    .component-main.portfolio > .dtable {
+        padding-top: 492px;
+    }
+}
+/*END PORTFOLIO*/
+
+/*STOCKMARET INFOR*/                /*NOT DONE*/
+.component-main.stockmarketinfo > .stock-stat {
+    min-width: 200px;
+    height: 100%;
+}
+.component-main.stockmarketinfo > .stock-info {
+    height: 100%;
+}
+@media (max-width: 768px){
+    
+}
+/*END STOCKMARET INFOR*/
+
+/*ACCOUNT INFO*/
+.component-main.accountinfo {
+    padding-top: 49px;
+}
+/*END ACCOUNT INFO*/

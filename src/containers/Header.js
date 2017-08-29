@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
 import ReactTable from 'react-table'
+import $ from 'jquery'
 
 export default class App extends React.Component {
 	constructor(){
@@ -152,23 +153,28 @@ export default class App extends React.Component {
 
   	onHideHeader(e){
 
-  		var slider = document.getElementById('header-lg')
-  		clearInterval(this.timer)
-        var timer = this.timer
-        document.getElementById('header-sm').style.display = 'block'
-        document.getElementById('header-lg').style.height = document.getElementById('header-lg').offsetHeight - 26 + 'px'
-        timer = setInterval(function() {
+  		// var slider = document.getElementById('header-lg')
+  		// clearInterval(this.timer)
+    //     var timer = this.timer
+    //     document.getElementById('header-sm').style.display = 'block'
+    //     document.getElementById('header-lg').style.height = document.getElementById('header-lg').offsetHeight - 26 + 'px'
+    //     timer = setInterval(function() {
 
-            if(slider.offsetHeight > 0 ) {
-                slider.style.height =  slider.offsetHeight - 1 + 'px'
-                document.getElementById('pagecontent').style.minHeight = document.getElementById('pagecontent').offsetHeight + 1 + 'px'
-                console.log(slider.offsetHeight)
-            }else {
-                clearInterval(timer)
-                document.getElementById('header-user').style.display = 'none'
+    //         if(slider.offsetHeight > 0 ) {
+    //             slider.style.height =  slider.offsetHeight - 1 + 'px'
+    //             document.getElementById('pagecontent').style.minHeight = document.getElementById('pagecontent').offsetHeight + 1 + 'px'
+    //             console.log(slider.offsetHeight)
+    //         }else {
+    //             clearInterval(timer)
+    //             document.getElementById('header-user').style.display = 'none'
                 
-            }
-        },1);
+    //         }
+    //     },1);
+
+
+    $('#header-lg').slideUp(200, function(){
+    	
+    })
 
   	}
 

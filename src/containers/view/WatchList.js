@@ -3,6 +3,8 @@ import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import SearchBar from '../commons/SearchBar'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 import {FormControl, Form, ControlLabel, FormGroup, Button} from 'react-bootstrap'
 
 class WatchList extends Component {
@@ -280,7 +282,8 @@ class WatchList extends Component {
                     show: true,
                 }
             ],
-            showAlert: false
+            showAlert: false,
+            pageIndex: 1,
         }
         this.rowSelected = []
         this.id = 'watchlist'
@@ -374,9 +377,32 @@ class WatchList extends Component {
         return i===0 ? false:true
     }
     
+    onPageChange(pageIndex){
+        this.setState({pageIndex: pageIndex });
+    }
+
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+            this.setState({pageIndex: parseInt(this.state.pageIndex) + 1 });
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+            this.setState({pageIndex: parseInt(this.state.pageIndex) - 1 });
+        }
+    }
+
     render() {
         var disableRemove =this.rowSelected.length === 0? true:false;
         this.buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={11}
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                />,
             <Button  bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
             </Button>,
@@ -409,25 +435,29 @@ class WatchList extends Component {
         ]
 
         return (
-            <div id={'watchlist-body'} className="layout-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={[]}
-                    buttonAction={this.buttonAction} 
-                    stockList={[]} 
-                    language={[]} 
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={[]}
-                    param={[]}
-                    hideSearchButton={true}
-                    />
-                <DataTable
-                    id="watchlist-table" 
-                    columns={this.state.columns} 
-                    data={this.props.watchListData}
-                    onRowSelected={this.onRowSelected.bind(this)} 
-                    />
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                <div className="component-main">
+                    <DataUpperTable
+                        id="watchlist-table" 
+                        columns={this.state.columns} 
+                        data={this.props.watchListData}
+                        onRowSelected={this.onRowSelected.bind(this)} 
+                        />
+                </div>
+                <div className="component-body">
+                    <SearchBar
+                        id={this.id}
+                        onSearch={[]}
+                        buttonAction={this.buttonAction} 
+                        stockList={[]} 
+                        language={[]} 
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={[]}
+                        param={['dropdown']}
+                        hideSearchButton={true}
+                        />
+                </div>
             </div>
         )
     }

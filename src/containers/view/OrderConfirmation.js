@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
 import SearchBar from '../commons/SearchBar'
-import DataTable from '../DataTable'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
@@ -120,7 +121,7 @@ class OrderConfirmation extends Component {
             pageIndex: 1,
         }
         this.pageIndex = 1
-        this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Thực hiện</Button>,]
+
         this.rowSelected = []
         this.id = 'orderconfirmation'
         this.param = {}
@@ -131,31 +132,49 @@ class OrderConfirmation extends Component {
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         let lgClose = () => this.setState({ lgShow: false })
+
+        let buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={this.props.data.mvTotalOrders} 
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                    onReloadPage={this.onReloadPage.bind(this)}
+                />,
+
+            <Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Thực hiện</Button>
+        ]
         return (
-            <div id={this.id + '-body'} className="layout-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={this.buttonAction}
-                    stockList={this.props.stockList}
-                    language={this.props.language.searchbar}
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                <DataTable
-                    id={this.id + '-table'}
-                    onRowSelected={this.onRowSelected.bind(this)}
-                    columns={this.state.columns}
-                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
-                />
-                <Footer page={this.state.pageIndex} totalRecord={this.props.data.mvTotalOrders} onPageChange={this.onPageChange.bind(this)} />
-                <Popup
-                    id={this.id}
-                    show={this.state.lgShow} onHide={lgClose}
-                    rowSelected={this.rowSelected} language={this.props.language}
-                    title={this.props.language.orderconfirmation.popup.title}
-                />
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                <div className="component-main">
+                    <DataUpperTable
+                        id={this.id + '-table'}
+                        defaultPageSize={15}
+                        onRowSelected={this.onRowSelected.bind(this)}
+                        columns={this.state.columns}
+                        data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
+                    />
+                </div>
+                <div className="component-body">
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={buttonAction}
+                        stockList={this.props.stockList}
+                        language={this.props.language.searchbar}
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
+                        
+                    <Popup
+                        id={this.id}
+                        show={this.state.lgShow} onHide={lgClose}
+                        rowSelected={this.rowSelected} language={this.props.language}
+                        title={this.props.language.orderconfirmation.popup.title}
+                    />
+                </div>
             </div>
         )
     }
@@ -208,11 +227,29 @@ class OrderConfirmation extends Component {
     }
 
     onPageChange(pageIndex) {
-        // console.log('orderconfirmation onPageChange', pageIndex)
-        this.setState({ pageIndex: pageIndex });
-        this.pageIndex = pageIndex;
+        if(pageIndex > 0){
+            this.state.pageIndex = pageIndex
+            
+        }  
     }
 
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+        
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+           
+        }
+    }
+
+    onReloadPage(){
+        //this.props.onSearch(this.param, !this.props.reload)
+    }
     onSearch(param) {
         if (param.mvStockId === "")
             param.mvStockId = "ALL"

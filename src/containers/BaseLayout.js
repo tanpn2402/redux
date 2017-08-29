@@ -35,7 +35,7 @@ class BaseLayout extends React.Component {
                     maxW: layout[menuid]['maxW'], maxH: layout[menuid]['maxH'], static: layout[menuid]['static'],
                     isResizable: layout[menuid]['isResizable']}}>
 
-                <div className="child-grid-header" >
+                <div className="component-header" >
                         <span className="content-block-head">
                             {this.props.title[menuid]}
                         </span>
@@ -46,12 +46,12 @@ class BaseLayout extends React.Component {
                         </ul>
                         
                 </div>
-                <div id={menuid + '-main'} className="child-grid-body" onMouseDown={ e => e.stopPropagation() }>
-                        {
-                            generateWindow(menuid, this.props)
-                        }
+                
+                {
+                    generateWindow(menuid, this.props)
+                }
                         
-                </div>
+             
             </div>
         )
     }
@@ -65,10 +65,14 @@ class BaseLayout extends React.Component {
             if(this.state.layout[p[i]] === undefined )
             {
                 
-                this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                if(window.innerWidth < 600){
+                
+                if(window.innerWidth < 768){
+                    this.state.layout[p[i]] = config.layoutdefault_sm[p[i]]
                     this.state.layout[p[i]].static = true
 
+                }
+                else{
+                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
                 }
                 /*if(window.innerWidth > 1100)
                 {

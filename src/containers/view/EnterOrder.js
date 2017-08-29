@@ -56,182 +56,184 @@ class EnterOrder extends Component {
     render() {
         let lgClose = () => this.setState({ isShow: false });
         return (
-            <div id={'orderjournal-body'} className="layout-body">
-                <Form onSubmit={this.handleSubmit} id="form-enterorder">
-                    <div className="form-group enterorder-form-group">
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                <div id={'orderjournal-body'} className="component-body">
+                    <Form onSubmit={this.handleSubmit} id="form-enterorder">
+                        <div className="form-group enterorder-form-group">
 
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.buysell} 
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
-                            <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }} required>
-                                <div className="Radiobox">Buy</div>
-                            </Radio>
-                            <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
-                                <div className="Radiobox">Sell</div>
-                            </Radio>
-                        </Col>
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.buysell} 
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref} />
+                                <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }} required>
+                                    <div className="Radiobox">Buy</div>
+                                </Radio>
+                                <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
+                                    <div className="Radiobox">Sell</div>
+                                </Radio>
+                            </Col>
+                       
+                      
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.buysellall}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }}>
+                                    <div className="Radiobox">Buy</div>
+                                </Radio>
+                                <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
+                                    <div className="Radiobox">Sell</div>
+                                </Radio>
+                            </Col>
+                      
                    
-                  
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.buysellall}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "B" }}>
-                                <div className="Radiobox">Buy</div>
-                            </Radio>
-                            <Radio name="radioGroup" inline onChange={() => { this.inputStatus.value = "S" }}>
-                                <div className="Radiobox">Sell</div>
-                            </Radio>
-                        </Col>
-                  
-               
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.stock}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input type='hidden' id="mvMarketID" ref={(ref) => this.input = ref} />
-                            <input list="Stock" name="stock" id="mvStock" placeholder="ex: ACB" required onChange={this.onStockChange} />
-                            <datalist id="Stock">{
-                                this.props.stockList.map(e => {
-                                    return (<option value={e.stockCode}>{e.stockName}
-                                    </option>)
-                                })
-                            }
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.stock}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <input type='hidden' id="mvMarketID" ref={(ref) => this.input = ref} />
+                                <input list="Stock" name="stock" id="mvStock" placeholder="ex: ACB" required onChange={this.onStockChange} />
+                                <datalist id="Stock">{
+                                    this.props.stockList.map(e => {
+                                        return (<option value={e.stockCode}>{e.stockName}
+                                        </option>)
+                                    })
+                                }
 
-                            </datalist>
-                        </Col>
-                   
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.bank}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input id="mvBank" list="Bank" name="bank" id="mvBank" placeholder="ex: ACB-125137309" required />
-                            <datalist id="Bank">
-                                <option value="ACB-125137309" />
-                            </datalist>
-                        </Col>
-                   
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.lending} 
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            {this.isEmptyA(this.props.mvStockInfo) === true ? "0" : 
-                                parseInt(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage)}% 
-                        </Col>
-                   
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.buyingpower}) 
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input type="hidden" id="mvBuyPower" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
-                                ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
-                                    (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
-                                )} />
-                            {this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
-                                ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
-                                    (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
-                                )}
-                        </Col>
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.ordertype}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <FormGroup controlId="mvOrderType">
-                                <input id="mvOrderType" list="ordertype" name="ordertype" placeholder="ex: L" required />
-                                <datalist id="ordertype">
-                                    <option value="L" />
-                                    <option value="ATC" />
-                                    <option value="MAK" />
-                                    <option value="MOK" />
-                                    <option value="MTL" />
-                                    <option value="LO(Odd Lot)" />
                                 </datalist>
-                            </FormGroup>
-                        </Col>
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.volume}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <FormGroup controlId="mvVolume">
-                                <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" placeholder="ex: 100" required />
-
-                            </FormGroup>
-                        </Col>
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.price}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <FormGroup controlId="mvPrice">
-                                <input type="number" min="0" step="any" name="price" onChange={this.onChange} id="mvPrice" placeholder="ex: 10" required />
-                            </FormGroup>
-                        </Col>
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.value}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
-                            {this.calculate() || 0}
-                        </Col>
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.netfee}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <input type="hidden" id="mvNetFee" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
-                            : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))} />
-                            {this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
-                                : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))}
-                        </Col>
-
-                        <Col xs={5} className="title-wapper">
-                            {this.props.language.enterorder.header.expirydate}
-                        </Col>
-                        <Col xs={7} className="value-wapper">
-                            <Col xs={1}>
-                                <input name="isCheck" type="checkbox" 
-                                    checked={this.state.isCheck} 
-                                    onChange={this.handleInputChange} 
-                                    value={this.state.startDate} />
                             </Col>
-                            <Col xs={11}>
-                                <DateTimePicker 
-                                    id='mvDate'
-                                    disabled={!this.state.isCheck} 
-                                    onChange={this.handleChange.bind(this)} 
-                                    selected={this.state.startDate}/>
+                       
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.bank}
                             </Col>
-                           
+                            <Col xs={7} className="value-wapper">
+                                <input id="mvBank" list="Bank" name="bank" id="mvBank" placeholder="ex: ACB-125137309" required />
+                                <datalist id="Bank">
+                                    <option value="ACB-125137309" />
+                                </datalist>
+                            </Col>
+                       
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.lending} 
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                {this.isEmptyA(this.props.mvStockInfo) === true ? "0" : 
+                                    parseInt(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage)}% 
+                            </Col>
+                       
 
-                        </Col>
-                        <div className="clearfix"></div>
-                        <div className="group-btn-action enterorder-action">
-                            <span>
-                                <Button className="btn btn-default" type="submit" className="submit">
-                                    Submit
-                                </Button>
-                                <Button className="btn btn-default" type="reset" className="cancel">
-                                    Cancel
-                                </Button>
-                            </span>
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.buyingpower}) 
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <input type="hidden" id="mvBuyPower" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
+                                    ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
+                                        (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
+                                    )} />
+                                {this.isEmptyA(this.props.mvStockInfo) === true ? "0" :
+                                    ((parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvBuyingPowerd.replace(/,/g, '')) * 1000) /
+                                        (1 - (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvMarginPercentage) / 100))
+                                    )}
+                            </Col>
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.ordertype}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <FormGroup controlId="mvOrderType">
+                                    <input id="mvOrderType" list="ordertype" name="ordertype" placeholder="ex: L" required />
+                                    <datalist id="ordertype">
+                                        <option value="L" />
+                                        <option value="ATC" />
+                                        <option value="MAK" />
+                                        <option value="MOK" />
+                                        <option value="MTL" />
+                                        <option value="LO(Odd Lot)" />
+                                    </datalist>
+                                </FormGroup>
+                            </Col>
+
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.volume}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <FormGroup controlId="mvVolume">
+                                    <input type="number" name="volume" min="0" onChange={this.onChange} id="mvVolume" placeholder="ex: 100" required />
+
+                                </FormGroup>
+                            </Col>
+
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.price}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <FormGroup controlId="mvPrice">
+                                    <input type="number" min="0" step="any" name="price" onChange={this.onChange} id="mvPrice" placeholder="ex: 10" required />
+                                </FormGroup>
+                            </Col>
+
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.value}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
+                                {this.calculate() || 0}
+                            </Col>
+
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.netfee}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <input type="hidden" id="mvNetFee" value={this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
+                                : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))} />
+                                {this.isEmptyA(this.props.mvStockInfo) === true ? "0.00"
+                                    : (this.state.value * parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvTemporaryFee))}
+                            </Col>
+
+                            <Col xs={5} className="title-wapper">
+                                {this.props.language.enterorder.header.expirydate}
+                            </Col>
+                            <Col xs={7} className="value-wapper">
+                                <Col xs={1}>
+                                    <input name="isCheck" type="checkbox" 
+                                        checked={this.state.isCheck} 
+                                        onChange={this.handleInputChange} 
+                                        value={this.state.startDate} />
+                                </Col>
+                                <Col xs={11}>
+                                    <DateTimePicker 
+                                        id='mvDate'
+                                        disabled={!this.state.isCheck} 
+                                        onChange={this.handleChange.bind(this)} 
+                                        selected={this.state.startDate}/>
+                                </Col>
+                               
+
+                            </Col>
+                            <div className="clearfix"></div>
+                            <div className="group-btn-action enterorder-action">
+                                <span>
+                                    <Button className="btn btn-default" type="submit" className="submit">
+                                        Submit
+                                    </Button>
+                                    <Button className="btn btn-default" type="reset" className="cancel">
+                                        Cancel
+                                    </Button>
+                                </span>
+                            </div>
+
                         </div>
-
-                    </div>
-                    <Popup
-                        id='enterorder'
-                        show={this.state.isShow}
-                        onHide={lgClose}
-                        json={this.state.json}
-                        error={this.props.isError}
-                        mvStockBean={this.props.mvStockInfo}
-                        language={this.props.language}
-                        title={this.props.language.enterorder.popup.title} />
-                </Form>
+                        <Popup
+                            id='enterorder'
+                            show={this.state.isShow}
+                            onHide={lgClose}
+                            json={this.state.json}
+                            error={this.props.isError}
+                            mvStockBean={this.props.mvStockInfo}
+                            language={this.props.language}
+                            title={this.props.language.enterorder.popup.title} />
+                    </Form>
+                </div>
             </div>
         );
 

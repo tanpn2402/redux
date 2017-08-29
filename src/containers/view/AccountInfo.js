@@ -376,48 +376,59 @@ class AccountInfo extends Component {
 		}
 
 	    return(
-			<div id={this.id + '-body'} className="layout-body">
-				<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
-				<div style={{padding: '24px 2px 0px 2px',}}>
-					{
-						this.state.tabIndex === 1 ?
-						(
-							<HorizontalTable 
-								showHeader={false}
-								header={this.state.header1} 
-								title={this.state.title1} 
-								language={this.props.language.header} data={data1}/>	
-						) : this.state.tabIndex === 2 ?
-						(
-							<div>
-								<SearchBar
-		                            id={this.id}
-		                            onSearch={[]}
-		                            buttonAction={buttonAction}
-		                            stockList={[]}
-		                            language={this.props.language.searchbar}
-		                            theme={this.props.theme}
-		                            columns={this.state.columns}
-		                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-		                            hideSearchButton={true}
-		                            param={['dropdown']} />
-								<DataUpperTable
-									id={this.id + "-table"}
-									columns={this.state.columns}
-									data={mvStockBalanceInfo}
-									maxRows={9}
-									defaultPgeSize={15}/>
-							</div>
-						) : this.state.tabIndex === 3 ?
-						(
-							<div>asdadas</div>
-						) : this.state.tabIndex === 4 ?
-						(
-							<div>asd</div>
-						) : (
-							<div>asdsds</div>
-						)
-					}
+			<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+				<div className="component-main accountinfo">
+					
+						{
+							this.state.tabIndex === 1 ?
+							(
+								<HorizontalTable 
+									height="100%"
+									showHeader={false}
+									header={this.state.header1} 
+									title={this.state.title1} 
+									language={this.props.language.header} data={data1}/>	
+							) : this.state.tabIndex === 2 ?
+							(
+								<div className="component-wrapper">
+									<div className="component-main">
+			                        	<DataUpperTable
+											id={this.id + "-table"}
+											columns={this.state.columns}
+											data={mvStockBalanceInfo}
+											maxRows={9}
+											defaultPgeSize={15}/>
+			                        </div>
+									<div className="component-body clearfix">
+										<SearchBar
+				                            id={this.id}
+				                            onSearch={[]}
+				                            buttonAction={buttonAction}
+				                            stockList={[]}
+				                            language={this.props.language.searchbar}
+				                            theme={this.props.theme}
+				                            columns={this.state.columns}
+				                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+				                            hideSearchButton={true}
+				                            param={['dropdown']} />
+		                           	</div>
+			                        
+										
+								</div>
+							) : this.state.tabIndex === 3 ?
+							(
+								<div>asdadas</div>
+							) : this.state.tabIndex === 4 ?
+							(
+								<div>asd</div>
+							) : (
+								<div>asdsds</div>
+							)
+						}
+					
+				</div>
+				<div className="component-body clearfix">
+					<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
 				</div>
 			</div>
 	     )

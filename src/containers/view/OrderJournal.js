@@ -201,31 +201,33 @@ class OrderJournal extends Component {
 
         console.log('RENDER IN OrderJournal')
         return (
-            <div id={'orderjournal-body'} className="layout-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={this.buttonAction}
-                    stockList={this.props.stockList}
-                    language={this.props.language.searchbar}
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
-                <DataUpperTable
-                    id="orderjournal-table"
-                    onRowSelected={this.onRowSelected.bind(this)}
-                    columns={this.state.columns}
-                    data={data}
-                    maxRows={5}
-                    defaultPageSize={15} />
-
-                
-                <Popup
-                    id={this.id}
-                    show={this.state.lgShow} onHide={lgClose}
-                    rowSelected={this.rowSelected} language={this.props.language}
-                    popupType={this.popupType} modifyData={this.props.modifyData} title={this.title} />
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                <div className="component-main">
+                    <DataUpperTable
+                        id="orderjournal-table"
+                        onRowSelected={this.onRowSelected.bind(this)}
+                        columns={this.state.columns}
+                        data={data}
+                        maxRows={5}
+                        defaultPageSize={15} />
+                </div>
+                <div className="component-body">
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={this.buttonAction}
+                        stockList={this.props.stockList}
+                        language={this.props.language.searchbar}
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
+                    <Popup
+                        id={this.id}
+                        show={this.state.lgShow} onHide={lgClose}
+                        rowSelected={this.rowSelected} language={this.props.language}
+                        popupType={this.popupType} modifyData={this.props.modifyData} title={this.title} />
+                </div>
             </div>
         )
 

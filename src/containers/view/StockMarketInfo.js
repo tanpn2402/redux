@@ -118,20 +118,9 @@ class StockMarketInfo extends Component {
 
 	render(){
  	     return(
- 	     	<div id={this.id +'-body'} className="layout-body">
- 				<SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={[]} 
-                    stockList={this.props.stockList} 
-                    language={this.props.language.searchbar} 
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={[]}
-                    param={['mvStockId']}/>
-
- 			
- 					<div className=" col-sm-5 stock-stat" style={{minWidth: '200px'}}>
+ 	     	<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+ 	     	  	<div className="component-main stockmarketinfo">
+	 	     		<div className=" col-sm-5 stock-stat" >
  						<HorizontalTable 
 							showHeader={false}
 							header={[]} 
@@ -139,20 +128,36 @@ class StockMarketInfo extends Component {
 							language={this.props.language.header}
 							data={this.data}/>
  					</div>
- 					<div className=" col-sm-7 stock-info">
- 					
-	 					<DataUpperTable 
-	 						id={this.id + "-table1"} 
-	 						columns={this.state.columns1} 
-	 						maxRows={3}
-	 						defaultPageSize={3}/>
-	 					<DataUpperTable 
-	 						id={this.id + "-table2"} 
-	 						columns={this.state.columns2}
-	 						maxRows={4} 
-	 						defaultPageSize={15}/>
+ 					<div className=" col-sm-7 stock-info" >
+ 						<div style={{height: '50%'}}>
+ 							<DataUpperTable 
+		 						id={this.id + "-table1"} 
+		 						columns={this.state.columns1} 
+		 						maxRows={3}
+		 						defaultPageSize={3}/>
+ 						</div>
+		 				
+		 				<div style={{height: '50%'}}>
+		 					<DataUpperTable 
+		 						id={this.id + "-table2"} 
+		 						columns={this.state.columns2}
+		 						maxRows={4} 
+		 						defaultPageSize={15}/>
+		 				</div>
  					</div>
- 			
+	 	     	</div>
+	 	     	<div className="component-body">
+	 				<SearchBar
+	                    id={this.id}
+	                    onSearch={this.onSearch.bind(this)}
+	                    buttonAction={[]} 
+	                    stockList={this.props.stockList} 
+	                    language={this.props.language.searchbar} 
+	                    theme={this.props.theme}
+	                    columns={this.state.columns}
+	                    onChangeStateColumn={[]}
+	                    param={['mvStockId']}/>
+ 				</div>
  	      	</div>
  	    )
     }
