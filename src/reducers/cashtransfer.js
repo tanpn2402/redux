@@ -1,19 +1,24 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  datacashtransfer: [],
-  datacashtable: [],
+  datafundtransfer: [],
+  datahkscashtranhis: [],
+  datagenfundtransfer: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.CASHTRANSFER:
+    case ActionTypes.FUNDTRANSFER:
         return Object.assign({},state,{
-          datacashtransfer: action.data,
+          datafundtransfer: action.data,
         });
-    case ActionTypes.CASHDATATABLE:
+    case ActionTypes.HKSCASHTRANHIS:
         return Object.assign({},state,{
-          datacashtable: action.data,
+          datahkscashtranhis: action.data,
+        });
+    case ActionTypes.GENFUNDTRANSFER:
+        return Object.assign({},state,{
+          datagenfundtransfer: action.data,
         });
     default:
       return state;

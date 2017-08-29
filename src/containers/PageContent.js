@@ -103,7 +103,6 @@ class PageContent extends React.Component {
                         'type': 1,
                         'message': '1',
                     }
-
                 ]
         // this.setState({
         //     listMessage: this.state.listMessage.push(s  )

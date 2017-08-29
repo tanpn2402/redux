@@ -27,7 +27,7 @@ export default class DataTableFooter extends React.Component {
               last
               ellipsis
               boundaryLinks
-              items={Math.ceil((this.props.totalRecord)/15)}
+              items={Math.ceil((this.props.totalRecord)/ this.props.pageSize)}
               maxButtons={5}
               activePage={this.props.pageIndex}
               onSelect={(eventKey) => this.props.onPageChange(eventKey)}/>

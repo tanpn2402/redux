@@ -1,31 +1,33 @@
-import React from "react";
-import {Checkbox, Pagination} from 'react-bootstrap'
+import React from "react"
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 
-export default class App extends React.Component {
-  constructor() {
-    super()
+export default class DataUpperTable extends React.Component {
+	constructor() {
+	    super()
 
-    this.style = {
-      fontSize: '12px',
-      height: '250px',
-    }
-  }
-  render() {
-    const defaultPageSize = this.props.defaultPageSize === undefined ? 15 : this.props.defaultPageSize
-    return (
-        <div id={this.props.id} >
-          <ReactTable
-            className={'datatable'}
-            style={this.style}
-            data={this.props.data}
-            columns={this.props.columns}
-            showPagination= {false}
-            defaultPageSize={defaultPageSize}
-            minRows={8}
-          />
-        </div>
-    );
-  }
+	    this.state = {
+	    	data: [],
+	    }
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+  			data: nextProps.data,
+  		})
+	}
+	render() {
+		let height = this.props.maxRows * 24 + 27 + 'px'
+		return (
+		    <div id={this.props.id} >
+		      <ReactTable
+		        className={'datatable'}
+		        style={{height: height, fontSize: '12px'}}
+		        data={this.state.data}
+		        columns={this.props.columns}
+		        showPagination= {false}
+		        defaultPageSize= {this.props.defaultPageSize} />
+		    </div>
+		)
+	}
 }

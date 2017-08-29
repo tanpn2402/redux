@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import Popup from '../Popup'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -36,11 +38,11 @@ class OrderJournal extends Component {
                     Cell: props => {
                         var child = []
                         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
-                            child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
-                                onClick={() => this.onCancelButton(props.original)}>Hủy</Button>)
+                            child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                onClick={() => this.onCancelButton(props.original)}><span className="glyphicon glyphicon-remove"></span></Button>)
                         if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y')
-                            child.push(<Button bsClass="btn btn-xs btn-primary btn-orderjournal" bsSize="xsmall" type="button"
-                                onClick={() => this.onModifyButton(props.original)}>Sửa</Button>)
+                            child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                onClick={() => this.onModifyButton(props.original)}><span className="glyphicon glyphicon-edit"></span></Button>)
                         return (
                             <span>
                                 {
@@ -165,14 +167,14 @@ class OrderJournal extends Component {
         this.rowSelected = []
         this.popupType = 'none'
         this.id = 'orderjournal'
-        this.pageIndex = 1
+
         this.param = {
             mvStatus: "ALL",
             mvOrderType: "ALL",
             mvOrderBS: "ALL",
             page: 1,
             start: 0,
-            limit: 100,
+            limit: 15,
         }
     }
 
@@ -180,6 +182,15 @@ class OrderJournal extends Component {
     render() {
         console.log(this.props)
         this.buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={this.props.data.mvTotalOrders} 
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                    onReloadPage={this.onReloadPage.bind(this)}
+                />,
+
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
                 onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
@@ -188,7 +199,7 @@ class OrderJournal extends Component {
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         let lgClose = () => this.setState({ lgShow: false })
 
-        console.log('dasdsaddsaad', this.props.modifyData)
+        console.log('RENDER IN OrderJournal')
         return (
             <div id={'orderjournal-body'} className="layout-body">
                 <SearchBar
@@ -200,15 +211,16 @@ class OrderJournal extends Component {
                     theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStatus', 'mvOrderType', 'mvBuysell',]} />
-                <DataTable
+                    param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
+                <DataUpperTable
                     id="orderjournal-table"
                     onRowSelected={this.onRowSelected.bind(this)}
                     columns={this.state.columns}
-                    data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)} />
+                    data={data}
+                    maxRows={5}
+                    defaultPageSize={15} />
 
-                <Footer pageIndex={this.state.pageIndex} totalRecord={this.props.data.mvTotalOrders} onPageChange={this.onPageChange.bind(this)}
-                />
+                
                 <Popup
                     id={this.id}
                     show={this.state.lgShow} onHide={lgClose}
@@ -223,10 +235,6 @@ class OrderJournal extends Component {
         this.props.onSearch(this.param)
 
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('should update order journal', nextProps, nextState)
-    //     return nextProps.data.mvOrderBeanList.length !== this.props.data.mvOrderBeanList.length
-    // }
 
     onCancelButton(param) {
         console.log(param)
@@ -303,18 +311,43 @@ class OrderJournal extends Component {
     }
 
     onPageChange(pageIndex) {
-        console.log('orderjournal onPageChange', pageIndex)
-        this.setState({ pageIndex: pageIndex });
-        this.pageIndex = pageIndex;
+        if(pageIndex > 0){
+            this.state.pageIndex = pageIndex
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }  
+    }
+
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onReloadPage(){
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param) {
         this.param['mvStatus'] = param.mvStatus
         this.param['mvOrderType'] = param.mvOrderType
         this.param['mvOrderBS'] = param.mvBuysell
-        console.log('orderjournal Page', this.pageIndex)
-        this.param['page'] = this.pageIndex;
-        this.param['start'] = (this.pageIndex - 1) * 15
+        console.log('orderjournal Page', this.state.pageIndex)
+        this.param['page'] = this.state.pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
         console.log('orderjournal onSearch', this.param)
         this.props.onSearch(this.param, !this.props.reload)

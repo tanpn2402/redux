@@ -6,46 +6,53 @@ import Popup from '../Popup'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from '../DataTable'
-import SearchBar from '../SearchBar'
+import SearchBar from '../commons/SearchBar'
 import Footer from '../DataTableFooter'
 
 class Entitlement extends Component {
   constructor(props) {
     super(props)
 
+    this.paramsdynamic = {
+      FirstTime: '',
+      key: '1503634889395',
+      mvTimelyUpdate: 'N',
+      dynCashBalance: true,
+    }
+
     this.paramsright = {
         mvActionType: '',
         mvStockId: '',
-        mvStartDate: '',
-        mvEndDate: '',
-        key: '',
-        start: '',
-        limit: '',
-        page: '',
-        _dc: ''
-      },
+        mvStartDate: '24/08/2017',
+        mvEndDate: '24/08/2017',
+        key: '1234',
+        start: '0',
+        limit: '15',
+      }
+
     this.paramsaddition = {
-        mvLastAction: '',
-        mvChildLastAction: '',
-        key: '',
-        start: '',
-        limit: '',
-      },
-      this.paramshis= {
-        mvLastAction: '',
-        mvChildLastAction: '',
+        mvLastAction: 'OTHERSERVICES',
+        mvChildLastAction: 'ENTITLEMENT',
+        key: '4567',
+        start: '0',
+        limit: '15',
+      }
+
+    this.paramshis= {
+        mvLastAction: 'OTHERSERVICES',
+        mvChildLastAction: 'ENTITLEMENT',
         mvStockId: '',
-        mvStartDate: '',
-        mvEndDate: '',
-        key: '',
-        start: '',
-        limit: '',
+        mvStartDate: '24/08/2017',
+        mvEndDate: '24/08/2017',
+        key: '565656556',
+        start: '0',
+        limit: '15',
       }
 
       this.state = {
         columns: [
               {
-                  id: 'stockId',
+                  id: '1',
                   Header: this.props.language.entitlement.header.stock,
                   accessor: 'stockId',
                   width: 80,
@@ -53,7 +60,7 @@ class Entitlement extends Component {
                   show: true,
               },
               {
-                  id: 'typeDescription',
+                  id: '2',
                   Header: this.props.language.entitlement.header.actiontype,
                   accessor: 'typeDescription',
                   width: 80,
@@ -61,7 +68,7 @@ class Entitlement extends Component {
                   show: true,
               },
               {
-                id: 'bookCloseDate',
+                id: '3',
                 Header: this.props.language.entitlement.header.recorddate,
                 accessor: 'bookCloseDate',
                 width: 80,
@@ -69,7 +76,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'totalBonusRight',
+                id: '4',
                 Header: this.props.language.entitlement.header.owningvolume,
                 accessor: 'totalBonusRight',
                 width: 80,
@@ -77,7 +84,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'cashRate',
+                id: '5',
                 Header: this.props.language.entitlement.header.ratecash,
                 accessor: 'cashRate',
                 width: 50,
@@ -85,7 +92,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'stockRate',
+                id: '6',
                 Header: this.props.language.entitlement.header.rate,
                 accessor: 'stockRate',
                 width: 80,
@@ -93,7 +100,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'price',
+                id: '7',
                 Header: this.props.language.entitlement.header.pervalue,
                 accessor: 'price',
                 width: 80,
@@ -101,7 +108,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'totalScript',
+                id: '8',
                 Header: this.props.language.entitlement.header.recievecash,
                 accessor: 'totalScript',
                 width: 80,
@@ -109,7 +116,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'totalIssue',
+                id: '9',
                 Header: this.props.language.entitlement.header.receivedstock,
                 accessor: 'totalIssue',
                 width: 80,
@@ -117,7 +124,7 @@ class Entitlement extends Component {
                 show: true,
               },
               {
-                id: 'status',
+                id: '10',
                 Header: this.props.language.entitlement.header.status,
                 accessor: 'status',
                 width: 80,
@@ -125,7 +132,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'payableDate',
+                id: '11',
                 Header: this.props.language.entitlement.header.payabledate,
                 accessor: 'payableDate',
                 width: 80,
@@ -133,7 +140,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'paidDate',
+                id: '12',
                 Header: this.props.language.entitlement.header.paiddate,
                 accessor: 'paidDate',
                 width: 80,
@@ -142,7 +149,7 @@ class Entitlement extends Component {
             }],
             columns2: [
             {
-                id: 'stock',
+                id: '13',
                 Header: this.props.language.entitlement.header.stock,
                 accessor: 'stockId',
                 width: 80,
@@ -150,7 +157,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'recorddate',
+                id: '14',
                 Header: this.props.language.entitlement.header.recorddate,
                 accessor: 'bookCloseDate',
                 width: 80,
@@ -158,7 +165,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'owningvolume',
+                id: '15',
                 Header: this.props.language.entitlement.header.owningvolume,
                 accessor: 'totalBonusRight',
                 width: 80,
@@ -166,7 +173,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'rightrate',
+                id: '16',
                 Header: this.props.language.entitlement.header.rightrate,
                 accessor: 'rightRate',
                 width: 80,
@@ -174,7 +181,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'actionrate',
+                id: '17',
                 Header: this.props.language.entitlement.header.actionrate,
                 accessor: 'actionRate',
                 width: 80,
@@ -182,7 +189,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'availableqty',
+                id: '18',
                 Header: this.props.language.entitlement.header.availableqty,
                 accessor: 'maxQtyCanBuy',
                 width: 80,
@@ -190,7 +197,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'actionprice',
+                id: '19',
                 Header: this.props.language.entitlement.header.actionprice,
                 accessor: 'price',
                 width: 80,
@@ -198,7 +205,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'startdate',
+                id: '20',
                 Header: this.props.language.entitlement.header.startdate,
                 accessor: 'startDate',
                 width: 80,
@@ -206,7 +213,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'transferdeadline',
+                id: '21',
                 Header: this.props.language.entitlement.header.transferdeadline,
                 accessor: 'bookCloseDate',
                 width: 80,
@@ -214,7 +221,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'registerdeadline',
+                id: '22',
                 Header: this.props.language.entitlement.header.registerdeadline,
                 accessor: 'transenddate',
                 width: 80,
@@ -224,7 +231,7 @@ class Entitlement extends Component {
 
             columns3: [
             {
-                id: 'createTime',
+                id: '23',
                 Header: this.props.language.entitlement.header.registerdate,
                 accessor: 'createTime',
                 width: 80,
@@ -232,15 +239,15 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'tradeStockCode',
+                id: '24',
                 Header: this.props.language.entitlement.header.stock,
-                accessor: 'tradeStockCode',
+                accessor: 'stockId',
                 width: 80,
                 skip: false,
                 show: true,
             },
             {
-                id: 'resultQty',
+                id: '25',
                 Header: this.props.language.entitlement.header.volume,
                 accessor: 'resultQty',
                 width: 80,
@@ -248,7 +255,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'price',
+                id: '26',
                 Header: this.props.language.entitlement.header.actionprice,
                 accessor: 'price',
                 width: 80,
@@ -256,7 +263,7 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'appliedAmt',
+                id: '27',
                 Header: this.props.language.entitlement.header.amount,
                 accessor: 'appliedAmt',
                 width: 80,
@@ -264,14 +271,14 @@ class Entitlement extends Component {
                 show: true,
             },
             {
-                id: 'paiddate',
+                id: '28',
                 Header: this.props.language.entitlement.header.paiddate,
                 width: 80,
                 skip: false,
                 show: true,
             },
             {
-                id: 'status',
+                id: '29',
                 Header: this.props.language.entitlement.header.status,
                 accessor: 'status',
                 width: 80,
@@ -303,18 +310,26 @@ class Entitlement extends Component {
         });
     }
 
+    getEntitlementSubmit() {
+      this.props.getEntitlementSubmit()
+    }
+
     render() {
         var datarightlist = this.props.datarightlist.rightList === undefined ? [] : this.props.datarightlist.rightList
         var dataadditionalsharelist = this.props.dataadditionalsharelist.additionList === undefined ? [] : this.props.dataadditionalsharelist.additionList
         var datahistorylist = this.props.datahistorylist.historyList === undefined ? [] : this.props.datahistorylist.historyList
+        var dynamicdata = this.props.dynamicdata.mvList
+
         let lgClose = () => this.setState({ isShow: false })
+
         return (
           <div id={this.id +'-body'} className="layout-body">
-            <div className="col-md-4">
+
+            <div className="col-sm-3" style={{padding: "0px 1px"}}>
               <div className="title" style={this.props.theme.porfolio.titlestock}>
                 <span>{this.props.language.entitlement.header.entitlementplace}</span>
               </div>
-              <Form onSubmit={this.handleSubmit} id="form-enterorder">
+              <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className={"form-" + this.id}>
                 <FormGroup>
                   <Table responsive >
                     <tbody >
@@ -322,37 +337,40 @@ class Entitlement extends Component {
                         <th className="enterorder">{this.props.language.entitlement.header.bankaccount}</th>
                         <td>
                           <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
-                            <datalist id="Bank">
-                              <option value="ACB-125137309"/>
-                              <option value="MAS"/>
-                            </datalist>
-                          </td>
+                          <datalist id="Bank">
+                            <option value="MAS"/>
+                            <option value="HCM.01 - 123123"/>
+                          </datalist>
+                        </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.cashbalance}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvManualReserve}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.cashavailable}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvWithdrawableAmount}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.buyingpower}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          {this.props.dynamicdata.mvBuyingPowerd}
                         </td>
                       </tr>
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.stockcode}</th>
                         <td>
-                            <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
-                            <datalist id="Bank">
-                                <option value="ACB-125137309" />
-                            </datalist>
+                          <input list="Stock" name="stock" id="mvStock" required />
+                          <datalist id="Stock">{
+                            this.props.stockList.map(e => {
+                                return (<option value={e.stockCode}>{e.stockName}</option>)
+                            })
+                          }
+                        </datalist>
                         </td>
                       </tr>
                       <tr>
@@ -364,7 +382,7 @@ class Entitlement extends Component {
                       <tr>
                         <th className="enterorder">{this.props.language.entitlement.header.registerqty}</th>
                         <td>
-                          <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                          <input name="cashwithdrawable" id="cashwithdrawable" required />
                         </td>
                       </tr>
                       <tr>
@@ -382,7 +400,7 @@ class Entitlement extends Component {
                       <tr>
                         <th>
                           <div className="button">
-                            <Button className="btn btn-default" type="submit" className="submit">Submit</Button>
+                            <Button className="btn btn-default" onClick={this.getEntitlementSubmit.bind(this)} type="submit" className="submit">Submit</Button>
                           </div>
                         </th>
                         <td>
@@ -405,96 +423,110 @@ class Entitlement extends Component {
                   title = {this.props.language.enterorder.popup.title}/>
               </Form>
             </div>
-            <div className="col-md-8">
-              <div>
-                <div className="title" style={this.props.theme.porfolio.titlestock}>
-                  <span>{this.props.language.entitlement.header.corporateactionlist}</span>
-                </div>
-                  <SearchBar
-                    id={this.id + 'search1'}
-                    onSearch={this.onSearch1.bind(this)}
-                    buttonAction={[]}
-                    stockList={this.props.stockList}
-                    language={this.props.language.searchbar}
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
-  	          	  <DataTable
-                    id={this.id + "-table"}
-                    language={this.props.language.entitlement.header}
-                    columns={this.state.columns}
-                    defaultPageSize={7}
-                    data={datarightlist.slice((this.state.pageIndex - 1) * 8 + 1, this.state.pageIndex * 8 + 1)}/>
-                  <Footer
-                    pageIndex={this.state.pageIndex}
-                    totalRecord={datarightlist.length}
-                    onPageChange={this.onPageChange.bind(this)}/>
+
+            <div className="col-sm-9" style={{padding: "0px 1px"}}>
+
+              <div key={this.id + "-xtable1"}>
+                  <div className="title" style={this.props.theme.porfolio.titlestock}>
+                    <span>{this.props.language.entitlement.header.corporateactionlist}</span>
+                  </div>
+                  <div>
+                    <SearchBar
+                      key={this.id+ '-search1'}
+                      id={this.id+ '-search1'}
+                      onSearch={this.onSearch1.bind(this)}
+                      buttonAction={[]}
+                      stockList={this.props.stockList}
+                      language={this.props.language.searchbar}
+                      theme={this.props.theme}
+                      columns={this.state.columns}
+                      onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                      param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
+                    <DataTable
+                      key={this.id + "-table1"}
+                      id={this.id + "-table1"}
+                      language={this.props.language.entitlement.header}
+                      columns={this.state.columns}
+                      defaultPageSize={7}
+                      data={datarightlist}/>
+                    <Footer
+                      pageIndex={this.state.pageIndex}
+                      totalRecord={datarightlist.length}
+                      onPageChange={this.onPageChange.bind(this)}/>
+                  </div>
               </div>
-              <div>
+
+              <div key={this.id + "-xtable3"}>
+                  <div className="title" style={this.props.theme.porfolio.titlestock}>
+                    <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
+                  </div>
+                  <div>
+                    <SearchBar
+                      key={this.id + '-search3'}
+                      id={this.id + '-search3'}
+                      onSearch={this.onSearch2.bind(this)}
+                      buttonAction={[]}
+                      stockList={this.props.stockList}
+                      language={this.props.language.searchbar}
+                      theme={this.props.theme}
+                      columns={this.state.columns3}
+                      onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
+                      param={['mvStockId', 'mvStartDate', 'mvEndDate']}/>
+                    <DataTable
+                      key={this.id + "-table3"}
+                      id={this.id + "-table3"}
+                      language={this.props.language.entitlement.header}
+                      columns={this.state.columns3}
+                      defaultPageSize={7}
+                      data={datahistorylist}/>
+                    <Footer
+                      key={this.id + "-ftable3"}
+                      pageIndex={this.state.pageIndex}
+                      totalRecord={datahistorylist.length}
+                      onPageChange={this.onPageChange2.bind(this)}/>
+                  </div>
+              </div>
+
+              <div key={this.id + "-xtable2"}>
                 <div className="title" style={this.props.theme.porfolio.titlestock}>
                   <span>{this.props.language.entitlement.header.additionalissuesharesinformation}</span>
                 </div>
+                <div>
                   <DataTable
-                    id={this.id + "-table"}
+                    key={this.id + "-table2"}
+                    id={this.id + "-table2"}
                     language={this.props.language.entitlement.header}
                     columns={this.state.columns2}
                     defaultPageSize={5}
                     data={dataadditionalsharelist}/>
-              </div>
-              <div>
-                <div className="title" style={this.props.theme.porfolio.titlestock}>
-                  <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
                 </div>
-                  <SearchBar
-                    id={this.id + 'search2'}
-                    onSearch={this.onSearch2.bind(this)}
-                    buttonAction={[]}
-                    stockList={this.props.stockList}
-                    language={this.props.language.searchbar}
-                    theme={this.props.theme}
-                    columns={this.state.columns3}
-                    onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
-                    param={['mvStockId', 'mvStartDate', 'mvEndDate']}/>
-                  <DataTable
-                    id={this.id + "-table"}
-                    language={this.props.language.entitlement.header}
-                    columns={this.state.columns3}
-                    defaultPageSize={7}
-                    data={datahistorylist.slice((this.state.pageIndex - 1) * 8 + 1, this.state.pageIndex * 8 + 1)}/>
-                  <Footer
-                    pageIndex={this.state.pageIndex}
-                    totalRecord={datahistorylist.length}
-                    onPageChange={this.onPageChange.bind(this)}/>
               </div>
+
             </div>
           </div>
         );
     }
+
     onSearch1(param){
-      this.paramsright['mvActionType']= 'ALL'
+      this.paramsright['mvActionType']='ALL'
       this.paramsright['start'] = ( this.pageIndex - 1 )*15
-      this.paramsright['limit'] = 15
+      this.paramsright['limit'] = '15'
       this.paramsright['mvStockId'] = param['mvStockId']
       this.paramsright['mvStartDate'] = param['mvStartDate']
       this.paramsright['mvEndDate'] = param['mvEndDate']
       this.paramsright['key']= new Date().getTime()
-      this.paramsright['page']= 1
-      
+      this.paramsright['_dc']='12232323232'
+      this.paramsright['page']='1'
       this.props.onSearch1(this.paramsright, !this.props.reload)
     }
 
     onSearch2(param){
-      this.paramshis['mvLastAction']='OTHERSERVICES'
-      this.paramshis['mvChildLastAction']='ENTITLEMENT'
       this.paramshis['start'] = ( this.pageIndex - 1 )*15
-      this.paramshis['limit'] = 15
+      this.paramshis['limit'] = '15'
       this.paramshis['mvStockId'] = param['mvStockId']
       this.paramshis['mvStartDate'] = param['mvStartDate']
       this.paramshis['mvEndDate'] = param['mvEndDate']
       this.paramsright['key']= new Date().getTime()
-      this.paramsright['page']= 1
-
       this.props.onSearch2(this.paramshis, !this.props.reload)
     }
 
@@ -513,6 +545,7 @@ class Entitlement extends Component {
     }
 
     handleSubmit(e) {
+      e.preventDefault();
     }
 
     onChange(e) {
@@ -523,10 +556,14 @@ class Entitlement extends Component {
       this.setState({pageIndex: pageIndex });
     }
 
+    onPageChange2(pageIndex){
+      console.log(this.id + ' onPageChange2', pageIndex)
+      this.setState({pageIndex: pageIndex });
+    }
+
     componentDidMount() {
-      this.props.getEntitlementadditional('', !this.props.reload);
-      this.props.onSearch1(this.paramsright);
-      this.props.onSearch1(this.paramshis);
+      this.props.getEntitlementadditional(this.paramsaddition, !this.props.reload);
+      this.props.getdynamicdata(this.paramsdynamic);
     }
 }
 
@@ -535,6 +572,7 @@ const mapStateToProps = (state) => {
         datarightlist: state.entitlement.datarightlist,
         dataadditionalsharelist: state.entitlement.dataadditionalsharelist,
         datahistorylist: state.entitlement.datahistorylist,
+        dynamicdata: state.entitlement.dynamicdata,
     }
 }
 
@@ -545,8 +583,11 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSearch2: (paramshis) => {
       dispatch(actions.getHistorylist(paramshis))
       },
-    getEntitlementadditional: () => {
-      dispatch(actions.getAdditionalshareinfo({mvLastAction: '', mvChildLastAction: '', key: '', start:'', limit:''}))
+    getEntitlementadditional: (paramsaddition) => {
+      dispatch(actions.getAdditionalshareinfo(paramsaddition))
+    },
+    getdynamicdata: (paramsdynamic) => {
+      dispatch(actions.getDynamicdata(paramsdynamic))
     },
 })
 

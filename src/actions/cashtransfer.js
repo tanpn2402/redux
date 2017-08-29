@@ -1,19 +1,42 @@
+import * as WebApi from '../api/web_service_api'
+import * as ACTION from '../api/action_name'
 const {ActionTypes} = require('../core/constants')
 
-const datacashtransfer = {"list":[{"action":"Fund Transfer","bankBranch":"","bankName":"","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"","receiveBankAcID":"","receiveBankBranch":null,"receiveBankID":"MAS","receiveClientID":"","remark":"5000","status":"R","totalLendingAmt":"0.500","tranID":"11040256","trandate":"2015-12-10","transType":"W","transferChannel":"I","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"","receiveBankAcID":"","receiveBankBranch":null,"receiveBankID":"MAS","receiveClientID":"","remark":"1k","status":"R","totalLendingAmt":"1.000","tranID":"11040255","trandate":"2015-12-10","transType":"W","transferChannel":"I","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"","receiveBankAcID":"","receiveBankBranch":null,"receiveBankID":"MAS","receiveClientID":"","remark":"","status":"A","totalLendingAmt":"20381000.000","tranID":"11040251","trandate":"2015-12-10","transType":"W","transferChannel":"C                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"ádf","status":"A","totalLendingAmt":"20000.000","tranID":"11040243","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"ádf","status":"A","totalLendingAmt":"20000.000","tranID":"11040240","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"1qa","status":"A","totalLendingAmt":"10000.000","tranID":"11040237","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"1qa","status":"A","totalLendingAmt":"10000.000","tranID":"11040234","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"notes","status":"A","totalLendingAmt":"23.000","tranID":"11040231","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"1111","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"qaws","status":"A","totalLendingAmt":"10.000","tranID":"11040228","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"1000","status":"A","totalLendingAmt":"1.000","tranID":"11040225","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"12","status":"A","totalLendingAmt":"2000.000","tranID":"11040222","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""},{"action":"Fund Transfer","bankBranch":"","bankName":"dab","bankid":"","createTime":"2015-12-10","creationTime":"","fee":"0.000","feePercent":"0.000","inputChannel":null,"interestAccured":"","lastApprovaltime":"10\/12\/2015","ownerName":"Nguyễn Văn ACB","receiveBankAcID":"Nguyễn Văn ACB","receiveBankBranch":null,"receiveBankID":"123213","receiveClientID":"123213","remark":"2 tram","status":"A","totalLendingAmt":"200.000","tranID":"11040218","trandate":"2015-12-10","transType":"W","transferChannel":"E                                                 ","waiveAllFlag":""}],"mvCurrentPage":0,"mvEnableGridHeadMenu":false,"mvMessage":null,"mvPage":null,"mvResult":"fail","totalCount":"12"}
+function responsefundtransfer (response) {
+  return {
+    type: ActionTypes.FUNDTRANSFER,
+    data: response,
+  }
+}
 
-const cashdatatable = {"chargeRate":"null","mvAvailable":"0.000","mvBalance":"20,319,674.436","mvClientID":"C080001","mvErrorCode":"0","mvErrorResult":"fail","mvFundTransferFrom":"ORS","mvIsPasswordConfirm":"false","mvIsSecurityCodeConfirm":"false","mvReceiversList":[{"maxFeeAmt":"99999999999.00","minFeeAmt":"0.00","receiverAccID":"123213","receiverAccType":"E","receiverBankName":"dab","receiverName":"Nguyễn Văn ACB","transferFee":"0.000"}],"mvTargetAccountList":null}
+export function getFundtransfer(params) {
+  return(dispatch) => {
+    WebApi.post(ACTION.DOFOUNDTRANSFER, params, dispatch, responsefundtransfer)
+    }
+  }
 
-export function getCashtransfer() {
-    return {
-      type: ActionTypes.CASHTRANSFER,
-      data: datacashtransfer
+function responsegenfundtransfer (response) {
+  return {
+    type: ActionTypes.GENFUNDTRANSFER,
+    data: response,
+  }
+}
+
+export function getGenfundtransfer (params) {
+  return(dispatch) => {
+    WebApi.post(ACTION.GENFUNDTRANSFER, params, dispatch, responsegenfundtransfer)
     }
 }
 
-export function getCashdatatable() {
+function responsehksCachTranHis (response) {
   return {
-    type: ActionTypes.CASHDATATABLE,
-    data: cashdatatable
+    type: ActionTypes.HKSCASHTRANHIS,
+    data: response,
   }
 }
+
+export function gethksCachTranHis(params) {
+  return(dispatch) => {
+    WebApi.post(ACTION.HKSCASHTRANSACTIONHISTORY, params, dispatch, responsehksCachTranHis)
+    }
+  }

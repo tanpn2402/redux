@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import DataUpperTable from '../DataUpperTable'
 import Footer from '../DataTableFooter'
 import {Tabs, Tab} from 'react-bootstrap'
+import ScrollingTabs from './../commons/ScrollingTabs'
+import HorizontalTable from './../commons/HorizontalTable'
+import SearchBar from '../commons/SearchBar'
+import Pagination from '../commons/Pagination'
 
 class AccountInfo extends Component {
 	constructor(props) {
@@ -36,11 +40,15 @@ class AccountInfo extends Component {
 					Header: this.props.language.accountinfo.header.tradeinday,
 					headerClassName: this.props.language.accountinfo.header.tradeinday,
 					columns: [{
-						  Header: this.props.language.accountinfo.header.bought,
-						  accessor: 'mvTTodayBuy',
+						Header: this.props.language.accountinfo.header.bought,
+						accessor: 'mvTTodayBuy',  
+	                    skip: false,
+	                    show: true,
 					}, {
-						  Header: this.props.language.accountinfo.header.sold,
-						  accessor: 'mvTTodaySell'
+						Header: this.props.language.accountinfo.header.sold,
+						accessor: 'mvTTodaySell',  
+	                    skip: false,
+	                    show: true,
 					}]
 				}
 			],
@@ -61,7 +69,31 @@ class AccountInfo extends Component {
 	          	}, {
 	            	Header: this.props.language.accountinfo.header.duesell,
 	            	accessor: 'mvDueSell'
-	          	},
+	          	},{
+	            	Header: this.props.language.accountinfo.header.buyingpower,
+	            	accessor: 'mvBuyingPowerd',
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.cashblance,
+	            	accessor: 'mvAvailableBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvSettledBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdpending,
+	            	accessor: 'mvPendingBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.duesell,
+	            	accessor: 'mvDueSell'
+	          	},{
+	            	Header: this.props.language.accountinfo.header.buyingpower,
+	            	accessor: 'mvBuyingPowerd',
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.cashblance,
+	            	accessor: 'mvAvailableBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvSettledBalance' // not sure
+	          	}
           	],
 		    title3: [
 			    {
@@ -115,6 +147,10 @@ class AccountInfo extends Component {
           		}
           	],
           	pageIndex: 1,
+          	tabIndex: 1,
+          	tabList: [
+				['TIEN', 'actived', 1], ['CHUNG KHOAN', 'normal', 2], ['NO DEN HAN', 'disabled', 3], ['NO SAP DAO HAN', 'disabled', 4],
+			]
 		}
 
 		this.id = 'accountinfo';
@@ -171,21 +207,45 @@ class AccountInfo extends Component {
 
 		    title1: [
 			    {
-	            	Header: nextProps.language.accountinfo.header.buyingpower,
+	            	Header: this.props.language.accountinfo.header.buyingpower,
 	            	accessor: 'mvBuyingPowerd',
 	          	}, {
-	            	Header: nextProps.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance'
+	            	Header: this.props.language.accountinfo.header.cashblance,
+	            	accessor: 'mvAvailableBalance' // not sure
 	          	}, {
-	            	Header: nextProps.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance'
+	            	Header: this.props.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvSettledBalance' // not sure
 	          	}, {
-	            	Header: nextProps.language.accountinfo.header.holdpending,
-	            	accessor: 'mvPendingBalance'
+	            	Header: this.props.language.accountinfo.header.holdpending,
+	            	accessor: 'mvPendingBalance' // not sure
 	          	}, {
-	            	Header: nextProps.language.accountinfo.header.duesell,
+	            	Header: this.props.language.accountinfo.header.duesell,
 	            	accessor: 'mvDueSell'
-	          	},
+	          	},{
+	            	Header: this.props.language.accountinfo.header.buyingpower,
+	            	accessor: 'mvBuyingPowerd',
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.cashblance,
+	            	accessor: 'mvAvailableBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvSettledBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdpending,
+	            	accessor: 'mvPendingBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.duesell,
+	            	accessor: 'mvDueSell'
+	          	},{
+	            	Header: this.props.language.accountinfo.header.buyingpower,
+	            	accessor: 'mvBuyingPowerd',
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.cashblance,
+	            	accessor: 'mvAvailableBalance' // not sure
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvSettledBalance' // not sure
+	          	}
           	],
 		    title3: [
 			    {
@@ -242,10 +302,19 @@ class AccountInfo extends Component {
     }	
 
     render(){
-		console.log("ACCOUNTINFO");
 		var mvStockBalanceInfo = this.props.data.mvStockBalanceInfo === undefined ? [] : this.props.data.mvStockBalanceInfo
 		var mvList = this.props.AccountBalance === undefined ? [] : this.props.AccountBalance.mvList[0];
-		console.log('mvList', mvList);
+		
+		let buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={10} 
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                />,
+        ]
+
 			if(mvList !== undefined && mvList !== []) {
 				var data1 ={
 					'mvBuyingPowerd': [mvList.mvBuyingPowerd,],
@@ -255,78 +324,101 @@ class AccountInfo extends Component {
 					'mvDueSell': [mvList.mvDueSell,],
 				}
 				var data3 = {
-					'equityMar': [],
-					'totalAssetMaintenance': [],
-					'stockMaintenance': [],
-					'cashMaintenance': [],
-					'mvOutstandingLoan': [],
-					'debtIncByPurchase': [],
-					'debitAccruedInterest': [],
-					'mvCreditLimit': [],
+					'equityMar': [0],
+					'totalAssetMaintenance': [0],
+					'stockMaintenance': [0],
+					'cashMaintenance': [0],
+					'mvOutstandingLoan': [0],
+					'debtIncByPurchase': [0],
+					'debitAccruedInterest': [0],
+					'mvCreditLimit': [0],
 				}
 				var data4= {
-					'lendableValue': [],
-					'minMarginReq': [],
-					'curLiqMargin': [],
-					'marginableBalf': [],
-					'cashDeposit': [],
-					'sellStkInMarPort': [],
-					'sellStkNotInMarPort': [],
+					'lendableValue': [0],
+					'minMarginReq': [0],
+					'curLiqMargin': [0],
+					'marginableBalf': [0],
+					'cashDeposit': [0],
+					'sellStkInMarPort': [0],
+					'sellStkNotInMarPort': [0],
 				}
 				
 			}
 			else{
 				var data1 = {
-					'mvBuyingPowerd': [],
-					'mvAvailableBalance': [],
-					'mvSettledBalance': [],
-					'profitmvPendingBalanceLoss': [],
-					'mvDueSell': [],
+					'mvBuyingPowerd': [0],
+					'mvAvailableBalance': [0],
+					'mvSettledBalance': [0],
+					'profitmvPendingBalanceLoss': [0],
+					'mvDueSell': [0],
 				}
 			
 	    	
 		    	var data3 = {
-		    		'equityMar': [],
-		    		'totalAssetMaintenance': [],
-		    		'stockMaintenance': [],
-		    		'cashMaintenance': [],
-		    		'mvOutstandingLoan': [],
-		    		'debtIncByPurchase': [],
-		    		'debitAccruedInterest': [],
-		    		'mvCreditLimit': [],
+		    		'equityMar': [0],
+		    		'totalAssetMaintenance': [0],
+		    		'stockMaintenance': [0],
+		    		'cashMaintenance': [0],
+		    		'mvOutstandingLoan': [0],
+		    		'debtIncByPurchase': [0],
+		    		'debitAccruedInterest': [0],
+		    		'mvCreditLimit': [0],
 		    	}
 		    	var data4= {
-		    		'lendableValue': [],
-		    		'minMarginReq': [],
-		    		'curLiqMargin': [],
-		    		'marginableBalf': [],
-		    		'cashDeposit': [],
-		    		'sellStkInMarPort': [],
-		    		'sellStkNotInMarPort': [],
+		    		'lendableValue': [0],
+		    		'minMarginReq': [0],
+		    		'curLiqMargin': [0],
+		    		'marginableBalf': [0],
+		    		'cashDeposit': [0],
+		    		'sellStkInMarPort': [0],
+		    		'sellStkNotInMarPort': [0],
 				}
 		}
-		
-	     return(
+
+	    return(
 			<div id={this.id + '-body'} className="layout-body">
-			<Tabs defaultActiveKey={1} animation={false} id={this.id}>
-				<Tab eventKey={1} title={this.props.language.accountinfo.header.cash}>
-					<div>
-						<VerticalTable 
-							showHeader={false}
-							header={this.state.header1} 
-							title={this.state.title1} 
-							language={this.props.language.header} data={data1}/>
-					</div>
-				</Tab>
-				<Tab eventKey={2} title={this.props.language.accountinfo.header.stock}>
-					<DataTable
-						id={this.id + "-table"}
-						columns={this.state.columns}
-						data={mvStockBalanceInfo}/>
-				</Tab>
-				<Tab eventKey={3} title={this.props.language.accountinfo.header.overduedebt} disabled></Tab>
-				<Tab eventKey={4} title={this.props.language.accountinfo.header.upcomingdebt} disabled></Tab>
-			</Tabs>
+				<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
+				<div style={{padding: '24px 2px 0px 2px',}}>
+					{
+						this.state.tabIndex === 1 ?
+						(
+							<HorizontalTable 
+								showHeader={false}
+								header={this.state.header1} 
+								title={this.state.title1} 
+								language={this.props.language.header} data={data1}/>	
+						) : this.state.tabIndex === 2 ?
+						(
+							<div>
+								<SearchBar
+		                            id={this.id}
+		                            onSearch={[]}
+		                            buttonAction={buttonAction}
+		                            stockList={[]}
+		                            language={this.props.language.searchbar}
+		                            theme={this.props.theme}
+		                            columns={this.state.columns}
+		                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+		                            hideSearchButton={true}
+		                            param={['dropdown']} />
+								<DataUpperTable
+									id={this.id + "-table"}
+									columns={this.state.columns}
+									data={mvStockBalanceInfo}
+									maxRows={9}
+									defaultPgeSize={15}/>
+							</div>
+						) : this.state.tabIndex === 3 ?
+						(
+							<div>asdadas</div>
+						) : this.state.tabIndex === 4 ?
+						(
+							<div>asd</div>
+						) : (
+							<div>asdsds</div>
+						)
+					}
+				</div>
 			</div>
 	     )
     }
@@ -336,6 +428,37 @@ class AccountInfo extends Component {
 		this.props.getAccountBalance(this.cashbankparams)
     }
 
+    onTabClick(tab, e){
+    	console.log(e, tab)
+    	this.setState({
+    		tabIndex: tab,
+    	});
+    }
+
+    onChangeStateColumn(e) {
+        const id = e.target.id
+        this.setState({
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        });
+    }
+
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+        	this.setState({pageIndex: parseInt(this.state.pageIndex) + 1 })
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+        	this.setState({pageIndex: parseInt(this.state.pageIndex) - 1 })
+        }
+    }
+
+    onPageChange(pageIndex) {
+        if(pageIndex > 0){
+        	this.setState({pageIndex: pageIndex })
+        }
+    }
 }
 
 const mapStateToProps = (state) => {

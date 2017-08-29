@@ -9,6 +9,12 @@ class Portfolio extends Component {
 	constructor(props) {
      	super(props)
 
+			this.params = {
+					mvLastAction:'AccountInfo',
+					mvChildLastAction: 'AccountInfo',
+					key: '123123123123',
+			}
+
      	this.state= {
 	     	columns : [
 		    {
@@ -32,13 +38,13 @@ class Portfolio extends Component {
 		          	accessor: 'mvTSettled'
 		        }, {
 		          	Header: this.props.language.portfolio.header.mvHoldingAmt,
-		          	accessor: 'mvHoldingAmt' //not sure
+		          	accessor: 'mvHoldingAmt'
 		        }, {
 		          	Header: this.props.language.portfolio.header.mvQueuingBuy,
-		          	accessor: 'mvQueuingBuy' //not sure
+		          	accessor: 'mvQueuingBuy'
 		        }, {
 		          	Header: this.props.language.portfolio.header.mvTT1UnsettleBuy,
-		          	accessor: 'mvTT1UnsettleBuy' // not sure
+		          	accessor: 'mvTT1UnsettleBuy'
 		        }, {
 		          	Header: this.props.language.portfolio.header.mvTDueBuy,
 		          	accessor: 'mvTDueBuy'
@@ -534,9 +540,9 @@ class Portfolio extends Component {
 	        		<div>
 	          			<DataTable
 		                    id={this.id + "-table"}
-                        // language={this.props.language.portfolio.header}
+                        language={this.props.language.portfolio.header}
 		                    columns={this.state.columns}
-		                    data={data.slice( (this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}/>
+		                    data={data}/>
 	                   	<Footer
 	                   		pageIndex={this.state.pageIndex}
 	                   		totalRecord={data.length}
@@ -547,13 +553,21 @@ class Portfolio extends Component {
     }
 
     componentDidMount() {
-    	this.props.getPorfolio()
+    	this.props.getPorfolio(this.params, !this.props.reload);
     }
 
     onPageChange(pageIndex){
         console.log(this.id + ' onPageChange', pageIndex)
         this.setState({pageIndex: pageIndex });
     }
+
+		// getPorfolio(params) {
+		// 	this.params['mvLastAction']='PORTFOLIOENQUIRY'
+    //   this.params['mvChildLastAction']='PORTFOLIO'
+    //   this.params['key']= new Date().getTime()
+		//
+    //   this.props.getPorfolio(this.params, !this.props.reload)
+		// }
 
 }
 
@@ -564,8 +578,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	getPorfolio: () => {
-		dispatch(actions.getPorfolio())
+	getPorfolio: (params) => {
+		dispatch(actions.getPorfolio(params))
 	},
 })
 
