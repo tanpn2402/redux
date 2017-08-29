@@ -821,6 +821,124 @@ input::-webkit-calendar-picker-indicator {
     border: 0;
     margin: 1px;
 }
+.component-main.oddlottrading {
+    padding: 0px;
+}
+.component-main.oddlottrading > .oddlotorder{
+    z-index: 1;
+    clear: both;
+}
+.component-main.oddlottrading > .oddlothistory{
+    clear: both;
+}
+@media (min-width: 768px){
+    .component-main.oddlottrading > .oddlotorder{
+        width: 100%;
+        height: 300px;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
+        float: left;
+        width: 75%;
+        position: relative;
+        height: 100%;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
+        position: absolute;
+        padding-top: 70px;
+        width: 100%;
+        height: 100%;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
+        float: left;
+        width: 25%;
+        position: relative;
+        padding-top: 25px;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlothistory{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-main{
+        width: 100%;
+        position: absolute;
+        padding-top: 346px;
+        height: 100%;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-header{
+        width: 100%;
+        position: relative;
+        padding-top: 301px;
+    }
+}
+@media(max-width: 768px){
+    .component-main.oddlottrading > .oddlotorder{
+        width: 100%;
+        height: 400px;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
+        float: left;
+        width: 100%;
+        position: relative;
+        height: 250px;
+        z-index: 1;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
+        position: absolute;
+        padding-top: 70px;
+        width: 100%;
+        height: 100%;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
+        float: left;
+        width: 100%;
+        position: absolute;
+        padding-top: 250px;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 150px;
+
+    }
+    .component-main.oddlottrading > .oddlothistory{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-main{
+        width: 100%;
+        position: absolute;
+        padding-top: 446px;
+        height: 100%;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-header{
+        width: 100%;
+        position: relative;
+        padding-top: 401px;
+    }
+}
 /*END ODD LOT*/
 /*ENTITLEMENT*/
 

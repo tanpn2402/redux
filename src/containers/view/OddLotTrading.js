@@ -346,36 +346,37 @@ class OddLotTrading extends Component {
             />
         ]
         return (
-            <div id={'oddlottrading-body'} className="layout-body">
-                <div>
-                    <div>
-                        <form className="oddlottrading-form-action" onSubmit={this.handleSubmit}>
-                            
-                        </form>
-                    </div>
-                    <div className="col-sm-9" style={{padding: "0px 1px", }}>
-                        <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
-                            <span>{this.props.language.oddlottrading.header.oddlotorder}</span>
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+            <div className="component-main oddlottrading">
+                <div className="oddlotorder">
+                    <div className="oddlotorder-table">
+                        <div className="table-main">
+                            <DataUpperTable
+                                columns={this.state.enquirycolumns}
+                                data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*6, this.state.oddLotOrderPageIndex*6 )}
+                                maxRows={6}
+                                defaultPageSize={15}/>
                         </div>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={[]}
-                            buttonAction={buttonActionOddLotOrder}
-                            stockList={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            columns={this.state.enquirycolumns}
-                            onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}
-                            hideSearchButton={true}
-                            param={['dropdown']} />
-                        <DataUpperTable
-                            columns={this.state.enquirycolumns}
-                            data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*6, this.state.oddLotOrderPageIndex*6 )}
-                            maxRows={6}
-                            defaultPageSize={15}/>
+                        <div className="table-header">
+                            <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
+                                <span>{this.props.language.oddlottrading.header.oddlotorder}</span>
+                            </div>
+                            <SearchBar
+                                id={this.id}
+                                onSearch={[]}
+                                buttonAction={buttonActionOddLotOrder}
+                                stockList={[]}
+                                language={this.props.language.searchbar}
+                                theme={this.props.theme}
+                                columns={this.state.enquirycolumns}
+                                onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}
+                                hideSearchButton={true}
+                                param={['dropdown']} />
+                        </div>
+                        
 
                     </div>
-                    <div className="col-sm-3" style={{padding: "0px 1px", }}>
+                    <div className="oddlotorder-note">
                         <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
                             <span>{this.props.language.oddlottrading.header.notes}</span>
                         </div>
@@ -384,26 +385,31 @@ class OddLotTrading extends Component {
                         </div>
                     </div>
                 </div>
-                <div style={{clear:'both'}}>
-                    <div className="title" style={this.props.theme.oddlottrading.titleoddlottransactionhistory}>
-                        <span>{this.props.language.oddlottrading.header.oddlotransactionhistory}</span>
-                    </div>
-                    <SearchBar
-                            id={this.id}
-                            onSearch={[]}
-                            buttonAction={buttonActionOddLotTrans}
-                            stockList={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
+                <div className="oddlothistory">
+                    <div className="table-main">
+                        <DataUpperTable
                             columns={this.state.historycolumns}
-                            onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}
-                            hideSearchButton={true}
-                            param={['dropdown']} />
-                    <DataUpperTable
-                        columns={this.state.historycolumns}
-                        data={oddlothistory}
-                        maxRows={9}
-                        defaultPageSize={15}/>
+                            data={oddlothistory}
+                            maxRows={9}
+                            defaultPageSize={15}/>
+                    </div>
+                    <div className="table-header">
+                        <div className="title" style={this.props.theme.oddlottrading.titleoddlottransactionhistory}>
+                            <span>{this.props.language.oddlottrading.header.oddlotransactionhistory}</span>
+                        </div>
+                        <SearchBar
+                                id={this.id}
+                                onSearch={[]}
+                                buttonAction={buttonActionOddLotTrans}
+                                stockList={[]}
+                                language={this.props.language.searchbar}
+                                theme={this.props.theme}
+                                columns={this.state.historycolumns}
+                                onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}
+                                hideSearchButton={true}
+                                param={['dropdown']} />
+                    </div>
+                    
                     
                 </div>
                 <Popup
@@ -413,6 +419,7 @@ class OddLotTrading extends Component {
                     rowSelected={this.rowSelected}
                     language={this.props.language}
                     title = {this.props.language.oddlottrading.popup.title}/>
+            </div>
             </div>
         )
     }
