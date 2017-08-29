@@ -273,9 +273,10 @@ class CashAdvance extends Component {
                 />,
         ]
         return (
-            <div id={this.id + '-body'} className="layout-body" style={{}}>
-                <div>
-                    <div className="col-xs-12 col-sm-6 col-md-4" style={{paddingRight:"2px", paddingLeft: "2px",}}>
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+            <div className="component-main cashadvance">
+                <div className="cashadvance-history">
+                    <div className="cashadvance-form" style={{paddingRight:"2px", paddingLeft: "2px",}}>
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
                             <span>{this.props.language.cashadvance.header.cashadvanceplace}</span>
                         </div>
@@ -325,11 +326,19 @@ class CashAdvance extends Component {
                                 title = {this.props.language.cashadvance.popup.title}/>
                         </Form>
                     </div>
-                    <div className="col-xs-12 col-sm-6 col-md-8" style={{paddingRight:"2px", paddingLeft: "2px",}}>
-                        <div className="title" style={this.props.theme.porfolio.titlestock}>
-                            <span>{this.props.language.cashadvance.header.cashadvancetransaction}</span>
+                    <div className="cashadvance-his-table" style={{paddingRight:"2px", paddingLeft: "2px",}}>
+                        <div className="table-main">
+                            <DataUpperTable
+                                id={this.id + "-table2"}
+                                columns={this.state.columns2}
+                                maxRows={5}
+                                defaultPageSize={15}/>
                         </div>
-                        <div>
+                        <div className="table-header">
+                            <div className="title" style={this.props.theme.porfolio.titlestock}>
+                                <span>{this.props.language.cashadvance.header.cashadvancetransaction}</span>
+                            </div>
+                        
                             <SearchBar
                                 id={this.id+"-searchbar2"}
                                 onSearch={[]}
@@ -341,34 +350,38 @@ class CashAdvance extends Component {
                                 onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}
                                 hideSearchButton={true}
                                 param={['dropdown']} />
-                            <DataUpperTable
-                                id={this.id + "-table2"}
-                                columns={this.state.columns2}
-                                maxRows={5}
-                                defaultPageSize={15}/>
                         </div>
+                        
                     </div>
                 </div>
-                <div className="clearfix"></div>
-                <div className="title" style={this.props.theme.porfolio.titlestock}>
-                    <span>{this.props.language.cashadvance.header.ordermatchinglist}</span>
+
+                <div className="cashadvance-order-matching">
+                    <div className="table-main">
+                        <DataUpperTable
+                            id={this.id + "-table1"}
+                            columns={this.state.columns1}
+                            maxRows={10}
+                            defaultPageSize={15}/>
+                    </div>
+                    <div className="table-header">
+                        <div className="title" style={this.props.theme.porfolio.titlestock}>
+                            <span>{this.props.language.cashadvance.header.ordermatchinglist}</span>
+                        </div>
+                        <SearchBar
+                            id={this.id+"-searchbar1"}
+                            onSearch={[]}
+                            buttonAction={buttonActionOrderMatchList}
+                            stockList={[]}
+                            language={this.props.language.searchbar}
+                            theme={this.props.theme}
+                            columns={this.state.columns1}
+                            onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
+                            hideSearchButton={true}
+                            param={['dropdown']} />
+                    </div>
+
                 </div>
-                <SearchBar
-                    id={this.id+"-searchbar1"}
-                    onSearch={[]}
-                    buttonAction={buttonActionOrderMatchList}
-                    stockList={[]}
-                    language={this.props.language.searchbar}
-                    theme={this.props.theme}
-                    columns={this.state.columns1}
-                    onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
-                    hideSearchButton={true}
-                    param={['dropdown']} />
-                <DataUpperTable
-                    id={this.id + "-table1"}
-                    columns={this.state.columns1}
-                    maxRows={10}
-                    defaultPageSize={15}/>
+            </div>
             </div>
         );
     }

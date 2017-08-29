@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 import SearchBar from '../commons/SearchBar'
-import Pagination from '../commons/Pagination'
-import DataUpperTable from '../DataUpperTable'
 import DataTable from '../DataTable'
 import Footer from '../DataTableFooter'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import moment from 'moment'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 
 class CashTransactionHistory extends Component {
     constructor(props) {
@@ -176,44 +176,50 @@ class CashTransactionHistory extends Component {
                 }
             ]
         });
-        
+
     }
 
     render() {
+        this.buttonAction = [
+            <Pagination
+                pageIndex={this.state.pageIndex}
+                totalRecord={this.props.data.mvTotalOrders}
+                onPageChange={this.onPageChange.bind(this)}
+                onNextPage={this.onNextPage.bind(this)}
+                onPrevPage={this.onPrevPage.bind(this)}
+                onReloadPage={this.onReloadPage.bind(this)}
+            />,
+
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
+                onClick={() => this.showPopup()}>Hủy GD</Button>,
+        ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         console.log('data' + this.id, this.props.data)
         var page = this.props.data.mvCurrentPage === undefined ? 1 : this.props.data.mvCurrentPage
 
-        let buttonAction = [
-            <Pagination
-                    pageIndex={this.pageIndex} 
-                    totalRecord={this.props.data.totalCount} 
-                    onPageChange={this.onPageChange.bind(this)}
-                    onNextPage={this.onNextPage.bind(this)}
-                    onPrevPage={this.onPrevPage.bind(this)}
-                    onReloadPage={this.onReloadPage.bind(this)}
-                />,
-        ]
-
         return (
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                <div className="component-main">
+                    <DataUpperTable
+                        id="cashtransactionhistory-table"
 
-            <div id={'cashtransactionhistory-body'} className="layout-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={buttonAction}
-                    stockList={[]}
-                    language={this.props.language.searchbar}
-                    columns={this.state.columns}
-                    theme={this.props.theme}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                <DataUpperTable
-                    onRowSelected={this.onRowSelected.bind(this)}
-                    columns={this.state.columns}
-                    data={data}
-                    maxRows={19}
-                    defaultPageSize={19}/>
+                        columns={this.state.columns}
+                        data={data}
+                        defaultPageSize={15} />
+                </div>
+                <div className="component-body">
+
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        stockList={[]}
+                        buttonAction={[]}
+                        language={this.props.language.searchbar}
+                        columns={this.state.columns}
+                        theme={this.props.theme}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
+                </div>
             </div>
         )
 
@@ -250,35 +256,34 @@ class CashTransactionHistory extends Component {
     }
 
     onPageChange(pageIndex) {
-        //this.setState({ pageIndex: pageIndex })
-        if(pageIndex > 0){
-            this.pageIndex = pageIndex
-            this.params['page'] = this.pageIndex
-            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
+        if (pageIndex > 0) {
+            this.state.pageIndex = pageIndex
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
         }
     }
 
-    onNextPage(){
-        if(this.pageIndex > 0){
-            this.pageIndex = parseInt(this.pageIndex) + 1
-            this.params['page'] = this.pageIndex
-            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
+    onNextPage() {
+        if (this.state.pageIndex > 0) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
         }
     }
 
-    onPrevPage(){
-        if(this.pageIndex > 1){
-            this.pageIndex = parseInt(this.pageIndex) - 1
-            this.params['page'] = this.pageIndex
-            this.params['start'] = (this.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
+    onPrevPage() {
+        if (this.state.pageIndex > 1) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
         }
     }
 
-    onReloadPage(){
-        this.props.onSearch(this.params, !this.props.reload)
+    onReloadPage() {
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param) {

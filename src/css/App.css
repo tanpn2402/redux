@@ -1032,7 +1032,121 @@ input::-webkit-calendar-picker-indicator {
     border-radius: 0;
     border: 0;
 }
-/*END CASH TRANSFER*/
+.component-main.cashadvance {
+    padding-top: 0px;
+}
+.component-main.cashadvance > .cashadvance-history{
+    z-index: 1;
+}
+@media(min-width: 768px){
+    .component-main.cashadvance > .cashadvance-history{
+        height: 260px;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        height: 100%;
+        float: left;
+        width: 50%;
+        padding-top: 25px;
+        position: relative;
+        /*position: absolute;*/
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        height: 100%;
+        float: left;
+        width: 50%;
+        position: relative;
+        /*position: absolute;*/
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        padding-top: 70px;
+        padding-right: 5px;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+    }
+
+    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
+        height: 100%;
+        position: absolute;
+        padding-top: 307px;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
+        position: relative;
+        padding-top: 262px;
+        width: 100%;
+    }
+}
+@media(min-width: 992px){
+    .component-main.cashadvance > .cashadvance-history{
+        
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        float: left;
+        width: 33.33333333%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        float: left;
+        width: 66.66666667%;
+    }
+}
+@media(max-width: 768px){
+    .component-main.cashadvance > .cashadvance-history{
+        height: 370px;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        height: 160px;
+        padding-top: 25px;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        width: 100%;
+        height: 100%;
+
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        padding-top: 205px;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
+        position: relative;
+        padding-top: 160px;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
+        height: 100%;
+        position: absolute;
+        padding-top: 417px;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
+        position: relative;
+        padding-top: 372px;
+        width: 100%;
+    }
+}
+/*END CASH ADVANCE*/
 
 /*HORIZONTAL TABLE*/
 .horizontal-table {
@@ -1151,6 +1265,12 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     width: 50px;
     float: left;
+}
+
+@media(max-width: 768px){
+    .sidebar-wrapper {
+        display: none;
+    }
 }
 
 .sidebar-favorite> img{

@@ -13,111 +13,111 @@ class OrderHistory extends Component {
         super(props)
 
         this.state = {
-            columns : [
-              {
-                  id: 'mvOrderGroupID',
-                  Header: this.props.language.ordershistory.header.ordergroupid,
-                  accessor: 'mvOrderGroupID',
-                  width: 80,
-                  skip: false,
-                  show: true,
-              },
-              {
-                  id: 'mvmatchedDate',
-                  Header: this.props.language.ordershistory.header.matcheddate,
-                  accessor: 'matchedDate',
-                  width: 80,
-                  skip: false,
-                  show: true,
-              },
-            {
-                id: 'mvStockID',
-                Header: this.props.language.ordershistory.header.stockid,
-                accessor: 'mvStockID',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvMarketID',
-                Header: this.props.language.ordershistory.header.marketid,
-                accessor: 'mvMarketID',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvBS',
-                Header: this.props.language.ordershistory.header.buysell,
-                accessor: 'mvBS',
-                width: 50,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvPrice',
-                Header: this.props.language.ordershistory.header.price,
-                accessor: 'mvPrice',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvdQty',
-                Header: this.props.language.ordershistory.header.quantity,
-                accessor: 'mvQty',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvFilledPrice',
-                Header: this.props.language.ordershistory.header.filledprice,
-                accessor: 'mvFilledPrice',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvFilledQty',
-                Header: this.props.language.ordershistory.header.filledquantity,
-                accessor: 'mvFilledQty',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvAvgPriceValue',
-                Header: this.props.language.ordershistory.header.matchedvalue,
-                accessor: 'mvAvgPriceValue',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvOrderTypeValue',
-                Header: this.props.language.ordershistory.header.tradingtype,
-                accessor: 'mvOrderTypeValue',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvStatus',
-                Header: this.props.language.ordershistory.header.matchedorderstatus,
-                accessor: 'mvStatus',
-                width: 80,
-                skip: false,
-                show: true,
-            },
-            {
-                id: 'mvInputTime',
-                Header: this.props.language.ordershistory.header.matcheddate,
-                accessor: 'mvInputTime',
-                width: 80,
-                skip: false,
-                show: true,
-            },
+            columns: [
+                {
+                    id: 'mvOrderGroupID',
+                    Header: this.props.language.ordershistory.header.ordergroupid,
+                    accessor: 'mvOrderGroupID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvmatchedDate',
+                    Header: this.props.language.ordershistory.header.matcheddate,
+                    accessor: 'matchedDate',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStockID',
+                    Header: this.props.language.ordershistory.header.stockid,
+                    accessor: 'mvStockID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvMarketID',
+                    Header: this.props.language.ordershistory.header.marketid,
+                    accessor: 'mvMarketID',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvBS',
+                    Header: this.props.language.ordershistory.header.buysell,
+                    accessor: 'mvBS',
+                    width: 50,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPrice',
+                    Header: this.props.language.ordershistory.header.price,
+                    accessor: 'mvPrice',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvdQty',
+                    Header: this.props.language.ordershistory.header.quantity,
+                    accessor: 'mvQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFilledPrice',
+                    Header: this.props.language.ordershistory.header.filledprice,
+                    accessor: 'mvFilledPrice',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFilledQty',
+                    Header: this.props.language.ordershistory.header.filledquantity,
+                    accessor: 'mvFilledQty',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvAvgPriceValue',
+                    Header: this.props.language.ordershistory.header.matchedvalue,
+                    accessor: 'mvAvgPriceValue',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvOrderTypeValue',
+                    Header: this.props.language.ordershistory.header.tradingtype,
+                    accessor: 'mvOrderTypeValue',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: this.props.language.ordershistory.header.matchedorderstatus,
+                    accessor: 'mvStatus',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvInputTime',
+                    Header: this.props.language.ordershistory.header.matcheddate,
+                    accessor: 'mvInputTime',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
 
 
             ]
@@ -136,9 +136,9 @@ class OrderHistory extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            columns : 
+            columns:
             [
                 {
                     id: 'mvOrderGroupID',
@@ -269,37 +269,33 @@ class OrderHistory extends Component {
         var pageIndex = this.props.data.mvPage === undefined ? 1 : this.props.data.mvPage.pageIndex
         var totalRecord = this.props.data.mvTotalOrders === undefined ? 1 : this.props.data.mvTotalOrders
         console.log(totalRecord, pageIndex)
-       
+
         return (
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
                 <div className="component-main">
                     <DataUpperTable
-                        id="orderjournal-table"
-                        
+                        id="orderhistory-table"
+
                         columns={this.state.columns}
                         data={data}
                         defaultPageSize={15} />
                 </div>
                 <div className="component-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={[]} 
-                    stockList={this.props.stockList} 
-                    language={this.props.language.searchbar} 
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
-                
-                {/* <DataTable
-                    id={this.id + "-table" }
-                    columns={this.state.columns}
-                    data={data}/> */}
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={[]}
+                        stockList={this.props.stockList}
+                        language={this.props.language.searchbar}
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
 
-                
 
-            </div>
+
+
+                </div>
             </div>
         )
 
@@ -307,7 +303,7 @@ class OrderHistory extends Component {
 
     componentDidMount() {
         var d = new Date()
-        var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
+        var today = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
         this.params['mvStartTime'] = today
         this.params['mvEndTime'] = today
         this.props.enquiryOrderHistory(this.param)
@@ -344,9 +340,9 @@ class OrderHistory extends Component {
         this.props.onSearch(this.param, !this.props.reload)
     }
 
-    onSearch(param){
-        
-        this.params['start'] = ( this.pageIndex - 1 ) * 15
+    onSearch(param) {
+
+        this.params['start'] = (this.pageIndex - 1) * 15
         this.params['limit'] = 15
         this.params['mvStartTime'] = param['mvStartDate']
         this.params['mvEndTime'] = param['mvStartDate']
@@ -354,25 +350,25 @@ class OrderHistory extends Component {
         this.props.enquiryOrderHistory(param)
     }
 
-    onChangeStateColumn(e){
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
 
 
 }
 const mapStateToProps = (state) => {
-  return {
-    data: state.orderhistory.data,
-  }
+    return {
+        data: state.orderhistory.data,
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  enquiryOrderHistory: (param) => {
-    dispatch(actions.enquiryOrderHistory(param))
-  },
+    enquiryOrderHistory: (param) => {
+        dispatch(actions.enquiryOrderHistory(param))
+    },
 })
 
 
