@@ -1126,7 +1126,21 @@ input::-webkit-calendar-picker-indicator {
 /*END STOCKMARET INFOR*/
 
 /*ACCOUNT INFO*/
-.component-main.accountinfo {
+.component-main.accountinfo.cashinfo {
     padding-top: 49px;
+}
+.component-main.accountinfo.stockinfo {
+    padding-top: 0px;
+}
+.component-main.accountinfo.stockinfo > .stock-table{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 72px;
+}
+.component-main.accountinfo.stockinfo > .search-bar{
+    position: absolute;
+    width: 100%;
+    padding-top: 47px;
 }
 /*END ACCOUNT INFO*/
