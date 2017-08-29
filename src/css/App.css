@@ -90,7 +90,7 @@ input::-webkit-calendar-picker-indicator {
     top: 0;
     padding-left: 10px;
     padding-top: 3px;
-    z-index: 1;
+    z-index: 2;
 }
 .content-block-head {
     font-size: 14px;
@@ -630,11 +630,8 @@ input::-webkit-calendar-picker-indicator {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
-    left: 0;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.5s;
     padding: 10px 0px;
 }
 .settingnav {
@@ -970,9 +967,11 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
 }
 .scrolling-tabs-left {
-    height: 100%;
     float: left;
+    height: 100%;
     background-color: transparent;
+    position: relative;
+    display: inline-block;
 }
 .scrolling-tabs-right {
     margin-top: 1px;
@@ -1144,3 +1143,156 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 47px;
 }
 /*END ACCOUNT INFO*/
+
+/* SIDE BAR */
+/* close(default) */
+.sidebar-wrapper{
+    background: #F5F5F5;
+    height: 100%;
+    width: 50px;
+    float: left;
+}
+
+.sidebar-favorite> img{
+    width: 40px;
+    margin: 0 5px;
+}
+
+.sidebar-favorite>img:hover, .sidebar-helping > img:hover{
+    background: #e6e6e6;
+}
+
+.sidebar-favorite >a, .sidebar-helping >a {
+  display: none;
+}
+
+
+.sidebar-helping > img {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    padding: 12px;
+    margin: 0px;
+}
+
+.sidebar-footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.expandicon{
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 0;
+    outline: none;
+}
+
+.expandicon > img {
+    width: 10px;
+
+}
+
+/* open */
+.opensidebar{
+  display: block;
+  width: 250px;
+}
+.opensidebar >a {
+  display: inline-block;
+}
+.opensidebar .expandicon{
+    outline: none;
+    width:  250px;
+    float: right;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*CASH TRANSFER*/
+.component-main.cashtransfer {
+    padding-top: 0px;
+}
+.component-main.cashtransfer > .cashtransfer-form {
+    z-index: 1;
+    float: left;
+    position: relative;
+    height: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-form form{
+    position: absolute;
+    padding-top: 45px;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding-right: 1px;
+    padding-left: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-form .title{
+    padding-top: 25px;
+    z-index: 2;
+    position: relative;
+}
+.component-main.cashtransfer > .cashtransfer-form > .form-group{
+    padding-bottom: 
+}
+.component-main.cashtransfer > .cashtransfer-history {
+    /*position: absolute;*/
+    float: left;
+    position: relative;
+    height: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-history > .table-main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+}
+.component-main.cashtransfer > .cashtransfer-history > .table-header {
+    position: relative;
+    width: 100%;
+    padding-top: 25px;
+}
+@media (min-width: 768px) {
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 50%;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 50%;
+    }
+}
+@media (min-width: 992px){
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 33.33333333%;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 66.66666667%;
+    }
+}
+@media (max-width: 768px) {
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 100%;
+        height: 365px;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 100%;
+        position: absolute;
+    }
+    .component-main.cashtransfer > .cashtransfer-history > .table-main {
+        padding-top: 435px;
+    }
+    .component-main.cashtransfer > .cashtransfer-history > .table-header {
+        padding-top: 390px;
+    }
+}
+/*END CASH TRANSFER*/

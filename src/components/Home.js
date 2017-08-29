@@ -4,6 +4,7 @@ import * as actions from '../actions/index'
 import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
 import MenuNav from '../containers/MenuNav'
+import MainContent from '../containers/MainContent'
 
 class Home extends Component {
 
@@ -28,7 +29,7 @@ class Home extends Component {
                 changeConfig={this.props.changeConfig} 
                 />  
                 <MenuNav language= {this.props.language.page.menu} theme={this.theme.default}/>
-                <PageContent theme={this.theme.default} language= {this.props.language.page} title={this.props.language.page.menu}/>
+                <MainContent theme={this.theme.default} language={this.props.language.page} title={this.props.language.page.menu} />
 
                 
             </div>

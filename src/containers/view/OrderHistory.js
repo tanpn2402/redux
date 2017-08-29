@@ -5,6 +5,8 @@ import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -249,6 +251,19 @@ class OrderHistory extends Component {
     }
 
     render() {
+        this.buttonAction = [
+            <Pagination
+                pageIndex={this.state.pageIndex}
+                totalRecord={this.props.data.mvTotalOrders}
+                onPageChange={this.onPageChange.bind(this)}
+                onNextPage={this.onNextPage.bind(this)}
+                onPrevPage={this.onPrevPage.bind(this)}
+                onReloadPage={this.onReloadPage.bind(this)}
+            />,
+
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
+                onClick={() => this.showPopup()}>Hủy GD</Button>,
+        ]
         console.log('render in OrderHistory', this.props.language.ordershistory.header.stockid)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var pageIndex = this.props.data.mvPage === undefined ? 1 : this.props.data.mvPage.pageIndex
@@ -256,7 +271,16 @@ class OrderHistory extends Component {
         console.log(totalRecord, pageIndex)
        
         return (
-            <div id={this.id + '-body'} className="layout-body">
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                <div className="component-main">
+                    <DataUpperTable
+                        id="orderjournal-table"
+                        
+                        columns={this.state.columns}
+                        data={data}
+                        defaultPageSize={15} />
+                </div>
+                <div className="component-body">
                 <SearchBar
                     id={this.id}
                     onSearch={this.onSearch.bind(this)}
@@ -268,13 +292,14 @@ class OrderHistory extends Component {
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                 
-                <DataTable
+                {/* <DataTable
                     id={this.id + "-table" }
                     columns={this.state.columns}
-                    data={data}/>
+                    data={data}/> */}
 
-                <Footer pageIndex={pageIndex} totalRecord={totalRecord} onPageChange={this.onPageChange.bind(this)}/>
+                
 
+            </div>
             </div>
         )
 
@@ -288,6 +313,37 @@ class OrderHistory extends Component {
         this.props.enquiryOrderHistory(this.param)
     }
 
+    onPageChange(pageIndex) {
+        if (pageIndex > 0) {
+            this.state.pageIndex = pageIndex
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onNextPage() {
+        if (this.state.pageIndex > 0) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onPrevPage() {
+        if (this.state.pageIndex > 1) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onReloadPage() {
+        this.props.onSearch(this.param, !this.props.reload)
+    }
+
     onSearch(param){
         
         this.params['start'] = ( this.pageIndex - 1 ) * 15
@@ -297,11 +353,6 @@ class OrderHistory extends Component {
         console.log(this.params)
         this.props.enquiryOrderHistory(param)
     }
-
-     onPageChange(pageIndex){
-        console.log(this.id + ' onPageChange', pageIndex)
-    }
-
 
     onChangeStateColumn(e){
         const id = e.target.id

@@ -198,8 +198,7 @@ class OrderJournal extends Component {
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         let lgClose = () => this.setState({ lgShow: false })
-
-        console.log('RENDER IN OrderJournal')
+        
         return (
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
                 <div className="component-main">
