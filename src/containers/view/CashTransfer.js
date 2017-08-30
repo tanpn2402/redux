@@ -238,11 +238,9 @@ class CashTransfer extends Component {
                 />,
         ]
         return (
-            <div id={this.id +'-body'} className="layout-body">
-                <div className="col-xs-12 col-sm-6 col-md-4" style={{ paddingRight:"2px", paddingLeft: "2px", paddingBottom: "10px",}}>
-                    <div className="title" style={this.props.theme.porfolio.titlestock}>
-                        <span>{this.props.language.cashtransfer.header.cashtransferplace}</span>
-                    </div>
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+            <div className="component-main cashtransfer">
+                <div className="cashtransfer-form">
                     <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className={"form-" + this.id}>
                         <FormGroup>
                             <Table responsive >
@@ -337,12 +335,25 @@ class CashTransfer extends Component {
                             language={this.props.language}
                             title = {this.props.language.enterorder.popup.title}/>
                     </Form>
-                </div>
-                <div className="col-xs-12 col-sm-6 col-md-8" style={{paddingRight:"2px", paddingLeft: "2px",}}>
                     <div className="title" style={this.props.theme.porfolio.titlestock}>
-                        <span>{this.props.language.cashtransfer.header.cashtransfertransaction}</span>
+                        <span>{this.props.language.cashtransfer.header.cashtransferplace}</span>
                     </div>
-                    <div>
+                </div>
+                <div className="cashtransfer-history">
+                    <div className="table-main">
+                        <DataUpperTable
+                            id={this.id + "-table"}
+                            language={this.props.language.cashtransfer.header}
+                            columns={this.state.columns}
+                            data={data}
+                            maxRows={18}
+                            defaultPageSize={20}/>
+                    </div>
+                    <div className="table-header">
+                        <div className="title" style={this.props.theme.porfolio.titlestock}>
+                            <span>{this.props.language.cashtransfer.header.cashtransfertransaction}</span>
+                        </div>
+                   
                         <SearchBar
                             id={this.id}
                             onSearch={[]}
@@ -354,19 +365,15 @@ class CashTransfer extends Component {
                             onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                             hideSearchButton={true}
                             param={['dropdown']} />
-                        <DataUpperTable
-                            id={this.id + "-table"}
-                            language={this.props.language.cashtransfer.header}
-                            columns={this.state.columns}
-                            data={data}
-                            maxRows={18}
-                            defaultPageSize={20}/>
+                    </div>
+                    
                         {/*<Footer
                             pageIndex={this.state.pageIndex}
                             totalRecord={data.length}
                             onPageChange={this.onPageChange.bind(this)}/>*/}
-                    </div>
+                    
                 </div>
+            </div>
             </div>
         );
     }

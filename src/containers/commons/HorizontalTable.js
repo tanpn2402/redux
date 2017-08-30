@@ -8,8 +8,9 @@ export default class HorizontalTable extends Component {
 
 	render() {
 		console.log('HorizontalTable', this.props)
+		let headerValue = this.props.header.slice(1, this.props.header.length)
 		return(
-			<div className="horizontal-table">
+			<div className="horizontal-table" style={{height: this.props.height}}>
 
 				{
 					this.props.showHeader !== undefined ? '' : 
@@ -18,9 +19,14 @@ export default class HorizontalTable extends Component {
 								<div className="ht-header">
 									<div className="ht-tr">
 										{
-							      			this.props.header.map(e => {
+											<div className="ht-th ht-title">
+					      						{this.props.header[0]} 
+					      					</div>
+										}
+										{
+							      			headerValue.map(e => {
 							      				return ( 
-							      					<div className="ht-th">
+							      					<div className="ht-th ht-value">
 							      						{e} 
 							      					</div>
 							      				)

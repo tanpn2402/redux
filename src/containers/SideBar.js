@@ -3,31 +3,50 @@ import MenuItem from './SideMenu/MenuItem'
 import config from '../core/config'
 import { connect } from "react-redux"
 import * as actions from "../actions"
+import Arrow from '../assets/images/right.png'
+import Order from '../assets/images/order.png'
+import OrderBook from '../assets/images/orderbook.png'
+import Portfolio from '../assets/images/porfolio.png'
+import Settings from '../assets/images/settings.png'
+import Question from '../assets/images/question.png'
 
 class SideBar extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            menuitem : config.menu_items
+            menuitem: config.menu_items
 
         }
     }
 
     render() {
         return (
-            <div className="sidebar-wrapper" id="sidebar-wrapper">
-            
-                <div className="sidebar-body">
-
+            <div className="sidebar-wrapper " id="sidebar">
+                <div className="sidebar-favorite" id="favorite">
+                    <img src={Order} alt="Enter Order" /><a href="javascript:void(0)" id='enterorder' onClick={this.onMenuSelected.bind(this)}>
+                        {this.props.language.menu.enterorder}
+                    </a><br />
+                    <img src={OrderBook} alt="Order Book" /><a href="#">Link 2</a><br />
+                    <img src={Portfolio} alt="Portfolio" /><a href="#">Link 3</a><br />
                 </div>
-                
-                <div className="sidebar-footer">
 
+                <div className="sidebar-footer" id="footer">
+                    <div className="sidebar-helping" id="helping">
+                        <img src={Question} alt="Help" /><a href="#">Link 4</a><br />
+                        <img src={Settings} alt="Setting" /><a href="#">Link 5</a><br />
+                    </div>
+                    <button onClick={this.Open} className="expandicon"><img src={Arrow} alt="Expand" /></button>
                 </div>
-          
             </div>
         );
+    }
+
+    Open() {
+        document.getElementById('sidebar').classList.toggle('opensidebar');
+        document.getElementById('favorite').classList.toggle('opensidebar');
+        document.getElementById('helping').classList.toggle('opensidebar');
+        document.getElementById('footer').classList.toggle('opensidebar');
     }
 
     componentDidMount(){

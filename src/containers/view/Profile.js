@@ -184,7 +184,7 @@ class Profile extends Component {
                 </FormGroup>
               </Form>
             </Col>
-            <Col xs={6} md={6} style={{fontSize: "12px", textAlign: "left"}}>
+            <Col xs={6} md={6} componentClass={ControlLabel} style={this.labelStyle}>
               <div><strong>{this.props.language.warning}</strong></div>
               <div><strong>{this.props.language.expiredate}</strong></div>
               <div>{this.props.language.warndetail1}</div>

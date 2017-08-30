@@ -48,7 +48,7 @@ class PageContent extends React.Component {
                     theme={this.props.theme}
                     >
                 </BaseLayout>
-                <SlideNav language={this.props.language.menu}/>
+                {/* <SlideNav language={this.props.language.menu}/> */}
                 <SettingNav language={this.props.language} />
                 <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
 
@@ -127,7 +127,7 @@ class PageContent extends React.Component {
         var h2 = document.getElementById('pagemenu').offsetHeight
         var h3 = window.innerHeight
         document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
-
+        document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
         this.props.getStockIdList(param)
     }
 

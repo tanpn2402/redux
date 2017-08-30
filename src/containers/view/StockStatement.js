@@ -5,6 +5,8 @@ import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
+import DataUpperTable from '../DataUpperTable'
+import Pagination from '../commons/Pagination'
 
 class StockStatement extends Component {
     constructor(props) {
@@ -284,6 +286,19 @@ class StockStatement extends Component {
     }
 
     render() {
+        this.buttonAction = [
+            <Pagination
+                pageIndex={this.state.pageIndex}
+                totalRecord={this.props.data.mvTotalOrders}
+                onPageChange={this.onPageChange.bind(this)}
+                onNextPage={this.onNextPage.bind(this)}
+                onPrevPage={this.onPrevPage.bind(this)}
+                onReloadPage={this.onReloadPage.bind(this)}
+            />,
+
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
+                onClick={() => this.showPopup()}>Hủy GD</Button>,
+        ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         var page = 1
 
@@ -297,7 +312,16 @@ class StockStatement extends Component {
         }
 
         return (
-            <div id={this.id + '-body'} className="layout-body">
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                <div className="component-main">
+                    <DataUpperTable
+                        id="stockstatement-table"
+
+                        columns={this.state.columns}
+                        data={data}
+                        defaultPageSize={15} />
+                </div>
+                <div className="component-body">
                 <SearchBar
                     id={this.id}
                     onSearch={this.onSearch.bind(this)}
@@ -309,13 +333,7 @@ class StockStatement extends Component {
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     param={['mvStartDate', 'mvEndDate', 'dropdown']}
                 />
-                <DataTable 
-                    id={this.id + '-table'}
-                    columns={this.state.columns} 
-                    data={data}
-                />
-                
-                <Footer pageIndex={page} onPageChange={this.onPageChange.bind(this)}/>
+            </div>
             </div>
         )
     }
@@ -335,8 +353,35 @@ class StockStatement extends Component {
         });
     }
 
-    onPageChange(pageIndex){
-        // console.log('stockstatement onPageChange', pageIndex)
+    onPageChange(pageIndex) {
+        if (pageIndex > 0) {
+            this.state.pageIndex = pageIndex
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onNextPage() {
+        if (this.state.pageIndex > 0) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onPrevPage() {
+        if (this.state.pageIndex > 1) {
+            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            this.param['page'] = this.state.pageIndex
+            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+            this.props.onSearch(this.param, !this.props.reload)
+        }
+    }
+
+    onReloadPage() {
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param){

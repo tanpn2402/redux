@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import VerticalTable from '../VerticalTable'
+import HorizontalTable from './../commons/HorizontalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import DataUpperTable from '../DataUpperTable'
 import Footer from '../DataTableFooter'
+import Pagination from '../commons/Pagination'
+import SearchBar from '../commons/SearchBar'
 
 class Portfolio extends Component {
 	constructor(props) {
@@ -433,7 +435,15 @@ class Portfolio extends Component {
     	var data = this.props.data.mvPortfolioBeanList === undefined ? [] : this.props.data.mvPortfolioBeanList
     	//console.log('render in porfolio', this.state.columns )
     	var d = this.props.data.mvPortfolioAccSummaryBean
-
+    	this.buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={data.length}
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                />,
+        ]
     	if(d !== undefined && d !== [])
 	    {
 	    	console.log(d.totalAsset)
@@ -514,40 +524,69 @@ class Portfolio extends Component {
 	    	}
 	    }
 	     return(
-	     	<div id={this.id + '-body'} className="layout-body">
-		        	<div className="title" style={this.props.theme.porfolio.titlemoney}>
-		          		<span>{this.props.language.portfolio.header.cash}</span>
-		        	</div>
+	     	<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+	     		<div className="component-main portfolio">
+		        	<div className="clearfix statment">
+		        		<div className="title" style={this.props.theme.porfolio.titlemoney}>
+			          		<span>{this.props.language.portfolio.header.cash}</span>
+			        	</div>
+			          	<div className="col-sm-3 col-xs-6 statment-table">
+			            		<HorizontalTable 
+			            			header={this.state.header1} 
+			            			title={this.state.title1} 
+			            			height={200}
+			            			data={data1}/>
+			          	</div>
+			          	<div className="col-sm-3 col-xs-6 statment-table">
+			            		<HorizontalTable 
+			            			header={this.state.header2} 
+			            			title={this.state.title2} 
+			            			height={200}
+			            			data={data2}/>
+			          	</div>
+			          	<div className="col-sm-3 col-xs-6 statment-table">
+			            		<HorizontalTable 
+			            			header={this.state.header3} 
+			            			title={this.state.title3} 
+			            			height={200}
+			            			data={data3}/>
+			          	</div>
+			          	<div className="col-sm-3 col-xs-6 statment-table">
+			            		<HorizontalTable 
+			            			header={this.state.header4} 
+			            			title={this.state.title4} 
+			            			height={200}
+			            			data={data4}/>
+			          	</div>
+			          	<div className="clearfix"></div>
+		          		<div className="title" style={this.props.theme.porfolio.titlestock}>
+			          		<span>{this.props.language.portfolio.header.stock}</span>
+			        	</div>
+			        	<SearchBar
+	                        id={this.id}
+	                        hideSearchButton={true}
+	                        onSearch={[]}
+	                        buttonAction={this.buttonAction}
+	                        stockList={[]}
+	                        language={this.props.language.searchbar}
+	                        theme={this.props.theme}
+	                        columns={this.state.columns}
+	                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+	                        param={['dropdown']} />
+			          	
+	        		</div>
 
-		        	<div>
-			          	<div className="col-sm-3 col-xs-6">
-			            		<VerticalTable header={this.state.header1} title={this.state.title1} language={this.props.language.header} data={data1}/>
-			          	</div>
-			          	<div className="col-sm-3 col-xs-6">
-			            		<VerticalTable header={this.state.header2} title={this.state.title2} language={this.props.language.header} data={data2}/>
-			          	</div>
-			          	<div className="col-sm-3 col-xs-6">
-			            		<VerticalTable header={this.state.header3} title={this.state.title3} language={this.props.language.header} data={data3}/>
-			          	</div>
-			          	<div className="col-sm-3 col-xs-6">
-			            		<VerticalTable header={this.state.header4} title={this.state.title4} language={this.props.language.header} data={data4}/>
-			          	</div>
-	        		</div>
-	        		<div className="clearfix"></div>
-	       	 		<div className="title" style={this.props.theme.porfolio.titlestock}>
-		          		<span>{this.props.language.portfolio.header.stock}</span>
-		        	</div>
-	        		<div>
-	          			<DataTable
+		       	 		
+	        		<div className="dtable">
+	          			<DataUpperTable
 		                    id={this.id + "-table"}
-                        language={this.props.language.portfolio.header}
+                        	language={this.props.language.portfolio.header}
 		                    columns={this.state.columns}
-		                    data={data}/>
-	                   	<Footer
-	                   		pageIndex={this.state.pageIndex}
-	                   		totalRecord={data.length}
-	                   		onPageChange={this.onPageChange.bind(this)}/>
+		                    data={data}
+		                    maxRows={4}
+                        	defaultPageSize={15} />
 	        		</div>
+	        	</div>
 	      	</div>
 	     )
     }
@@ -556,18 +595,29 @@ class Portfolio extends Component {
     	this.props.getPorfolio(this.params, !this.props.reload);
     }
 
+    onChangeStateColumn(e) {
+        const id = e.target.id
+        this.setState({
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        })
+    }
+
     onPageChange(pageIndex){
         console.log(this.id + ' onPageChange', pageIndex)
         this.setState({pageIndex: pageIndex });
     }
 
-		// getPorfolio(params) {
-		// 	this.params['mvLastAction']='PORTFOLIOENQUIRY'
-    //   this.params['mvChildLastAction']='PORTFOLIO'
-    //   this.params['key']= new Date().getTime()
-		//
-    //   this.props.getPorfolio(this.params, !this.props.reload)
-		// }
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+        	this.setState({pageIndex: parseInt(this.state.pageIndex) + 1 });
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+        	this.setState({pageIndex: parseInt(this.state.pageIndex) - 1 });
+        }
+    }
 
 }
 

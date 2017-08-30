@@ -4,6 +4,8 @@ import config from '../core/config'
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import $ from 'jquery'
+import SlideNav from './SlideNav'
+
 class MenuNav extends Component {
 
     constructor(props) {
@@ -29,7 +31,8 @@ class MenuNav extends Component {
                      </div>
                     <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)}>
                         <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
-                   </button>
+                    </button>
+                    <SlideNav language={this.props.language} />
                </div>
                <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-tabs">
@@ -96,6 +99,7 @@ class MenuNav extends Component {
     onOpenMenuPanel(){
         document.getElementById("overlay").style.display = 'block'
         document.getElementById("slidenav").style.width = "250px"
+        document.getElementById("slidenav").style.width = document.getElementById("pagecontent").offsetHeight
         document.getElementById("main-menu-search").focus()
     }
     myEventHandler(e){

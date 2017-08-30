@@ -15,7 +15,7 @@ class MainContent extends Component {
 
     render() {
         return (
-            <div id="pagecontent">
+            <div id="maincontent">
                 <SideBar theme={this.props.theme} language= {this.props.language}/>
                 <PageContent theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
             </div>
@@ -27,7 +27,7 @@ class MainContent extends Component {
         var h1 = document.getElementById('pageheader').offsetHeight
         var h2 = document.getElementById('pagemenu').offsetHeight
         var h3 = window.innerHeight
-        document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
+        document.getElementById('maincontent').style.height = h3 - h1 - h2 + 'px'
 
     }
 

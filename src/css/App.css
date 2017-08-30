@@ -21,6 +21,16 @@ body {
     background-color: #999;
     border-radius: 2px;
 }
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, 
+.col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, 
+.col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, 
+.col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, 
+.col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, 
+.col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, 
+.col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-left: 1px;
+  padding-right: 1px;
+}
 /*COMMONS*/
 
 .hks-btn {
@@ -59,19 +69,20 @@ input::-webkit-calendar-picker-indicator {
 /*END COMMONS*/
 /*LAYOUT*/
 
-.child-grid-body {
+.component-wrapper {
     width: 100%;
     height: 100%;
     background-color: #fff;
     border: 1px solid #c4c4c4;
-    /*box-shadow: 0.1px 0.1px 5px;*/
-    /*-moz-box-shadow: 2px 2px 5px;
-  -webkit-box-shadow: 2px 2px 5px;
-  -o-box-shadow: 5px 5px 5px;
-  -ms-box-shadow: 5px 5px 5px;*/
 }
-.child-grid-header {
-    //border: 1px solid #AEB5BA;  
+.component-main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 1px;
+}
+.component-header {
     background-color: #005899;
     width: 100%;
     height: 25px;
@@ -79,6 +90,7 @@ input::-webkit-calendar-picker-indicator {
     top: 0;
     padding-left: 10px;
     padding-top: 3px;
+    z-index: 2;
 }
 .content-block-head {
     font-size: 14px;
@@ -96,7 +108,7 @@ input::-webkit-calendar-picker-indicator {
 .react-resizable-handle {
     right: 5px;
 }
-.layout-body {
+.component-body {
     margin-top: 25px;
 }
 .closebtn {
@@ -183,9 +195,13 @@ input::-webkit-calendar-picker-indicator {
 }
 /*END MAIN MENU NAV BAR*/
 /*DATATABLE*/
-
+.hks-table {
+    height: 100%;
+}
 .datatable {
     text-align: center;
+    font-size: 12px;
+    height: 100%;
 }
 .datatable input[type=checkbox] {
     margin-top: 0px;
@@ -592,13 +608,7 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 1px;
 }
 /*END HEADER*/
-/*STOCK INFO*/
 
-.stock-stat,
-.stock-info {
-    padding: 0;
-}
-/*END STOCK INFO*/
 /*OVERLAY*/
 
 #overlay {
@@ -620,11 +630,8 @@ input::-webkit-calendar-picker-indicator {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
-    left: 0;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.5s;
     padding: 10px 0px;
 }
 .settingnav {
@@ -742,10 +749,11 @@ input::-webkit-calendar-picker-indicator {
 .profile-wrapper {
     padding-top: 30px;
     width: 100%;
+    padding-left: 20px;
 }
 .profile-wrapper .control-label {
     text-align: left;
-    padding-left: 25px;
+    padding-left: 50px;
 }
 /*END PROFILE*/
 /*FLASH POPUP*/
@@ -813,6 +821,124 @@ input::-webkit-calendar-picker-indicator {
     border-radius: 0px;
     border: 0;
     margin: 1px;
+}
+.component-main.oddlottrading {
+    padding: 0px;
+}
+.component-main.oddlottrading > .oddlotorder{
+    z-index: 1;
+    clear: both;
+}
+.component-main.oddlottrading > .oddlothistory{
+    clear: both;
+}
+@media (min-width: 768px){
+    .component-main.oddlottrading > .oddlotorder{
+        width: 100%;
+        height: 300px;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
+        float: left;
+        width: 75%;
+        position: relative;
+        height: 100%;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
+        position: absolute;
+        padding-top: 70px;
+        width: 100%;
+        height: 100%;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
+        float: left;
+        width: 25%;
+        position: relative;
+        padding-top: 25px;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlothistory{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-main{
+        width: 100%;
+        position: absolute;
+        padding-top: 346px;
+        height: 100%;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-header{
+        width: 100%;
+        position: relative;
+        padding-top: 301px;
+    }
+}
+@media(max-width: 768px){
+    .component-main.oddlottrading > .oddlotorder{
+        width: 100%;
+        height: 400px;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
+        float: left;
+        width: 100%;
+        position: relative;
+        height: 250px;
+        z-index: 1;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
+        position: absolute;
+        padding-top: 70px;
+        width: 100%;
+        height: 100%;
+        padding-right: 1px;
+        padding-left: 1px;
+
+    }
+    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
+        float: left;
+        width: 100%;
+        position: absolute;
+        padding-top: 250px;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 150px;
+
+    }
+    .component-main.oddlottrading > .oddlothistory{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-main{
+        width: 100%;
+        position: absolute;
+        padding-top: 446px;
+        height: 100%;
+    }
+    .component-main.oddlottrading > .oddlothistory > .table-header{
+        width: 100%;
+        position: relative;
+        padding-top: 401px;
+    }
 }
 /*END ODD LOT*/
 /*ENTITLEMENT*/
@@ -909,10 +1035,12 @@ input::-webkit-calendar-picker-indicator {
 .hks-btn.btn-tab-prev.search-bar { /*for search-bar*/
     float: left;
     margin: 0;
+    height: 23px;
 }
 .hks-btn.btn-tab-next.search-bar { /*for search-bar*/
     float: right;
     margin-right: 3px;
+    height: 23px;
 }
 .scroll {
     position: absolute;
@@ -958,9 +1086,11 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
 }
 .scrolling-tabs-left {
-    height: 100%;
     float: left;
+    height: 100%;
     background-color: transparent;
+    position: relative;
+    display: inline-block;
 }
 .scrolling-tabs-right {
     margin-top: 1px;
@@ -1021,39 +1151,387 @@ input::-webkit-calendar-picker-indicator {
     border-radius: 0;
     border: 0;
 }
-/*END CASH TRANSFER*/
+.component-main.cashadvance {
+    padding-top: 0px;
+}
+.component-main.cashadvance > .cashadvance-history{
+    z-index: 1;
+}
+@media(min-width: 768px){
+    .component-main.cashadvance > .cashadvance-history{
+        height: 260px;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        height: 100%;
+        float: left;
+        width: 50%;
+        padding-top: 25px;
+        position: relative;
+        /*position: absolute;*/
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        height: 100%;
+        float: left;
+        width: 50%;
+        position: relative;
+        /*position: absolute;*/
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        padding-top: 70px;
+        padding-right: 5px;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
+        position: relative;
+        padding-top: 25px;
+    }
+
+    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
+        height: 100%;
+        position: absolute;
+        padding-top: 307px;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
+        position: relative;
+        padding-top: 262px;
+        width: 100%;
+    }
+}
+@media(min-width: 992px){
+    .component-main.cashadvance > .cashadvance-history{
+        
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        float: left;
+        width: 33.33333333%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        float: left;
+        width: 66.66666667%;
+    }
+}
+@media(max-width: 768px){
+    .component-main.cashadvance > .cashadvance-history{
+        height: 370px;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
+        height: 160px;
+        padding-top: 25px;
+        position: absolute;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
+        width: 100%;
+        height: 100%;
+
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        padding-top: 205px;
+    }
+    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
+        position: relative;
+        padding-top: 160px;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
+        height: 100%;
+        position: absolute;
+        padding-top: 417px;
+        width: 100%;
+    }
+    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
+        position: relative;
+        padding-top: 372px;
+        width: 100%;
+    }
+}
+/*END CASH ADVANCE*/
 
 /*HORIZONTAL TABLE*/
 .horizontal-table {
     font-size: 12px;
     border: 1px solid #dcdcdc;
-}
-.horizontal-table > .ht-header {
-
+    height: 100%;
+    overflow: auto;
 }
 .horizontal-table > .ht-body {
-    overflow: auto;
-    height: 260px;
+    height: 100%;
 }
-.horizontal-table > .ht-body > .ht-tr {
+.horizontal-table > .ht-body > .ht-tr,
+.horizontal-table > .ht-header > .ht-tr {
     min-height: 21px;
     line-height: 1.9;
 }
 .horizontal-table > .ht-body > .ht-tr:not(:first-child) {
     border-top: 1px solid #efefef;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td {
+.horizontal-table > .ht-body > .ht-tr > .ht-td,
+.horizontal-table > .ht-header > .ht-tr > .ht-th {
     display: inline-block;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title {
-    width: 60%;
-    padding-left: 10px;
+.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title {
+    width: 50%;
+    padding-left: 5px;
     background-color: #dcdcdc;
     height: 100%;
 }
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value {
-    width: 40%;
-    max-width: 150px;
-    min-width: 80px;
+.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
+    width: 50%;
+    max-width: 120px;
+    min-width: 50px;
     text-align: center;
 }
+.horizontal-table > .ht-header {
+
+}
+.horizontal-table > .ht-header > .ht-tr,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value{
+    color: #fff;
+    background-color: #005899;
+}
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
+.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
+    text-align: center;
+}
+/*END HORIZONTAL TABLE*/
+
+/*PORTFOLIO*/
+.component-main.portfolio {
+    padding-top: 0px;
+}
+.component-main.portfolio > .dtable {
+    position: absolute;
+    padding-top: 292px;
+    height: 100%;
+    width: 100%;
+}
+.component-main.portfolio > .statment {
+    position: absolute;
+    width: 100%;
+    padding-top: 25px;
+    z-index: 1;
+}
+.component-main.portfolio > .statment .statment-table {
+    padding-top: 2px;
+}
+@media (max-width: 768px){
+    .component-main.portfolio > .dtable {
+        padding-top: 492px;
+    }
+}
+/*END PORTFOLIO*/
+
+/*STOCKMARET INFOR*/                /*NOT DONE*/
+.component-main.stockmarketinfo > .stock-stat {
+    min-width: 200px;
+    height: 100%;
+}
+.component-main.stockmarketinfo > .stock-info {
+    height: 100%;
+}
+@media (max-width: 768px){
+    
+}
+/*END STOCKMARET INFOR*/
+
+/*ACCOUNT INFO*/
+.component-main.accountinfo.cashinfo {
+    padding-top: 49px;
+}
+.component-main.accountinfo.stockinfo {
+    padding-top: 0px;
+}
+.component-main.accountinfo.stockinfo > .stock-table{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 72px;
+}
+.component-main.accountinfo.stockinfo > .search-bar{
+    position: absolute;
+    width: 100%;
+    padding-top: 47px;
+}
+/*END ACCOUNT INFO*/
+
+/* SIDE BAR */
+/* close(default) */
+.sidebar-wrapper{
+    background: #F5F5F5;
+    height: 100%;
+    width: 50px;
+    float: left;
+}
+
+@media(max-width: 768px){
+    .sidebar-wrapper {
+        display: none;
+    }
+}
+
+.sidebar-favorite> img{
+    width: 40px;
+    margin: 0 5px;
+}
+
+.sidebar-favorite>img:hover, .sidebar-helping > img:hover{
+    background: #e6e6e6;
+}
+
+.sidebar-favorite >a, .sidebar-helping >a {
+  display: none;
+}
+
+
+.sidebar-helping > img {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    padding: 12px;
+    margin: 0px;
+}
+
+.sidebar-footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.expandicon{
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 0;
+    outline: none;
+}
+
+.expandicon > img {
+    width: 10px;
+
+}
+
+/* open */
+.opensidebar{
+  display: block;
+  width: 250px;
+}
+.opensidebar >a {
+  display: inline-block;
+}
+.opensidebar .expandicon{
+    outline: none;
+    width:  250px;
+    float: right;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*CASH TRANSFER*/
+.component-main.cashtransfer {
+    padding-top: 0px;
+}
+.component-main.cashtransfer > .cashtransfer-form {
+    z-index: 1;
+    float: left;
+    position: relative;
+    height: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-form form{
+    position: absolute;
+    padding-top: 45px;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding-right: 1px;
+    padding-left: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-form .title{
+    padding-top: 25px;
+    z-index: 2;
+    position: relative;
+}
+.component-main.cashtransfer > .cashtransfer-form > .form-group{
+    padding-bottom: 
+}
+.component-main.cashtransfer > .cashtransfer-history {
+    /*position: absolute;*/
+    float: left;
+    position: relative;
+    height: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.component-main.cashtransfer > .cashtransfer-history > .table-main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+}
+.component-main.cashtransfer > .cashtransfer-history > .table-header {
+    position: relative;
+    width: 100%;
+    padding-top: 25px;
+}
+@media (min-width: 768px) {
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 50%;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 50%;
+    }
+}
+@media (min-width: 992px){
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 33.33333333%;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 66.66666667%;
+    }
+}
+@media (max-width: 768px) {
+    .component-main.cashtransfer > .cashtransfer-form {
+        width: 100%;
+        height: 365px;
+    }
+    .component-main.cashtransfer > .cashtransfer-history {
+        width: 100%;
+        position: absolute;
+    }
+    .component-main.cashtransfer > .cashtransfer-history > .table-main {
+        padding-top: 435px;
+    }
+    .component-main.cashtransfer > .cashtransfer-history > .table-header {
+        padding-top: 390px;
+    }
+}
+/*END CASH TRANSFER*/
