@@ -56,69 +56,76 @@ class CashTransfer extends Component {
                     accessor: 'action',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'transferamount',
                     Header: this.props.language.cashtransfer.header.transferamount,
                     accessor: 'totalLendingAmt',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'beneficiaryaccount',
                     Header: this.props.language.cashtransfer.header.beneficiaryaccount,
                     accessor: 'receiveClientID',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'beneficiaryfullname',
                     Header: this.props.language.cashtransfer.header.beneficiaryfullname,
                     accessor: 'ownerName',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'bankname',
                     Header: this.props.language.cashtransfer.header.bankname,
                     accessor: 'bankName',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'bankbranch',
                     Header: this.props.language.cashtransfer.header.bankbranch,
                     accessor: 'bankBranch',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'status',
                     Header: this.props.language.cashtransfer.header.status,
                     accessor: 'status',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'approvetime',
                     Header: this.props.language.cashtransfer.header.approvetime,
                     accessor: 'lastApprovaltime',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'date',
                     Header: this.props.language.cashtransfer.header.date,
                     accessor: 'createTime',
                     skip: false,
                     show: true,
-    		  },
+              },
                 {
                     id: 'cancel',
                     Header: this.props.language.cashtransfer.header.cancel,
-                    skip: false,
-                    show: true,
-    		  }
+                    accessor: 'status',
+                    Cell: props => { if((props.value == 'Đang chờ')||(props.value == 'Pending'))
+                                        return (
+                                            <button onSubmit={this.handleSubmit}>Cancel</button>
+                                        )
+                                   },
+                    sortable: false,
+                    skip: true,
+            show: true,
+              }
           ],
             formValues: {},
             json: {},
@@ -130,6 +137,7 @@ class CashTransfer extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.popupType='none';
         this.id = 'cashtransfer'
     }
 
@@ -212,9 +220,15 @@ class CashTransfer extends Component {
                 {
                     id: 'cancel',
                     Header: nextProps.language.cashtransfer.header.cancel,
-
-                    skip: false,
-                    show: true,
+                    accessor: 'status',
+                    Cell: props => {  if((props.value == 'Đang chờ')||(props.value == 'Pending'))
+                                        return (
+                                            <button onSubmit={this.handleSubmit}>Cancel</button>
+                                        )
+                                   },
+                    sortable: false,
+                    skip: true,
+            show: true,
           }]
         });
     }
@@ -225,6 +239,18 @@ class CashTransfer extends Component {
 
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
+        var datagenfund = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList
+        var mreceive = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList[0]
+
+        data.map(e => {
+          if(e.status === 'R')
+              e.status = this.props.language.cashtransfer.status.rejected;
+          if(e.status === 'A')
+              e.status = this.props.language.cashtransfer.status.approve;
+          if(e.status === 'P')
+              e.status = this.props.language.cashtransfer.status.pending;
+      })
+
         let lgClose = () => this.setState({ isShow: false })
 
         let buttonAction = [
@@ -254,7 +280,7 @@ class CashTransfer extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.cashwithdrawable}</th>
                                         <td>
-                                            <input type="hidden" name="cashwithdrawable" id="cashwithdrawable" required />
+                                            {this.props.datagenfund.mvAvailable}
                                         </td>
                                     </tr>
                                     <tr>
@@ -265,7 +291,7 @@ class CashTransfer extends Component {
                                                 { this.inputStatus.value = "External" }} checked="checked" required>
                                                 <div className="Radiobox">External</div>
                                             </Radio>
-                                            <Radio name="radioGroup" inline onChange={() =>
+                                            <Radio name="radioGroup" inline disabled onChange={() =>
                                                 { this.inputStatus.value = "Internal" }}>
                                                 <div className="Radiobox">Internal</div>
                                             </Radio>
@@ -274,7 +300,9 @@ class CashTransfer extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
-                                            <input list="beneficiaryaccountnumber" name="bank" id="beneficiaryaccountnumber" style={{width: "180px"}} required />
+                                          <select>
+                                            <option>{mreceive.receiverAccID}</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -286,13 +314,13 @@ class CashTransfer extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
                                         <td>
-                                            <input name="beneficiaryfullname" id="beneficiaryfullname" style={{width: "180px"}} required />
+                                            <input name="beneficiaryfullname" value={mreceive.receiverName} id="beneficiaryfullname" style={{width: "180px"}} required />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.bankname}</th>
                                         <td>
-                                            <input name="bankname" id="bankname" style={{width: "180px"}} required />
+                                            <input name="bankname" value={mreceive.receiverBankName} id="bankname" style={{width: "180px"}} required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -345,7 +373,7 @@ class CashTransfer extends Component {
                             id={this.id + "-table"}
                             language={this.props.language.cashtransfer.header}
                             columns={this.state.columns}
-                            data={data}
+                            data={data.slice((this.state.pageIndex-1)*6, this.state.pageIndex*6)}
                             maxRows={18}
                             defaultPageSize={20}/>
                     </div>
@@ -366,12 +394,7 @@ class CashTransfer extends Component {
                             hideSearchButton={true}
                             param={['dropdown']} />
                     </div>
-                    
-                        {/*<Footer
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={data.length}
-                            onPageChange={this.onPageChange.bind(this)}/>*/}
-                    
+
                 </div>
             </div>
             </div>
@@ -388,16 +411,12 @@ class CashTransfer extends Component {
     onNextPage(){
         if(this.state.pageIndex > 0){
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
         }
     }
 
     onPrevPage(){
         if(this.state.pageIndex > 1){
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
         }
     }
 
@@ -407,16 +426,22 @@ class CashTransfer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({ isShow: true })
     }
 
-    onChange(e) {}
+    onChange(e) {
+      e.preventDefault();
+      let formValues = this.state.formValues;
+      let name = e.target.name;
+      let value = e.target.value;
 
-    onPageChange(pageIndex) {
-        if(pageIndex > 0){
-            this.state.pageIndex = pageIndex
-            this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+      formValues[name] = value;
+      this.setState({ formValues })
+    }
+
+    onPageChange(pageIndex){
+      console.log(this.id + ' onPageChange', pageIndex)
+      this.setState({pageIndex: pageIndex });
     }
 
     componentDidMount() {

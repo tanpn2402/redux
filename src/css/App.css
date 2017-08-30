@@ -87,7 +87,7 @@ input::-webkit-calendar-picker-indicator {
     top: 0;
     padding-left: 10px;
     padding-top: 3px;
-    z-index: 2;
+    z-index: 3;
 }
 .content-block-head {
     font-size: 14px;

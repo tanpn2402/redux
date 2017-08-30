@@ -40,3 +40,16 @@ export function gethksCachTranHis(params) {
     WebApi.post(ACTION.HKSCASHTRANSACTIONHISTORY, params, dispatch, responsehksCachTranHis)
     }
   }
+
+  function responseCancelfundtransfer(response) {
+    return {
+      type: ActionTypes.CANCELFUNDTRANSFER,
+      data: response,
+    }
+  }
+
+  export function getCancelfundtransfer(params) {
+    return (dispatch) => {
+      WebApi.post(ACTION.CANCELFUNDTRANSFER, params, dispatch, responseCancelfundtransfer)
+    }
+  }

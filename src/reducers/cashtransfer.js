@@ -4,6 +4,7 @@ const initialState = {
   datafundtransfer: [],
   datahkscashtranhis: [],
   datagenfundtransfer: [],
+  cancelfundtransfer: [],
 };
 
 export default function (state = initialState, action) {
@@ -19,6 +20,10 @@ export default function (state = initialState, action) {
     case ActionTypes.GENFUNDTRANSFER:
         return Object.assign({},state,{
           datagenfundtransfer: action.data,
+        });
+    case ActionTypes.CANCELFUNDTRANSFER:
+        return Object.assign({},state,{
+          cancelfundtransfer: action.data,
         });
     default:
       return state;

@@ -325,8 +325,8 @@ class Entitlement extends Component {
 
             let buttonAction1 = [
                 <Pagination
-                        pageIndex={this.state.pageIndex1} 
-                        totalRecord={10} 
+                        pageIndex={this.state.pageIndex1}
+                        totalRecord={datarightlist.length}
                         onPageChange={this.onPageChange1.bind(this)}
                         onNextPage={this.onNextPage1.bind(this)}
                         onPrevPage={this.onPrevPage1.bind(this)}
@@ -335,8 +335,8 @@ class Entitlement extends Component {
             ]
             let buttonAction2 = [
                 <Pagination
-                        pageIndex={this.state.pageIndex2} 
-                        totalRecord={10} 
+                        pageIndex={this.state.pageIndex2}
+                        totalRecord={dataadditionalsharelist.length}
                         onPageChange={this.onPageChange2.bind(this)}
                         onNextPage={this.onNextPage2.bind(this)}
                         onPrevPage={this.onPrevPage2.bind(this)}
@@ -345,8 +345,8 @@ class Entitlement extends Component {
             ]
             let buttonAction3 = [
                 <Pagination
-                        pageIndex={this.state.pageIndex3} 
-                        totalRecord={10} 
+                        pageIndex={this.state.pageIndex3}
+                        totalRecord={datahistorylist.length}
                         onPageChange={this.onPageChange3.bind(this)}
                         onNextPage={this.onNextPage3.bind(this)}
                         onPrevPage={this.onPrevPage3.bind(this)}
@@ -468,7 +468,7 @@ class Entitlement extends Component {
                           language={this.props.language.entitlement.header}
                           columns={this.state.columns}
                           defaultPageSize={15}
-                          data={datarightlist}/>
+                          data={datarightlist.slice((this.state.pageIndex1-1)*6, this.state.pageIndex1*6)}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -486,9 +486,6 @@ class Entitlement extends Component {
                           onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                           param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                     </div>
-
-                    
-                  
                 </div>
 
                 <div key={this.id + "-xtable3"} id={this.id + "-xtable3"}>
@@ -499,13 +496,13 @@ class Entitlement extends Component {
                           language={this.props.language.entitlement.header}
                           columns={this.state.columns3}
                           defaultPageSize={15}
-                          data={datahistorylist}/>
+                          data={datahistorylist.slice((this.state.pageIndex3-1)*6, this.state.pageIndex3*6)}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
                             <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
                         </div>
-                      
+
                         <SearchBar
                           key={this.id + '-search3'}
                           id={this.id + '-search3'}
@@ -518,8 +515,8 @@ class Entitlement extends Component {
                           onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
                           param={['mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                     </div>
-                 
-                 
+
+
                 </div>
 
                 <div key={this.id + "-xtable2"}  id={this.id + "-xtable2"}>
@@ -530,7 +527,7 @@ class Entitlement extends Component {
                         language={this.props.language.entitlement.header}
                         columns={this.state.columns2}
                         defaultPageSize={15}
-                        data={dataadditionalsharelist}/>
+                        data={dataadditionalsharelist.slice((this.state.pageIndex2-1)*6, this.state.pageIndex2*6)}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -549,7 +546,7 @@ class Entitlement extends Component {
                           onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
                           param={['dropdown']}/>
                     </div>
-                    
+
                 </div>
             </div>
           </div>
@@ -594,62 +591,39 @@ class Entitlement extends Component {
       });
     }
 
-/// 1//
-    onChangeStateColumn1(e) {
-        const id = e.target.id
-        // this.setState({
-        //     columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        // });
-    }
-
     onNextPage1(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex1 > 0){
+            this.state.pageIndex1 = parseInt(this.state.pageIndex1) + 1
         }
     }
 
     onPrevPage1(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex1 > 1){
+            this.state.pageIndex1 = parseInt(this.state.pageIndex1) - 1
         }
     }
 
     onReloadPage1(){
-        // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
     onPageChange1(pageIndex) {
         if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
         }
     }
-///2///
+
     onChangeStateColumn2(e) {
         const id = e.target.id
-        // this.setState({
-        //     columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        // });
     }
 
     onNextPage2(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex2 > 0){
+            this.state.pageIndex2 = parseInt(this.state.pageIndex2) + 1
         }
     }
 
     onPrevPage2(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex2 > 1){
+            this.state.pageIndex2 = parseInt(this.state.pageIndex2) - 1
         }
     }
 
@@ -657,50 +631,25 @@ class Entitlement extends Component {
         this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
-    onPageChange2(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
-    }
-
-///3///
     onChangeStateColumn3(e) {
         const id = e.target.id
-        // this.setState({
-        //     columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        // });
     }
 
     onNextPage3(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex3 > 0){
+            this.state.pageIndex3 = parseInt(this.state.pageIndex3) + 1
         }
     }
 
     onPrevPage3(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex3 > 1){
+            this.state.pageIndex3 = parseInt(this.state.pageIndex3) - 1
         }
     }
 
     onReloadPage3(){
-        // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
-    onPageChange3(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
-    }
-/////
     handleSubmit(e) {
       e.preventDefault();
     }
@@ -708,14 +657,19 @@ class Entitlement extends Component {
     onChange(e) {
     }
 
-    onPageChange(pageIndex){
-      console.log(this.id + ' onPageChange', pageIndex)
-      this.setState({pageIndex: pageIndex });
+    onPageChange1(pageIndex){
+      console.log(this.id + ' onPageChange1', pageIndex)
+      this.setState({pageIndex1: pageIndex });
     }
 
     onPageChange2(pageIndex){
       console.log(this.id + ' onPageChange2', pageIndex)
-      this.setState({pageIndex: pageIndex });
+      this.setState({pageIndex2: pageIndex });
+    }
+
+    onPageChange3(pageIndex){
+      console.log(this.id + ' onPageChange3', pageIndex)
+      this.setState({pageIndex3: pageIndex });
     }
 
     componentDidMount() {
@@ -744,6 +698,9 @@ const mapDispatchToProps = (dispatch, props) => ({
       dispatch(actions.getAdditionalshareinfo(paramsaddition))
     },
     getdynamicdata: (paramsdynamic) => {
+      dispatch(actions.getDynamicdata(paramsdynamic))
+    },
+    getEntitlementSubmit: (paramsdynamic) => {
       dispatch(actions.getDynamicdata(paramsdynamic))
     },
 })
