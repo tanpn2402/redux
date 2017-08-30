@@ -4,7 +4,7 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
-const SERVER = 'http://192.168.110.190:'
+const SERVER = 'http://localhost:'
 const PORT = '8080/iTradeMAS/'
 
 const HOST = 'mi-trade.masvn.com'
@@ -20,6 +20,12 @@ const HEADERS= {
             'Accept': ACCEPT,
             'Accept-language': ACCEPT_LANGUAGE,
             'Connection':CONNECTION,
+            'Content-Type': CONTENT_TYPE
+}
+const HEADERSCK = {
+            'Host': HOST,
+            'Accept': ACCEPT,
+            'Accept-language': ACCEPT_LANGUAGE,
             'Content-Type': CONTENT_TYPE
 }
 
@@ -39,7 +45,7 @@ export async  function FetchAPI(id,JsonData,method) {
             return new Promise((resolve, reject) => {
                var response = window.fetch(url,{
                     method: GET,
-                    headers: HEADERS,
+                    headers: HEADERSCK,
                     credentials: 'include'
                 })
 
@@ -56,7 +62,7 @@ export async  function FetchAPI(id,JsonData,method) {
             return new Promise((resolve, reject) => {
                var response = window.fetch(url,{
                     method: GET,
-                    headers: HEADERS})
+                    headers: HEADERSCK})
 
                 response.then(res => {
                     if (res.ok) {
@@ -76,7 +82,7 @@ export async  function FetchAPI(id,JsonData,method) {
         return new Promise((resolve, reject) => {
              let response = fetch(url,{
                 method: POST,
-                headers: HEADERS,
+                headers: HEADERSCK,
                 credentials: 'include',
                 body:formData
             })
@@ -97,7 +103,7 @@ export async  function FetchAPI(id,JsonData,method) {
          return new Promise((resolve, reject) => {
              var response = window.fetch(url,{
                 method: POST,
-                headers: HEADERS,
+                headers: HEADERSCK,
                 credentials: 'include',
                 body:formData
             })
@@ -119,7 +125,7 @@ export async  function FetchAPI(id,JsonData,method) {
          return new Promise((resolve, reject) => {
              var response = window.fetch(url,{
                 method:POST ,
-                headers: HEADERS,
+                headers: HEADERSCK,
                 credentials: 'include',
                 body:formData
             })
