@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: #efefef;
+    background-color: #003664;
     overflow-y: hidden;
     height: 100%;
     width: 100%;
@@ -376,8 +376,19 @@ input::-webkit-calendar-picker-indicator {
 }
 /*END DROPDOWN CHECKBOX*/
 /*ENTER ORDER*/
-
+.form-horizontal .control-label{
+    text-align: center;
+}
+.login.form-horizontal input {
+    border: none;
+    border-radius: 0px;
+}
+.inputs{
+    margin-bottom: 5px;
+    border: none;
+}
 .login {
+    color: #fff;
     padding: 20px;
     width: 400px;
     height: 175px;
@@ -387,12 +398,17 @@ input::-webkit-calendar-picker-indicator {
     right: 0;
     bottom: 0;
     left: 0;
-    border: 1px solid;
-    border-radius: 3px;
+    border: 3px solid #ff6600;
 }
-.buttons {
-    margin-left: 43%;
-    margin-top: 5%;
+.login-button-group {
+    text-align: center;
+    padding-top: 10px;
+}
+.hks-btn.btn-login {
+    background-color: #ff6600;
+    border: none; 
+    color: #fff;
+    padding: 10px 20px;
 }
 .msg {
     margin: 40px;
@@ -468,6 +484,20 @@ input::-webkit-calendar-picker-indicator {
 .value-wapper {
     border-bottom: 1px solid #dcdcdc;
     padding-left: 5px;
+}
+@media(max-width: 768px){
+    .login.form-horizontal {
+        height: 200px;
+    }
+    .hks-btn.btn-login {
+        padding: 10px 25px;
+    }
+    .login {
+        width: 80%;
+    }
+    .login-button-group {
+        padding-top: 5px;
+    }
 }
 /*END ENTER ORDER*/
 /*ORDER JOURNALL*/

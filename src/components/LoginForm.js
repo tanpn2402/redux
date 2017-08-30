@@ -54,7 +54,7 @@ class LoginForm extends Component {
                         Username
                     </Col>
                     <Col sm={8}>
-                        <input type="text" name="username" className="form-control" ref={node => { this.username = node }} />
+                        <input type="text" name="username" className="form-control inputs" ref={node => { this.username = node }} />
                     </Col>
                 </FormGroup>
                 <FormGroup controlId="formHorizontalPass">
@@ -62,15 +62,15 @@ class LoginForm extends Component {
                         Password
                 </Col>
                     <Col sm={8}>
-                        <input type="password" className="form-control" name="password" ref={node => { this.password = node }} />
+                        <input type="password" className="form-control inputs" name="password" ref={node => { this.password = node }} />
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col>
-                        <Button className="btn btn-default" type="submit">
+                    <div className="login-button-group">
+                        <button className="hks-btn btn-login" type="submit">
                             Login
-                        </Button>
-                    </Col>
+                        </button>
+                    </div>
                 </FormGroup>
                 <div className="msg">
                     {this.props.isLoginError && <div>Something Wrong</div>}
