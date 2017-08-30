@@ -151,7 +151,7 @@ const config = {
 		cashtransfer: {i: 'cashtransfer', x:0, y:0, w: 8, h: 10, minW: 5, minH: 6, maxW: 8, maxH: 10, static: false, isResizable: true},
 		cashadvance: {i: 'cashadvance', x:0, y:0, w: 8, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 10, static: false, isResizable: true},
 		marginloan: { i: 'marginloan', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
-		available: { i: 'available', x: 0, y: 0, w: 4, h: 8, minW: 4, minH: 8, maxW: 8, maxH: 6, static: false, isResizable: false },
+		available: { i: 'available', x: 0, y: 0, w: 4, h: 6, minW: 4, minH: 6, maxW: 8, maxH: 8, static: false, isResizable: true },
 		accountinfo: {i: 'accountinfo', x:0, y:0, w: 3, h: 6, minW: 3, minH: 6, maxW: 8, maxH: 8, static: false, isResizable: true},
 		loanrefund: {i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: false, isResizable: true},
 		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, isResizable: true},
