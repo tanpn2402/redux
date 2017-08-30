@@ -24,6 +24,7 @@ class Profile extends Component {
           paddingBottom: "2px",
           height: "24px",
         }
+        this.showPopup=false
     }
     
       
@@ -34,12 +35,15 @@ class Profile extends Component {
         var result= this.props.changePassResult.changePasswordBean
         if(result !== undefined){
           if(result.PData === 'fail_to_change'){
-            this.reloadPopup=!this.reloadPopup
-            this.props.showNotif(this.props.language.message.error,this.props.language.message.changefailed, this.reloadPopup)
+            this.props.showNotif(this.props.language.message.error, 
+                                 this.props.language.message.changefailed, 
+                                !this.reloadPopup, this.showPopup)
           }else{
-            this.reloadPopup=!this.reloadPopup
-            this.props.showNotif(this.props.language.message.notification,this.props.language.message.changesuccess, this.reloadPopup)
+            this.props.showNotif(this.props.language.message.notification,
+                                 this.props.language.message.changesuccess, 
+                                 !this.reloadPopup, this.showPopup)
           }
+          this.showPopup=false
         }
         return (
           <div className="profile-wrapper">
@@ -180,7 +184,7 @@ class Profile extends Component {
                 </FormGroup>
               </Form>
             </Col>
-            <Col xs={6} md={6} style={{fontSize: "12px", textAlign: "left"}}>
+            <Col xs={6} md={6} componentClass={ControlLabel} style={this.labelStyle}>
               <div><strong>{this.props.language.warning}</strong></div>
               <div><strong>{this.props.language.expiredate}</strong></div>
               <div>{this.props.language.warndetail1}</div>
@@ -197,19 +201,17 @@ class Profile extends Component {
     }
     onChangePassword(){
       if(this.params['oldPassword']=== ''){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.emptypass, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.emptypass, !this.reloadPopup, true)
       }
       else if(this.params['password'].length <6 || this.params['password'].length >30 ){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.newpassunaccepted, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.newpassunaccepted, !this.reloadPopup, true)
       }
       else if(this.retypePass !== this.params['password']){
-        this.reloadPopup=!this.reloadPopup
-        this.props.showNotif(this.props.language.message.error, this.props.language.message.notmatched, this.reloadPopup)
+        this.props.showNotif(this.props.language.message.error, this.props.language.message.notmatched, !this.reloadPopup, true)
       }
       else{  
         this.props.changePassword(this.params)
+        this.showPopup=true
       }
     }
     onChangeValue(e){
@@ -238,8 +240,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   changePassword: (param) => {
     dispatch(actions.changePassword(param))
   },
-  showNotif: (notifType, notifDetail, reloadPopup) => {
-    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup))
+  showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
+    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
   },
 })
 

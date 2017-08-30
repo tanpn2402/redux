@@ -3,6 +3,7 @@ import {ActionTypes} from '../core/constants';
 const initialState = {
 	message : '123',
   type: 0,
+  showPopup: false
 };
 
 export default function(state = initialState, action) {
@@ -11,9 +12,9 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{          
         	message: action.message,
           type: action.notification_type,
-          reloadPopup: action.reloadPopup
+          reloadPopup: action.reloadPopup,
+          showPopup: action.showPopup,
         });
-        
     default:
       break;
      

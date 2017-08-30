@@ -412,6 +412,11 @@
             "cancel": "Hủy GD",
 
             "bankordertype": "Tài khoản ngân hàng"
+        },
+        "status": {
+          "pending": "Đang chờ",
+          "approve": "Duyệt",
+          "rejected": "Hủy"
         }
       },
       "avaiblemarginlist" : {

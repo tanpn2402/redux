@@ -427,6 +427,11 @@
           "beneficiary": "Beneficiary account number is unavailable",
           "bank": "Bank is unavailable",
           "branch": "Bank branch is unavailable"
+        },
+        "status": {
+          "pending": "Pending",
+          "approve": "Approve",
+          "rejected": "Rejected"
         }
       },
       "cashadvance": {
