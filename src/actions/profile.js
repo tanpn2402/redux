@@ -26,3 +26,15 @@ function responseChangePassword(response){
       changePassword: response,
   }
 }
+export function getHeaderChart(params) {
+  return (dispatch)=>{
+    api.get(ACTION.COMET,params,dispatch,responseGetHeaderChart)
+    
+  }
+}
+function responseGetHeaderChart(response){
+  return {
+      type: ActionTypes.GETHEADERCHART, 
+      headerChart: response,
+  }
+}

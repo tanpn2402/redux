@@ -16,6 +16,10 @@ export default function (state = initialState, action) {
         return Object.assign({},state,{
           changePassword: action.changePassword,
         });
+    case ActionTypes.GETHEADERCHART:
+        return Object.assign({},state,{
+          headerChart: action.headerChart,
+        });  
     default:
       return state;
   }

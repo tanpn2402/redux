@@ -13,7 +13,7 @@ import {enquiryCashTransaction} from './cashtranshistory'
 import { enquiryStockStatement } from './stockstatement'
 import { enquiryCashStatement} from './cashstatement'
 import {loadWatchList,addStock, removeStock} from './watchlist'
-import {getClientInfo, changePassword} from './profile'
+import {getClientInfo, changePassword, getHeaderChart} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit} from './oddlottrading'
 import {getFundtransfer, gethksCachTranHis, getGenfundtransfer} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
@@ -93,4 +93,5 @@ export {
   getHistorylist,
   getDynamicdata,
   
+  getHeaderChart,
 };

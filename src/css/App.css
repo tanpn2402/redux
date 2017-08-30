@@ -228,7 +228,7 @@ input::-webkit-calendar-picker-indicator {
 .header-market .rt-thead .rt-th {
     padding-top: 1px;
     padding-bottom: 1px;
-    height: 18px;
+    height: auto ;
 }
 /*END DATATABLE*/
 /*DATATABLE FOOTER*/
