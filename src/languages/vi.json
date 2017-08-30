@@ -354,7 +354,8 @@
           "pricerange": "Giá nằm ngoài khoảng",
           "stockavailable": "Mã Ck này không tồn tại",
           "money": "Tài khoản của bạn không đủ tiền",
-          "bank": "Ngân hàng không tồn tại"
+          "bank": "Ngân hàng không tồn tại",
+          "noitem": "Tài khoản của bạn không tồn tại Mã CK này"
         }
       },
       "matrixcard": {

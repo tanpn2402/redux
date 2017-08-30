@@ -4,10 +4,7 @@ export default class MessageBox extends Component {
 
     constructor(){
         super()
-       this.style={
-           width: "50%",
-           marginLeft: "-20%"
-       }
+       
     }
     componentDidMount(){
         

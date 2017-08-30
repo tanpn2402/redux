@@ -78,7 +78,7 @@ class PageContent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.message !== '123'){
+        if(nextProps.showPopup){
             this.setState({
                 show: true
             })
@@ -89,6 +89,7 @@ class PageContent extends React.Component {
         this.setState({
             show: false
         })
+        this.props.showNotif('','',false)
     }
 
     onHideSlidePanel(){
@@ -128,6 +129,7 @@ class PageContent extends React.Component {
         var h3 = window.innerHeight
         document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
         document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
+        document.getElementById('slidenav').style.height = h3 - h1 - h2 + 'px'
         this.props.getStockIdList(param)
     }
 
@@ -143,14 +145,18 @@ const mapStateToProps = (state, props) => ({
   // notification
   message: state.notification.message,
   type: state.notification.type,
-  reloadPopup: state.notification.reloadPopup
+  reloadPopup: state.notification.reloadPopup,
+  showPopup: state.notification.showPopup
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
    
     getStockIdList: (param) => {
         dispatch(actions.stockSearch(param))
-    }
+    },
+    showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
+        dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
+      },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageContent)

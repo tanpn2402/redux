@@ -3,12 +3,13 @@ import * as ACTION from '../api/action_name'
 const {ActionTypes} = require('../core/constants')
 
 
-export function showNotif(notifType, notifDetail, reloadPopup){
+export function showNotif(notifType, notifDetail, reloadPopup, showPopup){
   return {
       type: ActionTypes.NOTIFICATION,
       message: notifDetail,
       notification_type: notifType,
-      reloadPopup: reloadPopup
+      reloadPopup: reloadPopup,
+      showPopup: showPopup,
   }
 }
 

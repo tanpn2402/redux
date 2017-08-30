@@ -1,9 +1,10 @@
 import React from 'react';
 import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
 import ReactTable from 'react-table'
-import $ from 'jquery'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
-export default class App extends React.Component {
+class Header extends React.Component {
 	constructor(){
 		super()
 		this.columns =  [
@@ -18,18 +19,21 @@ export default class App extends React.Component {
 				accessor: 'col3'
 		    },
        	]
-
-
+		
        	this.minheight = 0
        	this.maxheight = 95
        	this.time = 100
        	this.timer = null
-       	this.toggle = false
+		this.toggle = false
+		   
+		
 	}
 
 	render() {
 	    var currentThemeName=this.props.currentThemeName.substring(6,11)
-	    var currentLanguage=this.props.currentLanguage
+		var currentLanguage=this.props.currentLanguage
+		var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
+		
 	    return (
 	    	<div id="pageheader" style={this.props.theme.pagebackground} >
 	    		<div className="row header-sm"  id="header-sm" style={{ display: 'none', }}>
@@ -125,10 +129,10 @@ export default class App extends React.Component {
 		              				</Button>
 					            </span>
 			            	</li>
-			            	<li>077C086378</li>
-			            	<li>Nguyễn Văn Sự</li>
+			            	<li>{clientDetails.mvAccountNumber}</li>
+			            	<li>{clientDetails.mvName}</li>
 			            	<li>Giao dịch kí quỹ</li>
-			            	<li>Ngày GD 01/01/2017 14:26:22</li>
+			            	<li>Ngày GD</li>
 			            </ul>
 			        </div>
 		        </div>
@@ -147,34 +151,31 @@ export default class App extends React.Component {
         	for (var i = child.length - 1; i >= 0; i--) {
         		child[i].style.display = 'none'
         	}
-  		}
-
-  	}
+		}
+		this.props.getClientInfo([])
+		
+	  }
+	  
 
   	onHideHeader(e){
 
-  		// var slider = document.getElementById('header-lg')
-  		// clearInterval(this.timer)
-    //     var timer = this.timer
-    //     document.getElementById('header-sm').style.display = 'block'
-    //     document.getElementById('header-lg').style.height = document.getElementById('header-lg').offsetHeight - 26 + 'px'
-    //     timer = setInterval(function() {
+  		var slider = document.getElementById('header-lg')
+  		clearInterval(this.timer)
+        var timer = this.timer
+        document.getElementById('header-sm').style.display = 'block'
+        document.getElementById('header-lg').style.height = document.getElementById('header-lg').offsetHeight - 26 + 'px'
+        timer = setInterval(function() {
 
-    //         if(slider.offsetHeight > 0 ) {
-    //             slider.style.height =  slider.offsetHeight - 1 + 'px'
-    //             document.getElementById('pagecontent').style.minHeight = document.getElementById('pagecontent').offsetHeight + 1 + 'px'
-    //             console.log(slider.offsetHeight)
-    //         }else {
-    //             clearInterval(timer)
-    //             document.getElementById('header-user').style.display = 'none'
+            if(slider.offsetHeight > 0 ) {
+                slider.style.height =  slider.offsetHeight - 1 + 'px'
+                document.getElementById('pagecontent').style.minHeight = document.getElementById('pagecontent').offsetHeight + 1 + 'px'
+                console.log(slider.offsetHeight)
+            }else {
+                clearInterval(timer)
+                document.getElementById('header-user').style.display = 'none'
                 
-    //         }
-    //     },1);
-
-
-    $('#header-lg').slideUp(200, function(){
-    	
-    })
+            }
+        },1);
 
   	}
 
@@ -202,3 +203,18 @@ export default class App extends React.Component {
     	document.getElementById("settingnav").style.width = "300px";
   	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		clientDetails: state.profile.clientDetails,
+	}
+  }
+  
+  const mapDispatchToProps = (dispatch, props) => ({
+	getClientInfo: (param) => {
+		dispatch(actions.getClientInfo(param))
+	},
+	  
+  })
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Header)

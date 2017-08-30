@@ -354,7 +354,8 @@
           "pricerange": "It's out of the price's range",
           "stockavailable": "Stock Code is unavailable",
           "money": "You don't have enough money",
-          "bank": "Bank is unavailable"
+          "bank": "Bank is unavailable",
+          "noitem": "You don't have this stock code"
         }
       },
       "matrixcard": {
