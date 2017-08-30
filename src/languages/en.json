@@ -562,6 +562,53 @@
             "additionalissuesharesinformation": "Additional issue shares information",
             "additionalissuesharesbuyinghistory": "Additional issue shares buying history"
         }
+      },
+      "loanrefund": {
+        "title":{
+          "titleloanrefundstatus": "LOAN REFUND TRANSACTION STATUS",
+          "titleloanrefundnhistory": "LOAN REFUND TRANSACTION HISTORY",
+          "titleloanrefundform":" LOAN REFUND",
+          "titleloanrefundnotice": "Notice",
+          "titleloanrefundnoticeinfos":"-  The Refund loan request has to be made before 4:30pm. -  Customer wants to refund loan by cash advanceable, please complete function 'Cash Advance' before peforming function 'Loan refund'."
+        },
+        "upperheader":{
+            "tranID": "ID",
+            "tradingdate": "Trading Date",
+            "loanrefundamount": "Loan Refund Amount",
+            "type": "Type",
+            "processingstatus": "Processing Status",
+            "remark": "Remark",
+            "lastupdate":"Last Update"
+        },
+        "lowerheader":{
+            "tranID": "ID",
+            "tradingdate": "Trading Date",
+            "loanrefundamount": "Loan Refund Amount",
+            "type": "Type",
+            "processingstatus": "Processing Status",
+            "remark": "Remark",
+            "lastupdate":"Last Update"
+        },
+        "popup":{
+          "title": "Authentication",
+          "checknum": "Matrix card number",
+          "verifiednum": "Verified matrix card number",
+          "saveauthentication":"Save Authentication",
+          "cancel":"Cancel",
+          "submit":"Submit"
+        },
+        "form":{
+          "beginningloan":"Beginning Loan",
+          "availablecashforrefund":" Available Cash for Refund",
+          "cashadvanceable": " Cash Advanceable",
+          "loanrefundamount":"Loan Refund Amount",
+          "remark":"Remark",
+          "cashadvanceavailable":"Cash Advance Available",
+          "advancefee":"Advance Fee",
+          "advanceamount":"Advance Amount",
+          "submit":"Submit",
+          "cancel":"Clear"
+        }
       }
     }
   }

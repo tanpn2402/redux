@@ -556,6 +556,53 @@
             "additionalissuesharesinformation": "Thông tin mua cổ phiếu phát hành tiền",
             "additionalissuesharesbuyinghistory": "Tra cứu lịch sử giao dịch mua cổ phiếu phát hành tiền"
         }
+      },
+      "loanrefund": {
+        "title":{
+          "titleloanrefundstatus": "TRẠNG THÁI GIAO DỊCH HOẢN TRẢ VAY KÝ QUỸ",
+          "titleloanrefundhistory": "LỊCH SỬ GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ",
+          "titleloanrefundform":" HOÀN TRẢ VAY KÝ QUỸ",
+          "titleloanrefundnotice": "Lưu Ý",
+          "titleloanrefundnoticeinfos":"-  Thực hiện hoàn trả vay ký quỹ phải được thực hiện trước 4g30 chiều của ngày giao dịch. -  Trong trường hợp Quý khách hàng muốn 'Hoàn trả vay ký quỹ' bằng tiền ứng trước. Quý khách hàng vui lòng hoàn tất thực hiện chức năng 'ứng trước tiền bán chứng khoán' trước khi thực hiện giao dịch 'Hoàn trả vay ký quỹ'."
+        },
+        "upperheader":{
+            "tranID": "ID",
+            "tradingdate": "Ngày GD",
+            "loanrefundamount": "Số tiền hoàn trả",
+            "type": "Loại GD",
+            "processingstatus": "Trạng thái xử lý",
+            "remark": "Ghi chú",
+            "lastupdate":"Ngày cập nhật cuối"
+        },
+        "lowerheader":{
+          "tranID": "ID",
+          "tradingdate": "Ngày GD",
+          "loanrefundamount": "Số tiền hoàn trả",
+          "type": "Loại GD",
+          "processingstatus": "Trạng thái xử lý",
+          "remark": "Ghi chú",
+          "lastupdate":"Ngày cập nhật cuối"
+        },
+        "form":{
+          "beginningloan":"Dư nợ đầu ngày",
+          "availablecashforrefund":"Khả năng trả nợ",
+          "cashadvanceable": "Khả năng ứng trước",
+          "loanrefundamount":"Số tiền hoàn trả",
+          "remark":"Ghi chú",
+          "cashadvanceavailable":"Khả năng ứng trước",
+          "advancefee":"Phí ứng trước",
+          "advanceamount":"Số tiền ứng",
+          "submit":"Thực hiện",
+          "cancel":"Xóa"
+        },
+        "popup":{
+          "title": "Xác thực",
+          "checknum": "Mã số kiểm tra",
+          "verifiednum": "Mã số xác nhận",
+          "saveauthentication": "Lưu xác thực",
+          "cancel":"Hủy",
+          "submit":"Gửi"
+        }
       }
     }
   }

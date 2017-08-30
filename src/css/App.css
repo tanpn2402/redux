@@ -1681,3 +1681,180 @@ input::-webkit-calendar-picker-indicator {
     }
 }
 /*END CASH TRANSFER*/
+
+/*LOAN REFUND*/
+.component-main.loanrefund {
+    padding-top: 0px;
+}
+#form-enterorder1 tr th, 
+#form-enterorder1 tr td,
+#form-enterorder2 tr td,
+#form-enterorder2 tr th{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    height: 21px;
+}
+#form-enterorder1 tr th,
+#form-enterorder2 tr th{
+    background-color: #efefef;
+    min-width: 140px;
+}
+#form-enterorder1 tr td,
+#form-enterorder2 tr td{
+    min-width: 160px;
+}
+#form-enterorder1 .table,
+#form-enterorder2 .table{
+    margin-bottom: 0;
+}
+#form-enterorder1, #form-enterorder2 {
+    padding-bottom: 2px;
+}
+.loanrefund-action button {
+    margin: 0 10px 0 10px;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 0;
+    border: 0;
+}
+@media(min-width: 768px){
+    .component-main.loanrefund > .loanrefund-form {
+        position: relative;
+        float: left;
+        width: 25%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
+        height: 330px;
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+    }
+
+    .component-main.loanrefund > .loanrefund-table {
+        position: relative;
+        float: left;
+        width: 75%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
+        position: absolute;
+        height: 300px;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
+        position: relative;
+        padding-top: 25px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 70px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
+        position: relative;
+        padding-top: 300px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 345px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
+        clear: both;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+        padding-top: 330px;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+@media(max-width: 768px){
+    .component-main.loanrefund > .loanrefund-form {
+        position: absolute;
+        float: left;
+        width: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 430px;
+        z-index: 2;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
+        height: 330px;
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+    }
+
+    .component-main.loanrefund > .loanrefund-table {
+        position: relative;
+        float: left;
+        width: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
+        position: absolute;
+        height: 730px;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
+        position: relative;
+        padding-top: 430px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 475px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
+        position: relative;
+        padding-top: 730px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 775px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
+        clear: both;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+        padding-top: 330px;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+/*END LOAN REFUND*/
