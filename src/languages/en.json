@@ -615,6 +615,32 @@
           "submit":"Submit",
           "cancel":"Clear"
         }
+      },
+       "cashadvancebank": {
+        "header": {
+          "cashadvanceavailable": "Cash Advance Available",
+          "ordermatchinglist": "Order Matching List",
+          "cashadvancetransaction": "Cash Advance Transaction",
+          "advancefee": "Advance Fee",
+          "advanceamount": "Advance Amount",
+          "cashadvanceplace": "Cash Advance Place",
+          "bankaccount": "Bank Account",
+          "contractid": "Contract ID",
+          "orderid": "Order ID",
+          "settlementdate": "Settlement Date",
+          "tradedate": "Trade Date",
+          "stockid": "Stock ID",
+          "price": "Price",
+          "quantity": "Quantity",
+          "value": "Value",
+          "date": "Date",
+          "processingstatus": "Processing Status",
+          "lastupdate": "Last Update",
+          "note": "Note"
+        },
+        "popup": {
+          "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+        }
       }
     }
   }

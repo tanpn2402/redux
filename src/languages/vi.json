@@ -609,6 +609,32 @@
           "cancel":"Hủy",
           "submit":"Gửi"
         }
+      },
+      "cashadvancebank": {
+        "header": {
+          "cashadvanceavailable": "Khả năng ứng trước",
+          "ordermatchinglist": "Danh sách lệnh khớp",
+          "cashadvancetransaction": "Giao dịch ứng trước trong ngày",
+          "advancefee": "Phí ứng trước",
+          "advanceamount": "Số tiền ứng",
+          "cashadvanceplace": "Thực hiện ứng trước",
+          "bankaccount": "Tài khoản",
+          "contractid": "Mã hợp đồng",
+          "orderid": "Mã lệnh",
+          "settlementdate": "Ngày giải quyết",
+          "tradedate": "Ngày bán",
+          "stockid": "Mã chứng khoán",
+          "price": "Giá",
+          "quantity": "Số lượng",
+          "value": "Giá trị",
+          "date": "Ngày giao dịch",
+          "processingstatus": "Trạng thái xử lý",
+          "lastupdate": "Thời gian cập nhật",
+          "note": "Lưu ý"
+        },
+         "popup": {
+          "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+        }
       }
     }
   }

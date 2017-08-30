@@ -156,7 +156,7 @@ const config = {
 		loanrefund: {i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: false, isResizable: true},
 		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, isResizable: true},
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, isResizable: true},
-		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, isResizable: true},
+		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
 		
 	},
 	layoutdefault_sm : {
@@ -180,7 +180,7 @@ const config = {
 		loanrefund: {i: 'loanrefund',  x:0, y:0, w: 30, h: 18, minW: 22, minH: 20, maxW: 30, maxH: 25, static: false, isResizable: false},
 		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 18, minW: 22, minH: 20, maxW: 30, maxH: 25, isResizable: false},
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, isResizable: true},
-		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, isResizable: true},
+		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 16, minW: 8, minH: 6, maxW: 8, maxH: 8, isResizable: false},
 		
 	}
 	,
