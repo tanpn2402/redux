@@ -69,7 +69,6 @@ class OddLotSubmit extends Component{
     getOddLotSubmit() {
         this.props.getOddLotSubmit(this.props.rowSelected)
         this.props.onHide()
-        console.log('OH MY GODDDDDD', this.props.rowSelected)
     }
 
     checkAuthentication(e) {
@@ -86,7 +85,7 @@ class OddLotSubmit extends Component{
         console.log(this.props.returnCode)
         console.log(this.props.message)
         return(
-            <div>
+            <div style={{textAlign:'center'}}>
               <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
               <div className="oddlotdropdownlist">
                 <select >
