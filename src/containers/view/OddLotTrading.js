@@ -23,7 +23,8 @@ class OddLotTrading extends Component {
 
         this.state = {
             isShow: false,
-
+            oddLotOrderPageIndex: 1,
+            oddLotTransPageIndex: 1,
             enquirycolumns: [
                 {
                     // Create a select-all checkbox
@@ -155,8 +156,7 @@ class OddLotTrading extends Component {
                     show: true,
               },
             ],
-            oddLotOrderPageIndex: 1,
-            oddLotTransPageIndex: 1,
+
 
             historyList: [],
             oddLotList: [],
@@ -314,22 +314,29 @@ class OddLotTrading extends Component {
         console.log('render in OddLotTrading', this.state.oddLotList, this.state.historyList)
         let oddlotenquiry = this.state.oddLotList
         let oddlothistory = this.state.historyList
-        //let page = this.props.oddlothistory.mvPage === undefined ? [] : this.props.oddlothistory.mvPage
 
-
-        //console.log(oddlotenquiry.length, this.state.oddLotOrderPageIndex, oddlotenquiry.slice((this.state.oddLotOrderPageIndex - 1) * 10, this.state.oddLotOrderPageIndex * 10))
+        oddlothistory.map(e => {
+        if(e.status === 'H')
+            e.status = this.props.language.oddlottrading.status.waiting;
+        if(e.status === 'D')
+            e.status = this.props.language.oddlottrading.status.approve;
+        if(e.price == '0E-9')
+          e.price = '0';
+          e.price = String(parseFloat(e.price).toFixed(3));
+    })
+      
         let lgClose = () => this.setState({ isShow: false });
 
         let buttonActionOddLotOrder = [
             <Pagination
-                pageIndex={this.state.oddLotOrderPageIndex} 
-                totalRecord={oddlotenquiry.length} 
+                pageIndex={this.state.oddLotOrderPageIndex}
+                totalRecord={oddlotenquiry.length}
                 onPageChange={this.onOddLotOrderPageChange.bind(this)}
                 onNextPage={this.onOddLotOrderNextPage.bind(this)}
                 onPrevPage={this.onOddLotOrderPrevPage.bind(this)}
                 onReloadPage={this.onOddLotOrderReloadPage.bind(this)}
             />,
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button" 
+            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
                 onClick={this.registerOddLotOrder.bind(this)}>
                 {this.props.language.oddlottrading.header.register}
             </Button>
@@ -337,12 +344,12 @@ class OddLotTrading extends Component {
 
         let buttonActionOddLotTrans = [
             <Pagination
-                pageIndex={this.state.oddLotTransPageIndex} 
-                totalRecord={oddlothistory.totalCount} 
-                onPageChange={this.onOddLotOrderPageChange.bind(this)}
-                onNextPage={this.onOddLotOrderNextPage.bind(this)}
-                onPrevPage={this.onOddLotOrderPrevPage.bind(this)}
-                onReloadPage={this.onOddLotOrderReloadPage.bind(this)}
+                pageIndex={this.state.oddLotTransPageIndex}
+                totalRecord={oddlothistory.totalCount}
+                onPageChange={this.onOddLotTransPageChange.bind(this)}
+                onNextPage={this.onOddLotTransNextPage.bind(this)}
+                onPrevPage={this.onOddLotTransPrevPage.bind(this)}
+                onReloadPage={this.onOddLotTransReloadPage.bind(this)}
             />
         ]
         return (
@@ -373,7 +380,7 @@ class OddLotTrading extends Component {
                                 hideSearchButton={true}
                                 param={['dropdown']} />
                         </div>
-                        
+
 
                     </div>
                     <div className="oddlotorder-note">
@@ -389,7 +396,7 @@ class OddLotTrading extends Component {
                     <div className="table-main">
                         <DataUpperTable
                             columns={this.state.historycolumns}
-                            data={oddlothistory}
+                            data={oddlothistory.slice( (this.state.oddLotTransPageIndex - 1)*9, this.state.oddLotTransPageIndex*9 )}
                             maxRows={9}
                             defaultPageSize={15}/>
                     </div>
@@ -409,8 +416,8 @@ class OddLotTrading extends Component {
                                 hideSearchButton={true}
                                 param={['dropdown']} />
                     </div>
-                    
-                    
+
+
                 </div>
                 <Popup
                     id='oddlottrading'
@@ -460,55 +467,56 @@ class OddLotTrading extends Component {
     }
 
     registerOddLotOrder(e) {
-        e.preventDefault();
-        this.setState({ isShow: true })
+      e.preventDefault();
+      if(this.rowSelected.length>0)
+      this.setState({ isShow: true })
+      else {
+        console.log('day se hien thi message box')
+        //alert(this.props.language.oddlottrading.popup.alert);
+      }
     }
 
     onOddLotTransPageChange(pageIndex) {
         console.log('cashstatement onPageChange', pageIndex)
-        // this.setState({
-        //     oddLotOrderPageIndex: pageIndex
-        // });
+        this.setState({
+             oddLotTransPageIndex: pageIndex
+         });
     }
 
     onOddLotTransNextPage(){
         if(this.state.oddLotTransPageIndex > 0){
-            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
-            //this.paramshkscashtranhis['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+            this.setState({oddLotTransPageIndex: parseInt(this.state.oddLotTransPageIndex) + 1 });
+
         }
     }
 
     onOddLotTransPrevPage(){
         if(this.state.oddLotTransPageIndex > 1){
-            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
-            //this.paramshkscashtranhis['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+            this.setState({oddLotTransPageIndex: parseInt(this.state.oddLotTransPageIndex) - 1 });
+
         }
     }
 
     onOddLotTransReloadPage(){
-        //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+
     }
 
     onOddLotOrderNextPage(){
-        if(this.state.oddLotOrderPageIndex > 0){
-            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) + 1
-            //this.paramshkscashtranhis['start'] = (this.state.oddLotOrderPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.oddLotOrderPageIndex >= 0){
+            this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1 });
+
         }
     }
 
     onOddLotOrderPrevPage(){
         if(this.state.oddLotOrderPageIndex > 1){
-            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) - 1
-            //this.paramshkscashtranhis['start'] = (this.state.oddLotOrderPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+            this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) - 1 });
+
         }
     }
 
     onOddLotOrderReloadPage(){
-        //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+
     }
 
     onOddLotOrderPageChange(pageIndex) {

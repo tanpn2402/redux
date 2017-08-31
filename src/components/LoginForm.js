@@ -48,34 +48,36 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Form horizontal onSubmit={this.onSubmit} className="login">
-                <FormGroup controlId="formHorizontalUser">
-                    <Col componentClass={ControlLabel} sm={3}>
-                        Username
+            <div className="login-form">
+                <Form horizontal onSubmit={this.onSubmit} className="login">
+                    <FormGroup controlId="formHorizontalUser">
+                        <Col componentClass={ControlLabel} sm={3}>
+                            Username
+                        </Col>
+                        <Col sm={8}>
+                            <input type="text" name="username" className="form-control inputs" ref={node => { this.username = node }} />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup controlId="formHorizontalPass">
+                        <Col componentClass={ControlLabel} sm={3}>
+                            Password
                     </Col>
-                    <Col sm={8}>
-                        <input type="text" name="username" className="form-control" ref={node => { this.username = node }} />
-                    </Col>
-                </FormGroup>
-                <FormGroup controlId="formHorizontalPass">
-                    <Col componentClass={ControlLabel} sm={3}>
-                        Password
-                </Col>
-                    <Col sm={8}>
-                        <input type="password" className="form-control" name="password" ref={node => { this.password = node }} />
-                    </Col>
-                </FormGroup>
-                <FormGroup>
-                    <Col>
-                        <Button className="btn btn-default" type="submit">
-                            Login
-                        </Button>
-                    </Col>
-                </FormGroup>
-                <div className="msg">
-                    {this.props.isLoginError && <div>Something Wrong</div>}
-                </div>
-            </Form>
+                        <Col sm={8}>
+                            <input type="password" className="form-control inputs" name="password" ref={node => { this.password = node }} />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup>
+                        <div className="login-button-group">
+                            <button className="hks-btn btn-login" type="submit">
+                                Login
+                            </button>
+                        </div>
+                    </FormGroup>
+                    <div className="msg">
+                        {this.props.isLoginError && <div>Something Wrong</div>}
+                    </div>
+                </Form>
+            </div>
         )
     }
 

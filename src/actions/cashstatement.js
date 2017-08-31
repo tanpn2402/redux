@@ -18,6 +18,5 @@ function responseCashStatement(response) {
 export function enquiryCashStatement(params){
 	console.log('cash statement',params)
 	return (dispatch)=>{
-		api.get(ACTION.CASHSTATEMENT, params, dispatch, responseCashStatement)
-	}
+    api.get(ACTION.CASHSTATEMENT, params, dispatch, responseCashStatement)	}
 }

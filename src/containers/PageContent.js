@@ -103,6 +103,7 @@ class PageContent extends React.Component {
                         'type': 1,
                         'message': '1',
                     }
+
                 ]
         // this.setState({
         //     listMessage: this.state.listMessage.push(s  )
@@ -128,6 +129,7 @@ class PageContent extends React.Component {
         var h3 = window.innerHeight
         document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
         document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
+        document.getElementById('slidenav').style.height = h3 - h1 - h2 + 'px'
         this.props.getStockIdList(param)
     }
 

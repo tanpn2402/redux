@@ -354,7 +354,8 @@
           "pricerange": "It's out of the price's range",
           "stockavailable": "Stock Code is unavailable",
           "money": "You don't have enough money",
-          "bank": "Bank is unavailable"
+          "bank": "Bank is unavailable",
+          "noitem": "You don't have this stock code"
         }
       },
       "matrixcard": {
@@ -566,6 +567,79 @@
             "corporateactionlist": "Corporate Action List",
             "additionalissuesharesinformation": "Additional issue shares information",
             "additionalissuesharesbuyinghistory": "Additional issue shares buying history"
+        }
+      },
+      "loanrefund": {
+        "title":{
+          "titleloanrefundstatus": "LOAN REFUND TRANSACTION STATUS",
+          "titleloanrefundnhistory": "LOAN REFUND TRANSACTION HISTORY",
+          "titleloanrefundform":" LOAN REFUND",
+          "titleloanrefundnotice": "Notice",
+          "titleloanrefundnoticeinfos":"-  The Refund loan request has to be made before 4:30pm. -  Customer wants to refund loan by cash advanceable, please complete function 'Cash Advance' before peforming function 'Loan refund'."
+        },
+        "upperheader":{
+            "tranID": "ID",
+            "tradingdate": "Trading Date",
+            "loanrefundamount": "Loan Refund Amount",
+            "type": "Type",
+            "processingstatus": "Processing Status",
+            "remark": "Remark",
+            "lastupdate":"Last Update"
+        },
+        "lowerheader":{
+            "tranID": "ID",
+            "tradingdate": "Trading Date",
+            "loanrefundamount": "Loan Refund Amount",
+            "type": "Type",
+            "processingstatus": "Processing Status",
+            "remark": "Remark",
+            "lastupdate":"Last Update"
+        },
+        "popup":{
+          "title": "Authentication",
+          "checknum": "Matrix card number",
+          "verifiednum": "Verified matrix card number",
+          "saveauthentication":"Save Authentication",
+          "cancel":"Cancel",
+          "submit":"Submit"
+        },
+        "form":{
+          "beginningloan":"Beginning Loan",
+          "availablecashforrefund":" Available Cash for Refund",
+          "cashadvanceable": " Cash Advanceable",
+          "loanrefundamount":"Loan Refund Amount",
+          "remark":"Remark",
+          "cashadvanceavailable":"Cash Advance Available",
+          "advancefee":"Advance Fee",
+          "advanceamount":"Advance Amount",
+          "submit":"Submit",
+          "cancel":"Clear"
+        }
+      },
+       "cashadvancebank": {
+        "header": {
+          "cashadvanceavailable": "Cash Advance Available",
+          "ordermatchinglist": "Order Matching List",
+          "cashadvancetransaction": "Cash Advance Transaction",
+          "advancefee": "Advance Fee",
+          "advanceamount": "Advance Amount",
+          "cashadvanceplace": "Cash Advance Place",
+          "bankaccount": "Bank Account",
+          "contractid": "Contract ID",
+          "orderid": "Order ID",
+          "settlementdate": "Settlement Date",
+          "tradedate": "Trade Date",
+          "stockid": "Stock ID",
+          "price": "Price",
+          "quantity": "Quantity",
+          "value": "Value",
+          "date": "Date",
+          "processingstatus": "Processing Status",
+          "lastupdate": "Last Update",
+          "note": "Note"
+        },
+        "popup": {
+          "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
         }
       }
     }

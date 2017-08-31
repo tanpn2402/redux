@@ -1,15 +1,12 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-    background-color: #efefef;
     overflow-y: hidden;
     height: 100%;
     width: 100%;
     position: fixed;
 }
 ::-webkit-scrollbar-track {
-    //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }
 ::-webkit-scrollbar {
@@ -90,7 +87,7 @@ input::-webkit-calendar-picker-indicator {
     top: 0;
     padding-left: 10px;
     padding-top: 3px;
-    z-index: 2;
+    z-index: 3;
 }
 .content-block-head {
     font-size: 14px;
@@ -376,8 +373,25 @@ input::-webkit-calendar-picker-indicator {
 }
 /*END DROPDOWN CHECKBOX*/
 /*ENTER ORDER*/
-
+.login-form {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #003664;
+}
+.login.form-horizontal .control-label{
+    text-align: center;
+}
+.login.form-horizontal input {
+    border: none;
+    border-radius: 0px;
+}
+.inputs{
+    margin-bottom: 5px;
+    border: none;
+}
 .login {
+    color: #fff;
     padding: 20px;
     width: 400px;
     height: 175px;
@@ -387,12 +401,17 @@ input::-webkit-calendar-picker-indicator {
     right: 0;
     bottom: 0;
     left: 0;
-    border: 1px solid;
-    border-radius: 3px;
+    border: 3px solid #ff6600;
 }
-.buttons {
-    margin-left: 43%;
-    margin-top: 5%;
+.login-button-group {
+    text-align: center;
+    padding-top: 10px;
+}
+.hks-btn.btn-login {
+    background-color: #ff6600;
+    border: none; 
+    color: #fff;
+    padding: 10px 20px;
 }
 .msg {
     margin: 40px;
@@ -468,6 +487,20 @@ input::-webkit-calendar-picker-indicator {
 .value-wapper {
     border-bottom: 1px solid #dcdcdc;
     padding-left: 5px;
+}
+@media(max-width: 768px){
+    .login.form-horizontal {
+        height: 200px;
+    }
+    .hks-btn.btn-login {
+        padding: 10px 25px;
+    }
+    .login {
+        width: 80%;
+    }
+    .login-button-group {
+        padding-top: 5px;
+    }
 }
 /*END ENTER ORDER*/
 /*ORDER JOURNALL*/
@@ -749,11 +782,10 @@ input::-webkit-calendar-picker-indicator {
 .profile-wrapper {
     padding-top: 30px;
     width: 100%;
-    padding-left: 20px;
 }
 .profile-wrapper .control-label {
     text-align: left;
-    padding-left: 50px;
+    padding-left: 25px;
 }
 /*END PROFILE*/
 /*FLASH POPUP*/
@@ -956,6 +988,153 @@ input::-webkit-calendar-picker-indicator {
 }
 .form-entitlement tbody > tr > th {
     background-color: #efefef;
+}
+.component-main.entitlement {
+    padding-top: 0px;
+}
+@media(min-width: 768px){
+   .component-main.entitlement > .entitlement-form{
+        width: 25%;
+        float: left;
+        position: relative;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 100%;
+        padding-top: 25px;
+
+    } 
+    .component-main.entitlement > .entitlement-table{
+        width: 75%;
+        float: left;
+        position: relative;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 100%;
+
+    } 
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 {
+        position: absolute;
+        width: 100%;
+        height: 250px;
+        z-index: 2;
+
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 70px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 25px;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 {
+        position: absolute;
+        width: 100%;
+        height: 500px;
+        z-index: 1;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 295px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 251px;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 545px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 501px;
+    }
+
+}
+@media(max-width: 768px){
+   .component-main.entitlement > .entitlement-form{
+        width: 100%;
+        position: absolute;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 305px;
+        padding-top: 25px;
+
+    } 
+    .component-main.entitlement > .entitlement-table{
+        width: 100%;
+        position: absolute;
+        padding-right: 1px;
+        padding-left: 1px;
+        height: 100%;
+
+    } 
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 {
+        position: absolute;
+        width: 100%;
+        height: 500px;
+        z-index: 2;
+
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 350px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 306px;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 {
+        position: absolute;
+        width: 100%;
+        height: 720px;
+        z-index: 1;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 551px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 501px;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-main{
+        position: absolute;
+        width: 100%;
+        padding-top: 764px;
+        height: 100%;
+    }
+    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-header {
+        position: relative;
+        width: 100%;
+        padding-top: 720px;
+    }
+
 }
 /*END ENTITLEMENT*/
 /*SCROLLING TABS*/
@@ -1380,7 +1559,7 @@ input::-webkit-calendar-picker-indicator {
 /* SIDE BAR */
 /* close(default) */
 .sidebar-wrapper{
-    background: #F5F5F5;
+    background: #e3e3e3;
     height: 100%;
     width: 50px;
     float: left;
@@ -1535,3 +1714,335 @@ input::-webkit-calendar-picker-indicator {
     }
 }
 /*END CASH TRANSFER*/
+
+/*LOAN REFUND*/
+.component-main.loanrefund {
+    padding-top: 0px;
+}
+#form-enterorder1 tr th, 
+#form-enterorder1 tr td,
+#form-enterorder2 tr td,
+#form-enterorder2 tr th{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    height: 21px;
+}
+#form-enterorder1 tr th,
+#form-enterorder2 tr th{
+    background-color: #efefef;
+    min-width: 140px;
+}
+#form-enterorder1 tr td,
+#form-enterorder2 tr td{
+    min-width: 160px;
+}
+#form-enterorder1 .table,
+#form-enterorder2 .table{
+    margin-bottom: 0;
+}
+#form-enterorder1, #form-enterorder2 {
+    padding-bottom: 2px;
+}
+.loanrefund-action button {
+    margin: 0 10px 0 10px;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 0;
+    border: 0;
+}
+@media(min-width: 768px){
+    .component-main.loanrefund > .loanrefund-form {
+        position: relative;
+        float: left;
+        width: 25%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
+        height: 330px;
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+    }
+
+    .component-main.loanrefund > .loanrefund-table {
+        position: relative;
+        float: left;
+        width: 75%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
+        position: absolute;
+        height: 300px;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
+        position: relative;
+        padding-top: 25px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 70px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
+        position: relative;
+        padding-top: 300px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 345px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
+        clear: both;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+        padding-top: 330px;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+@media(max-width: 768px){
+    .component-main.loanrefund > .loanrefund-form {
+        position: absolute;
+        float: left;
+        width: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 430px;
+        z-index: 2;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
+        height: 330px;
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+    }
+
+    .component-main.loanrefund > .loanrefund-table {
+        position: relative;
+        float: left;
+        width: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
+        position: absolute;
+        height: 730px;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
+        position: relative;
+        padding-top: 430px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 475px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
+        position: relative;
+        padding-top: 730px;
+    }
+    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
+        position: absolute;
+        width: 100%;
+        padding-top: 775px;
+        height: 100%;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
+        clear: both;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+        padding-top: 330px;
+    }
+    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+}
+/*END LOAN REFUND*/
+
+/*AVAILABLE MARGIN*/
+.component-main.avaiblemarginlist {
+    padding-top: 0px;
+}
+.component-main.avaiblemarginlist > .table-main{
+    position: absolute;
+    padding-top: 49px;
+    width: 100%;
+    height: 100%;
+}
+.component-main.avaiblemarginlist > .table-header{
+    position: relative;
+    padding-top: 25px;
+    width: 100%;
+}
+/*END AVAILABLE MARGIN*/
+
+/*CASH ADVANCE BANK*/
+.component-main.cashadvancebank {
+    padding-top: 0;
+}
+#form-cashadvance tr th, #form-cashadvance tr td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+@media(min-width: 768px){
+    .component-main.cashadvancebank > .cashadvancebank-form {
+           
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list {
+        height: 270px;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 {
+        position: relative;
+        width: 75%;
+        height: 100%;
+        float: left;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1  > .table-main {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-top: 70px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 > .table-header {
+        position: relative;
+        padding-top: 24px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form {
+        position: relative;
+        width: 25%;
+        height:  100%;
+        float: left;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > .title {
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+        z-index: 1;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > #form-cashadvance{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding-top: 45px;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-header{
+        position: absolute;
+        width: 100%;
+        padding-top: 270px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-main{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-top: 315px;
+
+    }
+}
+@media(max-width: 768px){
+    .component-main.cashadvancebank > .cashadvancebank-order-list {
+        height: 500px;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1  > .table-main {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-top: 250px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 > .table-header {
+        position: relative;
+        padding-top: 200px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form {
+        position: absolute;
+        width: 100%;
+        height: 200px;
+        z-index: 2;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > .title {
+        position: absolute;
+        width: 100%;
+        padding-top: 25px;
+        z-index: 1;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > #form-cashadvance{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding-top: 44px;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-header{
+        position: absolute;
+        width: 100%;
+        padding-top: 500px;
+    }
+    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-main{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-top: 550px;
+
+    }
+}
+/*END CASH ADVANCE BANK*/

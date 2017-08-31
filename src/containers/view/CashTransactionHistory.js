@@ -189,9 +189,6 @@ class CashTransactionHistory extends Component {
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
             />,
-
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         console.log('data' + this.id, this.props.data)
@@ -213,7 +210,7 @@ class CashTransactionHistory extends Component {
                         id={this.id}
                         onSearch={this.onSearch.bind(this)}
                         stockList={[]}
-                        buttonAction={[]}
+                        buttonAction={this.buttonAction}
                         language={this.props.language.searchbar}
                         columns={this.state.columns}
                         theme={this.props.theme}
@@ -258,27 +255,27 @@ class CashTransactionHistory extends Component {
     onPageChange(pageIndex) {
         if (pageIndex > 0) {
             this.state.pageIndex = pageIndex
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onNextPage() {
         if (this.state.pageIndex > 0) {
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onPrevPage() {
         if (this.state.pageIndex > 1) {
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 

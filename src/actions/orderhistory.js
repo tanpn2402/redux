@@ -9,8 +9,11 @@ function responseOrderHistory(response) {
 	}
 }
 
-export function enquiryOrderHistory(params){
-	return (dispatch)=>{
-		webapi.post(ACTION.ENQUIRYORDER, params, dispatch, responseOrderHistory)
+export function enquiryOrderHistory(params, page) {
+	if (params.mvBS === "ALL") {
+		params.mvBS = 'A'
+	}
+	return (dispatch) => {
+		webapi.post(ACTION.ENQUIRYHISTORYORDER, params, dispatch, responseOrderHistory)
 	}
 }

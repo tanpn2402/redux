@@ -12,16 +12,16 @@ class StockStatement extends Component {
     constructor(props) {
         super(props)
         this.params = {
-            mvLastAction:'',
-            mvChildLastAction:'',
-            mvStartDate :'01/01/2001',
-            mvEndDate :'01/01/2017',
-            start:'0',
-            limit:'15',
-            timePeriod:'Customize'
+            mvLastAction: '',
+            mvChildLastAction: '',
+            mvStartDate: '01/01/2001',
+            mvEndDate: '01/01/2017',
+            start: 0,
+            limit: 15,
+            timePeriod: 'Customize'
         }
         this.state = {
-            columns : [
+            columns: [
                 {
                     id: 'mvOrder',
                     Header: this.props.language.stockstatement.header.order,
@@ -147,15 +147,16 @@ class StockStatement extends Component {
                     skip: false,
                     show: true,
                 },
-            ]
+            ],
+            pageIndex: 1,
         }
 
-        this.id='stockstatement'
+        this.id = 'stockstatement'
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            columns : [
+            columns: [
                 {
                     id: 'mvOrder',
                     Header: nextProps.language.stockstatement.header.order,
@@ -295,16 +296,13 @@ class StockStatement extends Component {
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
             />,
-
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         var page = 1
 
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             console.log(data[i])
-            for(let j in data[i]) {
+            for (let j in data[i]) {
                 if (data[i][j] === null || data[i][j] === "") {
                     data[i][j] = 0
                 }
@@ -322,69 +320,65 @@ class StockStatement extends Component {
                         defaultPageSize={15} />
                 </div>
                 <div className="component-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={[]} 
-                    stockList={this.props.stockList} 
-                    language={this.props.language.searchbar} 
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={['mvStartDate', 'mvEndDate', 'dropdown']}
-                />
-            </div>
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={this.buttonAction}
+                        stockList={this.props.stockList}
+                        language={this.props.language.searchbar}
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={['mvStartDate', 'mvEndDate', 'dropdown']}
+                    />
+                </div>
             </div>
         )
     }
-    
+
     componentDidMount() {
-        var d = new Date()
-        var today = d.getDate()+ '/' + (d.getMonth()+1) +'/'+ d.getFullYear()
-        this.params['mvStartDate'] = today
-        this.params['mvEndDate'] = today
         this.props.onSearch(this.params)
     }
 
-    onChangeStateColumn(e){
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
 
     onPageChange(pageIndex) {
         if (pageIndex > 0) {
             this.state.pageIndex = pageIndex
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onNextPage() {
         if (this.state.pageIndex > 0) {
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onPrevPage() {
         if (this.state.pageIndex > 1) {
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
-    onSearch(param){
+    onSearch(param) {
         this.params['mvStartDate'] = param['mvStartDate']
         this.params['mvEndDate'] = param['mvEndDate']
         this.props.onSearch(this.params, !this.props.reload)
@@ -404,4 +398,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps) (StockStatement)
+export default connect(mapStateToProps, mapDispatchToProps)(StockStatement)

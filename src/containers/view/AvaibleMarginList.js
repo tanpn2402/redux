@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
 import SearchBar from '../commons/SearchBar'
-import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Footer from '../DataTableFooter'
+import Pagination from '../commons/Pagination'
+import DataUpperTable from '../DataUpperTable'
 
 class AvaibleMarginList extends Component {
     constructor(props) {
@@ -126,26 +126,41 @@ class AvaibleMarginList extends Component {
         var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
         var totalRecord = this.props.data.totalCount === undefined ? 1 : this.props.data.totalCount
 
+        let buttonAction = [
+            <Pagination
+                    pageIndex={this.state.pageIndex} 
+                    totalRecord={totalRecord} 
+                    onPageChange={this.onPageChange.bind(this)}
+                    onNextPage={this.onNextPage.bind(this)}
+                    onPrevPage={this.onPrevPage.bind(this)}
+                    onReloadPage={this.onReloadPage.bind(this)}
+                />,
+        ]
+
         return (
-            <div id={this.id + '-body'} className="layout-body">
-                <SearchBar
-                    id={this.id}
-                    onSearch={this.onSearch.bind(this)}
-                    buttonAction={[]} 
-                    stockList={this.props.stockList} 
-                    language={this.props.language.searchbar} 
-                    theme={this.props.theme}
-                    columns={this.state.columns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    param={[ 'mvStockId', 'mvMarket', 'mvLending', 'dropdown']}/>
+            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+            <div className="component-main avaiblemarginlist">
+                <div className="table-main">
+                    <DataUpperTable
+                        id={this.id + "-table" }
+                        columns={this.state.columns}
+                        data={data}
+                        defaultPageSize={15}/>
+                </div>
+                <div className="table-header">
+                    <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={buttonAction} 
+                        stockList={this.props.stockList} 
+                        language={this.props.language.searchbar} 
+                        theme={this.props.theme}
+                        columns={this.state.columns}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        param={[ 'mvStockId', 'mvMarket', 'mvLending', 'dropdown']}/>
+                </div>
 
-                <DataTable
-                    id={this.id + "-table" }
-                    columns={this.state.columns}
-                    data={data}/>
-
-                <Footer pageIndex={this.state.pageIndex} totalRecord={totalRecord} onPageChange={this.onPageChange.bind(this)}/>
-
+            </div>
             </div>
         )
     }
@@ -189,6 +204,26 @@ class AvaibleMarginList extends Component {
         });
         // console.log('params', this.params)
         this.props.onSearch(this.params, !this.props.reload)
+    }
+
+    onNextPage(){
+        if(this.state.pageIndex > 0){
+            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
+            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        }
+    }
+
+    onPrevPage(){
+        if(this.state.pageIndex > 1){
+            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
+            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        }
+    }
+
+    onReloadPage(){
+        // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
 }

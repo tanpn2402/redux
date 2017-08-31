@@ -39,6 +39,28 @@ export default {
       fontWeight: 'bold'
     }
   },
+  loanrefund: {
+    'titleloanrefundstatus': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    },
+    'titleloanrefundhistory': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    },
+    'titleloanrefundform': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    },
+    'titleloanrefundnotice': {
+      backgroundColor: '#f60',
+      color: '#fff',
+      fontWeight: 'bold'
+    },
+  },
   pagebackground: {
     backgroundColor: '#f5f5f5',
     

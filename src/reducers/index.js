@@ -44,7 +44,6 @@ export default combineReducers({
   cashstatement,
   watchlist,
   profile,
-  cashtransfer,
   loanrefund,
   entitlement,
   cashtransfer,

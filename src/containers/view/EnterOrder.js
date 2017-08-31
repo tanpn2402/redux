@@ -93,7 +93,7 @@ class EnterOrder extends Component {
                             </Col>
                             <Col xs={7} className="value-wapper">
                                 <input type='hidden' id="mvMarketID" ref={(ref) => this.input = ref} />
-                                <input list="Stock" name="stock" id="mvStock" placeholder="ex: ACB" required onChange={this.onStockChange} />
+                                <input list="Stock" name="stock" id="mvStock" placeholder="ex: VNM" required onChange={this.onStockChange} />
                                 <datalist id="Stock">{
                                     this.props.stockList.map(e => {
                                         return (<option value={e.stockCode}>{e.stockName}
@@ -143,12 +143,10 @@ class EnterOrder extends Component {
                                 <FormGroup controlId="mvOrderType">
                                     <input id="mvOrderType" list="ordertype" name="ordertype" placeholder="ex: L" required />
                                     <datalist id="ordertype">
-                                        <option value="L" />
-                                        <option value="ATC" />
-                                        <option value="MAK" />
-                                        <option value="MOK" />
-                                        <option value="MTL" />
-                                        <option value="LO(Odd Lot)" />
+                                        <option value="L" >LO</option>
+                                        <option value="O" >ATO</option>
+                                        <option value="C" >ATC</option>
+                                        <option value="M" >MP</option>
                                     </datalist>
                                 </FormGroup>
                             </Col>
@@ -277,7 +275,7 @@ class EnterOrder extends Component {
             this.state.json.mvDate = null
         this.state.json.mvMarketID = "HO";
         console.log(this.state.json);
-        this.props.checkPre(this.state.json, this.props.language.enterorder.error)
+        this.props.checkPre(this.state.json, this.props.language.enterorder.error, this.props.stockList)
         this.setState({ isShow: true })
     }
 
@@ -306,8 +304,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    checkPre: (json, language) => {
-        dispatch(actions.checkPreEnterOrder(json, language))
+    checkPre: (json, language, stockList) => {
+        dispatch(actions.checkPreEnterOrder(json, language, stockList))
     },
     getStockInfo: (param) => {
         dispatch(actions.getstockInfo(param))

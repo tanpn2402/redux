@@ -115,6 +115,12 @@ class MenuNav extends Component {
             document.getElementById("overlay").style.display = 'none'
             document.getElementById("slidenav").style.width = "0px"
         }
+        else if(keyCode === 219){
+            document.getElementById('sidebar').classList.toggle('opensidebar');
+            document.getElementById('favorite').classList.toggle('opensidebar');
+            document.getElementById('helping').classList.toggle('opensidebar');
+            document.getElementById('footer').classList.toggle('opensidebar');
+        }
     }
 
 }

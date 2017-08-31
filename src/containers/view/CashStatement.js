@@ -12,11 +12,10 @@ class CashStatement extends Component {
         super(props)
 
         this.params = {
-            mvLastAction: '',
-            mvStartDate: '',
-            mvEndDate: '',
-            mvStart: '0',
-            mvLimit: '15',
+            mvStartDate: '01/01/2001',
+            mvEndDate: '01/01/2017',
+            start: 0,
+            limit: 15,
             timePeriod: 'Customize'
         }
 
@@ -71,6 +70,7 @@ class CashStatement extends Component {
                     show: true,
                 },
             ],
+            pageIndex: 1,
             lgShow: false
         }
 
@@ -147,9 +147,6 @@ class CashStatement extends Component {
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
             />,
-
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
         console.log('render in CashStatement', this.props.data)
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -165,14 +162,14 @@ class CashStatement extends Component {
 
                         columns={this.state.columns}
                         data={data}
-                        defaultPageSize={15} />
+                        defaultPageSize={16} />
                 </div>
                 <div className="component-body">
                     <SearchBar
                         windowid="cashstatement"
                         stockList={this.props.stockList}
                         theme={this.props.theme}
-                        buttonAction={[]}
+                        buttonAction={this.buttonAction}
                         onSearch={this.onSearch.bind(this)}
                         language={this.props.language.searchbar}
                         columns={this.state.columns}
@@ -190,11 +187,6 @@ class CashStatement extends Component {
     }
 
     componentDidMount() {
-        console.log('did mount', this.params)
-        var d = new Date()
-        var today = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
-        this.params['mvStartDate'] = today
-        this.params['mvEndDate'] = today
         this.props.onSearch(this.params)
     }
 
@@ -202,32 +194,32 @@ class CashStatement extends Component {
     onPageChange(pageIndex) {
         if (pageIndex > 0) {
             this.state.pageIndex = pageIndex
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onNextPage() {
         if (this.state.pageIndex > 0) {
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onPrevPage() {
         if (this.state.pageIndex > 1) {
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
     onChangeStateColumn(e) {

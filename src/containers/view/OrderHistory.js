@@ -120,16 +120,20 @@ class OrderHistory extends Component {
                 },
 
 
-            ]
+            ],
+            pageIndex: 1,
         }
 
         this.id = 'ordershistory'
         this.pageIndex = 1
 
         this.params = {
-            start: 1,
+            start: 0,
             limit: 15,
-            mvBS: 'ALL',
+            mvBS: 'A',
+            mvInstrumentID: 'ALL',
+            mvStatus: 'ALL',
+            mvSorting: 'InputTime desc',
             mvStartTime: '',
             mvEndTime: '',
         }
@@ -260,9 +264,6 @@ class OrderHistory extends Component {
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
             />,
-
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
         ]
         console.log('render in OrderHistory', this.props.language.ordershistory.header.stockid)
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
@@ -275,7 +276,6 @@ class OrderHistory extends Component {
                 <div className="component-main">
                     <DataUpperTable
                         id="orderhistory-table"
-
                         columns={this.state.columns}
                         data={data}
                         defaultPageSize={15} />
@@ -284,17 +284,13 @@ class OrderHistory extends Component {
                     <SearchBar
                         id={this.id}
                         onSearch={this.onSearch.bind(this)}
-                        buttonAction={[]}
+                        buttonAction={this.buttonAction}
                         stockList={this.props.stockList}
                         language={this.props.language.searchbar}
                         theme={this.props.theme}
                         columns={this.state.columns}
                         onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                         param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-
-
-
-
                 </div>
             </div>
         )
@@ -302,52 +298,52 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        var d = new Date()
-        var today = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
-        this.params['mvStartTime'] = today
-        this.params['mvEndTime'] = today
-        this.props.enquiryOrderHistory(this.param)
+        // var d = new Date()
+        // var today = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
+        // this.params['mvStartTime'] = today
+        // this.params['mvEndTime'] = today
+        this.props.onSearch(this.params)
     }
 
     onPageChange(pageIndex) {
         if (pageIndex > 0) {
             this.state.pageIndex = pageIndex
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onNextPage() {
         if (this.state.pageIndex > 0) {
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onPrevPage() {
         if (this.state.pageIndex > 1) {
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
+            this.params['page'] = this.state.pageIndex
+            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+            this.props.onSearch(this.params, !this.props.reload)
         }
     }
 
     onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
     onSearch(param) {
-
-        this.params['start'] = (this.pageIndex - 1) * 15
-        this.params['limit'] = 15
+        console.log(param, 'la gi')
+        this.params['mvBS'] = param['mvBuysell']
+        this.params['mvInstrumentID'] = param['mvStockId']
         this.params['mvStartTime'] = param['mvStartDate']
-        this.params['mvEndTime'] = param['mvStartDate']
+        this.params['mvEndTime'] = param['mvEndDate']
         console.log(this.params)
-        this.props.enquiryOrderHistory(param)
+        this.props.onSearch(this.params)
     }
 
     onChangeStateColumn(e) {
@@ -366,8 +362,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    enquiryOrderHistory: (param) => {
-        dispatch(actions.enquiryOrderHistory(param))
+    onSearch: (param, reload) => {
+        dispatch(actions.enquiryOrderHistory(param, reload))
     },
 })
 
