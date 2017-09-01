@@ -20,6 +20,17 @@ export function post(id,param,dispatch,callback){
 		
 	};
 
+export function report(id,param,dispatch,callback){
+		console.log(id)
+		return (FetchAPI(id, param, 'REPORT')).then(response => response).then( parseData => {
+			dispatch(callback(parseData))
+			return parseData
+		}).catch(error => {
+			return error
+		})
+		
+	};
+
 export function login(id,param,dispatch,callback){
 		return(FetchAPI(id, param, LOGIN)).then(response => response).then( parseData => {
 			dispatch(callback(parseData));
@@ -45,4 +56,3 @@ export function authCardMatrix(id, paramOfAuthCard, dispatch, callback, paramOfC
 	})
 
 }
-// }

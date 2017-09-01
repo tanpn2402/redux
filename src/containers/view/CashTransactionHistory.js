@@ -15,11 +15,17 @@ class CashTransactionHistory extends Component {
 
         this.params = {
             tradeType: 'ALL',
-            mvStartDate: moment(),
-            mvEndDate: moment(),
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: 15,
             page: 1
+        }
+	this.exportParams = {
+            mvLastAction:'CASHTRANSACTIONHISTORY',
+            tradeType:'',
+            mvStartDate:'',
+            mvEndDate:''
         }
 
         this.state = {
@@ -188,6 +194,7 @@ class CashTransactionHistory extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -289,6 +296,14 @@ class CashTransactionHistory extends Component {
         this.params['mvEndDate'] = param.mvEndDate
         this.props.onSearch(this.params, !this.props.reload)
     }
+
+    onExportExcel() {
+        this.exportParams['tradeType'] = this.params['tradeType']
+        this.exportParams['mvStartDate'] = this.params['mvStartDate']
+        this.exportParams['mvEndDate'] = this.params['mvEndDate']
+
+        this.props.onExportExcel(this.exportParams)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -302,7 +317,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, reload) => {
         dispatch(actions.enquiryCashTransaction(param, reload))
     },
-
+    onExportExcel: (param) => {
+        dispatch(actions.exportGetCashTransactionHistory(param))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CashTransactionHistory);

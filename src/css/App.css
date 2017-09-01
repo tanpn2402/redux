@@ -1308,6 +1308,9 @@ input::-webkit-calendar-picker-indicator {
 .hks-btn.btn-pagination-top:hover {
     opacity: 0.8;
 }
+.hks-btn.btn-pagination-top.btn-export {
+    width: auto;
+}
 .hks-input.page-input {
     border: 1px solid #dcdcdc;
     width: 45px;

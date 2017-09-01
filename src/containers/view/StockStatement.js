@@ -7,6 +7,7 @@ import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
+import moment from 'moment'
 
 class StockStatement extends Component {
     constructor(props) {
@@ -14,12 +15,22 @@ class StockStatement extends Component {
         this.params = {
             mvLastAction: '',
             mvChildLastAction: '',
-            mvStartDate: '01/01/2001',
-            mvEndDate: '01/01/2017',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: 15,
             timePeriod: 'Customize'
         }
+
+        this.exportParams = {
+            mvLastAction: 'ACCOUNT',
+            mvLastChildAction: 'CASHTRANSACTIONHISTORYREPORT',
+            timePeriod: 'Customize',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
+            tradeType: 'ALL',
+        }
+
         this.state = {
             columns: [
                 {
@@ -295,6 +306,7 @@ class StockStatement extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
+		onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -383,6 +395,13 @@ class StockStatement extends Component {
         this.params['mvEndDate'] = param['mvEndDate']
         this.props.onSearch(this.params, !this.props.reload)
     }
+
+    onExportExcel() {
+        this.exportParams['mvStartDate'] = this.params['mvStartDate']
+        this.exportParams['mvEndDate'] = this.params['mvEndDate']
+
+        this.props.onExportExcel(this.exportParams)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -395,6 +414,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, reload) => {
         dispatch(actions.enquiryStockStatement(param, reload))
+    },
+    onExportExcel: (param) => {
+        dispatch(actions.exportTransactionHistory(param))
     },
 })
 

@@ -7,6 +7,7 @@ import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
+import moment from 'moment'
 
 class MarginLoan extends Component {
     constructor(props) {
@@ -14,11 +15,21 @@ class MarginLoan extends Component {
         this.params = {
             mvLastAction: '',
             mvChildLastAction: '',
-            mvStartDate: '01/01/2001',
-            mvEndDate: '01/01/2017',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: 15,
             timePeriod: 'Customize'
+        }
+        this.exportParams = {
+            // mvLastAction: 'ACCOUNT',
+            // mvChildLastAction: 'ORDERHISTORYENQUIRY',
+            // mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
+            // mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+            // mvBS: '',
+            // mvInstrumentID: '',
+            // mvStatus: 'ALL',
+            // mvSorting: 'InputTime desc',
         }
         this.state = {
             columns: [
@@ -187,6 +198,7 @@ class MarginLoan extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -264,6 +276,10 @@ class MarginLoan extends Component {
         this.params['mvEndDate'] = param['mvEndDate']
         this.props.onSearch(this.params, !this.props.reload)
     }
+    onExportExcel() {
+        
+        //this.props.onExportExcel(this.exportParams)
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -277,6 +293,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, reload) => {
         dispatch(actions.enquiryMarginLoan(param, reload))
     },
+    // onExportExcel: (param) => {
+    //     dispatch(actions.exportOrderHistory(param))
+    // },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarginLoan)

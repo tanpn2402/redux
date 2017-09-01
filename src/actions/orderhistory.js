@@ -17,3 +17,14 @@ export function enquiryOrderHistory(params, page) {
 		webapi.post(ACTION.ENQUIRYHISTORYORDER, params, dispatch, responseOrderHistory)
 	}
 }
+function responseExportExcel() {
+    return {
+        type: ActionTypes.EXPORTORDERHISTORY,
+    }
+}
+
+export function exportOrderHistory(params) {
+    return (dispatch)=>{
+        webapi.report(ACTION.EXPORTORDERHISTORY, params, dispatch, responseExportExcel)
+    }
+}

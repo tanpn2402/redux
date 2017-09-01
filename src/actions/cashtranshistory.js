@@ -14,3 +14,15 @@ function responseCashTransaction(response){
         data: response,
     }
 }
+
+export function exportGetCashTransactionHistory(params) {
+    return (dispatch)=>{
+        api.report(ACTION.EXPORTGETCASHTRANSACTIONHISTORY, params, dispatch, responseExportExcel)
+    }
+}
+
+function responseExportExcel() {
+    return {
+        type: ActionTypes.EXPORTGETCASHTRANSACTIONHISTORY,
+    }
+}

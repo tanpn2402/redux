@@ -16,3 +16,16 @@ export function enquiryStockStatement(params, reload) {
         return api.get(ACTION.HKSSTOCKTRANSACTIONHISTORY,params, dispatch, responseStockStatement)
     }
 }
+
+
+function responseExportExcel() {
+    return {
+        type: ActionTypes.EXPORTTRANSACTIONHISTORY,
+    }
+}
+  
+export function exportTransactionHistory(params) {
+    return (dispatch)=>{
+        api.report(ACTION.EXPORTTRANSACTIONHISTORY, params, dispatch, responseExportExcel)
+    }
+}

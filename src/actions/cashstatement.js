@@ -20,3 +20,14 @@ export function enquiryCashStatement(params){
 	return (dispatch)=>{
     api.get(ACTION.CASHSTATEMENT, params, dispatch, responseCashStatement)	}
 }
+function responseExportExcel() {
+  return {
+      type: ActionTypes.EXPORTCASHTRANSACTIONHISTORY,
+  }
+}
+
+export function exportCashTransactionHistory(params) {
+  return (dispatch)=>{
+      api.report(ACTION.EXPORTCASHTRANSACTIONHISTORY, params, dispatch, responseExportExcel)
+  }
+}

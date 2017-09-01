@@ -40,3 +40,14 @@ export function getMsgConfirmSubmit(response) {
         data: response
     }
 }
+function responseExportExcel() {
+    return {
+        type: ActionTypes.EXPORTORDERCONFIRM,
+    }
+}
+
+export function exportOrderConfirm(params) {
+    return (dispatch)=>{
+        api.report(ACTION.EXPORTORDERCONFIRM, params, dispatch, responseExportExcel)
+    }
+}

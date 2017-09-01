@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import Popup from '../Popup'
+import moment from 'moment'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
 class CashStatement extends Component {
@@ -12,11 +13,20 @@ class CashStatement extends Component {
         super(props)
 
         this.params = {
-            mvStartDate: '01/01/2001',
-            mvEndDate: '01/01/2017',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: 15,
             timePeriod: 'Customize'
+        }
+
+        this.exportParams = {
+            mvLastAction: 'ACCOUNT',
+            mvLastChildAction: 'CASHTRANSACTIONHISTORYREPORT',
+            timePeriod: 'Customize',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
+            tradeType: 'ALL',
         }
 
         this.state = {
@@ -146,6 +156,7 @@ class CashStatement extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
+		onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         console.log('render in CashStatement', this.props.data)
@@ -236,7 +247,11 @@ class CashStatement extends Component {
         this.props.onSearch(this.params, !this.props.reload)
     }
 
-
+    onExportExcel() {
+        this.exportParams['mvStartDate'] = this.params['mvStartDate']
+        this.exportParams['mvEndDate'] = this.params['mvEndDate']
+        this.props.onExportExcel(this.exportParams)
+    }
 }
 const mapStateToProps = (state) => {
     return {
@@ -247,6 +262,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (params) => {
         dispatch(actions.enquiryCashStatement(params))
+    },
+    onExportExcel: (param) => {
+        dispatch(actions.exportCashTransactionHistory(param))
     },
 })
 

@@ -54,6 +54,16 @@ export default class Pagination extends React.Component {
 	        		)
 	        	}
 
+        		{
+	        		this.props.onExportExcel === undefined ? '' : 
+	        		(
+	        			<button type="button" className="hks-btn btn-pagination-top btn-export" 
+		                	onClick={this.props.onExportExcel.bind(this)}>
+		        			Xuất báo cáo
+		        		</button>
+	        		)
+	        	}
+
 		        		
         		{'  |  '}
         	</div>

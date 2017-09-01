@@ -7,6 +7,7 @@ import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
+import moment from 'moment'
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -134,8 +135,18 @@ class OrderHistory extends Component {
             mvInstrumentID: 'ALL',
             mvStatus: 'ALL',
             mvSorting: 'InputTime desc',
-            mvStartTime: '',
-            mvEndTime: '',
+            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+        }
+        this.exportParams = {
+            mvLastAction: 'ACCOUNT',
+            mvChildLastAction: 'ORDERHISTORYENQUIRY',
+            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+            mvBS: '',
+            mvInstrumentID: '',
+            mvStatus: 'ALL',
+            mvSorting: 'InputTime desc',
         }
 
     }
@@ -263,6 +274,7 @@ class OrderHistory extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         console.log('render in OrderHistory', this.props.language.ordershistory.header.stockid)
@@ -352,6 +364,16 @@ class OrderHistory extends Component {
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
+    onExportExcel() {
+        console.log(this.params['mvStartTime'])
+
+        this.exportParams['mvStartTime'] = this.params['mvStartTime']
+        this.exportParams['mvEndTime'] = this.params['mvEndTime']
+        this.exportParams['mvBS'] = this.params['mvBS']
+        this.exportParams['mvInstrumentID'] = this.params['mvInstrumentID'] != '' ? this.params['mvInstrumentID'] : 'ALL'
+        
+        this.props.onExportExcel(this.exportParams)
+    }
 
 
 }
@@ -364,6 +386,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, reload) => {
         dispatch(actions.enquiryOrderHistory(param, reload))
+    },
+    onExportExcel: (param) => {
+        dispatch(actions.exportOrderHistory(param))
     },
 })
 

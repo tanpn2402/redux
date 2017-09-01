@@ -6,12 +6,12 @@ import {changePage} from './pagination'
 import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder, setPopup, getstockInfo, getStockB, submitEnterOrder } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import {stockSearch} from './stockaction'
-import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData } from './confirmorder'
+import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData, exportOrderConfirm } from './confirmorder'
 import {getPorfolio} from './porfolio'
-import {enquiryOrderHistory,} from './orderhistory'
-import {enquiryCashTransaction} from './cashtranshistory'
-import { enquiryStockStatement } from './stockstatement'
-import { enquiryCashStatement} from './cashstatement'
+import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
+import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
+import { enquiryStockStatement, exportTransactionHistory } from './stockstatement'
+import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
 import {loadWatchList,addStock, removeStock} from './watchlist'
 import {getClientInfo, changePassword} from './profile'
 import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit} from './oddlottrading'
@@ -96,5 +96,11 @@ export {
   getDynamicdata,
 
   getCashAdvance,
+  
+  exportGetCashTransactionHistory,
+  exportOrderHistory,
+  exportCashTransactionHistory,
+  exportTransactionHistory,
+  exportOrderConfirm,
   
 };

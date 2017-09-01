@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Footer from '../DataTableFooter'
 import Popup from '../Popup'
+import moment from 'moment'
 
 class OrderConfirmation extends Component {
     constructor(props) {
@@ -124,7 +125,20 @@ class OrderConfirmation extends Component {
 
         this.rowSelected = []
         this.id = 'orderconfirmation'
-        this.param = {}
+
+        this.param = {
+            start: 0,
+            limit: 15,
+            mvBS: 'A',
+            page: 1,
+            mvOrderType: 'ALL',
+            mvMarket: 'ALL',
+            mvInstrumentID: 'ALL',
+            mvStatus: 'ALL',
+            mvSorting: 'InputTime desc',
+            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+        }
     }
 
     render() {
@@ -141,6 +155,7 @@ class OrderConfirmation extends Component {
                     onNextPage={this.onNextPage.bind(this)}
                     onPrevPage={this.onPrevPage.bind(this)}
                     onReloadPage={this.onReloadPage.bind(this)}
+		    onExportExcel={this.onExportExcel.bind(this)}
                 />,
 
             <Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Thực hiện</Button>
@@ -179,9 +194,9 @@ class OrderConfirmation extends Component {
         )
     }
 
-    // componentDidMount(){
-    //     this.props.onSearch({'mvBuysell': 'ALL'})
-    // }
+    componentDidMount(){
+        this.props.onSearch(this.param)
+    }
 
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -268,6 +283,11 @@ class OrderConfirmation extends Component {
         this.props.onSearch(this.param)
     }
 
+    onExportExcel() {
+
+        this.props.onExportExcel(this.exportParams)
+    }
+
     onConfirmOrder(param) {
         console.log(param)
         this.rowSelected = []
@@ -291,6 +311,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onConfirmOrder: (param) => {
         dispatch(actions.onConfirmSubmit(param))
+    },
+    onExportExcel: (param) => {
+        dispatch(actions.exportOrderConfirm(param))
     },
 })
 
