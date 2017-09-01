@@ -55,6 +55,12 @@ class EnterOrder extends Component {
 
     render() {
         let lgClose = () => this.setState({ isShow: false });
+        if(this.state.isShow){
+            this.props.showMessageBox(this.props.language.enterorder.popup.title, 
+                this.props.isError, 
+               !this.reloadMsg, this.state.isShow)
+            lgClose()
+        }
         return (
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
                 <div id={'orderjournal-body'} className="component-body">
@@ -221,15 +227,7 @@ class EnterOrder extends Component {
                             </div>
 
                         </div>
-                        <Popup
-                            id='enterorder'
-                            show={this.state.isShow}
-                            onHide={lgClose}
-                            json={this.state.json}
-                            error={this.props.isError}
-                            mvStockBean={this.props.mvStockInfo}
-                            language={this.props.language}
-                            title={this.props.language.enterorder.popup.title} />
+                        
                     </Form>
                 </div>
             </div>
@@ -312,7 +310,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     getStock: () => {
         dispatch(actions.getStockB())
-    }
+    },
+    showMessageBox: (msgType, msgDetails, reloadMsg, showMsg) => {
+        dispatch(actions.showMessageBox(msgType, msgDetails, reloadMsg, showMsg))
+      },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder);

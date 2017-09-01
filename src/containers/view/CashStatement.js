@@ -74,7 +74,6 @@ class CashStatement extends Component {
             lgShow: false
         }
 
-        //this.buttonAction = [<Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Hủy GD</Button>,]
         this.rowSelected = []
         this.popupType = 'none'
         this.id = 'cashstatement'

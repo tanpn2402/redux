@@ -19,7 +19,7 @@ import {getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtra
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
 import {getStockInfo, getAccountBalance} from './accountinfo'
-import {showNotif} from './notification'
+import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit} from './loanrefund'
 
@@ -69,7 +69,10 @@ export {
   avaiblemarginlist,
   getAccountBalance,
   getStockInfo,
-  showNotif,
+  
+  showMessageBox,
+  showFlashPopup,
+
   loadWatchList,
   addStock, 
   removeStock,

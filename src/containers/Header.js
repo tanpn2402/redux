@@ -217,7 +217,6 @@ class Header extends React.Component {
   	}
 
   	componentDidMount(){
-  		
   		if(window.innerWidth <= 600)
   		{
   			document.getElementById('header-sm').style.display = 'block'

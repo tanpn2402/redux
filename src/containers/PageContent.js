@@ -9,34 +9,10 @@ import MessageBox from './commons/MessageBox'
 class PageContent extends React.Component {
     constructor () {
         super()
-
-        this.state = {
-            listMessage: [
-                {
-                    'id': '1-id',
-                    'type': 1,
-                    'message': '1',
-                },
-                {
-                    'id': '2-id',
-                    'type': 1,
-                    'message': '2',
-                },
-                {
-                    'id': '3-id',
-                    'type': 1,
-                    'message': '3',
-                }
-
-            ],
-            show: false
-        }
-
-    }
+        
+}
 
     render () {
-        console.log("mess type ", this.props.message)
-
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent">
                 <BaseLayout 
@@ -52,44 +28,49 @@ class PageContent extends React.Component {
                 <SettingNav language={this.props.language} />
                 <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
 
-                {/* <div className="flashpopup" id="flashpopup">
-                    {
-
-                        this.state.listMessage.map(e => {
-                            console.log(e)
+                <div className="flashpopup" id="flashpopup">
+                    {  
+                        this.props.listFlashPopup.map(e => {
                             return(
                                 <FlashPopup
                                     id={e.id}
                                     show={true}
                                     message={e.message}
                                     type={e.type}
+                                    list={this.list}
                                  />
                             )
                         })
                     }
-                                
-
-                </div> */}
+                </div>
 
                 <MessageBox message={this.props.message} messageType={this.props.type} 
-                    show={this.state.show} onHide={this.onHide.bind(this)}/>
+                            show={this.props.showMsg} onHide={this.onHide.bind(this)}/>
             </div>
         );
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.showPopup){
-            this.setState({
-                show: true
+    
+    componentWillReceiveProps(props, nextProps){
+       
+    }
+    componentDidUpdate(){
+        if(this.props.msgId!=='0'){
+            this.props.listFlashPopup.map(p=>{
+                let id = p.id
+                setTimeout(function(){
+                    document.getElementById(id).style.opacity = '0'
+                }, 1500)
+                setTimeout(function(){
+                    document.getElementById(id).style.display = 'none'
+                }, 3000)
             })
         }
     }
    
+    
     onHide(){
-        this.setState({
-            show: false
-        })
-        this.props.showNotif('','',false)
+        this.props.showMessageBox('','',false)
     }
 
     onHideSlidePanel(){
@@ -97,16 +78,9 @@ class PageContent extends React.Component {
         document.getElementById("settingnav").style.width = "0"
         document.getElementById("overlay").style.display = 'none'
 
-        var s = [
-                    {
-                        'id': '1-id',
-                        'type': 1,
-                        'message': '1',
-                    }
-
-                ]
+       
         // this.setState({
-        //     listMessage: this.state.listMessage.push(s  )
+        //     listFlashPopup: this.state.listFlashPopup.push(s  )
         // });
 /*
         var newDiv = document.createElement("MessageBox")
@@ -131,6 +105,7 @@ class PageContent extends React.Component {
         document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
         document.getElementById('slidenav').style.height = h3 - h1 - h2 + 'px'
         this.props.getStockIdList(param)
+
     }
 
     
@@ -142,11 +117,15 @@ const mapStateToProps = (state, props) => ({
   reload: state.menuSelected.reload,
   stockList: state.stock.stockList,
   
-  // notification
+  // message box
   message: state.notification.message,
   type: state.notification.type,
-  reloadPopup: state.notification.reloadPopup,
-  showPopup: state.notification.showPopup
+  reloadMsg: state.notification.reloadMsg,
+  showMsg: state.notification.showMsg,
+
+  // flashpopup
+  listFlashPopup: state.notification.listFlashPopup,
+  msgId: state.notification.msgId,
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -154,9 +133,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     getStockIdList: (param) => {
         dispatch(actions.stockSearch(param))
     },
-    showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
-        dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
+    showMessageBox: (msgType, msgDetails, reloadMsg, showMsg) => {
+        dispatch(actions.showMessageBox(msgType, msgDetails, reloadMsg, showMsg))
       },
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageContent)
