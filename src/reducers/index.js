@@ -24,6 +24,7 @@ import marginloan from './marginloan'
 import avaiblemarginlist from './avaiblemarginlist'
 import accountinfo from './accountinfo'
 import notification from './notification'
+import cashadvance from './cashadvance'
 
 export default combineReducers({
   dologin,
@@ -51,5 +52,6 @@ export default combineReducers({
   avaiblemarginlist,
   accountinfo,
   notification,
+  cashadvance,
   
 });

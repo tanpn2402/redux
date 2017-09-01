@@ -22,6 +22,7 @@ import {getStockInfo, getAccountBalance} from './accountinfo'
 import {showNotif} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit} from './loanrefund'
+import {getCashAdvance} from './cashadvance'
 
 export {
   doLogin,
@@ -93,5 +94,7 @@ export {
   getAdditionalshareinfo,
   getHistorylist,
   getDynamicdata,
+
+  getCashAdvance,
   
 };

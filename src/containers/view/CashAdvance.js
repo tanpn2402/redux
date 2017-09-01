@@ -13,6 +13,17 @@ import Pagination from '../commons/Pagination'
 class CashAdvance extends Component {
     constructor(props) {
         super(props);
+
+        this.params = {
+        mvLastAction: '',
+        mvChildLastAction: '',
+        start: '',
+        limit: '',
+        page: '',
+        queryBank: '',
+    }
+
+
         this.state = {
             formValues: {},
             isShow: false,
@@ -478,4 +489,19 @@ class CashAdvance extends Component {
     }
 }
 
-export default CashAdvance;
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.cashadvance.data,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    getCashAdvance: (params) => {
+        dispatch(actions.getCashAdvance(params))
+    },
+})
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CashAdvance)
