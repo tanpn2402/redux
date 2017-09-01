@@ -587,6 +587,15 @@ input::-webkit-calendar-picker-indicator {
 /*END PAGE CONTENT*/
 /*HEADER*/
 
+#header-sm{
+    display: none;
+}
+.openheader #header-sm{
+    display: block;
+}
+.openheader #header-lg{
+    display: none;
+}
 #header {
     width: 100%;
     height: 70px;
@@ -594,6 +603,9 @@ input::-webkit-calendar-picker-indicator {
 }
 #pageheader .row {
     margin: 0;
+}
+#pageheader #header-sm .col-xs-3, #pageheader #header-sm .col-xs-5{
+    padding-top: 3px
 }
 .header-sm {
     font-size: 12px;
@@ -628,7 +640,8 @@ input::-webkit-calendar-picker-indicator {
 .header-left .ReactTable,
 .header-sm > div,
 .header-sm > div > span,
-.header-sm > div > span > div > span {
+.header-sm > div > span > div > span,
+.header-left > div{
     height: 100%;
 }
 .header-market .rt-noData {
@@ -1571,13 +1584,8 @@ input::-webkit-calendar-picker-indicator {
     }
 }
 
-.sidebar-favorite> img{
-    width: 40px;
-    margin: 0 5px;
-}
-
 .sidebar-favorite>img:hover, .sidebar-helping > img:hover{
-    background: #e6e6e6;
+    background: #F8F6F6;
 }
 
 .sidebar-favorite >a, .sidebar-helping >a {
@@ -1585,7 +1593,7 @@ input::-webkit-calendar-picker-indicator {
 }
 
 
-.sidebar-helping > img {
+.sidebar-helping > img , .sidebar-favorite> img{
     cursor: pointer;
     height: 50px;
     width: 50px;

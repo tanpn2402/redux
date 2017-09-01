@@ -110,11 +110,11 @@ class BaseLayout extends React.Component {
 
     onResizeStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
         placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        /*var _layout = this.state.layout
+        var _layout = this.state.layout
         _layout[newItem.i] = newItem
         this.setState({ layout: _layout })
 
-        if (document.getElementById(newItem.i + '-table') !== null) {
+        /*if (document.getElementById(newItem.i + '-table') !== null) {
             document.getElementById(newItem.i + '-body').style.height = newItem.h * 39 - 25 + 'px'
             document.getElementById(newItem.i + '-table').style.height =
                 document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
@@ -123,11 +123,11 @@ class BaseLayout extends React.Component {
 
     onResize(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
         placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        /*var _layout = this.state.layout
+        var _layout = this.state.layout
         _layout[newItem.i] = newItem
         this.setState({ layout: _layout })
 
-        if (document.getElementById(newItem.i + '-table') !== null) {
+        /*if (document.getElementById(newItem.i + '-table') !== null) {
             document.getElementById(newItem.i + '-body').style.height =
                 document.getElementById(newItem.i + '-main').offsetHeight - 25 + 'px'
 

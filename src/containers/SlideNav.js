@@ -120,7 +120,7 @@ class SlideNav extends Component {
 
 const mapStateToProps = state => ({
     tabList: state.menuSelected.tabList,
-    // pageId: state.menuSelected.page,
+    pageId: state.menuSelected.page,
     reload: state.menuSelected.reload,
 });
 

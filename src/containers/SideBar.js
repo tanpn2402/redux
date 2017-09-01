@@ -4,9 +4,9 @@ import config from '../core/config'
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import Arrow from '../assets/images/right.png'
-import Order from '../assets/images/order.png'
-import OrderBook from '../assets/images/orderbook.png'
-import Portfolio from '../assets/images/porfolio.png'
+import Order from '../assets/images/choices.png'
+import OrderBook from '../assets/images/stock.png'
+import Portfolio from '../assets/images/find.png'
 import Settings from '../assets/images/settings.png'
 import Question from '../assets/images/question.png'
 
@@ -27,14 +27,14 @@ class SideBar extends Component {
                     <img src={Order} alt="Enter Order" /><a href="javascript:void(0)" id='enterorder' onClick={this.onMenuSelected.bind(this)}>
                         {this.props.language.menu.enterorder}
                     </a><br />
-                    <img src={OrderBook} alt="Order Book" /><a href="#">Link 2</a><br />
-                    <img src={Portfolio} alt="Portfolio" /><a href="#">Link 3</a><br />
+                    <img src={OrderBook} alt="Order Book" /><a href="#">Watch List</a><br />
+                    <img src={Portfolio} alt="Portfolio" /><a href="#">Order Journal</a><br />
                 </div>
 
                 <div className="sidebar-footer" id="footer">
                     <div className="sidebar-helping" id="helping">
-                        <img src={Question} alt="Help" /><a href="#">Link 4</a><br />
-                        <img src={Settings} alt="Setting" /><a href="#">Link 5</a><br />
+                        <img src={Question} alt="Help" /><a href="#">Help</a><br />
+                        <img src={Settings} alt="Setting" /><a href="#">Setting</a><br />
                     </div>
                     <button onClick={this.Open} className="expandicon"><img src={Arrow} alt="Expand" /></button>
                 </div>

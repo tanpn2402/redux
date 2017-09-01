@@ -48,7 +48,7 @@ class MenuNav extends Component {
                                                 className="hks-btn btn-tab-close"
                                                 type="button"
                                                 // title="Remove this page"
-                                                onClick={e => this.onRemove(e.target.id)}
+                                                onClick={e => this.onRemove(e.target.id, this.props.page)}
                                                 >
                                                 ×
                                             </button>
@@ -82,10 +82,10 @@ class MenuNav extends Component {
         }
     }
 
-    onRemove(e) {
+    onRemove(e, page) {
         this.props.onRemoveTab(
             e,
-            this.props.page,
+            page,
             this.props.tabList,
             this.props.reload
         );
