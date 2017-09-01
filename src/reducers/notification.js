@@ -5,7 +5,8 @@ const initialState = {
   //type: 0,
   showMsg: false,
   msgId: '0',
-  listFlashPopup: []
+  listFlashPopup: [],
+  showFlash: false
 };
 
 export default function(state = initialState, action) {
@@ -17,19 +18,18 @@ export default function(state = initialState, action) {
           reloadMsg: action.reloadMsg,
           showMsg: action.showMsg,
         });
-    case ActionTypes.FLASHPOPUP:
-        var s={
-          'id': action.msgId,
-          'type': action.msgType,
-          'message': action.msgContent
-        }
+    case ActionTypes.FLASHPOPUP:{
+      var s={
+        'id': action.msgId,
+        'message': action.msgContent
+      }
+      return Object.assign({},state,{ 
+        listFlashPopup: [...state.listFlashPopup,s],
+        msgId: action.msgId,
+        showFlash: action.showFlash
+      });
+    }
         
-        //state.listFlashPopup=[]
-        return Object.assign({},state,{          
-          listFlashPopup: [...state.listFlashPopup,s],
-          msgId: action.msgId,
-          showFlash: action.showFlash
-        });
     default:
       break;
      

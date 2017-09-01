@@ -12,11 +12,10 @@ export function showMessageBox(msgType, msgDetails, reloadMsg, showMsg){
       showMsg: showMsg,
   }
 }
-export function showFlashPopup(msgId, msgType, msgContent, showFlash ){
+export function showFlashPopup(msgId, msgContent, showFlash ){
   return {
       type: ActionTypes.FLASHPOPUP,
       msgId: msgId,
-      msgType: msgType,
       msgContent: msgContent, 
       showFlash: showFlash
   }

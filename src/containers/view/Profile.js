@@ -40,12 +40,11 @@ class Profile extends Component {
             this.props.showMessageBox(this.props.language.message.error, 
                                  this.props.language.message.changefailed, 
                                 !this.reloadMsg, this.showMsg)
-            // this.flashId++
-            // this.props.showFlashPopup('flash-id-profile'+this.flashId,'1',this.props.language.message.changesuccess, 
-            // this.showFlash)
+            
           }else if(result.PData === 'success'){
             this.flashId++
-            this.props.showFlashPopup('flash-id-profile'+this.flashId,'1',this.props.language.message.changesuccess)
+            this.props.showFlashPopup('flash-id-profile'+this.flashId,this.props.language.message.changesuccess, 
+                                      this.showFlash)
           }
           this.showMsg=false
           this.showFlash=false
@@ -249,8 +248,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   showMessageBox: (msgType, msgDetails, reloadMsg, showMsg) => {
     dispatch(actions.showMessageBox(msgType, msgDetails, reloadMsg, showMsg))
   },
-  showFlashPopup: (msgId, msgType, msgContent, showFlash) => {
-    dispatch(actions.showFlashPopup(msgId, msgType, msgContent, showFlash ))
+  showFlashPopup: (msgId, msgContent, showFlash) => {
+    dispatch(actions.showFlashPopup(msgId, msgContent, showFlash ))
   },
 })
 

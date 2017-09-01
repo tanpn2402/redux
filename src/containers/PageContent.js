@@ -35,7 +35,6 @@ class PageContent extends React.Component {
                                     id={e.id}
                                     show={this.props.showFlash}
                                     message={e.message}
-                                    type={e.type}
                                     list={this.list}
                                  />
                             )
@@ -53,12 +52,9 @@ class PageContent extends React.Component {
     componentWillReceiveProps(props, nextProps){
         
     }
-    componentWillUpdate(){
-        
     
-}
     componentDidUpdate(){
-        if(this.props.msgId!=='0'){
+        if(this.props.showFlash){
             this.props.listFlashPopup.map(e =>{
                 let id = e.id
                 setTimeout(function(){
@@ -67,7 +63,6 @@ class PageContent extends React.Component {
                 setTimeout(function(){
                     document.getElementById(id).style.display = 'none'
                 }, 3000)
-                
             })
         }
     }
