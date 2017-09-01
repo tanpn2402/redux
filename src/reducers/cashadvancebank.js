@@ -1,25 +1,25 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
+  queryAdvancePaymentInfo: [],
   CashAdvanceHistory: [],
-  SoldOrders: [],
-  LocalAdvance: [],
+  queryBankInfo: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.GETCASHADVANCEHISTORY:
+    case ActionTypes.QUERYADVANCEPAYMENTINFO:
         return Object.assign({},state,{
-          CashAdvanceHistory: action.CashAdvanceHistory,
+          queryAdvancePaymentInfo: action.queryAdvancePaymentInfo,
         });
 
-    case ActionTypes.QUERYSOLDORDERS:
+    case ActionTypes.GETCASHADVANCEHISTORY:
         return Object.assign({},state,{   
-          SoldOrders: action.SoldOrders,
+          CashAdvanceHistory: action.CashAdvanceHistory,
         });
-    case ActionTypes.GETLOCALADVANCECREATION:
+    case ActionTypes.QUERYBANKINFO:
         return Object.assign({},state,{
-          LocalAdvance: action.LocalAdvance,
+          queryBankInfo: action.queryBankInfo,
         })
 
     default:

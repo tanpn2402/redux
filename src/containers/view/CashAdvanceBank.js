@@ -13,6 +13,18 @@ import DataUpperTable from '../DataUpperTable'
 class CashAdvanceBank extends Component {
     constructor(props) {
         super(props);
+
+        this.params = {
+            mvBankID: '',
+            mvSettlement: '',
+            mvLastAction: '',
+            mvChildLastAction: '',
+            start: '0',
+            limit: '15',
+            page: '',
+            queryBank: '',
+        }
+
         this.state = {
            formValues: {},
             isShow: false,
@@ -132,56 +144,56 @@ class CashAdvanceBank extends Component {
             columns1: [
                 {
                     Header: this.props.language.cashadvancebank.header.contractid,
-                    accessor: 'contractid',
+                    accessor: 'mvContractID',
                     id: 'contractid',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.orderid,
-                    accessor: 'orderid',
+                    accessor: 'mvOrderID',
                     id: 'orderid',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.settlementdate,
-                    accessor: 'settlementdate',
+                    accessor: 'mvSettleDay',
                     id: 'settlementdate',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.tradedate,
-                    accessor: 'tradedate',
+                    accessor: 'tranDate',
                     id: 'tradedate',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.stockid,
-                    accessor: 'stockid',
+                    accessor: 'mvStockID',
                     id: 'stockid',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.price,
-                    accessor: 'price',
+                    accessor: 'mvPrice',
                     id: 'price',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.quantity,
-                    accessor: 'quantity',
+                    accessor: 'mvAmount',
                     id: 'quantity',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.value,
-                    accessor: 'value',
+                    accessor: 'mvAvailableAmount',
                     id: 'value',
                     show: true,
                     skip: false
@@ -190,14 +202,14 @@ class CashAdvanceBank extends Component {
             columns2: [
                 {
                     Header: this.props.language.cashadvancebank.header.date,
-                    accessor: 'date',
+                    accessor: 'creationTime',
                     id: 'date',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.advanceamount,
-                    accessor: 'advanceamount',
+                    accessor: 'totalLendingAmt',
                     id: 'advanceamount',
                     show: true,
                     skip: false
@@ -205,28 +217,28 @@ class CashAdvanceBank extends Component {
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.advancefee,
-                    accessor: 'advancefee',
+                    accessor: 'fee',
                     id: 'advancefee',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.processingstatus,
-                    accessor: 'processingstatus',
+                    accessor: 'status',
                     id: 'processingstatus',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.lastupdate,
-                    accessor: 'lastupdate',
+                    accessor: 'lastApprovaltime',
                     id: 'lastupdate',
                     show: true,
                     skip: false
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.note,
-                    accessor: 'note',
+                    accessor: 'remark',
                     id: 'note',
                     show: true,
                     skip: false
@@ -236,6 +248,9 @@ class CashAdvanceBank extends Component {
     }
 
     render() {
+        var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo.mvChildBeanList === undefined ? [] : this.props.queryAdvancePaymentInfo.mvChildBeanList
+        var CashAdvanceHistory = this.props.CashAdvanceHistory.list
+        var queryBankInfo = this.props.queryBankInfo.historyList
         let lgClose = () => this.setState({ isShow: false })
         let buttonAction1 = [
             <Pagination
@@ -352,7 +367,8 @@ class CashAdvanceBank extends Component {
                           theme={this.props.theme}
                           columns={this.state.columns1}
                           onChangeStateColumn={this.onChangeStateColumn1.bind(this)}
-                          param={['dropdown']}/>
+                          param={['dropdown']}
+                          data={queryAdvancePaymentInfo}/>
                     </div>
                  </div>
             </div>
@@ -380,7 +396,8 @@ class CashAdvanceBank extends Component {
                       theme={this.props.theme}
                       columns={this.state.columns2}
                       onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
-                      param={['dropdown']}/>
+                      param={['dropdown']}
+                      data={CashAdvanceHistory}/>
                 </div>
                 
             </div>    
@@ -480,6 +497,35 @@ class CashAdvanceBank extends Component {
         this.state.value = this.state.formValues.volume / 2500;
         return this.state.value;
     }
+
+    componentDidMount(){
+        this.props.getqueryAdvancePaymentInfo(this.params, !this.props.reload);
+        this.props.getCashAdvance(this.params, !this.props.reload);
+        this.props.getqueryBankInfo(this.params, !this.props.reload);
+    }
 }
 
-export default CashAdvanceBank;
+const mapStateToProps = (state) => {
+    return {
+        queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
+        CashAdvanceHistory: state.cashadvancebank.CashAdvanceHistory,
+        queryBankInfo: state.cashadvancebank.queryBankInfo,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    getqueryAdvancePaymentInfo: (params) => {
+        dispatch(actions.getqueryAdvancePaymentInfo({mvBank: '', mvSettlement: ''}))
+    },
+    getCashAdvance: (params) => {
+        dispatch(actions.getCashAdvance({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: '', queryBank: ''}))
+    },
+    getqueryBankInfo: (params) => {
+        dispatch(actions.getqueryBankInfo({key: ''}))
+    },
+})
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CashAdvanceBank)

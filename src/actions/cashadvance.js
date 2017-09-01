@@ -11,7 +11,34 @@ export function getCashAdvance (params) {
 
 function CashAdvance (response) {
   return {
-    type: ActionTypes.CASHADVANCE,
-    data: response,
+    type: ActionTypes.GETCASHADVANCEHISTORY,
+    CashAdvanceHistory: response,
   }
 }
+
+export function getQuerySoldOrders (params) {
+  return(dispatch) => {
+    WebApi.get(ACTION.QUERYSOLDORDERS, params, dispatch, QuerySoldOrders)
+  }
+}
+
+function QuerySoldOrders (response) {
+  return {
+    type: ActionTypes.QUERYSOLDORDERS,
+    SoldOrders: response,
+  }
+}
+
+export function getLocalAdvanceCreation (params) {
+  return(dispatch) => {
+    WebApi.get(ACTION.GETLOCALADVANCECREATION, params, dispatch, LocalAdvanceCreation)
+  }
+}
+
+function LocalAdvanceCreation (response) {
+  return {
+    type: ActionTypes.GETLOCALADVANCECREATION,
+    LocalAdvance: response,
+  }
+}
+

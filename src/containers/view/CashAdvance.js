@@ -13,16 +13,15 @@ import Pagination from '../commons/Pagination'
 class CashAdvance extends Component {
     constructor(props) {
         super(props);
-
         this.params = {
-        mvLastAction: '',
-        mvChildLastAction: '',
-        start: '',
-        limit: '',
-        page: '',
-        queryBank: '',
-    }
+            mvLastAction: '',
+            mvChildLastAction: '',
+            start: '0',
+            limit: '15',
+            page: '',
+            queryBank: '',
 
+        }
 
         this.state = {
             formValues: {},
@@ -30,7 +29,7 @@ class CashAdvance extends Component {
             columns1: [
                 {
                     Header: this.props.language.cashadvance.header.id,
-                    accessor: 'ID',
+                    accessor: 'mvOrderID',
                     id: 'id',
                     show: true,
                     skip: false,
@@ -38,7 +37,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.matchingdate,
-                    accessor: 'matchingdate',
+                    accessor: 'tradeDate',
                     id: 'matchingdate',
                     show: true,
                     skip: false,
@@ -46,7 +45,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.paymentdate,
-                    accessor: 'paymentdate',
+                    accessor: 'cashSettleDay',
                     id: 'paymentdate',
                     show: true,
                     skip: false,
@@ -54,7 +53,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.stock,
-                    accessor: 'stock',
+                    accessor: 'mvStockID',
                     id: 'stock',
                     show: true,
                     skip: false,
@@ -62,7 +61,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.volume,
-                    accessor: 'volume',
+                    accessor: 'mvQuantity',
                     id: 'volume',
                     show: true,
                     skip: false,
@@ -70,7 +69,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.value,
-                    accessor: 'value',
+                    accessor: 'mvAmount',
                     id: 'value',
                     show: true,
                     skip: false,
@@ -78,7 +77,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.fee,
-                    accessor: 'fee',
+                    accessor: 'tradingFee',
                     id: 'fee',
                     show: true,
                     skip: false,
@@ -88,7 +87,7 @@ class CashAdvance extends Component {
             columns2: [
                 {
                     Header: this.props.language.cashadvance.header.date,
-                    accessor: 'date',
+                    accessor: 'creationTime',
                     id: 'date',
                     show: true,
                     skip: false,
@@ -96,7 +95,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.advanceamount,
-                    accessor: 'advanceamount',
+                    accessor: 'totalLendingAmt',
                     id: 'advanceamount',
                     show: true,
                     skip: false,
@@ -105,7 +104,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.advancefee,
-                    accessor: 'advancefee',
+                    accessor: 'fee',
                     id: 'advancefee',
                     show: true,
                     skip: false,
@@ -113,7 +112,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.processingstatus,
-                    accessor: 'processingstatus',
+                    accessor: 'status',
                     id: 'processingstatus',
                     show: true,
                     skip: false,
@@ -121,7 +120,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.lastupdate,
-                    accessor: 'lastupdate',
+                    accessor: 'lastApprovaltime',
                     id: 'lastupdate',
                     show: true,
                     skip: false,
@@ -129,7 +128,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.note,
-                    accessor: 'note',
+                    accessor: 'remark',
                     id: 'note',
                     show: true,
                     skip: false,
@@ -151,7 +150,7 @@ class CashAdvance extends Component {
             columns1: [
                 {
                     Header: nextProps.language.cashadvance.header.id,
-                    accessor: 'ID',
+                    accessor: 'mvOrderID',
                     id: 'id',
                     show: true,
                     skip: false,
@@ -159,7 +158,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.matchingdate,
-                    accessor: 'matchingdate',
+                    accessor: 'tradeDate',
                     id: 'matchingdate',
                     show: true,
                     skip: false,
@@ -167,7 +166,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.paymentdate,
-                    accessor: 'paymentdate',
+                    accessor: 'cashSettleDay',
                     id: 'paymentdate',
                     show: true,
                     skip: false,
@@ -175,7 +174,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.stock,
-                    accessor: 'stock',
+                    accessor: 'mvStockID',
                     id: 'stock',
                     show: true,
                     skip: false,
@@ -183,7 +182,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.volume,
-                    accessor: 'volume',
+                    accessor: 'mvQuantity',
                     id: 'volume',
                     show: true,
                     skip: false,
@@ -191,7 +190,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.value,
-                    accessor: 'value',
+                    accessor: 'mvAmount',
                     id: 'value',
                     show: true,
                     skip: false,
@@ -199,7 +198,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.fee,
-                    accessor: 'fee',
+                    accessor: 'tradingFee',
                     id: 'fee',
                     show: true,
                     skip: false,
@@ -209,7 +208,7 @@ class CashAdvance extends Component {
             columns2: [
                 {
                     Header: nextProps.language.cashadvance.header.date,
-                    accessor: 'date',
+                    accessor: 'creationTime',
                     id: 'date',
                     show: true,
                     skip: false,
@@ -217,7 +216,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.advanceamount,
-                    accessor: 'advanceamount',
+                    accessor: 'totalLendingAmt',
                     id: 'advanceamount',
                     show: true,
                     skip: false,
@@ -226,7 +225,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.advancefee,
-                    accessor: 'advancefee',
+                    accessor: 'fee',
                     id: 'advancefee',
                     show: true,
                     skip: false,
@@ -234,7 +233,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.processingstatus,
-                    accessor: 'processingstatus',
+                    accessor: 'status',
                     id: 'processingstatus',
                     show: true,
                     skip: false,
@@ -242,7 +241,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.lastupdate,
-                    accessor: 'lastupdate',
+                    accessor: 'lastApprovaltime',
                     id: 'lastupdate',
                     show: true,
                     skip: false,
@@ -250,17 +249,23 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.note,
-                    accessor: 'note',
+                    accessor: 'remark',
                     id: 'note',
                     show: true,
                     skip: false,
                     width: 120,
                 }
             ],
+
         });
     }
 
     render() {
+
+        var SoldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
+        var CashAdvanceHistory = this.props.CashAdvanceHistory.list
+        var LocalAdvance = this.props.LocalAdvance.mvAdvanceBean
+        console.log(this.props.SoldOrders)
         let lgClose = () => this.setState({ isShow: false })
 
         let buttonActionCashAdTrans = [
@@ -360,7 +365,8 @@ class CashAdvance extends Component {
                                 columns={this.state.columns2}
                                 onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}
                                 hideSearchButton={true}
-                                param={['dropdown']} />
+                                param={['dropdown']}
+                                data={CashAdvanceHistory} />
                         </div>
                         
                     </div>
@@ -386,6 +392,7 @@ class CashAdvance extends Component {
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             columns={this.state.columns1}
+                            data={SoldOrders}
                             onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
                             hideSearchButton={true}
                             param={['dropdown']} />
@@ -487,18 +494,32 @@ class CashAdvance extends Component {
         this.state.value = this.state.formValues.volume / 2500;
         return this.state.value;
     }
+
+    componentDidMount(){
+        this.props.getQuerySoldOrders(this.params, !this.props.reload);
+        this.props.getCashAdvance(this.params, !this.props.reload);
+        this.props.getLocalAdvanceCreation(this.params, !this.props.reload);
+    }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        data: state.cashadvance.data,
+        SoldOrders: state.cashadvance.SoldOrders,
+        CashAdvanceHistory: state.cashadvance.CashAdvanceHistory,
+        LocalAdvance: state.cashadvance.LocalAdvance,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+    getQuerySoldOrders: (params) => {
+        dispatch(actions.getQuerySoldOrders({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: ''}))
+    },
     getCashAdvance: (params) => {
-        dispatch(actions.getCashAdvance(params))
+        dispatch(actions.getCashAdvance({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: '', queryBank: ''}))
+    },
+    getLocalAdvanceCreation: (params) => {
+        dispatch(actions.getLocalAdvanceCreation({mvLastAction: '', mvChildLastAction: ''}))
     },
 })
 
