@@ -9,7 +9,6 @@ import MessageBox from './commons/MessageBox'
 class PageContent extends React.Component {
     constructor () {
         super()
-        
 }
 
     render () {
@@ -34,7 +33,7 @@ class PageContent extends React.Component {
                             return(
                                 <FlashPopup
                                     id={e.id}
-                                    show={true}
+                                    show={this.props.showFlash}
                                     message={e.message}
                                     type={e.type}
                                     list={this.list}
@@ -52,18 +51,23 @@ class PageContent extends React.Component {
 
     
     componentWillReceiveProps(props, nextProps){
-       
+        
     }
+    componentWillUpdate(){
+        
+    
+}
     componentDidUpdate(){
         if(this.props.msgId!=='0'){
-            this.props.listFlashPopup.map(p=>{
-                let id = p.id
+            this.props.listFlashPopup.map(e =>{
+                let id = e.id
                 setTimeout(function(){
                     document.getElementById(id).style.opacity = '0'
                 }, 1500)
                 setTimeout(function(){
                     document.getElementById(id).style.display = 'none'
                 }, 3000)
+                
             })
         }
     }
@@ -126,6 +130,7 @@ const mapStateToProps = (state, props) => ({
   // flashpopup
   listFlashPopup: state.notification.listFlashPopup,
   msgId: state.notification.msgId,
+  showFlash: state.notification.showFlash
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

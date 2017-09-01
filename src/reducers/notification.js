@@ -28,6 +28,7 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{          
           listFlashPopup: [...state.listFlashPopup,s],
           msgId: action.msgId,
+          showFlash: action.showFlash
         });
     default:
       break;

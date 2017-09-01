@@ -26,6 +26,7 @@ class Profile extends Component {
         }
         this.showMsg=false
         this.flashId=1
+        this.showFlash=false
     }
     
     
@@ -39,12 +40,15 @@ class Profile extends Component {
             this.props.showMessageBox(this.props.language.message.error, 
                                  this.props.language.message.changefailed, 
                                 !this.reloadMsg, this.showMsg)
-            
-          }else{
+            // this.flashId++
+            // this.props.showFlashPopup('flash-id-profile'+this.flashId,'1',this.props.language.message.changesuccess, 
+            // this.showFlash)
+          }else if(result.PData === 'success'){
             this.flashId++
             this.props.showFlashPopup('flash-id-profile'+this.flashId,'1',this.props.language.message.changesuccess)
           }
           this.showMsg=false
+          this.showFlash=false
         }
         return (
           <div className="profile-wrapper">
@@ -213,6 +217,7 @@ class Profile extends Component {
       else{  
         this.props.changePassword(this.params)
         this.showMsg=true
+        this.showFlash=true
       }
     }
     onChangeValue(e){
@@ -244,8 +249,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   showMessageBox: (msgType, msgDetails, reloadMsg, showMsg) => {
     dispatch(actions.showMessageBox(msgType, msgDetails, reloadMsg, showMsg))
   },
-  showFlashPopup: (msgId, msgType, msgContent) => {
-    dispatch(actions.showFlashPopup(msgId, msgType, msgContent ))
+  showFlashPopup: (msgId, msgType, msgContent, showFlash) => {
+    dispatch(actions.showFlashPopup(msgId, msgType, msgContent, showFlash ))
   },
 })
 
