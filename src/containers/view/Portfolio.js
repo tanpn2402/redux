@@ -3,7 +3,6 @@ import HorizontalTable from './../commons/HorizontalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataUpperTable from '../DataUpperTable'
-import Footer from '../DataTableFooter'
 import Pagination from '../commons/Pagination'
 import SearchBar from '../commons/SearchBar'
 

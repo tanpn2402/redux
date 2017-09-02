@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
 import SearchBar from '../commons/SearchBar'
-import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Footer from '../DataTableFooter'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
 import moment from 'moment'
