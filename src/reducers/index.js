@@ -26,6 +26,8 @@ import accountinfo from './accountinfo'
 import notification from './notification'
 import cashadvance from './cashadvance'
 import cashadvancebank from './cashadvancebank'
+import flashpopup from './flashpopup'
+
 
 export default combineReducers({
   dologin,
@@ -55,5 +57,6 @@ export default combineReducers({
   notification,
   cashadvance,
   cashadvancebank,
+  flashpopup,
   
 });

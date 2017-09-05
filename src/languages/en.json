@@ -641,6 +641,13 @@
         "popup": {
           "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
         }
+      },
+      "messagebox": {
+        "warning": "Warning",
+        "error": "Error",
+        "failed": "Failed",
+        "note": "Note",
+        "info": "Info"
       }
     }
   }

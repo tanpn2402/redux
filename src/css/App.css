@@ -806,9 +806,15 @@ input::-webkit-calendar-picker-indicator {
 .flashpopup {
     margin-right: 2px;
     float: right;
+    position: relative;
+    z-index: 99;
+    overflow-y: auto;
 }
 .flashpopup-child {
-    border-radius: 4px;
+    border-radius: 2px;
+    border: none;
+    color: #555;
+    font-size: 12px;
     width: 150px;
     height: 60px;
     background-color: #fff;
@@ -823,13 +829,59 @@ input::-webkit-calendar-picker-indicator {
 /*MESSAGE BOX*/
 
 .messagebox {
-    width: 300px
+    width: auto;
+    font-size: 12px;
 }
-.messagebox-title {
-    font-size: 14px
+.messagebox > .modal-dialog > .modal-content {
+    border-radius: 4px;
+
+}
+.messagebox > .modal-dialog > .modal-content > .modal-header {
+    font-size: 14px;
+    padding: 0 10px;
+    background-color: #005899;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    color: #fff;
+}
+.messagebox > .modal-dialog > .modal-content > .modal-header > h4 {
+    font-size: 14px;
+}
+.messagebox > .modal-dialog > .modal-content > .modal-header .close{
+    color: #000;
+}
+.messagebox > .modal-dialog > .modal-content > .modal-body {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 70px;
+}
+.messagebox > .modal-dialog > .modal-content > .modal-footer {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.messagebox > .modal-dialog > .modal-content > .modal-footer .btn-default{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 12px;
 }
 .modal-footer {
     text-align: center;
+}
+
+@media (min-width: 768px){
+    .messagebox > .modal-dialog {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px){
+    /*.messagebox > .modal-dialog {
+        width: 80%;
+        max-width: 400px;
+        min-width: 300px;
+    }*/
 }
 /*END MESSAGE BOX*/
 /*CASH TRANSFER*/

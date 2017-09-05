@@ -68,7 +68,9 @@ class SlideNav extends Component {
                 this.props.tabList,
                 this.props.reload
             );
-        else console.log("Exist");
+        else{
+            this.props.onShowMessageBox(3, "Bạn đã mở cửa sổ như vậy rồi")
+        }
     }
 
     onChange(value, language){
@@ -127,6 +129,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, props) => ({
     onSelect: (menuid, pageid, tabList, reload) => {
         dispatch(actions.menuSelected(menuid, pageid, tabList, reload));
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 });
 

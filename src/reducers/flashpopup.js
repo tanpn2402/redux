@@ -8,7 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.MESSAGEBOX:
+    case ActionTypes.FLASHPOPUP:
         console.log(action)
         return Object.assign({},state,{          
         	message: action.message,

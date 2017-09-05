@@ -3,10 +3,11 @@ import MenuItem from './SideMenu/MenuItem'
 import PageContent from './PageContent'
 import SideBar from './SideBar'
 import config from '../core/config'
-import { connect } from "react-redux"
-import * as actions from "../actions"
+import { connect } from 'react-redux'
+import * as actions from '../actions'
+import Notification from './Notification'
 
-class MainContent extends Component {
+export default class MainContent extends Component {
 
     constructor(props) {
         super(props)
@@ -18,6 +19,7 @@ class MainContent extends Component {
             <div id="maincontent">
                 <SideBar theme={this.props.theme} language= {this.props.language}/>
                 <PageContent theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
+                
             </div>
         )
     }
@@ -33,13 +35,3 @@ class MainContent extends Component {
 
     
 }
-
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToProps = (dispatch, props) => ({
-   
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainContent)

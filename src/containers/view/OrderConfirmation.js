@@ -227,9 +227,14 @@ class OrderConfirmation extends Component {
     }
 
     showPopup() {
-        this.setState({
-            lgShow: true
-        });
+        if(this.rowSelected.length > 0){
+            this.setState({
+                lgShow: true
+            });
+        }
+        else{
+            this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
+        }
         // console.log('onConfirmOrder', this.rowSelected)
     }
 
@@ -313,6 +318,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onExportExcel: (param) => {
         dispatch(actions.exportOrderConfirm(param))
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 })
 
