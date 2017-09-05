@@ -209,6 +209,10 @@
           "cancel":"Hủy",
           "submit":"Gửi",
           "bankaccount":"Tài khoản"
+        },
+        "status": {
+          "approve": "Đã xác nhận",
+          "waiting": "Chưa xác nhận"
         }
       },
       "accountinfo": {

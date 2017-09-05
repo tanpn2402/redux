@@ -37,7 +37,7 @@ function responsehksCachTranHis (response) {
 
 export function gethksCachTranHis(params) {
   return(dispatch) => {
-    WebApi.post(ACTION.HKSCASHTRANSACTIONHISTORY, params, dispatch, responsehksCachTranHis)
+    WebApi.post(ACTION.HKSCASHTRANHIS, params, dispatch, responsehksCachTranHis)
     }
   }
 

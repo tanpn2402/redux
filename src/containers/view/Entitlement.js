@@ -319,8 +319,13 @@ class Entitlement extends Component {
             var datahistorylist = this.props.datahistorylist.historyList === undefined ? [] : this.props.datahistorylist.historyList
             var dynamicdata = this.props.dynamicdata.mvList
 
-            let lgClose = () => this.setState({ isShow: false })
+            datarightlist = datarightlist === null ? [] : datarightlist
+            datahistorylist = datahistorylist === null ? [] : datahistorylist
+            dynamicdata = dynamicdata === null ? [] : dynamicdata
+            dataadditionalsharelist = dataadditionalsharelist === null ? [] : dataadditionalsharelist
 
+            let lgClose = () => this.setState({ isShow: false })
+            
             let buttonAction1 = [
                 <Pagination
                         pageIndex={this.state.pageIndex1}
@@ -466,7 +471,7 @@ class Entitlement extends Component {
                           language={this.props.language.entitlement.header}
                           columns={this.state.columns}
                           defaultPageSize={15}
-                          data={datarightlist.slice((this.state.pageIndex1-1)*6, this.state.pageIndex1*6)}/>
+                          data={datarightlist}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -494,7 +499,7 @@ class Entitlement extends Component {
                           language={this.props.language.entitlement.header}
                           columns={this.state.columns3}
                           defaultPageSize={15}
-                          data={datahistorylist.slice((this.state.pageIndex3-1)*6, this.state.pageIndex3*6)}/>
+                          data={datahistorylist}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>
@@ -525,7 +530,7 @@ class Entitlement extends Component {
                         language={this.props.language.entitlement.header}
                         columns={this.state.columns2}
                         defaultPageSize={15}
-                        data={dataadditionalsharelist.slice((this.state.pageIndex2-1)*6, this.state.pageIndex2*6)}/>
+                        data={dataadditionalsharelist}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.porfolio.titlestock}>

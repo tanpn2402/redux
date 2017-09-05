@@ -154,10 +154,6 @@ class OddLotTrading extends Component {
                     show: true,
               },
             ],
-
-
-            historyList: [],
-            oddLotList: [],
         }
 
         this.rowSelected = []
@@ -293,35 +289,28 @@ class OddLotTrading extends Component {
                 {
                     id: 'status',
                     Header: this.props.language.oddlottrading.header.status,
-                    accessor: 'status',
+                    Cell: props => {
+                        if(props.original.status === 'H')
+                            return this.props.language.oddlottrading.status.waiting;
+                        if(props.original.status === 'D')
+                            return this.props.language.oddlottrading.status.approve;
+                       else
+                            return props.original.status
+                    
+                    },
                     width: 120,
                     skip: false,
                     show: true,
               },
             ],
-
-            oddLotList: nextProps.oddlotenquiry.oddLotList === null ? [] : nextProps.oddlotenquiry.oddLotList,
-            historyList: nextProps.oddlothistory.historyList === null ? [] : nextProps.oddlothistory.historyList
-
-
         })
     }
 
 
     render() {
-        console.log('render in OddLotTrading', this.state.oddLotList, this.state.historyList)
-        let oddlotenquiry = this.state.oddLotList
-        let oddlothistory = this.state.historyList
-
-        oddlothistory.map(e => {
-        if(e.status === 'H')
-            e.status = this.props.language.oddlottrading.status.waiting;
-        if(e.status === 'D')
-            e.status = this.props.language.oddlottrading.status.approve;
-        if(e.price == '0E-9')
-          e.price = '0';
-          e.price = String(parseFloat(e.price).toFixed(3));
-    })
+        console.log('render in OddLotTrading', this.props.oddlotenquiry, this.props.oddlothistory)
+        let oddlotenquiry = this.props.oddlotenquiry.oddLotList === undefined ? [] : this.props.oddlotenquiry.oddLotList
+        let oddlothistory = this.props.oddlothistory === null ? [] : this.props.oddlothistory
       
         let lgClose = () => this.setState({ isShow: false });
 
@@ -358,7 +347,7 @@ class OddLotTrading extends Component {
                         <div className="table-main">
                             <DataUpperTable
                                 columns={this.state.enquirycolumns}
-                                data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*6, this.state.oddLotOrderPageIndex*6 )}
+                                data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*15, this.state.oddLotTransPageIndex*15 )}
                                 maxRows={6}
                                 defaultPageSize={15}/>
                         </div>
@@ -394,7 +383,7 @@ class OddLotTrading extends Component {
                     <div className="table-main">
                         <DataUpperTable
                             columns={this.state.historycolumns}
-                            data={oddlothistory.slice( (this.state.oddLotTransPageIndex - 1)*9, this.state.oddLotTransPageIndex*9 )}
+                            data={oddlothistory.historyList}
                             maxRows={9}
                             defaultPageSize={15}/>
                     </div>
@@ -469,8 +458,7 @@ class OddLotTrading extends Component {
       if(this.rowSelected.length>0)
       this.setState({ isShow: true })
       else {
-        console.log('day se hien thi message box')
-        //alert(this.props.language.oddlottrading.popup.alert);
+        this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
       }
     }
 
@@ -553,6 +541,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onshowhistory: () => {
         dispatch(actions.getOddlotHistory({ mvLastAction: '', mvChildLastAction: '', key: '', start: '0', limit: '15' }))
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 })
 

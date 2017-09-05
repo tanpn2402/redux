@@ -25,6 +25,7 @@ export const GENFUNDTRANSFER = 'genfundtransfer.action';	//fund transfer info
 export const CHECKFUNDTRANSFERTIME = 'checkFundTransferTime.action';	//Check Time For Service Cash Transfer
 export const DOFOUNDTRANSFER = 'dofundtransfer.action';	// cash transfer place
 export const HKSCASHTRANSACTIONHISTORY = 'queryCashTranHistory.action';	//Cash Transfer History
+export const HKSCASHTRANHIS = 'hksCashTransactionHistory.action';
 export const CANCELFUNDTRANSFER = 'cancelFundTransfer.action';	// Cancel Cash Transfer (Cancel when status == pending)
 export const GETLOCALADVANCECREATION = 'getLocalAdvanceCreation.action';	// get advance available
 export const GETCASHADVANCEHISTORY = 'getCashAdvanceHistory.action';	// Cash Advance History

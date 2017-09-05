@@ -33,12 +33,15 @@ class CashTransfer extends Component {
         }
 
         this.paramshkscashtranhis = {
-            mvLastAction: 'ACCOUNT',
-            mvChildLastAction: 'FUNDTRANSFER',
-            tradeType: 'FUND',
-            start: '0',
-            limit: '15',
-            key: '211121121112121',
+
+            mvLastAction:"OTHERSERVICES",
+            mvChildLastAction:"FUNDTRANSFER",
+            tradeType:"FUND",
+            key:"1504581985361",
+            _dc:"1504581985361",
+            start:0,
+            limit:15,
+            page:1,
         }
 
         this.paramsgenfund = {
@@ -240,15 +243,6 @@ class CashTransfer extends Component {
         var datagenfund = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList
         var mreceive = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList[0]
 
-        data.map(e => {
-          if(e.status === 'R')
-              e.status = this.props.language.cashtransfer.status.rejected;
-          if(e.status === 'A')
-              e.status = this.props.language.cashtransfer.status.approve;
-          if(e.status === 'P')
-              e.status = this.props.language.cashtransfer.status.pending;
-      })
-
         let lgClose = () => this.setState({ isShow: false })
 
         let buttonAction = [
@@ -371,7 +365,7 @@ class CashTransfer extends Component {
                             id={this.id + "-table"}
                             language={this.props.language.cashtransfer.header}
                             columns={this.state.columns}
-                            data={data.slice((this.state.pageIndex-1)*6, this.state.pageIndex*6)}
+                            data={data}
                             maxRows={18}
                             defaultPageSize={20}/>
                     </div>

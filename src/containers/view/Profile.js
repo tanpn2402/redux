@@ -241,7 +241,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     dispatch(actions.changePassword(param))
   },
   showNotif: (notifType, notifDetail, reloadPopup, showPopup) => {
-    dispatch(actions.showNotif(notifType, notifDetail, reloadPopup, showPopup))
+    dispatch(actions.showMessageBox(notifType, notifDetail, reloadPopup, showPopup))
   },
 })
 

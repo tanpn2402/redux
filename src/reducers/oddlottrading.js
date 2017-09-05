@@ -11,13 +11,13 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{
         	oddlotenquiry: action.oddlotenquiry,
         }
-);
+    );
 
-case ActionTypes.ODDLOTHISTORY:
-		return Object.assign({},state,{
-			oddlothistory: action.oddlothistory,
-		}
-);
+    case ActionTypes.ODDLOTHISTORY:
+    		return Object.assign({},state,{
+    			oddlothistory: action.oddlothistory,
+    		}
+    );
 
     default:
       break;

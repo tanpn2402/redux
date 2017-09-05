@@ -209,7 +209,11 @@
           "cancel":"Cancel",
           "submit":"Submit",
           "bankaccount":"Bank Account"
-        }
+        },
+        "status": {
+        "approve": "Approved",
+        "waiting": "Waiting approval"
+      }
       },
       "accountinfo": {
         "header": {
