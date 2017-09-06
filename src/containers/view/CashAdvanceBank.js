@@ -14,16 +14,25 @@ class CashAdvanceBank extends Component {
     constructor(props) {
         super(props);
 
+        this.params1 = {
+            key:'1504669249461',
+        }
+
         this.params = {
-            mvBankID: '',
-            mvSettlement: '',
-            mvLastAction: '',
-            mvChildLastAction: '',
+            key:'1504663425580',
+            _dc:'1504663425583',
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCEPAYMENT',
             start: '0',
             limit: '15',
-            page: '',
-            queryBank: '',
+            page: '1'
         }
+
+        this.params3 = {
+            mvBankID: 'HCM.01',
+            mvSettlement: '3T',
+        }
+
 
         this.state = {
            formValues: {},
@@ -499,9 +508,9 @@ class CashAdvanceBank extends Component {
     }
 
     componentDidMount(){
-        this.props.getqueryAdvancePaymentInfo(this.params, !this.props.reload);
+        this.props.getqueryAdvancePaymentInfo(this.params3, !this.props.reload);
         this.props.getCashAdvance(this.params, !this.props.reload);
-        this.props.getqueryBankInfo(this.params, !this.props.reload);
+        this.props.getqueryBankInfo(this.params1, !this.props.reload);
     }
 }
 
@@ -514,14 +523,14 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getqueryAdvancePaymentInfo: (params) => {
-        dispatch(actions.getqueryAdvancePaymentInfo({mvBank: '', mvSettlement: ''}))
+    getqueryAdvancePaymentInfo: (params3) => {
+        dispatch(actions.getqueryAdvancePaymentInfo(params3))
     },
     getCashAdvance: (params) => {
-        dispatch(actions.getCashAdvance({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: '', queryBank: ''}))
+        dispatch(actions.getCashAdvance(params))
     },
-    getqueryBankInfo: (params) => {
-        dispatch(actions.getqueryBankInfo({key: ''}))
+    getqueryBankInfo: (params1) => {
+        dispatch(actions.getqueryBankInfo(params1))
     },
 })
 

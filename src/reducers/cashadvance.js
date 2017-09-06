@@ -7,8 +7,9 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+  console.log(action.type)
   switch (action.type) {
-    case ActionTypes.GETCASHADVANCEHISTORY:
+    case ActionTypes.GETCASHADVANCEHISTORY:  
         return Object.assign({},state,{
           CashAdvanceHistory: action.CashAdvanceHistory,
         });

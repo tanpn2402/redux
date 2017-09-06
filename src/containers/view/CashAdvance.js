@@ -13,14 +13,29 @@ import Pagination from '../commons/Pagination'
 class CashAdvance extends Component {
     constructor(props) {
         super(props);
-        this.params = {
-            mvLastAction: '',
-            mvChildLastAction: '',
+        this.params1 = {
+            key:'1504664878445',
+            _dc:'1504664878445',
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCE',
             start: '0',
             limit: '15',
-            page: '',
-            queryBank: '',
+            page: '1',
+        }
 
+        this.params2 = {
+            key:'1504663425580',
+            _dc:'1504663425583',
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCEPAYMENT',
+            start: '0',
+            limit: '15',
+            page: '1'
+        }
+
+        this.params = {
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCEPAYMENT',
         }
 
         this.state = {
@@ -261,11 +276,9 @@ class CashAdvance extends Component {
     }
 
     render() {
-
         var SoldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
         var CashAdvanceHistory = this.props.CashAdvanceHistory.list
         var LocalAdvance = this.props.LocalAdvance.mvAdvanceBean
-        console.log(this.props.SoldOrders)
         let lgClose = () => this.setState({ isShow: false })
 
         let buttonActionCashAdTrans = [
@@ -346,6 +359,7 @@ class CashAdvance extends Component {
                         <div className="table-main">
                             <DataUpperTable
                                 id={this.id + "-table2"}
+                                data={CashAdvanceHistory}
                                 columns={this.state.columns2}
                                 maxRows={5}
                                 defaultPageSize={15}/>
@@ -360,13 +374,13 @@ class CashAdvance extends Component {
                                 onSearch={[]}
                                 buttonAction={buttonActionCashAdTrans}
                                 stockList={[]}
+                                columns={this.state.columns2}
                                 language={this.props.language.searchbar}
                                 theme={this.props.theme}
-                                columns={this.state.columns2}
                                 onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}
                                 hideSearchButton={true}
                                 param={['dropdown']}
-                                data={CashAdvanceHistory} />
+                                 />
                         </div>
                         
                     </div>
@@ -378,6 +392,7 @@ class CashAdvance extends Component {
                             id={this.id + "-table1"}
                             columns={this.state.columns1}
                             maxRows={10}
+                            data={SoldOrders}
                             defaultPageSize={15}/>
                     </div>
                     <div className="table-header">
@@ -387,12 +402,11 @@ class CashAdvance extends Component {
                         <SearchBar
                             id={this.id+"-searchbar1"}
                             onSearch={[]}
+                            columns={this.state.columns1}
                             buttonAction={buttonActionOrderMatchList}
                             stockList={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            columns={this.state.columns1}
-                            data={SoldOrders}
                             onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
                             hideSearchButton={true}
                             param={['dropdown']} />
@@ -496,8 +510,8 @@ class CashAdvance extends Component {
     }
 
     componentDidMount(){
-        this.props.getQuerySoldOrders(this.params, !this.props.reload);
-        this.props.getCashAdvance(this.params, !this.props.reload);
+        this.props.getQuerySoldOrders(this.params1, !this.props.reload);
+        this.props.getCashAdvance(this.params2, !this.props.reload);
         this.props.getLocalAdvanceCreation(this.params, !this.props.reload);
     }
 }
@@ -512,14 +526,14 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getQuerySoldOrders: (params) => {
-        dispatch(actions.getQuerySoldOrders({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: ''}))
+    getQuerySoldOrders: (params1) => {
+        dispatch(actions.getQuerySoldOrders(params1))
     },
-    getCashAdvance: (params) => {
-        dispatch(actions.getCashAdvance({mvLastAction: '', mvChildLastAction: '', start: '', limit: '', page: '', queryBank: ''}))
+    getCashAdvance: (params2) => {
+        dispatch(actions.getCashAdvance(params2))
     },
     getLocalAdvanceCreation: (params) => {
-        dispatch(actions.getLocalAdvanceCreation({mvLastAction: '', mvChildLastAction: ''}))
+        dispatch(actions.getLocalAdvanceCreation(params))
     },
 })
 
