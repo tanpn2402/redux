@@ -6,9 +6,17 @@ import * as actions from '../actions'
 import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 import StockChart from './commons/StockChart.js'
 import $ from 'jquery'
+import Popup from './Popup'
+
 class Header extends React.Component {
 	constructor() {
 		super()
+		this.state= {
+			lgShow: false
+		}
+
+		this.popupType = 'none'
+		this.id='header'
 	}
 
 	componentWillMount() {
@@ -19,6 +27,7 @@ class Header extends React.Component {
 		var currentThemeName = this.props.currentThemeName.substring(6, 11)
 		var currentLanguage = this.props.currentLanguage
 		var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
+		let lgClose = () => this.setState({ lgShow: false })
 		return (
 			<div id="pageheader" style={this.props.theme.pagebackground} >
 				<div className="row header-sm" id="header-sm" >
@@ -73,7 +82,7 @@ class Header extends React.Component {
 							<Button className="header-expand" bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>
 								<span className="glyphicon glyphicon-chevron-down"></span>
 							</Button>
-							<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
+							<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenPopupSetting.bind(this)}>
 								<span className="glyphicon glyphicon-cog"></span>
 							</Button>
 							<Button bsStyle="primary" bsSize="xsmall"><span className="glyphicon glyphicon-log-out"></span></Button>
@@ -124,7 +133,7 @@ class Header extends React.Component {
 									<Button className="header-expand" bsStyle="primary" bsSize="xsmall" onClick={this.onHideHeader.bind(this)}>
 										<span className="glyphicon glyphicon-chevron-up"></span>
 									</Button>
-									<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenSettingPanel.bind(this)}>
+									<Button bsStyle="primary" bsSize="xsmall" onClick={this.onOpenPopupSetting.bind(this)}>
 										<span className="glyphicon glyphicon-cog"></span>
 									</Button>
 									<Button bsStyle="primary" bsSize="xsmall">
@@ -137,6 +146,12 @@ class Header extends React.Component {
 							<li>Giao dịch kí quỹ</li>
 							<li>Ngày GD</li>
 						</ul>
+						<Popup
+							id="setting"
+							show={this.state.lgShow}
+							onHide={lgClose}
+							title="Setting"
+							/>
 					</div>
 				</div>
 			</div>
@@ -168,30 +183,6 @@ class Header extends React.Component {
 		document.getElementById('pagecontent').style.height = h3 - h1 - h2 + 'px'
 		document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
 		document.getElementById('slidenav').style.height = h3 - h1 - h2 + 'px'
-		// $('#header-lg').slideUp(200, function(){
-		// 	$('#header-sm').slideDown(200)
-		// })
-		
-		// var slider = document.getElementById('header-lg')
-		// clearInterval(this.timer)
-		// var timer = this.timer
-		// document.getElementById('header-sm').style.display = 'block'
-		// document.getElementById('header-lg').style.height = document.getElementById('header-lg').offsetHeight - 140 + 'px'
-		
-		// timer = setInterval(function () {
-
-		// 	if (slider.offsetHeight > 0) {
-		// 		slider.style.height = slider.offsetHeight - 1 + 'px'
-				
-		// 		$("#stockchart1").children().height(document.getElementById('stockchart1').offsetHeight - 1 + 'px') 
-				
-		// 		document.getElementById('pagecontent').style.minHeight = document.getElementById('pagecontent').offsetHeight + 1 + 'px'
-		// 	} else {
-		// 		clearInterval(timer)
-		// 		document.getElementById('header-user').style.display = 'none'
-
-		// 	}
-		// }, 1);
 
 	}
 
@@ -215,10 +206,11 @@ class Header extends React.Component {
 		}, 1);
 
 	}
-
-	onOpenSettingPanel(e) {
-		document.getElementById("overlay").style.display = 'block';
-		document.getElementById("settingnav").style.width = "300px";
+	
+	onOpenPopupSetting(e) {
+		e.preventDefault();
+		this.setState({lgShow: true})
+		this.popupType = 'SETTING'
 	}
 }
 

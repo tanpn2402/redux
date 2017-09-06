@@ -33,15 +33,12 @@ class CashTransfer extends Component {
         }
 
         this.paramshkscashtranhis = {
-
-            mvLastAction:"OTHERSERVICES",
-            mvChildLastAction:"FUNDTRANSFER",
-            tradeType:"FUND",
-            key:"1504581985361",
-            _dc:"1504581985361",
-            start:0,
-            limit:15,
-            page:1,
+            mvLastAction: 'ACCOUNT',
+            mvChildLastAction: 'FUNDTRANSFER',
+            tradeType: 'FUND',
+            start: '0',
+            limit: '15',
+            key: '211121121112121',
         }
 
         this.paramsgenfund = {
@@ -50,6 +47,7 @@ class CashTransfer extends Component {
         }
 
         this.state = {
+          lgShow: false,
             columns: [
                 {
                     id: 'transfertype',
@@ -118,9 +116,13 @@ class CashTransfer extends Component {
                     id: 'cancel',
                     Header: this.props.language.cashtransfer.header.cancel,
                     accessor: 'status',
-                    Cell: props => { if((props.value == 'Đang chờ')||(props.value == 'Pending'))
+                    Cell: props => {
+                                        if(props.original.status === 'P')
                                         return (
-                                            <button onSubmit={this.handleSubmit}>Cancel</button>
+                                            <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
+                                            onClick={this.Opencanceltransfer.bind(this)}>
+                                                <span className="glyphicon glyphicon-remove"></span>
+                                            </Button>
                                         )
                                    },
                     sortable: false,
@@ -200,8 +202,16 @@ class CashTransfer extends Component {
                 {
                     id: 'status',
                     Header: nextProps.language.cashtransfer.header.status,
-                    accessor: 'status',
-
+                    Cell: props => {
+                        if(props.original.status === 'R')
+                            return this.props.language.cashtransfer.status.rejected
+                        else if(props.original.status === 'A')
+                            return this.props.language.cashtransfer.status.approve
+                        else if(props.original.status === 'P')
+                            return this.props.language.cashtransfer.status.pending
+                        else
+                            return props.original.status
+                    },
                     skip: false,
                     show: true,
           },
@@ -222,14 +232,18 @@ class CashTransfer extends Component {
                     id: 'cancel',
                     Header: nextProps.language.cashtransfer.header.cancel,
                     accessor: 'status',
-                    Cell: props => {  if((props.value == 'Đang chờ')||(props.value == 'Pending'))
+                    Cell: props => {  
+                                        if(props.original.status === 'P')
                                         return (
-                                            <button onSubmit={this.handleSubmit}>Cancel</button>
+                                            <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
+                                            onClick={this.Opencanceltransfer.bind(this)}>
+                                                <span className="glyphicon glyphicon-remove"></span>
+                                            </Button>
                                         )
                                    },
                     sortable: false,
                     skip: true,
-            show: true,
+                    show: true,
           }]
         });
     }
@@ -243,7 +257,7 @@ class CashTransfer extends Component {
         var datagenfund = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList
         var mreceive = this.props.datagenfund.mvReceiversList === undefined ? []: this.props.datagenfund.mvReceiversList[0]
 
-        let lgClose = () => this.setState({ isShow: false })
+        let lgClose = () => this.setState({ lgShow: false })
 
         let buttonAction = [
             <Pagination
@@ -255,6 +269,7 @@ class CashTransfer extends Component {
                     onReloadPage={this.onReloadPage.bind(this)}
                 />,
         ]
+
         return (
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
             <div className="component-main cashtransfer">
@@ -386,7 +401,13 @@ class CashTransfer extends Component {
                             hideSearchButton={true}
                             param={['dropdown']} />
                     </div>
-
+                    <Popup
+                        id="canceltransfer"
+                        show={this.state.lgShow}
+                        onHide={lgClose}
+                        language={this.props.language}
+                        popupType={this.popupType}
+                        title="CancelTransfer" />
                 </div>
             </div>
             </div>
@@ -439,6 +460,14 @@ class CashTransfer extends Component {
     componentDidMount() {
         this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload);
         this.props.getgenfundtransfer(this.paramsgenfund, !this.props.reload);
+    }
+
+    Opencanceltransfer() {
+      this.setState({
+					lgShow: true
+			});
+			this.title = "CancelTransfer"
+			this.popupType = 'CANCELCASHTRANFER'
     }
 }
 
