@@ -14,6 +14,7 @@ export const CHANGEPASSWORD = 'changepassword.action';		// do chanage password
 export const STOCKINFO = 'stockInfo.action';	// get Stock Info
 export const GETDYNAMICUPDATEDATA = 'getdynamicupdatedata.action';		// get  account info, margin, balance,...
 export const ENTERORDER = 'enterorder.action';		// do enter Order
+export const VERIFYORDER = 'verifyOrder.action'
 export const ENTERORDERCONFIRM = 'enterorderconfirm.action'; // do cofirm enter order
 export const ENTERORDERFAIL = 'enterorderfail.action';	// get info fail in enter order
 export const GENENTERORDER = 'genenterorder.action';	// get info order type, bank account,...

@@ -373,15 +373,28 @@
           "saveauthentication":"Save Authentication"
         },
         "error":{
-          "oddlotrange": "LO(Odd Lot)'s Volume need in range [1,100]",
-          "otherrange": "Range of Volume must be multiples of 100 and larger than 0",
+          "volumeNegative": "Quantity must be greater than 0.",
+          "priceNegative": "Price must be greater than 0.",
+          "invalidLotSize": "Invalid Quantity for lot size {0}.",
+          "invalidLotSizeOddLot": "Invalid Quantity for lot size Oddlot < {0}.",
+          "invaliedPriceOutRange": "Order price is out of price spread (from_value to to_value), please input again!",
           "ordertypeavailable": "Order Type is unavailable",
           "sellvolume": "It's out of your stock's volume range",
-          "pricerange": "It's out of the price's range",
           "stockavailable": "Stock Code is unavailable",
           "money": "You don't have enough money",
           "bank": "Bank is unavailable",
-          "noitem": "You don't have this stock code"
+          "noitem": "You don't have this stock code",
+          "disablePlaceOrderMarket": "Now, can't place order on market "
+        },
+        "ordertype": {
+          "L": "LO",
+          "O": "ATO",
+          "C": "ATC",
+          "M": "MP",
+          "LO": "LO(Odd Lot)",
+          "B": "MOK",
+          "Z": "MAK",
+          "R": "MTL"
         }
       },
       "matrixcard": {

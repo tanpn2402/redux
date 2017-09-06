@@ -374,15 +374,28 @@
           "saveauthentication": "Lưu xác thực"
         },
         "error": {
-          "oddlotrange": "Khối lượng của LO(Odd Lot) phải nằm trong khoảng [1,99]",
-          "otherrange": "Khối lượng phải chia hết cho 100 và lớn hơn 0",
+          "volumeNegative":"Vui lòng nhập khối lượng lớn hơn 0.",
+          "priceNegative":"Vui lòng nhập giá lớn hơn 0.",
+          "invalidLotSize": "Số lượng không hợp lệ vì lô giao dịch quy định là {0} CP.",
+          "invalidLotSizeOddLot": "Số lượng không hợp lệ vì lô lẻ giao dịch quy định là < {0} CP.",
+          "invaliedPriceOutRange":"Giá đặt nằm ngoài biên độ giá (from_value tới to_value), hãy nhập lại!",
           "ordertypeavailable": "Loại lệnh này không tồn tại",
           "sellvolume": "Vượt quá khối lượng của mã chứng khoán đang có",
-          "pricerange": "Giá nằm ngoài khoảng",
           "stockavailable": "Mã Ck này không tồn tại",
           "money": "Tài khoản của bạn không đủ tiền",
           "bank": "Ngân hàng không tồn tại",
-          "noitem": "Tài khoản của bạn không tồn tại Mã CK này"
+          "noitem": "Tài khoản của bạn không tồn tại Mã CK này",
+          "disablePlaceOrderMarket": "Lúc này hệ thống không nhận lệnh mua/bán đối với những mã CK thuộc sàn "
+        },
+        "ordertype": {
+          "L":"LO",
+          "O":"ATO",
+          "C":"ATC",
+          "M":"MP",
+          "LO":"LO(Odd Lot)",
+          "B":"MOK",
+          "Z":"MAK",
+          "R":"MTL"
         }
       },
       "matrixcard": {

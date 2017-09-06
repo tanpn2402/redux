@@ -218,7 +218,24 @@ const config = {
 		'SCLAW',
 		'CCFP',
 		'CSFP'
-	]
+	],
+
+	ordertype: {
+		'HO': [
+			'L',
+			'O',
+			'C',
+			'M'
+		],
+		'HA': [
+			'L',
+			'B',
+			'Z',
+			'R',
+			'C',
+			'LO'
+		]
+	}
 }
 
 export default config

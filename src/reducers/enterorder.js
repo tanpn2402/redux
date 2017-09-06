@@ -1,8 +1,8 @@
 const { ActionTypes } = require('../core/constants');
 
 const initialState = {
-    stockInfoList: {},
-    stockInfoACB: {},
+    stockBalance: {},
+    stockInfo: {},
     account: null,
     isShow: false,
     isError: null,
@@ -17,11 +17,14 @@ export default function (state = initialState, action) {
             });
 
         case ActionTypes.STOCKINFO:
-            console.log('reducer stockinfo', action.stockInfo)
             return Object.assign({}, state, {
-                stockInfoList: action.stockInfo
+                stockInfo: action.stockInfo
             });
-
+        case ActionTypes.STOCKBALANCE:
+            console.log('reducer stockinfo', action.stockBalance)
+            return Object.assign({}, state, {
+                stockBalance: action.stockBalance
+            });
         case ActionTypes.SET_POPUP:
             return Object.assign({}, state, {
                 isShow: action.isShow
