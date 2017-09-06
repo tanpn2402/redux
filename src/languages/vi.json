@@ -216,6 +216,12 @@
         }
       },
       "accountinfo": {
+        "title": {
+          "stock": "CHỨNG KHOÁN",
+          "cash": "TIỀN",
+          "overduedebt": "NỢ ĐẾN HẠN",
+          "upcomingduedebt": "NỢ SẮP ĐÁO HẠN "
+        },
         "header": {
           "cashbank":"Tiền ngân hàng",
           "stock": "Chứng khoán",
@@ -230,7 +236,24 @@
           "sold": "Đã bán",
           "cash": "Tiền",
           "overduedebt": "Nợ đến hạn",
-          "upcomingdebt": "Nợ sắp đáo hạn"
+          "upcomingdebt": "Nợ sắp đáo hạn",
+          "availableadvance": "Khả năng ứng trước",
+          "tempholdcash": "Tiền tạm giữ",
+          "pendingapproval": "Tiền(rút, chuyển khoảng) chờ duyệt",
+          "outstandingloan": "Dư nợ ký quỹ",
+          "margincall": "Gọi bổ sung ký quỹ(tùy chọn)",
+          "cashdeposit": "Nộp tiền mặt",
+          "sellstkinmarport": "Bán CK trong danh mục ký quỹ",
+          "withdrawable": "Số dư được rút (bao gồm ứng trước)",
+					"totalassetmaintenance" : "Total asset maintenance",
+          "processeddebt": "Nợ phải sử lý",
+					"cashreserve": "Tiền mặt",
+					"advancerequest": "Tiền phải ứng",
+					"cashsupplement": "Yêu cầu bổ sung tiền mặt",
+					"sellstockrequest": "Yêu cầu bán chứng khoán",
+					"forcesell": "Bán giải gấp",
+          "forceselldays": "thời hạn bán giải gấp",
+          "upcomingduedebt": "Nợ sắp đáo hạn "
         }
       },
       "portfolio": {

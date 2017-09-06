@@ -216,21 +216,43 @@
       }
       },
       "accountinfo": {
+        "title": {
+          "stock": "STOCK",
+          "cash": "CASH",
+          "overduedebt": "OVERDUE DEBT",
+          "upcomingduedebt": "UPCOMING DUEDEBT "
+        },
         "header": {
           "cashbank":"Cash-Bank",
           "stock": "Stock",
           "buyingpower": "Buying Power",
-          "cashblance": "Cash balance(withrawable)",
+          "cashblance": "Cash balance(withdrawable)",
+          "availableadvance": "Available advance",
+          "tempholdcash": "Temporary hold cash",
           "holdexecute": "Hold for executed purchase",
           "holdpending": "Hold for pending purchase",
+          "pendingapproval": "Pending approval for withdrawal",
           "duesell": "Due Sell",
+          "withdrawable": "Withdrawable (include advance)",
+          "outstandingloan": "Outstanding loan",
+          "margincall": "Margin call (By Options)",
+          "cashdeposit": "Cash Deposit",
+          "sellstkinmarport": "Selling stock in margin fortfolio",
           "vol": "Volume",
           "tradeinday":"Trade in day",
           "bought": "Bought",
           "sold": "Sold",
           "cash": "Cash",
+          "totalassetmaintenance" : "Total asset maintenance",
           "overduedebt": "Overdue Debt",
-          "upcomingdebt": "Upcoming Debt"
+          "processeddebt": "Processed debt",
+					"cashreserve": "Cash reserve",
+					"advancerequest": "Advance request",
+					"cashsupplement": "Cash supplement",
+					"sellstockrequest": "Sell stock request",
+					"forcesell": "Force sell",
+          "forceselldays": "Force sell days",
+          "upcomingduedebt": "Up coming due bebt "
         }
       },
       "portfolio": {

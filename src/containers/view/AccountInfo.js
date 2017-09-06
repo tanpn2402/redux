@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataUpperTable from '../DataUpperTable'
@@ -13,9 +14,8 @@ class AccountInfo extends Component {
      	super(props)
 
      	this.state= {
-		    header1: ['Sumary', 'Value (VND)'],
-		    header3: ['Portfolio assessment', 'Value(VND)'],
-			header4: ['Margin position', 'Values'],
+		    header1: [],
+		    header2: [],
 			
 			columns : [
                 {
@@ -51,103 +51,76 @@ class AccountInfo extends Component {
 				}
 			],
 
-		    title1: [
+			title1: [
 			    {
 	            	Header: this.props.language.accountinfo.header.buyingpower,
 	            	accessor: 'mvBuyingPowerd',
 	          	}, {
 	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
+	            	accessor: 'mvCashMaintenance' // not sure
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
+	            	Header: this.props.language.accountinfo.header.withdrawable,
+	            	accessor: 'mvWithdrawableAmount' 
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdpending,
-	            	accessor: 'mvPendingBalance' // not sure
+	            	Header: this.props.language.accountinfo.header.availableadvance,
+	            	accessor: 'mvAdvanceableAmount' // not sure
 	          	}, {
 	            	Header: this.props.language.accountinfo.header.duesell,
 	            	accessor: 'mvDueSell'
 	          	},{
-	            	Header: this.props.language.accountinfo.header.buyingpower,
-	            	accessor: 'mvBuyingPowerd',
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
-	          	}, {
 	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdpending,
-	            	accessor: 'mvPendingBalance' // not sure
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.duesell,
-	            	accessor: 'mvDueSell'
+	            	accessor: 'mvHoldingAmt'// notsure
 	          	},{
-	            	Header: this.props.language.accountinfo.header.buyingpower,
-	            	accessor: 'mvBuyingPowerd',
+	            	Header: this.props.language.accountinfo.header.pendingapproval,
+	            	accessor: 'mvPendingWithdraw',
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
+	            	Header: this.props.language.accountinfo.header.outstandingloan,
+	            	accessor: 'mvOutstandingLoan' 
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
+	            	Header: this.props.language.accountinfo.header.margincall,
+	            	accessor: 'mvMarginCall' 
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.cashdeposit,
+	            	accessor: 'mvSupplementCash'
+	          	}, {
+	            	Header: this.props.language.accountinfo.header.sellstkinmarport,
+	            	accessor: 'mvDueSell'  // not sure
 	          	}
           	],
-		    title3: [
+		    title2: [
 			    {
-		            Header: this.props.language.portfolio.header.equityMar,
-		            accessor: 'equityMar'
+		            Header: this.props.language.accountinfo.header.overduedebt,
+		            accessor: 'overdueDebt'
 	          	}, {
-		            Header: this.props.language.portfolio.header.totalAssetMaintenance,
-		            accessor: 'totalAssetMaintenance'
+		            Header: this.props.language.accountinfo.header.processeddebt,
+		            accessor: 'processedDebt'
 	          	}, {
-		            Header: this.props.language.portfolio.header.stockMaintenance,
-		            accessor: 'stockMaintenance'
+		            Header: this.props.language.accountinfo.header.cashreserve,
+		            accessor: 'cashReserve'
 	          	}, {
-		            Header: this.props.language.portfolio.header.cashMaintenance,
-		            accessor: 'cashMaintenance'
+		            Header: this.props.language.accountinfo.header.advancerequest,
+		            accessor: 'advanceRequest'
 	          	}, {
-		            Header: this.props.language.portfolio.header.mvOutstandingLoan,
-		            accessor: 'mvOutstandingLoan'
+		            Header: this.props.language.accountinfo.header.cashsupplement,
+		            accessor: 'cashSupplement'
 	          	}, {
-		            Header: this.props.language.portfolio.header.debtIncByPurchase,
-		            accessor: 'debtIncByPurchase'
+		            Header: this.props.language.accountinfo.header.sellstockrequest,
+		            accessor: 'sellStockRequest'
 	          	}, {
-		            Header: this.props.language.portfolio.header.debitAccruedInterest,
-		            accessor: 'debitAccruedInterest'
+		            Header: this.props.language.accountinfo.header.forceSell,
+		            accessor: 'forceSell'
 	          	}, {
-		            Header: this.props.language.portfolio.header.mvCreditLimit,
-		            accessor: 'mvCreditLimit'
+		            Header: this.props.language.accountinfo.header.forceselldays,
+		            accessor: 'forceSellDays'
 	          	}
-          	],
-		    title4: [
-			    {
-		            Header: this.props.language.portfolio.header.lendableValue,
-		            accessor: 'lendableValue'
-          		}, {
-		            Header: this.props.language.portfolio.header.minMarginReq,
-		            accessor: 'minMarginReq'
-          		}, {
-		            Header: this.props.language.portfolio.header.curLiqMargin,
-		            accessor: 'curLiqMargin'
-          		}, {
-		            Header: this.props.language.portfolio.header.marginableBalf,
-		            accessor: 'marginableBalf'
-          		}, {
-		            Header: this.props.language.portfolio.header.cashDeposit,
-		            accessor: 'cashDeposit'
-          		}, {
-          		  	Header: this.props.language.portfolio.header.sellStkInMarPort,
-		            accessor: 'sellStkInMarPort'
-          		}, {
-		            Header: this.props.language.portfolio.header.sellStkNotInMarPort,
-		            accessor: 'sellStkNotInMarPort'
-          		}
           	],
           	pageIndex: 1,
           	tabIndex: 1,
-          	tabList: [
-				['TIEN', 'actived', 1], ['CHUNG KHOAN', 'normal', 2], ['NO DEN HAN', 'disabled', 3], ['NO SAP DAO HAN', 'disabled', 4],
+			tabList: [
+				[this.props.language.accountinfo.title.cash,'actived', 1],
+				[this.props.language.accountinfo.title.stock, 'normal', 2], 
+				[this.props.language.accountinfo.title.overduedebt, 'normal', 3], 
+				[this.props.language.accountinfo.title.upcomingduedebt, 'disabled', 4],
 			]
 		}
 
@@ -163,14 +136,18 @@ class AccountInfo extends Component {
 			loadBank: 'true'
 		};
 
+		this.overduedebtparams = {};
+		this.upcomingbebtparams = {
+			_dc:'1504169457091',
+			key:'1504169457089'
+		};
+
     }
 
     componentWillReceiveProps(nextProps){
     	this.setState({
-		    header1: [nextProps.language.accountinfo.header.sumary, nextProps.language.portfolio.header.valuevnd],
-		    header3: [nextProps.language.portfolio.header.portfolioassessment, nextProps.language.portfolio.header.valuevnd],
-			header4: [nextProps.language.portfolio.header.marginposition, nextProps.language.portfolio.header.value],
-			
+		    header1: [],
+		    header2: [],
 			columns : [
                 {
                     id: 'mvStockCode',
@@ -205,104 +182,91 @@ class AccountInfo extends Component {
 
 		    title1: [
 			    {
-	            	Header: this.props.language.accountinfo.header.buyingpower,
+	            	Header: nextProps.language.accountinfo.header.buyingpower,
 	            	accessor: 'mvBuyingPowerd',
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
+	            	Header: nextProps.language.accountinfo.header.cashblance,
+	            	accessor: 'mvCashMaintenance' // not sure
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
+	            	Header: nextProps.language.accountinfo.header.withdrawable,
+	            	accessor: 'mvWithdrawableAmount' 
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdpending,
-	            	accessor: 'mvPendingBalance' // not sure
+	            	Header: nextProps.language.accountinfo.header.availableadvance,
+	            	accessor: 'mvAdvanceableAmount' // not sure
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.duesell,
-	            	accessor: 'mvDueSell'
+	            	Header: nextProps.language.accountinfo.header.tempholdcash,
+	            	accessor: 'mvTemporaryHoldCash'
+				}, {
+	            	Header: nextProps.language.accountinfo.header.holdpending,
+	            	accessor: 'mvBuyHoldAmount' 
 	          	},{
-	            	Header: this.props.language.accountinfo.header.buyingpower,
-	            	accessor: 'mvBuyingPowerd',
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdpending,
-	            	accessor: 'mvPendingBalance' // not sure
-	          	}, {
-	            	Header: this.props.language.accountinfo.header.duesell,
-	            	accessor: 'mvDueSell'
+	            	Header: nextProps.language.accountinfo.header.holdexecute,
+	            	accessor: 'mvPendingSettled'// notsure
 	          	},{
-	            	Header: this.props.language.accountinfo.header.buyingpower,
-	            	accessor: 'mvBuyingPowerd',
+	            	Header: nextProps.language.accountinfo.header.pendingapproval,
+	            	accessor: 'mvPendingWithdraw',
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.cashblance,
-	            	accessor: 'mvAvailableBalance' // not sure
+	            	Header: nextProps.language.accountinfo.header.outstandingloan,
+	            	accessor: 'mvOutstandingLoan' 
 	          	}, {
-	            	Header: this.props.language.accountinfo.header.holdexecute,
-	            	accessor: 'mvSettledBalance' // not sure
+	            	Header: nextProps.language.accountinfo.header.margincall,
+	            	accessor: 'mvMarginCall' 
+	          	}, {
+	            	Header: nextProps.language.accountinfo.header.cashdeposit,
+	            	accessor: 'mvSupplementCash'
+	          	}, {
+	            	Header: nextProps.language.accountinfo.header.sellstkinmarport,
+	            	accessor: 'mvDueSell'  // not sure
 	          	}
           	],
-		    title3: [
+			  title2: [
 			    {
-		            Header: nextProps.language.portfolio.header.equityMar,
-		            accessor: 'equityMar'
+		            Header: nextProps.language.accountinfo.header.overduedebt,
+		            accessor: 'overdueDebt'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.totalAssetMaintenance,
-		            accessor: 'totalAssetMaintenance'
+		            Header: nextProps.language.accountinfo.header.processeddebt,
+		            accessor: 'processedDebt'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.stockMaintenance,
-		            accessor: 'stockMaintenance'
+		            Header: nextProps.language.accountinfo.header.cashreserve,
+		            accessor: 'cashReserve'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.cashMaintenance,
-		            accessor: 'cashMaintenance'
+		            Header: nextProps.language.accountinfo.header.advancerequest,
+		            accessor: 'advanceRequest'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.mvOutstandingLoan,
-		            accessor: 'mvOutstandingLoan'
+		            Header: nextProps.language.accountinfo.header.cashsupplement,
+		            accessor: 'cashSupplement'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.debtIncByPurchase,
-		            accessor: 'debtIncByPurchase'
+		            Header: nextProps.language.accountinfo.header.sellstockrequest,
+		            accessor: 'sellStockRequest'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.debitAccruedInterest,
-		            accessor: 'debitAccruedInterest'
+		            Header: nextProps.language.accountinfo.header.forcesell,
+		            accessor: 'forceSell'
 	          	}, {
-		            Header: nextProps.language.portfolio.header.mvCreditLimit,
-		            accessor: 'mvCreditLimit'
+		            Header: nextProps.language.accountinfo.header.forceselldays,
+		            accessor: 'forceSellDays'
 	          	}
-          	],
-		    title4: [
-			    {
-		            Header: nextProps.language.portfolio.header.lendableValue,
-		            accessor: 'lendableValue'
-          		}, {
-		            Header: nextProps.language.portfolio.header.minMarginReq,
-		            accessor: 'minMarginReq'
-          		}, {
-		            Header: nextProps.language.portfolio.header.curLiqMargin,
-		            accessor: 'curLiqMargin'
-          		}, {
-		            Header: nextProps.language.portfolio.header.marginableBalf,
-		            accessor: 'marginableBalf'
-          		}, {
-		            Header: nextProps.language.portfolio.header.cashDeposit,
-		            accessor: 'cashDeposit'
-          		}, {
-          		  	Header: nextProps.language.portfolio.header.sellStkInMarPort,
-		            accessor: 'sellStkInMarPort'
-          		}, {
-		            Header: nextProps.language.portfolio.header.sellStkNotInMarPort,
-		            accessor: 'sellStkNotInMarPort'
-          		}
-          	],
-    	});
+			  ],
+			  
+			  tabList: [
+				[nextProps.language.accountinfo.title.cash,'actived', 1],
+				[nextProps.language.accountinfo.title.stock, 'normal', 2], 
+				[nextProps.language.accountinfo.title.overduedebt, 'normal', 3], 
+				[nextProps.language.accountinfo.title.upcomingduedebt, 'disabled', 4],
+			]
+		});
+		var overdueDebt = nextProps.overdueDebt === undefined ? [] : nextProps.overdueDebt;
+		var upcomingdebt = nextProps.upcomingdebt === undefined ?[] : nextProps.upcomingdebt ;
+
+		this.checkOverdueDebt(overdueDebt);
+		this.checkUpComingDebt(upcomingdebt);
     }	
 
     render(){
 		var mvStockBalanceInfo = this.props.data.mvStockBalanceInfo === undefined ? [] : this.props.data.mvStockBalanceInfo
 		var mvList = this.props.AccountBalance === undefined ? [] : this.props.AccountBalance.mvList[0];
-		
+		var overdueDebt = this.props.overdueDebt === undefined ? [] : this.props.overdueDebt;
+		var upcomingdebt = this.props.upcomingdebt === undefined ?[] : this.props.upcomingdebt ;
+
 		let buttonAction = [
             <Pagination
                     pageIndex={this.state.pageIndex} 
@@ -310,68 +274,66 @@ class AccountInfo extends Component {
                     onPageChange={this.onPageChange.bind(this)}
                     onNextPage={this.onNextPage.bind(this)}
                     onPrevPage={this.onPrevPage.bind(this)}
-                />,
-        ]
+			/>,
+		]
 
-			if(mvList !== undefined && mvList !== []) {
-				var data1 ={
-					'mvBuyingPowerd': [mvList.mvBuyingPowerd,],
-					'mvAvailableBalance': [mvList.mvAvailableBalance,],
-					'mvSettledBalance': [mvList.mvSettledBalance,],
-					'profitmvPendingBalanceLoss': [mvList.profitmvPendingBalanceLoss,],
-					'mvDueSell': [mvList.mvDueSell,],
-				}
-				var data3 = {
-					'equityMar': [0],
-					'totalAssetMaintenance': [0],
-					'stockMaintenance': [0],
-					'cashMaintenance': [0],
-					'mvOutstandingLoan': [0],
-					'debtIncByPurchase': [0],
-					'debitAccruedInterest': [0],
-					'mvCreditLimit': [0],
-				}
-				var data4= {
-					'lendableValue': [0],
-					'minMarginReq': [0],
-					'curLiqMargin': [0],
-					'marginableBalf': [0],
-					'cashDeposit': [0],
-					'sellStkInMarPort': [0],
-					'sellStkNotInMarPort': [0],
-				}
-				
+		if(mvList !== undefined && mvList !== []) {
+
+			var data1 ={
+				'mvBuyingPowerd': [mvList.mvBuyingPowerd,],
+				'mvCashMaintenance': [mvList.mvCashMaintenance,],
+				'mvWithdrawableAmount':[mvList.mvWithdrawableAmount,],
+				'mvAdvanceableAmount': [mvList.mvAdvanceableAmount,],
+				'mvTemporaryHoldCash':[mvList.mvTemporaryHoldCash,],
+				'mvSettledBalance': [mvList.mvSettledBalance,],
+				'mvPendingBalance': [mvList.mvPendingBalance,],
+				'mvPendingWithdraw': [mvList.mvPendingWithdraw,],
+				'mvOutstandingLoan': [mvList.mvOutstandingLoan,],
+				'mvMarginCall': [mvList.mvMarginCall,],
+				'mvSupplementCash' : [mvList.mvSupplementCash,],
+				'mvDueSell': [mvList.mvDueSell],
 			}
-			else{
-				var data1 = {
-					'mvBuyingPowerd': [0],
-					'mvAvailableBalance': [0],
-					'mvSettledBalance': [0],
-					'profitmvPendingBalanceLoss': [0],
-					'mvDueSell': [0],
-				}
-			
-	    	
-		    	var data3 = {
-		    		'equityMar': [0],
-		    		'totalAssetMaintenance': [0],
-		    		'stockMaintenance': [0],
-		    		'cashMaintenance': [0],
-		    		'mvOutstandingLoan': [0],
-		    		'debtIncByPurchase': [0],
-		    		'debitAccruedInterest': [0],
-		    		'mvCreditLimit': [0],
-		    	}
-		    	var data4= {
-		    		'lendableValue': [0],
-		    		'minMarginReq': [0],
-		    		'curLiqMargin': [0],
-		    		'marginableBalf': [0],
-		    		'cashDeposit': [0],
-		    		'sellStkInMarPort': [0],
-		    		'sellStkNotInMarPort': [0],
-				}
 		}
+		else{
+			var data1 = {
+				'mvBuyingPowerd': [0],
+				'mvCashMaintenance': [0],
+				'mvWithdrawableAmount':[0],
+				'mvAdvanceableAmount': [0],
+				'mvTemporaryHoldCash':[0],
+				'mvSettledBalance': [0],
+				'mvPendingBalance': [0],
+				'mvPendingWithdraw': [0],
+				'mvOutstandingLoan': [0],
+				'mvMarginCall': [0],
+				'mvSupplementCash' : [0],
+				'mvDueSell': [0]
+			}
+		}
+
+		if(overdueDebt !== undefined && overdueDebt !== []) {
+			var data2 = {
+				'overdueDebt': [overdueDebt.overdueDebt,],
+				'processedDebt': [overdueDebt.processedDebt,],
+				'cashReserve': [overdueDebt.cashReserve,],
+				'advanceRequest': [overdueDebt.advanceRequest,],
+				'cashSupplement': [overdueDebt.cashSupplement,],
+				'sellStockRequest': [overdueDebt.sellStockRequest,],
+				'forceSell': [overdueDebt.forceSell,],
+				'forceSellDays': [overdueDebt.forceSellDays + " days",],
+			}
+		} else{
+			var data2 = {
+				'overdueDebt': [0],
+				'processedDebt': [0],
+				'cashReserve': [0],
+				'advanceRequest': [0],
+				'cashSupplement': [0],
+				'sellStockRequest': [0],
+				'forceSell': [0],
+				'forceSellDays': [0],
+			}
+		} 	
 
 	    return(
 			<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
@@ -409,18 +371,40 @@ class AccountInfo extends Component {
 		                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
 		                            hideSearchButton={true}
 		                            param={['dropdown']} />
-                           	</div>
-	                        
-								
+                           	</div>	
 						</div>
 					) : this.state.tabIndex === 3 ?
 					(
-						<div>asdadas</div>
+						<div className="component-main accountinfo overduedebt">
+							<HorizontalTable 
+								height="100%"
+								showHeader={false}
+								header={this.state.header2} 
+								title={this.state.title2} 
+								language={this.props.language.header} data={data2}/>	
+						</div>
 					) : this.state.tabIndex === 4 ?
 					(
-						<div>asd</div>
+					<div className="component-main accountinfo overduedebt">
+						<div className="horizontal-table">
+						{
+							<div className="ht-body">
+								{ upcomingdebt.map(e => {
+									return (
+									<div className="ht-tr">
+										<div className="ht-td ht-title">
+											{this.props.language.accountinfo.header.upcomingduedebt + e['Date']} 
+										</div>
+										<div className="ht-td ht-value">{e['Value']}</div>
+									</div>
+									)
+								})}
+							</div>
+						}
+						</div>
+					</div>
 					) : (
-						<div>asdsds</div>
+						<div>Not define</div>
 					)
 				}
 				<div className="component-body clearfix">
@@ -433,6 +417,8 @@ class AccountInfo extends Component {
     componentDidMount() {
 		this.props.getStockInfo(this.params)
 		this.props.getAccountBalance(this.cashbankparams)
+		this.props.getOverdueDebt(this.overduedebtparams)
+		this.props.getUpComingDebt(this.upcomingbebtparams)
     }
 
     onTabClick(tab, e){
@@ -465,13 +451,37 @@ class AccountInfo extends Component {
         if(pageIndex > 0){
         	this.setState({pageIndex: pageIndex })
         }
-    }
+	}
+
+	checkOverdueDebt(overdueDebt) {
+		if(parseFloat(overdueDebt.overdueDebt) === 0 && parseFloat(overdueDebt.processedDebt) === 0) {
+			let tabList = this.state.tabList
+			tabList[2][1] = "disabled"
+			this.setState({
+				tabList: tabList
+			})
+		}
+	}
+	
+	checkUpComingDebt(upcomingdebt) {
+		upcomingdebt.map(e => {
+			if (parseFloat(e.Value) > 0) {
+				let tabList = this.state.tabList
+				tabList[3][1] = "normal"
+				this.setState({
+					tabList: tabList
+				})
+			}
+		})
+	}
 }
 
 const mapStateToProps = (state) => {
   	return {
 		  data: state.accountinfo.data,
 		  AccountBalance: state.accountinfo.accountbalance,
+		  overdueDebt: state.accountinfo.overdueDebt,
+		  upcomingdebt : state.accountinfo.upcomingdebt
   	}
 }
 
@@ -481,7 +491,13 @@ const mapDispatchToProps = (dispatch, props) => ({
 	},
 	getAccountBalance: (cashbankparams) => {
 		dispatch(actions.getAccountBalance(cashbankparams))
-	}
+	},
+	getOverdueDebt: (overduedebtparams) => {
+		dispatch(actions.getOverdueDebt(overduedebtparams))
+	},
+	getUpComingDebt: (upcomingbebtparams) => {
+		dispatch(actions.getUpComingDebt(upcomingbebtparams))
+	},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo)

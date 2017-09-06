@@ -18,7 +18,7 @@ import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit} from './oddlottrading
 import {getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
-import {getStockInfo, getAccountBalance} from './accountinfo'
+import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from './accountinfo'
 import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit} from './loanrefund'
@@ -71,6 +71,8 @@ export {
   avaiblemarginlist,
   getAccountBalance,
   getStockInfo,
+  getUpComingDebt,
+  getOverdueDebt,
   showMessageBox,
   showFlashPopup,
   loadWatchList,
