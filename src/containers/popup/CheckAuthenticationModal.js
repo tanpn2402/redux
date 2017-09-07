@@ -31,29 +31,36 @@ class CheckAuthenticationModal extends Component {
     render() {
         let { isAuthenFail } = this.props;
         return (
-                    <tbody>
-                        <tr> 
-                        <th className="enterorder">{this.props.language.enterorder.popup.checknum}</th>
-                            <td id="code1"> [{this.generateNum()},{this.generateChar()}] </td>
-                            <td id="code2"> [{this.generateNum()},{this.generateChar()}] </td>
-                        </tr>
-                        <tr>
-                        <th className="enterorder">{this.props.language.enterorder.popup.verifiednum}</th>
-                            <td>
-                                <input type="text" maxLength="1" id="input1" required/>
-                            </td>
-                            <td> 
-                                <input type="text" maxLength="1" id="input2" required/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td colSpan="2">
-                                <input type="checkbox" id="saveAuthen" /> {this.props.language.enterorder.popup.saveauthentication}
-                            </td>
-                        </tr>
-                    </tbody>
-            
+            <div className="auth-cardmatrix">
+                <div className="auth-content">
+                    <div className="auth-title">{this.props.language.enterorder.popup.comfirm} </div>
+                    <Col xs={4}>
+                        {this.props.language.enterorder.popup.checknum}
+                    </Col>
+                    <Col xs={4} style={{textAlign: 'center'}}>
+                        [{this.generateNum()},{this.generateChar()}]
+                    </Col>
+                    <Col xs={4} style={{textAlign: 'center'}}>
+                        [{this.generateNum()},{this.generateChar()}]
+                    </Col>
+
+                    <Col xs={4}>
+                        {this.props.language.enterorder.popup.verifiednum}
+                    </Col>
+                    <Col xs={4} style={{textAlign: 'center'}}>
+                        <input type="text" maxLength="1" id="input1" required/>
+                    </Col>
+                    <Col xs={4} style={{textAlign: 'center'}}>
+                        <input type="text" maxLength="1" id="input2" required/>
+                    </Col>
+
+                    <div className="clearfix"></div>
+                    <div>
+                        <input type="checkbox" id="saveAuthen" /> {this.props.language.enterorder.popup.saveauthentication}
+                    </div>
+                </div>
+                
+            </div>
         );
     }
 }

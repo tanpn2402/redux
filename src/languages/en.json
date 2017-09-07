@@ -370,7 +370,8 @@
           "expirydate": "Expiry date",
           "checknum": "Matrix card number",
           "verifiednum": "Verified matrix card number",
-          "saveauthentication":"Save Authentication"
+          "saveauthentication":"Save Authentication",
+          "comfirm": "Comfirm"
         },
         "error":{
           "volumeNegative": "Quantity must be greater than 0.",

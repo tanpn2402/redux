@@ -371,7 +371,8 @@
           "expirydate": "Hiệu lực đến ngày",
           "checknum": "Mã số kiểm tra",
           "verifiednum": "Mã số xác nhận",
-          "saveauthentication": "Lưu xác thực"
+          "saveauthentication": "Lưu xác thực",
+          "comfirm": "Xác thực"
         },
         "error": {
           "volumeNegative":"Vui lòng nhập khối lượng lớn hơn 0.",

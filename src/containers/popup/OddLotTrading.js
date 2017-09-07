@@ -10,6 +10,7 @@ import CheckAuthenticationModal from './CheckAuthenticationModal'
 class OddLotSubmit extends Component{
     constructor(props) {
         super(props)
+
         this.params = {
             mvOddList:'HA|ACB|TDCN|40',
             annoucementId:'10003413',
@@ -20,36 +21,59 @@ class OddLotSubmit extends Component{
         }
         this.checkAuthentication = this.checkAuthentication.bind(this);
         this.columns = [
-        {
-            id: 'stockID',
-            Header: this.props.language.oddlottrading.header.stockid,
-            accessor: 'stockCode',
-            skip: false,
-            show: true,
-        },
-        {
-            id: 'Type',
-            Header: this.props.language.oddlottrading.header.type,
-            accessor: 'location',
-            skip: false,
-            show: true,
-        },
-        {
-            id: 'Volume',
-            Header: this.props.language.oddlottrading.header.oddlotquantity,
-            accessor: 'oddLotQty',
-            skip: false,
-            show: true,
-        },
+            {
+                id: 'stockID',
+                Header: this.props.language.oddlottrading.header.stockid,
+                accessor: 'stockCode',
+                width: 200,
+                sortable: false,
+            },
+            {
+                id: 'Type',
+                Header: this.props.language.oddlottrading.header.type,
+                accessor: 'location',
+                width: 200,
+                sortable: false,
+            },
+            {
+                id: 'Volume',
+                Header: this.props.language.oddlottrading.header.oddlotquantity,
+                Cell: props => {
+                    console.log(props)
+                    return (
+                        <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty} />
+                    )
+                },
+                width: 200,
+                sortable: false,
+            },
         ],
-        this.style = {
-            height: '200px',
-        }
+        
         this.id = 'canceloddlot-popup'
     }
+
+
     getOddLotSubmit() {
-        this.props.getOddLotSubmit(this.props.rowSelected)
-        this.props.onHide()
+        let data = this.props.rowSelected
+        let overQty = false
+        data.map(e => {
+            let qty = document.getElementById(e.stockCode + '-qty').value
+            if(qty > e.oddLotQty){
+                overQty = true
+            }
+            else{
+                e.oddLotQty = qty
+            }
+        })
+
+        if(!overQty){
+            this.props.getOddLotSubmit(data)
+            this.props.onHide()
+        }
+        else{
+            this.props.onShowMessageBox(0, "Vượt quá số lượng CK lô lẻ của mã KLS mà Quý khách hiện có. Vui lòng kiểm tra lại thông tin đăng ký.")
+        }
+        
     }
 
     checkAuthentication(e) {
@@ -71,31 +95,33 @@ class OddLotSubmit extends Component{
         var bankinfo = this.props.bankinfo === undefined ? [] : this.props.bankinfo.mvBankInfoList
         return(
             <div style={{textAlign:'center'}}>
-              <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
-              <div className="oddlotdropdownlist">
-                <select >
-                  <option value="MAS">MAS</option>
-                    {
-                        bankinfo.map(e => {
-                            return (
-                                <option value={e.mvSettlementAccountDisplayName}>{e.mvSettlementAccountDisplayName}</option>
-                            )
-                        })
-                    }
-                </select>
-              </div>
                 <Modal.Body>
+                    <div className="oddlotdropdownlist">
+                        <span>
+                            <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
+                            <select>
+                                <option value="MAS">MAS</option>
+                                {
+                                    bankinfo.map(e => {
+                                        return (
+                                            <option value={e.mvSettlementAccountDisplayName}>{e.mvSettlementAccountDisplayName}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </span>
+                    </div>
                     <DataTable
                         id={this.id + "-table"}
                         data={this.props.rowSelected}
                         columns={this.columns}
-                        maxRows={3}
+                        maxRows={5}
                         defaultPageSize={15}
                     />
                 </Modal.Body>
-                <div style={{textAlign:'center',marginLeft:'15px'}}>
+
                 <CheckAuthenticationModal language={this.props.language}/>
-                </div>
+               
                 <Modal.Footer>
                     <Button  className="cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
                     <Button  className="submit" onClick={this.getOddLotSubmit.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
@@ -122,7 +148,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     getBankInfo: () => {
       dispatch(actions.getBankInfo({key: ""}))
-    }
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 
 })
 
