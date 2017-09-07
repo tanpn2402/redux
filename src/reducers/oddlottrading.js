@@ -13,11 +13,18 @@ export default function(state = initialState, action) {
         }
     );
 
-    case ActionTypes.ODDLOTHISTORY:
-    		return Object.assign({},state,{
-    			oddlothistory: action.oddlothistory,
-    		}
-    );
+case ActionTypes.ODDLOTHISTORY:
+		return Object.assign({},state,{
+			oddlothistory: action.oddlothistory,
+		}
+);
+
+case ActionTypes.BANKINFO:
+		return Object.assign({},state,{
+			bankinfo: action.bankinfo,
+		}
+);
+
 
     default:
       break;

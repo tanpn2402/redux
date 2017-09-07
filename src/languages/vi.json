@@ -188,9 +188,9 @@
           "exeprice": "Giá GD lô lẻ",
           "transdate": "Ngày GD",
           "approvedate": "Ngày xác nhận",
-          "stockidH": "Mã CK",
           "oddlotquantityH": "SL lô lẻ",
           "exepriceH": "Giá thực hiện",
+          "type":"Loại lệnh",
           "tax": "Thuế",
           "fee": "Phí",
           "value":"Giá trị (VND)",
@@ -648,7 +648,17 @@
           "saveauthentication": "Lưu xác thực",
           "cancel":"Hủy",
           "submit":"Gửi"
-        }
+        } ,
+         "type":{
+            "autorepayment":"Tự động trả nợ",
+            "repaymentbyrequest": "Hoàn trả vay ký quỹ"
+          },
+          "status":{
+            "approved":"Đã duyệt"
+          },
+          "remark":{
+            "formargincall":"Cho lệnh gọi trả nợ ký quỹ"
+          }
       },
       "cashadvancebank": {
         "header": {

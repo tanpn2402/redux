@@ -32,6 +32,19 @@ export function getLocalAdvance(params) {
   }
 }
 
+function responseLoanRefundData(response) {
+    return {
+      type: ActionTypes.LOANREFUNDDATA,
+      LoanRefundData: response,
+    }
+}
+
+export function getLoanRefundData(params) {
+  return (dispatch)=>{
+      api.get(ACTION.GETLOANREFUNDDATA,params,dispatch,responseLoanRefundData)
+  }
+}
+
 function responseLoanRefundHistory(response) {
     return {
       type: ActionTypes.LOANREFUNDHISTORY,

@@ -14,14 +14,14 @@ import { enquiryStockStatement, exportTransactionHistory } from './stockstatemen
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
 import {loadWatchList,addStock, removeStock} from './watchlist'
 import {getClientInfo, changePassword} from './profile'
-import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit} from './oddlottrading'
+import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit,getBankInfo} from './oddlottrading'
 import {getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
 import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from './accountinfo'
 import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
-import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit} from './loanrefund'
+import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData} from './loanrefund'
 import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation} from './cashadvance'
 import {getqueryAdvancePaymentInfo, getqueryBankInfo} from './cashadvancebank'
 
@@ -82,7 +82,7 @@ export {
   getOddlotEnquiry,
   getOddlotHistory,
   getOddLotSubmit,
-
+  getBankInfo,
   getFundtransfer,
   gethksCachTranHis,
   getGenfundtransfer,
@@ -93,7 +93,7 @@ export {
   getLoanRefundHistory,
   getLoanRefundSubmit,
   getAdvanceSubmit,
-
+  getLoanRefundData,
   getRightlist,
   getAdditionalshareinfo,
   getHistorylist,

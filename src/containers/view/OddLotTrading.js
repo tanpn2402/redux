@@ -11,14 +11,6 @@ class OddLotTrading extends Component {
     constructor(props) {
         super(props)
 
-        this.params = {
-            mvLastAction: '',
-            mvChildLastAction: '',
-            key: '',
-            start: '0',
-            limit: '15',
-        }
-
         this.state = {
             isShow: false,
             oddLotOrderPageIndex: 1,
@@ -33,7 +25,7 @@ class OddLotTrading extends Component {
                     Cell: props => {
                         return (
                             <input type='checkbox' className={this.id + "-row-checkbox"}
-                                              onChange={() => { this.onRowSelected(props.original)}} />
+                                                onChange={() => { this.onRowSelected(props.original)}} />
                         )
                     },
                     sortable: false,
@@ -46,7 +38,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-            },
+                },
                 {
                     id: 'TradingQty',
                     Header: this.props.language.oddlottrading.header.tradingquantity,
@@ -54,7 +46,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-            },
+                },
                 {
                     id: 'OddLotQty',
                     Header: this.props.language.oddlottrading.header.oddlotquantity,
@@ -62,7 +54,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-            },
+                },
                 {
                     id: 'Curprice',
                     Header: this.props.language.oddlottrading.header.currentprice,
@@ -70,7 +62,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-            },
+                },
                 {
                     id: 'ExePrice',
                     Header: this.props.language.oddlottrading.header.exeprice,
@@ -78,7 +70,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-            },
+                },
             ],
             historycolumns: [
                 {
@@ -88,7 +80,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'valueDate',
                     Header: this.props.language.oddlottrading.header.approvedate,
@@ -96,7 +88,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'instrumentId',
                     Header: this.props.language.oddlottrading.header.StockIDH,
@@ -104,7 +96,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'appliedQty',
                     Header: this.props.language.oddlottrading.header.oddlotquantityH,
@@ -112,7 +104,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'price',
                     Header: this.props.language.oddlottrading.header.exepriceH,
@@ -120,7 +112,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'fee',
                     Header: this.props.language.oddlottrading.header.tax,
@@ -128,7 +120,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'aaa',
                     Header: this.props.language.oddlottrading.header.fee,
@@ -136,7 +128,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'settleAmt',
                     Header: this.props.language.oddlottrading.header.value,
@@ -144,7 +136,7 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'status',
                     Header: this.props.language.oddlottrading.header.status,
@@ -152,13 +144,28 @@ class OddLotTrading extends Component {
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
             ],
         }
 
         this.rowSelected = []
         this.popupType = 'none'
         this.id = 'oddlottrading'
+        this.defaultPageSize = 15
+        this.oddLotTransTotalRecord = 0
+        this.oddLotOrderTotalRecord = 0
+        
+        this.paramsOddLotHisEnquiry = {
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ODDLOT',
+            start: '0',
+            limit: this.defaultPageSize,
+        }
+
+        this.paramsEnquiryOddLot = {
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ODDLOTENQUIRY'
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -181,147 +188,149 @@ class OddLotTrading extends Component {
                 },
                 {
                     id: 'stockID',
-                    Header: this.props.language.oddlottrading.header.stockid,
+                    Header: nextProps.language.oddlottrading.header.stockid,
                     accessor: 'stockCode',
                     width: 120,
                     skip: false,
                     show: true,
                 },
-                    {
-                        id: 'TradingQty',
-                        Header: this.props.language.oddlottrading.header.tradingquantity,
-                        accessor: 'settledBal',
-                        width: 120,
-                        skip: false,
-                        show: true,
+                {
+                    id: 'TradingQty',
+                    Header: nextProps.language.oddlottrading.header.tradingquantity,
+                    accessor: 'settledBal',
+                    width: 120,
+                    skip: false,
+                    show: true,
                 },
-                    {
-                        id: 'OddLotQty',
-                        Header: this.props.language.oddlottrading.header.oddlotquantity,
-                        accessor: 'oddLotQty',
-                        width: 120,
-                        skip: false,
-                        show: true,
+                {
+                    id: 'OddLotQty',
+                    Header: nextProps.language.oddlottrading.header.oddlotquantity,
+                    accessor: 'oddLotQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
                 },
-                    {
-                        id: 'Curprice',
-                        Header: this.props.language.oddlottrading.header.currentprice,
-                        accessor: 'nominalPrice',
-                        width: 120,
-                        skip: false,
-                        show: true,
+                {
+                    id: 'Curprice',
+                    Header: nextProps.language.oddlottrading.header.currentprice,
+                    accessor: 'nominalPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
                 },
-                    {
-                        id: 'ExePrice',
-                        Header: this.props.language.oddlottrading.header.exeprice,
-                        accessor: 'collectionPrice',
-                        width: 120,
-                        skip: false,
-                        show: true,
+                {
+                    id: 'ExePrice',
+                    Header: nextProps.language.oddlottrading.header.exeprice,
+                    accessor: 'collectionPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
                 },
             ],
 
             historycolumns: [
                 {
                     id: 'TransDate',
-                    Header: this.props.language.oddlottrading.header.transdate,
+                    Header: nextProps.language.oddlottrading.header.transdate,
                     accessor: 'createTime',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'valueDate',
-                    Header: this.props.language.oddlottrading.header.approvedate,
+                    Header: nextProps.language.oddlottrading.header.approvedate,
                     accessor: 'valueDate',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'StockIDH',
-                    Header: this.props.language.oddlottrading.header.StockIDH,
+                    Header: nextProps.language.oddlottrading.header.stockid,
                     accessor: 'instrumentId',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'oddlotquantityH',
-                    Header: this.props.language.oddlottrading.header.oddlotquantityH,
+                    Header: nextProps.language.oddlottrading.header.oddlotquantityH,
                     accessor: 'appliedQty',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'exepriceH',
-                    Header: this.props.language.oddlottrading.header.exepriceH,
+                    Header: nextProps.language.oddlottrading.header.exepriceH,
                     accessor: 'price',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'tax',
-                    Header: this.props.language.oddlottrading.header.tax,
+                    Header: nextProps.language.oddlottrading.header.tax,
                     accessor: 'fee',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'fee',
-                    Header: this.props.language.oddlottrading.header.fee,
+                    Header: nextProps.language.oddlottrading.header.fee,
                     //accessor: 'fee',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'value',
-                    Header: this.props.language.oddlottrading.header.value,
+                    Header: nextProps.language.oddlottrading.header.value,
                     accessor: 'settleAmt',
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
                 {
                     id: 'status',
-                    Header: this.props.language.oddlottrading.header.status,
+                    Header: nextProps.language.oddlottrading.header.status,
                     Cell: props => {
                         if(props.original.status === 'H')
-                            return this.props.language.oddlottrading.status.waiting;
+                            return nextProps.language.oddlottrading.status.waiting;
                         if(props.original.status === 'D')
-                            return this.props.language.oddlottrading.status.approve;
-                       else
+                            return nextProps.language.oddlottrading.status.approve;
+                        else
                             return props.original.status
                     
                     },
                     width: 120,
                     skip: false,
                     show: true,
-              },
+                },
             ],
         })
     }
 
 
     render() {
-        console.log('render in OddLotTrading', this.props.oddlotenquiry, this.props.oddlothistory)
         let oddlotenquiry = this.props.oddlotenquiry.oddLotList === undefined ? [] : this.props.oddlotenquiry.oddLotList
         let oddlothistory = this.props.oddlothistory === null ? [] : this.props.oddlothistory
-      
+        let oddlothistoryData = oddlothistory.historyList === null ? [] : oddlothistory.historyList
+
+        this.oddLotOrderTotalRecord = oddlotenquiry.length
+        this.oddLotTransTotalRecord = oddlothistory.totalCount
+
         let lgClose = () => this.setState({ isShow: false });
 
         let buttonActionOddLotOrder = [
             <Pagination
                 pageIndex={this.state.oddLotOrderPageIndex}
-                totalRecord={oddlotenquiry.length}
+                totalRecord={Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize)}
                 onPageChange={this.onOddLotOrderPageChange.bind(this)}
                 onNextPage={this.onOddLotOrderNextPage.bind(this)}
                 onPrevPage={this.onOddLotOrderPrevPage.bind(this)}
-                onReloadPage={this.onOddLotOrderReloadPage.bind(this)}
             />,
             <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
                 onClick={this.registerOddLotOrder.bind(this)}>
@@ -332,7 +341,7 @@ class OddLotTrading extends Component {
         let buttonActionOddLotTrans = [
             <Pagination
                 pageIndex={this.state.oddLotTransPageIndex}
-                totalRecord={oddlothistory.totalCount}
+                totalRecord={Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize )}
                 onPageChange={this.onOddLotTransPageChange.bind(this)}
                 onNextPage={this.onOddLotTransNextPage.bind(this)}
                 onPrevPage={this.onOddLotTransPrevPage.bind(this)}
@@ -348,8 +357,7 @@ class OddLotTrading extends Component {
                             <DataUpperTable
                                 columns={this.state.enquirycolumns}
                                 data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*15, this.state.oddLotTransPageIndex*15 )}
-                                maxRows={6}
-                                defaultPageSize={15}/>
+                                defaultPageSize={this.defaultPageSize}/>
                         </div>
                         <div className="table-header">
                             <div className="title" style={this.props.theme.oddlottrading.titleoddlotorder}>
@@ -383,9 +391,8 @@ class OddLotTrading extends Component {
                     <div className="table-main">
                         <DataUpperTable
                             columns={this.state.historycolumns}
-                            data={oddlothistory.historyList}
-                            maxRows={9}
-                            defaultPageSize={15}/>
+                            data={oddlothistoryData}
+                            defaultPageSize={this.defaultPageSize}/>
                     </div>
                     <div className="table-header">
                         <div className="title" style={this.props.theme.oddlottrading.titleoddlottransactionhistory}>
@@ -419,8 +426,8 @@ class OddLotTrading extends Component {
     }
 
     componentDidMount() {
-        this.props.onshowenquiry('', !this.props.reload);
-        this.props.onshowhistory('', !this.props.reload);
+        this.props.onshowenquiry(this.paramsEnquiryOddLot, !this.props.reload);
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload);
     }
 
     onRowSelected(param) {
@@ -454,61 +461,69 @@ class OddLotTrading extends Component {
     }
 
     registerOddLotOrder(e) {
-      e.preventDefault();
-      if(this.rowSelected.length>0)
-      this.setState({ isShow: true })
-      else {
-        this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
-      }
+        e.preventDefault();
+        if(this.rowSelected.length>0)
+        this.setState({ isShow: true })
+        else {
+            this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
+        }
     }
 
+    /// lower ///
     onOddLotTransPageChange(pageIndex) {
-        console.log('cashstatement onPageChange', pageIndex)
-        this.setState({
-             oddLotTransPageIndex: pageIndex
-         });
+        if(pageIndex > 0 && pageIndex <= Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize)){
+            this.state.oddLotTransPageIndex = pageIndex
+            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
+        }
     }
 
     onOddLotTransNextPage(){
-        if(this.state.oddLotTransPageIndex > 0){
-            this.setState({oddLotTransPageIndex: parseInt(this.state.oddLotTransPageIndex) + 1 });
+        if(this.state.oddLotTransPageIndex > 0 && 
+            this.state.oddLotTransPageIndex < Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize))
+        {
+            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
+            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
 
         }
     }
 
     onOddLotTransPrevPage(){
         if(this.state.oddLotTransPageIndex > 1){
-            this.setState({oddLotTransPageIndex: parseInt(this.state.oddLotTransPageIndex) - 1 });
+            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
+            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
 
         }
     }
 
     onOddLotTransReloadPage(){
-
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
     }
 
+    /// upper ///
     onOddLotOrderNextPage(){
-        if(this.state.oddLotOrderPageIndex >= 0){
-            this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1 });
-
+        if(this.state.oddLotOrderPageIndex > 0 && 
+            this.state.oddLotOrderPageIndex < Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize))
+        {
+            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) + 1
+            
         }
     }
 
     onOddLotOrderPrevPage(){
         if(this.state.oddLotOrderPageIndex > 1){
-            this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) - 1 });
+            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) - 1
+          
 
         }
     }
 
-    onOddLotOrderReloadPage(){
-
-    }
-
     onOddLotOrderPageChange(pageIndex) {
-        this.setState({
-            oddLotOrderPageIndex: pageIndex
-        });
+      if(pageIndex > 0 && pageIndex <= Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize)){
+          this.state.oddLotOrderPageIndex = pageIndex
+      }
     }
 
 
@@ -536,11 +551,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onshowenquiry: () => {
-        dispatch(actions.getOddlotEnquiry({ mvLastAction: '', mvChildLastAction: '' }))
+    onshowenquiry: (param) => {
+        dispatch(actions.getOddlotEnquiry(param))
     },
-    onshowhistory: () => {
-        dispatch(actions.getOddlotHistory({ mvLastAction: '', mvChildLastAction: '', key: '', start: '0', limit: '15' }))
+    onshowhistory: (param) => {
+        dispatch(actions.getOddlotHistory(param))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))

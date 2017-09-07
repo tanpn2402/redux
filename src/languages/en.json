@@ -182,15 +182,15 @@
       "oddlottrading": {
         "header":{
             "stockid": "Stock",
-            "tradingquantity": "Trading qtty",
-            "oddlotquantity": "Odd lot qtty",
+            "tradingquantity": "Trading quantity",
+            "oddlotquantity": "Odd lot quantity",
             "currentprice" : "Current Price",
             "exeprice": "Exe Price",
             "transdate": "Trans Date",
             "approvedate": "Approve Date",
-            "stockidH": "Stock",
-            "oddlotquantityH": "Odd lot qtty",
+            "oddlotquantityH": "Odd lot quantity",
             "exepriceH": "Exe Price",
+            "type":"Type",
             "tax": "Tax",
             "fee": "Fee",
             "value":"Value",
@@ -653,6 +653,16 @@
           "advanceamount":"Advance Amount",
           "submit":"Submit",
           "cancel":"Clear"
+        },
+        "type":{
+          "autorepayment":"Auto Repayment",
+          "repaymentbyrequest": "Repayment by Request"
+        },
+        "status":{
+          "approved":"Approved"
+        },
+        "remark":{
+          "formargincall":"For Margin Call"
         }
       },
        "cashadvancebank": {

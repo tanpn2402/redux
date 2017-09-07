@@ -26,37 +26,51 @@ class LoanRefund extends Component {
         defaultvalue: true,
         isShow: false,
         isShow2:false,
+        pageIndex1:1,
+        pageIndex2:1,
         formValues: {},
         Uppercolumns : [
             {
                 id: 'tranID',
                 Header: this.props.language.loanrefund.upperheader.tranID,
                 width: 80,
+                show: true,
+                skip: false,
             },
             {
                 id: 'tradeDate',
                 Header: this.props.language.loanrefund.upperheader.tradingdate,
                 width: 80,
+                show: true,
+                skip: false,
             },
             {
                 id: 'refundAmt',
                 Header: this.props.language.loanrefund.upperheader.loanrefundamount,
                 width: 80,
+                show: true,
+                skip: false,
             },
             {
                 id: 'type',
                 Header: this.props.language.loanrefund.upperheader.type,
                 width: 80,
+                show: true,
+                skip: false,
             },
             {
                 id: 'status',
                 Header: this.props.language.loanrefund.upperheader.processingstatus,
                 width: 80,
+                show: true,
+                skip: false,
             },
             {
                 id: 'remark',
                 Header: this.props.language.loanrefund.upperheader.remark,
                 width: 80,
+                show: true,
+                skip: false,
             },
 
           ],
@@ -67,36 +81,68 @@ class LoanRefund extends Component {
                   Header: this.props.language.loanrefund.lowerheader.tranID,
                   accessor: 'tranID',
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'tradeDate',
                   Header: this.props.language.loanrefund.lowerheader.tradingdate,
                   accessor: 'tradeDate',
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'refundAmt',
                   Header: this.props.language.loanrefund.lowerheader.loanrefundamount,
                   accessor: 'refundAmt',
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'type',
                   Header: this.props.language.loanrefund.lowerheader.type,
                   accessor: 'type',
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'status',
                   Header: this.props.language.loanrefund.lowerheader.processingstatus,
                   accessor: 'status',
                   width: 80,
+                  Cell: props => {
+                    if(props.original.status === 'A')
+                        return this.props.language.loanrefund.type.autorepayment;
+                    if(props.original.status === 'M')
+                        return this.props.language.loanrefund.type.repaymentbyrequest;
+                    if(props.original.status == 'A')
+                        return this.props.language.loanrefund.status.approved;
+                  },
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'remark',
                   Header: this.props.language.loanrefund.lowerheader.remark,
                   accessor: 'remark',
-                  width: 80,
+                  width: 300,
+                  Cell: props => {
+                    if(props.original.remark === 'For Margin Call')
+                        return this.props.language.loanrefund.remark.formargincall;
+                  },
+                  show: true,
+                  skip: false,
+              },
+              {
+                id: 'lastupdate',
+                Header: this.props.language.loanrefund.lowerheader.lastupdate,
+                accessor: 'lastupdate',
+                width: 80,
+                show: true,
+                skip: false,
               },
 
             ]
@@ -106,7 +152,10 @@ class LoanRefund extends Component {
         this.id = 'loanrefund'
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this)
+
+        this.defaultPageSize = 15
+        
     }
 
     componentWillReceiveProps(nextProps){
@@ -115,33 +164,45 @@ class LoanRefund extends Component {
           Uppercolumns : [
               {
                   id: 'tranID',
-                  Header: this.props.language.loanrefund.upperheader.tranID,
+                  Header: nextProps.language.loanrefund.upperheader.tranID,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'tradeDate',
-                  Header: this.props.language.loanrefund.upperheader.tradingdate,
+                  Header: nextProps.language.loanrefund.upperheader.tradingdate,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'refundAmt',
-                  Header: this.props.language.loanrefund.upperheader.loanrefundamount,
+                  Header: nextProps.language.loanrefund.upperheader.loanrefundamount,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'type',
-                  Header: this.props.language.loanrefund.upperheader.type,
+                  Header: nextProps.language.loanrefund.upperheader.type,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'status',
-                  Header: this.props.language.loanrefund.upperheader.processingstatus,
+                  Header: nextProps.language.loanrefund.upperheader.processingstatus,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
               {
                   id: 'remark',
-                  Header: this.props.language.loanrefund.upperheader.remark,
+                  Header: nextProps.language.loanrefund.upperheader.remark,
                   width: 80,
+                  show: true,
+                  skip: false,
               },
 
             ],
@@ -149,41 +210,68 @@ class LoanRefund extends Component {
             Lowercolumns : [
                 {
                     id: 'tranID',
-                    Header: this.props.language.loanrefund.lowerheader.tranID,
+                    Header: nextProps.language.loanrefund.lowerheader.tranID,
                     accessor: 'tranID',
                     width: 80,
+                    show: true,
+                    skip: false,
                 },
                 {
                     id: 'tradeDate',
-                    Header: this.props.language.loanrefund.lowerheader.tradingdate,
+                    Header: nextProps.language.loanrefund.lowerheader.tradingdate,
                     accessor: 'tradeDate',
                     width: 80,
+                    show: true,
+                    skip: false,
                 },
                 {
                     id: 'refundAmt',
-                    Header: this.props.language.loanrefund.lowerheader.loanrefundamount,
+                    Header: nextProps.language.loanrefund.lowerheader.loanrefundamount,
                     accessor: 'refundAmt',
                     width: 80,
+                    show: true,
+                    skip: false,
                 },
                 {
                     id: 'type',
-                    Header: this.props.language.loanrefund.lowerheader.type,
+                    Header: nextProps.language.loanrefund.lowerheader.type,
                     accessor: 'type',
                     width: 80,
+                    show: true,
+                    skip: false,
                 },
                 {
                     id: 'status',
                     Header: this.props.language.loanrefund.lowerheader.processingstatus,
                     accessor: 'status',
                     width: 80,
+                    Cell: props => {
+                      if(props.original.status === 'A')
+                          return this.props.language.loanrefund.type.autorepayment;
+                      if(props.original.status === 'M')
+                          return this.props.language.loanrefund.type.repaymentbyrequest;
+                      if(props.original.status == 'A')
+                          return this.props.language.loanrefund.status.approved;
+                    },
+                    show: true,
+                    skip: false,
                 },
                 {
                     id: 'remark',
                     Header: this.props.language.loanrefund.lowerheader.remark,
                     accessor: 'remark',
-                    width: 80,
+                    width: 300,
+                    show: true,
+                    skip: false,
                 },
-
+                {
+                    id: 'lastupdate',
+                    Header: nextProps.language.loanrefund.lowerheader.lastupdate,
+                    accessor: 'lastupdate',
+                    width: 80,
+                    show: true,
+                    skip: false,
+                },
               ]
 
 
@@ -192,91 +280,19 @@ class LoanRefund extends Component {
 
 
     render() {
-      const Uppercolumns =   [{
-            id: 'tranID',
-            Header: this.props.language.loanrefund.upperheader.tranID,
-            width: 80,
-        },
-        {
-            id: 'tradeDate',
-            Header: this.props.language.loanrefund.upperheader.tradingdate,
-            width: 80,
-        },
-        {
-            id: 'refundAmt',
-            Header: this.props.language.loanrefund.upperheader.loanrefundamount,
-            width: 80,
-        },
-        {
-            id: 'type',
-            Header: this.props.language.loanrefund.upperheader.type,
-            width: 80,
-        },
-        {
-            id: 'status',
-            Header: this.props.language.loanrefund.upperheader.processingstatus,
-            width: 80,
-        },
-        {
-            id: 'remark',
-            Header: this.props.language.loanrefund.upperheader.remark,
-            width: 80,
-        },
-
-      ]
-      const Lowercolumns = [
-          {
-              id: 'tranID',
-              Header: this.props.language.loanrefund.lowerheader.tranID,
-              accessor: 'tranID',
-              width: 80,
-          },
-          {
-              id: 'tradeDate',
-              Header: this.props.language.loanrefund.lowerheader.tradingdate,
-              accessor: 'tradeDate',
-              width: 80,
-          },
-          {
-              id: 'refundAmt',
-              Header: this.props.language.loanrefund.lowerheader.loanrefundamount,
-              accessor: 'refundAmt',
-              width: 80,
-          },
-          {
-              id: 'type',
-              Header: this.props.language.loanrefund.lowerheader.type,
-              accessor: 'type',
-              width: 80,
-          },
-          {
-              id: 'status',
-              Header: this.props.language.loanrefund.lowerheader.processingstatus,
-              accessor: 'status',
-              width: 80,
-          },
-          {
-              id: 'remark',
-              Header: this.props.language.loanrefund.lowerheader.remark,
-              accessor: 'remark',
-              width: 80,
-          },
-
-        ]
-
+        //console.log('render in LocalRefund',this.props.LoanRefundData)
         console.log(this.props)
-        console.log('render in LocalRefund',this.props.LocalRefund,this.props.LocalAdvance)
         var localrefund = this.props.LocalRefund.mvLoanBean === undefined ? [] : this.props.LocalRefund.mvLoanBean
         var localadvance = this.props.LocalAdvance.mvAdvanceBean === undefined ? [] : this.props.LocalAdvance.mvAdvanceBean
-        var loanrefundhistory = this.props.LoanRefundHistory.loanrefundhistoryList  == undefined ? [] : this.props.LoanRefundHistory.loanrefundhistoryList
-        var page = 1
+        var loanrefundhistory = this.props.LoanRefundHistory
+        var loanrefunddata = this.props.LoanRefundData
 
         let lgClose = () => this.setState({ isShow: false });
         let lgClose2 = () => this.setState({ isShow2: false });
         let buttonAction1 = [
             <Pagination
-                    pageIndex={this.state.pageIndex1} 
-                    totalRecord={10} 
+                    pageIndex={this.state.pageIndex1}
+                    totalRecord={Math.ceil(this.props.LoanRefundDataTotalRecord / this.defaultPageSize)}
                     onPageChange={this.onPageChange1.bind(this)}
                     onNextPage={this.onNextPage1.bind(this)}
                     onPrevPage={this.onPrevPage1.bind(this)}
@@ -285,8 +301,8 @@ class LoanRefund extends Component {
         ]
         let buttonAction2 = [
             <Pagination
-                    pageIndex={page} 
-                    totalRecord={this.props.LoanRefundHistory.totalCount} 
+                    pageIndex={this.state.pageIndex2}
+                    totalRecord={Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize)}
                     onPageChange={this.onPageChange2.bind(this)}
                     onNextPage={this.onNextPage2.bind(this)}
                     onPrevPage={this.onPrevPage2.bind(this)}
@@ -298,7 +314,7 @@ class LoanRefund extends Component {
           <div className="component-main loanrefund">
 
             <div className="loanrefund-form">
-             
+
                 <div className="loanrefund-form-group">
                 <div className="title" style={this.props.theme.loanrefund.titleloanrefundform}>
                   <span>{this.props.language.loanrefund.title.titleloanrefundform}</span>
@@ -315,7 +331,7 @@ class LoanRefund extends Component {
                                 </tr>
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.availablecashforrefund}</th>
-                                    <td>{localrefund.cashrsv}</td>
+                                    <td>{localrefund.cashrsv > 0 ? localrefund.cashrsv : 0}</td>
                                 </tr>
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.cashadvanceable}</th>
@@ -416,8 +432,9 @@ class LoanRefund extends Component {
                   <DataUpperTable
                     key={this.id + "-table1"}
                     id={this.id + "-table1"}
-                    columns={Uppercolumns}
-                    defaultPageSize={15}/>
+                    data={loanrefunddata}
+                    columns={this.state.Uppercolumns}
+                    defaultPageSize={this.defaultPageSize}/>
                 </div>
                 <div className="table-header">
                   <div className="title" style={this.props.theme.loanrefund.titleloanrefundstatus}>
@@ -432,18 +449,18 @@ class LoanRefund extends Component {
                     stockList={this.props.stockList}
                     language={this.props.language.searchbar}
                     theme={this.props.theme}
-                    columns={Uppercolumns}
-                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    columns={this.state.Uppercolumns}
+                    onChangeStateColumn={this.onChangeStateColumn1.bind(this)}
                     param={['dropdown']}/>
                 </div>
               </div>
-                
+
               <div id={this.id + "-xtable2"}>
                 <div className="table-main">
                   <DataUpperTable
-                    columns={Lowercolumns}
+                    columns={this.state.Lowercolumns}
                     data={loanrefundhistory}
-                    defaultPageSize={15}/>
+                    defaultPageSize={this.defaultPageSize}/>
                 </div>
                 <div className="table-header">
                   <div className="title" style={this.props.theme.loanrefund.titleloanrefundhistory}>
@@ -456,13 +473,14 @@ class LoanRefund extends Component {
                     stockList={this.props.stockList}
                     language={this.props.language.searchbar}
                     theme={this.props.theme}
-                    columns={Lowercolumns}
+                    columns={this.state.Lowercolumns}
+                    onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
                     param={['mvStartDate', 'mvEndDate', 'dropdown']}/>
                 </div>
               </div>
             </div>
 
-            
+
           </div>
           </div>
         )
@@ -475,6 +493,7 @@ class LoanRefund extends Component {
       this.params['mvEndDate'] = today
       this.props.onshowlocalrefund('', !this.props.reload);
       this.props.onshowlocaladvance('', !this.props.reload);
+      this.props.onshowloanrefunddata('',!this.props.reload);
       this.props.onSearch(this.params);
     }
 
@@ -492,71 +511,80 @@ class LoanRefund extends Component {
     /// 1//
     onChangeStateColumn1(e) {
         const id = e.target.id
-        // this.setState({
-        //     columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        // });
+        this.setState({
+            Uppercolumns: this.state.Uppercolumns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        });
     }
 
     onNextPage1(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex1 > 0 && this.state.pageIndex1 < Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize)){
+             this.state.pageIndex1 = parseInt(this.state.pageIndex1) + 1
+             this.params['start'] = (this.state.pageIndex1 - 1) * this.params['limit']
+             this.props.onshowloanrefunddata(this.params, !this.props.reload)
+             console.log(this.state.pageIndex1)
         }
     }
 
     onPrevPage1(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex1 > 1){
+          this.state.pageIndex1 = parseInt(this.state.pageIndex1) - 1
+          this.params['start'] = (this.state.pageIndex1 - 1) * this.params['limit']
+          this.props.onshowloanrefunddata(this.params, !this.props.reload)
+          console.log(this.state.pageIndex1)
         }
     }
 
     onReloadPage1(){
-        // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+          this.props.onshowloanrefunddata(this.params, !this.props.reload)
     }
 
     onPageChange1(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(pageIndex > 0 && pageIndex <= Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize)){
+            this.state.pageIndex1 = pageIndex
+            this.params['start'] = (this.state.pageIndex1 - 1) * this.params['limit']
+            this.props.onshowloanrefunddata(this.params, !this.props.reload)
         }
     }
-///2///
+
     onChangeStateColumn2(e) {
         const id = e.target.id
-        // this.setState({
-        //     columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        // });
+        this.setState({
+            Lowercolumns: this.state.Lowercolumns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        });
     }
 
     onNextPage2(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex2 > 0 && 
+            this.state.pageIndex2 < Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize))
+        {
+             this.state.pageIndex2 = parseInt(this.state.pageIndex2) + 1
+             this.params['start'] = (this.state.pageIndex2 - 1) * this.params['limit']
+             this.props.onSearch(this.params, !this.props.reload)
+             console.log(this.state.pageIndex2)
         }
     }
 
     onPrevPage2(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(this.state.pageIndex2 > 1){
+          this.state.pageIndex2 = parseInt(this.state.pageIndex2) - 1
+          this.params['start'] = (this.state.pageIndex2 - 1) * this.params['limit']
+          this.props.onSearch(this.params, !this.props.reload)
+          console.log(this.state.pageIndex2)
         }
     }
 
     onReloadPage2(){
-        this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.props.onSearch(this.params, !this.props.reload)
     }
 
     onPageChange2(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        if(pageIndex > 0 && 
+            pageIndex <= Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize))
+        {
+             this.state.pageIndex2 = pageIndex
+             this.params['start'] = (this.state.pageIndex2 - 1) * this.params['limit']
+             this.props.onSearch(this.params, !this.props.reload)
+             console.log(this.state.pageIndex2)
         }
     }
 
@@ -578,20 +606,9 @@ class LoanRefund extends Component {
         return this.state.value;
     }
 
-    onChangeStateColumn(e){
-        const id = e.target.id
-
-        this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
-        });
-
-      //console.log(this.state.columns)
-  }
     onSearch(param){
-        console.log(' shit', this.params)
         this.params['mvStartDate'] = param['mvStartDate']
         this.params['mvEndDate'] = param['mvEndDate']
-        console.log(' fuck', this.params)
         this.props.onSearch(this.params, !this.props.reload)
     }
 
@@ -601,7 +618,10 @@ const mapStateToProps = (state) => {
     return {
       LocalRefund: state.loanrefund.LocalRefund,
       LocalAdvance: state.loanrefund.LocalAdvance,
+      LoanRefundData: state.loanrefund.LoanRefundData,
       LoanRefundHistory:state.loanrefund.LoanRefundHistory,
+      LoanRefundHistoryTotalRecord: state.loanrefund.LoanRefundHistoryTotalRecord,
+      LoanRefundDataTotalRecord: state.loanrefund.LoanRefundDataTotalRecord
     }
 }
 
@@ -611,6 +631,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onshowlocaladvance: () => {
       dispatch(actions.getLocalAdvance({mvLastAction:'',mvChildLastAction:''}))
+    },
+    onshowloanrefunddata: () => {
+      dispatch(actions.getLoanRefundData({mvLastAction:'',mvChildLastAction:'',key:'',start:'0',limit:'0'}))
     },
     onSearch:(params) =>{
       dispatch(actions.getLoanRefundHistory(params))

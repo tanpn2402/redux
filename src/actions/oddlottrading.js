@@ -23,6 +23,19 @@ export function getOddLotSubmit(params) {
   }
 }
 
+export function getBankInfo(params) {
+  return (dispatch)=>{
+    WebApi.post(ACTION.QUERYBANKINFO,params, dispatch,responseBankInfo )
+  }
+}
+
+function responseBankInfo(response){
+  return {
+    type: ActionTypes.BANKINFO,
+    bankinfo: response,
+  }
+}
+
 function responseOddLotEnquiry(response){
   return {
     type: ActionTypes.ODDLOTENQUIRY,

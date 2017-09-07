@@ -22,7 +22,7 @@ export default class DataUpperTable extends React.Component {
 		    <div className="hks-table" id={this.props.id} >
 		      <ReactTable
 		        className={'datatable'}
-		        style={{}}
+		        style={{height: this.props.maxRows === undefined ? '100%' : height, }}
 		        data={this.state.data}
 		        columns={this.props.columns}
 		        showPagination= {false}

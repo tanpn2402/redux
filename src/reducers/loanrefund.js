@@ -3,29 +3,39 @@ import {ActionTypes} from '../core/constants';
 const initialState = {
 	LocalRefund : [],
 	LocalAdvance: [],
-	LoanRefundHistory:[]
+	LoanRefundHistory:[],
+	LoanRefundData:[],
+	LoanRefundHistoryTotalRecord:0,
+	LoanRefundDataTotalRecord:0
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.LOCALREFUND:
-        console.log('reducers',action.tabList, 'page', action.page)
         return Object.assign({},state,{
         	LocalRefund: action.LocalRefund,
         }
 );
 
 case ActionTypes.LOCALADVANCE:
-		console.log('reducers',action.tabList, 'page', action.page)
 		return Object.assign({},state,{
 			LocalAdvance: action.LocalAdvance,
 		}
 );
 
-case ActionTypes.LOANREFUNDHISTORY:
-		console.log('reducers',action.tabList, 'page', action.page)
+case ActionTypes.LOANREFUNDDATA:
 		return Object.assign({},state,{
-			LoanRefundHistory: action.LoanRefundHistory,
+			LoanRefundData: action.LoanRefundData.loanrefundList  === null ? [] : 
+				action.LoanRefundData.loanrefundList,
+			LoanRefundDataTotalRecord: action.LoanRefundData.totalCount,
+		}
+);
+
+case ActionTypes.LOANREFUNDHISTORY:
+		return Object.assign({},state,{
+			LoanRefundHistory: action.LoanRefundHistory.loanrefundhistoryList  === null ? [] : 
+				action.LoanRefundHistory.loanrefundhistoryList,
+			LoanRefundHistoryTotalRecord: action.LoanRefundHistory.totalCount,
 		}
 );
 
