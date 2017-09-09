@@ -22,7 +22,7 @@ import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from '
 import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData} from './loanrefund'
-import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation} from './cashadvance'
+import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
 import {getqueryAdvancePaymentInfo, getqueryBankInfo} from './cashadvancebank'
 
 export {
@@ -108,7 +108,8 @@ export {
   exportOrderConfirm,
   getQuerySoldOrders,
   getLocalAdvanceCreation,
-
+  beforeSubmitCashAdvance,
+  submitCashAdvance,
   getqueryAdvancePaymentInfo,
   getqueryBankInfo,
 

@@ -20,6 +20,16 @@ export function post(id,param,dispatch,callback){
 		
 	};
 
+	export function test(id,param){
+		return (FetchAPI(id, param, POST)).then(response => response).then( parseData => {
+			console.log(parseData)
+			return parseData
+		}).catch(error => {
+			return error
+		})
+		
+	};
+
 export function report(id,param,dispatch,callback){
 		console.log(id)
 		return (FetchAPI(id, param, 'REPORT')).then(response => response).then( parseData => {

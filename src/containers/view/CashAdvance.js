@@ -5,42 +5,21 @@ import "react-table/react-table.css"
 import '../../css/App.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
-import Popup from '../Popup'
 import DataUpperTable from '../DataUpperTable'
 import SearchBar from '../commons/SearchBar'
 import Pagination from '../commons/Pagination'
-
+import * as Utils from '../../utils'
+import moment from 'moment'
+import $ from 'jquery'
 class CashAdvance extends Component {
     constructor(props) {
         super(props);
-        this.params1 = {
-            key:'1504664878445',
-            _dc:'1504664878445',
-            mvLastAction: 'OTHERSERVICES',
-            mvChildLastAction: 'ADVANCE',
-            start: '0',
-            limit: '15',
-            page: '1',
-        }
-
-        this.params2 = {
-            key:'1504663425580',
-            _dc:'1504663425583',
-            mvLastAction: 'OTHERSERVICES',
-            mvChildLastAction: 'ADVANCEPAYMENT',
-            start: '0',
-            limit: '15',
-            page: '1'
-        }
-
-        this.params = {
-            mvLastAction: 'OTHERSERVICES',
-            mvChildLastAction: 'ADVANCEPAYMENT',
-        }
 
         this.state = {
             formValues: {},
             isShow: false,
+            advancePayment: 0,
+            advanceFee: 0,
             columns1: [
                 {
                     Header: this.props.language.cashadvance.header.id,
@@ -119,7 +98,7 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.advancefee,
-                    accessor: 'fee',
+                    accessor: 'interestAccured',
                     id: 'advancefee',
                     show: true,
                     skip: false,
@@ -153,11 +132,34 @@ class CashAdvance extends Component {
             cashAdTransPageIndex: 1,
             orderMatchListPageIndex: 1,
 
-        };
+        }
 
-        this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.id = 'cashadvance';
+        this.id = 'cashadvance'
+        this.defaultPageSize = 15
+       
+        this.querySoldOrdersParams = {
+            key: moment().valueOf(),
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCE',
+            start: '0',
+            limit: this.defaultPageSize,
+            page: '1',
+        }
+
+        this.getCashAdvanceHistoryParams = {
+            key: moment().valueOf(),
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCEPAYMENT',
+            start: '0',
+            limit: this.defaultPageSize,
+            page: '1'
+        }
+
+        this.getLocalAdvanceCreationParam = {
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ADVANCEPAYMENT',
+        }
     }
 
     componentWillReceiveProps(nextProps){
@@ -240,16 +242,24 @@ class CashAdvance extends Component {
                 },
                 {
                     Header: nextProps.language.cashadvance.header.advancefee,
-                    accessor: 'fee',
+                    accessor: 'interestAccured',
                     id: 'advancefee',
                     show: true,
                     skip: false,
                     width: 120,
                 },
                 {
-                    Header: nextProps.language.cashadvance.header.processingstatus,
+                    id: 'status',
                     accessor: 'status',
-                    id: 'processingstatus',
+                    Header: nextProps.language.cashadvance.header.processingstatus,
+                    Cell: props => {
+                        if(props.original.status === 'A')
+                            return nextProps.language.cashadvance.status.authorized;
+                        if(props.original.status === '')
+                            return nextProps.language.cashadvance.status.pending;
+                        else
+                            return props.original.status;
+                    },
                     show: true,
                     skip: false,
                     width: 120,
@@ -266,25 +276,43 @@ class CashAdvance extends Component {
                     Header: nextProps.language.cashadvance.header.note,
                     accessor: 'remark',
                     id: 'note',
+                    Cell: props => {
+                        if(props.original.status === '')
+                            return nextProps.language.cashadvance.remark.remark;
+                        else
+                            return props.original.remark;
+                    },
                     show: true,
                     skip: false,
-                    width: 120,
+                    width: 400,
                 }
             ],
 
-        });
+        })
+
+        this.setState({advanceFee: nextProps.LocalAdvance.mvAdvanceBean.advFee})
+
+        
+        
     }
 
     render() {
-        var SoldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
-        var CashAdvanceHistory = this.props.CashAdvanceHistory.list
-        var LocalAdvance = this.props.LocalAdvance.mvAdvanceBean
+
+        console.log(this.props.SoldOrders.mvChildBeanList, this.props.CashAdvanceHistory.list, this.props.LocalAdvance.mvAdvanceBean)
+        var soldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
+        var cashAdvanceHistory = this.props.CashAdvanceHistory.list === undefined ? [] : this.props.CashAdvanceHistory.list
+        var localAdvance = this.props.LocalAdvance.mvAdvanceBean === undefined ? [] : this.props.LocalAdvance.mvAdvanceBean
+
+        soldOrders = soldOrders === null ? [] : soldOrders
+        cashAdvanceHistory = cashAdvanceHistory === null ? [] : cashAdvanceHistory
+        localAdvance = localAdvance === null ? [] : localAdvance
+
         let lgClose = () => this.setState({ isShow: false })
 
         let buttonActionCashAdTrans = [
             <Pagination
                     pageIndex={this.state.cashAdTransPageIndex} 
-                    totalRecord={10} 
+                    totalRecord={Math.ceil(cashAdvanceHistory.length / this.defaultPageSize)} 
                     onPageChange={this.onCashAdTransPageChange.bind(this)}
                     onNextPage={this.onCashAdTransNextPage.bind(this)}
                     onPrevPage={this.onCashAdTransPrevPage.bind(this)}
@@ -294,13 +322,15 @@ class CashAdvance extends Component {
         let buttonActionOrderMatchList = [
             <Pagination
                     pageIndex={this.state.orderMatchListPageIndex} 
-                    totalRecord={10} 
+                    totalRecord={soldOrders.length} 
                     onPageChange={this.onOrderMatchListPageChange.bind(this)}
                     onNextPage={this.onOrderMatchListNextPage.bind(this)}
                     onPrevPage={this.onOrderMatchListPrevPage.bind(this)}
                     onReloadPage={this.onOrderMatchListReloadPage.bind(this)}
                 />,
         ]
+
+        let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
         return (
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
             <div className="component-main cashadvance">
@@ -315,20 +345,20 @@ class CashAdvance extends Component {
                                     <tbody >
                                         <tr>
                                             <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                            <td>4.600.630</td>
+                                            <td>{Utils.currencyShowFormatter(advAvailable,",", 'vi-VN')}</td>
                                         </tr>
                                         <tr>
                                             <th>{this.props.language.cashadvance.header.advancefee}</th>
                                             <td>
-                                                <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
-                                                {this.calculate() || 0}
+                                                {Utils.currencyShowFormatter(this.state.advanceFee, ",", 'vi-VN')}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                             <td>
                                                 <FormGroup>
-                                                    <input type="number" name="volume" min="0" onChange={this.onChange}  id="volume" required />
+                                                    <input type="number" name="volume" min="0" onChange={this.onAdvancePaymentChange.bind(this)}  
+                                                        id="txtAdvancePayment" required />
                                                 </FormGroup>
                                             </td>
                                         </tr>
@@ -346,22 +376,15 @@ class CashAdvance extends Component {
                                     </span>
                                 </div>
                             </FormGroup>
-                            <Popup
-                                id='cashadvance'
-                                show={this.state.isShow}
-                                onHide={lgClose}
-                                advanceAmount={this.mvVolume}
-                                language={this.props.language}
-                                title = {this.props.language.cashadvance.popup.title}/>
+                           
                         </Form>
                     </div>
                     <div className="cashadvance-his-table" style={{paddingRight:"2px", paddingLeft: "2px",}}>
                         <div className="table-main">
                             <DataUpperTable
                                 id={this.id + "-table2"}
-                                data={CashAdvanceHistory}
+                                data={cashAdvanceHistory.slice((this.state.cashAdTransPageIndex - 1)*6, this.state.cashAdTransPageIndex*6)}
                                 columns={this.state.columns2}
-                                maxRows={5}
                                 defaultPageSize={15}/>
                         </div>
                         <div className="table-header">
@@ -391,8 +414,7 @@ class CashAdvance extends Component {
                         <DataUpperTable
                             id={this.id + "-table1"}
                             columns={this.state.columns1}
-                            maxRows={10}
-                            data={SoldOrders}
+                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1)*6, this.state.orderMatchListPageIndex*6 )}
                             defaultPageSize={15}/>
                     </div>
                     <div className="table-header">
@@ -418,6 +440,12 @@ class CashAdvance extends Component {
         );
     }
 
+    componentDidMount(){
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams);
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams);
+        this.props.getLocalAdvanceCreation(this.querySoldOrdersParams);
+    }
+
     // page change of cash advance transaction (table 1)
     onCashAdTransChangeStateColumn(e) {
         const id = e.target.id
@@ -427,30 +455,31 @@ class CashAdvance extends Component {
     }
 
     onCashAdTransNextPage(){
-        if(this.state.cashAdTransPageIndex > 0){
             this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) + 1
-            //this.paramshkscashtranhis['start'] = (this.state.cashAdTransPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+            this.getCashAdvanceHistoryParams['key'] = moment().valueOf()
+            this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+            this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onCashAdTransPrevPage(){
-        if(this.state.cashAdTransPageIndex > 1){
             this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) - 1
-            //this.paramshkscashtranhis['start'] = (this.state.cashAdTransPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+            this.getCashAdvanceHistoryParams['key'] = moment().valueOf()
+            this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+            this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onCashAdTransReloadPage(){
-        //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.getCashAdvanceHistoryParams['key'] = moment().valueOf()
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
     onCashAdTransPageChange(pageIndex) {
-        if(pageIndex > 0){
             this.state.cashAdTransPageIndex = pageIndex
-            //this.paramshkscashtranhis['start'] = (this.state.cashAdTransPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+            this.getCashAdvanceHistoryParams['key'] = moment().valueOf()
+            this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+            this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     // page change of order matching list (table 2)
@@ -462,58 +491,90 @@ class CashAdvance extends Component {
     }
 
     onOrderMatchListNextPage(){
-        if(this.state.orderMatchListPageIndex > 0){
             this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) + 1
-            //this.paramshkscashtranhis['start'] = (this.state.orderMatchListPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+            this.querySoldOrdersParams['key'] = moment().valueOf() 
+            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 
     onOrderMatchListPrevPage(){
-        if(this.state.orderMatchListPageIndex > 1){
             this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) - 1
-            //this.paramshkscashtranhis['start'] = (this.state.orderMatchListPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+            this.querySoldOrdersParams['key'] = moment().valueOf() 
+            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 
     onOrderMatchListReloadPage(){
-        //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
     onOrderMatchListPageChange(pageIndex) {
-        if(pageIndex > 0){
             this.state.orderMatchListPageIndex = pageIndex
-            //this.paramshkscashtranhis['start'] = (this.state.orderMatchListPageIndex - 1) * this.paramshkscashtranhis['limit']
-            //this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+            this.querySoldOrdersParams['key'] = moment().valueOf() 
+            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
     ////
+
     handleSubmit(e) {
+        e.preventDefault()
+        let advPayment = document.getElementById('txtAdvancePayment').value
+        this.props.beforeSubmit(advPayment, this.props.LocalAdvance.mvAdvanceBean, this.props.language)
+    }
+
+    onAdvancePaymentChange(e) {
         e.preventDefault();
+        let advPayment = e.target.value
+        let advCfgInfor = this.props.LocalAdvance.mvAdvanceBean
+
+        if(advCfgInfor && advPayment > 0){
+            
+            var tempFee = 0;
+            
+            var advAmt = Utils.devideByCurrencyUnit(advPayment)
+            
+            var nt2Adv = parseFloat(advCfgInfor.t2AdvAvailable)
+            var cont = true;
+            if(nt2Adv > 0){
+                if(advAmt > nt2Adv){
+                    tempFee += parseFloat(nt2Adv)*parseFloat(advCfgInfor.t2Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    advAmt = advAmt - nt2Adv;
+                }else {
+                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t2Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    cont = false;
+                }
+            } 
+            
+            var nt1Adv = parseFloat(advCfgInfor.t1AdvAvailable);
+            if(cont && nt1Adv > 0){
+                if(advAmt > nt1Adv){
+                    tempFee += parseFloat(nt1Adv)*parseFloat(advCfgInfor.t1Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    advAmt = advAmt - nt1Adv;
+                }else {
+                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t1Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    cont = false;
+                }
+            }
+            
+            var nt0Adv = parseFloat(advCfgInfor.t0AdvAvailable);
+            if(cont && nt0Adv > 0){
+                if(advAmt > nt0Adv){
+                    tempFee += parseFloat(nt0Adv)*parseFloat(advCfgInfor.t0Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    advAmt = advAmt - nt0Adv;
+                }else {
+                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t0Days)*parseFloat(advCfgInfor.interestRate)/100;
+                    cont = false;
+                }
+            }	
+
+            this.setState({ advanceFee: tempFee })
+        }
+					
         
-        this.setState({ isShow: true })
     }
 
-    onChange(e) {
-        e.preventDefault();
-        let formValues = this.state.formValues;
-        let name = e.target.name;
-        let value = e.target.value;
-
-        formValues[name] = value;
-        this.setState({ formValues })
-    }
-
-    calculate() {
-        this.state.value = this.state.formValues.volume / 2500;
-        return this.state.value;
-    }
-
-    componentDidMount(){
-        this.props.getQuerySoldOrders(this.params1, !this.props.reload);
-        this.props.getCashAdvance(this.params2, !this.props.reload);
-        this.props.getLocalAdvanceCreation(this.params, !this.props.reload);
-    }
 }
 
 
@@ -526,14 +587,20 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getQuerySoldOrders: (params1) => {
-        dispatch(actions.getQuerySoldOrders(params1))
+    getQuerySoldOrders: (params) => {
+        dispatch(actions.getQuerySoldOrders(params))
     },
-    getCashAdvance: (params2) => {
-        dispatch(actions.getCashAdvance(params2))
+    getCashAdvance: (params) => {
+        dispatch(actions.getCashAdvance(params))
     },
     getLocalAdvanceCreation: (params) => {
         dispatch(actions.getLocalAdvanceCreation(params))
+    },
+    beforeSubmit: (advPayment, mvAdvanceBean, language) => {
+        dispatch(actions.beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language))
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 })
 

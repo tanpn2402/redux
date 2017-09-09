@@ -27,6 +27,7 @@ import notification from './notification'
 import cashadvance from './cashadvance'
 import cashadvancebank from './cashadvancebank'
 import flashpopup from './flashpopup'
+import popup from './popup'
 
 
 export default combineReducers({
@@ -58,5 +59,6 @@ export default combineReducers({
   cashadvance,
   cashadvancebank,
   flashpopup,
+  popup,
   
 });

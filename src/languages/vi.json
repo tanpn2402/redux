@@ -492,7 +492,23 @@
             "fee": "Phí+Thuế"
         },
         "popup": {
-          "title": "Ứng trước tiền chứng khoán"
+          "title": "Ứng trước tiền chứng khoán",
+          "message": "Ban co chac chan muon thuc hien ?",
+          "ok": "OK",
+          "cancel": "Bo qua"
+        },
+        "status": {
+          "authorized": "Xác nhận",
+          "pending": "Chờ xác nhận"
+        },
+        "remark": {
+          "remark": "Khả năng ứng trước của bạn sẽ không bị trừ nếu yêu cầu này chưa được duyệt"
+        },
+        "message": {
+          "insufficientfund" : "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
+          "noamount": "123123",
+          "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
+          "advancePaymentSuccessful": "Thành công"
         }
       },
       "watchlist":{
@@ -688,11 +704,13 @@
         }
       },
       "messagebox": {
-        "warning": "Cảnh báo",
-        "error": "Lỗi",
-        "failed": "Thất bại",
-        "note": "Ghi chú",
-        "info": "Thông tin"
+        "title": {
+          "warning": "Cảnh báo",
+          "error": "Lỗi",
+          "failed": "Thất bại",
+          "note": "Ghi chú",
+          "info": "Thông tin"
+        }
       }
     }
   }

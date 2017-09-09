@@ -36,7 +36,7 @@ class MessageBox extends Component {
                     return(
                         <Modal show={true} onHide={e => this.onClose(msg.id)} className="messagebox">
                             <Modal.Header closeButton>
-                                <Modal.Title>{this.props.language.messagebox[this.props.type.toLowerCase()]}</Modal.Title>
+                                <Modal.Title>{this.props.type}</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 {this.props.message}

@@ -5,9 +5,7 @@ import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 
 class CheckAuthenticationModal extends Component {
     
     constructor(props) {
-        super(props);
-        this.state = { };
-        // this.checkAuthentication = this.checkAuthentication.bind(this);
+        super(props)
     }
 
     generateChar() {
@@ -20,14 +18,6 @@ class CheckAuthenticationModal extends Component {
         return num.charAt(Math.floor(Math.random() * num.length));
     } 
 
-    // checkAuthentication(e) {
-    //     // Prevent from reloading page when submit
-    //     e.preventDefault();
-    //     const code1 = document.getElementById("code1").innerText;
-    //     const code2 = document.getElementById("code2").innerText;
-    //     this.props.checkAuthen(code1, code2, this.input1.value, this.input2.value);
-    // }
-
     render() {
         let { isAuthenFail } = this.props;
         return (
@@ -38,25 +28,25 @@ class CheckAuthenticationModal extends Component {
                         {this.props.language.enterorder.popup.checknum}
                     </Col>
                     <Col xs={4} style={{textAlign: 'center'}}>
-                        [{this.generateNum()},{this.generateChar()}]
+                        <input className="auth-matrix-key" id="matrix-key01" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readonly />
                     </Col>
                     <Col xs={4} style={{textAlign: 'center'}}>
-                        [{this.generateNum()},{this.generateChar()}]
+                        <input className="auth-matrix-key" id="matrix-key02" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readonly />
                     </Col>
 
                     <Col xs={4}>
                         {this.props.language.enterorder.popup.verifiednum}
                     </Col>
                     <Col xs={4} style={{textAlign: 'center'}}>
-                        <input type="text" maxLength="1" id="input1" required/>
+                        <input className="auth-matrix-value" maxLength="1" id="matrix-value01" required/>
                     </Col>
                     <Col xs={4} style={{textAlign: 'center'}}>
-                        <input type="text" maxLength="1" id="input2" required/>
+                        <input className="auth-matrix-value" maxLength="1" id="matrix-value02" required/>
                     </Col>
 
                     <div className="clearfix"></div>
                     <div>
-                        <input type="checkbox" id="saveAuthen" /> {this.props.language.enterorder.popup.saveauthentication}
+                        <input type="checkbox" id="matrix-save-authen" /> {this.props.language.enterorder.popup.saveauthentication}
                     </div>
                 </div>
                 

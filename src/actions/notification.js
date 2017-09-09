@@ -14,19 +14,11 @@ export function showMessageBox(notifType, notifDetail){
 	// 		dispatch(a(notifType, notifDetail))
 	// 	}, 3000)
 	// }
-	let type = ''
-	switch(notifType){
-		case 0: type = 'ERROR'; break;
-		case 1: type = 'WARNING'; break;
-		case 2: type = 'FAILED'; break;
-		case 3: type = 'INFO'; break;
-		case 4: type = 'NOTE'; break;
 
-	}
 	return {
 	  type: ActionTypes.MESSAGEBOX,
 	  message: notifDetail,
-	  notification_type: type,
+	  notification_type: notifType,
 	  id: moment().valueOf(),
 	}
 }

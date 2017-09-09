@@ -23,25 +23,25 @@ export default class Pagination extends React.Component {
 	        		this.props.onFirstPage === undefined ? '' : 
 	        		(
 	        			<button type="button" className="hks-btn btn-pagination-top" 
-	                	onClick={this.props.onFirstPage.bind(this)}>«</button>
+	                	onClick={this.onFirstPage.bind(this)}>«</button>
 	        		)
 	        	}
 	        	
 	        	<button type="button" className="hks-btn btn-pagination-top" 
-                	onClick={this.props.onPrevPage.bind(this)}>‹</button>
+                	onClick={this.onPrevPage.bind(this)}>‹</button>
         		<span>Page</span>
         		<input type="number" value={this.state.page} id="pageinput" className="hks-input page-input" 
         			onKeyDown={ e => this.onPageChange(e) } 
         			onChange={e => e.target.value > 0 ? this.setState({ page: e.target.value }) : 0}/>
 				<span> of {this.props.totalRecord}  </span>
         		<button type="button" className="hks-btn btn-pagination-top" 
-                	onClick={this.props.onNextPage.bind(this)}>›</button>
+                	onClick={this.onNextPage.bind(this)}>›</button>
 
 	        	{
 	        		this.props.onLastPage === undefined ? '' : 
 	        		(
 	        			<button type="button" className="hks-btn btn-pagination-top" 
-	                	onClick={this.props.onFirstPage.bind(this)}>»</button>
+	                	onClick={this.onFirstPage.bind(this)}>»</button>
 	        		)
 	        	}
 
@@ -69,12 +69,39 @@ export default class Pagination extends React.Component {
         		{'  |  '}
         	</div>
     	)
-  	}
+	  }
+	  
+	onNextPage(){
+		if(this.state.page < this.props.totalRecord){
+			this.props.onNextPage()
+		}
+	}
+
+	onPrevPage(){
+		if(this.state.page > 1){
+			this.props.onPrevPage()
+		}
+	}
+
+	onFirstPage(){
+		if(this.state.page > 1){
+			this.props.onFirstPage()
+		}
+	}
+
+	onLastPage(){
+		if(this.state.page > 1){
+			this.props.onLastPage()
+		}
+	}
 
   	onPageChange(e){
   		if(e.keyCode === 13){
-        e.preventDefault()
-  			this.props.onPageChange(e.target.value)
+			e.preventDefault()
+			let pageSelected = e.target.value
+			if(pageSelected > 0 && pageSelected <= this.props.totalRecord){
+				this.props.onPageChange(e.target.value)
+			}
   		}
   	}
 

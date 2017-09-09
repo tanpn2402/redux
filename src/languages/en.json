@@ -497,7 +497,21 @@
             "fee": "Fee+Tax"
         },
         "popup": {
-           "title": "Cash Advance"
+           "title": "Cash Advance",
+           "message": "Ban co chac chan muon thuc hien ?",
+           "ok": "OK",
+           "cancel": "Cancel"
+        },
+        "status": {
+          "authorized": "Authorized",
+          "pending": "Pending Approval"
+        },
+        "remark": {
+          "remark": "Your cash advance will not change until it is approved"
+        },
+        "message": {
+          "insufficientfund" : "123",
+          "noamount": "123123"
         }
       },
       "watchlist":{
@@ -693,11 +707,13 @@
         }
       },
       "messagebox": {
-        "warning": "Warning",
-        "error": "Error",
-        "failed": "Failed",
-        "note": "Note",
-        "info": "Info"
+        "title": {
+          "warning": "Cảnh báo",
+          "error": "Lỗi",
+          "failed": "Thất bại",
+          "note": "Ghi chú",
+          "info": "Thông tin"
+        }
       }
     }
   }

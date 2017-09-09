@@ -10,7 +10,7 @@ import AdvancePayment from './AdvancePayment'
 import Settings from './Settings'
 import CancelCashtransfer from './CancelCashtransfer'
 
-export default function  (props){
+export default function(props, onClose){
 	
 	switch(props.id){
 		case 'orderjournal':
@@ -38,7 +38,7 @@ export default function  (props){
 			break;
 		
 		case 'cashadvance':
-			return (<CashAdvancePopup onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<CashAdvancePopup onHide={onClose} data={props.data} language={props.language}/>)
 			break;
 
 		case 'loanrefund':

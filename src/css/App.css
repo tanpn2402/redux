@@ -2217,6 +2217,16 @@ input::-webkit-calendar-picker-indicator {
     width: 100%;
     padding: 5px 15px;
 }
+.auth-matrix-key {
+    border: none;
+    padding: 0;
+    text-align: center;
+    outline: none;
+}
+.auth-matrix-value {
+    text-align: center;
+    text-transform: uppercase;
+}
 .auth-content {
     font-size: 12px;
     width: 100%;
