@@ -23,7 +23,7 @@ import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData} from './loanrefund'
 import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
-import {getqueryAdvancePaymentInfo, getqueryBankInfo} from './cashadvancebank'
+import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
 
 export {
   doLogin,
@@ -112,6 +112,8 @@ export {
   submitCashAdvance,
   getqueryAdvancePaymentInfo,
   getqueryBankInfo,
-
+  calculateInterest,
+  beforeSubmitCashAdvBank,
+  submitCashAdvanceBank,
   
 };

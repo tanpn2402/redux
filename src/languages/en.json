@@ -510,8 +510,10 @@
           "remark": "Your cash advance will not change until it is approved"
         },
         "message": {
-          "insufficientfund" : "123",
-          "noamount": "123123"
+          "insufficientfund" : "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
+          "noamount": "123123",
+          "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
+          "advancePaymentSuccessful": "Thành công"
         }
       },
       "watchlist":{
@@ -704,6 +706,12 @@
         },
         "popup": {
           "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+        },
+        "message": {
+          "insufficientfund" : "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
+          "wrongAmount": "Số tiền Quý khách muốn ứng không hợp lệ.",
+          "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
+          "advancePaymentSuccessful": "Thành công"
         }
       },
       "messagebox": {

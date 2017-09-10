@@ -700,7 +700,16 @@
           "note": "Lưu ý"
         },
          "popup": {
-          "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+          "title": "Ứng trước tiền chứng khoán ( Ngân hàng)",
+          "message": "Bạn có chắc chắn muốn thực hiện ?",
+          "ok": "OK",
+          "cancel": "Bỏ qua"
+        },
+        "message": {
+          "insufficientfund" : "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
+          "wrongAmount": "Số tiền Quý khách muốn ứng không hợp lệ.",
+          "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
+          "advancePaymentSuccessful": "Thành công"
         }
       },
       "messagebox": {

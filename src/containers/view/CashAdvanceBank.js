@@ -9,35 +9,66 @@ import Popup from '../Popup'
 import SearchBar from '../commons/SearchBar'
 import Pagination from '../commons/Pagination'
 import DataUpperTable from '../DataUpperTable'
+import * as Utils from '../../utils'
 
 class CashAdvanceBank extends Component {
     constructor(props) {
-        super(props);
+        super(props)
 
-        this.params1 = {
-            key:'1504669249461',
+        this.id = 'cashadvancebank'
+        this.defaultPageSize = 15
+        this.rowSelected = []
+
+        this.queryBankInfoParams = {
+            key: (new Date()).getTime()
         }
 
-        this.params = {
-            key:'1504663425580',
-            _dc:'1504663425583',
+        this.getCashAdvanceHistoryParams = {
+            key: (new Date()).getTime(),
             mvLastAction: 'OTHERSERVICES',
             mvChildLastAction: 'ADVANCEPAYMENT',
+            queryBank: true,
             start: '0',
-            limit: '15',
+            limit: this.defaultPageSize,
             page: '1'
         }
 
-        this.params3 = {
-            mvBankID: 'HCM.01',
-            mvSettlement: '3T',
+        this.queryAdvancePaymentInfoParams = {
+            mvBankID: '',
+            mvSettlement: '',
         }
 
+        this.MatchOrderBankListData = {
+            cOrderIDArray: [],
+            cContractIDArray: [],
+            cTovalValue: 0,
+            cAmount: 0,
+            cMaxAmt: 0,
+            cCurrencySymbol: "",
+            cBankIDHF: "",
+            cBankACIDHF: "",
+            cTPLUSXHF: ""
+        }
 
         this.state = {
-           formValues: {},
-            isShow: false,
+            formValues: {},
+            cashAdvHistoryPageIndex: 1,
+            matchOrderBankListPageIndex: 1,
             columns1: [
+                {
+                    id: 'cb',
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    maxWidth: 50,
+                    width: 40,
+                    Cell: props => {
+                        return (
+                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                onChange={() => { this.onRowSelected(props.original) }} />
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
                 {
                     Header: this.props.language.cashadvancebank.header.contractid,
                     accessor: 'contractid',
@@ -140,17 +171,27 @@ class CashAdvanceBank extends Component {
                     skip: false,
                 }
             ],
-        };
+        }
 
-        this.onChange = this.onChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.id = 'cashadvancebank'
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({
             columns1: [
+                {
+                    id: 'cb',
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    maxWidth: 50,
+                    width: 40,
+                    Cell: props => {
+                        return (
+                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                onChange={() => { this.onRowSelected(props.original) }} />
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
                 {
                     Header: this.props.language.cashadvancebank.header.contractid,
                     accessor: 'mvContractID',
@@ -253,28 +294,32 @@ class CashAdvanceBank extends Component {
                     skip: false
                 }
             ],
-        });
+        })
     }
 
     render() {
-        var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo.mvChildBeanList === undefined ? [] : this.props.queryAdvancePaymentInfo.mvChildBeanList
-        var CashAdvanceHistory = this.props.CashAdvanceHistory.list
-        var queryBankInfo = this.props.queryBankInfo.historyList
-        let lgClose = () => this.setState({ isShow: false })
+        var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
+        var cashAdvanceHistory = this.props.cashAdvanceHistory
+        var queryBankInfo = this.props.queryBankInfo
+        var calculateInterestAmt = this.props.calculateInterestAmt
+        
+        // table 1
         let buttonAction1 = [
             <Pagination
-                    pageIndex={this.state.pageIndex1} 
-                    totalRecord={10} 
+                    pageIndex={this.state.cashAdvHistoryPageIndex} 
+                    totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)} 
                     onPageChange={this.onPageChange1.bind(this)}
                     onNextPage={this.onNextPage1.bind(this)}
                     onPrevPage={this.onPrevPage1.bind(this)}
                     onReloadPage={this.onReloadPage1.bind(this)}
                 />,
         ]
+
+        // table 2
         let buttonAction2 = [
             <Pagination
-                    pageIndex={this.state.pageIndex2} 
-                    totalRecord={10} 
+                    pageIndex={this.state.matchOrderBankListPageIndex} 
+                    totalRecord={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)} 
                     onPageChange={this.onPageChange2.bind(this)}
                     onNextPage={this.onNextPage2.bind(this)}
                     onPrevPage={this.onPrevPage2.bind(this)}
@@ -290,75 +335,70 @@ class CashAdvanceBank extends Component {
                     <div className="title" style={this.props.theme.porfolio.titlestock}>
                         <span>{this.props.language.cashadvance.header.cashadvanceplace}</span>
                     </div>
-                    <Form onSubmit={this.handleSubmit} id="form-cashadvance">
+                    <Form onSubmit={this.handleSubmit.bind(this)} id="form-cashadvance">
                         <FormGroup>
                             <Table responsive>
                                 <tbody >
                                      <tr>
                                         <th className="enterorder">{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <input id="mvBank" list="Bank" name="bank" id="mvBank" required />
+                                            <input id="mvBank" list="Bank" name="bank" id="mvBank" onChange={this.getAdvanceOrderData.bind(this)} required />
                                             <datalist id="Bank">
-                                                <option value="ACB-125137309" />
-                                                <option value="DAB-3213132" />
-                                                <option value="BIDV-12321" />
+                                                {
+                                                    queryBankInfo.mvBankInfoList.map(bank => {
+                                                        return (
+                                                            <option value={bank.mvSettlementAccountDisplayName} />
+                                                        )
+                                                    })
+                                                }
                                             </datalist>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th className="enterorder">{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                        <td>4.600.630</td>
+                                        <td id="txtAdvanceAvailable">4.600.630</td>
                                     </tr>
                                     <tr>
                                         <th className="enterorder">{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
-                                        <input type="hidden" id="mvTotalPrice" value={this.calculate()} />
-                                            {this.calculate() || 0}
+                                            {Utils.toTTLCurrencyFormat(calculateInterestAmt.mvInterestAmt)}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th className="enterorder">{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td>
-                                        <FormGroup controlID="volume">
-                                            <input type="number" name="volume" min="0" onChange={this.onChange}  id="volume" required />
-                                        </FormGroup>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <div className="button">
-                                                <Button className="btn btn-default" type="submit" className="submit">
-                                                    Submit
-                                                </Button>
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <div className="button">
-                                                <Button className="btn btn-default" type="reset" className="cancel">
-                                                    Clear
-                                                </Button>
-                                            </div>
+                                            <FormGroup controlID="volume">
+                                                <input type="number" name="volume" min="0" onBlur={this.doCalculateInterest.bind(this)}  
+                                                    id="txtAdvancePayment" required />
+                                            </FormGroup>
                                         </td>
                                     </tr>
                               </tbody>
                           </Table>
+                          <div className="group-btn-action cashadvancebank-action">
+                                    <span>
+                                        <Button className="btn btn-default" type="submit" className="submit">
+                                            Submit
+                                        </Button>
+                                        <Button className="btn btn-default" type="reset" className="cancel">
+                                            Clear
+                                        </Button>
+                                    </span>
+                                </div>
                         </FormGroup>
-                        <Popup
-                            id='cashadvance'
-                            show={this.state.isShow}
-                            onHide={lgClose}
-                            advanceAmount={this.mvVolume}
-                            language={this.props.language}
-                            title = {this.props.language.cashadvancebank.popup.cashadvancebank}/>
                     </Form>
                 </div>
-                <div className="cashadvancebank-table1">
+                <div className="cashadvancebank-table1"> {/*table 1*/}
                     <div className="table-main">
                         <DataUpperTable
                             key={this.id + "-table1"}
                             id={this.id + "-table1"}
-                            defaultPageSize={15}
-                            columns={this.state.columns1}/>
+                            defaultPageSize={this.defaultPageSize}
+                            columns={this.state.columns1}
+                            data={queryAdvancePaymentInfo.mvChildBeanList.slice(
+                                    (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize + 1, 
+                                    this.state.matchOrderBankListPageIndex * this.defaultPageSize + 1)}
+                            />
 
                     </div>
                     <div className="table-header">
@@ -377,17 +417,17 @@ class CashAdvanceBank extends Component {
                           columns={this.state.columns1}
                           onChangeStateColumn={this.onChangeStateColumn1.bind(this)}
                           param={['dropdown']}
-                          data={queryAdvancePaymentInfo}/>
+                          />
                     </div>
                  </div>
             </div>
 
-            <div className="cashadvancebank-table2">
+            <div className="cashadvancebank-table2"> {/*table 2*/}
                 <div className="table-main">
                     <DataUpperTable
                         key={this.id + "-table2"}
                         id={this.id + "-table2"}
-                        defaultPageSize={15}
+                        defaultPageSize={this.defaultPageSize}
                         columns={this.state.columns2}/>
                 </div>
                 <div className="table-header">
@@ -406,7 +446,7 @@ class CashAdvanceBank extends Component {
                       columns={this.state.columns2}
                       onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
                       param={['dropdown']}
-                      data={CashAdvanceHistory}/>
+                      data={cashAdvanceHistory.list}/>
                 </div>
                 
             </div>    
@@ -424,31 +464,20 @@ class CashAdvanceBank extends Component {
     }
 
     onNextPage1(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+        this.setState({ matchOrderBankListPageIndex:  parseInt(this.state.matchOrderBankListPageIndex) + 1});
     }
 
     onPrevPage1(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+        this.setState({ matchOrderBankListPageIndex:  parseInt(this.state.matchOrderBankListPageIndex) - 1});
+        
     }
 
     onReloadPage1(){
-        // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
     onPageChange1(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+        this.setState({ matchOrderBankListPageIndex:  parseInt(pageIndex)});
+        
     }
 ///2///
     onChangeStateColumn2(e) {
@@ -459,79 +488,157 @@ class CashAdvanceBank extends Component {
     }
 
     onNextPage2(){
-        if(this.state.pageIndex > 0){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+        this.state.cashAdvHistoryPageIndex = parseInt(this.state.cashAdvHistoryPageIndex) + 1
+        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdvHistoryPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdvHistoryPageIndex
+        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
+
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onPrevPage2(){
-        if(this.state.pageIndex > 1){
-            // this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
-        }
+        this.state.cashAdvHistoryPageIndex = parseInt(this.state.cashAdvHistoryPageIndex) + 1
+        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdvHistoryPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdvHistoryPageIndex
+        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
+
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onReloadPage2(){
-        this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onPageChange2(pageIndex) {
-        if(pageIndex > 0){
-            // this.state.pageIndex = pageIndex
-            // this.paramshkscashtranhis['start'] = (this.state.pageIndex - 1) * this.paramshkscashtranhis['limit']
-            // this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.state.cashAdvHistoryPageIndex = parseInt(pageIndex)
+        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdvHistoryPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdvHistoryPageIndex
+        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
+
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
+    }
+    ////
+
+     onRowSelected(param) {
+        if (param === 'ALL') {
+            var current = document.getElementById(this.id + '-cb-all').checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.queryAdvancePaymentInfo.mvChildBeanList
+            else
+                this.rowSelected = []
         }
+        else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            }
+            else {
+                this.rowSelected.splice(index, 1)
+            }
+
+            if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
+                document.getElementById(this.id + "-cb-all").checked = true
+            else
+                document.getElementById(this.id + "-cb-all").checked = false
+        }
+
+        this.MatchOrderBankListData.cTovalValue = 0;
+        this.MatchOrderBankListData.cOrderIDArray = new Array()
+        this.MatchOrderBankListData.cContractIDArray = new Array()
+
+        for (var i = 0; i < this.rowSelected.length; i++) {
+            this.MatchOrderBankListData.cOrderIDArray[i] = this.rowSelected[i].mvOrderID
+            this.MatchOrderBankListData.cContractIDArray[i] = this.rowSelected[i].mvContractID
+            this.MatchOrderBankListData.cTovalValue += parseFloat(this.rowSelected[i].mvAvailableAmount)
+            this.MatchOrderBankListData.cTPLUSXHF = this.rowSelected[i].mvSettleDay
+        }
+        
+        var txtAdvanceAvailable = document.getElementById('txtAdvanceAvailable')
+        var txtAdvancePayment = document.getElementById('txtAdvancePayment')
+        txtAdvanceAvailable.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
+        txtAdvancePayment.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
+        
+        this.props.calculateInterest({
+            advPayment: document.getElementById('txtAdvancePayment').value,
+            language: this.props.language
+        })
     }
 
     handleSubmit(e) {
+        e.preventDefault()
+        let advPayment = document.getElementById('txtAdvancePayment').value
+        this.MatchOrderBankListData['advAmt'] = advPayment
+        this.props.beforeSubmitCashAdvBank({
+            advPayment: advPayment,
+            language: this.props.language,
+            data: this.MatchOrderBankListData
+        })
+    }
+
+    doCalculateInterest(e) {
         e.preventDefault();
+        this.props.calculateInterest({
+            advPayment: document.getElementById('txtAdvancePayment').value,
+            language: this.props.language
+        })
+    }
+
+    getAdvanceOrderData(e){
+        // get data and fill out to table 1
+        var bank = this.props.queryBankInfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
+        if(bank.length > 0){
+            var stleDay = "3T"
+            var params = {
+                'mvBankID' : bank[0].mvBankID,
+                'mvSettlement' : stleDay
+            }
+
+            this.props.getqueryAdvancePaymentInfo(params)
+        }
         
-        this.setState({ isShow: true })
     }
 
-    onChange(e) {
-        e.preventDefault();
-        let formValues = this.state.formValues;
-        let name = e.target.name;
-        let value = e.target.value;
-
-        formValues[name] = value;
-        this.setState({ formValues })
-    }
-
-    calculate() {
-        this.state.value = this.state.formValues.volume / 2500;
-        return this.state.value;
-    }
 
     componentDidMount(){
-        this.props.getqueryAdvancePaymentInfo(this.params3, !this.props.reload);
-        this.props.getCashAdvance(this.params, !this.props.reload);
-        this.props.getqueryBankInfo(this.params1, !this.props.reload);
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
+        this.props.getqueryBankInfo(this.queryBankInfoParams)
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
-        CashAdvanceHistory: state.cashadvancebank.CashAdvanceHistory,
+        cashAdvanceHistory: state.cashadvancebank.CashAdvanceHistory,
         queryBankInfo: state.cashadvancebank.queryBankInfo,
+        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getqueryAdvancePaymentInfo: (params3) => {
-        dispatch(actions.getqueryAdvancePaymentInfo(params3))
+    getqueryAdvancePaymentInfo: (params) => {
+        dispatch(actions.getqueryAdvancePaymentInfo(params))
     },
     getCashAdvance: (params) => {
         dispatch(actions.getCashAdvance(params))
     },
-    getqueryBankInfo: (params1) => {
-        dispatch(actions.getqueryBankInfo(params1))
+    getqueryBankInfo: (params) => {
+        dispatch(actions.getqueryBankInfo(params))
     },
+    calculateInterest: (params) => {
+        dispatch(actions.calculateInterest(params))
+    },
+    beforeSubmitCashAdvBank: (params) => {
+        dispatch(actions.beforeSubmitCashAdvBank(params))
+    },
+    onShowMessageBox: (title, message) => {
+        dispatch(actions.showMessageBox(title, message))
+    },
+
 })
 
 

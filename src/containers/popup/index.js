@@ -9,6 +9,7 @@ import LoanRefund from './LoanRefund'
 import AdvancePayment from './AdvancePayment'
 import Settings from './Settings'
 import CancelCashtransfer from './CancelCashtransfer'
+import CashAdvanceBank from './CashAdvanceBank'
 
 export default function(props, onClose){
 	
@@ -39,6 +40,10 @@ export default function(props, onClose){
 		
 		case 'cashadvance':
 			return (<CashAdvancePopup onHide={onClose} data={props.data} language={props.language}/>)
+			break;
+
+		case 'cashadvancebank':
+			return (<CashAdvanceBank onHide={onClose} data={props.data} language={props.language}/>)
 			break;
 
 		case 'loanrefund':
