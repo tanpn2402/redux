@@ -331,7 +331,7 @@ class LoanRefund extends Component {
                                 </tr>
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.availablecashforrefund}</th>
-                                    <td>{localrefund.cashrsv > 0 ? localrefund.cashrsv : 0}</td>
+                                    <td id="cashrsv">{localrefund.cashrsv > 0 ? localrefund.cashrsv : 0}</td>
                                 </tr>
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.cashadvanceable}</th>
@@ -371,13 +371,13 @@ class LoanRefund extends Component {
                             <tbody >
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.cashadvanceavailable}</th>
-                                    <td>
+                                    <td id="advavailable">
                                         {localadvance.advAvailable}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{this.props.language.loanrefund.form.advancefee}</th>
-                                    <td>  <input type="hidden" id="advamount" value={this.calculate()} />
+                                    <td>  <input type="hidden" id="advfee" value={this.calculate()} />
                                       {this.state.defaultvalue ===true ?localadvance.advFee : this.calculate()}</td>
                                 </tr>
                                 <tr>
@@ -499,11 +499,27 @@ class LoanRefund extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        var loanrefundamount = document.getElementById('loanrefundamount').value
+        var cashrsv = document.getElementById('cashrsv').innerHTML
+        if(loanrefundamount<=0)
+        this.props.onShowMessageBox(1, this.props.language.loanrefund.warning.notblank)
+        else
+        if(cashrsv<loanrefundamount)
+        this.props.onShowMessageBox(1, this.props.language.loanrefund.warning.insufficient)
+        else
         this.setState({ isShow: true })
     }
 
     handleSubmit2(e) {
         e.preventDefault();
+        var advavailable = parseInt(document.getElementById('advavailable').innerHTML.replace(/\./g,''))
+        var advamount = document.getElementById('advamount').value
+        if(advamount<=0)
+        this.props.onShowMessageBox(1,this.props.language.loanrefund.warning.notblank)
+        else
+        if(advavailable<advamount)
+        this.props.onShowMessageBox(1, this.props.language.loanrefund.warning.overlimit)
+        else
         this.setState({ isShow2: true })
     }
 
@@ -554,7 +570,7 @@ class LoanRefund extends Component {
     }
 
     onNextPage2(){
-        if(this.state.pageIndex2 > 0 && 
+        if(this.state.pageIndex2 > 0 &&
             this.state.pageIndex2 < Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize))
         {
              this.state.pageIndex2 = parseInt(this.state.pageIndex2) + 1
@@ -578,7 +594,7 @@ class LoanRefund extends Component {
     }
 
     onPageChange2(pageIndex) {
-        if(pageIndex > 0 && 
+        if(pageIndex > 0 &&
             pageIndex <= Math.ceil(this.props.LoanRefundHistoryTotalRecord / this.defaultPageSize))
         {
              this.state.pageIndex2 = pageIndex
@@ -602,7 +618,7 @@ class LoanRefund extends Component {
     }
 
     calculate() {
-        this.state.value = (this.state.formValues.advamount / 2500) | 0;
+        this.state.value = (this.state.formValues.advamount / 650) | 0;
         return this.state.value;
     }
 
@@ -637,7 +653,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onSearch:(params) =>{
       dispatch(actions.getLoanRefundHistory(params))
-    }
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 })
 
 

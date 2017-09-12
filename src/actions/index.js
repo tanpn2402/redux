@@ -14,7 +14,7 @@ import { enquiryStockStatement, exportTransactionHistory } from './stockstatemen
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
 import {loadWatchList,addStock, removeStock} from './watchlist'
 import {getClientInfo, changePassword} from './profile'
-import {getOddlotEnquiry,getOddlotHistory,getOddLotSubmit,getBankInfo} from './oddlottrading'
+import {getOddlotEnquiry,getOddlotHistory,submitOddLot,getBankInfo , beforeRegisterOddLot} from './oddlottrading'
 import {getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
@@ -81,8 +81,10 @@ export {
   
   getOddlotEnquiry,
   getOddlotHistory,
-  getOddLotSubmit,
+  submitOddLot,
   getBankInfo,
+  beforeRegisterOddLot,
+
   getFundtransfer,
   gethksCachTranHis,
   getGenfundtransfer,

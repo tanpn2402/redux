@@ -5,7 +5,7 @@ import Pagination from '../commons/Pagination'
 import DataUpperTable from '../DataUpperTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Popup from '../Popup'
+import * as Utils from '../../utils'
 
 class OddLotTrading extends Component {
     constructor(props) {
@@ -152,13 +152,13 @@ class OddLotTrading extends Component {
         this.popupType = 'none'
         this.id = 'oddlottrading'
         this.defaultPageSize = 15
-        this.oddLotTransTotalRecord = 0
-        this.oddLotOrderTotalRecord = 0
         
         this.paramsOddLotHisEnquiry = {
             mvLastAction: 'OTHERSERVICES',
             mvChildLastAction: 'ODDLOT',
+            key: (new Date()).getTime(),
             start: '0',
+            page: 1,
             limit: this.defaultPageSize,
         }
 
@@ -264,7 +264,13 @@ class OddLotTrading extends Component {
                 {
                     id: 'exepriceH',
                     Header: nextProps.language.oddlottrading.header.exepriceH,
-                    accessor: 'price',
+                    Cell: props => {
+                        console.log(props.original.price)
+                        if(props.original.price === '0E-9')
+                            return 0
+                        else
+                            return Utils.currencyShowFormatter(props.original.price, ",", "vi-VN")
+                    },
                     width: 120,
                     skip: false,
                     show: true,
@@ -288,7 +294,9 @@ class OddLotTrading extends Component {
                 {
                     id: 'value',
                     Header: nextProps.language.oddlottrading.header.value,
-                    accessor: 'settleAmt',
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.settleAmt, ",", "vi-VN")
+                    },
                     width: 120,
                     skip: false,
                     show: true,
@@ -315,19 +323,15 @@ class OddLotTrading extends Component {
 
 
     render() {
-        let oddlotenquiry = this.props.oddlotenquiry.oddLotList === undefined ? [] : this.props.oddlotenquiry.oddLotList
-        let oddlothistory = this.props.oddlothistory === null ? [] : this.props.oddlothistory
-        let oddlothistoryData = oddlothistory.historyList === null ? [] : oddlothistory.historyList
-
-        this.oddLotOrderTotalRecord = oddlotenquiry.length
-        this.oddLotTransTotalRecord = oddlothistory.totalCount
-
-        let lgClose = () => this.setState({ isShow: false });
-
+        
+        let oddlotenquiry = this.props.oddlotenquiry
+        let oddlothistory = this.props.oddlothistory
+        
+        // table 1
         let buttonActionOddLotOrder = [
             <Pagination
                 pageIndex={this.state.oddLotOrderPageIndex}
-                totalRecord={Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize)}
+                totalRecord={Math.ceil(oddlotenquiry.oddLotList.length / this.defaultPageSize)}
                 onPageChange={this.onOddLotOrderPageChange.bind(this)}
                 onNextPage={this.onOddLotOrderNextPage.bind(this)}
                 onPrevPage={this.onOddLotOrderPrevPage.bind(this)}
@@ -338,10 +342,11 @@ class OddLotTrading extends Component {
             </Button>
         ]
 
+        // table 2
         let buttonActionOddLotTrans = [
             <Pagination
                 pageIndex={this.state.oddLotTransPageIndex}
-                totalRecord={Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize )}
+                totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize )}
                 onPageChange={this.onOddLotTransPageChange.bind(this)}
                 onNextPage={this.onOddLotTransNextPage.bind(this)}
                 onPrevPage={this.onOddLotTransPrevPage.bind(this)}
@@ -356,7 +361,9 @@ class OddLotTrading extends Component {
                         <div className="table-main">
                             <DataUpperTable
                                 columns={this.state.enquirycolumns}
-                                data={oddlotenquiry.slice( (this.state.oddLotOrderPageIndex - 1)*15, this.state.oddLotTransPageIndex*15 )}
+                                data={oddlotenquiry.oddLotList.slice( 
+                                        (this.state.oddLotOrderPageIndex - 1)*this.defaultPageSize, 
+                                        this.state.oddLotTransPageIndex*this.defaultPageSize )}
                                 defaultPageSize={this.defaultPageSize}/>
                         </div>
                         <div className="table-header">
@@ -391,7 +398,7 @@ class OddLotTrading extends Component {
                     <div className="table-main">
                         <DataUpperTable
                             columns={this.state.historycolumns}
-                            data={oddlothistoryData}
+                            data={oddlothistory.historyList}
                             defaultPageSize={this.defaultPageSize}/>
                     </div>
                     <div className="table-header">
@@ -413,13 +420,6 @@ class OddLotTrading extends Component {
 
 
                 </div>
-                <Popup
-                    id='oddlottrading'
-                    show={this.state.isShow}
-                    onHide={lgClose}
-                    rowSelected={this.rowSelected}
-                    language={this.props.language}
-                    title = {this.props.language.oddlottrading.popup.title}/>
             </div>
             </div>
         )
@@ -462,68 +462,64 @@ class OddLotTrading extends Component {
 
     registerOddLotOrder(e) {
         e.preventDefault();
-        if(this.rowSelected.length>0)
-        this.setState({ isShow: true })
+        if(this.rowSelected.length > 0){
+            this.props.beforeRegisterOddLot({
+                language: this.props.language,
+                data: {rowSelected: this.rowSelected, me: this}
+            })
+        }
         else {
-            this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
+            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 'Vui long chon 1 ma CK')
         }
     }
 
-    /// lower ///
+    reloadData(){
+        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
+        this.props.onshowenquiry(this.paramsEnquiryOddLot)
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
+    }
+
+    /// table 2 ///
     onOddLotTransPageChange(pageIndex) {
-        if(pageIndex > 0 && pageIndex <= Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize)){
-            this.state.oddLotTransPageIndex = pageIndex
-            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
-            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
-        }
+        this.state.oddLotTransPageIndex = pageIndex
+        this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
+        this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
     }
 
     onOddLotTransNextPage(){
-        if(this.state.oddLotTransPageIndex > 0 && 
-            this.state.oddLotTransPageIndex < Math.ceil(this.oddLotTransTotalRecord / this.defaultPageSize))
-        {
-            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
-            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
-            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
-
-        }
+        this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
+        this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
+        this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
     }
 
     onOddLotTransPrevPage(){
-        if(this.state.oddLotTransPageIndex > 1){
-            this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
-            this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
-            this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
-
-        }
+        this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
+        this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
+        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
+        this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
     }
 
     onOddLotTransReloadPage(){
-        this.props.onshowhistory(this.paramsOddLotHisEnquiry, !this.props.reload)
+        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
+        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
     }
 
-    /// upper ///
+    /// table 1 ///
     onOddLotOrderNextPage(){
-        if(this.state.oddLotOrderPageIndex > 0 && 
-            this.state.oddLotOrderPageIndex < Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize))
-        {
-            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) + 1
-            
-        }
+        this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1})
     }
 
     onOddLotOrderPrevPage(){
-        if(this.state.oddLotOrderPageIndex > 1){
-            this.state.oddLotOrderPageIndex = parseInt(this.state.oddLotOrderPageIndex) - 1
-          
-
-        }
+        this.setState({ oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) - 1 })
     }
 
     onOddLotOrderPageChange(pageIndex) {
-      if(pageIndex > 0 && pageIndex <= Math.ceil(this.oddLotOrderTotalRecord / this.defaultPageSize)){
-          this.state.oddLotOrderPageIndex = pageIndex
-      }
+        this.setState({ oddLotOrderPageIndex: pageIndex })
     }
 
 
@@ -560,6 +556,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
     },
+    beforeRegisterOddLot: (params) => {
+        dispatch(actions.beforeRegisterOddLot(params))
+    }
 })
 
 

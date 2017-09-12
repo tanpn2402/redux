@@ -34,16 +34,16 @@ export default function(props, onClose){
 			return (<ConfirmOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
 
-		case 'oddlottrading' :
-			return (<OddLotTrading onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+		case 'oddlottrading':
+			return (<OddLotTrading onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 		
 		case 'cashadvance':
-			return (<CashAdvancePopup onHide={onClose} data={props.data} language={props.language}/>)
+			return (<CashAdvancePopup onHide={onClose} authcard={props.authcard}  data={props.data} language={props.language}/>)
 			break;
 
 		case 'cashadvancebank':
-			return (<CashAdvanceBank onHide={onClose} data={props.data} language={props.language}/>)
+			return (<CashAdvanceBank onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 
 		case 'loanrefund':

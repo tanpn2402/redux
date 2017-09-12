@@ -47,6 +47,7 @@ const mapStateToProps = state => ({
     language: state.popup.language,
     id: state.popup.id,
     title: state.popup.title,
+    authcard: state.popup.authcard,    
     timestamp: state.popup.timestamp
 });
 

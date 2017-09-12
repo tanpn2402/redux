@@ -1,8 +1,24 @@
 import {ActionTypes} from '../core/constants';
 
 const initialState = {
-	oddlotenquiry : [],
-	oddlothistory: []
+	oddlotenquiry : {
+        mvResult: null,
+        oddLotList: []
+    },
+	oddlothistory: {
+        historyList: [],
+        mvCurrentPage: 0,
+        mvPage: null,
+        mvResult: null,
+        mvReturnCode: 0,
+        totalCount: 0
+    },
+    bankinfo: {
+        mvBankInfoList: [],
+        mvErrorCode: "0",
+        mvErrorResult: "fail",
+        success: true
+    }
 };
 
 export default function(state = initialState, action) {

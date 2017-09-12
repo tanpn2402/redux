@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   getLoanRefundSubmit: (params) => {
-      dispatch(actions.getLoanRefundSubmit(this.params))
+      dispatch(actions.getLoanRefundSubmit(params))
   },
     checkAuthen: (code1, code2, input1, input2, language) => {
         dispatch(actions.checkAuthen(code1, code2, input1, input2, language))

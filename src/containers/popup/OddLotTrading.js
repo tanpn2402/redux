@@ -10,55 +10,77 @@ import CheckAuthenticationModal from './CheckAuthenticationModal'
 class OddLotSubmit extends Component{
     constructor(props) {
         super(props)
-
+        
         this.params = {
-            mvOddList:'HA|ACB|TDCN|40',
-            annoucementId:'10003413',
-            mvInterfaceSeq:'-1',
-            mvSeriNo:'[5,A]|[4,F]',
-            mvAnswer:'7|4',
-            mvSaveAuthenticate:'true',
+            mvOddList:'',
+            annoucementId:'',
+            mvInterfaceSeq:'',
+            mvSeriNo:'',
+            mvAnswer:'',
+            mvSaveAuthenticate: false
         }
-        this.checkAuthentication = this.checkAuthentication.bind(this);
+        
+        this.getBankInfoParams = {
+            key: (new Date()).getTime()
+        }     
+        this.authParams = {
+            matrixKey01: '[5,A]',
+            matrixKey02: '[4,F]',
+            matrixValue01: '7',
+            matrixValue02: '4',
+            savedAuthen: true,
+        }
+
         this.columns = [
             {
                 id: 'stockID',
                 Header: this.props.language.oddlottrading.header.stockid,
                 accessor: 'stockCode',
-                width: 200,
                 sortable: false,
+                show: true,
             },
             {
                 id: 'Type',
                 Header: this.props.language.oddlottrading.header.type,
                 accessor: 'location',
-                width: 200,
                 sortable: false,
+                show: true,
             },
             {
                 id: 'Volume',
                 Header: this.props.language.oddlottrading.header.oddlotquantity,
+                accessor: 'oddLotQty',
                 Cell: props => {
                     console.log(props)
                     return (
-                        <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty} />
+                        <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
+                            min="0" max={props.original.oddLotQty} />
                     )
                 },
                 width: 200,
                 sortable: false,
-            },
-        ],
-        
+                show: true,
+            }
+        ]
+
         this.id = 'canceloddlot-popup'
+        this.mvInterfaceSeq = -1
     }
 
+    submitOddLot() {
+        // this.props.getOddLotSubmit(this.params,this.props.rowSelected,!this.props.reload)
+        // this.props.onHide()
 
-    getOddLotSubmit() {
-        let data = this.props.rowSelected
+        let data = this.props.data.rowSelected
+        let language = this.props.language
+
         let overQty = false
         data.map(e => {
             let qty = document.getElementById(e.stockCode + '-qty').value
-            if(qty > e.oddLotQty){
+            if(qty <= 0){
+                overQty = true
+            }
+            else if(qty > e.oddLotQty){
                 overQty = true
             }
             else{
@@ -67,42 +89,64 @@ class OddLotSubmit extends Component{
         })
 
         if(!overQty){
-            this.props.getOddLotSubmit(data)
-            this.props.onHide()
+
+            if(this.props.authcard){
+                this.authParams = {
+                    matrixKey01: document.getElementById("matrix-key01").value,
+                    matrixKey02: document.getElementById("matrix-key02").value,
+                    matrixValue01: document.getElementById("matrix-value01").value.toUpperCase(),
+                    matrixValue02: document.getElementById("matrix-value02").value.toUpperCase(),
+                    savedAuthen: document.getElementById("matrix-save-authen").checked,
+                }
+            }
+            
+            console.log(this.authParams)
+            this.props.submitOddLot({
+                oddLotData: data,
+                annoucementId: this.props.data.annoucementId,
+                mvInterfaceSeq: this.mvInterfaceSeq,
+                authParams: this.authParams,
+                language: this.props.language,
+                me: this.props.data.me,
+                popup: this
+            })
+            //this.props.onHide()
         }
         else{
-            this.props.onShowMessageBox(0, "Vượt quá số lượng CK lô lẻ của mã KLS mà Quý khách hiện có. Vui lòng kiểm tra lại thông tin đăng ký.")
+            this.props.onShowMessageBox(language.messagebox.title.error, language.oddlottrading.message.wrongQty)
         }
-        
+
     }
 
-    checkAuthentication(e) {
-        // Prevent from reloading page when submit
-        e.preventDefault();
-        const code1 = document.getElementById("code1").innerText;
-        const code2 = document.getElementById("code2").innerText;
-        const input1 = document.getElementById("input1").value;
-        const input2 = document.getElementById("input2").value;
-        this.props.checkAuthen(code1, code2, input1, input2, this.props.language.matrixcard);
+    handleChange(e){
+        var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
+        if(bank.length > 0){
+            this.mvInterfaceSeq = bank[0].mvInterfaceSeq
+        }
+        else if(e.target.value === "MAS"){
+            this.mvInterfaceSeq = -1
+        }
     }
 
     componentDidMount() {
-        this.props.getBankInfo(!this.props.reload);
+        this.props.getBankInfo(this.getBankInfoParams)
+    }
+
+    closePopup(){
+        this.props.onHide()
     }
 
     render(){
-
-        var bankinfo = this.props.bankinfo === undefined ? [] : this.props.bankinfo.mvBankInfoList
+        var bankinfo = this.props.bankinfo
         return(
             <div style={{textAlign:'center'}}>
                 <Modal.Body>
                     <div className="oddlotdropdownlist">
                         <span>
                             <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
-                            <select>
-                                <option value="MAS">MAS</option>
+                            <select onChange={this.handleChange.bind(this)}>
                                 {
-                                    bankinfo.map(e => {
+                                    bankinfo.mvBankInfoList.map(e => {
                                         return (
                                             <option value={e.mvSettlementAccountDisplayName}>{e.mvSettlementAccountDisplayName}</option>
                                         )
@@ -113,18 +157,19 @@ class OddLotSubmit extends Component{
                     </div>
                     <DataTable
                         id={this.id + "-table"}
-                        data={this.props.rowSelected}
+                        data={this.props.data.rowSelected}
                         columns={this.columns}
                         maxRows={5}
                         defaultPageSize={15}
                     />
                 </Modal.Body>
+                {
+                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language}/>
+                }
 
-                <CheckAuthenticationModal language={this.props.language}/>
-               
                 <Modal.Footer>
                     <Button  className="cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
-                    <Button  className="submit" onClick={this.getOddLotSubmit.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
+                    <Button  className="submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
                 </Modal.Footer>
             </div>
         )
@@ -140,14 +185,14 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getOddLotSubmit: (params) => {
-        dispatch(actions.getOddLotSubmit(this.params))
+    submitOddLot: (params) => {
+        dispatch(actions.submitOddLot(params))
     },
     checkAuthen: (code1, code2, input1, input2, language) => {
         dispatch(actions.checkAuthen(code1, code2, input1, input2, language))
     },
-    getBankInfo: () => {
-      dispatch(actions.getBankInfo({key: ""}))
+    getBankInfo: (params) => {
+      dispatch(actions.getBankInfo(params))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))

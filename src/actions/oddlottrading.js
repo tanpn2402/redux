@@ -1,5 +1,8 @@
 import * as WebApi from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
+import * as Utils from '../utils'
+import {showMessageBox} from './notification'
+import {showPopup} from './popup'
 
 const {ActionTypes} = require('../core/constants')
 
@@ -17,24 +20,82 @@ export function getOddlotHistory(params) {
   }
 }
 
-export function getOddLotSubmit(params) {
+export function submitOddLot(params) {
+  var mvOddList;
+  var oddLotData = params.oddLotData
+  var annoucementId = params.annoucementId
+  var authParams = params.authParams
+  var mvInterfaceSeq = params.mvInterfaceSeq
+  var language = params.language
+  var me = params.me
+  var popup = params.popup
+
+  if (oddLotData && oddLotData.length > 0) {
+    mvOddList = new Array()
+    for (var i = 0; i < oddLotData.length; i++) {
+        var data = oddLotData[i]
+        mvOddList[i] = data.marketId + "|" + data.stockCode + "|" + data.location + "|" + data.oddLotQty;
+    }
+  }
+
+  var _params = {
+    "mvOddList": mvOddList,
+    "annoucementId": annoucementId,
+    'mvInterfaceSeq': mvInterfaceSeq,
+    'mvSeriNo': authParams.matrixKey01 + '|' + authParams.matrixKey02,
+    'mvAnswer': authParams.matrixValue01 + '|' + authParams.matrixValue02,
+    'mvSaveAuthenticate' : authParams.savedAuthen
+  }
+
+  var responseOddLotSubmit = function(response){
+    if (response.mvReturnCode != 0 || response.mvResult != "true") {
+      
+          if (response.mvResult == "false") {
+            return (dispatch) => {
+              dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.registerFail))
+            }
+          }
+          else {
+            return (dispatch) => {
+              dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
+            }
+          }
+         
+          //oddLotConfirmWin.resetWindow();
+      }
+      else {
+        popup.closePopup()
+        me.reloadData()
+        return (dispatch) => {
+          dispatch(showMessageBox(language.messagebox.title.info, language.messagebox.message.registerSuccess))
+        } 
+      }
+  }
+
   return (dispatch)=>{
-    WebApi.post(ACTION.SUBMITODDLOT,params, dispatch,responseOddLotSubmit )
+    WebApi.post(ACTION.SUBMITODDLOT,_params, dispatch, responseOddLotSubmit )
   }
 }
 
 export function getBankInfo(params) {
-  return (dispatch)=>{
-    WebApi.post(ACTION.QUERYBANKINFO,params, dispatch,responseBankInfo )
+
+  var callback = function(response){
+    response.mvBankInfoList.unshift(      
+      {'mvBankID': "", 'mvBankACID': "", 'mvSettlementAccountDisplayName': "MAS", 'mvIsDefault': "N", 'mvInterfaceSeq': "-1"}    
+    )
+    console.log(response)
+    return {
+      type: ActionTypes.BANKINFO,
+      bankinfo: response,
+    }
+  }
+
+  return(dispatch) => {
+    WebApi.get(ACTION.QUERYBANKINFO, params, dispatch, callback)
   }
 }
 
-function responseBankInfo(response){
-  return {
-    type: ActionTypes.BANKINFO,
-    bankinfo: response,
-  }
-}
+
 
 function responseOddLotEnquiry(response){
   return {
@@ -50,18 +111,34 @@ function responseOddlotHistory(response){
   }
 }
 
- function responseOddLotSubmit(response,param) {
-  var _selectedValue=[];
-  for(var i=0;i<param.length;i++){
-    var tmp={};
-    tmp.createTime=param[i].createTime;
-    tmp.marketId=param[i].marketId;
-    tmp.price=param[i].price;
-    _selectedValue.push(tmp)
-  }
-  console.log(_selectedValue)
-    return {
-      type: ActionTypes.ODDLOTSUBMIT,
-      selectedRows: response
+
+export function beforeRegisterOddLot(params){
+  var language = params.language
+  var data = params.data
+
+  var process = function(response){
+    
+    if (response.annoucementId && response.annoucementId.trim().length > 0) {
+
+        data['annoucementId'] = response.annoucementId
+        return (dispatch) => {
+          dispatch(showPopup({
+            data: data,
+            title: language.oddlottrading.popup.title,
+            language: language,
+            id: 'oddlottrading',
+            authcard: false
+          }))
+        }
     }
+    else {
+      return (dispatch) => {
+        dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.notAnnouncement))
+      }
+    }
+  }
+
+  return (dispatch) => {
+    WebApi.post(ACTION.GETANNOUNCEMENT, [], dispatch, process)
+  }
 }
