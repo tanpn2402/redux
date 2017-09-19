@@ -172,18 +172,17 @@ class CashStatement extends Component {
 
                         columns={this.state.columns}
                         data={data}
-                        defaultPageSize={16} />
+                        defaultPageSize={15} />
                 </div>
                 <div className="component-body">
                     <SearchBar
-                        windowid="cashstatement"
-                        stockList={this.props.stockList}
+                        id={this.id}
                         theme={this.props.theme}
                         buttonAction={this.buttonAction}
                         onSearch={this.onSearch.bind(this)}
                         language={this.props.language.searchbar}
-                        columns={this.state.columns}
                         onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        data={{stockList: this.props.stockList, columns: this.state.columns}}
                         param={['mvStartDate', 'mvEndDate', 'dropdown']} />
 
                     <Popup

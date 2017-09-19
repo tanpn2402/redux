@@ -447,19 +447,19 @@ class WatchList extends Component {
                 <div className="component-body">
                     <SearchBar
                         id={this.id}
-                        onSearch={[]}
                         buttonAction={this.buttonAction} 
-                        stockList={[]} 
                         language={[]} 
                         theme={this.props.theme}
-                        columns={this.state.columns}
-                        onChangeStateColumn={[]}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                         param={['dropdown']}
-                        hideSearchButton={true}
-                        />
+                        data={{stockList: [], columns: this.state.columns }}/>
                 </div>
             </div>
         )
+    }
+
+    onChangeStateColumn(e){
+
     }
 
     

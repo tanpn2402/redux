@@ -391,14 +391,11 @@ class CashTransfer extends Component {
                    
                         <SearchBar
                             id={this.id}
-                            onSearch={[]}
                             buttonAction={buttonAction}
-                            stockList={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            columns={this.state.columns}
                             onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                            hideSearchButton={true}
+                            data={{stockList: [], columns: this.state.columns}}
                             param={['dropdown']} />
                     </div>
                     <Popup

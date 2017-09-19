@@ -394,14 +394,11 @@ class CashAdvance extends Component {
                         
                             <SearchBar
                                 id={this.id+"-searchbar2"}
-                                onSearch={[]}
                                 buttonAction={buttonActionCashAdTrans}
-                                stockList={[]}
-                                columns={this.state.columns2}
                                 language={this.props.language.searchbar}
                                 theme={this.props.theme}
                                 onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}
-                                hideSearchButton={true}
+                                data={{stockList: [], columns: this.state.columns2}}
                                 param={['dropdown']}
                                  />
                         </div>
@@ -414,7 +411,7 @@ class CashAdvance extends Component {
                         <DataUpperTable
                             id={this.id + "-table1"}
                             columns={this.state.columns1}
-                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1)*6, this.state.orderMatchListPageIndex*6 )}
+                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1)*15, this.state.orderMatchListPageIndex*15 )}
                             defaultPageSize={15}/>
                     </div>
                     <div className="table-header">
@@ -423,14 +420,11 @@ class CashAdvance extends Component {
                         </div>
                         <SearchBar
                             id={this.id+"-searchbar1"}
-                            onSearch={[]}
-                            columns={this.state.columns1}
                             buttonAction={buttonActionOrderMatchList}
-                            stockList={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
-                            hideSearchButton={true}
+                            data={{stockList: [], columns: this.state.columns1}}
                             param={['dropdown']} />
                     </div>
 

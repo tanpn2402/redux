@@ -151,11 +151,9 @@ class StockMarketInfo extends Component {
 	                    id={this.id}
 	                    onSearch={this.onSearch.bind(this)}
 	                    buttonAction={[]} 
-	                    stockList={this.props.stockList} 
 	                    language={this.props.language.searchbar} 
 	                    theme={this.props.theme}
-	                    columns={this.state.columns}
-	                    onChangeStateColumn={[]}
+						data={{stockList: this.props.stockList}}
 	                    param={['mvStockId']}/>
  				</div>
  	      	</div>

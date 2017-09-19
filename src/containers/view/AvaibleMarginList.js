@@ -152,11 +152,10 @@ class AvaibleMarginList extends Component {
                         id={this.id}
                         onSearch={this.onSearch.bind(this)}
                         buttonAction={buttonAction} 
-                        stockList={this.props.stockList} 
                         language={this.props.language.searchbar} 
                         theme={this.props.theme}
-                        columns={this.state.columns}
                         onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        data={{stockList: this.props.stockList, columns: this.state.columns}}
                         param={[ 'mvStockId', 'mvMarket', 'mvLending', 'dropdown']}/>
                 </div>
 

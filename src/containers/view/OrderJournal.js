@@ -201,11 +201,10 @@ class OrderJournal extends Component {
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
                 <div className="component-main">
                     <DataUpperTable
-                        id="orderjournal-table"
+                        id={this.id + "-table"}
                         onRowSelected={this.onRowSelected.bind(this)}
                         columns={this.state.columns}
                         data={data}
-                        maxRows={5}
                         defaultPageSize={15} />
                 </div>
                 <div className="component-body">
@@ -213,11 +212,10 @@ class OrderJournal extends Component {
                         id={this.id}
                         onSearch={this.onSearch.bind(this)}
                         buttonAction={this.buttonAction}
-                        stockList={this.props.stockList}
                         language={this.props.language.searchbar}
                         theme={this.props.theme}
-                        columns={this.state.columns}
                         onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        data={{stockList: this.props.stockList, columns: this.state.columns}}
                         param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
                     <Popup
                         id={this.id}

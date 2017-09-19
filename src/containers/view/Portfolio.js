@@ -563,14 +563,11 @@ class Portfolio extends Component {
 			        	</div>
 			        	<SearchBar
 	                        id={this.id}
-	                        hideSearchButton={true}
-	                        onSearch={[]}
 	                        buttonAction={this.buttonAction}
-	                        stockList={[]}
 	                        language={this.props.language.searchbar}
 	                        theme={this.props.theme}
-	                        columns={this.state.columns}
 	                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+							data={{stockList: [], columns: this.state.columns}}
 	                        param={['dropdown']} />
 			          	
 	        		</div>
@@ -582,7 +579,6 @@ class Portfolio extends Component {
                         	language={this.props.language.portfolio.header}
 		                    columns={this.state.columns}
 		                    data={data}
-		                    maxRows={4}
                         	defaultPageSize={15} />
 	        		</div>
 	        	</div>

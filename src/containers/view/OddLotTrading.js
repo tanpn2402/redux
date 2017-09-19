@@ -372,14 +372,11 @@ class OddLotTrading extends Component {
                             </div>
                             <SearchBar
                                 id={this.id}
-                                onSearch={[]}
                                 buttonAction={buttonActionOddLotOrder}
-                                stockList={[]}
                                 language={this.props.language.searchbar}
                                 theme={this.props.theme}
-                                columns={this.state.enquirycolumns}
                                 onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}
-                                hideSearchButton={true}
+                                data={{stockList: [], columns: this.state.enquirycolumns}}
                                 param={['dropdown']} />
                         </div>
 
@@ -407,14 +404,11 @@ class OddLotTrading extends Component {
                         </div>
                         <SearchBar
                                 id={this.id}
-                                onSearch={[]}
                                 buttonAction={buttonActionOddLotTrans}
-                                stockList={[]}
                                 language={this.props.language.searchbar}
                                 theme={this.props.theme}
-                                columns={this.state.historycolumns}
                                 onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}
-                                hideSearchButton={true}
+                                data={{stockList: [], columns: this.state.historycolumns}}
                                 param={['dropdown']} />
                     </div>
 
