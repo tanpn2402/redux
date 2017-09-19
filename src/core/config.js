@@ -235,7 +235,15 @@ const config = {
 			'C',
 			'LO'
 		]
-	}
+	},
+
+	marketid: [
+		"HA",
+		"HO",
+		"UPCOM"
+	],
+
+	
 }
 
 export default config

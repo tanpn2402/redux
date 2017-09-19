@@ -51,6 +51,20 @@ body {
     border: none;
     outline: none;
 }
+.hks-input.border{
+    border-radius: 2px;
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    padding: 3px 6px;
+}
+.hks-select {
+    border-radius: 2px;
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    padding: 3px 6px;
+    width: 100%;
+}
+
 /*remove the red border in a required form input in FIREFOX*/
 
 input:required {

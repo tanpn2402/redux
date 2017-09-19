@@ -20,7 +20,8 @@ import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
 import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from './accountinfo'
 import {showMessageBox, showFlashPopup} from './notification'
-import {getRightlist, getAdditionalshareinfo, getHistorylist, getDynamicdata} from './entitlement'
+import {getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList, 
+      entitlementGetAccountBalance, getEntitlementData, submitEntitlement} from './entitlement'
 import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData} from './loanrefund'
 import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
 import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
@@ -98,9 +99,13 @@ export {
   getLoanRefundData,
   getRightlist,
   getAdditionalshareinfo,
-  getHistorylist,
+  getEntitlementHistorylist,
   getDynamicdata,
-
+  getEntitlementStockList,
+  getEntitlementData,
+  submitEntitlement,
+  
+  entitlementGetAccountBalance,
   getCashAdvance,
   
   exportGetCashTransactionHistory,

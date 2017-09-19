@@ -41,6 +41,7 @@
           "cancel": "Huỷ GD",
           "status": "Trạng thái",
           "type": "Loại lệnh",
+          "actionType": "Loại",
           "buysell": "Mua/Bán",
           "exchange":"Thị trường",
           "stock": "Mã CK",
@@ -621,6 +622,41 @@
             "corporateactionlist": "Danh sách quyền",
             "additionalissuesharesinformation": "Thông tin mua cổ phiếu phát hành tiền",
             "additionalissuesharesbuyinghistory": "Tra cứu lịch sử giao dịch mua cổ phiếu phát hành tiền"
+        },
+        "status": {
+          "STATUS_W": "Đã đóng tiền",
+          "STATUS_D": "Đã phân bổ",
+          "STATUS_I": "Chưa đóng tiền"
+        },
+        "rightStatus": {
+          "STATUS_1": "Đã phân bổ",
+          "STATUS_0": "Chờ phân bổ",
+          "STATUS_I": "Chưa đóng tiền",
+          "STATUS_W": "Đã đóng tiền",
+          "STATUS_D": "Đã phân bổ"
+        },
+        "issueType": {
+          "ISSUE_1" : "Chia cổ tức bằng tiền",
+          "ISSUE_2" : "Chia cổ tức bằng tiền",
+          "ISSUE_3" : "Chia cổ tức bằng tiền",
+          "ISSUE_4" : "Chia cổ tức bằng tiền",
+          "ISSUE_5" : "Chia cổ tức bằng tiền",
+          "ISSUE_6" : "Chia cổ tức bằng tiền",
+          "ISSUE_7" : "Chia cổ tức bằng tiền",
+          "ISSUE_8" : "Tiền cổ phiếu lẻ",
+          "ISSUE_9" : "Special Interim Dividend",
+          "ISSUE_A" : "Scrip Option",
+          "ISSUE_B" : "Chia cổ phiếu thưởng",
+          "ISSUE_C" : "Bonus Warrant",
+          "ISSUE_D" : "Quyền mua",
+          "ISSUE_E" : "Bonus Others",		
+          "ISSUE_G" : "Cash Offer",
+          "ISSUE_H" : "Stock Offer",
+          "ISSUE_I" : "Chia cổ tức bằng cổ phiếu"
+        },
+        "exercise": {
+          "STATUS_O": "Mở",
+          "STATUS_C": "Hết hạn"
         }
       },
       "loanrefund": {

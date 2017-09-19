@@ -9,11 +9,11 @@ class InputSearch extends React.Component {
 
  		this.state = {
              itemSelected: '',
-             stockList: [],
+             data: [],
  		}
      }
      componentWillMount(){
-         this.setState({stockList: this.props.stockList})
+         this.setState({data: this.props.data})
      }
      componentWillReceiveProps(nextProps){
          
@@ -35,7 +35,7 @@ class InputSearch extends React.Component {
                 <div id="input-suggestion" className="input-suggestion-content">
                     <ul>
                         {
-                            this.state.stockList.map(stock => {
+                            this.state.data.map(stock => {
                                 return (
                                     <li id={stock.stockCode} onClick={e => this.onItemClick(e.target.id)}>
                                         <span id={stock.stockCode} onClick={e => this.onItemClick(e.target.id)}>
@@ -61,10 +61,10 @@ class InputSearch extends React.Component {
         if (!dropdowns.classList.contains('show')) {
             dropdowns.classList.add('show')
         }
-        let stockList = this.state.stockList
+      
         let matchesFilter = new RegExp(value, "i")
 
-        let tmp = this.props.stockList.filter(stock => {
+        let tmp = this.props.data.filter(stock => {
             if(matchesFilter.test(stock.stockCode))
                 return stock
         })
@@ -77,13 +77,15 @@ class InputSearch extends React.Component {
             if (codeA > codeB) {
               return 1;
             }
-          
-            // names must be equal
             return 0;
         })
+        if(value.length > 2 && tmp.length > 0){
+            this.props.onChange(value.toUpperCase())
+        }
 
-        console.log(tmp)
-        this.setState({itemSelected: value.toUpperCase(), stockList: tmp})
+        this.setState({itemSelected: value.toUpperCase(), data: tmp})
+
+
     }
       
     openSuggestion() {
@@ -105,7 +107,7 @@ class InputSearch extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => ({
-    stockList: state.stock.stockList,
+    //stockList: state.stock.stockList,
 })
   
 const mapDispatchToProps = (dispatch, props) => ({
