@@ -295,11 +295,10 @@ class OrderHistory extends Component {
                         id={this.id}
                         onSearch={this.onSearch.bind(this)}
                         buttonAction={this.buttonAction}
-                        stockList={this.props.stockList}
                         language={this.props.language.searchbar}
                         theme={this.props.theme}
-                        columns={this.state.columns}
                         onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        data={{stockList: this.props.stockList, columns: this.state.columns}}
                         param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                 </div>
             </div>

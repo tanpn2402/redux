@@ -40,7 +40,7 @@ export default function (menuid, props){
 			return(
 				<OrderConfirmation language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
-		case 'porfolio':
+		case 'portfolio':
 			return (
 				<Portfolio language={props.language} theme={props.theme}/>
 			)

@@ -4,12 +4,12 @@ export default class ScrollingTabs extends Component {
 
     render() {
         return (
-            <div className="scrolling-tabs-main tab-bar">
+            <div className="scrolling-tabs-main scrolling-tabbar">
                <button className="hks-btn btn-tabbar-prev" onClick={e => this.onTabSlideClick(1)}>
                     <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
                </button>
-               <div className="scroll tab-bar">
-                    <div className="scrolling-tabs" id="scrolling-tabbar">
+               <div className="scroll">
+                    <div className="scrolling-tabs">
                         <nav className='vertical-align-middle'>
                             {
                                 this.props.tabList.map(tab => {

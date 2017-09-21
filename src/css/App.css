@@ -149,7 +149,6 @@ input::-webkit-calendar-picker-indicator {
     text-decoration: none;
 }
 .btn-action > .btn-close:hover {
-    //background-color: red;
     cursor: pointer;
 }
 /*END LAYOUT*/
@@ -195,6 +194,8 @@ input::-webkit-calendar-picker-indicator {
 }
 #pagemenu {
     background-color: #005aa0;
+    top: 60px;
+    z-index: 1;
 }
 .btn-group-sm.btn-group-page {
     vertical-align: unset;
@@ -247,8 +248,6 @@ input::-webkit-calendar-picker-indicator {
 .table-footer {
     padding-left: 5px;
     width: 100%;
-    //bottom: 0;
-    //position: absolute;
 }
 .table-footer>.pagination {
     margin-top: 2px;
@@ -266,17 +265,6 @@ input::-webkit-calendar-picker-indicator {
 }
 /*END DATATABLE FOOTER*/
 
-.logo {
-    float: left;
-    padding-top: 1px;
-    width: 241px;
-    height: 92px;
-}
-.header {
-    height: 95px;
-    margin-right: 0px;
-    margin-left: 0px;
-}
 /*SEARCH BAR*/
 
 .search-bar {
@@ -593,81 +581,87 @@ input::-webkit-calendar-picker-indicator {
     }
 }
 /*END OVERRIDE BOOTSTRAP*/
+/*MAIN CONTENT */
+#maincontent {
+    position: absolute;
+    padding-top: 95px;
+    width: 100%;
+    height: 100%;
+}
+
+/*END MAIN CONTENT */
+
 /*PAGE CONTENT*/
 
 #pagecontent {
     overflow-y: scroll;
-    margin-top: 30px;
+    height: 100%;
+    padding-left: 2px;
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 30px;
 }
 /*END PAGE CONTENT*/
-/*HEADER*/
 
-#header-sm{
-    display: none;
-}
-.openheader #header-sm{
-    display: block;
-}
-.openheader #header-lg{
-    display: none;
-}
-#header {
+/*STATUS BAR*/
+#status-bar {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    height: 70px;
-    background-color: #efefef;
+    background-color: #005aa0;
+    height: 30px;
+    padding: 2px 2px;
 }
-#pageheader .row {
-    margin: 0;
-}
-#pageheader #header-sm .col-xs-3, #pageheader #header-sm .col-xs-5{
-    padding-top: 3px
-}
-.header-sm {
-    font-size: 12px;
-    background-color: #fff;
-    padding: 2px 0px;
-}
-.header-sm .header-action {
-    text-align: right;
-    padding-right: 18px;
-}
-.header-sm .header-action button {
-    margin: 0 2px;
-}
-.header-user > ul {
-    list-style-type: none;
-    margin: 0px;
-    height: 100%;
-    padding-right: 5px;
-    overflow-y: scroll;
-}
-.header-user > ul > li button {
-    margin: 0 2px;
-}
-.header-left {
-    padding-left: 0px;
+#status-bar > div {
+    display: inline-table;
     height: 100%;
 }
-.header-lg > .header-left,
-.header-lg > .header-user,
-.header-left .logo,
-.header-left .logo > img,
-.header-left .ReactTable,
-.header-sm > div,
-.header-sm > div > span,
-.header-sm > div > span > div > span,
-.header-left > div{
+#status-bar span {
+    font-size: 18px;
+    line-height: 1.5;
     height: 100%;
 }
-.header-market .rt-noData {
-    display: none;
+.widget-search input {
+    padding: 0px 6px;
+    height: 26px;
+    border-radius: 2px;
 }
-.header-user {
-    font-size: 12px;
-    text-align: right;
-    padding-right: 5px;
-    padding-top: 1px;
+.connection-status {
+    height: 100%;
+    width: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
 }
+.widget-search {
+    float: left;
+}
+
+.connection-status.open > span{
+    color: #fff;
+}
+.user-action {
+    float: right;
+    height: 100%;
+    color: #fff;
+}
+.user-action > span {
+    padding: 0px 10px;
+    cursor: pointer;
+}
+.user-action > span:hover{
+    color: #A0A0A0;
+}
+/*END STATUS BAR*/
+/*HEADER*/
+#pageheader {
+    position: absolute;
+    width: 100%;
+}
+#pageheader .logo {
+    padding: 10px 0px 10px 10px;
+}
+
 /*END HEADER*/
 
 /*OVERLAY*/
@@ -1254,74 +1248,11 @@ input::-webkit-calendar-picker-indicator {
 .hks-btn.btn-tab-next {
     margin: 0;
     background-color: rgb(255, 250, 250);
-    height: 26px;
+    height: 100%;
     color: #005aa0;
     padding: 0px 3px;
-}
-.scrolling-tabs-main.tab-bar {  /*for tabbar*/
-    padding-right: 2px;
-    margin: 0;
-    background-color: #dcdcdc;
-    right: 0px;
-    padding-left: 2px;
-    height: 22px;
-}
-.scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
-    font-size: 11px;
-    padding: 0 5px;
-    height: 20px;
-}
-.scrolling-tabs-main.tab-bar .tabs-item.normal{  /*for tabbar*/
-    background-color: #b5b5b5;
-}
-.scrolling-tabs-main.tab-bar .tabs-item.actived{  /*for tabbar*/
-    background-color: #005899;
-    color: #fff;
-}
-.scrolling-tabs-main.tab-bar .tabs-item.disabled{  /*for tabbar*/
-    background-color: #eee1e2;
-    color: #c5b3b3;
-    cursor: not-allowed;
-}
-.hks-btn.btn-tabbar-prev {  /*for tabbar*/
-    margin: 1px 0 0 0;
-    background-color: rgb(255, 250, 250);
-    height: 26px;
-    color: #005aa0;
-    padding: 0px 3px;
-    float: left;
-    height: 20px;
-}
-.hks-btn.btn-tabbar-next {  /*for tabbar*/
-    margin: 1px 0 0 0;
-    background-color: rgb(255, 250, 250);
-    height: 26px;
-    color: #005aa0;
-    padding: 0px 3px;
-    float: right;
-    height: 20px;
-}
-.scroll.tab-bar {  /*for tabbar*/
-    padding-left: 24px;
 }
 
-.hks-btn.btn-tab-prev.search-bar { /*for search-bar*/
-    float: left;
-    margin: 0;
-    height: 23px;
-}
-.hks-btn.btn-tab-next.search-bar { /*for search-bar*/
-    float: right;
-    margin-right: 3px;
-    height: 23px;
-}
-.scroll {
-    position: absolute;
-    width: 100%;
-    padding-left: 229px;
-    padding-right: 21px;
-    height: 100%;
-}
 .scroll.search-bar {
     position: absolute;
     width: 100%;
@@ -1343,7 +1274,7 @@ input::-webkit-calendar-picker-indicator {
     border: none;
     padding: 5px 0 5px 4px;
     height: 26px;
-    margin-top: 1px;
+    margin-top: 0px;
     outline: none;
 }
 .tabs-item:not(:last-child) {
@@ -1366,7 +1297,7 @@ input::-webkit-calendar-picker-indicator {
     display: inline-block;
 }
 .scrolling-tabs-right {
-    margin-top: 1px;
+    margin-top: 0px;
     height: 100%;
     float: right;
     background-color: transparent;
@@ -1376,6 +1307,144 @@ input::-webkit-calendar-picker-indicator {
     position: relative;
     z-index: 1;
 }
+    /* scrolling in tabbar */
+    .scrolling-tabs-main.tab-bar {  /*for tabbar*/
+        height: 35px;
+        margin: 0;
+    }
+    .scrolling-tabs-main.tab-bar .vertical-align-middle {
+        padding-top: 2px;
+        padding-left: 5px;
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
+        font-size: 14px;
+        padding: 0 0 0 5px;
+        height: 100%;
+        line-height: 2.5;
+        min-width: 130px;
+        cursor: pointer;
+        font-weight: 600;
+        user-select: none;
+        display: inline-block;
+        float: left;
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item:hover {
+        opacity: 0.8;
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item.normal{  /*for tabbar*/
+        background-color: #286CAE;
+        color: #fff;
+        
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item.actived{  /*for tabbar*/
+        background-color: #fff;
+        color: #555;
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item.disabled{  /*for tabbar*/
+        background-color: #eee1e2;
+        color: #c5b3b3;
+        cursor: not-allowed;
+    }
+    .hks-btn.btn-tab-reload {
+        padding: 0 5px;
+        height: auto;
+        float: right;
+    }
+    .scrolling-tabs-main.tab-bar .tabs-item.actived .btn-tab-reload {
+        color: #286CAE;
+    }
+
+    .scrolling-tabs-main.tab-bar .scrolling-tabs-right {
+        position: relative;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    .hks-btn.btn-tabbar-prev {  /*for tabbar*/
+        margin: 0;
+        background-color: rgb(255, 250, 250);
+        height: 26px;
+        color: #005aa0;
+        padding: 0px 3px;
+        float: left;
+        height: 100%;
+        position: relative;
+    }
+    .hks-btn.btn-tabbar-next {  /*for tabbar*/
+        margin: 0;
+        margin-right: 2px;
+        background-color: rgb(255, 250, 250);
+        height: 100%;
+        color: #005aa0;
+        padding: 0px 3px;
+        float: right;
+    }
+    .scrolling-tabs-main.tab-bar > .scroll {
+        position: absolute;
+        width: 100%;
+        padding-right: 200px;
+        height: 100%;
+    }
+
+    .hks-btn.btn-save-layout {
+        background-color: #286CAE;
+        height: 100%;
+    }
+    
+    /* end scrolling in tabbar */
+
+    
+    .hks-btn.btn-tab-prev.search-bar { /*for search-bar*/
+        float: left;
+        margin: 0;
+        height: 23px;
+    }
+    .hks-btn.btn-tab-next.search-bar { /*for search-bar*/
+        float: right;
+        margin-right: 3px;
+        height: 23px;
+    }
+
+
+    /* scrolling in ScollingTabs Component */
+    .scrolling-tabs-main.scrolling-tabbar {  /*for tabbar*/
+        height: 25px;
+        margin: 0;
+    }
+    .scrolling-tabs-main.scrolling-tabbar .vertical-align-middle {
+        padding-top: 0px;
+        padding-left: 5px;
+    }
+    .scrolling-tabs-main.scrolling-tabbar .tabs-item{  /*for tabbar*/
+        font-size: 12px;
+        padding: 0 10px;
+        height: 100%;
+        line-height: 2;
+        min-width: 70px;
+        cursor: pointer;
+        user-select: none;
+        display: inline-block;
+        float: left;
+    }
+    .scrolling-tabs-main.scrolling-tabbar > .scroll {
+        position: absolute;
+        width: 100%;
+        padding-right: 22px;
+        padding-left: 18px;
+        height: 100%;
+    }
+    .scrolling-tabs-main.scrolling-tabbar .tabs-item.actived{
+        background-color: #005899;
+        color: #fff;
+    }
+    .scrolling-tabs-main.scrolling-tabbar .tabs-item.normal{
+        background-color: #b5b5b5;
+    }
+    .scrolling-tabs-main.scrolling-tabbar .tabs-item.disabled{
+        background-color: #eee1e2;
+        color: #c5b3b3;
+        cursor: not-allowed;
+    }
+    /* scrolling in ScollingTabs Component */    
 /*END SCROLLING TABS*/
 /*PAGINATION*/
 
@@ -1634,8 +1703,9 @@ input::-webkit-calendar-picker-indicator {
 /*END STOCKMARET INFOR*/
 
 /*ACCOUNT INFO*/
-.component-main.accountinfo.cashinfo {
-    padding-top: 49px;
+.component-main.accountinfo.cashinfo,
+.component-main.accountinfo.overduedebt {
+    padding-top: 52px;
 }
 .component-main.accountinfo.stockinfo {
     padding-top: 0px;
@@ -1644,13 +1714,14 @@ input::-webkit-calendar-picker-indicator {
     position: absolute;
     width: 100%;
     height: 100%;
-    padding-top: 72px;
+    padding-top: 76px;
 }
 .component-main.accountinfo.stockinfo > .search-bar{
     position: absolute;
     width: 100%;
-    padding-top: 47px;
+    padding-top: 51px;
 }
+
 /*END ACCOUNT INFO*/
 
 /* SIDE BAR */

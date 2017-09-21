@@ -1,5 +1,5 @@
 import { doLogin,logout } from './doLogin'
-import {menuSelected, menuRemoved, onPageClicked, pinWindow} from './menu_selected'
+import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick} from './menu_selected'
 import {changeConfig} from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
@@ -32,6 +32,7 @@ export {
   menuSelected,
   menuRemoved,
   onPageClicked,
+  onTabClick,
   changeConfig,
   stockSearch,
   enquiryOrder,

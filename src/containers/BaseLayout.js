@@ -16,7 +16,6 @@ class BaseLayout extends React.Component {
 
     constructor () {
         super()
-        console.log("BaseLayout constructor")
         this.state= {
             reload: false,
             layout: []
@@ -25,15 +24,15 @@ class BaseLayout extends React.Component {
     }
 
     generateChild(menuid){
-        //console.log(this.layout[menuid])
-        const layout = this.state.layout
+        console.log(this.state.layout)
+        const layout = this.state.layout[menuid]
         console.log(layout)
         return (
             <div key={menuid} 
-                data-grid={{x: layout[menuid]['x'], y: layout[menuid]['y'], w: layout[menuid]['w'], 
-                    h: layout[menuid]['h'], minW: layout[menuid]['minW'], minH: layout[menuid]['minH'], 
-                    maxW: layout[menuid]['maxW'], maxH: layout[menuid]['maxH'], static: layout[menuid]['static'],
-                    isResizable: layout[menuid]['isResizable']}}>
+                data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 
+                    h: layout['h'], minW: layout['minW'], minH: layout['minH'], 
+                    maxW: layout['maxW'], maxH: layout['maxH'], static: layout['static'],
+                    isResizable: layout['isResizable']}}>
 
                 <div className="component-header" >
                         <span className="content-block-head">
@@ -56,115 +55,24 @@ class BaseLayout extends React.Component {
         )
     }
 
-    generateDOM(p){
-        var child = [];
-        if(p === undefined)
-            return
-       
-        for (var i = 0; i < p.length; i += 1) {
-            if(this.state.layout[p[i]] === undefined )
-            {
-                
-                
-                if(window.innerWidth < 768){
-                    this.state.layout[p[i]] = config.layoutdefault_sm[p[i]]
-                    this.state.layout[p[i]].static = true
-
-                }
-                else{
-                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                }
-                /*if(window.innerWidth > 1100)
-                {
-                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                }
-                else if(window.innerWidth > 800)
-                {
-                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                }
-                else if(window.innerWidth > 600)
-                {
-                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                }
-                else{
-                    this.state.layout[p[i]] = config.layoutdefault[p[i]]
-                }*/
-
-            }
-
-            child.push( this.generateChild(p[i]) );
+    generateDOM(layout){
+        var child = []
+        
+        for (var i = 0; i < layout.length; i += 1) {
+            this.state.layout[layout[i].i] = layout[i]
+            child.push( this.generateChild(layout[i].i) )
             
         };
 
         
         return child;
     }
-
-    onDragStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
-                     placeholder: LayoutItem, e: MouseEvent, element: HTMLElement){
-
-        const _layout = this.state.layout
-        _layout[newItem.i] = newItem
-        this.setState(layout: _layout)
-    }
-
-    onResizeStop(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
-        placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        var _layout = this.state.layout
-        _layout[newItem.i] = newItem
-        this.setState({ layout: _layout })
-
-        /*if (document.getElementById(newItem.i + '-table') !== null) {
-            document.getElementById(newItem.i + '-body').style.height = newItem.h * 39 - 25 + 'px'
-            document.getElementById(newItem.i + '-table').style.height =
-                document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
-        }*/
-    }
-
-    onResize(layout: Layout, oldItem: LayoutItem, newItem: LayoutItem,
-        placeholder: LayoutItem, e: MouseEvent, element: HTMLElement) {
-        var _layout = this.state.layout
-        _layout[newItem.i] = newItem
-        this.setState({ layout: _layout })
-
-        /*if (document.getElementById(newItem.i + '-table') !== null) {
-            document.getElementById(newItem.i + '-body').style.height =
-                document.getElementById(newItem.i + '-main').offsetHeight - 25 + 'px'
-
-            document.getElementById(newItem.i + '-table').style.height =
-                document.getElementById(newItem.i + '-body').offsetHeight - 65 + 'px'
-        }*/
-    }
-
-    onCloseLayout(menuid){
-        this.props.onRemoveTab(menuid, this.props.page, this.props.layout, true)
-    }
-
-
-    onLayoutChange(layout){
-        console.log('onLayoutChange', layout);
-    }
-
-    componentWillUpdate(){
-        //console.log('sdasdsa', $('#abc').height()    )
-    }
-
-    componentDidMount(){
-        //console.log('sdasdsa', $('#abc').height()    )
-
-        
-    }
     render () {
-        console.log('render in BaseLayout', this.props);
-        const layout = this.props.layout[this.props.page]
+        const layout = this.props.layout
         return (
 
             <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320} 
-                onResize={this.onResize.bind(this)}
-                onResizeStop={this.onResizeStop.bind(this)}
-                onDragStop={this.onDragStop.bind(this)}
-                onLayoutChange={this.onLayoutChange}
-                margin={[1,1]}
+                margin={[3,3]}
                 >
                 {this.generateDOM(layout)}
             </ResponsiveReactGridLayout>

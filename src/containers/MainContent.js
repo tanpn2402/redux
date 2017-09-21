@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MenuItem from './SideMenu/MenuItem'
 import PageContent from './PageContent'
-import SideBar from './SideBar'
+import StatusBar from './StatusBar'
 import config from '../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -17,21 +17,10 @@ export default class MainContent extends Component {
     render() {
         return (
             <div id="maincontent">
-                <SideBar theme={this.props.theme} language= {this.props.language}/>
+                {/* <SideBar theme={this.props.theme} language= {this.props.language}/> */}
                 <PageContent theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
-                
+                <StatusBar theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
             </div>
         )
     }
-
-    componentDidMount(){
-        
-        var h1 = document.getElementById('pageheader').offsetHeight
-        var h2 = document.getElementById('pagemenu').offsetHeight
-        var h3 = window.innerHeight
-        document.getElementById('maincontent').style.height = h3 - h1 - h2 + 'px'
-
-    }
-
-    
 }

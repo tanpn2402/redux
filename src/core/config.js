@@ -35,16 +35,16 @@ const config = {
 		        text: 'porfolio',
 		        link: ''
 		      },
-			{
-				id: "techanalysis",
-				text: "techanalysis",
-				link: ''
-			},
-			{
-				id: "orderconfirmation",
-				text: "orderconfirmation",
-				link: ''
-			},	
+					{
+						id: "techanalysis",
+						text: "techanalysis",
+						link: ''
+					},
+					{
+						id: "orderconfirmation",
+						text: "orderconfirmation",
+						link: ''
+					},	
 		    ]
 		},
 		{
@@ -243,7 +243,78 @@ const config = {
 		"UPCOM"
 	],
 
-	
+	tabbar: [
+		{
+			id: "trading",
+			widget: [
+				'enterorder',
+				'stockmarketinform',
+				'orderjournal',
+				'accountinfo'
+			]
+		},
+		{
+			id: 'portfolio',
+			widget: [
+				'portfolio'
+			]
+		},
+		{
+			id: 'orderjournal',
+			widget: [
+				'orderjournal'
+			]
+		},
+		{
+			id: 'transhistory',
+			widget: [
+				'cashtransactionhistory',
+				'ordershistory'
+			]
+		},
+		{
+			id: 'management',
+			widget: [
+				'cashtransfer',
+				'cashadvance',
+				'cashadvancebank',
+				'oddlottrading',
+				'entitlement', 
+				'loanrefund',
+				'available'
+			]
+		},
+		{
+			id: 'customization',
+			widget:[]
+		}
+	],
+
+	default_layout: {
+		enterorder: {i: 'enterorder', x:0, y:0, w: 2, h: 6, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		stockmarketinform: {i: 'stockmarketinform', x:5, y:0, w: 3, h:6, minW: 3, minH: 6, maxW: 3, maxH: 6, static: true, isResizable: false },
+		accountinfo: {i: 'accountinfo', x:2, y:0, w: 3, h: 6, minW: 3, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
+		orderjournal: {i: 'orderjournal', x:0, y:6, w: 8, h: 4, minW: 8, minH: 4, maxW: 8, maxH: 10, static: true, isResizable: false},
+
+
+		cashtransactionhistory: { i: 'cashtransactionhistory', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
+		orderconfirmation: { i: 'orderconfirmation', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, static: true },
+		portfolio: {i: 'portfolio', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 20, static: true, isResizable: false},
+		ordershistory: { i: 'ordershistory', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
+		stockstatement: { i: 'stockstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
+		cashstatement: { i: 'cashstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
+		watchlist: {i: 'watchlist', x:0, y:0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: true, isResizable: false},
+		personalprofile: {i: 'personalprofile', x:0, y:0, w: 6, h:6, minW: 6, minH: 6, maxW: 6, maxH: 6, static: true, isResizable: false },
+		oddlottrading: {i: 'oddlottrading',  x:0, y:0, w: 8, h: 10, minW: 8, minH: 10, maxW: 8, maxH: 10, static: true, isResizable: false},
+		cashtransfer: {i: 'cashtransfer', x:0, y:0, w: 8, h: 10, minW: 5, minH: 6, maxW: 8, maxH: 10, static: true, isResizable: false},
+		cashadvance: {i: 'cashadvance', x:0, y:0, w: 8, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 10, static: true, isResizable: false},
+		marginloan: { i: 'marginloan', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
+		available: { i: 'available', x: 0, y: 0, w: 4, h: 6, minW: 4, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false },
+		loanrefund: {i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: true, isResizable: false},
+		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, static: true, isResizable: false},
+		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
+		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
+	}
 }
 
 export default config

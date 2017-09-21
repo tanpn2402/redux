@@ -2,6 +2,14 @@
   {
     "lang": "vi",
     "page": {
+      "tab": {
+        "trading": "Trading",
+        "portfolio": "Portfolio",
+        "orderjournal": "Order Journal",
+        "transhistory": "Trans History",
+        "management": "Management",
+        "customization": "Customization"
+      },
       "menu": {
         "tradingplatform": "Giao dịch",
         "enterorder": "Đặt lệnh giao dịch",

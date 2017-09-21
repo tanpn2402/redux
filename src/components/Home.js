@@ -28,7 +28,7 @@ class Home extends Component {
                 currentLanguage={this.props.language.lang}
                 changeConfig={this.props.changeConfig} 
                 />  
-                <MenuNav language= {this.props.language.page.menu} theme={this.theme.default}/>
+                <MenuNav language= {this.props.language.page} theme={this.theme.default}/>
                 <MainContent theme={this.theme.default} language={this.props.language.page} title={this.props.language.page.menu} />
 
                 
