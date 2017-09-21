@@ -1,12 +1,7 @@
 import React from 'react';
-import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
-import ReactTable from 'react-table'
+import { Row, Col, Table, Button, FormControl } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import ReactHighstock from 'react-highcharts/ReactHighstock.src';
-import StockChart from './commons/StockChart.js'
-import $ from 'jquery'
-import Popup from './Popup'
 
 class StatusBar extends React.Component {
 	constructor() {
@@ -29,7 +24,7 @@ class StatusBar extends React.Component {
 
                 <div className="user-action">
                     <span className="glyphicon glyphicon-user"></span>
-                    <span className="glyphicon glyphicon-cog"></span>
+                    <span className="glyphicon glyphicon-cog" onClick={this.openSetting.bind(this)}></span>
                     <span className="glyphicon glyphicon-log-out"></span>
                    
                 </div>
@@ -39,7 +34,11 @@ class StatusBar extends React.Component {
 	}
 
 	componentDidMount() {
-	}
+    }
+    
+    openSetting(e){
+        document.getElementById('settingnav').classList.toggle("open")
+    }
 
 }
 

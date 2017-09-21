@@ -513,35 +513,7 @@ input::-webkit-calendar-picker-indicator {
     height: 19px;
     background-color: rgb(51, 122, 183);
 }
-/*PORFOLIO*/
 
-.vertical-table {
-    font-size: 12px;
-    margin-bottom: 2px;
-}
-.vertical-table > thead {
-    background-color: #043b72;
-    color: #fff;
-}
-.vertical-table > thead > tr >th,
-.vertical-table > tbody > tr > td {
-    padding: 2px 8px;
-    text-align: center;
-}
-.vertical-table .vertical-table-title {
-    text-align: left;
-    background-color: #e6e6e6;
-}
-.vertical-table .vertical-table-value {
-    text-align: right;
-    padding-right: 10px;
-}
-#porfolio-body .title {
-    text-align: center;
-}
-#porfolio-body .col-md-3 {
-    padding: 0px 1px;
-}
 /*POPUP*/
 
 .title {
@@ -611,6 +583,7 @@ input::-webkit-calendar-picker-indicator {
     background-color: #005aa0;
     height: 30px;
     padding: 2px 2px;
+    z-index: 2;
 }
 #status-bar > div {
     display: inline-table;
@@ -664,22 +637,19 @@ input::-webkit-calendar-picker-indicator {
 
 /*END HEADER*/
 
-/*OVERLAY*/
-
-#overlay {
+/*SETTING NAV*/
+.overlay {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: rgba(153, 153, 153, 0.5);
+    background-color: rgba(56, 56, 56, 0.5);
     display: none;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1;
 }
-/*END OVERLAY*/
-/*SLIDE NAV*/
-
 .sidenav {
     height: 100%;
     width: 0;
@@ -690,6 +660,10 @@ input::-webkit-calendar-picker-indicator {
     padding: 10px 0px;
 }
 .settingnav {
+    width: 100%;
+    height: 100%;
+}
+.settingnav > .setting-panel {
     height: 100%;
     width: 0;
     position: fixed;
@@ -698,10 +672,39 @@ input::-webkit-calendar-picker-indicator {
     right: 0;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.5s;
-    padding: 10px 0px;
+    transition: 0.2s;
+    text-align: left;
 }
-/*END SLIDE NAV*/
+.settingnav.open > .setting-panel {
+    width: 400px;
+}
+.settingnav.open > .overlay {
+    display: block;
+}
+.setting-panel > .title {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 24px;
+    background-color: #005AA0;
+    color: #fff;
+    font-weight: 500;
+}
+.setting-panel .st-header {
+    padding: 5px 0px 5px 5px;
+}
+.setting-panel label {
+    user-select: none;
+    font-size: 25px;
+    font-weight: 500;
+    display: inline;
+}
+.setting-panel .st-icon{
+    display: inline;
+}
+.setting-panel span {
+    font-size: 25px;
+}
+/*END SETTING NAV*/
 /*SIDE MENU*/
 
 .input-group-search {
@@ -734,51 +737,7 @@ input::-webkit-calendar-picker-indicator {
     padding: 7px 10px;
 }
 /*END SIDE MENU*/
-/*SETIING NAV*/
 
-.settingnav > hr {
-    margin: 0px 5px;
-}
-.setting-user-info > ul {
-    list-style-type: none;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-right: 0px;
-}
-.setting-title {
-    font-size: 16px;
-    font-weight: 600;
-}
-.setting-panel {
-    padding: 0px 10px;
-}
-.setting-panel > div {
-    margin-bottom: 20px;
-}
-.setting-btn {
-    padding: 0;
-    outline: none;
-    border: 0;
-    cursor: pointer;
-    margin: 0 5px;
-    width: 35px;
-    height: 35px;
-}
-.setting-panel .selected {
-    border: 1px solid #e7e7e7;
-    background-color: #e7e7e7;
-}
-.setting-theme > div > div {
-    margin: 5px 0px;
-}
-.setting-btn.btn-theme {
-    padding: 2px 2px;
-}
-.btn-theme.selected {
-    padding: 5px 1px;
-}
-/*END SETTING NAV*/
 /* LOADING */
 
 .loading > img {
@@ -1309,7 +1268,7 @@ input::-webkit-calendar-picker-indicator {
 }
     /* scrolling in tabbar */
     .scrolling-tabs-main.tab-bar {  /*for tabbar*/
-        height: 35px;
+        height: 30px;
         margin: 0;
     }
     .scrolling-tabs-main.tab-bar .vertical-align-middle {
@@ -1320,7 +1279,7 @@ input::-webkit-calendar-picker-indicator {
         font-size: 14px;
         padding: 0 0 0 5px;
         height: 100%;
-        line-height: 2.5;
+        line-height: 2;
         min-width: 130px;
         cursor: pointer;
         font-weight: 600;
@@ -1724,83 +1683,6 @@ input::-webkit-calendar-picker-indicator {
 
 /*END ACCOUNT INFO*/
 
-/* SIDE BAR */
-/* close(default) */
-.sidebar-wrapper{
-    background: #e3e3e3;
-    height: 100%;
-    width: 50px;
-    float: left;
-}
-
-@media(max-width: 768px){
-    .sidebar-wrapper {
-        display: none;
-    }
-}
-
-.sidebar-favorite>img:hover, .sidebar-helping > img:hover{
-    background: #F8F6F6;
-}
-
-.sidebar-favorite >a, .sidebar-helping >a {
-  display: none;
-}
-
-
-.sidebar-helping > img , .sidebar-favorite> img{
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-    padding: 12px;
-    margin: 0px;
-}
-
-.sidebar-footer{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-.expandicon{
-    width: 50px;
-    height: 50px;
-    background: transparent;
-    border: none;
-    border-top: 1px solid #ccc;
-    padding: 0;
-    outline: none;
-}
-
-.expandicon > img {
-    width: 10px;
-
-}
-
-/* open */
-.opensidebar{
-  display: block;
-  width: 250px;
-}
-.opensidebar >a {
-  display: inline-block;
-}
-.opensidebar .expandicon{
-    outline: none;
-    width:  250px;
-    float: right;
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-    border-bottom: 1px solid #ccc;
-}
-
-.component-main .table-header {
-    padding-right: 2px;
-}
-.component-main .table-main {
-    padding-right: 2px;
-}
 
 /*CASH TRANSFER*/
 .component-main.cashtransfer {

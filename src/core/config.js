@@ -314,7 +314,40 @@ const config = {
 		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, static: true, isResizable: false},
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
 		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
-	}
+	},
+	settings: [
+		{
+			id: 'language',
+			icon: 'glyphicon glyphicon-globe',
+			value: [
+				'vi',
+				'en'
+			]
+		},
+		{
+			id: 'preference',
+			icon: 'glyphicon glyphicon-globe',
+			value: []
+		},
+		{
+			id: 'appearance',
+			icon: 'glyphicon glyphicon-globe',
+			value: [
+				'blue',
+				'dark'
+			]
+		},
+		{
+			id: 'user',
+			icon: 'glyphicon glyphicon-user',
+			value: []
+		},
+		{
+			id: 'prompt',
+			icon: 'glyphicon glyphicon-bell',
+			value: []
+		}
+	]
 }
 
 export default config

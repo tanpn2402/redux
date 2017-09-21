@@ -6,7 +6,7 @@ import config from '../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Notification from './Notification'
-
+import SettingNav from './SettingNav'
 export default class MainContent extends Component {
 
     constructor(props) {
@@ -17,9 +17,12 @@ export default class MainContent extends Component {
     render() {
         return (
             <div id="maincontent">
-                {/* <SideBar theme={this.props.theme} language= {this.props.language}/> */}
-                <PageContent theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
                 <StatusBar theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
+                <SettingNav theme={this.props.theme} language= {this.props.language}/>
+                <PageContent theme={this.props.theme} language= {this.props.language} title={this.props.title}/>
+                
+
+                
             </div>
         )
     }
