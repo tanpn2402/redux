@@ -22,8 +22,8 @@ import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from '
 import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList, 
       entitlementGetAccountBalance, getEntitlementData, submitEntitlement} from './entitlement'
-import {getLocalRefund,getLocalAdvance,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData} from './loanrefund'
-import {getCashAdvance, getQuerySoldOrders, getLocalAdvanceCreation, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
+import {getLocalRefundCreation,getLocalAdvanceCreation,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData,    beforeSubmitLoanRefund, beforeSubmitAdvance} from './loanrefund'
+import {getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
 import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
 
 export {
@@ -91,12 +91,13 @@ export {
   getGenfundtransfer,
   getCancelfundtransfer,
 
-  getLocalRefund,
-  getLocalAdvance,
+  getLocalRefundCreation,
   getLoanRefundHistory,
   getLoanRefundSubmit,
   getAdvanceSubmit,
   getLoanRefundData,
+  beforeSubmitLoanRefund,
+  beforeSubmitAdvance,
   getRightlist,
   getAdditionalshareinfo,
   getEntitlementHistorylist,

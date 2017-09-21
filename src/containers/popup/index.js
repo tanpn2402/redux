@@ -47,7 +47,7 @@ export default function(props, onClose){
 			break;
 
 		case 'loanrefund':
-			return (<LoanRefund onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<LoanRefund onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 
 		case 'advancepayment':
