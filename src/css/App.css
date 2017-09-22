@@ -556,7 +556,7 @@ input::-webkit-calendar-picker-indicator {
 /*MAIN CONTENT */
 #maincontent {
     position: absolute;
-    padding-top: 95px;
+    padding-top: 90px;
     width: 100%;
     height: 100%;
 }
@@ -568,9 +568,6 @@ input::-webkit-calendar-picker-indicator {
 #pagecontent {
     overflow-y: scroll;
     height: 100%;
-    padding-left: 2px;
-    padding-top: 2px;
-    padding-right: 2px;
     padding-bottom: 30px;
 }
 /*END PAGE CONTENT*/
@@ -662,6 +659,8 @@ input::-webkit-calendar-picker-indicator {
 .settingnav {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
 }
 .settingnav > .setting-panel {
     height: 100%;
@@ -691,15 +690,47 @@ input::-webkit-calendar-picker-indicator {
 }
 .setting-panel .st-header {
     padding: 5px 0px 5px 5px;
+    cursor: pointer;
+    margin-bottom: 2px;
+
+    user-select: none;
+}
+.setting-panel .st-header:hover {
+    background-color: #dcdcdc;
+}
+.setting-item {
+    transition: 0.1s;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.setting-item > li > a {
+    padding-left: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+}
+.setting-item > li > a > .selected{
+    padding-top: 6px;
+    float: right;
+}
+.setting-item > li:hover {
+    background-color: #fafafa;
 }
 .setting-panel label {
     user-select: none;
     font-size: 25px;
     font-weight: 500;
     display: inline;
+    border: none;
 }
 .setting-panel .st-icon{
     display: inline;
+    width: 40px;
+    height: 30px;
+    float: left;
+    text-align: center;
+}
+.setting-panel .st-icon > i{
 }
 .setting-panel span {
     font-size: 25px;
@@ -722,9 +753,6 @@ input::-webkit-calendar-picker-indicator {
 .input-group-search button {
     border: 0;
     background: transparent;
-}
-.nav-list {
-    padding: 0px 10px;
 }
 .main-menu-header {
     padding-left: 5px;
@@ -2235,3 +2263,20 @@ input::-webkit-calendar-picker-indicator {
 
 
 /*END AUTH CARD MATRIX POPUP*/
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

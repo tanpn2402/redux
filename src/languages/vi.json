@@ -10,6 +10,30 @@
         "management": "Management",
         "customization": "Customization"
       },
+      "setting": {
+        "language": {
+          "title" : "Ngôn ngữ",
+          "vi_VN": "Tiếng Việt",
+          "en_US": "Tiếng Anh"
+        },
+        "preference": {
+          "title": "Cấu hình"
+        },
+        "appearance": {
+          "title": "Giao diện",
+          "dark": "Tối",
+          "blue": "Xanh"
+
+        },
+        "user": {
+          "title": "Tài khoản"
+
+        },
+        "prompt": {
+          "title": "Thông báo"
+        }
+
+      },
       "menu": {
         "tradingplatform": "Giao dịch",
         "enterorder": "Đặt lệnh giao dịch",

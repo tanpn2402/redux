@@ -3,7 +3,7 @@ import {ActionTypes} from '../core/constants';
 const initialState = {
 	tabList : [],
   page: '1',
-  tabID: 'portfolio'
+  tabID: 'customization'
 };
 
 export default function(state = initialState, action) {

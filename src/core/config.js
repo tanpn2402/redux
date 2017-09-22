@@ -286,7 +286,7 @@ const config = {
 		},
 		{
 			id: 'customization',
-			widget:[]
+			widget:['techanalysis']
 		}
 	],
 
@@ -318,20 +318,20 @@ const config = {
 	settings: [
 		{
 			id: 'language',
-			icon: 'glyphicon glyphicon-globe',
+			icon: 'language',
 			value: [
-				'vi',
-				'en'
+				'vi_VN',
+				'en_US'
 			]
 		},
 		{
 			id: 'preference',
-			icon: 'glyphicon glyphicon-globe',
+			icon: 'settings_applications',
 			value: []
 		},
 		{
 			id: 'appearance',
-			icon: 'glyphicon glyphicon-globe',
+			icon: 'font_download',
 			value: [
 				'blue',
 				'dark'
@@ -339,12 +339,12 @@ const config = {
 		},
 		{
 			id: 'user',
-			icon: 'glyphicon glyphicon-user',
+			icon: 'account_box',
 			value: []
 		},
 		{
 			id: 'prompt',
-			icon: 'glyphicon glyphicon-bell',
+			icon: 'notifications',
 			value: []
 		}
 	]
