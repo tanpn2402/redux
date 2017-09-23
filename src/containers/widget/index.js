@@ -3,7 +3,8 @@ import ActionRightList from './ActionRightList'
 import AdditionSharesInfo from './AdditionSharesInfo'
 import EntitlementPanel from './EntitlementPanel'
 import EntitlementHistory from './EntitlementHistory'
-
+import OddLotOrder from './OddLotOrder'
+import OddLotHistory from './OddLotHistory'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -23,6 +24,14 @@ export default function (menuid, props){
 		case 'entitlementHistory':
 			return (
 				<EntitlementHistory language={props.language} theme={props.theme}/>
+			)
+		case 'oddLotOrder':
+			return (
+				<OddLotOrder language={props.language} theme={props.theme}/>
+			)
+		case 'oddlotHistory':
+			return (
+				<OddLotHistory language={props.language} theme={props.theme}/>
             )
     }
 }

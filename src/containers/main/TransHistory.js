@@ -5,7 +5,7 @@ import TabLayout from '../main/TabLayout'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import SearchBar from '../commons/SearchBar'
-import Table from '../widget/Entitlement'
+import Table from '../widget/OddLot'
 class TransHistory extends Component {
 	constructor(props) {
         super(props)
@@ -33,7 +33,7 @@ class TransHistory extends Component {
     render(){
         return(
             <div id="transhistory">
-                <Table language={this.props.language}/>
+                <Table language={this.props.language} theme={this.props.theme}/>
                 {/* <div className="widget-header" >
                     <span className="widget-title">
                         "ASDS"
