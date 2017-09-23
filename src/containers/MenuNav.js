@@ -28,7 +28,7 @@ class MenuNav extends Component {
                                         <div key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
                                             onClick={e=> this.onTabClick(tab.id)}>
                                            
-                                                {language.tab[tab.id]}
+                                                {language.tab[tab.title]}
                                                 <button
                                                     className="hks-btn btn-tab-reload"
                                                     type="button"

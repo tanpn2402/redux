@@ -246,6 +246,7 @@ const config = {
 	tabbar: [
 		{
 			id: "trading",
+			title: "trading",
 			widget: [
 				'enterorder',
 				'stockmarketinform',
@@ -254,19 +255,22 @@ const config = {
 			]
 		},
 		{
-			id: 'portfolio',
+			id: 'portfoliotab',
+			title: "portfolio",
 			widget: [
 				'portfolio'
 			]
 		},
 		{
-			id: 'orderjournal',
+			id: 'orderjournaltab',
+			title: "orderjournal",
 			widget: [
 				'orderjournal'
 			]
 		},
 		{
 			id: 'transhistory',
+			title: "transhistory",
 			widget: [
 				'cashtransactionhistory',
 				'ordershistory'
@@ -274,18 +278,21 @@ const config = {
 		},
 		{
 			id: 'management',
+			title: "management",
 			widget: [
-				'cashtransfer',
-				'cashadvance',
-				'cashadvancebank',
-				'oddlottrading',
-				'entitlement', 
-				'loanrefund',
-				'available'
+				// 'cashtransfer',
+				// 'cashadvance',
+				// 'cashadvancebank',
+				// 'oddlottrading',
+				// 'entitlement', 
+				// 'loanrefund',
+				// 'available'
+				'management'
 			]
 		},
 		{
 			id: 'customization',
+			title: "customization",
 			widget:['techanalysis']
 		}
 	],
@@ -314,6 +321,8 @@ const config = {
 		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, static: true, isResizable: false},
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
 		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
+		management: {i: 'management', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		
 	},
 	settings: [
 		{

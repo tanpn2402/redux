@@ -570,6 +570,11 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     padding-bottom: 30px;
 }
+#pagecontent > div {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+}
 /*END PAGE CONTENT*/
 
 /*STATUS BAR*/
@@ -681,9 +686,9 @@ input::-webkit-calendar-picker-indicator {
     display: block;
 }
 .setting-panel > .title {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-size: 24px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 30px;
     background-color: #005AA0;
     color: #fff;
     font-weight: 500;
@@ -692,7 +697,6 @@ input::-webkit-calendar-picker-indicator {
     padding: 5px 0px 5px 5px;
     cursor: pointer;
     margin-bottom: 2px;
-
     user-select: none;
 }
 .setting-panel .st-header:hover {
@@ -702,6 +706,7 @@ input::-webkit-calendar-picker-indicator {
     transition: 0.1s;
     padding-left: 0px;
     padding-right: 0px;
+    user-select: none;
 }
 .setting-item > li > a {
     padding-left: 40px;
@@ -1379,18 +1384,95 @@ input::-webkit-calendar-picker-indicator {
     
     /* end scrolling in tabbar */
 
-    
-    .hks-btn.btn-tab-prev.search-bar { /*for search-bar*/
+    /* scrolling in tab-layout */
+    .scrolling-tabs-main.tab-layout { 
+        height: 30px;
+        margin: 0;
+    }
+    .scrolling-tabs-main.tab-layout .vertical-align-middle {
+        
+    }
+    .scrolling-tabs-main.tab-layout .tabs-item{ 
+        font-size: 14px;
+        padding: 0 5px;
+        margin: 0 2px;
+        height: 100%;
+        line-height: 2;
+        min-width: 130px;
+        cursor: pointer;
+        font-weight: 600;
+        user-select: none;
+        display: inline-block;
+        float: right;
+    }
+    .scrolling-tabs-main.tab-layout .tabs-item:hover {
+        opacity: 0.8;
+    }
+    .scrolling-tabs-main.tab-layout .tabs-item.normal{ 
+        background-color: #FBFBFB;
+        color: #555;
+        /* border-bottom: 2px solid #555; */
+        
+    }
+    .scrolling-tabs-main.tab-layout .tabs-item.actived{ 
+        border-top: 2px solid #E49242;
+        background-color: #E8E8E8;
+        color: #555;
+    }
+    .scrolling-tabs-main.tab-layout .tabs-item.disabled{
+        background-color: #eee1e2;
+        color: #c5b3b3;
+        cursor: not-allowed;
+    }
+    .hks-btn.btn-tab-reload {
+        padding: 0 5px;
+        height: auto;
+        float: right;
+    }
+
+    .scrolling-tabs-main.tab-layout .scrolling-tabs-right {
+        position: relative;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    .hks-btn.btn-tabbar-prev {
+        margin: 0;
+        background-color: rgb(255, 250, 250);
+        height: 26px;
+        color: #005aa0;
+        padding: 0px 3px;
+        float: left;
+        height: 100%;
+        position: relative;
+    }
+    .hks-btn.btn-tabbar-next {
+        margin: 0;
+        margin-right: 2px;
+        background-color: rgb(255, 250, 250);
+        height: 100%;
+        color: #005aa0;
+        padding: 0px 3px;
+        float: right;
+    }
+    .scrolling-tabs-main.tab-layout > .scroll {
+        position: absolute;
+        width: 100%;
+        padding-right: 22px;
+        height: 100%;
+    }
+
+     /*for search-bar*/
+    .hks-btn.btn-tab-prev.search-bar {
         float: left;
         margin: 0;
         height: 23px;
     }
-    .hks-btn.btn-tab-next.search-bar { /*for search-bar*/
+    .hks-btn.btn-tab-next.search-bar {
         float: right;
         margin-right: 3px;
         height: 23px;
     }
-
+    /* end for search bar */
 
     /* scrolling in ScollingTabs Component */
     .scrolling-tabs-main.scrolling-tabbar {  /*for tabbar*/
@@ -2280,3 +2362,12 @@ input::-webkit-calendar-picker-indicator {
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+
+
+
+/* -------------------------------- */
+#management {
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+}

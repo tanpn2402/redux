@@ -1,10 +1,8 @@
 import React from 'react'
-import "react-table/react-table.css"
 import $ from 'jquery'
-import generateWindow from './view'
-import config from '../core/config'
+import generateWindow from '../view'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
+import * as actions from '../../actions'
 
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin')
 var _ = require('lodash')
@@ -12,7 +10,7 @@ var WidthProvider = require('react-grid-layout').WidthProvider
 var ResponsiveReactGridLayout  = require('react-grid-layout').Responsive
 ResponsiveReactGridLayout  = WidthProvider(ResponsiveReactGridLayout )
 
-class BaseLayout extends React.Component {
+class GridLayout extends React.Component {
 
     constructor () {
         super()
@@ -34,18 +32,6 @@ class BaseLayout extends React.Component {
                     maxW: layout['maxW'], maxH: layout['maxH'], static: layout['static'],
                     isResizable: layout['isResizable']}}>
 
-                {/* <div className="component-header" >
-                        <span className="content-block-head">
-                            {this.props.title[menuid]}
-                        </span>
-                        <ul className="btn-action">
-                            <li className="btn-close">
-                                <span className="glyphicon glyphicon-remove" ></span>
-                            </li>
-                        </ul>
-                        
-                </div> */}
-                
                 {
                     generateWindow(menuid, this.props)
                 }
@@ -69,6 +55,7 @@ class BaseLayout extends React.Component {
     }
     render () {
         const layout = this.props.layout
+        
         return (
 
             <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320} 
@@ -83,9 +70,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onRemoveTab: (menuid,pageid, tabList, reload) => {
-        dispatch(actions.menuRemoved(menuid, pageid, tabList, reload))
-    },
+    
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)
+export default connect(mapStateToProps, mapDispatchToProps)(GridLayout)

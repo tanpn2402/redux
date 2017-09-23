@@ -8,7 +8,7 @@ import FlashPopup from './commons/FlashPopup'
 import MessageBox from './commons/MessageBox'
 import Notification from './Notification'
 import config from '../core/config'
-
+import generateWindow from './view'
 
 class PageContent extends React.Component {
     constructor () {
@@ -30,18 +30,14 @@ class PageContent extends React.Component {
     }
 
     render () {
-        console.log(this.layout)
+        console.log(this.props.tabID)
+
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent">
-                <BaseLayout 
-                    language={this.props.language}
-                    layout={this.layout}
-                    page={[this.props.page]}
-                    title={this.props.title}
-                    stockList={this.props.stockList} 
-                    theme={this.props.theme}
-                    >
-                </BaseLayout>
+
+                {
+                    generateWindow(this.props.tabID, this.props)
+                }
             </div>
         )
     }
@@ -55,7 +51,7 @@ class PageContent extends React.Component {
             INSTRUMENTNAME: '',
             MARKETID: ''
         }
-        this.props.getStockIdList(param)
+        //this.props.getStockIdList(param)
     }
 
     
