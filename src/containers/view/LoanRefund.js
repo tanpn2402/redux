@@ -365,6 +365,17 @@ class LoanRefund extends Component {
         console.log( loanRefundHistory, this.state.loanRefundStatusCol )
         
         return (
+        <div style={{height: '100%'}}>
+            <div className="component-header" >
+                <span className="content-block-head">
+                    {this.props.language.menu[this.id]}
+                </span>
+                <ul className="btn-action">
+                    <li className="btn-close">
+                        <span className="glyphicon glyphicon-remove" ></span>
+                    </li>
+                </ul>
+            </div>
             <div id={ 'component-' + this.id} className="component-wrapper" onMouseDown={ e=> e.stopPropagation() }>
                 <div className="component-main loanrefund">
                     <div className="loanrefund-form">
@@ -567,6 +578,7 @@ class LoanRefund extends Component {
                     </div>
                 </div>
             </div>
+        </div>
         )
     }
 

@@ -336,6 +336,17 @@ class AccountInfo extends Component {
 		} 	
 
 	    return(
+		<div style={{height: '100%'}}>
+            <div className="component-header" >
+                <span className="content-block-head">
+                    {this.props.language.menu[this.id]}
+                </span>
+                <ul className="btn-action">
+                    <li className="btn-close">
+                        <span className="glyphicon glyphicon-remove" ></span>
+                    </li>
+                </ul>
+            </div>
 			<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
 				{
 					this.state.tabIndex === 1 ?
@@ -408,6 +419,7 @@ class AccountInfo extends Component {
 					<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
 				</div>
 			</div>
+		</div>
 	     )
     }
 

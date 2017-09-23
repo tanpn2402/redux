@@ -118,6 +118,17 @@ class StockMarketInfo extends Component {
 
 	render(){
  	     return(
+		<div style={{height: '100%'}}>
+            <div className="component-header" >
+                <span className="content-block-head">
+                    {this.props.language.menu[this.id]}
+                </span>
+                <ul className="btn-action">
+                    <li className="btn-close">
+                        <span className="glyphicon glyphicon-remove" ></span>
+                    </li>
+                </ul>
+            </div>
  	     	<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
  	     	  	<div className="component-main stockmarketinfo">
 	 	     		<div className=" col-sm-5 stock-stat" >
@@ -157,6 +168,7 @@ class StockMarketInfo extends Component {
 	                    param={['mvStockId']}/>
  				</div>
  	      	</div>
+		</div>
  	    )
     }
 

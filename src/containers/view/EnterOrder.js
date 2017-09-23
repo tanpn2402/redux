@@ -46,6 +46,7 @@ class EnterOrder extends Component {
             orderType: 'L',
             tmpBP:0.0,
         }
+        this.id = 'enterorder'
     }
 
     componentWillMount() {
@@ -84,7 +85,19 @@ class EnterOrder extends Component {
                 this.param.buypower = 0;
 
         }
+
         return (
+        <div style={{height: '100%'}}>
+            <div className="component-header" >
+                <span className="content-block-head">
+                    {this.props.language.menu[this.id]}
+                </span>
+                <ul className="btn-action">
+                    <li className="btn-close">
+                        <span className="glyphicon glyphicon-remove" ></span>
+                    </li>
+                </ul>
+            </div>
             <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
                 <div id={'orderjournal-body'} className="component-body">
                     <Form id="form-enterorder">
@@ -255,6 +268,7 @@ class EnterOrder extends Component {
                     </Form>
                 </div>
             </div>
+        </div>
         );
 
     }

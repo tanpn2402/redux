@@ -672,229 +672,241 @@ class Entitlement extends Component {
             ]
 
             return (
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
-            <div className="component-main entitlement">
-
-            <div className="entitlement-form">
-                <div className="title" style={this.props.theme.porfolio.titlestock}>
-                    <span>{this.props.language.entitlement.header.entitlementplace}</span>
+            <div style={{height: '100%'}}>
+                <div className="component-header" >
+                    <span className="content-block-head">
+                        {this.props.language.menu[this.id]}
+                    </span>
+                    <ul className="btn-action">
+                        <li className="btn-close">
+                            <span className="glyphicon glyphicon-remove" ></span>
+                        </li>
+                    </ul>
                 </div>
-                <Form onSubmit={this.submitEntitlement.bind(this)} id={"form-" + this.id} className={"form-" + this.id}>
-                    <FormGroup>
-                        <Table responsive >
-                            <tbody >
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.bankaccount}</th>
-                                    <td>
-                                        <select onChange={this.getAccountBalance.bind(this)} className="hks-select bank-account">
-                                            {
-                                                bankInfo.mvBankInfoList.map(bank => {
-                                                    return (
-                                                        <option value={bank.mvSettlementAccountDisplayName}>
-                                                            {bank.mvSettlementAccountDisplayName}
-                                                        </option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.cashbalance}</th>
-                                    <td>
-                                        <input
-                                            className="hks-input border-none"
-                                            id="cashBalance"
-                                            ref={e => this.cashBalance = e}
-                                            readOnly/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.cashavailable}</th>
-                                    <td>
-                                        <input
-                                            className="hks-input border-none"
-                                            id="cashAvailable"
-                                            ref={e => this.cashAvailable = e}
-                                            readOnly/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.buyingpower}</th>
-                                    <td>
-                                        <input
-                                            className="hks-input border-none"
-                                            id="buyingPower"
-                                            ref={e => this.buyingPower = e}
-                                            readOnly/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.stockcode}</th>
-                                    <td>
-                                        <InputSearch data={entitlementStockList.stockCmbList} onChange={this.onStockChange.bind(this)}/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.availableqty}</th>
-                                    <td>
-                                        <input
-                                            className="hks-input border-none"
-                                            id="txtStockExistQty" 
-                                            ref={e => this.txtStockExistQty = e}
-                                            readOnly
-                                            required />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.registerqty}</th>
-                                    <td>
-                                        <input
-                                            className="hks-input border"
-                                            id="txtTradeQty" 
-                                            ref={e => this.txtTradeQty = e}
-                                            type="number"
-                                            min="0"
-                                            required />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.actionprice}</th>
-                                    <td>
-                                        <input
-                                            id="txtPrice" 
-                                            className="hks-input border-none"
-                                            ref={e => this.txtPrice = e}
-                                            readOnly
-                                            required />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className="enterorder">{this.props.language.entitlement.header.amountVND}</th>
-                                    <td>
-                                        <input
-                                            id="txtAmount" 
-                                            className="hks-input border-none"
-                                            ref={e => this.txtAmount = e}
-                                            readOnly
-                                            required />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <input ref={e => this.txtTradeStockCode = e} type="hidden"/>
-                                    <input ref={e => this.txtBeginTransferDate = e} type="hidden"/>
-                                    <input ref={e => this.txtEndTransferDate = e} type="hidden"/>
-                                    <input ref={e => this.txtMaxQty = e} type="hidden"/>
-                                    <input ref={e => this.txtRequestedQty = e} type="hidden"/>
-                                    <input ref={e => this.txtQuantity = e} type="hidden"/>
-                                    <input ref={e => this.txtRightDate = e} type="hidden"/>
-                                    <input ref={e => this.txtStockRequestedQty = e} type="hidden"/>
-                                    <input ref={e => this.txtTotalRights = e} type="hidden"/>
-                                    <input ref={e => this.txtTotalStock = e} type="hidden"/>
-                                    <input ref={e => this.txtTimePeriod = e} type="hidden"/>
-                                </tr>
-                            </tbody>
-                        </Table>
-                        <div className="group-btn-action cashadvance-action">
-                            <span>
-                                <Button className="btn btn-default" type="submit" className="submit">
-                                    Submit
-                                </Button>
-                                <Button className="btn btn-default" type="reset" className="cancel">
-                                    Clear
-                                </Button>
-                            </span>
+                <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                    <div className="component-main entitlement">
+
+                        <div className="entitlement-form">
+                            <div className="title" style={this.props.theme.porfolio.titlestock}>
+                                <span>{this.props.language.entitlement.header.entitlementplace}</span>
+                            </div>
+                            <Form onSubmit={this.submitEntitlement.bind(this)} id={"form-" + this.id} className={"form-" + this.id}>
+                                <FormGroup>
+                                    <Table responsive >
+                                        <tbody >
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.bankaccount}</th>
+                                                <td>
+                                                    <select onChange={this.getAccountBalance.bind(this)} className="hks-select bank-account">
+                                                        {
+                                                            bankInfo.mvBankInfoList.map(bank => {
+                                                                return (
+                                                                    <option value={bank.mvSettlementAccountDisplayName}>
+                                                                        {bank.mvSettlementAccountDisplayName}
+                                                                    </option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.cashbalance}</th>
+                                                <td>
+                                                    <input
+                                                        className="hks-input border-none"
+                                                        id="cashBalance"
+                                                        ref={e => this.cashBalance = e}
+                                                        readOnly/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.cashavailable}</th>
+                                                <td>
+                                                    <input
+                                                        className="hks-input border-none"
+                                                        id="cashAvailable"
+                                                        ref={e => this.cashAvailable = e}
+                                                        readOnly/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.buyingpower}</th>
+                                                <td>
+                                                    <input
+                                                        className="hks-input border-none"
+                                                        id="buyingPower"
+                                                        ref={e => this.buyingPower = e}
+                                                        readOnly/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.stockcode}</th>
+                                                <td>
+                                                    <InputSearch data={entitlementStockList.stockCmbList} onChange={this.onStockChange.bind(this)}/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.availableqty}</th>
+                                                <td>
+                                                    <input
+                                                        className="hks-input border-none"
+                                                        id="txtStockExistQty" 
+                                                        ref={e => this.txtStockExistQty = e}
+                                                        readOnly
+                                                        required />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.registerqty}</th>
+                                                <td>
+                                                    <input
+                                                        className="hks-input border"
+                                                        id="txtTradeQty" 
+                                                        ref={e => this.txtTradeQty = e}
+                                                        type="number"
+                                                        min="0"
+                                                        required />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.actionprice}</th>
+                                                <td>
+                                                    <input
+                                                        id="txtPrice" 
+                                                        className="hks-input border-none"
+                                                        ref={e => this.txtPrice = e}
+                                                        readOnly
+                                                        required />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="enterorder">{this.props.language.entitlement.header.amountVND}</th>
+                                                <td>
+                                                    <input
+                                                        id="txtAmount" 
+                                                        className="hks-input border-none"
+                                                        ref={e => this.txtAmount = e}
+                                                        readOnly
+                                                        required />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <input ref={e => this.txtTradeStockCode = e} type="hidden"/>
+                                                <input ref={e => this.txtBeginTransferDate = e} type="hidden"/>
+                                                <input ref={e => this.txtEndTransferDate = e} type="hidden"/>
+                                                <input ref={e => this.txtMaxQty = e} type="hidden"/>
+                                                <input ref={e => this.txtRequestedQty = e} type="hidden"/>
+                                                <input ref={e => this.txtQuantity = e} type="hidden"/>
+                                                <input ref={e => this.txtRightDate = e} type="hidden"/>
+                                                <input ref={e => this.txtStockRequestedQty = e} type="hidden"/>
+                                                <input ref={e => this.txtTotalRights = e} type="hidden"/>
+                                                <input ref={e => this.txtTotalStock = e} type="hidden"/>
+                                                <input ref={e => this.txtTimePeriod = e} type="hidden"/>
+                                            </tr>
+                                        </tbody>
+                                    </Table>
+                                    <div className="group-btn-action cashadvance-action">
+                                        <span>
+                                            <Button className="btn btn-default" type="submit" className="submit">
+                                                Submit
+                                            </Button>
+                                            <Button className="btn btn-default" type="reset" className="cancel">
+                                                Clear
+                                            </Button>
+                                        </span>
+                                    </div>
+                                </FormGroup>
+                            </Form>
                         </div>
-                    </FormGroup>
-                </Form>
+
+                        <div className="entitlement-table">
+
+                            <div key={this.id + "-xtable1"} id={this.id + "-xtable1"}>
+                                <div className="table-main">
+                                    <DataUpperTable
+                                    key={this.id + "-table1"}
+                                    id={this.id + "-table1"}
+                                    language={this.props.language.entitlement.header}
+                                    columns={this.state.columns}
+                                    defaultPageSize={this.defaultPageSize}
+                                    data={allRightList.rightList}/>
+                                </div>
+                                <div className="table-header">
+                                    <div className="title" style={this.props.theme.porfolio.titlestock}>
+                                        <span>{this.props.language.entitlement.header.corporateactionlist}</span>
+                                    </div>
+                                    <SearchBar
+                                    key={this.id+ '-search1'}
+                                    id={this.id+ '-search1'}
+                                    onSearch={this.onSearch1.bind(this)}
+                                    buttonAction={buttonAction1}
+                                    language={this.props.language.searchbar}
+                                    theme={this.props.theme}
+                                    data={{columns:this.state.columns , actionType: this.actionTypeStore, stockList: this.props.stockList}}
+                                    onChangeStateColumn={this.onChangeStateColumn1.bind(this)}
+                                    param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
+                                </div>
+                            </div>
+
+                            <div key={this.id + "-xtable3"} id={this.id + "-xtable3"}>
+                            <div className="table-main">
+                                <DataUpperTable
+                                    key={this.id + "-table2"}
+                                    id={this.id + "-table2"}
+                                    language={this.props.language.entitlement.header}
+                                    columns={this.state.columns2}
+                                    defaultPageSize={this.defaultPageSize}
+                                    data={additionIssueShareInfo.additionList}/>
+                                </div>
+                                <div className="table-header">
+                                    <div className="title" style={this.props.theme.porfolio.titlestock}>
+                                    <span>{this.props.language.entitlement.header.additionalissuesharesinformation}</span>
+                                    </div>
+                                    <SearchBar
+                                    key={this.id + '-search2'}
+                                    id={this.id + '-search2'}
+                                    buttonAction={buttonAction2}
+                                    language={this.props.language.searchbar}
+                                    theme={this.props.theme}
+                                    data={{columns:this.state.columns2 ,stockList: this.props.stockList}}
+                                    onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
+                                    param={['dropdown']}/>
+                                </div>
+                            </div>
+
+                            <div key={this.id + "-xtable2"}  id={this.id + "-xtable2"}>
+                            <div className="table-main">
+                                    <DataUpperTable
+                                    key={this.id + "-table3"}
+                                    id={this.id + "-table3"}
+                                    language={this.props.language.entitlement.header}
+                                    columns={this.state.columns3}
+                                    defaultPageSize={this.defaultPageSize}
+                                    data={entitlementHistory.historyList}/>
+                                </div>
+                                <div className="table-header">
+                                    <div className="title" style={this.props.theme.porfolio.titlestock}>
+                                        <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
+                                    </div>
+
+                                    <SearchBar
+                                    key={this.id + '-search3'}
+                                    id={this.id + '-search3'}
+                                    onSearch={this.onSearch2.bind(this)}
+                                    buttonAction={buttonAction3}
+                                    language={this.props.language.searchbar}
+                                    theme={this.props.theme}
+                                    data={{columns:this.state.columns3 ,stockList: this.props.stockList}}
+                                    onChangeStateColumn={this.onChangeStateColumn3.bind(this)}
+                                    param={['mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div className="entitlement-table">
-
-                <div key={this.id + "-xtable1"} id={this.id + "-xtable1"}>
-                    <div className="table-main">
-                        <DataUpperTable
-                          key={this.id + "-table1"}
-                          id={this.id + "-table1"}
-                          language={this.props.language.entitlement.header}
-                          columns={this.state.columns}
-                          defaultPageSize={this.defaultPageSize}
-                          data={allRightList.rightList}/>
-                    </div>
-                    <div className="table-header">
-                        <div className="title" style={this.props.theme.porfolio.titlestock}>
-                            <span>{this.props.language.entitlement.header.corporateactionlist}</span>
-                        </div>
-                        <SearchBar
-                          key={this.id+ '-search1'}
-                          id={this.id+ '-search1'}
-                          onSearch={this.onSearch1.bind(this)}
-                          buttonAction={buttonAction1}
-                          language={this.props.language.searchbar}
-                          theme={this.props.theme}
-                          data={{columns:this.state.columns , actionType: this.actionTypeStore, stockList: this.props.stockList}}
-                          onChangeStateColumn={this.onChangeStateColumn1.bind(this)}
-                          param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
-                    </div>
-                </div>
-
-                <div key={this.id + "-xtable3"} id={this.id + "-xtable3"}>
-                <div className="table-main">
-                      <DataUpperTable
-                        key={this.id + "-table2"}
-                        id={this.id + "-table2"}
-                        language={this.props.language.entitlement.header}
-                        columns={this.state.columns2}
-                        defaultPageSize={this.defaultPageSize}
-                        data={additionIssueShareInfo.additionList}/>
-                    </div>
-                    <div className="table-header">
-                        <div className="title" style={this.props.theme.porfolio.titlestock}>
-                          <span>{this.props.language.entitlement.header.additionalissuesharesinformation}</span>
-                        </div>
-                        <SearchBar
-                          key={this.id + '-search2'}
-                          id={this.id + '-search2'}
-                          buttonAction={buttonAction2}
-                          language={this.props.language.searchbar}
-                          theme={this.props.theme}
-                          data={{columns:this.state.columns2 ,stockList: this.props.stockList}}
-                          onChangeStateColumn={this.onChangeStateColumn2.bind(this)}
-                          param={['dropdown']}/>
-                    </div>
-                </div>
-
-                <div key={this.id + "-xtable2"}  id={this.id + "-xtable2"}>
-                <div className="table-main">
-                        <DataUpperTable
-                          key={this.id + "-table3"}
-                          id={this.id + "-table3"}
-                          language={this.props.language.entitlement.header}
-                          columns={this.state.columns3}
-                          defaultPageSize={this.defaultPageSize}
-                          data={entitlementHistory.historyList}/>
-                    </div>
-                    <div className="table-header">
-                        <div className="title" style={this.props.theme.porfolio.titlestock}>
-                            <span>{this.props.language.entitlement.header.additionalissuesharesbuyinghistory}</span>
-                        </div>
-
-                        <SearchBar
-                          key={this.id + '-search3'}
-                          id={this.id + '-search3'}
-                          onSearch={this.onSearch2.bind(this)}
-                          buttonAction={buttonAction3}
-                          language={this.props.language.searchbar}
-                          theme={this.props.theme}
-                          data={{columns:this.state.columns3 ,stockList: this.props.stockList}}
-                          onChangeStateColumn={this.onChangeStateColumn3.bind(this)}
-                          param={['mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
-                    </div>
-                </div>
-            </div>
-          </div>
-          </div>
-        );
+            );
     }
     
 
