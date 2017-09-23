@@ -57,6 +57,11 @@ body {
     border: 1px solid #dcdcdc;
     padding: 3px 6px;
 }
+.hks-input.read-only{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
 .hks-select {
     border-radius: 2px;
     background-color: transparent;
@@ -2373,7 +2378,9 @@ input::-webkit-calendar-picker-indicator {
 .widget-header {
     width: 100%;
     height: 25px;
+    position: absolute;
     background-color: #005AA0;
+    z-index: 10;
 }
 .widget-header > .widget-title {
     float: left;
@@ -2389,10 +2396,12 @@ input::-webkit-calendar-picker-indicator {
 }
 .widget-action {
     height: 100%;
-    padding: 1px;
+    padding: 1px 3px 1px 1px;
+    /* background-color: #fff; */
 }
 .widget-action > ul{
     list-style: none;
+    display: inline-flex;
     padding: 0;
     margin: 0;
     height: 100%;
@@ -2405,7 +2414,61 @@ input::-webkit-calendar-picker-indicator {
     line-height: 1.8;
     cursor: pointer;
     user-select: none;
+    margin: 0 2px;
 }
+.widget-action > ul > li .dropdown-display{
+    width: 100%;
+    padding: 0;
+    background-color: #fafafa;
+    height: 23px;
+    color: #555;
+}
+
+.widget-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.widget-body > .table-header {
+    padding-top: 25px;
+    width: 100%;
+    position: absolute;
+}
+.widget-body > .table-main {
+    padding-top: 50px;
+    padding-bottom: 27px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.widget-body > .table-footer {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: #dcdcdc;
+    padding: 2px 0;
+}
+.widget-body > .widget-form {
+    padding-top: 25px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.widget-form .table > tbody > tr > th {
+    width: 60%;
+    font-weight: normal;
+}
+.widget-form .table > tbody > tr > th,
+.widget-form .table > tbody > tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;    
+}
+.widget-form .table > tbody > tr {
+    border: 1px solid #dcdcdc;
+}
+.widget-form .table > tbody > tr:nth-child(even) {background: #F0F0F0}
+.widget-form .table > tbody > tr:nth-child(odd) {background: #FFF}
 /* END WIDGET HEADER */
 /* MANAGEMENT WIDGET */
 #management {
@@ -2419,3 +2482,9 @@ input::-webkit-calendar-picker-indicator {
 
 
 /* END TRANS HISTORY WIDGET */
+
+
+
+
+
+

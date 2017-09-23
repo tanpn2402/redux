@@ -58,7 +58,11 @@
                 "defaultgroup":"Default Group",
                 "savelayout":"Save Layout",
                 "techanalysis":"Technical Analysis",
-                "orderconfirmation":"Order Confirmation"
+                "orderconfirmation":"Order Confirmation",
+                "actionRightList": "Right Lists",
+                "additionSharesInfo": "Addition Shares Info",
+                "entitlementHistory": "Entitlement History",
+                "entitlementPanel": "Entitlement Place"
             },
             "searchbar":{  
                 "search":"Search",

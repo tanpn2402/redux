@@ -29,6 +29,9 @@ export default class SearchBar extends React.Component {
             'mvLending': false,
             'mvActionType': false
         }
+
+        this.language = []
+        this.theme = []
     }
 
     onSearch(pageIndex) {
@@ -340,22 +343,6 @@ export default class SearchBar extends React.Component {
                     </button>
                 </div>
 
-					        
-		        {
-
-                    this.props.param.indexOf('dropdown') < 0 ? '' :
-                        (
-                                <FormGroup bsClass="form-group dropdowncheckbox">
-                                    <ConfigColumnTable 
-                                        id={this.props.id}
-                                        columns={this.props.data.columns} 
-                                        onChangeStateColumn={this.props.onChangeStateColumn}/>
-                                </FormGroup>
-                           
-                        )
-
-                }
-		     
 	      	</Form>
 
         );

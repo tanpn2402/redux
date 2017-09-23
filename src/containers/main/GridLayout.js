@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
-import generateWindow from '../view'
+import generateWindow from '../widget'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 

@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TabLayout from '../main/TabLayout'
-
+import Title from '../commons/WidgetTitle'
+import Body from '../commons/WidgetBody'
+import SearchBar from '../commons/SearchBar'
+import Table from '../widget/Entitlement'
 class TransHistory extends Component {
 	constructor(props) {
         super(props)
@@ -28,45 +31,43 @@ class TransHistory extends Component {
     }
 
     render(){
-        // return(
-        //     <div id="transhistory">
-        //         <div className="widget-header" >
-        //             <span className="widget-title">
-        //                 "ASDS"
-        //             </span>
-        //             <div className="widget-action">
-        //                 <ul>
-        //                     <li className="btn-close">
-        //                         <span className="glyphicon glyphicon-repeat"></span>
-        //                     </li>
-        //                 </ul>
-        //             </div>
-        //         </div>
-
-        //         <div className="widget-child-header">
-        //             <div className="col-md-4">
-                        
-
-        //             </div>
-        //             <div className="col-md-6">
-                        
-
-        //             </div>
-        //         </div>
-
-        //         <GridLayout 
-        //             language={this.props.language}
-        //             layout={this.layout}
-        //             stockList={this.props.stockList} 
-        //             theme={this.props.theme}
-        //             >
-        //         </GridLayout>
-        //     </div>
-        // )
-
         return(
-            <TabLayout theme={this.props.theme} language={this.props.language} tabID={this.props.tabID}/>
+            <div id="transhistory">
+                <Table language={this.props.language}/>
+                {/* <div className="widget-header" >
+                    <span className="widget-title">
+                        "ASDS"
+                    </span>
+                    <div className="widget-action">
+                        <ul>
+                            <li className="btn-close">
+                                <span className="glyphicon glyphicon-repeat"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div> */}
+
+                {/* <div className="widget-child-header">
+                    <div className="col-md-4">
+                        
+
+                    </div>
+                    <div className="col-md-6">
+                        
+
+                    </div>
+                </div>
+
+                <GridLayout 
+                    language={this.props.language}
+                    layout={this.layout}
+                    stockList={this.props.stockList} 
+                    theme={this.props.theme}
+                    >
+                </GridLayout> */}
+            </div>
         )
+
     }
 
     componentDidMount() {

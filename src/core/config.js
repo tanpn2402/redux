@@ -322,6 +322,11 @@ const config = {
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
 		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
 		management: {i: 'management', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+
+		actionRightList: {i: 'actionRightList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		additionSharesInfo: {i: 'additionSharesInfo', x:2, y:5, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		entitlementPanel: {i: 'entitlementPanel', x:0, y:0, w: 2, h: 10, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		entitlementHistory: {i: 'entitlementHistory', x:2, y:10, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		
 	},
 	settings: [
