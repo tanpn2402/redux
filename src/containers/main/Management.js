@@ -13,9 +13,8 @@ class Management extends Component {
     }	
 
     render(){
-        console.log('asdsds')
         return(
-                <TabLayout theme={this.props.theme} language={this.props.language}/>
+                <TabLayout theme={this.props.theme} language={this.props.language} tabID={this.props.tabID}/>
         )
     }
 

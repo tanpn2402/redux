@@ -6,11 +6,24 @@ import config from '../../core/config'
 class TabLayout extends Component {
     constructor(props){
         super(props)
-        this.tabbar = ['cashadvance', 'cashtransfer', 'cashadvancebank']
-
-        this.state = {
-            activeTab: 'cashadvance'
+        
+        var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
+        if(tabs.length > 0){
+            this.tabbar = tabs[0].widget
+    
+            this.state = {
+                activeTab: this.tabbar[0]
+            }
         }
+        else{
+            this.tabbar = []
+    
+            this.state = {
+                activeTab: ''
+            }
+        }
+        
+        console.log(this.tabbar)
         
 
     }
@@ -21,7 +34,7 @@ class TabLayout extends Component {
         var language = this.props.language
         var activeTab = this.state.activeTab
         var layout = [config.default_layout[activeTab]]
-        console.log(language)
+        console.log(this.props)
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">

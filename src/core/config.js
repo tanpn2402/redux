@@ -280,14 +280,14 @@ const config = {
 			id: 'management',
 			title: "management",
 			widget: [
-				// 'cashtransfer',
-				// 'cashadvance',
-				// 'cashadvancebank',
-				// 'oddlottrading',
-				// 'entitlement', 
-				// 'loanrefund',
+				'cashtransfer',
+				'cashadvance',
+				'cashadvancebank',
+				'oddlottrading',
+				'entitlement', 
+				'loanrefund',
 				// 'available'
-				'management'
+				//'management'
 			]
 		},
 		{

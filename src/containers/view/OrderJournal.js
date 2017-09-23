@@ -6,6 +6,7 @@ import * as actions from '../../actions'
 import Popup from '../Popup'
 import DataUpperTable from '../DataUpperTable'
 import Pagination from '../commons/Pagination'
+import ConfigColumnTable from '../commons/ConfigColumnTable'
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -203,6 +204,17 @@ class OrderJournal extends Component {
                 <span className="content-block-head">
                     {this.props.language.menu[this.id]}
                 </span>
+                <div>
+                <SearchBar
+                        id={this.id}
+                        onSearch={this.onSearch.bind(this)}
+                        buttonAction={this.buttonAction}
+                        language={this.props.language.searchbar}
+                        theme={this.props.theme}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        data={{stockList: this.props.stockList, columns: this.state.columns}}
+                        param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
+                </div>
                 <ul className="btn-action">
                     <li className="btn-close">
                         <span className="glyphicon glyphicon-remove" ></span>
@@ -219,15 +231,7 @@ class OrderJournal extends Component {
                         defaultPageSize={15} />
                 </div>
                 <div className="component-body">
-                    <SearchBar
-                        id={this.id}
-                        onSearch={this.onSearch.bind(this)}
-                        buttonAction={this.buttonAction}
-                        language={this.props.language.searchbar}
-                        theme={this.props.theme}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: this.props.stockList, columns: this.state.columns}}
-                        param={['mvStatus', 'mvOrderType', 'mvBuysell', 'dropdown']} />
+                    
                     <Popup
                         id={this.id}
                         show={this.state.lgShow} onHide={lgClose}

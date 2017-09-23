@@ -22,7 +22,7 @@ import TechAnalysis from './Techanalysis'
 import CashAdvanceBank from './CashAdvanceBank'
 import Management from '../main/Management'
 import Trading from '../main/Trading'
-
+import TransHistory from '../main/TransHistory'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -113,11 +113,15 @@ export default function (menuid, props){
 			)
 		case 'management':
 			return(
-				<Management language={props.language} stockList={props.stockList} theme={props.theme}/>
+				<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
 			)
-		case 'trading': case 'portfoliotab': case 'orderjournaltab': case 'transhistory':
+		case 'trading': case 'portfoliotab': case 'orderjournaltab':
 			return(
 				<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'transhistory':
+			return(
+				<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
 			)
 		default: return
 	}

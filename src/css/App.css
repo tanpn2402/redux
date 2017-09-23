@@ -662,7 +662,7 @@ input::-webkit-calendar-picker-indicator {
     padding: 10px 0px;
 }
 .settingnav {
-    width: 100%;
+    width: 0;
     height: 100%;
     position: absolute;
     top: 0;
@@ -678,6 +678,9 @@ input::-webkit-calendar-picker-indicator {
     overflow-x: hidden;
     transition: 0.2s;
     text-align: left;
+}
+.settingnav.open{
+    width: 100%;
 }
 .settingnav.open > .setting-panel {
     width: 400px;
@@ -2366,8 +2369,53 @@ input::-webkit-calendar-picker-indicator {
 
 
 /* -------------------------------- */
+/* WIDGET HEADER */
+.widget-header {
+    width: 100%;
+    height: 25px;
+    background-color: #005AA0;
+}
+.widget-header > .widget-title {
+    float: left;
+    color: #fff;
+    line-height: 1.8;
+    padding-right: 10px;
+    padding-left: 10px;
+    user-select: none;
+
+}
+.widget-header > .widget-action {
+    float: right;
+}
+.widget-action {
+    height: 100%;
+    padding: 1px;
+}
+.widget-action > ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+.widget-action > ul > li {
+    background-color: #fafafa;
+    height: 100%;
+    width: 21px;
+    text-align: center;
+    line-height: 1.8;
+    cursor: pointer;
+    user-select: none;
+}
+/* END WIDGET HEADER */
+/* MANAGEMENT WIDGET */
 #management {
     width: 100%;
     height: 100%;
     padding-top: 30px;
 }
+/* END MANAGEMENT WIDGET */
+
+/* TRANS HISTORY WIDGET */
+
+
+/* END TRANS HISTORY WIDGET */
