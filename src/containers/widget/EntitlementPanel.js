@@ -138,14 +138,15 @@ class EntitlementPanel extends Component {
                                     </tr>
                                 </tbody>
                             </Table>
-                            <div className="group-btn-action cashadvance-action">
+                            <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <Button className="btn btn-default" type="submit" className="submit">
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                        onClick={this.submitEntitlement.bind(this)}>
                                         Submit
-                                    </Button>
-                                    <Button className="btn btn-default" type="reset" className="cancel">
-                                        Clear
-                                    </Button>
+                                    </button>
+                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel">
+                                        Cancel
+                                    </button>
                                 </span>
                             </div>
                         </FormGroup>

@@ -24,6 +24,10 @@ class Trading extends Component {
                 activeTab: ''
             }
         }
+        this.layout = []
+        for (var i = this.tabbar.length - 1; i >= 0; i--) {
+            this.layout.push(config.default_layout[this.tabbar[i]])
+        }
         
     }
 
@@ -31,12 +35,11 @@ class Trading extends Component {
     }   
 
     render(){
-        var activeTab = this.state.activeTab
-        var layout = [config.default_layout[activeTab]]
+
         return(
             <GridLayout 
                 language={this.props.language}
-                layout={layout}
+                layout={this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
                 >

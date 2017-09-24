@@ -69,18 +69,18 @@ class AdBankPanel extends Component {
                                             </FormGroup>
                                         </td>
                                     </tr>
-                              </tbody>
-                          </Table>
-                          <div className="group-btn-action cashadvancebank-action">
-                                    <span>
-                                        <Button className="btn btn-default" type="submit" className="submit">
-                                            Submit
-                                        </Button>
-                                        <Button className="btn btn-default" type="reset" className="cancel">
-                                            Clear
-                                        </Button>
-                                    </span>
-                                </div>
+                                </tbody>
+                            </Table>
+                            <div className="group-btn-action form-submit-action">
+                                <span>
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" onClick={this.handleSubmit.bind(this)}>
+                                        Submit
+                                    </button>
+                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel">
+                                        Cancel
+                                    </button>
+                                </span>
+                            </div>
                         </FormGroup>
                     </Form>
                     

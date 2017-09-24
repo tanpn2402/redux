@@ -1,25 +1,31 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
-import SearchBar from '../commons/SearchBar'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import moment from 'moment'
-import DataUpperTable from '../DataUpperTable'
+import Title from '../commons/WidgetTitle'
+import Body from '../commons/WidgetBody'
+import SearchBar from '../commons/SearchBar'
+import Table from '../commons/DataTable'
+import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
-
-class CashTransactionHistory extends Component {
+import moment from 'moment'
+class CashTransHistory extends Component {
     constructor(props) {
         super(props)
+
+        this.pageIndex = 1
+        this.rowSelected = []
+        this.id = 'cashTransHistory'
+        this.defaultPageSize = 15
 
         this.params = {
             tradeType: 'ALL',
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
-            limit: 15,
+            limit: this.defaultPageSize,
             page: 1
         }
-	   this.exportParams = {
+       this.exportParams = {
             mvLastAction:'CASHTRANSACTIONHISTORY',
             tradeType:'',
             mvStartDate:'',
@@ -101,9 +107,7 @@ class CashTransactionHistory extends Component {
             ],
             pageIndex: 1,
         }
-        this.pageIndex = 1
-        this.rowSelected = []
-        this.id = 'cashtransactionhistory'
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -183,58 +187,58 @@ class CashTransactionHistory extends Component {
 
     }
 
+
     render() {
-        this.buttonAction = [
-            <Pagination
-                pageIndex={this.state.pageIndex}
-                totalRecord={this.props.data.mvTotalOrders}
-                onPageChange={this.onPageChange.bind(this)}
-                onNextPage={this.onNextPage.bind(this)}
-                onPrevPage={this.onPrevPage.bind(this)}
-                onReloadPage={this.onReloadPage.bind(this)}
-                onExportExcel={this.onExportExcel.bind(this)}
-            />,
-        ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         console.log('data' + this.id, this.props.data)
         var page = this.props.data.mvCurrentPage === undefined ? 1 : this.props.data.mvCurrentPage
 
         return (
-        <div style={{height: '100%'}}>
-            <div className="component-header" >
-                <span className="content-block-head">
+            <div style={{height: '100%', position: 'relative'}}>
+                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
-                </span>
-                <ul className="btn-action">
-                    <li className="btn-close">
-                        <span className="glyphicon glyphicon-remove" ></span>
-                    </li>
-                </ul>
-            </div>
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
-                <div className="component-main">
-                    <DataUpperTable
-                        id="cashtransactionhistory-table"
-                        columns={this.state.columns}
-                        data={data}
-                        defaultPageSize={15} />
-                </div>
-                <div className="component-body">
+                </Title>
+                <Body>
+                    <div className="table-main">
+                        <Table
+                            key={this.id}
+                            id={this.id}
+                            defaultPageSize={this.defaultPageSize}
+                            columns={this.state.columns}
+                            data={data}
+                        />
+                    </div>
 
-                    <SearchBar
-                        id={this.id}
-                        onSearch={this.onSearch.bind(this)}
-                        buttonAction={this.buttonAction}
-                        language={this.props.language.searchbar}
-                        theme={this.props.theme}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: [], columns: this.state.columns}}
-                        param={['mvTrade', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                </div>
+                    <div className="table-header">
+                        <SearchBar
+                            id={this.id}
+                            onSearch={this.onSearch.bind(this)}
+                            buttonAction={[]}
+                            language={this.props.language.searchbar}
+                            theme={this.props.theme}
+                            data={{stockList: []}}
+                            param={['mvTrade', 'mvStartDate', 'mvEndDate']} />
+                    </div>
+
+                    <div className="table-footer">
+                        <Pagination
+                            pageIndex={this.state.pageIndex}
+                            totalRecord={this.props.data.mvTotalOrders}
+                            onPageChange={this.onPageChange.bind(this)}
+                            onNextPage={this.onNextPage.bind(this)}
+                            onPrevPage={this.onPrevPage.bind(this)}
+                            onReloadPage={this.onReloadPage.bind(this)}
+                            onExportExcel={this.onExportExcel.bind(this)}
+                        />
+                    </div>
+
+                </Body>
             </div>
-        </div>
         )
 
+    }
+
+    componentDidMount() {
     }
 
     onRowSelected(param) {
@@ -312,8 +316,8 @@ class CashTransactionHistory extends Component {
 
         this.props.onExportExcel(this.exportParams)
     }
-}
 
+}
 const mapStateToProps = (state) => {
     return {
         data: state.cashtranshistory.data,
@@ -330,4 +334,5 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CashTransactionHistory);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CashTransHistory)

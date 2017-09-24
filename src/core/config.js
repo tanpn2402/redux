@@ -265,15 +265,15 @@ const config = {
 			id: 'orderjournaltab',
 			title: "orderjournal",
 			widget: [
-				'matchOrderBankList'
+				'orderjournal'
 			]
 		},
 		{
 			id: 'transhistory',
 			title: "transhistory",
 			widget: [
-				'cashtransactionhistory',
-				'ordershistory'
+				'cashTransHistory',
+				'orderHistory'
 			]
 		},
 		{
@@ -283,7 +283,7 @@ const config = {
 				//'cashtransfer',
 				'advancePayment',
 				'advancePaymentBank',
-				//'oddlottrading',
+				'oddlottrading',
 				'entitlement', 
 				//'loanrefund',
 				// 'available'
@@ -303,10 +303,8 @@ const config = {
 		orderjournal: {i: 'orderjournal', x:0, y:6, w: 8, h: 4, minW: 8, minH: 4, maxW: 8, maxH: 10, static: true, isResizable: false},
 
 
-		cashtransactionhistory: { i: 'cashtransactionhistory', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
 		orderconfirmation: { i: 'orderconfirmation', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, static: true },
 		portfolio: {i: 'portfolio', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 20, static: true, isResizable: false},
-		ordershistory: { i: 'ordershistory', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
 		stockstatement: { i: 'stockstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
 		cashstatement: { i: 'cashstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
 		watchlist: {i: 'watchlist', x:0, y:0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: true, isResizable: false},
@@ -348,6 +346,9 @@ const config = {
 		advanceHistory: {i: 'advanceHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advancePanel: {i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advancePayment: {i: 'advancePayment', x:0, y:0, w: 8, h: 8, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+
+		orderHistory: { i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false },
+		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false },
 
 	},
 	settings: [

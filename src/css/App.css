@@ -32,6 +32,7 @@ body {
 
 .hks-btn {
     border: none;
+    border-radius: 2px;
     background-color: transparent;
     color: #fff;
     outline: none;
@@ -43,6 +44,22 @@ body {
     color: #fff;
     cursor: pointer;
 }
+.hks-btn.btn-submit {
+    background-color: #005899;
+    color: white;
+    width: 30%;
+}
+.hks-btn.btn-submit:hover {
+    background-color: #003f6e;
+}
+.hks-btn.btn-cancel {
+    background-color: rgb(255, 102, 0);
+    color: white;
+    width: 30%;
+}
+.hks-btn.btn-cancel:hover {
+    background-color: rgb(221, 88, 0);
+}
 .hks-tab {
     color: #fff;
     background-color: #337ab7;
@@ -50,6 +67,7 @@ body {
 .hks-input {
     border: none;
     outline: none;
+
 }
 .hks-input.border{
     border-radius: 2px;
@@ -69,7 +87,14 @@ body {
     padding: 3px 6px;
     width: 100%;
 }
-
+.group-btn-action {
+    text-align: center;
+}
+.form-submit-action button {
+    margin: 0 10px 0 10px;
+    font-size: 12px;
+    padding-bottom: 4px;
+}
 /*remove the red border in a required form input in FIREFOX*/
 
 input:required {
@@ -428,11 +453,6 @@ input::-webkit-calendar-picker-indicator {
 .inline {
     float: right;
 }
-.enterorder {
-    background-color: #5C6BC0;
-    color: white;
-    width: 50%;
-}
 .Radiobox {
     padding-top: 3px;
 }
@@ -446,56 +466,45 @@ input::-webkit-calendar-picker-indicator {
 .button {
     margin: 0px 35%;
 }
-.submit {
-    background-color: #005899;
-    color: white;
-}
-.cancel {
-    background-color: rgb(255, 102, 0);
-    color: white;
-}
+
 .error {
     margin: 15px 15px;
 }
-.group-btn-action {
-    text-align: center;
-    margin-top: 6px;
+#form-enterorder > .form-group > .table-responsive > .table {
+    margin: 0;
 }
-.enterorder-action button {
-    margin: 0 10px 0 10px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0;
-    border: 0;
+#form-enterorder > .form-group > .table-responsive {
+    margin-bottom: 5px;
 }
-.enterorder-form-group > .value-wapper > input,
-.enterorder-form-group > .value-wapper > .form-group > input {
-    width: 100%;
-    height: 22px;
-    margin-right: 5px;
-    border: none;
-    outline: none;
-    background-color: transparent;
+#form-enterorder > .form-group.enterorder-buy > .table-responsive > .table >tbody > tr > th {
+    background-color: #286cae;
+    color: #fff;
 }
-.value-wapper.col-xs-7,
-.enterorder-form-group .col-xs-11,
-.enterorder-form-group .col-xs-1,
-.enterorder-form-group .col-xs-5 {
-    height: 22px;
-    padding: 0;
-    padding-left: 5px;
+#form-enterorder > .form-group.enterorder-buy > .table-responsive > .table >tbody > tr > td {
+    background-color: #fff;
 }
-.title-wapper {
-    background-color: #efefef;
-    border-bottom: 1px solid #dcdcdc;
-    padding-left: 5px;
-    color: #005899;
-    font-weight: bold;
+#form-enterorder > .form-group.enterorder-sell > .table-responsive > .table >tbody > tr > th {
+    background-color: #f60;
+    color: #fff;
 }
-.value-wapper {
-    border-bottom: 1px solid #dcdcdc;
-    padding-left: 5px;
+#form-enterorder > .form-group.enterorder-sell > .table-responsive > .table >tbody > tr > td {
+    background-color: #fff;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th,
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td select {
+    padding: 0 6px;
+    height: 20px;
+    border-radius: 4px;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td input {
+    padding: 0 0px;
+    border-color: #fff;
+    border-width: 1px;
+    border-radius: 4px;
 }
 @media(max-width: 768px){
     .login.form-horizontal {
