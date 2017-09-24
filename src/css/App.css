@@ -372,6 +372,7 @@ input::-webkit-calendar-picker-indicator {
     transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
 }
 .dropdown-list.show {
+    top: 1px;
     visibility: visible;
     opacity: 1;
     z-index: 99;

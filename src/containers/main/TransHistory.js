@@ -5,7 +5,7 @@ import TabLayout from '../main/TabLayout'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import SearchBar from '../commons/SearchBar'
-import Table from '../widget/OddLot'
+import Table from '../widget/AdvancePaymentBank'
 class TransHistory extends Component {
 	constructor(props) {
         super(props)
