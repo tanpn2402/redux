@@ -8,6 +8,9 @@ import OddLotHistory from './OddLotHistory'
 import AdvanceBankPanel from './AdvanceBankPanel'
 import MatchOrderBankList from './MatchOrderBankList'
 import AdvanceBankHistory from './AdvanceBankHistory'
+import AdvancePanel from './AdvancePanel'
+import MatchOrderList from './MatchOrderList'
+import AdvanceHistory from './AdvanceHistory'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -47,6 +50,18 @@ export default function (menuid, props){
 		case 'advanceBankPanel':
 			return (
 				<AdvanceBankPanel language={props.language} theme={props.theme}/>
+            )
+		case 'matchOrderList':
+			return (
+				<MatchOrderList language={props.language} theme={props.theme}/>
+			)
+		case 'advanceHistory':
+			return (
+				<AdvanceHistory language={props.language} theme={props.theme}/>
+			)
+		case 'advancePanel':
+			return (
+				<AdvancePanel language={props.language} theme={props.theme}/>
             )
     }
 }
