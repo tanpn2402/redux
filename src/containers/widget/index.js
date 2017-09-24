@@ -1,4 +1,16 @@
 import React from 'react'
+
+import Entitlement from './Entitlement'
+import AdvancePayment from './AdvancePayment'
+import AdvancePaymentBank from './AdvancePaymentBank'
+
+import PortfolioTab from '../view/PortfolioX'
+import Trading from '../view/Trading'
+import Management from '../view/Management'
+import Customization from '../view/Customization'
+import TransHistory from '../view/TransHistory'
+import OrderJournalTab from '../view/OrderJournalX'
+
 import ActionRightList from './ActionRightList'
 import AdditionSharesInfo from './AdditionSharesInfo'
 import EntitlementPanel from './EntitlementPanel'
@@ -15,6 +27,44 @@ import AdvanceHistory from './AdvanceHistory'
 export default function (menuid, props){
 	console.log(menuid)
 	switch(menuid){
+
+
+		case 'management':
+			return(
+				<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
+			)
+		case 'trading':
+			return(
+				<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'portfoliotab':
+			return(
+				<PortfolioTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'orderjournaltab':
+			return(
+				<OrderJournalTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'transhistory':
+			return(
+				<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+
+
+		case 'entitlement':
+			return (
+				<Entitlement language={props.language} stockList={props.stockList}/>
+			)
+		case 'advancePayment':
+			return (
+				<AdvancePayment language={props.language} theme={props.theme}/>
+            )
+        case 'advancePaymentBank':
+			return (
+				<AdvancePaymentBank language={props.language} theme={props.theme}/>
+			)
+
+
 		case 'actionRightList':
 			return (
 				<ActionRightList language={props.language} stockList={props.stockList}/>

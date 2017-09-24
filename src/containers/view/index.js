@@ -20,9 +20,15 @@ import LoanRefund from './LoanRefund'
 import Entitlement from './Entitlement'
 import TechAnalysis from './Techanalysis'
 import CashAdvanceBank from './CashAdvanceBank'
-import Management from '../main/Management'
-import Trading from '../main/Trading'
-import TransHistory from '../main/TransHistory'
+
+
+
+import PortfolioTab from './PortfolioX'
+import Trading from './Trading'
+import Management from './Management'
+import Customization from './Customization'
+import TransHistory from './TransHistory'
+import OrderJournalTab from './OrderJournalX'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -111,13 +117,23 @@ export default function (menuid, props){
 			return(
 				<CashAdvanceBank language={props.language} stockList={props.stockList} theme={props.theme}/>
 			)
+
+
 		case 'management':
 			return(
 				<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
 			)
-		case 'trading': case 'portfoliotab': case 'orderjournaltab':
+		case 'trading':
 			return(
 				<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'portfoliotab':
+			return(
+				<PortfolioTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			)
+		case 'orderjournaltab':
+			return(
+				<OrderJournalTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
 			)
 		case 'transhistory':
 			return(

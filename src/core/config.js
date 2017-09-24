@@ -265,7 +265,7 @@ const config = {
 			id: 'orderjournaltab',
 			title: "orderjournal",
 			widget: [
-				'orderjournal'
+				'matchOrderBankList'
 			]
 		},
 		{
@@ -280,14 +280,13 @@ const config = {
 			id: 'management',
 			title: "management",
 			widget: [
-				'cashtransfer',
-				'cashadvance',
-				'cashadvancebank',
-				'oddlottrading',
+				//'cashtransfer',
+				'advancePayment',
+				'advancePaymentBank',
+				//'oddlottrading',
 				'entitlement', 
-				'loanrefund',
+				//'loanrefund',
 				// 'available'
-				//'management'
 			]
 		},
 		{
@@ -318,15 +317,24 @@ const config = {
 		marginloan: { i: 'marginloan', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11, static: true, isResizable: false },
 		available: { i: 'available', x: 0, y: 0, w: 4, h: 6, minW: 4, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false },
 		loanrefund: {i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: true, isResizable: false},
-		entitlement: {i: 'entitlement', x:0, y:0, w: 30, h: 12, minW: 8, minH: 8, maxW: 8, maxH: 14, static: true, isResizable: false},
 		techanalysis: {i: 'techanalysis', x:0, y:0, w: 8, h: 6, minW: 8, minH: 6, maxW: 8, maxH: 8, static: true, isResizable: false},
-		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
-		management: {i: 'management', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		
 
-		actionRightList: {i: 'actionRightList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		additionSharesInfo: {i: 'additionSharesInfo', x:2, y:5, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		entitlementPanel: {i: 'entitlementPanel', x:0, y:0, w: 2, h: 10, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		entitlementHistory: {i: 'entitlementHistory', x:2, y:10, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		cashadvancebank: {i: 'cashadvancebank', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: false, isResizable: true},
+		
+
+		management: {i: 'management', x:0, y:0, w: 8, h: 12, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		transhistory: {i: 'transhistory', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		orderjournaltab: {i: 'orderjournaltab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		portfoliotab: {i: 'portfoliotab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		trading: {i: 'trading', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		customization: {i: 'customization', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+
+		actionRightList: {i: 'actionRightList', x:2, y:0, w: 6, h: 4, static: true, isResizable: false},
+		additionSharesInfo: {i: 'additionSharesInfo', x:2, y:4, w: 6, h: 4, static: true, isResizable: false},
+		entitlementPanel: {i: 'entitlementPanel', x:0, y:0, w: 2, h: 10, static: true, isResizable: false},
+		entitlementHistory: {i: 'entitlementHistory', x:2, y:8, w: 6, h: 4, maxH: 15, static: true, isResizable: false},
+		entitlement: {i: 'entitlement', x:0, y:0, w: 8, h: 12, static: true, isResizable: false},
 		
 		oddLotOrder: {i: 'oddLotOrder', x:0, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		oddlotHistory: {i: 'oddlotHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
@@ -334,10 +342,12 @@ const config = {
 		matchOrderBankList: {i: 'matchOrderBankList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advanceBankHistory: {i: 'advanceBankHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advanceBankPanel: {i: 'advanceBankPanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		advancePaymentBank: {i: 'advancePaymentBank', x:0, y:0, w: 10, h: 8, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 
 		matchOrderList: {i: 'matchOrderList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advanceHistory: {i: 'advanceHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 		advancePanel: {i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		advancePayment: {i: 'advancePayment', x:0, y:0, w: 8, h: 8, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
 
 	},
 	settings: [

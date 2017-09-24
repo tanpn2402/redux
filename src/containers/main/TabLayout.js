@@ -34,7 +34,7 @@ class TabLayout extends Component {
         var language = this.props.language
         var activeTab = this.state.activeTab
         var layout = [config.default_layout[activeTab]]
-        console.log(this.props)
+        console.log(activeTab)
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">

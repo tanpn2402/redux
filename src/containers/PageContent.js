@@ -33,7 +33,7 @@ class PageContent extends React.Component {
         console.log(this.props.tabID)
 
         return (
-            <div style={this.props.theme.pagebackground} id="pagecontent">
+            <div style={this.props.theme.pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
 
                 {
                     generateWindow(this.props.tabID, this.props)

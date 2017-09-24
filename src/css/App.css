@@ -572,14 +572,25 @@ input::-webkit-calendar-picker-indicator {
 /*PAGE CONTENT*/
 
 #pagecontent {
-    overflow-y: scroll;
-    height: 100%;
-    padding-bottom: 30px;
+    
 }
 #pagecontent > div {
     width: 100%;
     height: 100%;
     padding: 2px;
+}
+.pagecontent {
+    overflow-y: scroll;
+    height: 100%;
+    padding-bottom: 30px;
+}
+.pagecontent.management,
+.pagecontent.transhistory {
+    overflow: hidden;
+}
+
+.tab-content {
+    overflow-y: scroll;
 }
 /*END PAGE CONTENT*/
 
@@ -1397,6 +1408,11 @@ input::-webkit-calendar-picker-indicator {
     .scrolling-tabs-main.tab-layout { 
         height: 30px;
         margin: 0;
+        background-color: #fff;
+        z-index: 2;
+
+        -webkit-box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
     }
     .scrolling-tabs-main.tab-layout .vertical-align-middle {
         

@@ -18,7 +18,7 @@ class GridLayout extends React.Component {
             reload: false,
             layout: []
         }
-        this.layoutCols =  {lg: 8, md: 6, sm: 4, xs: 2, xxs: 2}
+        this.layoutCols =  {lg: 8, md: 8, sm: 8, xs: 2, xxs: 2}
     }
 
     generateChild(menuid){
@@ -50,18 +50,17 @@ class GridLayout extends React.Component {
             
         };
 
-        
         return child;
     }
     render () {
         const layout = this.props.layout
-        
+        var x = this.generateDOM(layout)
         return (
 
             <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320} 
                 margin={[3,3]}
                 >
-                {this.generateDOM(layout)}
+                {x}
             </ResponsiveReactGridLayout>
         );
     }
