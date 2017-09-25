@@ -77,7 +77,7 @@ class EntitlementHistory extends Component {
             }]
         }
         this.defaultPageSize = 15
-        this.params = {
+        this.paramshis = {
             mvLastAction: 'OTHERSERVICES',
             mvChildLastAction: 'ENTITLEMENT',
             mvStockId: '',
@@ -85,8 +85,13 @@ class EntitlementHistory extends Component {
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             key: (new Date()).getTime(),
             start: '0',
-            limit: this.defaultPageSize,
+            limit: '15',
         }
+    }
+
+    getEntitlementStatus(language, status) {
+        let stt = language.entitlement.status['STATUS_' + status.toUpperCase()]
+        return stt === undefined ? status.toUpperCase() : stt
     }
 
 
@@ -104,16 +109,17 @@ class EntitlementHistory extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={[]}/>
+                            data={entitlementHistory.historyList}/>
                     </div>
                     <div className="table-header">
                         <SearchBar
                             key={this.id+ '-search'}
                             id={this.id+ '-search'}
+                            onSearch={this.onSearch.bind(this)}
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{columns:[], stockList: []}}
+                            data={{stockList: []}}
                             param={[ 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
                     </div>
                     <div className="table-footer">
@@ -137,42 +143,57 @@ class EntitlementHistory extends Component {
         this.props.getHistorylist(this.params)
     }
 
+    onSearch(param){
+        this.state.pageIndex1 = 1
+
+        this.paramshis['start'] = 0
+        this.paramshis['page'] = 1
+        this.paramshis['mvStockId'] = param['mvStockId']
+        this.paramshis['mvStartDate'] = param['mvStartDate']
+        this.paramshis['mvEndDate'] = param['mvEndDate']
+        this.paramshis['key']= new Date().getTime()
+
+        this.props.getHistorylist(this.paramshis)
+    }
+
     onChangeStateColumn(e){
         const id = e.target.id
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         });
     }
+    
     onNextPage(){
-        this.state.pageIndex1 = parseInt(this.state.pageIndex1) + 1
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
-        this.paramsright['key'] = (new Date()).getTime()
+        this.state.pageIndex3 = parseInt(this.state.pageIndex3) + 1
+        this.paramshis['page'] = this.state.pageIndex3
+        this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
+        this.paramshis['key'] = (new Date()).getTime()
         
-        this.props.getRightlist(this.paramsright)
+        this.props.getHistorylist(this.paramshis)
     }
 
     onPrevPage(){
-        this.state.pageIndex1 = parseInt(this.state.pageIndex1) - 1
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
-        this.paramsright['key'] = (new Date()).getTime()
+        this.state.pageIndex3 = parseInt(this.state.pageIndex3) - 1
+        this.paramshis['page'] = this.state.pageIndex3
+        this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
+        this.paramshis['key'] = (new Date()).getTime()
         
-        this.props.getRightlist(this.paramsright)
+        this.props.getHistorylist(this.paramshis)
     }
 
     onReloadPage(){
-        this.paramsright['key'] = (new Date()).getTime()
+        this.paramshis['key'] = (new Date()).getTime()
         
-        this.props.getRightlist(this.paramsright)
+        this.props.getHistorylist(this.paramshis)
     }
 
     onPageChange(pageIndex) {
-        this.state.pageIndex1 = parseInt(pageIndex)
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
-        this.paramsright['key'] = (new Date()).getTime()
+        this.state.pageIndex3 = parseInt(pageIndex)
+        this.paramshis['page'] = this.state.pageIndex3
+        this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
+        this.paramshis['key'] = (new Date()).getTime()
         
+        this.props.getHistorylist(this.paramshis)    
     }
 
 }

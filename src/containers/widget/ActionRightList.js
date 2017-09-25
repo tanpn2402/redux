@@ -8,13 +8,15 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
+import moment from 'moment'
 
 class ActionRightList extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'actionRightList'
-
+        this.defaultPageSize = 15
+        this.pageIndex = 1
         this.state = {
             columns: [
                 {
@@ -121,10 +123,55 @@ class ActionRightList extends Component {
                     show: true,
             }]
         }
+
+        this.paramsright = {
+            mvActionType: '',
+            mvStockId: '',
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
+            key: (new Date()).getTime(),
+            start: '0',
+            limit: this.defaultPageSize,
+        }
+
+        this.actionTypeStore= [
+            {text: 'ALL',        value: 'ALL'},
+            {text: this.props.language.entitlement.issueType.ISSUE_1,    value: '1'},
+            {text: this.props.language.entitlement.issueType.ISSUE_I,    value: 'I'},
+            {text: this.props.language.entitlement.issueType.ISSUE_B,    value: 'B'},
+            {text: this.props.language.entitlement.issueType.ISSUE_D,    value: 'D'},            
+        ]
+    }
+
+    getEntitlementStatus(language, status) {
+        let stt = language.entitlement.status['STATUS_' + status.toUpperCase()]
+        return stt === undefined ? status.toUpperCase() : stt
+    }
+
+    getRightType(language, type) {
+        let t = language.entitlement.issueType['ISSUE_' + type]
+        return t === undefined ? type: t
+    }
+    
+    getRightStatus(language, status) {
+        let stt = language.entitlement.rightStatus['STATUS_' + status]
+        return stt === undefined ? status: stt
+    }
+    
+    redererToCash (original) {
+        console.log(original)
+        if (original.cashRate !== null && original.cashRate.length > 0) {
+            var value = (original.issueRatioDelivery / original.issueRatioPer);
+            return Utils.currencyShowFormatter(value, ",", this.lang);          
+        }else{
+            return ''
+        }
     }
 
 
     render() {
+        var allRightList = this.props.allRightList
+        console.log(allRightList)
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -137,22 +184,23 @@ class ActionRightList extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={[]}/>
+                            data={allRightList.rightList}/>
                     </div>
                     <div className="table-header">
                         <SearchBar
                             key={this.id+ '-search'}
                             id={this.id+ '-search'}
+                            onSearch={this.onSearch.bind(this)}
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{columns:[], stockList: []}}
-                            param={[ 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
+                            data={{stockList: [] , actionType: this.actionTypeStore}}
+                            param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
                     </div>
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={1}
-                            totalRecord={2}
+                            pageIndex={this.pageIndex}
+                            totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -167,7 +215,7 @@ class ActionRightList extends Component {
     }
 
     componentDidMount() {
-
+        this.props.getRightlist(this.paramsright)
     }
 
     onChangeStateColumn(e){
@@ -205,18 +253,35 @@ class ActionRightList extends Component {
         this.paramsright['page'] = this.state.pageIndex1
         this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
+
+        this.props.getRightlist(this.paramsright)
         
+    }
+
+    onSearch(param){
+        this.state.pageIndex1 = 1
+        this.paramsright['start']= 0
+        this.paramsright['page']= 1        
+        this.paramsright['mvActionType']= param['mvActionType']
+        this.paramsright['mvStockId'] = param['mvStockId']
+        this.paramsright['mvStartDate'] = param['mvStartDate']
+        this.paramsright['mvEndDate'] = param['mvEndDate']
+        this.paramsright['key']= new Date().getTime()
+
+        this.props.getRightlist(this.paramsright)
     }
 
 }
 const mapStateToProps = (state) => {
     return {
-
+        allRightList: state.entitlement.allRightList,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-
+    getRightlist: (params) => {
+      dispatch(actions.getRightlist(params))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActionRightList)

@@ -118,23 +118,13 @@ class AdditionSharesInfo extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
-                    <div className="table-main">
+                    <div className="table-main no-header">
                         <Table
                             key={this.id + "-table"}
                             id={this.id + "-table"}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
                             data={additionIssueShareInfo.additionList}/>
-                    </div>
-                    <div className="table-header">
-                        <SearchBar
-                            key={this.id+ '-search'}
-                            id={this.id+ '-search'}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: []}}
-                            param={[ 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
                     </div>
                     <div className="table-footer">
                         <Pagination

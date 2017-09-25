@@ -40,7 +40,7 @@ class PageContent extends React.Component {
             INSTRUMENTNAME: '',
             MARKETID: ''
         }
-        //this.props.getStockIdList(param)
+        this.props.getStockIdList(param)
     }
 
     

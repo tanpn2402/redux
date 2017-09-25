@@ -67,7 +67,7 @@ export default function (menuid, props){
 			)
 		case 'entitlement':
 			return (
-				<Entitlement language={props.language} stockList={props.stockList}/>
+				<Entitlement language={props.language} theme={props.theme} stockList={props.stockList}/>
 			)
 		case 'customization':
 			return (
@@ -86,19 +86,19 @@ export default function (menuid, props){
 
 		case 'actionRightList':
 			return (
-				<ActionRightList language={props.language} stockList={props.stockList}/>
+				<ActionRightList language={props.language} theme={props.theme} stockList={props.stockList}/>
 			)
 		case 'additionSharesInfo':
 			return (
-				<AdditionSharesInfo language={props.language} theme={props.theme}/>
+				<AdditionSharesInfo language={props.language} theme={props.theme} theme={props.theme}/>
             )
         case 'entitlementPanel':
 			return (
-				<EntitlementPanel language={props.language} theme={props.theme}/>
+				<EntitlementPanel language={props.language} theme={props.theme} theme={props.theme}/>
 			)
 		case 'entitlementHistory':
 			return (
-				<EntitlementHistory language={props.language} theme={props.theme}/>
+				<EntitlementHistory language={props.language} theme={props.theme} theme={props.theme}/>
 			)
 
 		case 'oddLotOrder':

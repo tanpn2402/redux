@@ -1290,7 +1290,6 @@ input::-webkit-calendar-picker-indicator {
 }
 .scrolling-tabs-main.search-bar {
     margin-top: 0;
-    padding-right: 35px;
 }
 .hks-btn.btn-tab-prev {
     margin: 0px 10px;
@@ -1313,8 +1312,8 @@ input::-webkit-calendar-picker-indicator {
 .scroll.search-bar {
     position: absolute;
     width: 100%;
-    padding-left: 21px;
-    padding-right: 58px;
+    padding-left: 22px;
+    padding-right: 22px;
     height: 100%;
 }
 .scrolling-tabs {

@@ -66,14 +66,7 @@ class OddLotHistory extends Component {
                     skip: false,
                     show: true,
                 },
-                {
-                    id: 'aaa',
-                    Header: this.props.language.oddlottrading.header.fee,
-                    accessor: '',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
+                
                 {
                     id: 'settleAmt',
                     Header: this.props.language.oddlottrading.header.value,
@@ -103,10 +96,104 @@ class OddLotHistory extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            columns: [
+                {
+                    id: 'TransDate',
+                    Header: nextProps.language.oddlottrading.header.transdate,
+                    accessor: 'createTime',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'valueDate',
+                    Header: nextProps.language.oddlottrading.header.approvedate,
+                    accessor: 'valueDate',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'StockIDH',
+                    Header: nextProps.language.oddlottrading.header.stockid,
+                    accessor: 'instrumentId',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'oddlotquantityH',
+                    Header: nextProps.language.oddlottrading.header.oddlotquantityH,
+                    accessor: 'appliedQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'exepriceH',
+                    Header: nextProps.language.oddlottrading.header.exepriceH,
+                    Cell: props => {
+                        console.log(props.original.price)
+                        if(props.original.price === '0E-9')
+                            return 0
+                        else
+                            return Utils.currencyShowFormatter(props.original.price, ",", "vi-VN")
+                    },
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'tax',
+                    Header: nextProps.language.oddlottrading.header.tax,
+                    accessor: 'fee',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'fee',
+                    Header: nextProps.language.oddlottrading.header.fee,
+                    //accessor: 'fee',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'value',
+                    Header: nextProps.language.oddlottrading.header.value,
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.settleAmt, ",", "vi-VN")
+                    },
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'status',
+                    Header: nextProps.language.oddlottrading.header.status,
+                    Cell: props => {
+                        if(props.original.status === 'H')
+                            return nextProps.language.oddlottrading.status.waiting;
+                        if(props.original.status === 'D')
+                            return nextProps.language.oddlottrading.status.approve;
+                        else
+                            return props.original.status
+                    
+                    },
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+            ]
+        })
+    }
 
     render() {
         let oddlothistory = this.props.oddlothistory
-            
+        console.log(oddlothistory)
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>

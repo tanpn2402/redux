@@ -81,6 +81,67 @@ class OddLotOrder extends Component {
             mvChildLastAction: 'ODDLOTENQUIRY'
         }
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            columns: [
+                {
+                    // Create a select-all checkbox
+                    id: 'cb',
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                    maxWidth: 50,
+                    width: 40,
+                    Cell: props => {
+                        return (
+                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                              onChange={() => { this.onRowSelected(props.original)}} />
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'stockID',
+                    Header: nextProps.language.oddlottrading.header.stockid,
+                    accessor: 'stockCode',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'TradingQty',
+                    Header: nextProps.language.oddlottrading.header.tradingquantity,
+                    accessor: 'settledBal',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'OddLotQty',
+                    Header: nextProps.language.oddlottrading.header.oddlotquantity,
+                    accessor: 'oddLotQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'Curprice',
+                    Header: nextProps.language.oddlottrading.header.currentprice,
+                    accessor: 'nominalPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'ExePrice',
+                    Header: nextProps.language.oddlottrading.header.exeprice,
+                    accessor: 'collectionPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+            ],
+        })
+    }
 
 
     render() {
@@ -158,6 +219,36 @@ class OddLotOrder extends Component {
         });
     }
 
+    onRowSelected(param) {
+        if (param === 'ALL') {
+            var current = document.getElementById(this.id + '-cb-all')
+                .checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.oddlotenquiry.oddLotList !== undefined ? this.props.oddlotenquiry.oddLotList : []
+            else
+                this.rowSelected = []
+        } else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            } else {
+                this.rowSelected.splice(index, 1)
+            }
+
+            if (document.getElementsByClassName(this.id + '-row-checkbox')
+                .length === this.rowSelected.length)
+                document.getElementById(this.id + "-cb-all")
+                .checked = true
+            else
+                document.getElementById(this.id + "-cb-all")
+                .checked = false
+        }
+    }
+
     registerOddLotOrder(e) {
         e.preventDefault();
         if(this.rowSelected.length > 0){
@@ -167,7 +258,7 @@ class OddLotOrder extends Component {
             })
         }
         else {
-            this.props.onShowMessageBox('asd', 'Vui long chon 1 ma CK')
+            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 'Vui long chon 1 ma CK')
         }
     }
 
