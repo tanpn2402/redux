@@ -258,8 +258,8 @@ const config = {
 			id: 'portfoliotab',
 			title: "portfolio",
 			widget: [
-				{i: 'portfolio', x:0, y:4, w: 8, h: 6, static: true, isResizable: false},
-				{i: 'sumary', x:0, y:0, w: 3, h: 4, static: true, isResizable: false},
+				{i: 'portfolio', x:0, y:5, w: 8, h: 5, static: true, isResizable: false},
+				{i: 'sumary', x:0, y:0, w: 8, h: 5, static: true, isResizable: false},
 			]
 		},
 		{

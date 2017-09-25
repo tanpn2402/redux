@@ -39,6 +39,84 @@ class Sumary extends Component {
                     y: d.PLPercent
                 }
         ]
+        var data2 = [
+            {
+                name: this.props.language.portfolio.header.cashBalance,
+                y: d.cashBalance
+            }, {
+                name: this.props.language.portfolio.header.mvAvailAdvanceMoney,
+                y: d.mvAvailAdvanceMoney
+            }, {
+                name: this.props.language.portfolio.header.mvBuyHoldAmount,
+                y: d.mvBuyHoldAmount
+            }, {
+                name: this.props.language.portfolio.header.mvHoldAmount,
+                y: d.mvHoldAmount
+            }, {
+                name: this.props.language.portfolio.header.CPendingWithdrawal,
+                y: d.CPendingWithdrawal
+            }, {
+                name: this.props.language.portfolio.header.soldT0,
+                y: d.soldT0
+            }, {
+                name: this.props.language.portfolio.header.soldT1,
+                y: d.soldT1
+            }, {
+                name: this.props.language.portfolio.header.soldT2,
+                y: d.soldT2
+            }
+        ]
+        var data3 = [
+            {
+                name: this.props.language.portfolio.header.equityMar,
+                y: d.equityMar
+            }, {
+                name: this.props.language.portfolio.header.totalAssetMaintenance,
+                y: d.totalAssetMaintenance
+            }, {
+                name: this.props.language.portfolio.header.stockMaintenance,
+                y: d.stockMaintenance
+            }, {
+                name: this.props.language.portfolio.header.cashMaintenance,
+                y: d.cashMaintenance
+            }, {
+                name: this.props.language.portfolio.header.mvOutstandingLoan,
+                y: d.mvOutstandingLoan
+            }, {
+                name: this.props.language.portfolio.header.debtIncByPurchase,
+                y: d.debtIncByPurchase
+            }, {
+                name: this.props.language.portfolio.header.debitAccruedInterest,
+                y: d.debitAccruedInterest
+            }, {
+                name: this.props.language.portfolio.header.mvCreditLimit,
+                y: d.mvCreditLimit
+            }
+        ]
+        var data4 = [
+            {
+                name: this.props.language.portfolio.header.lendableValue,
+                y: d.lendableValue
+            }, {
+                name: this.props.language.portfolio.header.minMarginReq,
+                y: d.minMarginReq
+            }, {
+                name: this.props.language.portfolio.header.curLiqMargin,
+                y: d.curLiqMargin
+            }, {
+                name: this.props.language.portfolio.header.marginableBalf,
+                y: d.marginableBalf
+            }, {
+                name: this.props.language.portfolio.header.cashDeposit,
+                y: d.cashDeposit
+            }, {
+                name: this.props.language.portfolio.header.sellStkInMarPort,
+                y: d.sellStkInMarPort
+            }, {
+                name: this.props.language.portfolio.header.sellStkNotInMarPort,
+                y: d.sellStkNotInMarPort
+            }
+        ]
         return (
             <div>
                 <Title>
@@ -46,15 +124,38 @@ class Sumary extends Component {
                 </Title>
                 <Body>
                     <div className="table-main no-header no-footer">
-                        <div className="col-md-4" style={{height: '100%'}}>
-                            <PieChart id="sumary-piechart" data={this.data}/>
+                        <div className="col-sm-3" style={{height: '100%'}}>
+                            <div className="col-sm-4" style={{height: '100%'}}>
+                                <PieChart id="sumary-piechart" data={this.data}/>
+                            </div>
+                            <div className="col-sm-8" style={{height: '100%'}}>
+                                <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                                    <table className="table">
+                                        <tbody >
+                                            {
+                                                this.data.map(d => {
+                                                    return(
+                                                        <tr>
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-md-8" style={{height: '100%'}}>
+                        
+                        <div className="col-sm-3" style={{height: '100%'}}>
+                            
                             <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
                                 <table className="table">
                                     <tbody >
                                         {
-                                            this.data.map(d => {
+                                            data2.map(d => {
                                                 return(
                                                     <tr>
                                                         <th>{d.name}</th>
@@ -67,8 +168,53 @@ class Sumary extends Component {
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
 
+                        <div className="col-sm-3" style={{height: '100%'}}>
+                        
+                            <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                                <table className="table">
+                                    <tbody >
+                                        {
+                                            data3.map(d => {
+                                                return(
+                                                    <tr>
+                                                        <th>{d.name}</th>
+                                                        <td>{d.y}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+
+
+                        <div className="col-sm-3" style={{height: '100%'}}>
+                            
+                            <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                                <table className="table">
+                                    <tbody >
+                                        {
+                                            data4.map(d => {
+                                                return(
+                                                    <tr>
+                                                        <th>{d.name}</th>
+                                                        <td>{d.y}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
                     </div>
                 </Body>
             </div>
