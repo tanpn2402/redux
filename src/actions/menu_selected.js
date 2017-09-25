@@ -99,6 +99,13 @@ export function onTabClick(tabID){
     }
 }
 
+export function addWidget(load,widgetID){
+    return {
+        type: ActionTypes.ADDWIDGET,
+        load: !load,
+        widgetList: widgetID
+    }
+}
 
 
 export function removeWidget(load){

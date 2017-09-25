@@ -633,7 +633,7 @@ input::-webkit-calendar-picker-indicator {
     min-height: 200px;
     max-height: 300px;
     background-color: white;
-    border: 1px solid black;
+    box-shadow: 5px -5px 1px rgba(131, 104, 104, 0.5);
     position: absolute;
     bottom: 30px;
 }
@@ -643,9 +643,17 @@ input::-webkit-calendar-picker-indicator {
     border-top: 2px solid grey;
 }
 
-.widget-search-result>div>div {
-    padding: 3px;
+.widget-search-result>div {
+    padding: 5px;
     box-sizing: border-box;
+    transition: all .5s;
+}
+
+.widget-search-result>div:hover {
+    background-color: black;
+    color: white;
+    cursor: hand;
+    cursor: pointer;
 }
 
 .widget-search-result>div {
@@ -683,6 +691,20 @@ input::-webkit-calendar-picker-indicator {
 .user-action > span:hover{
     color: #A0A0A0;
 }
+
+
+.addwidget {
+    width: 250px;
+    overflow: auto;
+    min-height: 200px;
+    max-height: 300px;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    bottom: 30px;
+}
+
+
 /*END STATUS BAR*/
 /*HEADER*/
 #pageheader {
