@@ -219,18 +219,18 @@
                     "matcheddate":"Matched Date",
                     "matchedorderstatus":"Matched Status",
                     "tradingtype":"Trand type",
-                    "matchedvalue":"Giá trị khớp",
-                    "tradetime":"Thời gian GD",
-                    "marketid":"Sàn",
-                    "price":"Giá",
-                    "quantity":"Khối lượng",
-                    "filledquantity":"Khối lượng khớp",
-                    "filledprice":"Giá khớp",
-                    "cancelquantity":"Khối lượng hủy",
-                    "status":"Trạng thái",
-                    "ordertype":"Loại lệnh",
-                    "stockid":"Mã CK",
-                    "buysell":"Mua/Bán"
+                    "matchedvalue":"Matched Qty",
+                    "tradetime":"Trade Time",
+                    "marketid":"Market",
+                    "price":"Price",
+                    "quantity":"Quantity",
+                    "filledquantity":"Filled Qty",
+                    "filledprice":"Filled Price",
+                    "cancelquantity":"Cancel Qty",
+                    "status":"Status",
+                    "ordertype":"Order Type",
+                    "stockid":"StockID",
+                    "buysell":"Buy/Sell"
                 }
             },
             "oddlottrading":{  
@@ -343,7 +343,7 @@
                     "maintenancePercentage":"% Maintenance",
                     "maintenanceValue":"Maintenance value",
                     "totalAsset":"Total asset",
-                    "equity":"equity",
+                    "equity":"Equity",
                     "stockValue":"Total stock market value",
                     "profitLoss":"Profit/Loss",
                     "PLPercent":"% Profit/Loss (per equity)",
@@ -800,6 +800,26 @@
                     "note":"Ghi chú",
                     "info":"Thông tin"
                 }
+            },
+            "button":{  
+                "ok":"OK",
+                "submit":"Gửi",
+                "FTSubmit":"Thực hiện",
+                "exportData":"Xuất file",
+                "cancel":"Hủy",
+                "CTTCancel":"Cancel",
+                "clear":"Xóa",
+                "addNew":"Thêm mới",
+                "remove":"Xoá",
+                "edit":"Chỉnh sửa",
+                "save":"Lưu lại",
+                "full":"Hiển thị dạng đầy đủ",
+                "compact":"Hiển thị dạng rút gọn",
+                "register":"Đăng ký",
+                "search":"search",
+                "execute":"Thực hiện",
+                "next":"Bỏ qua",
+                "debitint":"Thanh toán lãi"
             }
         }
     }

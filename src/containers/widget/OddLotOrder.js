@@ -86,10 +86,10 @@ class OddLotOrder extends Component {
     render() {
         let oddLotOrder = this.props.oddlotenquiry
         let buttonActionOddLotOrder = [
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
+            <button style={this.props.theme.buttonClicked} className="hks-btn" type="button"
                 onClick={this.registerOddLotOrder.bind(this)}>
                 {this.props.language.oddlottrading.header.register}
-            </Button>
+            </button>
         ]
         return (
             <div style={{height: '100%', position: 'relative'}}>

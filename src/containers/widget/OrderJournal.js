@@ -186,8 +186,8 @@ class OrderJournal extends Component {
         let lgClose = () => this.setState({ lgShow: false })
 
         this.buttonAction = [
-            <Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"
-                onClick={() => this.showPopup()}>Hủy GD</Button>,
+            <button style={this.props.theme.buttonClicked} type="button" className="hks-btn"
+                onClick={() => this.showPopup()}>{this.props.language.button.CTTCancel}</button>,
         ]
 
         return (

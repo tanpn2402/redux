@@ -155,7 +155,7 @@ class CashStatement extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
-        onExportExcel={this.onExportExcel.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         console.log('render in CashStatement', this.props.data)

@@ -47,25 +47,22 @@ export default class PieChart extends React.Component {
                 name: 'Brands',
                 colorByPoint: true,
                 data: [{
-                    name: 'Microsoft Internet Explorer',
+                    name: 'Total asset',
                     y: 56.33
                 }, {
-                    name: 'Chrome',
+                    name: 'Equity',
                     y: 24.03,
-                    sliced: true,
-                    selected: true
+                    //sliced: true,
+                    //selected: true
                 }, {
-                    name: 'Firefox',
+                    name: 'Total stock market value',
                     y: 10.38
                 }, {
-                    name: 'Safari',
+                    name: 'Profit/Loss',
                     y: 4.77
                 }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
+                    name: '% Profit/Loss (per equity)',
+                    y: 6.4
                 }]
             }]
         }

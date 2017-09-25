@@ -36,7 +36,7 @@ class OddLotHistory extends Component {
                 },
                 {
                     id: 'instrumentId',
-                    Header: this.props.language.oddlottrading.header.StockIDH,
+                    Header: this.props.language.oddlottrading.header.stockid,
                     accessor: 'instrumentId',
                     width: 120,
                     skip: false,

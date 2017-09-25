@@ -140,9 +140,10 @@ class EnterOrder extends Component {
                                     <tr>
                                         <th>{this.props.language.enterorder.header.bank}</th>
                                         <td>
-                                            <input id="mvBank" list="Bank" name="bank" id="mvBank" placeholder="ex: ACB-125137309" />
+                                            <input className="hks-input no-border" id="mvBank"
+                                                list="Bank" name="bank" id="mvBank" placeholder="ex: ACB" />
                                             <datalist id="Bank">
-                                                <option value="ACB-125137309" />
+                                                
                                             </datalist>
                                         </td>
                                     </tr>
@@ -161,7 +162,8 @@ class EnterOrder extends Component {
                                         <th>{this.props.language.enterorder.header.ordertype}</th>
                                         <td>
                                             <FormGroup controlId="mvOrderType">
-                                                <FormControl componentClass="select" placeholder="select" onChange={this.onOrderType.bind(this)}>
+                                                <select className="hks-input no-border" style={{width: '100%', padding: '0'}}
+                                                    onChange={this.onOrderType.bind(this)}>
                                                     {
                                                         this.state.data['mvMarketId'] === undefined ? <option value="L">{this.props.language.enterorder.ordertype.L}</option> :
                                                         config.ordertype[this.state.data.mvMarketId].map(e => {
@@ -170,7 +172,7 @@ class EnterOrder extends Component {
                                                             )
                                                         })
                                                     }
-                                                </FormControl>
+                                                </select>
                                             </FormGroup>
                                         </td>
                                     </tr>

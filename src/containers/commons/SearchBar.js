@@ -230,7 +230,7 @@ export default class SearchBar extends React.Component {
 
         return (
             <FormGroup controlId="mvStockId">
-		        <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Mã CK"/>
+		        <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Stock"/>
 		        <datalist id="stockList">
 		          {
 		            stockList.map(e => {
@@ -326,8 +326,9 @@ export default class SearchBar extends React.Component {
 					          	this.props.onSearch === undefined ? '' :
 					          		(
 					          			<span className='tabs-item'>
-					            			<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  
-                                                onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
+					            			<button style={this.props.theme.buttonClicked} className="hks-btn" type="button"  
+                                                onClick={this.onSearch.bind(this)}>{this.props.language.search}
+                                            </button>
 					            		</span>
 					          		)
 
