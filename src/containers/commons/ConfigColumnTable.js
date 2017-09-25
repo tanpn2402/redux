@@ -30,7 +30,7 @@ export default class ConfigColumnTable extends React.Component {
         this.setState({ listVisible: !this.state.listVisible });
     }
 
-    onMouseOver() {
+    onMouseOver(e) {
         this.setState({ listVisible: true, });
     }
 
@@ -65,7 +65,7 @@ export default class ConfigColumnTable extends React.Component {
             var item = this.props.columns[i]
             if (item.skip === false) {
                 items.push(
-                    <div className="dropdown-item" key={item.id}>
+                    <div className="dropdown-item" key={item.id} onMouseDown={ e => e.stopPropagation() }>
                         <Checkbox id={item.id}  defaultChecked='true' readOnly='false' onChange={this.props.onChangeStateColumn} >
                         {item.Header}
                         </Checkbox>

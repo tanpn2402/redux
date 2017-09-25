@@ -16,6 +16,7 @@ import AdditionSharesInfo from './AdditionSharesInfo'
 import EntitlementPanel from './EntitlementPanel'
 import EntitlementHistory from './EntitlementHistory'
 import OddLotOrder from './OddLotOrder'
+import OddLot from './OddLot'
 import OddLotHistory from './OddLotHistory'
 import AdvanceBankPanel from './AdvanceBankPanel'
 import MatchOrderBankList from './MatchOrderBankList'
@@ -29,6 +30,15 @@ import EnterOrder from './EnterOrder'
 import OrderJournal from './OrderJournal'
 import StockMarketInfo from './StockMarketInfo'
 import AccountInfo from './AccountInfo'
+
+import FundTransfer from './FundTransfer'
+import FundTransferHistory from './FundTransferHistory'
+import FundTransferPanel from './FundTransferPanel'
+
+import Portfolio from './Portfolio'
+import Sumary from './Sumary'
+
+import TechAnalysis from './TechAnalysis'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -58,6 +68,10 @@ export default function (menuid, props){
 		case 'entitlement':
 			return (
 				<Entitlement language={props.language} stockList={props.stockList}/>
+			)
+		case 'customization':
+			return (
+				<Customization language={props.language} stockList={props.stockList}/>
 			)
 
 		case 'advancePayment':
@@ -91,9 +105,13 @@ export default function (menuid, props){
 			return (
 				<OddLotOrder language={props.language} theme={props.theme}/>
 			)
-		case 'oddlotHistory':
+		case 'oddLotHistory':
 			return (
 				<OddLotHistory language={props.language} theme={props.theme}/>
+            )
+		case 'oddLot':
+			return (
+				<OddLot language={props.language} theme={props.theme}/>
             )
 
 		case 'matchOrderBankList':
@@ -122,6 +140,19 @@ export default function (menuid, props){
 				<AdvancePanel language={props.language} theme={props.theme}/>
             )
 
+		case 'fundTransfer':
+			return (
+				<FundTransfer language={props.language} theme={props.theme}/>
+			)
+		case 'fundTransPanel':
+			return (
+				<FundTransferPanel language={props.language} theme={props.theme}/>
+            )
+		case 'fundTransHistory':
+			return (
+				<FundTransferHistory language={props.language} theme={props.theme}/>
+            )
+
 		case 'cashTransHistory':
 			return (
 				<CashTransHistory language={props.language} theme={props.theme}/>
@@ -146,6 +177,21 @@ export default function (menuid, props){
 		case 'stockmarketinform':
 			return (
 				<StockMarketInfo stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'portfolio':
+			return (
+				<Portfolio stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'sumary':
+			return (
+				<Sumary stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+
+		case 'techanalysis':
+			return (
+				<TechAnalysis stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
 

@@ -98,3 +98,12 @@ export function onTabClick(tabID){
         tabID
     }
 }
+
+
+
+export function removeWidget(load){
+    return {
+        type: ActionTypes.REMOVEWIDGET,
+        load: !load
+    }
+}

@@ -50,7 +50,7 @@
                 "cashtransfer":"Cash Transfer",
                 "cashadvance":"Cash Advance",
                 "cashadvancebank":"Cash Advance (Bank)",
-                "oddlottrading":"Odd Lot Trading",
+                "oddLot":"Odd Lot Trading",
                 "entitlement":"Entitlement",
                 "loanrefund":"Loan Refund",
                 "help":"Help",
@@ -62,7 +62,28 @@
                 "actionRightList": "Right Lists",
                 "additionSharesInfo": "Addition Shares Info",
                 "entitlementHistory": "Entitlement History",
-                "entitlementPanel": "Entitlement Place"
+                "entitlementPanel": "Entitlement Place",
+                "advancePayment": "Advance Payment",
+                "advancePaymentBank": "Advance Payment Bank",
+                "fundTransfer": "Fund Transfer",
+                "cashTransHistory": "Cash Transaction History",
+                "orderHistory": "Order History",
+
+                "portfolio" : "Portfolio",
+                "sumary" : "Sumary",
+                "oddLotOrder" : "Matching Odd Lot Orders",
+                "oddlotHistory" : "Odd Lot Orders History",
+                "matchOrderBankList" : "Matching Orders Bank List",
+                "advanceBankHistory" : "Advance Bank History",
+                "advanceBankPanel" : "Advance Bank Panel",
+                "matchOrderList" : "Matching Orders List",
+                "advanceHistory" : "Advance History",
+                "advancePanel" : "Advance Panel",
+                "fundTransPanel" : "Fund Transfer Panel",
+                "fundTransHistory" : "Fund Transfer History",
+                "stockmarketinfo" : "Stock Market Data Realtime"
+
+
             },
             "searchbar":{  
                 "search":"Search",

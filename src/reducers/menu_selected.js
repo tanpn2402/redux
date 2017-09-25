@@ -3,7 +3,9 @@ import {ActionTypes} from '../core/constants';
 const initialState = {
 	tabList : [],
   page: '1',
-  tabID: 'customization'
+  tabID: 'portfoliotab',
+
+  load: false,
 };
 
 export default function(state = initialState, action) {
@@ -17,6 +19,11 @@ export default function(state = initialState, action) {
     case ActionTypes.TABCLICKEVENT:
         return Object.assign({},state,{          
         	tabID: action.tabID
+        });
+
+    case ActionTypes.REMOVEWIDGET:
+        return Object.assign({},state,{          
+          load: action.load
         });
         
     default:

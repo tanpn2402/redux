@@ -10,9 +10,9 @@ class TabLayout extends Component {
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
         if(tabs.length > 0){
             this.tabbar = tabs[0].widget
-    
+           
             this.state = {
-                activeTab: this.tabbar[0]
+                activeTab: this.tabbar[0].i
             }
         }
         else{
@@ -23,9 +23,6 @@ class TabLayout extends Component {
             }
         }
         
-        console.log(this.tabbar)
-        
-
     }
 
 
@@ -33,8 +30,8 @@ class TabLayout extends Component {
     render() {
         var language = this.props.language
         var activeTab = this.state.activeTab
-        var layout = [config.default_layout[activeTab]]
-        console.log(activeTab)
+        var layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
+        console.log(this.tabbar, layout)
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">
@@ -44,10 +41,10 @@ class TabLayout extends Component {
                                 {
                                     this.tabbar.map(tab => {
                                         return ( 
-                                            <div key={tab.id} className={'tabs-item ' + (tab === activeTab ? 'actived' : 'normal')}
-                                                onClick={e=> this.onTabClick(tab)}>
+                                            <div key={tab.id} className={'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')}
+                                                onClick={e=> this.onTabClick(tab.i)}>
                                             
-                                                    {language.menu[tab]}
+                                                    {language.menu[tab.i]}
                                                     
                                             </div>
                                         )

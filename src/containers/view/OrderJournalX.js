@@ -11,18 +11,12 @@ class OrderJournal extends Component {
 
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
         if(tabs.length > 0){
-            this.tabbar = tabs[0].widget
+            this.layout = tabs[0].widget
     
-            this.state = {
-                activeTab: this.tabbar[0]
-            }
         }
         else{
-            this.tabbar = []
-    
-            this.state = {
-                activeTab: ''
-            }
+            this.layout = []
+
         }
         
     }
@@ -31,12 +25,11 @@ class OrderJournal extends Component {
     }	
 
     render(){
-        var activeTab = this.state.activeTab
-        var layout = [config.default_layout[activeTab]]
+
         return(
             <GridLayout 
                 language={this.props.language}
-                layout={layout}
+                layout={ this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
                 >

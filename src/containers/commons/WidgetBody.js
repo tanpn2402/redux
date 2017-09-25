@@ -7,9 +7,8 @@ export default class WidgetBody extends Component {
 
 
     render() {
-        console.log(this.props.children)
         return (
-            <div className="widget-body" >
+            <div className="widget-body" onMouseDown={ e => e.stopPropagation() }>
                 {this.props.children}
             </div>
         )

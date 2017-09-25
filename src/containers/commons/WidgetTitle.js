@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ConfigColumnTable from '../commons/ConfigColumnTable'
+import { connect } from 'react-redux'
 
-export default class WidgetTitle extends Component {
+class WidgetTitle extends Component {
     constructor(props) {
         super(props)
     }
@@ -21,7 +22,7 @@ export default class WidgetTitle extends Component {
                         {
                             this.props.columns === undefined ? '' :
                             (
-                                <li>
+                                <li onMouseDown={ e => e.stopPropagation() }>
                                     <ConfigColumnTable 
                                         id={this.props.id}
                                         columns={this.props.columns} 
@@ -29,9 +30,18 @@ export default class WidgetTitle extends Component {
                                 </li>
                             )
                         }
-                        <li className="btn-close">
+                        <li className="btn-close" onMouseDown={ e => e.stopPropagation() }>
                             <span className="glyphicon glyphicon-repeat"></span>
                         </li>
+
+                        {
+                            this.props.tabID !== 'customization' ? '' :
+                            (
+                                <li className="btn-close" onClick={e => this.removeWidget()} onMouseDown={ e => e.stopPropagation() }>
+                                    <span className="glyphicon glyphicon-remove"></span>
+                                </li>
+                            )
+                        }
                     </ul>
                 </div>
             </div>
@@ -39,3 +49,12 @@ export default class WidgetTitle extends Component {
 
     }
 }
+
+const mapStateToProps = (state, props) => ({
+    tabID: state.menuSelected.tabID,
+    load: state.menuSelected.load,
+})
+
+const mapDispatchToProps = (dispatch, props) => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WidgetTitle)

@@ -13,20 +13,9 @@ import generateWindow from './view'
 class PageContent extends React.Component {
     constructor () {
         super()
-        this.layout = []
     }
 
     componentWillReceiveProps(nextProps){
-        this.layout = []
-        var tab = config.tabbar.filter(e => e.id === nextProps.tabID)
-        if(tab.length > 0){
-            var list = tab[0].widget    
-            for(var i = 0; i < list.length; i++){
-                this.layout.push(config.default_layout[list[i]])
-            }
-        }
-
-
     }
 
     render () {

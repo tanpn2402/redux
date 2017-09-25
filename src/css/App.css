@@ -367,8 +367,8 @@ input::-webkit-calendar-picker-indicator {
     z-index: 99;
     position: absolute;
     background-color: #fff;
-    width: 115px;
-    max-height: 170px;
+    width: 120px;
+    max-height: 200px;
     overflow-y: auto;
     transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
     box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -376,10 +376,14 @@ input::-webkit-calendar-picker-indicator {
     margin-left: 5px;
 }
 .dropdown-item {
-    /*padding: 5px 0px 0px 5px;*/
-    
-    margin-left: 5px;
+    padding-left: 5px;
     width: 100%;
+}
+.dropdown-item > .checkbox {
+    margin: 0;
+}
+.dropdown-item > .checkbox > label {
+    font-size: 12px;
 }
 .dropdown-item:hover {
     transition: all 0.2s ease-in-out;
@@ -2454,6 +2458,8 @@ input::-webkit-calendar-picker-indicator {
     position: absolute;
     width: 100%;
     height: 100%;
+
+    border: 1px solid rgb(0, 90, 160);
 }
 .widget-body > .table-header {
     padding-top: 25px;
@@ -2492,16 +2498,16 @@ input::-webkit-calendar-picker-indicator {
     width: 60%;
     font-weight: normal;
 }
-.widget-form .table > tbody > tr > th,
-.widget-form .table > tbody > tr > td {
+.widget-body .table > tbody > tr > th,
+.widget-body .table > tbody > tr > td {
     padding-top: 5px;
     padding-bottom: 5px;    
 }
 .widget-form .table > tbody > tr {
     border: 1px solid #dcdcdc;
 }
-.widget-form .table > tbody > tr:nth-child(even) {background: #F0F0F0}
-.widget-form .table > tbody > tr:nth-child(odd) {background: #FFF}
+.widget-body .table > tbody > tr:nth-child(even) {background: #F0F0F0}
+.widget-body .table > tbody > tr:nth-child(odd) {background: #FFF}
 /* END WIDGET HEADER */
 /* MANAGEMENT WIDGET */
 #management {

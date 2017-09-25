@@ -10,7 +10,7 @@ class OddLot extends Component {
 
         this.widget = [
             'oddLotOrder',
-            'oddlotHistory'
+            'oddLotHistory'
         ]
 
         this.layout = [

@@ -10,6 +10,7 @@ import * as Utils from '../../utils'
 class AdvancePanel extends Component {
     constructor(props) {
         super(props)
+        this.id = "advancePanel"
 
         this.getLocalAdvanceCreationParam = {
             mvLastAction: 'OTHERSERVICES',
