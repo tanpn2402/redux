@@ -50,8 +50,8 @@ class MenuNav extends Component {
                     <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)}>
                         <span className="glyphicon glyphicon-menu-right"></span>
                     </button>
-                    <button className="hks-btn btn-save-layout" onClick={e => this.onTabSlideClick(2)}>
-                        <span className="glyphicon glyphicon-floppy-saved"></span>
+                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()}>
+                        <span className="glyphicon glyphicon-floppy-disk" style={{margin: '0 1px'}}></span>
                         Save Layout
                     </button>
                 </div>
@@ -69,6 +69,14 @@ class MenuNav extends Component {
 
     onTabClick(tabID){
         this.props.onTabClick(tabID)
+    }
+
+    onTabSlideClick(){
+
+    }
+
+    saveLayout(){
+
     }
 
 }

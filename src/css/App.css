@@ -378,6 +378,10 @@ input::-webkit-calendar-picker-indicator {
 .dropdown-item {
     padding-left: 5px;
     width: 100%;
+    color: #333;
+}
+.dropdown-item:hover {
+    background-color: #dcdcdc;
 }
 .dropdown-item > .checkbox {
     margin: 0;
@@ -1303,6 +1307,9 @@ input::-webkit-calendar-picker-indicator {
     color: #005aa0;
     padding: 0px 3px;
 }
+.hks-btn.btn-tab-next span{
+    line-height: inherit;
+}
 
 .scroll.search-bar {
     position: absolute;
@@ -1432,13 +1439,18 @@ input::-webkit-calendar-picker-indicator {
     .scrolling-tabs-main.tab-bar > .scroll {
         position: absolute;
         width: 100%;
-        padding-right: 200px;
+        padding-right: 135px;
         height: 100%;
     }
 
     .hks-btn.btn-save-layout {
-        background-color: #286CAE;
+        background-color: #fefefe;
+        margin: 0 2px;
         height: 100%;
+        color: #005aa0;
+    }
+    .hks-btn.btn-save-layout:hover {
+        background-color: #dcdcdc;
     }
     
     /* end scrolling in tabbar */
@@ -2463,7 +2475,7 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
 }
 .widget-action > ul > li {
-    background-color: #fafafa;
+    background-color: transparent;
     height: 100%;
     width: 21px;
     text-align: center;
@@ -2471,15 +2483,23 @@ input::-webkit-calendar-picker-indicator {
     cursor: pointer;
     user-select: none;
     margin: 0 2px;
+    color: #fff;
+    border-radius: 2px;
+}
+.widget-action > ul > li:hover {
+    color: rgba(154, 154, 154, 0.7);
 }
 .widget-action > ul > li .dropdown-display{
     width: 100%;
     padding: 0;
-    background-color: #fafafa;
+    background-color: transparent;
     height: 23px;
-    color: #555;
+    color: #fff;
+    border-radius: 2px;
 }
-
+.widget-action > ul > li .dropdown-display:hover{
+    color: rgba(154, 154, 154, 0.7);
+}
 .widget-body {
     position: absolute;
     width: 100%;
@@ -2501,10 +2521,10 @@ input::-webkit-calendar-picker-indicator {
 }
 .widget-body > .table-main.no-header {
     padding-top: 25px;
-    padding-bottom: 27px;
-    height: 100%;
-    width: 100%;
-    position: absolute;
+}
+.widget-body > .table-main.no-header.no-footer {
+    padding-top: 25px;
+    padding-bottom: 0px;
 }
 .widget-body > .table-footer {
     bottom: 0;
@@ -2552,7 +2572,12 @@ input::-webkit-calendar-picker-indicator {
 /* END TRANS HISTORY WIDGET */
 
 
-
+/* SUMARY COMPONENT */
+#sumary-piechart {
+    width: 100%;
+    height: 100%;
+}
+/* END SUMARY COMPONENT */
 
 
 
