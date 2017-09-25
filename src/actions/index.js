@@ -1,5 +1,5 @@
 import { doLogin,logout } from './doLogin'
-import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick,      removeWidget} from './menu_selected'
+import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, removeWidget, addWidget} from './menu_selected'
 import {changeConfig} from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
@@ -28,7 +28,7 @@ import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeS
 
 export {
   removeWidget,
-
+  addWidget,
   
   doLogin,
   logout,

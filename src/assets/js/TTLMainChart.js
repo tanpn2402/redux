@@ -58,8 +58,8 @@ class TTLMainChart extends React.Component {
 		// this.setMainChartSeries = this.setMainChartSeries.bind(this);
 		this.setSubCharts = this.setSubCharts.bind(this);
 		this.xAxisZoom = this.xAxisZoom.bind(this);
-		this.onInteractComplete = this.onInteractComplete.bind(this);
-		this.startInteract = this.startInteract.bind(this);
+		// this.onInteractComplete = this.onInteractComplete.bind(this);
+		// this.startInteract = this.startInteract.bind(this);
 		this.onKeyPress = this.onKeyPress.bind(this);
         
         this.state = {
@@ -69,10 +69,10 @@ class TTLMainChart extends React.Component {
             drawingSwitch: false,
         }
         
-        this.interactEnabled = {};
-        this.interactRef = {};
-        this.interactGraph = {};
-        this.undoList = [];
+        this.interactEnabled = this.props.interactEnabled;
+        this.interactRef = this.props.interactRef;
+        this.interactGraph = this.props.interactGraph;
+        this.undoList = this.props.undoList
     }
     
     componentDidMount() {
@@ -201,7 +201,7 @@ class TTLMainChart extends React.Component {
                         type="LINE"
                         snap={false}
                         snapTo={d => [d.high, d.low]}
-                        onComplete={this.onInteractComplete("FreeLine")}
+                        onComplete={this.props.onInteractComplete("FreeLine")}
                         trends={this.interactGraph["FreeLine"]}
                     />
                     <TrendLine
@@ -210,32 +210,32 @@ class TTLMainChart extends React.Component {
                         type="RAY"
                         snap={true}
                         snapTo={d => [d.high, d.low]}
-                        onComplete={this.onInteractComplete("TrendLine")}
+                        onComplete={this.props.onInteractComplete("TrendLine")}
                         trends={this.interactGraph["TrendLine"]}
                     />
                     <FibonacciRetracement
                         ref={(node) => this.interactRef["FibonacciRetracement"] = node}
                         enabled={this.interactEnabled["FibonacciRetracement"] == true}
                         type="BOUND"
-                        onComplete={this.onInteractComplete("FibonacciRetracement")}
+                        onComplete={this.props.onInteractComplete("FibonacciRetracement")}
                         retracements={this.interactGraph["FibonacciRetracement"]}
                     />
                     <EquidistantChannel
 						ref={(node) => this.interactRef["EquidistantChannel"] = node}
 						enabled={this.interactEnabled["EquidistantChannel"] == true}
-						onComplete={this.onInteractComplete("EquidistantChannel")}
+						onComplete={this.props.onInteractComplete("EquidistantChannel")}
 						channels={this.interactGraph["EquidistantChannel"]}
 					/>
                     <StandardDeviationChannel
 						ref={(node) => this.interactRef["StandardDeviationChannel"] = node}
 						enabled={this.interactEnabled["StandardDeviationChannel"] == true}
-						onComplete={this.onInteractComplete("StandardDeviationChannel")}
+						onComplete={this.props.onInteractComplete("StandardDeviationChannel")}
 						channels={this.interactGraph["StandardDeviationChannel"]}
 					/>
                     <GannFan
 						ref={(node) => this.interactRef["GannFan"] = node}
 						enabled={this.interactEnabled["GannFan"] == true}
-						onComplete={this.onInteractComplete("GannFan")}
+						onComplete={this.props.onInteractComplete("GannFan")}
 						fans={this.interactGraph["GannFan"]}
 					/>
                 </Chart>
