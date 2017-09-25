@@ -91,28 +91,32 @@ class TTLChart extends React.Component
         
 		return (
             <div>
+                <div id="TTLStockChart_C_Main" className="TTLStockChart_C_Main">
+                    <div>
+                        <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
+                            chartLayout={this.chartLayout}
+                            data={this.data}
+                            onChartEvent={this.handleMainChartEvents}
+                            mainSeries={this.state.mainChartSeries}
+                            drawingSwitch={this.state.drawingSwitch}
+                            interactEnabled={this.interactEnabled}
+                            interactGraph={this.interactGraph}
+                            interactRef={this.interactRef}
+                            undoList={this.undoList}
+                            onInteractComplete={(id) => this.handleOnInteractComplete(id)}
+                            />
+                        <TTLTimeLineChart width={width} height={100} ratio={ratio} ref={node => {this.timeLine=node;}} baseref={this}
+                            chartLayout={this.chartLayout}
+                            data={this.data}
+                            />
+                    </div>
+                </div>
                 <div id="TTLStockChart_C_Ctl" className="TTLStockChart_C_Ctl" >
                     <TTLChartControl handleSeriesChange={(series) => this.handleCreateMainChartSeries(series)} />
                 </div>
                 <div id="TTLStockChart_C_EditCtl" className="TTLStockChart_C_EditCtl">
                     <TTLChartEditControl startInteract={(id) => this.handleStartInteract(id)}/>
                 </div>
-                <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
-                    chartLayout={this.chartLayout}
-                    data={this.data}
-                    onChartEvent={this.handleMainChartEvents}
-                    mainSeries={this.state.mainChartSeries}
-                    drawingSwitch={this.state.drawingSwitch}
-                    interactEnabled={this.interactEnabled}
-                    interactGraph={this.interactGraph}
-                    interactRef={this.interactRef}
-                    undoList={this.undoList}
-                    onInteractComplete={(id) => this.handleOnInteractComplete(id)}
-                    />
-                <TTLTimeLineChart width={width} height={100} ratio={ratio} ref={node => {this.timeLine=node;}} baseref={this}
-                    chartLayout={this.chartLayout}
-                    data={this.data}
-                    />
             </div>
 		);
     }

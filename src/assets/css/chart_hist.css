@@ -2,7 +2,7 @@
     position: absolute;
     left: -5px;
     right: 0px;
-    z-index: -1;
+    z-index: 0;
     margin-right: 0px;
     
     outline-style: none;
@@ -13,6 +13,7 @@
 
 .TTLStockChart_C_Ctl {
     float: right;
+    z-index: 10;
     /* position: absolute; bottom:0px; right:0px; padding: 0px; margin: 0px; */
     outline-style:none;
 }
@@ -21,12 +22,13 @@
     float: right;
     /* position: absolute; bottom:0px; right:30px; padding: 0px; margin: 0px; */
     width: 300px;
-    z-index: 10;
+    z-index: 1000;
     outline-style:none;
 }
 
 .TTLStockChart_C_EditCtl {
     float: right;
+    z-index: 10;
     /* position: absolute; bottom:0px; right:0px; padding: 0px; margin: 0px; */
     outline-style:none;
 }
