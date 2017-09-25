@@ -14,7 +14,7 @@ class OddLotOrder extends Component {
         super(props)
 
         this.id = 'oddLotOrder'
-
+        this.rowSelected = []
         this.state = {
             oddLotOrderPageIndex: 1,
             columns: [
@@ -167,7 +167,7 @@ class OddLotOrder extends Component {
             })
         }
         else {
-            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 'Vui long chon 1 ma CK')
+            this.props.onShowMessageBox('asd', 'Vui long chon 1 ma CK')
         }
     }
 
@@ -188,6 +188,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     oddLotEnquiry: (param) => {
         dispatch(actions.getOddlotEnquiry(param))
     },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
+    beforeRegisterOddLot: (params) => {
+        dispatch(actions.beforeRegisterOddLot(params))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OddLotOrder)
