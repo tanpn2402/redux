@@ -2544,7 +2544,10 @@ input::-webkit-calendar-picker-indicator {
 /* END MANAGEMENT WIDGET */
 
 /* TRANS HISTORY WIDGET */
-
+    .ttlchart-control {
+        position: absolute;
+        z-index: 99;
+    }
 
 /* END TRANS HISTORY WIDGET */
 

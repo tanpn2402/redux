@@ -8,11 +8,17 @@
     "react-scripts": "^1.0.2"
   },
   "dependencies": {
+    "atmosphere.js": "^2.3.3",
     "axios": "^0.16.2",
     "jquery": "^3.2.1",
     "merge-json": "0.1.0-b.3",
     "prop-types": "^15.5.10",
+    "d3-format": "^1.2.0",
+    "d3-time-format": "^2.0.5",
     "react": "^15.6.1",
+    "react-bootstrap-toggle": "^2.0.8",
+    "react-bootstrap-switch": "^15.5.0",
+    "react-stockcharts": "^0.7.0-beta.12",
     "react-bootstrap": "^0.31.1",
     "react-bootstrap-table": "^3.5.0",
     "react-datepicker": "^0.52.0",
