@@ -26,12 +26,18 @@ class TechAnalysis extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
-                    <div style={{position: 'absolute', width: '100%', height:' 100%', paddingTop: '25px'}}>
-                        <TTLChart width={1500} ratio={1} height={470} rawData={test} chartType={'Candle'} />
+                    <div style={{paddingTop: '25px'}} className="bootstrap-iso">
+                        <div  style={{width: '1000px'}}>
+                            <TTLChart width={1000} ratio={1} height={470} rawData={test} chartType={'Candle'} />
+                        </div>
                     </div>
                 </Body>
             </div>
         )
+
+    }
+
+    componentWillMount(){
 
     }
 

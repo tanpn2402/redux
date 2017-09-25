@@ -43,7 +43,7 @@ class TTLChartEditControl extends React.Component
     render()
     {
         const { refreshState, controlShow } = this.state;
-        const onSelect = (eventKey)=>{this.chartMethodGlobal.chartObj.startInteract(eventKey)}
+        const onSelect = (eventKey)=>{this.props.startInteract(eventKey)}
         return (
             <div>
                 <Dropdown pullRight id="ChartEditDropdown" onSelect={onSelect}>

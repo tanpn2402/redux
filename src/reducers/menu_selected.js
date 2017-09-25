@@ -1,10 +1,10 @@
 import {ActionTypes} from '../core/constants';
 
 const initialState = {
-	tabList : [],
+	tabList: [],
   page: '1',
   tabID: 'portfoliotab',
-
+  widgetList: [],
   load: false,
 };
 
@@ -25,7 +25,11 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{          
           load: action.load
         });
-        
+    case ActionTypes.ADDWIDGET:
+        return Object.assign({},state,{
+          load: action.load,
+          widgetList: state.widgetList.concat(action.widgetList)
+        })
     default:
       break;
      
