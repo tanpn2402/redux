@@ -64,8 +64,6 @@ class TTLMainChart extends React.Component {
         
         this.state = {
             data: this.props.data,
-            subChartList: [],
-            inChartList: [],
             drawingSwitch: false,
         }
         
@@ -92,9 +90,10 @@ class TTLMainChart extends React.Component {
     }
     
 	render() {
-		var { width, height, ratio, chartLayout } = this.props;
-		var { data: initialData, subChartList, chartType, inChartList, drawingSwitch } = this.state;
-        
+        var { width, height, ratio, chartLayout } = this.props;
+        var subChartList = this.props.subChartList;
+        var inChartList = this.props.inChartList;
+		var { data: initialData, chartType, drawingSwitch } = this.state;
         const margin = {left: 70, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 5}; // margin.top will bug the graph, do not set. margin.bottom will affect cursor line
         
         var mainChartHeight = height + margin.bottom;
