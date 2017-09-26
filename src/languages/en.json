@@ -273,6 +273,7 @@
                 "title":{  
                     "stock":"STOCK",
                     "cash":"CASH",
+                    "cashBank":"CASH - BANK",
                     "overduedebt":"OVERDUE DEBT",
                     "upcomingduedebt":"UPCOMING DUEDEBT "
                 },
@@ -790,6 +791,67 @@
                     "wrongAmount":"Số tiền Quý khách muốn ứng không hợp lệ.",
                     "advancePaymentFailed":"Đã có lỗi xảy ra. Xin lòng thực hiện lại",
                     "advancePaymentSuccessful":"Thành công"
+                }
+            },
+            "cash": {
+                "header": {
+                    "cash": "Cash",
+                    "withDrawable":"Withdrawable (include advance)",
+                    "advanceable":"Advanceable amount",
+                    "buyingPower":"Buying power",
+                    "total": "Total",
+                    "loan":"Loan",
+                    "cashBanlance":"Cash balance (withdrawable)",
+                    "cashAdvanceable":"Available advance",
+                    "temporaryHoldCash":"Temporary hold cash",
+                    "cashAvailable":"Cash available",
+                    "cashWithdrawable":"Cash withdrawable",
+                    "buyingOrderAmt":"Hold for executed purchase",
+                    "dueBuy":"Hold for pending purchase",
+                    "widthdrawPendingForApproval":"Pending approval for withdrawal",
+                    "inday":"Trade in day",
+                    "outStandingLoan": "Outstanding loan",
+                    "marginCallByOption": "Margin call (By Options):",
+                    "cashDeposit": "Cash Deposit",
+                    "sellStockInMarPort": "Selling stock in margin portfolio",
+                    "sellStockNotInMarPort": "Selling stock not in margin portfolio",
+                    "dueSell": "Due Sell"
+                }
+            },
+            "accountBalance": {
+                "header": {
+                    "settled" :"Settled",
+                    "waitingRightOffCash":"Waiting right off cash",
+                    "penddingSettle":"Pendding Settle",
+                    "pendingBuySettle":"Pendding Buy Settle",
+                    "moneyinDay":"Money in day",
+                    "hoding" :"Holding",
+                    "freezing" :"Freezing",
+                    "securities": "Securities",
+                    "sellDay" :"Sell Date",
+                    "buyWaiting":"Buy waiting",
+                    "feeTax" :"Fee + Tax ",
+                    "sellWaiting":"Sell waiting",
+                    "buyValue" :"Buy Val",
+                    "currentValue" :"Current Val",
+                    "buyPrice"   : "Buy Prc"
+                }
+            },
+            "overdueDebt": {
+                "header": {
+                    "overdueDebt": "Overdue Debt",
+                    "processedDebt": "Processed Debt",
+                    "cashReserve": "Cash Reserve",
+                    "forceSell": "Force Sell",
+                    "advanceRequest": "Cash Advance Request",
+                    "cashSupplement": "Cash Supplement",
+                    "sellStockRequest": "Sell Stock Request",
+                    "loanDuration": "Loan Duration",
+                    "remindDays": "Remind days",
+                    "forceSellDays": "Force Sell days",
+                    "days": "days",
+                    "months": "months",
+                    "upcomingDebt": "Upcoming due debt"
                 }
             },
             "messagebox":{  

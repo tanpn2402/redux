@@ -371,7 +371,7 @@ const config = {
 	cache: {
 		stockList: [],
 		lang: 'vi',
-		'theme' : 'blue'
+		theme: 'blue'
 	}
 }
 

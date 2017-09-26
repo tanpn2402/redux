@@ -18,7 +18,7 @@ import {getOddlotEnquiry,getOddlotHistory,submitOddLot,getBankInfo , beforeRegis
 import {getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import {avaiblemarginlist} from './avaiblemarginlist'
-import {getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt} from './accountinfo'
+import {getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt} from './accountinfo'
 import {showMessageBox, showFlashPopup} from './notification'
 import {getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList, 
       entitlementGetAccountBalance, getEntitlementData, submitEntitlement} from './entitlement'
@@ -75,6 +75,7 @@ export {
   enquiryMarginLoan,
   avaiblemarginlist,
   getAccountBalance,
+  getAccountBalanceBank,
   getStockInfo,
   getUpComingDebt,
   getOverdueDebt,
