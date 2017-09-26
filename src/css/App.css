@@ -348,6 +348,12 @@ input::-webkit-calendar-picker-indicator {
     float: right;
     padding-top: 1px;
 }
+.search-bar .vertical-align-middle {
+    position: absolute;
+}
+.search-bar .popover-content {
+    font-size: 11px;
+}
 /*END SEARCH BAR*/
 /*DROPDOWN CHECKBOX*/
 
@@ -512,6 +518,9 @@ input::-webkit-calendar-picker-indicator {
     border-color: #fff;
     border-width: 1px;
     border-radius: 4px;
+}
+#form-enterorder .popover-content {
+    font-size: 11px;
 }
 @media(max-width: 768px){
     .login.form-horizontal {

@@ -295,43 +295,42 @@ const config = {
 			id: 'customization',
 			title: "customization",
 			widget:[
-				{i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isResizable: true},
-				{i: 'techanalysis', x:0, y:0, w: 8, h: 12, isResizable: true},
+				{i: 'techanalysis', x:0, y:0, w: 6, h: 12, isResizable: false},
 				
 			]
 		}
 	],
 	default_layout: {
 		
-		management: {i: 'management', x:0, y:0, w: 8, h: 12, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
-		transhistory: {i: 'transhistory', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
-		orderjournaltab: {i: 'orderjournaltab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
-		portfoliotab: {i: 'portfoliotab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
-		trading: {i: 'trading', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
-		customization: {i: 'customization', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, static: true, isResizable: false},
+		management: {i: 'management', x:0, y:0, w: 8, h: 12, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
+		transhistory: {i: 'transhistory', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
+		orderjournaltab: {i: 'orderjournaltab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
+		portfoliotab: {i: 'portfoliotab', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
+		trading: {i: 'trading', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
+		customization: {i: 'customization', x:0, y:0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: false, isResizable: false},
 
-		actionRightList: {i: 'actionRightList', x:2, y:0, w: 6, h: 4, static: true, isResizable: false},
-		additionSharesInfo: {i: 'additionSharesInfo', x:2, y:4, w: 6, h: 4, static: true, isResizable: false},
-		entitlementPanel: {i: 'entitlementPanel', x:0, y:0, w: 2, h: 10, static: true, isResizable: false},
-		entitlementHistory: {i: 'entitlementHistory', x:2, y:8, w: 6, h: 4, maxH: 15, static: true, isResizable: false},
+		actionRightList: {i: 'actionRightList', x:2, y:0, w: 6, h: 4, isDraggable: false, isResizable: false},
+		additionSharesInfo: {i: 'additionSharesInfo', x:2, y:4, w: 6, h: 4, isDraggable: false, isResizable: false},
+		entitlementPanel: {i: 'entitlementPanel', x:0, y:0, w: 2, h: 10, isDraggable: false, isResizable: false},
+		entitlementHistory: {i: 'entitlementHistory', x:2, y:8, w: 6, h: 4, maxH: 15, isDraggable: false, isResizable: false},
 		
-		oddLotOrder: {i: 'oddLotOrder', x:0, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		oddLotHistory: {i: 'oddLotHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		oddLotOrder: {i: 'oddLotOrder', x:0, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
+		oddLotHistory: {i: 'oddLotHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
 		
-		matchOrderBankList: {i: 'matchOrderBankList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		advanceBankHistory: {i: 'advanceBankHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		advanceBankPanel: {i: 'advanceBankPanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		matchOrderBankList: {i: 'matchOrderBankList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
+		advanceBankHistory: {i: 'advanceBankHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
+		advanceBankPanel: {i: 'advanceBankPanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
 
-		matchOrderList: {i: 'matchOrderList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		advanceHistory: {i: 'advanceHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
-		advancePanel: {i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: true, isResizable: false},
+		matchOrderList: {i: 'matchOrderList', x:2, y:0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
+		advanceHistory: {i: 'advanceHistory', x:0, y:5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
+		advancePanel: {i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false},
 
-		orderHistory: { i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false },
-		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false },
+		orderHistory: { i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
+		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
 
-		fundTransfer: {i: 'fundTransfer', x:0, y:0, w: 8, h: 10, static: true, isResizable: false},
-		fundTransPanel: {i: 'fundTransPanel', x:0, y:0, w: 3, h: 10, static: true, isResizable: false},		
-		fundTransHistory: {i: 'fundTransHistory', x:3, y:0, w: 5, h: 10, static: true, isResizable: false},
+		fundTransfer: {i: 'fundTransfer', x:0, y:0, w: 8, h: 10, isDraggable: false, isResizable: false},
+		fundTransPanel: {i: 'fundTransPanel', x:0, y:0, w: 3, h: 10, isDraggable: false, isResizable: false},		
+		fundTransHistory: {i: 'fundTransHistory', x:3, y:0, w: 5, h: 10, isDraggable: false, isResizable: false},
 	},
 
 	settings: [
