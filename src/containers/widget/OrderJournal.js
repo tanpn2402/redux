@@ -220,7 +220,7 @@ class OrderJournal extends Component {
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex} 
-                            totalRecord={this.props.data.mvTotalOrders} 
+                            totalRecord={Math.ceil(this.props.data.mvTotalOrders/this.defaultPageSize)} 
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -253,6 +253,14 @@ class OrderJournal extends Component {
     }
 
     onModifyButton(param) {
+
+
+        this.props.onShowMessageBox(
+                this.props.language.messagebox.title.info, 
+                this.props.language.messagebox.message.systemMaintain
+            )
+
+        return
         this.rowSelected = []
         this.rowSelected.push(param)
         this.showPopup()
@@ -318,30 +326,24 @@ class OrderJournal extends Component {
     }
 
     onPageChange(pageIndex) {
-        if(pageIndex > 0){
-            this.state.pageIndex = pageIndex
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
-        }  
+        this.state.pageIndex = pageIndex
+        this.param['page'] = this.state.pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onNextPage(){
-        if(this.state.pageIndex > 0){
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+        this.param['page'] = this.state.pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onPrevPage(){
-        if(this.state.pageIndex > 1){
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.param['page'] = this.state.pageIndex
-            this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-            this.props.onSearch(this.param, !this.props.reload)
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+        this.param['page'] = this.state.pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onReloadPage(){
@@ -379,6 +381,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     getStockInfo: (param) => {
         dispatch(actions.getstockInfo(param))
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 
 })

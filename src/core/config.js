@@ -248,33 +248,33 @@ const config = {
 			id: "trading",
 			title: "trading",
 			widget: [
-				{i: 'enterorder', x:0, y:0, w: 2, h: 6, static: true, isResizable: false},
-				{i: 'stockmarketinform', x:5, y:0, w: 3, h:6, static: true, isResizable: false },
-				{i: 'accountinfo', x:2, y:0, w: 3, h: 6, static: true, isResizable: false},
-				{i: 'orderjournal', x:0, y:6, w: 8, h: 4, static: true, isResizable: false}
+				{i: 'enterorder', x:0, y:0, w: 2, h: 6, isDraggable: false, isResizable: false},
+				{i: 'stockmarketinform', x:5, y:0, w: 3, h:6, isDraggable: false, isResizable: false },
+				{i: 'accountinfo', x:2, y:0, w: 3, h: 6, isDraggable: false, isResizable: false},
+				{i: 'orderjournal', x:0, y:6, w: 8, h: 4, minW: 8, maxW: 8, minH: 6, maxH: 10, isDraggable: false, isResizable: true}
 			]
 		},
 		{
 			id: 'portfoliotab',
 			title: "portfolio",
 			widget: [
-				{i: 'portfolio', x:0, y:5, w: 8, h: 5, static: true, isResizable: false},
-				{i: 'sumary', x:0, y:0, w: 8, h: 5, static: true, isResizable: false},
+				{i: 'portfolio', x:0, y:5, w: 8, h: 5, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true},
+				{i: 'sumary', x:0, y:0, w: 8, h: 5, isDraggable: false, isResizable: false},
 			]
 		},
 		{
 			id: 'orderjournaltab',
 			title: "orderjournal",
 			widget: [
-				{i: 'orderjournal', x:0, y:0, w: 8, h: 10, static: true, isResizable: false}
+				{i: 'orderjournal', x:0, y:0, w: 8, h: 10, isDraggable: false, isResizable: false}
 			]
 		},
 		{
 			id: 'transhistory',
 			title: "transhistory",
 			widget: [
-				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false },
-				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, static: true, isResizable: false }
+				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -282,12 +282,12 @@ const config = {
 			title: "management",
 			widget: [
 
-				{i: 'fundTransfer', x:0, y:0, w: 8, h: 10, static: true, isResizable: false},
+				{i: 'fundTransfer', x:0, y:0, w: 8, h: 10, isDraggable: false, isResizable: false},
 				//{i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: true, isResizable: false},
-				{i: 'entitlement', x:0, y:0, w: 8, h: 12, static: true, isResizable: false},
-				{i: 'advancePaymentBank', x:0, y:0, w: 10, h: 8, static: true, isResizable: false},
-				{i: 'advancePayment', x:0, y:0, w: 8, h: 8, static: true, isResizable: false},
-				{i: 'oddLot',  x:0, y:0, w: 8, h: 10, static: true, isResizable: false},
+				{i: 'entitlement', x:0, y:0, w: 8, h: 12, isDraggable: false, isResizable: false},
+				{i: 'advancePaymentBank', x:0, y:0, w: 10, h: 8, isDraggable: false, isResizable: false},
+				{i: 'advancePayment', x:0, y:0, w: 8, h: 8, isDraggable: false, isResizable: false},
+				{i: 'oddLot',  x:0, y:0, w: 8, h: 10, isDraggable: false, isResizable: false},
 				
 			]
 		},
@@ -295,7 +295,7 @@ const config = {
 			id: 'customization',
 			title: "customization",
 			widget:[
-				{i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: false, isResizable: true},
+				{i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isResizable: true},
 				{i: 'techanalysis', x:0, y:0, w: 8, h: 12, isResizable: true},
 				
 			]
@@ -367,6 +367,12 @@ const config = {
 			value: []
 		}
 	]
+	,
+	cache: {
+		stockList: [],
+		lang: 'vi',
+		'theme' : 'blue'
+	}
 }
 
 export default config

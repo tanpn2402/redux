@@ -175,7 +175,7 @@ export default function (menuid, props){
 			)
 		case 'accountinfo':
 			return (
-				<Test stockList={props.stockList} language={props.language} theme={props.theme}/>
+				<AccountInfo stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 		case 'stockmarketinform':
 			return (

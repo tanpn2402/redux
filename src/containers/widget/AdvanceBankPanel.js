@@ -38,16 +38,17 @@ class AdBankPanel extends Component {
                                      <tr>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <input id="mvBank" list="Bank" name="bank" id="mvBank" onChange={this.getAdvanceOrderData.bind(this)} required />
-                                            <datalist id="Bank">
+                                            <select id="mvBank" onChange={this.getAdvanceOrderData.bind(this)}>
                                                 {
                                                     queryBankInfo.mvBankInfoList.map(bank => {
                                                         return (
-                                                            <option value={bank.mvSettlementAccountDisplayName} />
+                                                            <option value={bank.mvBankID}>
+                                                                {bank.mvSettlementAccountDisplayName}
+                                                            </option>
                                                         )
                                                     })
                                                 }
-                                            </datalist>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
@@ -115,11 +116,12 @@ class AdBankPanel extends Component {
 
     getAdvanceOrderData(e){
         // get data and fill out to table 1
-        var bank = this.props.queryBankInfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
-        if(bank.length > 0){
+        var bank = e.target.value
+
+        if(bank){
             var stleDay = "3T"
             var params = {
-                'mvBankID' : bank[0].mvBankID,
+                'mvBankID' : bank,
                 'mvSettlement' : stleDay
             }
 
@@ -137,6 +139,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+    getqueryAdvancePaymentInfo: (params) => {
+        dispatch(actions.getqueryAdvancePaymentInfo(params))
+    },
     getqueryBankInfo: (params) => {
         dispatch(actions.getqueryBankInfo(params))
     },

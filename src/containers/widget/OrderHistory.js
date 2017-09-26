@@ -8,11 +8,12 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import moment from 'moment'
+import config from '../../core/config'
 
 class OrderHistory extends Component {
     constructor(props) {
         super(props)
-
+        this.stockList = config.cache.stockList
         this.state = {
             columns: [
                 {
@@ -127,6 +128,7 @@ class OrderHistory extends Component {
 
         this.id = 'ordershistory'
         this.pageIndex = 1
+        this.defaultPageSize = 15
 
         this.params = {
             start: 0,
@@ -269,6 +271,7 @@ class OrderHistory extends Component {
         var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
         var pageIndex = this.props.data.mvPage === undefined ? 1 : this.props.data.mvPage.pageIndex
         var totalRecord = this.props.data.mvTotalOrders === undefined ? 1 : this.props.data.mvTotalOrders
+        console.log(this.stockList)
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -292,14 +295,14 @@ class OrderHistory extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: this.props.stockList}}
-                        param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
+                            data={{stockList: this.stockList}}
+                            param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex}
-                            totalRecord={this.props.data.mvTotalOrders}
+                            totalRecord={Math.ceil(this.props.data.mvTotalOrders/this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -314,46 +317,39 @@ class OrderHistory extends Component {
 
     }
 componentDidMount() {
-        // var d = new Date()
-        // var today = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear()
-        // this.params['mvStartTime'] = today
-        // this.params['mvEndTime'] = today
         this.props.onSearch(this.params)
     }
 
     onPageChange(pageIndex) {
-        if (pageIndex > 0) {
-            this.state.pageIndex = pageIndex
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = pageIndex
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.props.onSearch(this.params)
     }
 
     onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.props.onSearch(this.params)
     }
 
     onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.props.onSearch(this.params)
     }
 
     onReloadPage() {
-        this.props.onSearch(this.params, !this.props.reload)
+        this.props.onSearch(this.params)
     }
 
     onSearch(param) {
-        console.log(param, 'la gi')
+        this.state.pageIndex = 1
+        this.params['page'] = 1
+        this.params['start'] = 0
+
         this.params['mvBS'] = param['mvBuysell']
         this.params['mvInstrumentID'] = param['mvStockId']
         this.params['mvStartTime'] = param['mvStartDate']

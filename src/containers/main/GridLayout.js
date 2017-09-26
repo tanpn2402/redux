@@ -29,7 +29,7 @@ class GridLayout extends React.Component {
             <div key={menuid} 
                 data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 
                     h: layout['h'], minW: layout['minW'], minH: layout['minH'], 
-                    maxW: layout['maxW'], maxH: layout['maxH'], static: layout['static'],
+                    maxW: layout['maxW'], maxH: layout['maxH'], isDraggable: layout['isDraggable'],
                     isResizable: layout['isResizable']}}>
 
                 {

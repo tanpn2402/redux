@@ -76,7 +76,10 @@ class MenuNav extends Component {
     }
 
     saveLayout(){
-
+        this.props.onShowMessageBox(
+                this.props.language.messagebox.title.info, 
+                this.props.language.messagebox.message.systemMaintain
+            )
     }
 
 }
@@ -96,7 +99,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onTabClick: (tabID) => {
         dispatch(actions.onTabClick(tabID));
-    }
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);   

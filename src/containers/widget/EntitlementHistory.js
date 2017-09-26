@@ -9,13 +9,14 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import moment from 'moment'
+import config from '../../core/config'
 
 class EntitlementHistory extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'entitlementHistory'
-
+        this.stockList = config.cache.stockList
         this.state = {
             pageIndex: 1,
             columns: [
@@ -119,7 +120,7 @@ class EntitlementHistory extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: []}}
+                            data={{stockList: this.stockList}}
                             param={[ 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
                     </div>
                     <div className="table-footer">

@@ -199,7 +199,7 @@ class ActionRightList extends Component {
                     </div>
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.pageIndex}
+                            pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
@@ -225,18 +225,18 @@ class ActionRightList extends Component {
         });
     }
     onNextPage(){
-        this.state.pageIndex1 = parseInt(this.state.pageIndex1) + 1
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
+        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+        this.paramsright['page'] = this.state.pageIndex
+        this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
         
         this.props.getRightlist(this.paramsright)
     }
 
     onPrevPage(){
-        this.state.pageIndex1 = parseInt(this.state.pageIndex1) - 1
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
+        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+        this.paramsright['page'] = this.state.pageIndex
+        this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
         
         this.props.getRightlist(this.paramsright)
@@ -249,9 +249,9 @@ class ActionRightList extends Component {
     }
 
     onPageChange(pageIndex) {
-        this.state.pageIndex1 = parseInt(pageIndex)
-        this.paramsright['page'] = this.state.pageIndex1
-        this.paramsright['start'] = (this.state.pageIndex1 - 1) * this.paramsright['limit']
+        this.state.pageIndex = parseInt(pageIndex)
+        this.paramsright['page'] = this.state.pageIndex
+        this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
 
         this.props.getRightlist(this.paramsright)
@@ -259,7 +259,7 @@ class ActionRightList extends Component {
     }
 
     onSearch(param){
-        this.state.pageIndex1 = 1
+        this.state.pageIndex = 1
         this.paramsright['start']= 0
         this.paramsright['page']= 1        
         this.paramsright['mvActionType']= param['mvActionType']

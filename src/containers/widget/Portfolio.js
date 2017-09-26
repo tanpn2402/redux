@@ -12,7 +12,7 @@ class Portfolio extends Component {
     constructor(props) {
         super(props)
         this.id = "portfolio"
-
+        this.defaultPageSize = 15
         this.params = {
                 mvLastAction:'AccountInfo',
                 mvChildLastAction: 'AccountInfo',
@@ -20,18 +20,19 @@ class Portfolio extends Component {
         }
 
         this.state = {
+            pageIndex: 1,
             columns : [
-            {
-                Header: 'Ord',
-                accessor: 'STT',
-                maxWidth: 50
-            },
-            {
-                Header: this.props.language.portfolio.header.mvStockID,
-                accessor: 'mvStockID',
-                maxWidth: 60
-            },
-            {
+                {
+                    Header: 'Ord',
+                    accessor: 'STT',
+                    maxWidth: 50
+                },
+                {
+                    Header: this.props.language.portfolio.header.mvStockID,
+                    accessor: 'mvStockID',
+                    maxWidth: 60
+                },
+                {
                 Header: 'Volume',
                 headerClassName: 'volume',
                 columns: [{
@@ -118,8 +119,6 @@ class Portfolio extends Component {
                 }]
             }]
         }
-
-        this.defaultPageSize = 15
     }
 
     componentWillReceiveProps(nextProps){
@@ -225,9 +224,7 @@ class Portfolio extends Component {
     }
 
     render() {
-        var data = this.props.data.mvPortfolioBeanList === undefined ? [] : this.props.data.mvPortfolioBeanList
-        var d = this.props.data.mvPortfolioAccSummaryBean
-
+        var data = this.props.data.mvPortfolioBeanList
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -240,14 +237,14 @@ class Portfolio extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={data}
+                            data={data.slice( (this.state.pageIndex - 1)*this.defaultPageSize, this.state.pageIndex*this.defaultPageSize )}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex} 
-                            totalRecord={data.length}
+                            totalRecord={Math.ceil(data.length / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -259,6 +256,7 @@ class Portfolio extends Component {
         )
 
     }
+
 
     componentDidMount() {
         this.props.getPorfolio(this.params, !this.props.reload);
@@ -272,20 +270,16 @@ class Portfolio extends Component {
     }
 
     onPageChange(pageIndex){
-        console.log(this.id + ' onPageChange', pageIndex)
         this.setState({pageIndex: pageIndex });
     }
 
     onNextPage(){
-        if(this.state.pageIndex > 0){
             this.setState({pageIndex: parseInt(this.state.pageIndex) + 1 });
-        }
+
     }
 
     onPrevPage(){
-        if(this.state.pageIndex > 1){
             this.setState({pageIndex: parseInt(this.state.pageIndex) - 1 });
-        }
     }
 
 }

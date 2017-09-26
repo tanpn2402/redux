@@ -886,6 +886,13 @@ input::-webkit-calendar-picker-indicator {
     padding-left: 25px;
 }
 /*END PROFILE*/
+/*NOTIFICATION*/
+#notification-wrapper {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+}
+/*END NOTIFICATION*/
 /*FLASH POPUP*/
 
 .flashpopup {

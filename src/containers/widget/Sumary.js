@@ -18,9 +18,8 @@ class Sumary extends Component {
 
 
     render() {
-        var data = this.props.data.mvPortfolioBeanList === undefined ? [] : this.props.data.mvPortfolioBeanList
         var d = this.props.data.mvPortfolioAccSummaryBean
-        d = d == undefined ? [] : d
+
         this.data = [
                 {
                     name: this.props.language.portfolio.header.totalAsset,
@@ -221,11 +220,6 @@ class Sumary extends Component {
         )
 
     }
-
-    componentDidMount() {
-
-    }
-
 }
 const mapStateToProps = (state) => {
     return {

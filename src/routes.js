@@ -6,7 +6,7 @@ import Home from './components/Home';
 import Login from './components/LoginForm';
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={Home} />
+        <IndexRoute onEnter={sessionService.checkAuth} component={Home} />
         <Route path="login" component={Login} />
     </Route>
 );
