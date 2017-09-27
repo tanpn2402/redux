@@ -1,6 +1,6 @@
 import { doLogin,logout } from './doLogin'
 import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, removeWidget, addWidget, getSavedContentLayout, saveLayout} from './menu_selected'
-import {changeConfig} from './configurations'
+import {changeConfig, checkSession} from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
 import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder, setPopup, getstockInfo, getStockB, submitEnterOrder } from './enterorder'
@@ -39,6 +39,7 @@ export {
   onPageClicked,
   onTabClick,
   changeConfig,
+  checkSession,
   stockSearch,
   enquiryOrder,
   accountBalance,

@@ -15,6 +15,7 @@ class Home extends Component {
     componentWillMount(){
        // this.theme = require('../themes/' + this.props.theme)
         //console.log(this.theme)
+        this.props.checkSession()
     }
 
     render() {
@@ -42,9 +43,12 @@ const mapStateToProps = (state) => ({
     authenticated: state.session.authenticated,
     language: state.config.language,
     theme: state.config.style,
+
+    session: state.config.session
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
+    checkSession: () => {dispatch(actions.checkSession())},
     changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
 })
 

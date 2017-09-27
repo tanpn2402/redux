@@ -13,6 +13,11 @@ export default function (state = initialState, action) {
         language: api.getContent(action.language),
         style: 'theme_' + action.style,
       };
+
+    case ActionTypes.CHECKSESSION:
+        return Object.assign({}, state, {
+          session: action.session
+        })
     default:
       return state;
   }
