@@ -111,8 +111,6 @@ export function reloadCustom(load){
 }
 
 
-<<<<<<< HEAD
-=======
 export function removeWidget(load){
     return {
         type: ActionTypes.REMOVEWIDGET,
@@ -146,4 +144,3 @@ function savedLayout(){
         type: ActionTypes.SAVELAYOUT
     }
 }
->>>>>>> daotuan
