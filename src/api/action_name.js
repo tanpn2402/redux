@@ -1,5 +1,5 @@
 export const LOGIN = 'dologin.action';		// do login
-export const LOGOUT = '';					// do logout
+export const LOGOUT = 'logout.action';					// do logout
 export const AUTHCARD = 'authCardMatrix.action';	// do authencation cart matrix
 export const STOCKSEARCH = 'stockSearch.action';	//	get list stock data
 export const QUERYACCOUNTSUMARY = 'queryAccountSummary.action';	// get Balance Account

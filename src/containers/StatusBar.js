@@ -13,8 +13,8 @@ class StatusBar extends React.Component {
             searchResult: [],
             reload: false
         }
-
-        
+        this.openSetting = this.openSetting.bind(this)
+        this.logout = this.logout.bind(this)
     }
 
 	componentWillMount() {
@@ -51,8 +51,8 @@ class StatusBar extends React.Component {
 
                 <div className="user-action">
                     <span className="glyphicon glyphicon-user"></span>
-                    <span className="glyphicon glyphicon-cog" onClick={this.openSetting.bind(this)}></span>
-                    <span className="glyphicon glyphicon-log-out"></span>
+                    <span className="glyphicon glyphicon-cog" onClick={this.openSetting}></span>
+                    <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
                    
                 </div>
             </div>
@@ -65,6 +65,10 @@ class StatusBar extends React.Component {
     
     openSetting(e){
         document.getElementById('settingnav').classList.toggle("open")
+    }
+
+    logout(){
+        this.props.onLogoutClick()
     }
 
     gotoResultTab(subMenuID, language){
@@ -163,6 +167,9 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch, props) => ({
+    onLogoutClick: () => {
+        dispatch(actions.logout())
+    },
     onTabClick: (tabID) => {
         dispatch(actions.onTabClick(tabID));
     },
