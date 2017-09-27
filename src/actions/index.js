@@ -1,5 +1,5 @@
 import { doLogin,logout } from './doLogin'
-import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, removeWidget, addWidget} from './menu_selected'
+import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, reloadCustom} from './menu_selected'
 import {changeConfig} from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
@@ -27,8 +27,7 @@ import {getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeS
 import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
 
 export {
-  removeWidget,
-  addWidget,
+  reloadCustom,
   
   doLogin,
   logout,
