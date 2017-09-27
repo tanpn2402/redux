@@ -142,10 +142,6 @@ class AdvancePanel extends Component {
 const mapStateToProps = (state) => {
     return {
         LocalAdvance: state.cashadvance.LocalAdvance,
-<<<<<<< HEAD
-=======
-
->>>>>>> 0f39a41a17f9808cb68f0381711f90964e8215f5
     }
 }
 
@@ -153,10 +149,6 @@ const mapDispatchToProps = (dispatch, props) => ({
     getLocalAdvanceCreation: (params) => {
         dispatch(actions.getLocalAdvanceCreation(params))
     },
-<<<<<<< HEAD
-=======
-
->>>>>>> 0f39a41a17f9808cb68f0381711f90964e8215f5
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdvancePanel)
