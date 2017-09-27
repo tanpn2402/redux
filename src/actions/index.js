@@ -1,5 +1,9 @@
 import { doLogin,logout } from './doLogin'
+<<<<<<< HEAD
 import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, reloadCustom} from './menu_selected'
+=======
+import {menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, removeWidget, addWidget} from './menu_selected'
+>>>>>>> 0f39a41a17f9808cb68f0381711f90964e8215f5
 import {changeConfig} from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import {changePage} from './pagination'
