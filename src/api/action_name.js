@@ -63,6 +63,7 @@ export const CASHADVANCEBANK = ''; // not already support in itrade
 export const ACCOUNTBALANCE = 'accountbalance.action' // not already support in itrade
 export const ADDORREMOVEACTION = 'addOrRemoveAction.action'; //Add or Remove Stock to WatchList
 export const GETMARKETDATA = 'getMarketData.action'; //Get WatchList Data at present
+export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
 
 // Export Excel actions

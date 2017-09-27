@@ -1,4 +1,6 @@
 import {ActionTypes} from '../core/constants';
+import * as api from '../api/web_service_api';
+import * as ACTION from '../api/action_name';
 
 export function menuSelected(menuid, pageid, tabList, reload) {
     console.log('menuSelected', tabList)
@@ -112,5 +114,32 @@ export function removeWidget(load){
     return {
         type: ActionTypes.REMOVEWIDGET,
         load: !load
+    }
+}
+
+export function getSavedContentLayout(params){
+    return (dispatch) => {
+        api.get(ACTION.UICFGMANAGEMENT, params, dispatch, getSavedLayout)
+    }
+}
+
+function getSavedLayout(savedcontent){
+    return{
+        type: ActionTypes.GETSAVEDCONTENTLAYOUT,
+        savedcontent: savedcontent
+    }
+}
+
+
+
+export function saveLayout(params){
+    return (dispatch) => {
+        api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayout)
+    }
+}
+
+function savedLayout(){
+    return{
+        type: ActionTypes.SAVELAYOUT
     }
 }

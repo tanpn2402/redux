@@ -25,11 +25,21 @@ export default function(state = initialState, action) {
         return Object.assign({},state,{          
           load: action.load
         });
+
     case ActionTypes.ADDWIDGET:
         return Object.assign({},state,{
           load: action.load,
           widgetList: state.widgetList.concat(action.widgetList)
+        });
+
+    case ActionTypes.SAVELAYOUT:
+        return Object.assign({}, state,{});
+
+    case ActionTypes.GETSAVEDCONTENTLAYOUT:
+        return Object.assign({}, state, {
+            savedcontent: action.savedcontent
         })
+
     default:
       break;
      

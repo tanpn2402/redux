@@ -295,7 +295,7 @@ const config = {
 			id: 'customization',
 			title: "customization",
 			widget:[
-				{i: 'advancePanel', x:0, y:0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: false, isResizable: true},
+				{i: 'advancePanel', x:0, y:9, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, static: false, isResizable: true},
 				{i: 'techanalysis', x:0, y:0, w: 8, h: 12, isResizable: true},
 				
 			]
