@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import config from '../../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import GridLayout from '../main/CustomizationGridLayout.js'
-import config from '../../core/config'
+
 
 class Customization extends Component {
     constructor(props) {

@@ -31,7 +31,7 @@ class TTLChartControl extends React.Component
 		super(props);
         
 		this.refresh = this.refresh.bind(this);
-		this.componentDidMount = this.componentDidMount.bind(this);
+		// this.componentDidMount = this.componentDidMount.bind(this);
         
 		this.importState = this.importState.bind(this);
 		this.exportState = this.exportState.bind(this);
@@ -43,7 +43,7 @@ class TTLChartControl extends React.Component
 		this.removeIndicator = this.removeIndicator.bind(this);
 		this.addIndicatorRef = this.addIndicatorRef.bind(this);
 		this.getIndicatorValues = this.getIndicatorValues.bind(this);
-		this.changeMainChartSeries = this.changeMainChartSeries.bind(this);
+		// this.changeMainChartSeries = this.changeMainChartSeries.bind(this);
 		this.changeInSubChart = this.changeInSubChart.bind(this);
         
 		this.createIndicatorPanel = this.createIndicatorPanel.bind(this);
@@ -73,12 +73,12 @@ class TTLChartControl extends React.Component
         });
     }
     
-    componentDidMount()
-    {
-        if (!this.mainChartSeries) // Borrow flag
-            this.changeMainChartSeries("Candle");
-            // this.importState(["Candle", [["InChartVol"],["InChartSMA",[60]],["InChartBB"]], [["RSI", [11], 100], ["MACD", [13,5,3], 125]]]);
-    }
+    // componentDidMount()
+    // {
+    //     if (!this.mainChartSeries) // Borrow flag
+    //         this.changeMainChartSeries("Area");
+    //         // this.importState(["Candle", [["InChartVol"],["InChartSMA",[60]],["InChartBB"]], [["RSI", [11], 100], ["MACD", [13,5,3], 125]]]);
+    // }
     
     render()
     {
@@ -222,16 +222,17 @@ class TTLChartControl extends React.Component
     {
         const lvInChartList = [];
         const lvSubChartList = [];
-        
+        const setMap = this.getSetMap;
         chartPropsList.forEach((chartProps) =>
         {
             const {id, defaultValue} = chartProps;
-            if (this.getSetMap[id].getOnOff())
+            if (setMap[id].getOnOff())
             {
-                if (this.getSetMap[id].isValid())
-                    lvInChartList.push([id, this.getSetMap[id].getPara()])
+                if (setMap[id].isValid())
+                    lvInChartList.push([id, setMap[id].getPara()])
             }
         });
+        console.log(lvInChartList)
     
         this.getIndicatorValues().forEach((value)=>
         {
@@ -239,12 +240,12 @@ class TTLChartControl extends React.Component
                 lvSubChartList.push(value);
         });
         
-        return [this.mainChartSeries, lvInChartList, lvSubChartList];
+        return [this.props.mainChartSeries, lvInChartList, lvSubChartList];
     }
     
     refreshState()
     {
-        this.changeMainChartSeries(this.mainChartSeries);
+        // this.changeMainChartSeries(this.mainChartSeries);
         //refresh
         this.changeInSubChart();
     }
@@ -362,22 +363,20 @@ class TTLChartControl extends React.Component
         return lvSubChartListPara;
     }
     
-    changeMainChartSeries(pSeries)
-    {
-        this.mainChartSeries = pSeries;
-        if (this.chartMethodGlobal)
-            this.chartMethodGlobal.chartObj.setMainChartSeries(pSeries);
-    }
+    // changeMainChartSeries(pSeries)
+    // {
+    //     this.mainChartSeries = pSeries;
+    //     if (this.chartMethodGlobal)
+    //         this.chartMethodGlobal.chartObj.setMainChartSeries(pSeries);
+    // }
 
     changeInSubChart()
     {
-        var lvInChartList = [];
-        var lvSubChartList = [];
-        
         var state = this.exportState();
-    
-        if (this.chartMethodGlobal)
-            this.chartMethodGlobal.chartObj.setSubCharts(state[1], state[2]);
+        console.log(state[1])
+        // if (this.chartMethodGlobal)
+        //     this.chartMethodGlobal.chartObj.setSubCharts(state[1], state[2]);
+        this.props.handleSetSubCharts(state[1], state[2]);
     }
 
     createIndicatorPanel(pName, pPanelID, pDefaultValue, pDefaultHeight)

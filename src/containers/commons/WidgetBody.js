@@ -7,11 +7,20 @@ export default class WidgetBody extends Component {
 
 
     render() {
-        return (
-            <div className="widget-body" onMouseDown={ e => e.stopPropagation() }>
-                {this.props.children}
-            </div>
-        )
+        if(this.props.chart!= undefined){
+            return (
+                <div className="widget-body" style={{zIndex: '2'}} onMouseDown={ e => e.stopPropagation() }>
+                    {this.props.children}
+                </div>
+            )
+        }else{
+            return (
+                <div className="widget-body" onMouseDown={ e => e.stopPropagation() }>
+                    {this.props.children}
+                </div>
+            )
+        }
+        
 
     }
 }

@@ -1,5 +1,5 @@
 export const LOGIN = 'dologin.action';		// do login
-export const LOGOUT = '';					// do logout
+export const LOGOUT = 'logout.action';					// do logout
 export const AUTHCARD = 'authCardMatrix.action';	// do authencation cart matrix
 export const STOCKSEARCH = 'stockSearch.action';	//	get list stock data
 export const QUERYACCOUNTSUMARY = 'queryAccountSummary.action';	// get Balance Account
@@ -63,6 +63,7 @@ export const CASHADVANCEBANK = ''; // not already support in itrade
 export const ACCOUNTBALANCE = 'accountbalance.action' // not already support in itrade
 export const ADDORREMOVEACTION = 'addOrRemoveAction.action'; //Add or Remove Stock to WatchList
 export const GETMARKETDATA = 'getMarketData.action'; //Get WatchList Data at present
+export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
 
 // Export Excel actions

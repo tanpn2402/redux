@@ -27,7 +27,7 @@ class TechAnalysis extends Component {
                 </Title>
                 <Body>
                     <div style={{paddingTop: '25px'}} className="bootstrap-iso">
-                        <div  style={{width: '1000px'}}>
+                        <div  style={{width: '950px'}}>
                             <TTLChart width={1000} ratio={1} height={470} rawData={test} chartType={'Candle'} />
                         </div>
                     </div>
