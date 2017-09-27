@@ -14,9 +14,9 @@ export default class ScrollingTabs extends Component {
                             {
                                 this.props.tabList.map(tab => {
                                     return ( 
-                                        <button id={'tab-id-'+tab[0]} key={'tab-key-'+tab[0]} className={'tabs-item ' + tab[1] + ' tab-' + this.props.id}
-                                        onClick={e => this.onTabClick(e, tab[2])}>
-                                            {tab[0]}
+                                        <button id={'tab-id-'+tab.id} key={'tab-key-'+tab.id} className={'tabs-item ' + tab.cls + ' tab-' + this.props.id}
+                                        onClick={e => this.onTabClick(e, tab.id)}>
+                                            {tab.title}
                                         </button>
                                     )
                                 })

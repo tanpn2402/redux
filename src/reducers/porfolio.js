@@ -1,7 +1,18 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  data: [],
+  data: {
+  	mvAccountType: '',
+  	mvEnableGridHeadMenu: false,
+  	mvMessage: '',
+  	mvPortfolioAccSummaryBean: {},
+  	mvPortfolioBeanList: [],
+  	mvResult: '',
+  	totalMarketValue: '',
+  	totalPL: '',
+  	totalPLPercent: '',
+  	totalWACValue: ''
+  }
 };
 
 export default function (state = initialState, action) {

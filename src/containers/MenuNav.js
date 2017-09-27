@@ -120,7 +120,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onTabClick: (tabID) => {
         dispatch(actions.onTabClick(tabID));
-    }
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);   

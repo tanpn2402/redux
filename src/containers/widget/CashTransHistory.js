@@ -216,14 +216,14 @@ class CashTransHistory extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: []}}
+                            data={{}}
                             param={['mvTrade', 'mvStartDate', 'mvEndDate']} />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex}
-                            totalRecord={this.props.data.mvTotalOrders}
+                            totalRecord={Math.ceil(this.props.data.totalCount/this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -303,6 +303,10 @@ class CashTransHistory extends Component {
     }
 
     onSearch(param) {
+        this.state.pageIndex = 1
+        this.params['page'] = 1
+        this.params['start'] = 0
+
         this.params['tradeType'] = param.mvTrade.toUpperCase()
         this.params['mvStartDate'] = param.mvStartDate
         this.params['mvEndDate'] = param.mvEndDate

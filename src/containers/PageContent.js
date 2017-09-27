@@ -6,7 +6,7 @@ import SlideNav from './SlideNav'
 import SettingNav from './SettingNav'
 import FlashPopup from './commons/FlashPopup'
 import MessageBox from './commons/MessageBox'
-import Notification from './Notification'
+import Notification from './main/Notification'
 import config from '../core/config'
 import generateWindow from './view'
 
@@ -23,7 +23,7 @@ class PageContent extends React.Component {
 
         return (
             <div style={this.props.theme.pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
-
+                <Notification language={this.props.language}/>
                 {
                     generateWindow(this.props.tabID, this.props)
                 }
@@ -40,7 +40,7 @@ class PageContent extends React.Component {
             INSTRUMENTNAME: '',
             MARKETID: ''
         }
-        //this.props.getStockIdList(param)
+        this.props.getStockIdList(param)
     }
 
     

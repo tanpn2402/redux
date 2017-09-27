@@ -348,6 +348,12 @@ input::-webkit-calendar-picker-indicator {
     float: right;
     padding-top: 1px;
 }
+.search-bar .vertical-align-middle {
+    position: absolute;
+}
+.search-bar .popover-content {
+    font-size: 11px;
+}
 /*END SEARCH BAR*/
 /*DROPDOWN CHECKBOX*/
 
@@ -512,6 +518,9 @@ input::-webkit-calendar-picker-indicator {
     border-color: #fff;
     border-width: 1px;
     border-radius: 4px;
+}
+#form-enterorder .popover-content {
+    font-size: 11px;
 }
 @media(max-width: 768px){
     .login.form-horizontal {
@@ -886,6 +895,13 @@ input::-webkit-calendar-picker-indicator {
     padding-left: 25px;
 }
 /*END PROFILE*/
+/*NOTIFICATION*/
+#notification-wrapper {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+}
+/*END NOTIFICATION*/
 /*FLASH POPUP*/
 
 .flashpopup {
@@ -1868,24 +1884,22 @@ input::-webkit-calendar-picker-indicator {
 /*END STOCKMARET INFOR*/
 
 /*ACCOUNT INFO*/
-.component-main.accountinfo.cashinfo,
-.component-main.accountinfo.overduedebt {
-    padding-top: 52px;
+#accountinfo > .widget-body > .tab-wrapper > .scrolling-tabbar {
+    padding-top: 25px;
 }
-.component-main.accountinfo.stockinfo {
-    padding-top: 0px;
+#accountinfo  > .widget-body > .tab-wrapper > .scrolling-tabbar > .scroll{
+    z-index: 3;
+    box-shadow: 0 4px 2px -2px #cecece;    
 }
-.component-main.accountinfo.stockinfo > .stock-table{
+#accountinfo  > .widget-body > .content-wrapper{
     position: absolute;
     width: 100%;
     height: 100%;
-    padding-top: 76px;
 }
-.component-main.accountinfo.stockinfo > .search-bar{
-    position: absolute;
-    width: 100%;
-    padding-top: 51px;
-}
+#accountinfo  > .widget-body > .content-wrapper > .table-main,
+#accountinfo  > .widget-body > .content-wrapper > .table-main > .table-responsive {
+    height: 100%;
+} 
 
 /*END ACCOUNT INFO*/
 
@@ -2527,26 +2541,26 @@ input::-webkit-calendar-picker-indicator {
 
     border: 1px solid rgb(0, 90, 160);
 }
-.widget-body > .table-header {
+.widget-body  .table-header {
     padding-top: 25px;
     width: 100%;
     position: absolute;
 }
-.widget-body > .table-main {
+.widget-body  .table-main {
     padding-top: 50px;
     padding-bottom: 27px;
     height: 100%;
     width: 100%;
     position: absolute;
 }
-.widget-body > .table-main.no-header {
+.widget-body  .table-main.no-header {
     padding-top: 25px;
 }
-.widget-body > .table-main.no-header.no-footer {
+.widget-body  .table-main.no-header.no-footer {
     padding-top: 25px;
     padding-bottom: 0px;
 }
-.widget-body > .table-footer {
+.widget-body  .table-footer {
     bottom: 0;
     width: 100%;
     position: absolute;

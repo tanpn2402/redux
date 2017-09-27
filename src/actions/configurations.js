@@ -29,6 +29,7 @@ export function checkSession() {
 }
 
 function responseCheckSession(response) {
+  console.log(response)
   if (response.success) {
     var result = response.mvResult_2
     if (result === "SYSTEM_MAINTENANCE") {
@@ -39,15 +40,16 @@ function responseCheckSession(response) {
     }
     else if (result === "SESSION_EXPIRED" || response.mvResult === "Time Out") {
       // send popup session_expired
-      sessionApi.logout().then(() => {
-        sessionService.deleteSession();
-        sessionService.deleteUser();
-        browserHistory.replace('/login');
-      })
+      
     }
     else if (response.mvResult === "Will time Out") {
       // send popup will session_expired on 50s
     }
+    sessionApi.logout().then(() => {
+      sessionService.deleteSession();
+      sessionService.deleteUser();
+      browserHistory.replace('/login');
+    })
   }
   return {
     type: ActionTypes.CHECKSESSION,

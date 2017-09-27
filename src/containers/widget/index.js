@@ -40,9 +40,6 @@ import Sumary from './Sumary'
 
 import TechAnalysis from './TechAnalysis'
 
-import Test from './test'
-
-
 export default function (menuid, props){
 	console.log(menuid)
 	switch(menuid){
@@ -175,7 +172,7 @@ export default function (menuid, props){
 			)
 		case 'accountinfo':
 			return (
-				<Test stockList={props.stockList} language={props.language} theme={props.theme}/>
+				<AccountInfo stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 		case 'stockmarketinform':
 			return (

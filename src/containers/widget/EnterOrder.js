@@ -350,6 +350,12 @@ class EnterOrder extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        this.props.onShowMessageBox(
+                this.props.language.messagebox.title.info, 
+                this.props.language.messagebox.message.systemMaintain
+            )
+
+        return;
         var x = document.getElementById("form-enterorder");
 
         for (var i = 0; i < x.length; i++) {
@@ -403,7 +409,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     getStock: () => {
         dispatch(actions.getStockB())
-    }
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder)

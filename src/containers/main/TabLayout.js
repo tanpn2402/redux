@@ -80,6 +80,9 @@ class TabLayout extends Component {
         })
     }
 
+    onTabSlideClick(e){
+        
+    }
 
 }
 

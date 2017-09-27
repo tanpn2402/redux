@@ -17,16 +17,14 @@ import { getClientInfo, changePassword } from './profile'
 import { getOddlotEnquiry, getOddlotHistory, submitOddLot, getBankInfo, beforeRegisterOddLot } from './oddlottrading'
 import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer } from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
-import { avaiblemarginlist } from './avaiblemarginlist'
-import { getStockInfo, getAccountBalance, getOverdueDebt, getUpComingDebt } from './accountinfo'
-import { showMessageBox, showFlashPopup } from './notification'
-import {
-  getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList,
-  entitlementGetAccountBalance, getEntitlementData, submitEntitlement
-} from './entitlement'
-import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
-import { getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
-import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank } from './cashadvancebank'
+import {avaiblemarginlist} from './avaiblemarginlist'
+import {getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt} from './accountinfo'
+import {showMessageBox, showFlashPopup} from './notification'
+import {getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList, 
+      entitlementGetAccountBalance, getEntitlementData, submitEntitlement} from './entitlement'
+import {getLocalRefundCreation,getLocalAdvanceCreation,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData,    beforeSubmitLoanRefund, beforeSubmitAdvance} from './loanrefund'
+import {getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
+import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
 
 export {
   removeWidget,
@@ -80,6 +78,7 @@ export {
   enquiryMarginLoan,
   avaiblemarginlist,
   getAccountBalance,
+  getAccountBalanceBank,
   getStockInfo,
   getUpComingDebt,
   getOverdueDebt,

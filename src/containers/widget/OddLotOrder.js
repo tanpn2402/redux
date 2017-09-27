@@ -258,7 +258,7 @@ class OddLotOrder extends Component {
             })
         }
         else {
-            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 'Vui long chon 1 ma CK')
+            this.props.onShowMessageBox(this.props.language.messagebox.title.error, this.props.language.messagebox.message.selectStock)
         }
     }
 

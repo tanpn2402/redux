@@ -769,6 +769,67 @@
                     "advancePaymentSuccessful":"Thành công"
                 }
             },
+            "cash": {
+                "header" : {
+                    "cash": "Số dư tiền",
+                    "withDrawable":"Số dư được rút (bao gồm ứng trước)",
+                    "advanceable":"Tiền có thể ứng trước",
+                    "buyingPower":"Sức mua",
+                    "total": "Tổng",
+                    "loan":"Dư nợ ký quỹ",
+                    "cashBanlance":"Số dư tiền mặt (được rút)",
+                    "cashAdvanceable":"Khả năng ứng trước",
+                    "temporaryHoldCash": "Tiền tạm giữ",
+                    "cashAvailable":"Số dư khả dụng",
+                    "cashWithdrawable":"Số dư được rút",
+                    "buyingOrderAmt":"Tiền mua CK đã khớp",
+                    "dueBuy":"Tiền mua CK chờ khớp",
+                    "widthdrawPendingForApproval":"Tiền (rút, chuyển khoản) chờ duyệt",
+                    "inday":"Giao dịch trong ngày",
+                    "outStandingLoan": "Dư nợ ký quỹ",
+                    "marginCallByOption": "Gọi bổ sung ký quỹ (Tùy chọn):",
+                    "cashDeposit": "Nộp tiền mặt",
+                    "sellStockInMarPort": "Bán CK trong danh mục ký quỹ",
+                    "sellStockNotInMarPort": "Bán CK ngoài danh mục ký quỹ",
+                    "dueSell": "Tiền bán chứng khoán chờ về"
+                }
+            },
+            "accountBalance": {
+                "header": {
+                    "settled" :"Số dư đầu ngày",
+                    "waitingRightOffCash":"Cổ tức chờ về",
+                    "penddingSettle":"Chờ về",
+                    "pendingBuySettle":"Tiền mua chờ thanh toán",
+                    "moneyinDay":"Tiền về trong ngày đi",
+                    "hoding" :"Tạm khóa",
+                    "freezing" :"Phong tỏa",
+                    "securities": "TK Chứng khoán",
+                    "feeTax" :"Phí + Thuế",
+                    "sellDay" :"Ngày bán CK",
+                    "buyWaiting":"Chờ mua",
+                    "buyPrice"   : "Giá mua",
+                    "buyValue" :"GT mua",
+                    "currentValue" :"GT hiện tại",
+                    "sellWaiting":"Chờ bán"
+                }
+            },
+            "overdueDebt": {
+                "header": {
+                    "overdueDebt": "Overdue Debt",
+                    "processedDebt": "Processed Debt",
+                    "cashReserve": "Cash Reserve",
+                    "forceSell": "Force Sell",
+                    "advanceRequest": "Cash Advance Request",
+                    "cashSupplement": "Cash Supplement",
+                    "sellStockRequest": "Sell Stock Request",
+                    "loanDuration": "Loan Duration",
+                    "remindDays": "Remind days",
+                    "forceSellDays": "Force Sell days",
+                    "days": "days",
+                    "months": "months",
+                    "upcomingDebt": "Upcoming due debt"
+                }
+            },
             "messagebox":{  
                 "title":{  
                     "warning":"Cảnh báo",
@@ -785,7 +846,7 @@
                     "invaliedStepPriceWithOutRange":"Giá phải là bội số của range_value.",
                     "invaliedPriceOutRange":"Giá đặt nằm ngoài biên độ giá (from_value tới to_value), hãy nhập lại!",
                     "newGroupName":"Vui lòng nhập tên nhóm mới",
-                    "deleteItem":"Bạn có chắc chắn muốn xóa \"",
+                    "deleteItem":"Bạn có chắc chắn muốn xóa",
                     "enterStopPrice":"Xin vui lòng nhập giá dung!",
                     "disablePlaceOrderMarket":"Lúc này hệ thống không nhận lệnh mua/bán đối với những mã CK thuộc sàn ",
                     "stockNotExist":" Không tồn tại, vui lòng nhập lại!",
