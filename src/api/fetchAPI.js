@@ -29,7 +29,9 @@ const HEADERSCK = {
             'Content-Type': CONTENT_TYPE
 }
 
-
+export function getServerUrl(){
+    return SERVER + PORT
+}
 export async  function FetchAPI(id,JsonData,method) {
     var url = SERVER + PORT + id + '';
     var formData = '';

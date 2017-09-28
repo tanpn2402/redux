@@ -93,4 +93,7 @@ export const ActionTypes = {
 
   ///
   RELOADCUSTOM: 'RELOADCUSTOM',
+
+  ///
+  GETCAPTCHAIMAGE: 'GETCAPTCHAIMAGE'
 }

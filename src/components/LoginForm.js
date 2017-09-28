@@ -5,7 +5,8 @@ import { Form, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { sessionService } from 'redux-react-session';
 import * as sessionApi from '../api/sessionApi';
-import {Captcha} from './Captcha';
+import * as FetchAPI from '../api/fetchAPI';
+
 
 const user = [
     {
@@ -28,6 +29,7 @@ class LoginForm extends Component {
             mvPassword: '',
             securitycode: '12345'
         }
+        this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
         this.state = {};
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -90,15 +92,16 @@ class LoginForm extends Component {
                             <input type="password" className="form-control inputs" name="password" ref={node => { this.password = node }} />
                         </div>
                     </FormGroup>
-                    <FormGroup>
-                        <Captcha />
+                    <FormGroup id="security-wrapper">
+                            <img src={this.captchaURL} id="activateCodeImg" />
+                            <input pattern="\d{4}" type="text" className="form-control" id="security" name="security" ref={node => { this.securitycode = node }} />
                     </FormGroup>
                     <FormGroup>
-                        <div className="login-button-group">
-                            <button className="hks-btn btn-login" type="submit">
-                                Login
-                            </button>
-                        </div>
+                            <div className="login-button-group">
+                                <button className="hks-btn btn-login" type="submit">
+                                    Login
+                                </button>
+                            </div>
                     </FormGroup>
                     <div className="msg">
                         {this.props.isLoginError && <div>Something Wrong</div>}
@@ -113,6 +116,7 @@ class LoginForm extends Component {
         e.preventDefault();
         this.params['mvClientID'] = this.username.value
         this.params['mvPassword'] = this.password.value
+        this.params['securitycode'] = this.securitycode.value
         this.props.login(this.params)
     }
 }
