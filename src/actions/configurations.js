@@ -19,7 +19,7 @@ export function checkSession() {
   return (dispatch) => {
     setInterval(function () {
       var params = {
-        mvTimelyUpdate: "Y",
+        mvTimelyUpdate: "N",
         key: moment().valueOf()
       }
       return api.login(ACTION.CHECKSESSION, params, dispatch, responseCheckSession)

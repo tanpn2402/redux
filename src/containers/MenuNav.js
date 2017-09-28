@@ -18,9 +18,6 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language
-        if(this.props.savedcontent != undefined){
-            config.tabbar = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
-        }
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu">
                <div className="scroll">
@@ -63,12 +60,9 @@ class MenuNav extends Component {
         )
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
-    }
-
-    componentDidMount(){
         window.addEventListener("keydown", this.myEventHandler, false)
     }
 

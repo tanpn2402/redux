@@ -5,12 +5,15 @@ import PageContent from '../containers/PageContent'
 import Header from '../containers/Header'
 import MenuNav from '../containers/MenuNav'
 import MainContent from '../containers/MainContent'
+import $ from 'jquery'
+import config from '../core/config'
 
 class Home extends Component {
 
-    // constructor(props) {
-    //     super(props)        
-    // }
+    constructor(props) {
+        super(props)   
+        this.params = {}     
+    }
 
     componentWillMount(){
        // this.theme = require('../themes/' + this.props.theme)
@@ -22,6 +25,14 @@ class Home extends Component {
         //let { authenticated, user } = this.props
         console.log(this.props.language)
         this.theme = require('../themes/' + this.props.theme)
+        if(this.props.savedcontent != undefined){
+            var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', config.tabbar)
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', savedContent)
+            console.log(config.tabbar==savedContent)
+            config.tabbar = savedContent
+            console.log(config.tabbar)
+        }
         return (
             <div>
                 <Header theme={this.theme.default} 
@@ -36,6 +47,11 @@ class Home extends Component {
             </div>
         )
     }
+
+    componenWillMount(){
+        this.params['mvAction'] = 'QUERYDEFAULT'
+        this.props.onGetSavedContentLayout(this.params)
+    }
 }
 
 const mapStateToProps = (state) => ({
@@ -43,11 +59,15 @@ const mapStateToProps = (state) => ({
     authenticated: state.session.authenticated,
     language: state.config.language,
     theme: state.config.style,
-
+    savedcontent: state.menuSelected.savedcontent,
+    
     session: state.config.session
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
+    onGetSavedContentLayout: (params) => {
+        dispatch(actions.getSavedContentLayout(params))
+    },
     checkSession: () => {dispatch(actions.checkSession())},
     changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
 })
