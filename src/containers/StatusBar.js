@@ -73,7 +73,7 @@ class StatusBar extends React.Component {
     }
 
     logout(){
-        this.props.onLogoutClick()
+        this.props.onLogoutClick(this.props.checkSessionID)
     }
 
     gotoResultTab(subMenuID, language){
@@ -231,8 +231,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onLogoutClick: () => {
-        dispatch(actions.logout())
+    onLogoutClick: (params) => {
+        dispatch(actions.logout(params))
     },
     onTabClick: (tabID) => {
         dispatch(actions.onTabClick(tabID));

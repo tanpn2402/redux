@@ -93,7 +93,7 @@ class CustomGridLayout extends React.Component {
             config.tabbar[index].widget.push(this.state.layout[this.state.list[i]])
         }
 
-        // console.log(config.tabbar)
+         console.log(config.tabbar)
     }
 
     render() {

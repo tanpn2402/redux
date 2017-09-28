@@ -15,16 +15,16 @@ export function changeConfig(language, style) {
   }
 }
 
-export function checkSession() {
+export function checkSession(handleCheckSessionID) {
   return (dispatch) => {
-    setInterval(function () {
+    const id = setInterval(function () {
       var params = {
-        mvTimelyUpdate: "Y",
+        mvTimelyUpdate: "N",
         key: moment().valueOf()
       }
       return api.login(ACTION.CHECKSESSION, params, dispatch, responseCheckSession)
     }, 5000);
-
+    handleCheckSessionID(id)
   }
 }
 

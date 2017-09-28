@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import config from '../../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import GridLayout from '../main/CustomizationGridLayout.js'
+import config from '../../core/config'
 
 
 class Customization extends Component {
@@ -12,7 +12,7 @@ class Customization extends Component {
         this.state = {
             layout : this.customConfig.widget.length>0?this.customConfig.widget:[]
         }
-
+        console.log(config.tabbar)
         this.reloadWidget = this.reloadLayout.bind(this)
     }
 
