@@ -12,13 +12,16 @@ class Home extends Component {
 
     constructor(props) {
         super(props)   
-        this.params = {}     
+        this.params = {}   
+        this.handleCheckSessionID = this.handleCheckSessionID.bind(this)  
     }
 
     componentWillMount(){
        // this.theme = require('../themes/' + this.props.theme)
         //console.log(this.theme)
-        this.props.checkSession()
+        this.props.checkSession(this.handleCheckSessionID)
+        this.params['mvAction'] = 'QUERYDEFAULT'
+        this.props.onGetSavedContentLayout(this.params)
     }
 
     render() {
@@ -41,16 +44,14 @@ class Home extends Component {
                 changeConfig={this.props.changeConfig} 
                 />  
                 <MenuNav language= {this.props.language.page} theme={this.theme.default}/>
-                <MainContent theme={this.theme.default} language={this.props.language.page} title={this.props.language.page.menu} />
+                <MainContent theme={this.theme.default} language={this.props.language.page} title={this.props.language.page.menu} checkSessionID={this.checkSessionID}/>
 
                 
             </div>
         )
     }
-
-    componenWillMount(){
-        this.params['mvAction'] = 'QUERYDEFAULT'
-        this.props.onGetSavedContentLayout(this.params)
+    handleCheckSessionID(id){
+        this.checkSessionID = id
     }
 }
 
@@ -68,7 +69,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onGetSavedContentLayout: (params) => {
         dispatch(actions.getSavedContentLayout(params))
     },
-    checkSession: () => {dispatch(actions.checkSession())},
+    checkSession: (handleCheckSessionID) => {dispatch(actions.checkSession(handleCheckSessionID))},
     changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
 })
 

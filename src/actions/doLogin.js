@@ -88,7 +88,8 @@ export function isLogin(response) {
     }
 }
 
-export function logout() {
+export function logout(id) {
+    clearInterval(id)
     return (dispatch) => {
         api.post(ACTION.LOGOUT, {}, dispatch, responseLogout)
     }
