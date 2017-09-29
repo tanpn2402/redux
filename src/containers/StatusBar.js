@@ -94,6 +94,7 @@ class StatusBar extends React.Component {
             {
                 // console.log("FOUND" + item.id)
                 this.props.onTabClick(item.id)
+                isTabMenu = true
             }
         })
 
