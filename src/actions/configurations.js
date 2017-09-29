@@ -16,19 +16,20 @@ export function changeConfig(language, style) {
 }
 
 export function checkSession(handleCheckSessionID) {
-  return (dispatch) => {
+  return (dispatch) => {  
     const id = setInterval(function () {
       var params = {
         mvTimelyUpdate: "N",
         key: moment().valueOf()
       }
-      return api.login(ACTION.CHECKSESSION, params, dispatch, responseCheckSession)
+      const responseCheckSessionAndClearInterval = (response) => {return responseCheckSession(response, id)}
+      return api.login(ACTION.CHECKSESSION, params, dispatch, responseCheckSessionAndClearInterval)
     }, 5000);
     handleCheckSessionID(id)
   }
 }
 
-function responseCheckSession(response) {
+function responseCheckSession(response, id) {
   console.log(response)
   if (response.success) {
     var result = response.mvResult_2
@@ -48,6 +49,7 @@ function responseCheckSession(response) {
     sessionApi.logout().then(() => {
       sessionService.deleteSession();
       sessionService.deleteUser();
+      clearInterval(id)
       browserHistory.replace('/login');
     })
   }
