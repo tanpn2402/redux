@@ -84,7 +84,7 @@ export function isLogin(response) {
     let isLoginError = !response.success
     return {
         type: ActionTypes.SET_LOGIN_ERROR,
-        isLoginError
+        isLoginError: isLoginError
     }
 }
 
