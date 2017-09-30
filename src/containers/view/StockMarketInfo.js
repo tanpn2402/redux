@@ -131,7 +131,7 @@ class StockMarketInfo extends Component {
             </div>
  	     	<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
  	     	  	<div className="component-main stockmarketinfo">
-	 	     		<div className=" col-sm-5 stock-stat" >
+	 	     		<div className=" col-sm-4 stock-stat" >
  						<HorizontalTable 
 							showHeader={false}
 							header={[]} 
@@ -139,8 +139,8 @@ class StockMarketInfo extends Component {
 							language={this.props.language.header}
 							data={this.data}/>
  					</div>
- 					<div className=" col-sm-7 stock-info" >
- 						<div style={{height: '50%'}}>
+ 					<div className=" col-sm-8 stock-info" >
+ 						<div className="stock-info-child-tab">
  							<DataUpperTable 
 		 						id={this.id + "-table1"} 
 		 						columns={this.state.columns1} 
@@ -148,7 +148,7 @@ class StockMarketInfo extends Component {
 		 						defaultPageSize={3}/>
  						</div>
 		 				
-		 				<div style={{height: '50%'}}>
+		 				<div className="stock-info-child-tab">
 		 					<DataUpperTable 
 		 						id={this.id + "-table2"} 
 		 						columns={this.state.columns2}

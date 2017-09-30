@@ -238,7 +238,7 @@ input::-webkit-calendar-picker-indicator {
 /*END MAIN MENU NAV BAR*/
 /*DATATABLE*/
 .hks-table {
-    height: 100%;
+    height: auto;
 }
 .datatable {
     text-align: center;
@@ -514,7 +514,12 @@ input::-webkit-calendar-picker-indicator {
     margin: auto;
     position: relative;
     width: 90%;
+    max-height: 100px;
     line-height: 100%;
+}
+
+#security-wrapper img {
+    max-height: 60px;
 }
 
 #security {
@@ -2004,12 +2009,62 @@ input::-webkit-calendar-picker-indicator {
 /*END PORTFOLIO*/
 
 /*STOCKMARET INFOR*/                /*NOT DONE*/
+.marketdatainfo-widget {
+    width: 100%;
+}
+.stockmarketinfo {
+    min-width: 490px;
+    overflow-x: scroll;
+    position: relative;
+    white-space: nowrap;
+}
+
 .component-main.stockmarketinfo > .stock-stat {
-    min-width: 200px;
+    min-width: 150px;
     height: 100%;
+    display: inline-block;
 }
 .component-main.stockmarketinfo > .stock-info {
+    overflow: scroll;
     height: 100%;
+    display: inline-block;
+}
+.marketdatainfo-mini-table {
+    max-height: 50%;
+    height: auto;
+}
+
+#stockmarketinfo-table1 .rt-thead:nth-child(2) .rt-th {
+    display: none;
+}
+
+.bid-ask-footer {
+    width: 100%;
+    height: 25px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bid-ask-footer div {
+    width: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+}
+
+.bid-ask-footer div:nth-child(1) {
+    background: #286cae;
+    color: white;
+}
+
+.bid-ask-footer div:nth-child(2) {
+    background: rgb(255, 102, 0);
+    color: white;
 }
 @media (max-width: 768px){
     
@@ -2063,9 +2118,9 @@ input::-webkit-calendar-picker-indicator {
     z-index: 2;
     position: relative;
 }
-.component-main.cashtransfer > .cashtransfer-form > .form-group{
+/* .component-main.cashtransfer > .cashtransfer-form > .form-group{
     padding-bottom: 
-}
+} */
 .component-main.cashtransfer > .cashtransfer-history {
     /*position: absolute;*/
     float: left;
@@ -2745,6 +2800,18 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
 }
 /* END SUMARY COMPONENT */
+
+/*Mini table rt-tr* - Nguyen*/
+.rt-thead > .rt-tr{
+    position: relative;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 

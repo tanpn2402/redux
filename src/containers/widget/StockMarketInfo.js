@@ -118,7 +118,7 @@ class StockMarketInfo extends Component {
 
 	render(){
  	     return(
-		<div style={{height: '100%'}}>
+		<div className="marketdatainfo-widget">
             <div className="component-header" >
                 <span className="content-block-head">
                     {this.props.language.menu[this.id]}
@@ -129,7 +129,7 @@ class StockMarketInfo extends Component {
             </div>
  	     	<div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
  	     	  	<div className="component-main stockmarketinfo">
-	 	     		<div className=" col-sm-5 stock-stat" >
+	 	     		<div className=" col-sm-4 stock-stat" >
  						<HorizontalTable 
 							showHeader={false}
 							header={[]} 
@@ -137,16 +137,20 @@ class StockMarketInfo extends Component {
 							language={this.props.language.header}
 							data={this.data}/>
  					</div>
- 					<div className=" col-sm-7 stock-info" >
- 						<div style={{height: '50%'}}>
+ 					<div className=" col-sm-8 stock-info" >
+ 						<div className="marketdatainfo-mini-table">
  							<DataUpperTable 
 		 						id={this.id + "-table1"} 
 		 						columns={this.state.columns1} 
 		 						maxRows={3}
 		 						defaultPageSize={3}/>
  						</div>
+						<div className="bid-ask-footer">
+							<div>-</div>
+							<div>-</div>
+						</div>
 		 				
-		 				<div style={{height: '50%'}}>
+		 				<div className="marketdatainfo-mini-table">
 		 					<DataUpperTable 
 		 						id={this.id + "-table2"} 
 		 						columns={this.state.columns2}
