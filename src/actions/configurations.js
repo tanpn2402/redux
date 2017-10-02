@@ -32,29 +32,30 @@ export function checkSession(handleCheckSessionID) {
 function responseCheckSession(response, id) {
   console.log(response)
   if (response.success) {
-    var result = response.mvResult_2
-    if (result === "SYSTEM_MAINTENANCE") {
-      // send popup not login
-    }
-    else if (result === "MULTI_USERS_LOGIN") {
-      // send popup multi_users
-    }
-    else if (result === "SESSION_EXPIRED" || response.mvResult === "Time Out") {
-      // send popup session_expired
+    clearInterval(id)
+  //   // var result = response.mvResult_2
+  //   // if (result === "SYSTEM_MAINTENANCE") {
+  //   //   // send popup not login
+  //   // }
+  //   // else if (result === "MULTI_USERS_LOGIN") {
+  //   //   // send popup multi_users
+  //   // }
+  //   // else if (result === "SESSION_EXPIRED" || response.mvResult === "Time Out") {
+  //   //   // send popup session_expired
       
-    }
-    else if (response.mvResult === "Will time Out") {
-      // send popup will session_expired on 50s
-    }
-    sessionApi.logout().then(() => {
-      sessionService.deleteSession();
-      sessionService.deleteUser();
-      clearInterval(id)
-      browserHistory.replace('/login');
-    })
+  //   // }
+  //   // else if (response.mvResult === "Will time Out") {
+  //   //   // send popup will session_expired on 50s
+  //   // }
+  //   sessionApi.logout().then(() => {
+  //     sessionService.deleteSession();
+  //     sessionService.deleteUser();
+  //     clearInterval(id)
+  //     browserHistory.replace('/login');
+  //   })
   }
   return {
     type: ActionTypes.CHECKSESSION,
-    session: 1
+    sessionState: response.mvResult_2
   }
 }

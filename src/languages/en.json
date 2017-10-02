@@ -986,7 +986,10 @@
             "timeOutAfterOneMin" : " Seconds later, System will time out, click 'OK' button to reset.",
             "selectToDelete" : "Please select!",
             "lakeCash": "Insufficient funds.",
-            "lakeStock": "Insufficient stock."
+            "lakeStock": "Insufficient stock.",
+            "multiUsers":"There are 2 or more users logging in. Logging you out...",
+            "sessionExpired":"Session expired. Logging you out...",
+            "willTimeOut":"Session will expired in 50 seconds"
         }
     },
     "button":{  

@@ -25,6 +25,30 @@ class Home extends Component {
         this.props.onGetSavedContentLayout(this.params)
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.sessionState != null) {
+            const logout = () => { this.props.logout(this.checkSessionID) }
+            var message = ''
+            switch (nextProps.sessionState) {
+                case 'SYSTEM_MAINTENANCE':
+                    message = this.props.language.page.messagebox.message.systemMaintain
+                    break
+                case "MULTI_USERS_LOGIN":
+                    message = this.props.language.page.messagebox.message.multiUsers
+                    break
+                case "SESSION_EXPIRED":
+                    message = this.props.language.page.messagebox.message.sessionExpired
+                case "Time Out":
+                    message = this.props.language.page.messagebox.message.sessionExpired
+                    break
+                case "Will time Out":
+                    message = this.props.language.page.messagebox.message.willTimeOut
+                    break
+            }
+            this.props.onShowMessageBox(this.props.language.page.messagebox.title.error, message, logout)
+        }
+    }
+
     render() {
         //let { authenticated, user } = this.props
         console.log(this.props.language)
@@ -51,7 +75,7 @@ class Home extends Component {
     handleSetConfig() {
         if (this.props.savedcontent != undefined) {
             var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
-            if (savedContent.windows === null) {
+            if (!savedContent.hasOwnProperty('windows')) {
                 config.tabbar = savedContent
             }
         }
@@ -65,7 +89,7 @@ const mapStateToProps = (state) => ({
     theme: state.config.style,
     savedcontent: state.menuSelected.savedcontent,
 
-    session: state.config.session
+    sessionState: state.config.sessionState
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -74,6 +98,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     checkSession: (handleCheckSessionID) => { dispatch(actions.checkSession(handleCheckSessionID)) },
     changeConfig: (lang, theme) => { dispatch(actions.changeConfig(lang, theme)) },
+    onShowMessageBox: (type, message, handleFunction) => {
+        dispatch(actions.showMessageBox(type, message, handleFunction))
+    },
+    logout: (id) => { dispatch(actions.logout(id)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
