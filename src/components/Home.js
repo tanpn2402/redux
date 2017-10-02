@@ -75,8 +75,8 @@ class Home extends Component {
     handleSetConfig() {
         if (this.props.savedcontent != undefined) {
             var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
-            if (!savedContent.hasOwnProperty('windows')) {
-                config.tabbar = savedContent
+            if (savedContent.windows == undefined) {
+                // config.tabbar = savedContent
             }
         }
     }
