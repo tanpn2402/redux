@@ -10,6 +10,7 @@ import AdvancePayment from './AdvancePayment'
 import Settings from './Settings'
 import CancelCashtransfer from './CancelCashtransfer'
 import CashAdvanceBank from './CashAdvanceBank'
+import SaveLayout from './SaveLayout'
 
 export default function(props, onClose){
 	
@@ -60,6 +61,9 @@ export default function(props, onClose){
 
 		case 'canceltransfer':
 			return (<CancelCashtransfer onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			break;
+		case 'savelayout':
+			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config}/>)
 			break;
 		break;
 	}
