@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import config from '../core/config'
 import MenuItem from './SideMenu/MenuItem'
+import Popup from './Popup'
 
 class StatusBar extends React.Component {
 	constructor(props) {
@@ -12,7 +13,8 @@ class StatusBar extends React.Component {
             searchInputVal: '',
             searchResult: [],
             reload: false,
-            showSearchBox: true
+            showSearchBox: true,
+            lgShow: false
         }
         this.allWidget = config.layoutdefault
         this.customConfig = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")]
@@ -26,7 +28,7 @@ class StatusBar extends React.Component {
 	}
 
 	render() {
-        
+        let lgClose = () => {this.setState({lgShow: false})}
         const searchResultBox = (
         <div tabIndex="0" className="widget-search-result" style={{display: this.state.showSearchBox?"block":"none"}}> 
             {
@@ -60,6 +62,7 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
                    
                 </div>
+                <Popup title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language}/>
             </div>
 
         )
@@ -73,7 +76,10 @@ class StatusBar extends React.Component {
     }
 
     logout(){
-        this.props.onLogoutClick(this.props.checkSessionID)
+        // this.props.onLogoutClick(this.props.checkSessionID)
+        this.setState({
+            lgShow: true
+        })
     }
 
     gotoResultTab(subMenuID, language){

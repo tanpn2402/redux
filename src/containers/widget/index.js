@@ -40,6 +40,8 @@ import Sumary from './Sumary'
 
 import TechAnalysis from './TechAnalysis'
 
+import WatchList from './WatchList'
+
 export default function (menuid, props){
 	console.log(menuid)
 	switch(menuid){
@@ -193,7 +195,10 @@ export default function (menuid, props){
 			return (
 				<TechAnalysis stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
-
+		case 'watchlist':
+			return (
+				<WatchList stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
 
 
 

@@ -848,7 +848,8 @@
           "note":"Ghi chú",
           "info":"Thông tin"
       },
-      "message":{  
+      "message":{ 
+          "systemMaintain":"Hệ thống đang bảo trì",
           "oneWindow":"Bạn chỉ mở được 1 cửa sổ giống vậy",
           "saveLayoutConfirm":"Bạn có muốn lưu lại công việc hiện tại không?",
           "invalidStepPrice":"Giá phải là bội số của range_value với chứng khoán có giá nằm trong khoảng từ from_value đến to_value.",
@@ -948,7 +949,10 @@
           "timeOutAfterOneMin":" Hệ thống sẽ ngừng xử lý sau vài giây, bấm vào nút'OK' để thiết lập lại.",
           "selectToDelete":"Xin vui lòng lựa chọn!",
           "lakeCash":"Tài khoản của quí khách không đủ tiền để thực hiện giao dịch này.",
-          "lakeStock":"Tài khoản của quí khách không đủ chứng khoán để thực hiện giao dịch này."
+          "lakeStock":"Tài khoản của quí khách không đủ chứng khoán để thực hiện giao dịch này.",
+          "multiUsers":"Hiện đang có 2 hoặc nhiều người đang đăng nhập tài khoản này. Bạn đang được chuyển về trang login...",
+          "sessionExpired":"Phiên làm việc của bạn đã hết hạn. Bạn đang được chuyển về trang login...",
+          "willTimeOut":"Phiên làm việc sẽ hết hạn trong vòng 50 giây nữa"
       }
   },
   "button":{  

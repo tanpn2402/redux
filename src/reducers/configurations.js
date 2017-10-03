@@ -16,7 +16,7 @@ export default function (state = initialState, action) {
 
     case ActionTypes.CHECKSESSION:
         return Object.assign({}, state, {
-          session: action.session
+          sessionState: action.sessionState
         })
     default:
       return state;

@@ -14,6 +14,7 @@ export default function(state = initialState, action) {
         	message: action.message,
           type: action.notification_type,
           id: action.id,
+          handleFunction: action.handleFunction
         });
     default:
       break;
