@@ -87,7 +87,7 @@ class FundTransHistory extends Component {
                                           if(props.original.status === 'P')
                                           return (
                                               <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
-                                              onClick={this.Opencanceltransfer.bind(this)}>
+                                              onClick={this.openCanceltransfer.bind(this)}>
                                                   <span className="glyphicon glyphicon-remove"></span>
                                               </Button>
                                           )
@@ -198,7 +198,7 @@ class FundTransHistory extends Component {
                                         if(props.original.status === 'P')
                                         return (
                                             <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
-                                            onClick={this.Opencanceltransfer.bind(this)}>
+                                            onClick={()=>this.openCanceltransfer(props.original.tranID)}>
                                                 <span className="glyphicon glyphicon-remove"></span>
                                             </Button>
                                         )
@@ -284,13 +284,23 @@ class FundTransHistory extends Component {
         this.setState({pageIndex: pageIndex });
     }
 
-    Opencanceltransfer() {
-        this.setState({
-                      lgShow: true
-              });
-              this.title = "CancelTransfer"
-              this.popupType = 'CANCELCASHTRANFER'
-      }
+    // Opencanceltransfer(tranID) {
+    //     this.setState({
+    //                   lgShow: true
+    //           });
+    //           this.title = "CancelTransfer"
+    //           this.popupType = 'CANCELCASHTRANFER'
+    //   }
+
+    openCanceltransfer(tranID) {
+      // this.setState({lgShow: true});
+      // this.title = "CancelTransfer"
+      // this.popupType = 'CANCELCASHTRANFER'
+      var targetTxn = this.props.data.list.find(x=>x.tranID==tranID);
+      
+      this.props.beforeCancelFundTransfer(targetTxn.tranID, targetTxn.status, this.props.language, this.onReloadPage)
+  
+    }
 }
 const mapStateToProps = (state) => {
     return {
@@ -302,6 +312,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     gethkscashtranhis: (paramshkscashtranhis) => {
         dispatch(actions.gethksCachTranHis(paramshkscashtranhis))
+    },
+    beforeCancelFundTransfer: (tranID, status, language, callback) => {
+      dispatch(actions.beforeCancelFundTransfer(tranID, status, language, callback))
     },
 })
 

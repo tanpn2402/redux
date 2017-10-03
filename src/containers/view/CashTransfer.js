@@ -111,7 +111,7 @@ class CashTransfer extends Component {
           Cell: props => {
             if (props.original.status === 'P')
               return (
-                <Button name={props.original.tranID} bsClass="hks-btn btn-orderjournal" bsSize="xsmall">
+                <Button onClick={e=>this.openCanceltransfer} name={props.original.tranID} bsClass="hks-btn btn-orderjournal" bsSize="xsmall">
                   <span name={props.original.tranID} className="glyphicon glyphicon-remove"></span>
                 </Button>
               )
@@ -218,7 +218,7 @@ class CashTransfer extends Component {
           Cell: props => {
             if (props.original.status === 'P')
               return (
-                <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" onClick={()=>this.openCanceltransfer(props.original.tranID)}>
+                <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" onClick={e=>this.openCanceltransfer} name={props.original.tranID}>
                   <span className="glyphicon glyphicon-remove"></span>
                 </Button>
               )
@@ -510,12 +510,14 @@ class CashTransfer extends Component {
 
 
 
-  openCanceltransfer(tranID) {
+  openCanceltransfer(e) {
     // this.setState({lgShow: true});
     // this.title = "CancelTransfer"
     // this.popupType = 'CANCELCASHTRANFER'
+    var tranID = e.target.name
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     var targetTxn = this.props.data.list.find(x=>x.tranID==tranID);
-    console.log(tranID);
+    
     this.props.beforeCancelFundTransfer(targetTxn.tranID, targetTxn.status, this.props.language, this.onReloadPage)
 
   }

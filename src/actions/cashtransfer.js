@@ -64,13 +64,15 @@ export function gethksCachTranHis(params) {
 // }
 
 export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language) {
-  if (paramsTransfer.transferamount <= 0) {
+  console.log("=======================================")
+  console.log(paramsTransfer)
+  if (paramsTransfer.mvAmount <= 0) {
     return (dispatch) => {
       dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
     }
   }
 
-  if (paramsTransfer.transferamount < mvTransferBean.mvAvailable) {
+  if (paramsTransfer.mvAmount < mvTransferBean.mvAvailable) {
     return (dispatch) => {
       dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
     }
@@ -106,7 +108,8 @@ export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, languag
 }
 
 export function submitCashTransfer(data, authParams, language) {
-
+  console.log("=======================sdsdads")
+  console.log(data)
   var responseSubmitCashTransfer = function (response) {
     if (response) {
 
@@ -139,7 +142,7 @@ export function submitCashTransfer(data, authParams, language) {
     }
   }
 
-  var fee = Utils.numUnFormat(data.paramsTransfer)
+  var fee = Utils.numUnFormat(data.paramsTransfer.mvTransferFee)
   var desBankInfo = data.paramsTransfer.inputBankName
   desBankInfo = desBankInfo + "_+_" + data.paramsTransfer.inputBankBranch.trim()
 
@@ -157,8 +160,8 @@ export function beforeCancelFundTransfer(tranID, status, language, callback) {
   return (dispatch) => {
     dispatch(showPopup({
       data: {
-        'mvTranID': tranID,
-        'mvStatus': status,
+        'tranID': tranID,
+        'status': status,
         'callback': callback
       },
       title: language.cashtransfer.popup.title,
@@ -169,7 +172,7 @@ export function beforeCancelFundTransfer(tranID, status, language, callback) {
   }
 }
 
-export function cancelFundTransfer(data, language, callback) {
+export function CancelCashtransfer(data, language) {
 
   var responseCancelCashTransfer = function (response) {
     if (response) {
@@ -186,7 +189,7 @@ export function cancelFundTransfer(data, language, callback) {
         }
       } else {
         if (response.mvResult == "SUCCESS") {
-          callback()
+          data.callback()
           return (dispatch) => {
             dispatch(showMessageBox(language.messagebox.title.info, language.cashtransfer.message.cancelSuccess))
           }
@@ -205,8 +208,8 @@ export function cancelFundTransfer(data, language, callback) {
   }
 
   var params = {
-    'tranID': data.tranID,
-    'status': data.status,
+    'mvTranID': data.tranID,
+    'mvStatus': data.status,
   };
 
   return (dispatch) => {

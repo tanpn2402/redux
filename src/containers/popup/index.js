@@ -9,6 +9,7 @@ import LoanRefund from './LoanRefund'
 import AdvancePayment from './AdvancePayment'
 import Settings from './Settings'
 import CancelCashtransfer from './CancelCashtransfer'
+import CashTransfer from './CashTransfer'
 import CashAdvanceBank from './CashAdvanceBank'
 
 export default function(props, onClose){
@@ -58,9 +59,11 @@ export default function(props, onClose){
 			return (<Settings onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
 
-		case 'canceltransfer':
-			return (<CancelCashtransfer onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+		case 'cancelcashtransfer':
+			return (<CancelCashtransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
+		case 'cashtransfer':
+			return (<CashTransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 		break;
 	}
     
