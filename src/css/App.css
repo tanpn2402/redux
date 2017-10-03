@@ -95,6 +95,31 @@ body {
     font-size: 12px;
     padding-bottom: 4px;
 }
+.table-odd-even {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+}
+.table-odd-even > tbody > tr > th,
+.table-odd-even > tbody > tr > td{
+    padding: 3px 8px;
+}
+.table-odd-even > tbody > tr > td {
+    text-align: right;
+}
+/*.table-odd-even > tbody > tr:nth-child(even){
+    background: #e8e8e8;
+}
+.table-odd-even > tbody > tr:nth-child(odd){
+    background: #FFF;
+}*/
+.table-odd-even > tbody > tr > td {
+    width: 70%;
+}
+.table-odd-even > tbody > tr > th {
+    min-width: 150px;
+    background-color: #e8e8e8;
+}
 /*remove the red border in a required form input in FIREFOX*/
 
 input:required {
@@ -238,7 +263,7 @@ input::-webkit-calendar-picker-indicator {
 /*END MAIN MENU NAV BAR*/
 /*DATATABLE*/
 .hks-table {
-    height: auto;
+    height: 100%;
 }
 .datatable {
     text-align: center;
@@ -535,7 +560,7 @@ input::-webkit-calendar-picker-indicator {
 
 
 .form-group>div:nth-child(1) {
-    font-size: 15px;
+    /* font-size: 15px; */
     margin-bottom: 5px;
 } 
 
@@ -620,45 +645,6 @@ input::-webkit-calendar-picker-indicator {
 .error {
     margin: 15px 15px;
 }
-#form-enterorder > .form-group > .table-responsive > .table {
-    margin: 0;
-}
-#form-enterorder > .form-group > .table-responsive {
-    margin-bottom: 5px;
-}
-#form-enterorder > .form-group.enterorder-buy > .table-responsive > .table >tbody > tr > th {
-    background-color: #286cae;
-    color: #fff;
-}
-#form-enterorder > .form-group.enterorder-buy > .table-responsive > .table >tbody > tr > td {
-    background-color: #fff;
-}
-#form-enterorder > .form-group.enterorder-sell > .table-responsive > .table >tbody > tr > th {
-    background-color: #f60;
-    color: #fff;
-}
-#form-enterorder > .form-group.enterorder-sell > .table-responsive > .table >tbody > tr > td {
-    background-color: #fff;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th,
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td select {
-    padding: 0 6px;
-    height: 20px;
-    border-radius: 4px;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td input {
-    padding: 0 0px;
-    border-color: #fff;
-    border-width: 1px;
-    border-radius: 4px;
-}
-#form-enterorder .popover-content {
-    font-size: 11px;
-}
 @media(max-width: 768px){
     /* .login.form-horizontal {
         height: 200px;
@@ -673,6 +659,55 @@ input::-webkit-calendar-picker-indicator {
     .login-button-group {
         padding-top: 5px;
     }
+}
+/*END LOGIN*/
+
+/*ENTER ORDER*/
+#form-enterorder {
+    font-size: 12px;
+}
+#form-enterorder > .form-group > .table-responsive > .table {
+    margin: 0;
+}
+#form-enterorder > .form-group > .table-responsive {
+    margin-bottom: 5px;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th {
+    background-color: #286cae;
+    color: #fff;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
+    background-color: #fff;
+}
+#form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > th {
+    background-color: #f60;
+    color: #fff;
+}
+#form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > td {
+    background-color: #fff;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th,
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td select {
+    padding: 0 6px;
+    height: 20px;
+    border-radius: 4px;
+    width: 100%;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td input {
+    padding: 0 0px;
+    border-color: #fff;
+    border-width: 1px;
+    border-radius: 4px;
+}
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td .input-search-group .input-group-addon {
+    border: none;
+}
+#form-enterorder .popover-content {
+    font-size: 11px;
 }
 /*END ENTER ORDER*/
 /*ORDER JOURNALL*/
@@ -692,6 +727,12 @@ input::-webkit-calendar-picker-indicator {
 .modalbody {
     font-size: 12px;
 }
+.popup-main-header {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #fff;
+    background-color: #002c4c;
+}
 /* override from bootstrap*/
 
 .modal-header {
@@ -703,8 +744,18 @@ input::-webkit-calendar-picker-indicator {
     padding-bottom: 5px;
 }
 .modal-footer .btn-default {
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 4px 15px;
+    font-size: 12px;
+    margin: 0 10px;
+    border-radius: 4px;
+}
+.modal-footer .cancel {
+    background-color: #dd5800;
+    color: #fff;
+}
+.modal-footer .submit {
+    background-color: #003f6e;
+    color: #fff;
 }
 .modal-body input {
     padding-top: 2px;
@@ -2551,11 +2602,12 @@ input::-webkit-calendar-picker-indicator {
     background: transparent;
     width: 100%;
     height: 100%;
-    padding: 0 8px;
+    padding: 0 5px 0 8px;
     outline: none;
 }
 .input-search-group button:before {
     content: "\25BC";
+    font-size: 10px;
 }
 .input-search-group button:active {
     outline: none;

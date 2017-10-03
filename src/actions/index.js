@@ -3,7 +3,7 @@ import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSav
 import { changeConfig, checkSession } from './configurations'
 import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
 import { changePage } from './pagination'
-import { accountBalance, stockInfo, stockInfoBuy, checkPreEnterOrder, setPopup, getstockInfo, getStockB, submitEnterOrder } from './enterorder'
+import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import { stockSearch } from './stockaction'
 import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData, exportOrderConfirm } from './confirmorder'
@@ -26,6 +26,8 @@ import {getLocalRefundCreation,getLocalAdvanceCreation,getLoanRefundHistory,getL
 import {getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
 import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
 
+import {showPopup} from './popup'
+
 export {
   reloadCustom,
   getSavedContentLayout,
@@ -42,8 +44,9 @@ export {
   enquiryOrder,
   accountBalance,
   stockInfo,
-  stockInfoBuy,
-  checkPreEnterOrder,
+  genEnterOrder,
+  enterOrderSubmit,
+  checkAuthentication,
   setAuthenFail,
   checkAuthen,
   cancelOrder,
@@ -60,11 +63,9 @@ export {
   enquiryStockStatement,
   enquiryCashStatement,
   getClientInfo,
-  getstockInfo,
   changePassword,
   getMatrixCard,
   matrixCardResponse,
-  getStockB,
   getOrderCofirm,
   getData,
   getEnquiry,
@@ -73,7 +74,6 @@ export {
   CancelCashtransfer,
   getMsgError,
   getError,
-  submitEnterOrder,
   enquiryMarginLoan,
   avaiblemarginlist,
   getAccountBalance,
@@ -133,5 +133,5 @@ export {
   calculateInterest,
   beforeSubmitCashAdvBank,
   submitCashAdvanceBank,
-  
+  showPopup,
 };

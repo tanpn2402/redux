@@ -20,13 +20,13 @@ class Popup extends Component {
         }
     }
     render() {
-        console.log('asdsadasdsa',this.props)
+
         if(this.state.show){
             return (
-                <Modal show={true} onHide={e => this.onClose()} >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg" className="title">{this.props.title}</Modal.Title>
-                    </Modal.Header>
+                <Modal show={true}>
+                    <div className="modal-header popup-main-header">
+                        <h4 className="title modal-title">{this.props.title}</h4>
+                    </div>
                     {generatePopup(this.props, this.onClose.bind(this)) }
                 </Modal>
             )

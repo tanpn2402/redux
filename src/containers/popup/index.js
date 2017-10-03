@@ -1,7 +1,6 @@
 import React from 'react'
 import CancelOrder from './CancelOrder'
 import ModifyOrder from './ModifyOrder'
-import EnterOrderPopup from './EnterOrder'
 import ConfirmOrder from './ConfirmOrder'
 import OddLotTrading from './OddLotTrading'
 import CashAdvancePopup from './CashAdvance'
@@ -12,6 +11,7 @@ import CancelCashtransfer from './CancelCashtransfer'
 import CashTransfer from './CashTransfer'
 import CashAdvanceBank from './CashAdvanceBank'
 import SaveLayout from './SaveLayout'
+import EnterOrderConfirm from './EnterOrderConfirm'
 
 export default function(props, onClose){
 	
@@ -25,12 +25,6 @@ export default function(props, onClose){
 					modifyData={props.modifyData}/>)
 			}
 		break;	
-		case 'enterorder':
-			if(props.error === 'Success all' )
-				return (<EnterOrderPopup json={props.json} mvStockBean={props.mvStockBean} onHide={props.onHide} language={props.language}/>)
-			else
-                    return(<h5 className="error">{props.error}</h5>)
-		break;
 		
 		case 'orderconfirmation':
 			return (<ConfirmOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
@@ -67,6 +61,10 @@ export default function(props, onClose){
 			return (<CashTransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 		case 'savelayout':
 			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config}/>)
+			break;
+
+		case 'enterorderconfirm':
+			return (<EnterOrderConfirm onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 		break;
 	}

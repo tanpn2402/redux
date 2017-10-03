@@ -103,3 +103,20 @@ export function numFormat(v, s) {
 
     return v + s;
 }
+
+export function quantityShowFormatter(original, separator) {
+    var original = numUnFormat(original, ",");
+    if (!original || isNaN(original)
+            || (original == "")) {
+        original = 0;
+    }
+    separator = separator || ",";                           //dau phan cach hang nghin voi hang tram
+
+    var m = /(\d+)(?:(\.\d+)|)/.exec(original + ""), x = m[1].length > 3 ? m[1].length % 3
+            : 0;
+    var v = (x ? m[1].substr(0, x) + separator : "")
+            + m[1].substr(x).replace(/(\d{3})(?=\d)/g,
+                    "$1" + separator);
+
+    return v;
+}

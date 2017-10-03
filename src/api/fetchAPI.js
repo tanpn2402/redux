@@ -4,7 +4,7 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
-const SERVER = 'http://192.168.110.190:'
+const SERVER = 'http://192.168.110.13:'
 const PORT = '8080/iTradeMAS/'
 
 const HOST = 'mi-trade.masvn.com'
@@ -38,7 +38,7 @@ export async  function FetchAPI(id,JsonData,method) {
             for (var k in JsonData) {
                 formData+= k +'='+JsonData[k] +'&'
                 }
-    console.log(url,formData)
+    //console.log(url,formData)
     // method GET
     if(method===GET){
        // url += GET;  

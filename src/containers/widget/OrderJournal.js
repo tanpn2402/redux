@@ -380,7 +380,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.getEnquiry(param, reload))
     },
     getStockInfo: (param) => {
-        dispatch(actions.getstockInfo(param))
+        //dispatch(actions.getstockInfo(param))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))

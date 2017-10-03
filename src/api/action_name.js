@@ -65,7 +65,7 @@ export const ADDORREMOVEACTION = 'addOrRemoveAction.action'; //Add or Remove Sto
 export const GETMARKETDATA = 'getMarketData.action'; //Get WatchList Data at present
 export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
-
+export const QUERYMARKETSTATUSINFO = 'queryMarketStatusInfo.action'
 // Export Excel actions
 export const EXPORTGETCASHTRANSACTIONHISTORY = 'exportGetCashTransactionHistory.action';
 export const EXPORTORDERHISTORY = 'exportOrderHistory.action';
