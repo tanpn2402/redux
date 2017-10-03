@@ -36,9 +36,9 @@ class WatchList extends Component {
                     id: 'name',
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
-                        id: 'mvStockCode',
+                        id: 'mvSymbol',
                         Header: this.props.language.watchlist.header.stock,
-                        accessor: 'mvStockCode',
+                        accessor: 'mvSymbol',
                         width: 60,
                         show: true,
                         skip: false
@@ -286,7 +286,7 @@ class WatchList extends Component {
             ],
             showAlert: false,
             pageIndex: 1,
-
+            disableRemove: true,
             listStock: []
         }
         this.rowSelected = []
@@ -333,6 +333,9 @@ class WatchList extends Component {
                 document.getElementById("watchlist-cb-all").checked = false
         }
         console.log('onRowSelected', this.rowSelected)
+        this.setState({
+            disableRemove: this.rowSelected.length == 0 ? true : false
+        })
     }
     componentDidMount() {
         this.onRefresh()
@@ -363,9 +366,11 @@ class WatchList extends Component {
     onRemoveStock(removeList) {
         this.addRemoveParams['mvAddOrRemove'] = 'Remove'
         removeList.map(stock => {
-            this.addRemoveParams['mvStockCode'] = stock.mvStockId
+            this.addRemoveParams['mvStockCode'] = stock.mvSymbol
+            this.addRemoveParams['mvMarketID'] = stock.mvMarketID
             this.props.onRemoveStock(this.addRemoveParams)
         })
+        this.rowSelected= []
 
         this.onRefresh()
     }
@@ -375,7 +380,7 @@ class WatchList extends Component {
     }
     alreadyInList(stockID) {
         var i = 0;
-        this.props.watchListData.map(stock => {
+        this.props.watchListData.mvMarketData.map(stock => {
             if (stockID === stock.mvStockId)
                 i++
         })
@@ -399,7 +404,6 @@ class WatchList extends Component {
     }
 
     render() {
-        var disableRemove = this.rowSelected.length === 0 ? true : false;
         this.buttonAction = [
             <Button bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
@@ -426,7 +430,7 @@ class WatchList extends Component {
                 {this.props.language.watchlist.toolbar.addstock}
             </Button>,
             <Button bsStyle="default" type="button"
-                onClick={e => this.onRemoveStock(this.rowSelected)} disabled={disableRemove}>
+                onClick={e => this.onRemoveStock(this.rowSelected)} disabled={this.state.disableRemove}>
                 <span className="glyphicon glyphicon-remove"></span>
                 {this.props.language.watchlist.toolbar.removestock}
             </Button>
@@ -442,7 +446,7 @@ class WatchList extends Component {
                         <DataUpperTable
                             id="watchlist-table"
                             columns={this.state.columns}
-                            data={this.props.watchListData}
+                            data={this.props.watchListData.mvMarketData}
                             onRowSelected={this.onRowSelected.bind(this)}
                         />
                     </div>
