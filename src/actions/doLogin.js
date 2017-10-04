@@ -100,6 +100,6 @@ function responseLogout(response) {
     sessionApi.logout().then(() => {
         sessionService.deleteSession();
         sessionService.deleteUser();
-        browserHistory.replace('/login');
+        window.location.assign('/login');
     })
 }

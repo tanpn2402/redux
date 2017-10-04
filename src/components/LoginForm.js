@@ -42,7 +42,7 @@ class LoginForm extends Component {
                     .then(() => {
                         sessionService.saveUser(data)
                             .then(() => {
-                                browserHistory.replace('/');
+                                window.location.assign('/')
                             });
                     });
             });
