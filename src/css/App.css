@@ -945,6 +945,7 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     position: absolute;
     top: 0;
+    z-index: 5;
 }
 .settingnav > .setting-panel {
     height: 100%;
@@ -1088,7 +1089,7 @@ input::-webkit-calendar-picker-indicator {
 #notification-wrapper {
     position: absolute;
     right: 0;
-    margin-right: 20px;
+    margin-right: 15px;
 }
 /*END NOTIFICATION*/
 /*FLASH POPUP*/
@@ -1097,7 +1098,7 @@ input::-webkit-calendar-picker-indicator {
     margin-right: 2px;
     float: right;
     position: relative;
-    z-index: 99;
+    z-index: 5;
     overflow-y: hidden;
 }
 .flashpopup-child {
@@ -1105,7 +1106,7 @@ input::-webkit-calendar-picker-indicator {
     border: none;
     color: #555;
     font-size: 12px;
-    width: 150px;
+    width: 250px;
     height: 60px;
     background-color: #fff;
     padding: 5px;

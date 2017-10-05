@@ -1,10 +1,11 @@
 //render modal body + footer 
 import React, { Component } from 'react';
-import { Button, Modal, } from 'react-bootstrap';
+import { Button, Modal, } from 'react-bootstrap'
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import TableData from '../commons/DataTable'
+import CheckAuthenticationModal from './CheckAuthenticationModal'
 
 class CancelOrder extends Component{
     constructor(props) {
@@ -13,107 +14,58 @@ class CancelOrder extends Component{
                     id: 'mvStockID',
                     Header: this.props.language.orderjournal.header.stockid,
                     accessor: 'mvStockID',
-                    width: 80,
+                    width: 100,
                 },
                 {
                     id: 'mvBS',
                     Header: this.props.language.orderjournal.header.buysell,
                     accessor: 'mvBS',
-                    width: 50,
+                    width: 80,
                 },
                 {
                     id: 'mvPrice',
                     Header: this.props.language.orderjournal.header.price,
                     accessor: 'mvPrice',
-                    width: 80,
+                    width: 100,
                 },
                 {
                     id: 'mvQty',
                     Header: this.props.language.orderjournal.header.quantity,
                     accessor: 'mvQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvPendingQty',
-                    Header: this.props.language.orderjournal.header.pendingQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvExecutedQty',
-                    Header: this.props.language.orderjournal.header.executedQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvAvgPrice',
-                    Header: this.props.language.orderjournal.header.avgprice,
-                    accessor: 'mvAvgPriceValue',
-                    width: 80,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: this.props.language.orderjournal.header.status,
-                    accessor: 'mvStatus',
-                    width: 80,
-                },
-                {
-                    id: 'mvOrderType',
-                    Header: this.props.language.orderjournal.header.ordertype,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                },
-                {
-                    id: 'mvFeeTax',
-                    Header: this.props.language.orderjournal.header.feetax,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                },
-                {
-                    id: 'mvBankID',
-                    Header: this.props.language.orderjournal.header.bankid,
-                    accessor: 'mvBankID',
-                    width: 80,
-                },
-                {
-                    id: 'mvExpiryDate',
-                    Header: this.props.language.orderjournal.header.expirydate,
-                    accessor: 'mvDateTime',
-                    width: 80,
-                },
-                {
-                    id: 'mvRejectReason',
-                    Header: this.props.language.orderjournal.header.rejectreason,
-                    accessor: 'mvRejectReason',
-                    width: 80,
-                },
+                    width: 100,
+                }
             ],
-        this.style = {
-            height: '200px',
-        }
+    
         this.id = 'cancelorder-popup'
     }
     onCancelSubmit() {
-        this.props.onCancelSubmit(this.props.rowSelected)
+        var authParams = this.auth.getParam()
+
+        this.props.onCancelSubmit(this.props.data, authParams, this.props.language)
         this.props.onHide()
     }
     render(){
-        console.log(this.props.returnCode)
-        console.log(this.props.message)
+        var data = this.props.data.data
+        var language = this.props.language
         return(
             <div>
                 <Modal.Body>
-                    <DataTable
+                    <TableData
                         id={this.id + "-table"} 
-                        data={this.props.rowSelected}
                         columns={this.columns}
-                        defaultPageSize={5}
+                        defaultPageSize={15}
+                        maxRows={5}
+                        data={data}
                     />
                 </Modal.Body>
+
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
+                
                 <Modal.Footer>
-                    <Button onClick={this.props.onHide}>Cancel</Button>
-                    <Button onClick={this.onCancelSubmit.bind(this)}> Submit</Button>
+                    <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
+                    <Button className="submit" onClick={this.onCancelSubmit.bind(this)}> {language.button.submit}</Button>
                 </Modal.Footer>
+
             </div>
         )
     }
@@ -126,8 +78,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onCancelSubmit: (param) => {
-        dispatch(actions.onCancelSubmit(param))
+    onCancelSubmit: (param, language, authParams) => {
+        dispatch(actions.onCancelSubmit(param, language, authParams))
     },
 })
 
