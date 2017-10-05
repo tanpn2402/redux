@@ -1,8 +1,7 @@
 import { doLogin, logout } from './doLogin'
 import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSavedContentLayout, saveLayout, reloadCustom } from './menu_selected'
 import { changeConfig, switchLanguage, switchTheme, checkSession } from './configurations'
-import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
-import { changePage } from './pagination'
+import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import { stockSearch } from './stockaction'
@@ -45,7 +44,6 @@ export {
   switchTheme,
   checkSession,
   stockSearch,
-  enquiryOrder,
   accountBalance,
   stockInfo,
   genEnterOrder,
@@ -53,12 +51,7 @@ export {
   checkAuthentication,
   setAuthenFail,
   checkAuthen,
-  cancelOrder,
-  changePage,
-  onCancelSubmit,
-  onModifySubmit,
   pinWindow,
-  openPopup,
   onConfirmSubmit,
   enquiryConfirmOrder,
   getPorfolio,
@@ -72,12 +65,14 @@ export {
   matrixCardResponse,
   getOrderCofirm,
   getData,
+
+  // order journal
   getEnquiry,
-  getEnquiryData,
-  submitCancel,
+  genModifyOrder,
+  onCancelSubmit,
+  onModifySubmit,
+
   CancelCashtransfer,
-  getMsgError,
-  getError,
   enquiryMarginLoan,
   avaiblemarginlist,
   getAccountBalance,

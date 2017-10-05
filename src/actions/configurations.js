@@ -47,7 +47,7 @@ export function checkSession(handleCheckSessionID) {
 }
 
 function responseCheckSession(response, id) {
-  console.log(response)
+  //console.log(response)
   if (response.success) {
     clearInterval(id)
     //   // var result = response.mvResult_2

@@ -159,12 +159,18 @@
                 },
                 "popup": {
                     "title": {
-                        "modify": "Modify Order",
-                        "cancel": "Cancel Order"
+                        "modify": "Confirm Modify",
+                        "cancel": "Confirm Cancel"
                     }
                 },
                 "action": {
                     "cancelorder": "Cancel"
+                },
+                "message": {
+                    "modifySucces": "Order is sent. Please check again in Order journal.",
+                    "modifyFailed": "Modify order failed. Please see detail in Order journal.",
+                    "cancelSuccess" : "Order is sent. Please check again in Order journal",
+                    "cancelFailed" : "Cancel order falied. Please contact to support team."
                 }
             },
             "cashstatement": {

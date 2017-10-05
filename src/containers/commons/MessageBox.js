@@ -17,7 +17,6 @@ class MessageBox extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         if (this.state.lastMessageID !== nextProps.id && nextProps.id !== 0) {
             let msg = this.state.listMessage
             msg.push(nextProps)
@@ -58,7 +57,6 @@ class MessageBox extends Component {
     }
 
     onClose(id) {
-        console.log('sssssssssssssssssssssssss', id)
         let msg = this.state.listMessage
         msg = msg.filter(e => e.id !== id)
 
@@ -67,7 +65,6 @@ class MessageBox extends Component {
         if (this.props.handleFunction != null) {
             this.props.handleFunction()
         }
-        //this.setState({ show: false });
     }
 
 }

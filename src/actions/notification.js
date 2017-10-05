@@ -14,7 +14,6 @@ export function showMessageBox(notifType, notifDetail, handleFunction = null){
 	// 		dispatch(a(notifType, notifDetail))
 	// 	}, 3000)
 	// }
-
 	return {
 	  type: ActionTypes.MESSAGEBOX,
 	  message: notifDetail,
