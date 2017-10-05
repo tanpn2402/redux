@@ -7,7 +7,7 @@ import {
     Table,
     Col,
     Button,
-    Modal
+    Modal,
 } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
@@ -27,6 +27,7 @@ class FundTransPanel extends Component {
         }
 
         this.state = {
+            isExternalFilter: true,
             receivers: [],
             //     paramsfund: {       mvBankId: '',       mvDestClientID: '',
             // mvDestBankID: '',       inputBankName: '',       inputBankBranch: '',
@@ -45,20 +46,21 @@ class FundTransPanel extends Component {
             .bind(this);
     }
 
-    buildFundsTransferStore(isExternal) {
-        if (this.props.datagenfund.mvReceiversList.length == 0) 
-            return
+    buildFundsTransferStore(data,isExternal) {
+        console.log("BUILD FUND")
+        console.log(data
+            .datagenfund)
+        if (data.datagenfund.mvReceiversList.length == 0) 
+            return []
         if (isExternal) {
-            return this
-                .props
+            return data
                 .datagenfund
                 .mvReceiversList
                 .filter(receiver => {
                     return receiver.receiverAccType == 'E'
                 })
         }
-        return this
-            .props
+        return data
             .datagenfund
             .mvReceiversList
             .filter(receiver => {
@@ -67,18 +69,20 @@ class FundTransPanel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.listReceiverExternal = this.buildFundsTransferStore(true)
-        this.listReceiverInternal = this.buildFundsTransferStore(false)
-        if (this.listReceiverInternal.length == 0) this.internalOpt.disabled = true
-            this.setState({
-                receivers: (nextProps.datagenfund.mvReceiversList == undefined)
-                    ? []
-                    : nextProps.datagenfund.mvReceiversList
-            })
+        console.log("|||||||||||||")
+        console.log(this.beneficiaryfullname)
+        var isExternal = this.state.isExternalFilter
+        this.listReceiverExternal = this.buildFundsTransferStore(nextProps,isExternal)
+        this.listReceiverInternal = this.buildFundsTransferStore(nextProps,!isExternal)
+        if (this.listReceiverInternal.length == 0) this.internalOpt.props.disabled = true
+        this.setState({
+            receivers: (isExternal)?this.listReceiverExternal:this.listReceiverInternal
+        })
     }
 
     render() {
         console.log("RENDER")
+        console.log(this.props.datagenfund)
         var mreceive = this.props.datagenfund.mvReceiversList[0]
         return (
             <div
@@ -114,31 +118,46 @@ class FundTransPanel extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.transfertype}</th>
                                         <td>
-                                            <input type='hidden' id="mvStatus" ref={(ref) => this.inputStatus = ref}/>
                                             <Radio
-                                                ref={e => this.internalOpt = e}
                                                 inline
-                                                onChange={() => {
-                                                this.inputStatus.value = "E";
-                                                this.beneficiaryfullname.readOnly = false
-                                                this.bankName.readOnly = false
-                                                this.bankBranch.readOnly = false
-
-                                            }}
-                                                checked="checked"
-                                                requiredExname="radioGroup" >
+                                                defaultChecked={true}
+                                                name="radioGroup"
+                                                onClick={(e=>{
+                                                    this.setState({
+                                                        isExternalFilter: true,
+                                                        receivers: this.listReceiverExternal
+                                                    })
+                                                    
+                                                    this.beneficiaryfullname.disabled = false
+                                                    this.bankName.disabled = false
+                                                    this.bankBranch.disabled = false
+                                                    this.destClientID.value = ""
+                                                    this.beneficiaryfullname.value = ""
+                                                    this.bankName.value = ""
+                                                    this.bankBranch.value = ""
+                                                    this.transferAmount.value = ""
+                                                    this.remark.value = ""
+                                                })}>
                                                 <div className="Radiobox">External</div>
                                             </Radio>
                                             <Radio
                                                 name="radioGroup"
                                                 inline
-                                                disabled
-                                                onChange={() => {
-                                                this.inputStatus.value = "I"
-                                                this.beneficiaryfullname.readOnly = true
-                                                this.bankName.readOnly = true
-                                                this.bankBranch.readOnly = true
-                                            }}>
+                                                onClick={(e=>{
+                                                    this.setState({
+                                                        isExternalFilter: false,
+                                                        receivers: this.listReceiverInternal
+                                                    })
+                                                    this.beneficiaryfullname.disabled = true
+                                                    this.bankName.disabled = true
+                                                    this.bankBranch.disabled = true
+                                                    this.destClientID.selectedIndex = -1
+                                                    this.beneficiaryfullname.value = ""
+                                                    this.bankName.value = ""
+                                                    this.bankBranch.value = ""
+                                                    this.transferAmount.value = ""
+                                                    this.remark.value = ""
+                                                })}>
                                                 <div className="Radiobox">Internal</div>
                                             </Radio>
                                         </td>
@@ -147,14 +166,17 @@ class FundTransPanel extends Component {
                                         <th>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
                                             <select
+                                                required
                                                 ref={e => this.destClientID = e}
                                                 name="destClientID"
+                                                selectedIndex = {-1}
                                                 onChange={(e) => this.handleInputChange(e)}
                                                 style={{
                                                 width: "100%",
                                                 "border-radius": "2px"
                                             }}>
-                                                <option/> {(this.state.receivers == undefined)
+                                                <option style={{display:"none"}}></option>
+                                                {(this.state.receivers == undefined)
                                                     ? []
                                                     : this.state.receivers.map((reciever => <option key={reciever.receiverAccID} value={reciever.receiverAccID}>{reciever.receiverAccID}</option>))};
                                             </select>
@@ -204,6 +226,7 @@ class FundTransPanel extends Component {
                                         <th>{this.props.language.cashtransfer.header.transferamount}</th>
                                         <td>
                                             <input
+                                                type="number"
                                                 ref={e => this.transferAmount = e}
                                                 style={{
                                                 width: "180px"
@@ -223,9 +246,6 @@ class FundTransPanel extends Component {
                                 <span>
                                     <Button
                                         className="btn btn-default"
-                                        onClick={this
-                                        .getranSubmit
-                                        .bind(this)}
                                         type="submit"
                                         className="submit">
                                         Submit
@@ -246,7 +266,7 @@ class FundTransPanel extends Component {
     //
     //Update paramsfund on user's input change
     handleInputChange(e) {
-        if (e.value == "") 
+        if (e.target.value == "") 
             return;
         var curReciever = this
             .state
@@ -268,7 +288,7 @@ class FundTransPanel extends Component {
             inputBankBranch: this.bankBranch.value,
             mvDestAccountName: this.beneficiaryfullname.value,
             mvAmount: this.transferAmount.value,
-            mvTransferType: this.inputStatus.value,
+            mvTransferType: this.state.isExternalFilter,
             mvRemark: this.remark.value,
             mvSeriNo: '[5,A][4,f]',
             mvAnswer: '7|4',
@@ -296,11 +316,11 @@ class FundTransPanel extends Component {
 
     }
 
-    getranSubmit() {
-        this
-            .props
-            .gettranSubmit()
-    }
+    // getranSubmit() {
+    //     this
+    //         .props
+    //         .gettranSubmit()
+    // }
 
     // handleSubmit(e) {     e.preventDefault();     this.setState({ isShow: true })
     // }

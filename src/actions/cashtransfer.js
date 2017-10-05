@@ -62,21 +62,35 @@ export function gethksCachTranHis(params) {
 //     WebApi.post(ACTION.CANCELFUNDTRANSFER, params, dispatch, responseCancelfundtransfer)
 //   }
 // }
+function validateParamsTransfer(paramsTransfer, language, mvTransferBean) {
+  //check if Available Balance is positive
+  if (paramsTransfer.txtAmnAvailable <= 0) {
+    return (dispatch) => {
+      dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.notEnoughMoney))
+    }
+    return false;
+  }
 
-export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language) {
-  console.log("=======================================")
-  console.log(paramsTransfer)
+  //check if Transfer amount equal zero
   if (paramsTransfer.mvAmount <= 0) {
     return (dispatch) => {
       dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
     }
   }
 
-  if (paramsTransfer.mvAmount < mvTransferBean.mvAvailable) {
+  //check if transfer amount is over available amount
+  if (paramsTransfer.mvAmount < mvTransferBean.txtAmnAvailable) {
     return (dispatch) => {
       dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
     }
-  } else {
+  }
+  
+  return true;
+}
+
+export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language) {
+
+  if (validateParamsTransfer(paramsTransfer, language, mvTransferBean)){
     var responseCheckFundTransTime = function (response) {
 
       var msg = response.mvResult
@@ -108,8 +122,6 @@ export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, languag
 }
 
 export function submitCashTransfer(data, authParams, language) {
-  console.log("=======================sdsdads")
-  console.log(data)
   var responseSubmitCashTransfer = function (response) {
     if (response) {
 

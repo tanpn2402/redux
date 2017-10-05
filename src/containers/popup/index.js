@@ -55,10 +55,10 @@ export default function(props, onClose){
 			break;
 
 		case 'cancelcashtransfer':
-			return (<CancelCashtransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<CancelCashtransfer onHide={props.onHide} data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
 		case 'cashtransfer':
-			return (<CashTransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<CashTransfer onHide={props.onHide} data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 		case 'savelayout':
 			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config}/>)
 			break;

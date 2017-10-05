@@ -45,14 +45,22 @@ class CashTransferPopup extends Component {
     submit(e){
         e.preventDefault();
 
-        let authParams = {
-            matrixKey01: document.getElementById("matrix-key01").value,
-            matrixKey02: document.getElementById("matrix-key02").value,
-            matrixValue01: document.getElementById("matrix-value01").value,
-            matrixValue02: document.getElementById("matrix-value02").value,
-            savedAuthen: document.getElementById("matrix-save-authen").checked,
+        var defaultParam = {
+            matrixKey01: '[5,A]',
+            matrixKey02: '[4,F]',
+            matrixValue01: '7',
+            matrixValue02: '4',
+            savedAuthen: true,
         }
-        this.props.submit(this.props.data, authParams , this.props.language)
+
+        // let authParams = {
+        //     matrixKey01: document.getElementById("matrix-key01").value,
+        //     matrixKey02: document.getElementById("matrix-key02").value,
+        //     matrixValue01: document.getElementById("matrix-value01").value,
+        //     matrixValue02: document.getElementById("matrix-value02").value,
+        //     savedAuthen: document.getElementById("matrix-save-authen").checked,
+        // }
+        this.props.submit(this.props.data, defaultParam , this.props.language)
     }
 
 
