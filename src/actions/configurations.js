@@ -7,7 +7,7 @@ import moment from 'moment'
 const { ActionTypes } = require('../core/constants');
 
 export function changeConfig(language, style) {
-  console.log(language, style)
+  //console.log(language, style)
   return {
     type: ActionTypes.CONFIGUATIONS,
     language,
@@ -30,7 +30,7 @@ export function checkSession(handleCheckSessionID) {
 }
 
 function responseCheckSession(response, id) {
-  console.log(response)
+  //console.log(response)
   if (response.success) {
     clearInterval(id)
   //   // var result = response.mvResult_2

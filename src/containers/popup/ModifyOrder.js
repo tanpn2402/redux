@@ -1,166 +1,134 @@
-//render modal body + footer 
 import React, { Component } from 'react';
 import { Button, Modal, FormControl, Alert } from 'react-bootstrap';
-import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Warning from './Warning'
-import loading from '../../assets/images/loading_apple.gif'
+import CheckAuthenticationModal from './CheckAuthenticationModal'
 
 class ModifyOrder extends Component {
     constructor(props) {
         super(props)
-        this.columns = [
-            {
-                id: 'mvStockID',
-                Header: this.props.language.orderjournal.header.stockid,
-                accessor: 'mvStockID',
-            },
-            {
-                id: 'mvPrice',
-                Header: this.props.language.orderjournal.header.price,
-                accessor: 'mvPrice',
-            },
-            {
-                id: 'mvQty',
-                Header: this.props.language.orderjournal.header.quantity,
-                accessor: 'mvQty',
-            },
-            {
-                id: 'mvPendingQty',
-                Header: this.props.language.orderjournal.header.pendingQty,
-                accessor: 'mvPendingQty',
-            },
-        ],
-            this.loading = true;
-        this.style = {
-            height: '200px',
-        }
-        this.state = {
-            mvPrice: this.props.rowSelected[0].mvPrice,
-            mvQty: this.props.rowSelected[0].mvQtyValue,
-            alertVisible: false,
-        };
 
+        var data = this.props.data.data
+
+        console.log(data)
+        this.paramGenModifyOrder = {
+            mvOrderId: data.mvOrderID,
+            mvBSValue: data.mvBSValue,
+            mvStockId: data.mvStockID,
+            mvMarketId: data.mvMarketID,
+            mvPriceValue: data.mvPriceValue,
+            mvQtyValue: data.mvQtyValue,
+            mvCancelQtyValue: data.mvCancelQtyValue,
+            mvInputTime: data.mvInputTime,
+            mvStopTypeValue: data.mvStopTypeValue,
+            mvStopPriceValue: data.mvStopPriceValue,
+            mvStopOrderExpiryDate: data.mvStopOrderExpiryDate == null ? "" : data.mvStopOrderExpiryDate,
+            mvOrderTypeValue: data.mvOrderTypeValue,
+            mvAllOrNothing: data.mvAllorNothing,
+            mvValidityDate: data.mvValidityDate == null ? "" : data.mvValidityDate,
+            mvActivationDate: data.mvActivationDate,
+            mvGoodTillDate: data.mvGoodTillDate,
+            mvRemark: data.mvRemark,
+            mvContactPhone:  data.mvContactPhone,
+            mvGrossAmt:  data.mvGrossAmt,
+            mvNetAmtValue:  data.mvNetAmtValue,
+            mvSCRIP:  data.mvSCRIP,
+            mvlotSize:  data.mvLotSize,
+            mvOrderGroupId:  data.mvOrderGroupID,
+            mvBaseNetAmtValue:  data.mvGrossAmt,
+            mvAvgPriceValue:  data.mvAvgPriceValue,
+            mvFilledQty:  data.mvFilledQty,
+            mvStatus:  data.mvStatus
+        }
     }
 
     onModifySubmit() {
-        if (this.checkPrice(this.state.mvPrice) && this.checkQty(this.state.mvQty)) {
-            this.props.rowSelected.mvPrice = this.state.mvPrice,
-            this.props.rowSelected.mvQty = this.state.mvQty,
-            this.props.onModifySubmit(this.props.rowSelected, this.state.mvPrice, this.state.mvQty)
-           this.props.onHide()
-        }
-        else {
-            this.setState({ alertVisible: true });
-        }
-    }
-    onInput(id, newValue) {
-        if (id === "price") {
-            this.setState({
-                mvPrice: newValue
-            });
-        } else if (id === "quantity") {
-            this.setState({
-                mvQty: newValue
-            });
-        }
-    }
-    checkQty(qtyValue) {
-        if (qtyValue % 100 === 0)
-            return true
-        else
-            return false
-    }
-    checkPrice(price) {
-        if (Number(price) <= (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvCeiling)) && price >= (parseFloat(this.props.mvStockInfo.mvStockInfoBean.mvFloor))) //check ceil, flor
-            return true
-        else
-            return false
-    }
-    handleAlertDismiss() {
-        this.setState({ alertVisible: false });
+        var authParams = this.auth.getParam()
+
+        this.props.onModifySubmit(this.props.genModifyOrderData.mvGenModifyOrderBean, 
+            this.mvPrice.value, this.mvQty.value, authParams, this.props.language, this.props.data.me)
+
+        this.props.onHide()
     }
 
     componentWillReceiveProps(nextProps) {
-        nextProps.mvStockInfo;
-        this.loading = false;
-        //console.log(nextProps.isSuccess,this.props.isCount,nextProps.isCount, "error")
-        // if (this.props.isCount === nextProps.isCount) {
-        //     this.setState({ alertVisible: false })
-        //     console.log(nextProps.isError,"error")
-        // }
-        // else {
-        //     this.setState({ alertVisible: true })
-        // }
+    }
 
+    componentDidMount(){
+        this.props.genModifyOrder(this.paramGenModifyOrder)
     }
 
     render() {
-        if (this.loading === true) {
-            return (
-                <div className="loading">
-                    <img src={loading} alt="loading" />    Loading
-                </div>
-            )
-        }
-        else {
-            return (
-                <div >
-                    <Modal.Body>
-                        <table className="table table-bordered" >
-                            <tbody >
-                                <tr className="modalbody">
-                                    <th>{this.props.language.orderjournal.header.stockid}</th>
-                                    <td><input type='text' className='form-control'
-                                        value={this.props.rowSelected[0].mvStockID} disabled /></td>
-                                </tr>
-                                <tr className="modalbody">
-                                    <th>{this.props.language.orderjournal.header.price}</th>
-                                    <td><input id='price' type='text' className='form-control'
-                                        value={this.state.mvPrice}
-                                        onChange={e => this.onInput(e.target.id, e.target.value)} /></td>
-                                </tr>
-                                <tr className="modalbody">
-                                    <th>{this.props.language.orderjournal.header.quantity}</th>
-                                    <td><input id='quantity' type='number' className='form-control'
-                                        value={this.state.mvQty} min='0' step='100' required
-                                        onChange={e => this.onInput(e.target.id, e.target.value)} /></td>
-                                </tr>
-                                <tr className="modalbody">
-                                    <th>Floor/Ceil: </th>
-                                    <td><font color='#3399CC'><b>
-                                        {this.props.mvStockInfo.mvStockInfoBean.mvFloor}
-                                    </b></font>
-                                        <font color='#FF66CC'><b>/{this.props.mvStockInfo.mvStockInfoBean.mvCeiling}</b></font></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.props.onHide}>Cancel</Button>
-                        <Button onClick={this.onModifySubmit.bind(this)}> Submit</Button>
-                    </Modal.Footer>
-                    <Warning alertVisible={this.state.alertVisible} handleAlertDismiss={this.handleAlertDismiss.bind(this)}
-                        modifyData={this.props.mvStockInfo.mvStockInfoBean} />
-                </div>
-            )
-        }
+        var data = this.props.data.data
+        var mvGenModifyOrderBean = this.props.genModifyOrderData.mvGenModifyOrderBean
+        var language = this.props.language
+        var price = data.mvPrice
+        try{
+            price = parseInt(data.mvPrice)
+        }catch(e){}
+        
+        return (
+            <div >
+                <Modal.Body>
+                    <table className="table table-bordered" >
+                        <tbody >
+                            <tr className="modalbody">
+                                <th>{this.props.language.orderjournal.header.stockid}</th>
+                                <td>
+                                    <input type='text' className='form-control'value={data.mvStockID} disabled />
+                                </td>
+                            </tr>
+                            <tr className="modalbody">
+                                <th>{this.props.language.orderjournal.header.price}</th>
+                                <td>
+                                    <input ref={e => this.mvPrice = e} type='number' className='form-control' defaultValue={price} />
+                                </td>
+                            </tr>
+                            <tr className="modalbody">
+                                <th>{this.props.language.orderjournal.header.quantity}</th>
+                                <td>
+                                    <input ref={e => this.mvQty = e} type='number' className='form-control' defaultValue={data.mvQty}/>
+                                </td>
+                            </tr>
+                            <tr className="modalbody">
+                                <th>Floor/Ceil: </th>
+                                <td>
+                                    <font color='#3399CC'>
+                                        <b>
+                                            {mvGenModifyOrderBean.floor}
+                                        </b>
+                                    </font>
+                                    <font color='#FF66CC'><b>/{mvGenModifyOrderBean.ceiling}</b></font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Modal.Body>
+
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
+
+                <Modal.Footer>
+                    <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
+                    <Button className="submit" onClick={this.onModifySubmit.bind(this)}> {language.button.submit}</Button>
+                </Modal.Footer>
+            </div>
+        )
+        
     }
 }
 const mapStateToProps = (state) => {
     return {
-        mvStockInfo: state.enterOrder.stockInfoList,
-        // isError: state.orderjournal.isError,
-        // isCount: state.orderjournal.isCount,
-        // isSuccess: state.orderjournal.isSuccess,
+        genModifyOrderData: state.orderjournal.genmodifyorder
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onModifySubmit: (param, newPrice, newQty) => {
-        dispatch(actions.onModifySubmit(param, newPrice, newQty))
+    onModifySubmit: (param, newPrice, newQty, authParams, language, me) => {
+        dispatch(actions.onModifySubmit(param, newPrice, newQty, authParams, language, me))
     },
+    genModifyOrder: (param) => {
+        dispatch(actions.genModifyOrder(param))
+    }
 
 })
 
