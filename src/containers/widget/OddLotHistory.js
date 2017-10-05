@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
@@ -66,7 +66,7 @@ class OddLotHistory extends Component {
                     skip: false,
                     show: true,
                 },
-                
+
                 {
                     id: 'settleAmt',
                     Header: this.props.language.oddlottrading.header.value,
@@ -136,7 +136,7 @@ class OddLotHistory extends Component {
                     Header: nextProps.language.oddlottrading.header.exepriceH,
                     Cell: props => {
                         console.log(props.original.price)
-                        if(props.original.price === '0E-9')
+                        if (props.original.price === '0E-9')
                             return 0
                         else
                             return Utils.currencyShowFormatter(props.original.price, ",", "vi-VN")
@@ -175,13 +175,13 @@ class OddLotHistory extends Component {
                     id: 'status',
                     Header: nextProps.language.oddlottrading.header.status,
                     Cell: props => {
-                        if(props.original.status === 'H')
+                        if (props.original.status === 'H')
                             return nextProps.language.oddlottrading.status.waiting;
-                        if(props.original.status === 'D')
+                        if (props.original.status === 'D')
                             return nextProps.language.oddlottrading.status.approve;
                         else
                             return props.original.status
-                    
+
                     },
                     width: 120,
                     skip: false,
@@ -195,7 +195,7 @@ class OddLotHistory extends Component {
         let oddlothistory = this.props.oddlothistory
         console.log(oddlothistory)
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -206,12 +206,12 @@ class OddLotHistory extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={oddlothistory.historyList}/>
+                            data={oddlothistory.historyList} />
                     </div>
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.oddLotTransPageIndex}
-                            totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize )}
+                            totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onOddLotTransPageChange.bind(this)}
                             onNextPage={this.onOddLotTransNextPage.bind(this)}
                             onPrevPage={this.onOddLotTransPrevPage.bind(this)}
@@ -237,7 +237,7 @@ class OddLotHistory extends Component {
         this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
     }
 
-    onOddLotTransNextPage(){
+    onOddLotTransNextPage() {
         this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
         this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
         this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
@@ -245,7 +245,7 @@ class OddLotHistory extends Component {
         this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
     }
 
-    onOddLotTransPrevPage(){
+    onOddLotTransPrevPage() {
         this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
         this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
         this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
@@ -253,7 +253,7 @@ class OddLotHistory extends Component {
         this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
     }
 
-    onOddLotTransReloadPage(){
+    onOddLotTransReloadPage() {
         this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
         this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
     }

@@ -15,6 +15,10 @@ class Home extends Component {
         this.params = {}
         this.handleCheckSessionID = this.handleCheckSessionID.bind(this)
         this.handleSetConfig = this.handleSetConfig.bind(this)
+        this.state = {
+            language: this.props.language,
+            theme: this.props.theme
+        }
     }
 
     componentWillMount() {
@@ -47,22 +51,33 @@ class Home extends Component {
             }
             this.props.onShowMessageBox(this.props.language.page.messagebox.title.error, message, logout)
         }
+        if (this.state.language !== nextProps.language && nextProps.language !== undefined) {
+            this.setState({
+                language: nextProps.language
+            })
+        }
+        if (this.state.theme !== nextProps.theme && nextProps.theme !== undefined) {
+            this.setState({
+                theme: nextProps.theme
+            })
+        }
+
     }
 
     render() {
         //let { authenticated, user } = this.props
         console.log(this.props.language)
-        this.theme = require('../themes/' + this.props.theme)
+        this.theme = require('../themes/' + this.state.theme)
         this.handleSetConfig()
         return (
             <div>
                 <Header theme={this.theme.default}
-                    currentThemeName={this.props.theme}
-                    currentLanguage={this.props.language.lang}
+                    currentThemeName={this.state.theme}
+                    currentLanguage={this.state.language.lang}
                     changeConfig={this.props.changeConfig}
                 />
-                <MenuNav language={this.props.language.page} theme={this.theme.default} />
-                <MainContent theme={this.theme.default} language={this.props.language.page} title={this.props.language.page.menu} checkSessionID={this.checkSessionID} />
+                <MenuNav language={this.state.language.page} theme={this.theme.default} />
+                <MainContent theme={this.theme.default} language={this.state.language.page} title={this.state.language.page.menu} checkSessionID={this.checkSessionID} />
 
 
             </div>
@@ -76,7 +91,7 @@ class Home extends Component {
         if (this.props.savedcontent != undefined) {
             var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
             if (savedContent.windows == undefined) {
-                // config.tabbar = savedContent
+                config.tabbar = savedContent
             }
         }
     }

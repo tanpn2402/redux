@@ -65,7 +65,7 @@ class ActionRightList extends Component {
                     id: 'stockRate',
                     Header: this.props.language.entitlement.header.rate,
                     accessor: 'stockRate',
-                    width:100,
+                    width: 100,
                     skip: false,
                     show: true,
                 },
@@ -75,7 +75,7 @@ class ActionRightList extends Component {
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
                     },
-                    width:100,
+                    width: 100,
                     skip: false,
                     show: true,
                 },
@@ -86,7 +86,7 @@ class ActionRightList extends Component {
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.totalScript, ",", this.lang)
                     },
-                    width:100,
+                    width: 100,
                     skip: false,
                     show: true,
                 },
@@ -121,7 +121,7 @@ class ActionRightList extends Component {
                     width: 200,
                     skip: false,
                     show: true,
-            }]
+                }]
         }
 
         this.paramsright = {
@@ -134,12 +134,12 @@ class ActionRightList extends Component {
             limit: this.defaultPageSize,
         }
 
-        this.actionTypeStore= [
-            {text: 'ALL',        value: 'ALL'},
-            {text: this.props.language.entitlement.issueType.ISSUE_1,    value: '1'},
-            {text: this.props.language.entitlement.issueType.ISSUE_I,    value: 'I'},
-            {text: this.props.language.entitlement.issueType.ISSUE_B,    value: 'B'},
-            {text: this.props.language.entitlement.issueType.ISSUE_D,    value: 'D'},            
+        this.actionTypeStore = [
+            { text: 'ALL', value: 'ALL' },
+            { text: this.props.language.entitlement.issueType.ISSUE_1, value: '1' },
+            { text: this.props.language.entitlement.issueType.ISSUE_I, value: 'I' },
+            { text: this.props.language.entitlement.issueType.ISSUE_B, value: 'B' },
+            { text: this.props.language.entitlement.issueType.ISSUE_D, value: 'D' },
         ]
     }
 
@@ -150,20 +150,20 @@ class ActionRightList extends Component {
 
     getRightType(language, type) {
         let t = language.entitlement.issueType['ISSUE_' + type]
-        return t === undefined ? type: t
+        return t === undefined ? type : t
     }
-    
+
     getRightStatus(language, status) {
         let stt = language.entitlement.rightStatus['STATUS_' + status]
-        return stt === undefined ? status: stt
+        return stt === undefined ? status : stt
     }
-    
-    redererToCash (original) {
+
+    redererToCash(original) {
         console.log(original)
         if (original.cashRate !== null && original.cashRate.length > 0) {
             var value = (original.issueRatioDelivery / original.issueRatioPer);
-            return Utils.currencyShowFormatter(value, ",", this.lang);          
-        }else{
+            return Utils.currencyShowFormatter(value, ",", this.lang);
+        } else {
             return ''
         }
     }
@@ -173,7 +173,7 @@ class ActionRightList extends Component {
         var allRightList = this.props.allRightList
         console.log(allRightList)
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -184,18 +184,18 @@ class ActionRightList extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={allRightList.rightList}/>
+                            data={allRightList.rightList} />
                     </div>
                     <div className="table-header">
                         <SearchBar
-                            key={this.id+ '-search'}
-                            id={this.id+ '-search'}
+                            key={this.id + '-search'}
+                            id={this.id + '-search'}
                             onSearch={this.onSearch.bind(this)}
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: [] , actionType: this.actionTypeStore}}
-                            param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}/>
+                            data={{ stockList: [], actionType: this.actionTypeStore }}
+                            param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                     </div>
                     <div className="table-footer">
                         <Pagination
@@ -218,33 +218,145 @@ class ActionRightList extends Component {
         this.props.getRightlist(this.paramsright)
     }
 
-    onChangeStateColumn(e){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        id: 'stockId',
+                        Header: nextProps.language.entitlement.header.stock,
+                        accessor: 'stockId',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'issueType',
+                        Header: nextProps.language.entitlement.header.actiontype,
+                        Cell: props => { return this.getRightType(nextProps.language, props.original.issueType) },
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'bookCloseDate',
+                        Header: nextProps.language.entitlement.header.recorddate,
+                        accessor: 'bookCloseDate',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'totalBonusRight',
+                        Header: nextProps.language.entitlement.header.owningvolume,
+                        accessor: 'totalBonusRight',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'ratecash',
+                        Header: nextProps.language.entitlement.header.ratecash,
+                        Cell: props => {
+                            return this.redererToCash(props.original)
+                        },
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'stockRate',
+                        Header: nextProps.language.entitlement.header.rate,
+                        accessor: 'stockRate',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'price',
+                        Header: nextProps.language.entitlement.header.pervalue,
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
+                        },
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {   // SL CK
+                        id: 'totalScript',
+                        Header: nextProps.language.entitlement.header.recievecash,
+                        accessor: 'totalScript',
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.totalScript, ",", this.lang)
+                        },
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'totalIssue',
+                        Header: nextProps.language.entitlement.header.receivedstock,
+                        accessor: 'totalIssue',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'status',
+                        Header: nextProps.language.entitlement.header.status,
+                        Cell: props => { return this.getRightStatus(nextProps.language, props.original.status) },
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'payableDate',
+                        Header: nextProps.language.entitlement.header.payabledate,
+                        accessor: 'payableDate',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'paidDate',
+                        Header: nextProps.language.entitlement.header.paiddate,
+                        accessor: 'paidDate',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    }
+                ]
+            })
+        }
+    }
+
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
-    onNextPage(){
+    onNextPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) + 1
         this.paramsright['page'] = this.state.pageIndex
         this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsright)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) - 1
         this.paramsright['page'] = this.state.pageIndex
         this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
         this.paramsright['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsright)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.paramsright['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsright)
     }
 
@@ -255,18 +367,18 @@ class ActionRightList extends Component {
         this.paramsright['key'] = (new Date()).getTime()
 
         this.props.getRightlist(this.paramsright)
-        
+
     }
 
-    onSearch(param){
+    onSearch(param) {
         this.state.pageIndex = 1
-        this.paramsright['start']= 0
-        this.paramsright['page']= 1        
-        this.paramsright['mvActionType']= param['mvActionType']
+        this.paramsright['start'] = 0
+        this.paramsright['page'] = 1
+        this.paramsright['mvActionType'] = param['mvActionType']
         this.paramsright['mvStockId'] = param['mvStockId']
         this.paramsright['mvStartDate'] = param['mvStartDate']
         this.paramsright['mvEndDate'] = param['mvEndDate']
-        this.paramsright['key']= new Date().getTime()
+        this.paramsright['key'] = new Date().getTime()
 
         this.props.getRightlist(this.paramsright)
     }
@@ -280,7 +392,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     getRightlist: (params) => {
-      dispatch(actions.getRightlist(params))
+        dispatch(actions.getRightlist(params))
     },
 })
 

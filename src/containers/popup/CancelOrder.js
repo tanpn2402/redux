@@ -6,105 +6,189 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from '../DataTable'
 
-class CancelOrder extends Component{
+class CancelOrder extends Component {
     constructor(props) {
         super(props)
         this.columns = [{
-                    id: 'mvStockID',
-                    Header: this.props.language.orderjournal.header.stockid,
-                    accessor: 'mvStockID',
-                    width: 80,
-                },
-                {
-                    id: 'mvBS',
-                    Header: this.props.language.orderjournal.header.buysell,
-                    accessor: 'mvBS',
-                    width: 50,
-                },
-                {
-                    id: 'mvPrice',
-                    Header: this.props.language.orderjournal.header.price,
-                    accessor: 'mvPrice',
-                    width: 80,
-                },
-                {
-                    id: 'mvQty',
-                    Header: this.props.language.orderjournal.header.quantity,
-                    accessor: 'mvQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvPendingQty',
-                    Header: this.props.language.orderjournal.header.pendingQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvExecutedQty',
-                    Header: this.props.language.orderjournal.header.executedQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                },
-                {
-                    id: 'mvAvgPrice',
-                    Header: this.props.language.orderjournal.header.avgprice,
-                    accessor: 'mvAvgPriceValue',
-                    width: 80,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: this.props.language.orderjournal.header.status,
-                    accessor: 'mvStatus',
-                    width: 80,
-                },
-                {
-                    id: 'mvOrderType',
-                    Header: this.props.language.orderjournal.header.ordertype,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                },
-                {
-                    id: 'mvFeeTax',
-                    Header: this.props.language.orderjournal.header.feetax,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                },
-                {
-                    id: 'mvBankID',
-                    Header: this.props.language.orderjournal.header.bankid,
-                    accessor: 'mvBankID',
-                    width: 80,
-                },
-                {
-                    id: 'mvExpiryDate',
-                    Header: this.props.language.orderjournal.header.expirydate,
-                    accessor: 'mvDateTime',
-                    width: 80,
-                },
-                {
-                    id: 'mvRejectReason',
-                    Header: this.props.language.orderjournal.header.rejectreason,
-                    accessor: 'mvRejectReason',
-                    width: 80,
-                },
-            ],
-        this.style = {
-            height: '200px',
-        }
+            id: 'mvStockID',
+            Header: this.props.language.orderjournal.header.stockid,
+            accessor: 'mvStockID',
+            width: 80,
+        },
+        {
+            id: 'mvBS',
+            Header: this.props.language.orderjournal.header.buysell,
+            accessor: 'mvBS',
+            width: 50,
+        },
+        {
+            id: 'mvPrice',
+            Header: this.props.language.orderjournal.header.price,
+            accessor: 'mvPrice',
+            width: 80,
+        },
+        {
+            id: 'mvQty',
+            Header: this.props.language.orderjournal.header.quantity,
+            accessor: 'mvQty',
+            width: 80,
+        },
+        {
+            id: 'mvPendingQty',
+            Header: this.props.language.orderjournal.header.pendingQty,
+            accessor: 'mvPendingQty',
+            width: 80,
+        },
+        {
+            id: 'mvExecutedQty',
+            Header: this.props.language.orderjournal.header.executedQty,
+            accessor: 'mvPendingQty',
+            width: 80,
+        },
+        {
+            id: 'mvAvgPrice',
+            Header: this.props.language.orderjournal.header.avgprice,
+            accessor: 'mvAvgPriceValue',
+            width: 80,
+        },
+        {
+            id: 'mvStatus',
+            Header: this.props.language.orderjournal.header.status,
+            accessor: 'mvStatus',
+            width: 80,
+        },
+        {
+            id: 'mvOrderType',
+            Header: this.props.language.orderjournal.header.ordertype,
+            accessor: 'mvOrderType',
+            width: 80,
+        },
+        {
+            id: 'mvFeeTax',
+            Header: this.props.language.orderjournal.header.feetax,
+            accessor: 'mvOrderType',
+            width: 80,
+        },
+        {
+            id: 'mvBankID',
+            Header: this.props.language.orderjournal.header.bankid,
+            accessor: 'mvBankID',
+            width: 80,
+        },
+        {
+            id: 'mvExpiryDate',
+            Header: this.props.language.orderjournal.header.expirydate,
+            accessor: 'mvDateTime',
+            width: 80,
+        },
+        {
+            id: 'mvRejectReason',
+            Header: this.props.language.orderjournal.header.rejectreason,
+            accessor: 'mvRejectReason',
+            width: 80,
+        },
+        ],
+            this.style = {
+                height: '200px',
+            }
         this.id = 'cancelorder-popup'
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.columns = [{
+                id: 'mvStockID',
+                Header: nextProps.language.orderjournal.header.stockid,
+                accessor: 'mvStockID',
+                width: 80,
+            },
+            {
+                id: 'mvBS',
+                Header: nextProps.language.orderjournal.header.buysell,
+                accessor: 'mvBS',
+                width: 50,
+            },
+            {
+                id: 'mvPrice',
+                Header: nextProps.language.orderjournal.header.price,
+                accessor: 'mvPrice',
+                width: 80,
+            },
+            {
+                id: 'mvQty',
+                Header: nextProps.language.orderjournal.header.quantity,
+                accessor: 'mvQty',
+                width: 80,
+            },
+            {
+                id: 'mvPendingQty',
+                Header: nextProps.language.orderjournal.header.pendingQty,
+                accessor: 'mvPendingQty',
+                width: 80,
+            },
+            {
+                id: 'mvExecutedQty',
+                Header: nextProps.language.orderjournal.header.executedQty,
+                accessor: 'mvPendingQty',
+                width: 80,
+            },
+            {
+                id: 'mvAvgPrice',
+                Header: nextProps.language.orderjournal.header.avgprice,
+                accessor: 'mvAvgPriceValue',
+                width: 80,
+            },
+            {
+                id: 'mvStatus',
+                Header: nextProps.language.orderjournal.header.status,
+                accessor: 'mvStatus',
+                width: 80,
+            },
+            {
+                id: 'mvOrderType',
+                Header: nextProps.language.orderjournal.header.ordertype,
+                accessor: 'mvOrderType',
+                width: 80,
+            },
+            {
+                id: 'mvFeeTax',
+                Header: nextProps.language.orderjournal.header.feetax,
+                accessor: 'mvOrderType',
+                width: 80,
+            },
+            {
+                id: 'mvBankID',
+                Header: nextProps.language.orderjournal.header.bankid,
+                accessor: 'mvBankID',
+                width: 80,
+            },
+            {
+                id: 'mvExpiryDate',
+                Header: nextProps.language.orderjournal.header.expirydate,
+                accessor: 'mvDateTime',
+                width: 80,
+            },
+            {
+                id: 'mvRejectReason',
+                Header: nextProps.language.orderjournal.header.rejectreason,
+                accessor: 'mvRejectReason',
+                width: 80,
+            },
+            ]
+        }
     }
     onCancelSubmit() {
         this.props.onCancelSubmit(this.props.rowSelected)
         this.props.onHide()
     }
-    render(){
+    render() {
         console.log(this.props.returnCode)
         console.log(this.props.message)
-        return(
+        return (
             <div>
                 <Modal.Body>
                     <DataTable
-                        id={this.id + "-table"} 
+                        id={this.id + "-table"}
                         data={this.props.rowSelected}
                         columns={this.columns}
                         defaultPageSize={5}
@@ -119,10 +203,10 @@ class CancelOrder extends Component{
     }
 }
 const mapStateToProps = (state) => {
-  return {
-    returnCode: state.orderjournal.returnCode,
-    message: state.orderjournal.message,
-  }
+    return {
+        returnCode: state.orderjournal.returnCode,
+        message: state.orderjournal.message,
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

@@ -7,7 +7,7 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
-import {Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import Popup from '../Popup'
 class OrderJournal extends Component {
     constructor(props) {
@@ -191,7 +191,7 @@ class OrderJournal extends Component {
         ]
 
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -213,14 +213,14 @@ class OrderJournal extends Component {
                             buttonAction={this.buttonAction}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: this.props.stockList}}
+                            data={{ stockList: this.props.stockList }}
                             param={['mvStatus', 'mvOrderType', 'mvBuysell']} />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.state.pageIndex} 
-                            totalRecord={Math.ceil(this.props.data.mvTotalOrders/this.defaultPageSize)} 
+                            pageIndex={this.state.pageIndex}
+                            totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -243,6 +243,157 @@ class OrderJournal extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        id: 'cb',
+                        Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                        maxWidth: 50,
+                        width: 40,
+                        Cell: props => {
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
+                                return (
+                                    <input type='checkbox' className={this.id + "-row-checkbox"}
+                                        onChange={() => { this.onRowSelected(props.original) }} />
+                                )
+                        },
+                        sortable: false,
+                        skip: true
+                    },
+                    {
+                        id: 'can',
+                        Header: nextProps.language.orderjournal.header.cancelmodify,
+                        maxWidth: 80,
+                        Cell: props => {
+                            var child = []
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y')
+                                child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                    onClick={() => this.onCancelButton(props.original)}><span className="glyphicon glyphicon-remove"></span></Button>)
+                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y')
+                                child.push(<Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                    onClick={() => this.onModifyButton(props.original)}><span className="glyphicon glyphicon-edit"></span></Button>)
+                            return (
+                                <span>
+                                    {
+                                        child
+                                    }
+                                </span>)
+                        },
+                        sortable: false,
+                        skip: true
+                    },
+                    {
+                        id: 'mvStockID',
+                        Header: nextProps.language.orderjournal.header.stockid,
+                        accessor: 'mvStockID',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvBS',
+                        Header: nextProps.language.orderjournal.header.buysell,
+                        accessor: 'mvBS',
+                        width: 50,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvPrice',
+                        Header: nextProps.language.orderjournal.header.price,
+                        accessor: 'mvPrice',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvQty',
+                        Header: nextProps.language.orderjournal.header.quantity,
+                        accessor: 'mvQty',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvPendingQty',
+                        Header: nextProps.language.orderjournal.header.pendingQty,
+                        accessor: 'mvPendingQty',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvExecutedQty',
+                        Header: nextProps.language.orderjournal.header.executedQty,
+                        accessor: 'mvPendingQty',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvAvgPrice',
+                        Header: nextProps.language.orderjournal.header.avgprice,
+                        accessor: 'mvAvgPriceValue',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvStatus',
+                        Header: nextProps.language.orderjournal.header.status,
+                        accessor: 'mvStatus',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvOrderType',
+                        Header: nextProps.language.orderjournal.header.ordertype,
+                        accessor: 'mvOrderType',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvFeeTax',
+                        Header: nextProps.language.orderjournal.header.feetax,
+                        accessor: 'mvOrderType',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvBankID',
+                        Header: nextProps.language.orderjournal.header.bankid,
+                        accessor: 'mvBankID',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvExpiryDate',
+                        Header: nextProps.language.orderjournal.header.expirydate,
+                        accessor: 'mvDateTime',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'mvRejectReason',
+                        Header: nextProps.language.orderjournal.header.rejectreason,
+                        accessor: 'mvRejectReason',
+                        width: 80,
+                        skip: false,
+                        show: true,
+                    },
+
+                ]
+            })
+        }
+    }
+
     onCancelButton(param) {
         console.log(param)
         this.rowSelected = []
@@ -256,9 +407,9 @@ class OrderJournal extends Component {
 
 
         this.props.onShowMessageBox(
-                this.props.language.messagebox.title.info, 
-                this.props.language.messagebox.message.systemMaintain
-            )
+            this.props.language.messagebox.title.info,
+            this.props.language.messagebox.message.systemMaintain
+        )
 
         return
         this.rowSelected = []
@@ -332,21 +483,21 @@ class OrderJournal extends Component {
         this.props.onSearch(this.param, !this.props.reload)
     }
 
-    onNextPage(){
+    onNextPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) + 1
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
         this.props.onSearch(this.param, !this.props.reload)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) - 1
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
         this.props.onSearch(this.param, !this.props.reload)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.props.onSearch(this.param, !this.props.reload)
     }
 

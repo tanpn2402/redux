@@ -84,7 +84,7 @@ class AdvanceHistory extends Component {
         var cashAdvanceHistory = this.props.CashAdvanceHistory.list === undefined ? [] : this.props.CashAdvanceHistory.list
         cashAdvanceHistory = cashAdvanceHistory === null ? [] : cashAdvanceHistory
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -95,14 +95,14 @@ class AdvanceHistory extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={cashAdvanceHistory.slice((this.state.cashAdTransPageIndex - 1)*6, this.state.cashAdTransPageIndex*6)}
+                            data={cashAdvanceHistory.slice((this.state.cashAdTransPageIndex - 1) * 6, this.state.cashAdTransPageIndex * 6)}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.state.cashAdTransPageIndex} 
-                            totalRecord={Math.ceil(cashAdvanceHistory.length / this.defaultPageSize)} 
+                            pageIndex={this.state.cashAdTransPageIndex}
+                            totalRecord={Math.ceil(cashAdvanceHistory.length / this.defaultPageSize)}
                             onPageChange={this.onCashAdTransPageChange.bind(this)}
                             onNextPage={this.onCashAdTransNextPage.bind(this)}
                             onPrevPage={this.onCashAdTransPrevPage.bind(this)}
@@ -120,6 +120,64 @@ class AdvanceHistory extends Component {
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        Header: nextProps.language.cashadvance.header.date,
+                        accessor: 'creationTime',
+                        id: 'date',
+                        show: true,
+                        skip: false,
+                        width: 120,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.advanceamount,
+                        accessor: 'totalLendingAmt',
+                        id: 'advanceamount',
+                        show: true,
+                        skip: false,
+                        width: 120,
+
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.advancefee,
+                        accessor: 'interestAccured',
+                        id: 'advancefee',
+                        show: true,
+                        skip: false,
+                        width: 120,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.processingstatus,
+                        accessor: 'status',
+                        id: 'processingstatus',
+                        show: true,
+                        skip: false,
+                        width: 120,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.lastupdate,
+                        accessor: 'lastApprovaltime',
+                        id: 'lastupdate',
+                        show: true,
+                        skip: false,
+                        width: 120,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.note,
+                        accessor: 'remark',
+                        id: 'note',
+                        show: true,
+                        skip: false,
+                        width: 120,
+                    }
+                ]
+            })
+        }
+    }
+
     onCashAdTransChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
@@ -127,7 +185,7 @@ class AdvanceHistory extends Component {
         });
     }
 
-    onCashAdTransNextPage(){
+    onCashAdTransNextPage() {
         this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) + 1
         this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
         this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
@@ -135,7 +193,7 @@ class AdvanceHistory extends Component {
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
-    onCashAdTransPrevPage(){
+    onCashAdTransPrevPage() {
         this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) - 1
         this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
         this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
@@ -143,9 +201,9 @@ class AdvanceHistory extends Component {
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
-    onCashAdTransReloadPage(){
-    this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-    this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
+    onCashAdTransReloadPage() {
+        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
+        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
     onCashAdTransPageChange(pageIndex) {
         this.state.cashAdTransPageIndex = pageIndex
