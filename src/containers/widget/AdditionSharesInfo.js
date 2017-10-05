@@ -35,7 +35,7 @@ class AdditionSharesInfo extends Component {
                     id: 'totalBonusRight',
                     Header: this.props.language.entitlement.header.owningvolume,
                     accessor: 'totalBonusRight',
-                    width: 100, 
+                    width: 100,
                     skip: false,
                     show: true,
                 },
@@ -97,7 +97,7 @@ class AdditionSharesInfo extends Component {
                     width: 200,
                     skip: false,
                     show: true,
-            }]
+                }]
         }
         this.defaultPageSize = 15
         this.paramsAddition = {
@@ -113,7 +113,7 @@ class AdditionSharesInfo extends Component {
     render() {
         var additionIssueShareInfo = this.props.additionIssueShareInfo
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -124,7 +124,7 @@ class AdditionSharesInfo extends Component {
                             id={this.id + "-table"}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={additionIssueShareInfo.additionList}/>
+                            data={additionIssueShareInfo.additionList} />
                     </div>
                     <div className="table-footer">
                         <Pagination
@@ -147,33 +147,125 @@ class AdditionSharesInfo extends Component {
         this.props.getAdditionalshareinfo(this.paramsAddition)
     }
 
-    onChangeStateColumn(e){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        id: 'stockId',
+                        Header: nextProps.language.entitlement.header.stock,
+                        accessor: 'stockId',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'bookCloseDate',
+                        Header: nextProps.language.entitlement.header.recorddate,
+                        accessor: 'bookCloseDate',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'totalBonusRight',
+                        Header: nextProps.language.entitlement.header.owningvolume,
+                        accessor: 'totalBonusRight',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'rightRate',
+                        Header: nextProps.language.entitlement.header.rightrate,
+                        accessor: 'rightRate',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'actionRate',
+                        Header: nextProps.language.entitlement.header.actionrate,
+                        accessor: 'actionRate',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'maxQtyCanBuy',
+                        Header: nextProps.language.entitlement.header.availableqty,
+                        accessor: 'maxQtyCanBuy',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'price',
+                        Header: nextProps.language.entitlement.header.actionprice,
+                        accessor: 'price',
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
+                        },
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'startDate',
+                        Header: nextProps.language.entitlement.header.startdate,
+                        accessor: 'startDate',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'bookCloseDate1',
+                        Header: nextProps.language.entitlement.header.transferdeadline,
+                        accessor: 'bookCloseDate',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'transenddate',
+                        Header: nextProps.language.entitlement.header.registerdeadline,
+                        accessor: 'transenddate',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    }
+                ]
+            })
+        }
+    }
+
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
-    onNextPage(){
+    onNextPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) + 1
         this.paramsAddition['page'] = this.state.pageIndex
         this.paramsAddition['start'] = (this.state.pageIndex - 1) * this.paramsAddition['limit']
         this.paramsAddition['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsAddition)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) - 1
         this.paramsAddition['page'] = this.state.pageIndex
         this.paramsAddition['start'] = (this.state.pageIndex - 1) * this.paramsAddition['limit']
         this.paramsAddition['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsAddition)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.paramsAddition['key'] = (new Date()).getTime()
-        
+
         this.props.getRightlist(this.paramsAddition)
     }
 
@@ -182,7 +274,7 @@ class AdditionSharesInfo extends Component {
         this.paramsAddition['page'] = this.state.pageIndex
         this.paramsAddition['start'] = (this.state.pageIndex - 1) * this.paramsAddition['limit']
         this.paramsAddition['key'] = (new Date()).getTime()
-        
+
     }
 
 }

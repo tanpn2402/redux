@@ -1,6 +1,7 @@
 [
     {
         "lang": "en",
+        "code": "en_US",
         "page": {
             "tab": {
                 "trading": "Trading",
@@ -14,13 +15,14 @@
                 "language": {
                     "title": "Language",
                     "vi_VN": "Vietnamese",
-                    "en_US": "Enlish"
+                    "en_US": "English"
                 },
                 "preference": {
                     "title": "Preferences"
                 },
                 "appearance": {
                     "title": "Appearence",
+                    "light": "Light",
                     "dark": "Dark",
                     "blue": "Blue"
                 },
@@ -407,12 +409,12 @@
                 }
             },
             "enterorder": {
-                "header": {  
+                "header": {
                     "buy": "Buy",
                     "sell": "Sell",
                     "buyAll": "Buy All",
                     "sellAll": "Sell All",
-                    "buysell":"Buy/Sell",
+                    "buysell": "Buy/Sell",
                     "buysellall": "Buy all/Sell all",
                     "stock": "Stock",
                     "bank": "Bank",
@@ -426,45 +428,45 @@
                     "expirydate": "Expiry date"
                 },
                 "data": {
-                    "Buy" : "Buy",
-                    "Sell" : "Sell",
-                    "BuyAll" : "Buy all",
-                    "SellAll" : "Sell all",
-                    "Up" : "Up",
-                    "Down" : "Down",
-                    "enhancedLimit" : "Enhanced Limit",
-                    "atAuctionLimit" : "At Auction Limit",
-                    "atAuction" : "At Auction",
-                    "limit" : "Limit",
-                    "stoplimit" : "Stop Limit",
-                    "specialLimit" : "Special Limit",
-                    "OTLO" : "LO",
-                    "OTATO" : "ATO",
-                    "OTATC" : "ATC",
-                    "OTMP" : "MP",
-                    "OTMAK" : "MAK",
-                    "OTMOK" : "MOK",
-                    "OTMTL" : "MTL",
-                    "OTLOddLot" : "LO(Odd Lot)"
+                    "Buy": "Buy",
+                    "Sell": "Sell",
+                    "BuyAll": "Buy all",
+                    "SellAll": "Sell all",
+                    "Up": "Up",
+                    "Down": "Down",
+                    "enhancedLimit": "Enhanced Limit",
+                    "atAuctionLimit": "At Auction Limit",
+                    "atAuction": "At Auction",
+                    "limit": "Limit",
+                    "stoplimit": "Stop Limit",
+                    "specialLimit": "Special Limit",
+                    "OTLO": "LO",
+                    "OTATO": "ATO",
+                    "OTATC": "ATC",
+                    "OTMP": "MP",
+                    "OTMAK": "MAK",
+                    "OTMOK": "MOK",
+                    "OTMTL": "MTL",
+                    "OTLOddLot": "LO(Odd Lot)"
                 },
-                "value" : {
-                    "enhancedLimit" : "X",
-                    "atAuctionLimit" : "I",
-                    "atAuction" : "A",
-                    "limit" : "L",
-                    "stoplimit" : "SL",
-                    "specialLimit" : "S",
-                    "OTLO" : "L",
-                    "OTATO" : "O",
-                    "OTATC" : "C",
-                    "OTMP" : "M",
-                    "OTLOddLot" : "LO",
+                "value": {
+                    "enhancedLimit": "X",
+                    "atAuctionLimit": "I",
+                    "atAuction": "A",
+                    "limit": "L",
+                    "stoplimit": "SL",
+                    "specialLimit": "S",
+                    "OTLO": "L",
+                    "OTATO": "O",
+                    "OTATC": "C",
+                    "OTMP": "M",
+                    "OTLOddLot": "LO",
                     "OTMOK": "B",
                     "OTMAK": "Z",
                     "OTMTL": "R"
                 },
                 "popup": {
-                    "title":"Order: {0}",
+                    "title": "Order: {0}",
                     "stockname": "Name",
                     "expirydate": "Expiry date",
                     "checknum": "Matrix card number",

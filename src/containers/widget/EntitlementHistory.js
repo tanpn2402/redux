@@ -75,7 +75,7 @@ class EntitlementHistory extends Component {
                     width: 200,
                     skip: false,
                     show: true,
-            }]
+                }]
         }
         this.defaultPageSize = 15
         this.paramshis = {
@@ -99,7 +99,7 @@ class EntitlementHistory extends Component {
     render() {
         var entitlementHistory = this.props.entitlementHistory
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -110,18 +110,18 @@ class EntitlementHistory extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={entitlementHistory.historyList}/>
+                            data={entitlementHistory.historyList} />
                     </div>
                     <div className="table-header">
                         <SearchBar
-                            key={this.id+ '-search'}
-                            id={this.id+ '-search'}
+                            key={this.id + '-search'}
+                            id={this.id + '-search'}
                             onSearch={this.onSearch.bind(this)}
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: this.stockList}}
-                            param={[ 'mvStockId', 'mvStartDate', 'mvEndDate']}/>
+                            data={{ stockList: this.stockList }}
+                            param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
                     </div>
                     <div className="table-footer">
                         <Pagination
@@ -144,7 +144,72 @@ class EntitlementHistory extends Component {
         this.props.getHistorylist(this.params)
     }
 
-    onSearch(param){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        id: 'createTime',
+                        Header: nextProps.language.entitlement.header.registerdate,
+                        accessor: 'createTime',
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'tradeStockCode',
+                        Header: nextProps.language.entitlement.header.stock,
+                        accessor: 'tradeStockCode',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'resultQty',
+                        Header: nextProps.language.entitlement.header.volume,
+                        accessor: 'resultQty',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'price',
+                        Header: nextProps.language.entitlement.header.actionprice,
+                        accessor: 'price',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'appliedAmt',
+                        Header: nextProps.language.entitlement.header.amount,
+                        accessor: 'appliedAmt',
+                        width: 100,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'comfirmedDate',
+                        Header: nextProps.language.entitlement.header.paiddate,
+                        width: 100,
+                        accessor: 'comfirmedDate',
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'status',
+                        Header: nextProps.language.entitlement.header.status,
+                        Cell: props => { return this.getEntitlementStatus(nextProps.language, props.original.status) },
+                        width: 200,
+                        skip: false,
+                        show: true,
+                    }
+                ]
+            })
+        }
+    }
+
+    onSearch(param) {
         this.state.pageIndex1 = 1
 
         this.paramshis['start'] = 0
@@ -152,39 +217,39 @@ class EntitlementHistory extends Component {
         this.paramshis['mvStockId'] = param['mvStockId']
         this.paramshis['mvStartDate'] = param['mvStartDate']
         this.paramshis['mvEndDate'] = param['mvEndDate']
-        this.paramshis['key']= new Date().getTime()
+        this.paramshis['key'] = new Date().getTime()
 
         this.props.getHistorylist(this.paramshis)
     }
 
-    onChangeStateColumn(e){
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
-    
-    onNextPage(){
+
+    onNextPage() {
         this.state.pageIndex3 = parseInt(this.state.pageIndex3) + 1
         this.paramshis['page'] = this.state.pageIndex3
         this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
         this.paramshis['key'] = (new Date()).getTime()
-        
+
         this.props.getHistorylist(this.paramshis)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex3 = parseInt(this.state.pageIndex3) - 1
         this.paramshis['page'] = this.state.pageIndex3
         this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
         this.paramshis['key'] = (new Date()).getTime()
-        
+
         this.props.getHistorylist(this.paramshis)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.paramshis['key'] = (new Date()).getTime()
-        
+
         this.props.getHistorylist(this.paramshis)
     }
 
@@ -193,8 +258,8 @@ class EntitlementHistory extends Component {
         this.paramshis['page'] = this.state.pageIndex3
         this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
         this.paramshis['key'] = (new Date()).getTime()
-        
-        this.props.getHistorylist(this.paramshis)    
+
+        this.props.getHistorylist(this.paramshis)
     }
 
 }
@@ -207,7 +272,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     getHistorylist: (params) => {
         dispatch(actions.getEntitlementHistorylist(params))
-      },
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntitlementHistory)
