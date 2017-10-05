@@ -2086,7 +2086,10 @@ input::-webkit-calendar-picker-indicator {
     max-height: 50%;
     height: auto;
 }
-/* W */
+
+#stockmarketinfo-table1 .rt-thead:nth-child(2) .rt-th {
+    display: none;
+}
 
 .bid-ask-footer {
     width: 100%;
@@ -2853,7 +2856,7 @@ input::-webkit-calendar-picker-indicator {
 /* END SUMARY COMPONENT */
 
 /*Mini table rt-tr* - Nguyen*/
-/* .rt-thead > .rt-tr{
+.rt-thead > .rt-tr{
     position: relative;
     display: -webkit-box;
     display: -moz-box;
@@ -2862,7 +2865,7 @@ input::-webkit-calendar-picker-indicator {
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+}
 
 
 
