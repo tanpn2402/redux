@@ -2854,17 +2854,3 @@ input::-webkit-calendar-picker-indicator {
 }
 /* END SUMARY COMPONENT */
 
-/*Mini table rt-tr* - Nguyen*/
-.rt-thead > .rt-tr{
-    position: relative;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
