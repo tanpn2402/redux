@@ -189,9 +189,7 @@ class CashTransHistory extends Component {
 
 
     render() {
-        var data = this.props.data.list === undefined ? [] : this.props.data.list
-        console.log('data' + this.id, this.props.data)
-        var page = this.props.data.mvCurrentPage === undefined ? 1 : this.props.data.mvCurrentPage
+        var data = this.props.cashTransHistory.list
 
         return (
             <div style={{height: '100%', position: 'relative'}}>
@@ -223,7 +221,7 @@ class CashTransHistory extends Component {
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.data.totalCount/this.defaultPageSize)}
+                            totalRecord={Math.ceil(this.props.cashTransHistory.totalCount/this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -324,8 +322,7 @@ class CashTransHistory extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        data: state.cashtranshistory.data,
-        reload: state.cashtranshistory.reload,
+        cashTransHistory: state.cashtranshistory.cashTransHistory
     }
 }
 

@@ -1,18 +1,21 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  data: [],
+    historyOrder: {
+        mvOrderBeanList: [],
+        mvTotalOrders: 0,
+    }
 };
 
-export default function (state = initialState, action) {
-  switch (action.type) {
-    case ActionTypes.ENQUIRYORDERHISTORY:
-        //console.log(action.data)
-        return Object.assign({},state,{
-          data: action.data,
-        });
+export default function(state = initialState, action) {
+    switch (action.type) {
+        case ActionTypes.ENQUIRYORDERHISTORY:
+            action.data.mvOrderBeanList = action.data.mvOrderBeanList === null ? [] : action.data.mvOrderBeanList
+            return Object.assign({}, state, {
+                historyOrder: action.data,
+            });
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
