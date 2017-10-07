@@ -1,29 +1,41 @@
-const {ActionTypes} = require('../core/constants');
+const {
+    ActionTypes
+} = require('../core/constants');
 
 const initialState = {
-  CashAdvanceHistory: [],
-  SoldOrders: [],
-  LocalAdvance: [],
+    cashAdvanceHistory: {
+        list: [],
+        totalCount: 0
+    },
+
+    soldOrders: {
+        mvChildBeanList: [],
+        totalCount: 0
+    },
+
+    localAdCreation: {
+        mvAdvanceBean:{}
+    }
 };
 
-export default function (state = initialState, action) {
-  console.log(action.type)
-  switch (action.type) {
-    case ActionTypes.GETCASHADVANCEHISTORY:  
-        return Object.assign({},state,{
-          CashAdvanceHistory: action.CashAdvanceHistory,
-        });
+export default function(state = initialState, action) {
 
-    case ActionTypes.QUERYSOLDORDERS:
-        return Object.assign({},state,{   
-          SoldOrders: action.SoldOrders,
-        });
-    case ActionTypes.GETLOCALADVANCECREATION:
-        return Object.assign({},state,{
-          LocalAdvance: action.LocalAdvance,
-        })
+    switch (action.type) {
+        case ActionTypes.GETCASHADVANCEHISTORY:
+            return Object.assign({}, state, {
+                cashAdvanceHistory: action.CashAdvanceHistory,
+            });
 
-    default:
-      return state;
-  }
+        case ActionTypes.QUERYSOLDORDERS:
+            return Object.assign({}, state, {
+                soldOrders: action.SoldOrders,
+            });
+        // case ActionTypes.GETLOCALADVANCECREATION:
+        //     return Object.assign({}, state, {
+        //         localAdCreation: action.data,
+        //     })
+
+        default:
+            return state;
+    }
 };

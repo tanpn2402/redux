@@ -10,7 +10,6 @@ export default function (state = initialState, action) {
   switch (action.type) {
    
       case ActionTypes.STOCKSEARCH:
-        console.log('TANNN', action)
         return Object.assign({},state,{          
           mvIsEnableMultiMarket: action.stockList.mvIsEnableMultiMarket,
           mvResult: action.stockList.mvResult,

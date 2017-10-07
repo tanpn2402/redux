@@ -12,8 +12,8 @@ class WidgetTitle extends Component {
 
     removeWidget(){
         var widgetID = this.props.widgetID
-        console.log("WIDGET " + widgetID + " WILL BE DELETED")
-        console.log(this.customConfig)
+        //console.log("WIDGET " + widgetID + " WILL BE DELETED")
+        //console.log(this.customConfig)
         var tabs = this.customConfig.widget
 
         var indexOfTobeDelWidget = tabs.findIndex(tab =>{
@@ -21,7 +21,7 @@ class WidgetTitle extends Component {
         })
 
         if (indexOfTobeDelWidget>-1){
-            console.log(this.customConfig)
+            //console.log(this.customConfig)
             this.customConfig.widget.splice(indexOfTobeDelWidget,1) //Delete widget from CustomConfig
             this.props.reloadCustom(this.props.load)
         }
@@ -30,7 +30,7 @@ class WidgetTitle extends Component {
     
 
     render() {
-        console.log(this.props.children)
+        //console.log(this.props.children)
         return (
             <div className="widget-header" >
                 <div className="widget-title">

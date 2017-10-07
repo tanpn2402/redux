@@ -26,7 +26,7 @@ export function numUnFormat(v, s){
 
 export function currencyShowFormatter(original, separator, language) {
     
-    if (language == 'vi-VN'){
+    if (language == 'vi_VN'){
         var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
         if (!original || isNaN(original)
                 || (original == "")) {

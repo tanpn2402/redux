@@ -90,7 +90,7 @@ class EnterOrderConfirm extends Component{
             "mvBankACID": data.mvBankACID,
         }
 
-        console.log(params)
+        //console.log(params)
         var authParams = this.auth.getParam()
         this.props.enterOrderSubmit(data.language, params, authParams)
 
