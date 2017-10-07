@@ -120,3 +120,16 @@ export function quantityShowFormatter(original, separator) {
 
     return v;
 }
+
+export function formatDate(input,interval) {
+    if (input != null)
+        {
+          var datePart = input.match(/\d+/g),
+          year = datePart[0], 
+          month = datePart[1], day = datePart[2];
+          switch (interval) { 
+            case "ddmmyyyy" :  return day+'/'+month+'/'+year;
+            case "mmddyyyy" :  return month+'/'+day+'/'+year;
+          }
+        }
+}

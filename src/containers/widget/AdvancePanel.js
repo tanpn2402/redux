@@ -73,13 +73,13 @@ class AdvancePanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
-                                        onClick={this.handleSubmit.bind(this)}>
-                                        {this.props.language.button.submit}
-                                    </button>
                                     <button className="btn btn-default" type="reset" className="hks-btn btn-cancel"
                                         onClick={e => this.handleResetForm()}>
                                         {this.props.language.button.cancel}
+                                    </button>
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                        onClick={this.handleSubmit.bind(this)}>
+                                        {this.props.language.button.submit}
                                     </button>
                                 </span>
                             </div>

@@ -22,6 +22,7 @@ export default function(state = initialState, action) {
 
     switch (action.type) {
         case ActionTypes.GETCASHADVANCEHISTORY:
+            action.CashAdvanceHistory.list = action.CashAdvanceHistory.list === null ? [] : action.CashAdvanceHistory.list
             return Object.assign({}, state, {
                 cashAdvanceHistory: action.CashAdvanceHistory,
             });
