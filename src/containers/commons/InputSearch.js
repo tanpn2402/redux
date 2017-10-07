@@ -10,19 +10,25 @@ class InputSearch extends React.Component {
         this.value = ''
         this.data = []
         this.callProps = false
+
+        this.type = 'lg'
+        
      }
      componentWillMount(){
          this.setState({data: this.props.data})
+         if(this.props.type !== undefined)
+            this.type = this.props.type
      }
-     componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps){
          
-     }
+    }
 
   	render() {
     	return (
         	<div className="input-search">
                 <div className="input-group input-search-group">
-                    <input type="text" className="form-control" ref={e => this.value = e} style={this.props.style}
+                    <input type="text" autocomplete="off" id="mvStockId" className="form-control" 
+                        ref={e => this.value = e} style={this.props.style}
                         onChange={e => this.onChange(e.target.value)}
                         onBlur={e => this.onBlur(e.target.value)}/>
                     <span className="input-group-addon">
@@ -39,7 +45,8 @@ class InputSearch extends React.Component {
                                 return (
                                     <li id={stock.stockCode} onClick={e => this.onItemClick(stock)}>
                                         <span id={stock.stockCode} onClick={e => this.onItemClick(stock)}>
-                                            <b>{stock.stockCode}</b> - {stock.stockName}
+                                            <b>{stock.stockCode}</b>
+                                            {this.type === 'lg' ? ' - ' + stock.stockName : ''}
                                         </span>
                                     </li>
                                 )

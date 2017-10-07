@@ -268,10 +268,7 @@ class OrderHistory extends Component {
 
 
     render() {
-        var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
-        var pageIndex = this.props.data.mvPage === undefined ? 1 : this.props.data.mvPage.pageIndex
-        var totalRecord = this.props.data.mvTotalOrders === undefined ? 1 : this.props.data.mvTotalOrders
-        console.log(this.stockList)
+        var data = this.props.historyOrder.mvOrderBeanList
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -302,7 +299,7 @@ class OrderHistory extends Component {
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.data.mvTotalOrders/this.defaultPageSize)}
+                            totalRecord={Math.ceil(this.props.historyOrder.mvTotalOrders/this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -379,7 +376,7 @@ componentDidMount() {
 }
 const mapStateToProps = (state) => {
     return {
-        data: state.orderhistory.data,
+        historyOrder: state.orderhistory.historyOrder,
     }
 }
 

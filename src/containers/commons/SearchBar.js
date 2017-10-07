@@ -6,6 +6,7 @@ import * as actions from '../../actions'
 import moment from 'moment'
 import config from '../../core/config'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
+import InputSearch from './InputSearch'
 import $ from 'jquery'
 var DatePicker = require("react-bootstrap-date-picker")
 export default class SearchBar extends React.Component {
@@ -13,8 +14,8 @@ export default class SearchBar extends React.Component {
     constructor() {
         super()
         this.state = {
-            startDate: moment(),
-            endDate: moment(),
+            startDate: new Date().toISOString(),
+            endDate: new Date().toISOString(),
         };
 
         this.parameter = {
@@ -54,12 +55,12 @@ export default class SearchBar extends React.Component {
 
     handleChangeStart(date) {
         this.setState({
-            startDate: moment(date).format("DD/MM/YYYY") 
+            startDate: date
         });
     }
     handleChangeEnd(date) {
         this.setState({
-            endDate: moment(date).format("DD/MM/YYYY") 
+            endDate: date
         });
     }
 
@@ -235,14 +236,10 @@ export default class SearchBar extends React.Component {
 
         return (
             <FormGroup controlId="mvStockId">
-		        <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Stock"/>
-		        <datalist id="stockList">
-		          {
-		            stockList.map(e => {
-		                return( <option value={e.stockCode}>{e.stockName}</option> )
-		            })
-		          }
-		        </datalist>
+		        <InputSearch data={stockList} 
+                    onChange={e=> {}}
+                    type={'sm'}
+                    style={{marginBottom: '0'}}/>
 		  	</FormGroup>
         )
     }
@@ -253,7 +250,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
 		        <ControlLabel>{language.startdate}</ControlLabel>
 		        {'   '}
-		        <DatePicker id="mvStartDate" value={new Date().toISOString()} 
+		        <DatePicker id="mvStartDate" value={this.state.startDate} 
                     cellPadding={'1px'} 
                     style={{width: '100px'}}
                     showClearButton={false}
@@ -269,7 +266,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
 		        <ControlLabel>{language.enddate}</ControlLabel>
 		        {'   '}
-		        <DatePicker id="mvEndDate" value={new Date().toISOString()} 
+		        <DatePicker id="mvEndDate" value={this.state.endDate} 
                     cellPadding={'1px'} 
                     style={{width: '100px'}}
                     showClearButton={false}
