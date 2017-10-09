@@ -320,6 +320,7 @@ const config = {
 		matchOrderBankList: { i: 'matchOrderBankList', x: 2, y: 0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceBankHistory: { i: 'advanceBankHistory', x: 0, y: 5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceBankPanel: { i: 'advanceBankPanel', x: 0, y: 0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
+		advanceBankPlace: { i: 'advanceBankPlace', x: 0, y: 0, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 
 		matchOrderList: { i: 'matchOrderList', x: 0, y: 5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceHistory: { i: 'advanceHistory', x: 2, y: 0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },

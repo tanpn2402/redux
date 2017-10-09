@@ -9,15 +9,13 @@ class AdBankPayment extends Component {
         super(props)
 
         this.widget = [
-            'matchOrderBankList',
-            'advanceBankHistory',
-            'advanceBankPanel'
+            'advanceBankPlace',
+            'advanceBankHistory'
         ]
 
         this.layout = [
             config.default_layout[this.widget[0]],
-            config.default_layout[this.widget[1]],
-            config.default_layout[this.widget[2]]        
+            config.default_layout[this.widget[1]]      
         ]
     }
 

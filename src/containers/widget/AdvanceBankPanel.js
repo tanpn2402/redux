@@ -7,36 +7,19 @@ import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
 import * as Utils from '../../utils'
 import config from '../../core/config'
+import * as api from '../../api/web_service_api'
+import * as ACTION from '../../api/action_name'
 
 class AdBankPanel extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceBankPanel'
         this.lang = config.cache.lang
-
-
-
-
-        this.queryBankInfoParams = {
-            key: (new Date()).getTime()
-        }
-
-        this.MatchOrderBankListData = {
-            cOrderIDArray: [],
-            cContractIDArray: [],
-            cTovalValue: 0,
-            cAmount: 0,
-            cMaxAmt: 0,
-            cCurrencySymbol: "",
-            cBankIDHF: "",
-            cBankACIDHF: "",
-            cTPLUSXHF: ""
-        }
     }
 
 
     render() {
-        var queryBankInfo = this.props.queryBankInfo
+        var queryBankInfo = this.props.bankInfo
         var calculateInterestAmt = this.props.calculateInterestAmt
         return (
             <div>
@@ -72,6 +55,7 @@ class AdBankPanel extends Component {
                                             <input
                                                 className="hks-input read-only"
                                                 id="advanceAvailable"
+                                                value={Utils.currencyShowFormatter(this.props.data.cTovalValue, ",", this.lang)}
                                                 ref={e => this.txtAdvanceAvailable = e}
                                                 readOnly/>
                                         </td>
@@ -83,7 +67,7 @@ class AdBankPanel extends Component {
                                                 className="hks-input read-only"
                                                 id="advanceAvailable"
                                                 ref={e => this.txtAdvanceFee = e}
-                                                value={Utils.toTTLCurrencyFormat(calculateInterestAmt.mvInterestAmt)}
+                                                value="0"
                                                 readOnly/>
                                         </td>
                                     </tr>
@@ -94,7 +78,8 @@ class AdBankPanel extends Component {
                                                 <input type="number" 
                                                     name="volume" 
                                                     min="0" 
-                                                    onBlur={this.doCalculateInterest.bind(this)}  
+                                                    disabled={this.props.data.cTovalValue == '0'}
+                                                    onBlur={e => this.doCalculateInterest()}  
                                                     id="advancePayment"
                                                     ref={e => this.txtAdvancePayment = e}
                                                     required />
@@ -124,108 +109,68 @@ class AdBankPanel extends Component {
 
     }
 
-    componentDidMount() {
-        this.props.getqueryBankInfo(this.queryBankInfoParams)
+    componentDidUpdate(){
+        this.txtAdvancePayment.value = this.props.data.cTovalValue * 1000
+        this.doCalculateInterest()
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.queryBankInfo.mvBankInfoList.length > 0){
-            var params = {
-                'mvBankID' : nextProps.queryBankInfo.mvBankInfoList[0].mvBankID,
-                'mvSettlement' : "3T"
-            }
-            this.props.getqueryAdvancePaymentInfo(params)
-        }
-
-        if(nextProps.paymentSelected){
-            this.calculateWhenPaymentSelectedChange(nextProps.paymentSelected)
-        }
-    }
-
-    componentWillUnmount(){
-        this.props.paymentSelectionChange([])
-    }
-
-    calculateWhenPaymentSelectedChange(list){
-        if(list.length > 0){
-            this.MatchOrderBankListData.cTovalValue = 0;
-            this.MatchOrderBankListData.cOrderIDArray = new Array()
-            this.MatchOrderBankListData.cContractIDArray = new Array()
-
-            for (var i = 0; i < list.length; i++) {
-                this.MatchOrderBankListData.cOrderIDArray[i] = list[i].mvOrderID
-                this.MatchOrderBankListData.cContractIDArray[i] = list[i].mvContractID
-                this.MatchOrderBankListData.cTovalValue += parseFloat(list[i].mvAvailableAmount)
-                this.MatchOrderBankListData.cTPLUSXHF = list[i].mvSettleDay
-            }
-
-            
-            this.txtAdvanceAvailable.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", this.lang)
-
-        } else {
-            this.handleResetForm(list)
-        }
-    }
     handleSubmit(e) {
         e.preventDefault()
         let advPayment = this.txtAdvancePayment.value
-        this.MatchOrderBankListData['advAmt'] = advPayment
+        var data = this.props.data
+        data['advAmt'] = advPayment
         this.props.beforeSubmitCashAdvBank({
             advPayment: advPayment,
             language: this.props.language,
-            data: this.MatchOrderBankListData
+            data: data
         })
     }
 
     handleResetForm(paymentSelected){
-        if(paymentSelected.length <= 0){
-            // do not reset txt Advance Available if some row selected
-            this.txtAdvanceAvailable.value = '0'
-
-            this.MatchOrderBankListData = {
-                cOrderIDArray: [],
-                cContractIDArray: [],
-                cTovalValue: 0,
-                cAmount: 0,
-                cMaxAmt: 0,
-                cCurrencySymbol: "",
-                cBankIDHF: "",
-                cBankACIDHF: "",
-                cTPLUSXHF: ""
-            }
-        }
         this.txtAdvanceFee.value = "0"
-        this.txtAdvancePayment.value = ''
-        
-
-        
+        this.txtAdvancePayment.value = '' 
     }
 
-    doCalculateInterest(e) {
-        e.preventDefault();
-        if(this.MatchOrderBankListData.cTPLUSXHF){
+    doCalculateInterest() {
+        if(this.props.data.cTPLUSXHF){
             this.txtAdvanceFee.value = "0"
-            this.props.calculateInterest({
-                advPayment: this.txtAdvancePayment.value,
-                cTPLUSXHF: this.MatchOrderBankListData.cTPLUSXHF,
-                language: this.props.language
-            })
+
+            var advPayment = this.txtAdvancePayment.value
+            var soldT = this.props.data.cTPLUSXHF
+            var me = this
+
+            if (advPayment <= 0) {
+                
+            } else {
+                var stleDay = "3";
+                if (soldT == "T0") {
+                    stleDay = "3";
+                } else if (soldT == "T1") {
+                    stleDay = "2";
+                } else if (soldT == "T2") {
+                    stleDay = "1";
+                }
+        
+                var _params = {
+                    "mvSettlement": stleDay,
+                    'mvAmount': advPayment
+                }
+
+                api.fetch(ACTION.CALCULATEINTERSETAMT, _params, 'POST',
+                    function(response){ // success handler
+                        if (response != null) {
+                            me.txtAdvanceFee.value = Utils.toTTLCurrencyFormat(response.mvInterestAmt)
+                        }
+                    })
+            }
         }
             
     }
 
     getAdvanceOrderData(e){
-        // get data and fill out to table 1
         var bank = e.target.value
-
         if(bank){
-            var stleDay = "3T"
-            var params = {
-                'mvBankID' : bank,
-                'mvSettlement' : stleDay
-            }
-
-            this.props.getqueryAdvancePaymentInfo(params)
+            this.props.getAdvanceOrderData(bank)
         }
         
     }
@@ -233,33 +178,17 @@ class AdBankPanel extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        queryBankInfo: state.cashadvancebank.queryBankInfo,
-        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt,
-        //queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
-
-        paymentSelected: state.cashadvancebank.paymentSelected,
-        reloadTmp: state.cashadvancebank.key,
+        bankInfo: state.cashadvancebank.queryBankInfo,
+        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getqueryAdvancePaymentInfo: (params) => {
-        dispatch(actions.getqueryAdvancePaymentInfo(params))
-    },
-    getqueryBankInfo: (params) => {
-        dispatch(actions.getqueryBankInfo(params))
-    },
-    calculateInterest: (params) => {
-        dispatch(actions.calculateInterest(params))
-    },
     beforeSubmitCashAdvBank: (params) => {
         dispatch(actions.beforeSubmitCashAdvBank(params))
     },
     onShowMessageBox: (title, message) => {
         dispatch(actions.showMessageBox(title, message))
-    },
-    paymentSelectionChange: (list) => {
-        dispatch(actions.paymentSelectionChange(list))
     }
 })
 

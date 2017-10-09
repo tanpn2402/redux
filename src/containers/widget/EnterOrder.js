@@ -322,14 +322,16 @@ class EnterOrder extends Component {
             }
         }
         
-        var defaultValue = mvOrderTypeArray[0]['value'];
-
-        this.state.value.mvOrderType = defaultValue
-        // update order type
-        this.setState({value: Object.assign(this.state.value, {mvOrderTypeList: mvOrderTypeArray} )});
-
-        // calculate gross amount
-        this.calculateGrossAmt(); 
+        if(mvOrderTypeArray.length > 0){
+            var defaultValue = mvOrderTypeArray[0]['value'];
+            
+            this.state.value.mvOrderType = defaultValue
+            // update order type
+            this.setState({value: Object.assign(this.state.value, {mvOrderTypeList: mvOrderTypeArray} )});
+    
+            // calculate gross amount
+            this.calculateGrossAmt(); 
+        }
     }
 
     handleStockOnBlur(stockInfo){

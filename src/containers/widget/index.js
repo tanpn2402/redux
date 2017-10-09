@@ -18,9 +18,12 @@ import EntitlementHistory from './EntitlementHistory'
 import OddLotOrder from './OddLotOrder'
 import OddLot from './OddLot'
 import OddLotHistory from './OddLotHistory'
+
 import AdvanceBankPanel from './AdvanceBankPanel'
 import MatchOrderBankList from './MatchOrderBankList'
 import AdvanceBankHistory from './AdvanceBankHistory'
+import AdvanceBankPlace from './AdvanceBankPlace'
+
 import AdvancePanel from './AdvancePanel'
 import MatchOrderList from './MatchOrderList'
 import AdvanceHistory from './AdvanceHistory'
@@ -126,6 +129,10 @@ export default function (menuid, props){
 		case 'advanceBankPanel':
 			return (
 				<AdvanceBankPanel language={props.language} theme={props.theme}/>
+			)
+		case 'advanceBankPlace':
+			return (
+				<AdvanceBankPlace language={props.language} theme={props.theme}/>
             )
 
 		case 'matchOrderList':

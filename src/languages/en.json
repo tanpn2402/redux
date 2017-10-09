@@ -621,8 +621,8 @@
                 "message": {
                     "insufficientfund": "Insufficient Fund!",
                     "noamount": "Amount should not be blank.",
-                    "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Advance Payment successfully."
+                    "advancePaymentFailed": "Advance Payment Failed.",
+                    "advancePaymentSuccessful": "Advance Payment Successful."
                 }
             },
             "watchlist": {
@@ -843,11 +843,12 @@
                     "note": "Note"
                 },
                 "popup": {
-                    "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+                    "title": "Confirm",
+                    "message": "Do you want to do this action ?"
                 },
                 "message": {
-                    "insufficientfund": "Insufficient Fund!",
-                    "noamount": "Amount should not be blank.",
+                    "insufficientFund": "Insufficient Fund!",
+                    "noAmount": "Amount should not be blank.",
                     "wrongAmount": "Wrong Amount!",
                     "advancePaymentFailed": "Advance Payment Failed.",
                     "advancePaymentSuccessful": "Advance Payment Successful."
