@@ -1,9 +1,9 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  datafundtransfer: [
+  datafundtransfer: {
 
-  ],
+  },
   datahkscashtranhis: [],
   datagenfundtransfer: {
     chargeRate:	null,

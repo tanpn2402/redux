@@ -26,12 +26,12 @@ export function getFundtransfer(params) {
 
 function responsegenfundtransfer(response, language) {
   
-  if (response.mvErrorCode > 0){
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAA",response)
-    return (dispatch) => {
-      dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
-    }
-  }
+  // if (response.mvErrorCode > 0){
+  //   return (dispatch) => {
+  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
+  //   }
+  // }
+  console.log("responsegenfundtransfer")
   return {
     type: ActionTypes.GENFUNDTRANSFER,
     data: response
@@ -39,18 +39,18 @@ function responsegenfundtransfer(response, language) {
 }
 
 export function getGenfundtransfer(params, language) {
-  var callback = (response) => responsegenfundtransfer(response, language)
+  // var callback = (response) => responsegenfundtransfer(response, language)
   return (dispatch) => {
     WebApi.post(ACTION.GENFUNDTRANSFER, params, dispatch, responsegenfundtransfer)
   }
 }
 
-function responsehksCachTranHis(response, language) {
-  if (response.mvResult == "fail"){
-    return (dispatch) => {
-      dispatch(showMessageBox(language.messagebox.title.error, response.mvMessage))
-    }
-  }
+function responsehksCachTranHis(response) {
+  // if (response.list == null){
+  //   return (dispatch) => {
+  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvMessage))
+  //   }
+  // }
   return {
     type: ActionTypes.HKSCASHTRANHIS,
     data: response
@@ -58,9 +58,9 @@ function responsehksCachTranHis(response, language) {
 }
 
 export function gethksCachTranHis(params, language) {
-  var response = (params) => responsehksCachTranHis(params, language)
+  // var response = (params) => responsehksCachTranHis(params, language)
   return (dispatch) => {
-    WebApi.post(ACTION.HKSCASHTRANHIS, params, dispatch, response)
+    WebApi.post(ACTION.HKSCASHTRANHIS, params, dispatch, responsehksCachTranHis)
   }
 }
 
