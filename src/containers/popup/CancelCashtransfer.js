@@ -36,22 +36,24 @@ class CancelCashtransfer extends Component{
     render(){
         console.log(this.props)
         return(
-            <div className="modalbody">
-                
+            <div>
+                <Modal.Body>
+                    <div>
+                        {this.props.language.cashtransfer.popup.message}
+                    </div>
+                </Modal.Body>
                 <div style={{textAlign:'center',marginLeft:'15px'}}>
                 <CheckAuthenticationModal language={this.props.language}/>
                 </div>
                 <Modal.Footer>
-                    <Button  className="oddlotcancel" onClick={this.props.onHide}>Cancel</Button>
-                    <Button  className="oddlotsubmit" onClick={this.submitCancelCashTransfer.bind(this)}>Confirm</Button>
+                    <Button  className="cance;" onClick={this.props.onHide}>Cancel</Button>
+                    <Button  className="submit" onClick={this.submitCancelCashTransfer.bind(this)}>Confirm</Button>
                 </Modal.Footer>
             </div>
         )
     }
 
     submitCancelCashTransfer() {
-        console.log("TRANID")
-        console.log(this.props.data.mvTranID);
         this.props.submitCancelCashTransfer(this.props.data, this.props.language)
     }
 }

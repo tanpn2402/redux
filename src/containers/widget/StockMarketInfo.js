@@ -143,7 +143,6 @@ class StockMarketInfo extends Component {
 			bidVol += nextProps.stockWatchInfo.mvStockInfoBean["mvBidPrice"+i]==null?0:nextProps.stockWatchInfo.mvStockInfoBean["mvBidPrice"+i]
 			askVol += nextProps.stockWatchInfo.mvStockInfoBean["mvOfferPrice"+i]==null?0:nextProps.stockWatchInfo.mvStockInfoBean["mvOfferPrice"+i]
 		}
-		console.log(askVol,bidVol)
 
 		var askVolPer = 0;
         if ((askVol + bidVol) != 0) {

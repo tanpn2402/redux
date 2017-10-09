@@ -28,15 +28,13 @@ class CashTransferPopup extends Component {
             <div>
                 <Modal.Body>
                     <div>
-                        {this.props.language.cashadvance.popup.message}
+                        {this.props.language.cashtransfer.popup.message}
                     </div>
                 </Modal.Body>
-                {
-                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language}/>
-                }
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={this.props.language} />
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.cashadvance.popup.cancel}</Button>
-                    <Button className="submit" onClick={this.submit.bind(this)}> {this.props.language.cashadvance.popup.ok}</Button>
+                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.cashtransfer.popup.cancel}</Button>
+                    <Button className="submit" onClick={this.submit.bind(this)}> {this.props.language.cashtransfer.popup.ok}</Button>
                 </Modal.Footer>
             </div>
         );

@@ -47,9 +47,6 @@ class FundTransPanel extends Component {
     }
 
     buildFundsTransferStore(data,isExternal) {
-        console.log("BUILD FUND")
-        console.log(data
-            .datagenfund)
         if (data.datagenfund.mvReceiversList.length == 0) 
             return []
         if (isExternal) {
@@ -69,8 +66,6 @@ class FundTransPanel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("|||||||||||||")
-        console.log(this.beneficiaryfullname)
         var isExternal = this.state.isExternalFilter
         this.listReceiverExternal = this.buildFundsTransferStore(nextProps,isExternal)
         this.listReceiverInternal = this.buildFundsTransferStore(nextProps,!isExternal)
@@ -81,8 +76,6 @@ class FundTransPanel extends Component {
     }
 
     render() {
-        console.log("RENDER")
-        console.log(this.props.datagenfund)
         var mreceive = this.props.datagenfund.mvReceiversList[0]
         return (
             <div
@@ -184,7 +177,7 @@ class FundTransPanel extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.accounttype}</th>
                                         <td>
-                                            {this.props.language.cashtransfer.header.bankordertype}
+                                            {this.state.isExternalFilter?this.props.language.cashtransfer.header.bankaccount:this.props.language.cashtransfer.header.localaccount}
                                         </td>
                                     </tr>
                                     <tr>
