@@ -368,6 +368,63 @@ const config = {
 		}
 	]
 	,
+	profiles: [
+		{
+			id: 'holderinformation',
+			icon: 'account_circle',
+			value: [
+				'holdername',
+				'accountno',
+				'email',
+				'telephone',
+				'address',
+				'personalid'
+			]
+		},
+		{
+			id: 'personinformation',
+			icon: 'supervisor_account',
+			value: [
+				'authorizedname',
+				'idno',
+				'telephone',
+				'authorization'
+			]
+		},
+		{
+			id: 'changepassword',
+			icon: 'lock',
+			value: [
+				'currentpassword',
+				'newpassword',
+				'retypepassword',
+				'save'
+			]
+		},
+		// {
+		// 	id: 'warning',
+		// 	icon: 'warning',
+		// 	value: [
+		// 		'expiredate',
+		// 		'warndetail1',
+		// 		'warndetail2'
+		// 	]
+		// },
+		// {
+		// 	id: 'message',
+		// 	value: [
+		// 		'error',
+		// 		'notification',
+		// 		'changesuccess',
+		// 		'changefailed',
+		// 		'passwordincorrect',
+		// 		'notmatched',
+		// 		'newpassunaccepted',
+		// 		'emptypass'
+		// 	]
+		// }
+	]
+	,
 	cache: {
 		stockList: [],
 		lang: 'vi',

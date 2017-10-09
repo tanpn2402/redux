@@ -7,22 +7,24 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Notification from './Notification'
 import SettingNav from './SettingNav'
+import ProfileNav from './ProfileNav'
 export default class MainContent extends Component {
 
     constructor(props) {
         super(props)
-        
+
     }
 
     render() {
         return (
             <div id="maincontent">
-                <StatusBar theme={this.props.theme} language= {this.props.language} checkSessionID={this.props.checkSessionID}/>
-                <SettingNav theme={this.props.theme} language= {this.props.language}/>
-                <PageContent theme={this.props.theme} language= {this.props.language}/>
-                
+                <StatusBar theme={this.props.theme} language={this.props.language} checkSessionID={this.props.checkSessionID} />
+                <ProfileNav theme={this.props.theme} language={this.props.langauge} />
+                <SettingNav theme={this.props.theme} language={this.props.language} />
+                <PageContent theme={this.props.theme} language={this.props.language} />
 
-                
+
+
             </div>
         )
     }
