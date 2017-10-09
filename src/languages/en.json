@@ -169,8 +169,8 @@
                 "message": {
                     "modifySucces": "Order is sent. Please check again in Order journal.",
                     "modifyFailed": "Modify order failed. Please see detail in Order journal.",
-                    "cancelSuccess" : "Order is sent. Please check again in Order journal",
-                    "cancelFailed" : "Cancel order falied. Please contact to support team."
+                    "cancelSuccess": "Order is sent. Please check again in Order journal",
+                    "cancelFailed": "Cancel order falied. Please contact to support team."
                 }
             },
             "cashstatement": {
@@ -662,26 +662,35 @@
                 }
             },
             "personalprofile": {
-                "holderinformation": "Account Holder Information",
-                "holdername": "Holder Name",
-                "accountno": "Account.No",
-                "email": "E-mail",
-                "telephone": "Telephone",
-                "address": "Address",
-                "personalid": "Personal ID",
-                "personinformation": "Authorized Person Information",
-                "authorizedname": "Authorized Name",
-                "idno": "ID No",
-                "authorization": "Authorization",
-                "changepassword": "Change Password",
-                "currentpassword": "Current Password",
-                "newpassword": "New Password",
-                "retypepassword": "Retype New Password",
-                "warning": "Warning",
-                "expiredate": "-  Expiry date of password : 07/06/2291 16:10:40",
-                "warndetail1": "-  Your password will be efficient in 90 days after the last time you change it.",
-                "warndetail2": "-  After 90 days, you will receive a notice for changing your password",
-                "save": "Save",
+                "holderinformation": {
+                    "title": "Account Holder Information",
+                    "holdername": "Holder Name",
+                    "accountno": "Account.No",
+                    "email": "E-mail",
+                    "telephone": "Telephone",
+                    "address": "Address",
+                    "personalid": "Personal ID"
+                },
+                "personinformation": {
+                    "title": "Authorized Person Information",
+                    "authorizedname": "Authorized Name",
+                    "idno": "ID No",
+                    "authorization": "Authorization",
+                    "telephone": "Telephone"
+                },
+                "changepassword": {
+                    "title": "Change Password",
+                    "currentpassword": "Current Password",
+                    "newpassword": "New Password",
+                    "retypepassword": "Retype New Password",
+                    "save": "Save"
+                },
+                "warning": {
+                    "title": "Warning",
+                    "expiredate": "-  Expiry date of password : 07/06/2291 16:10:40",
+                    "warndetail1": "-  Your password will be efficient in 90 days after the last time you change it.",
+                    "warndetail2": "-  After 90 days, you will receive a notice for changing your password"
+                },
                 "message": {
                     "error": "Error",
                     "notification": "Notification",

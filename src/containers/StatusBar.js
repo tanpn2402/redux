@@ -20,6 +20,7 @@ class StatusBar extends React.Component {
         this.onBlur = this.onBlur.bind(this)
         this.onFocus = this.onFocus.bind(this)
         this.openSetting = this.openSetting.bind(this)
+        this.openProfile = this.openProfile.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -56,7 +57,7 @@ class StatusBar extends React.Component {
 
 
                 <div className="user-action">
-                    <span className="glyphicon glyphicon-user"></span>
+                    <span className="glyphicon glyphicon-user" onClick={this.openProfile}></span>
                     <span className="glyphicon glyphicon-cog" onClick={this.openSetting}></span>
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
 
@@ -72,6 +73,10 @@ class StatusBar extends React.Component {
 
     openSetting(e) {
         document.getElementById('settingnav').classList.toggle("open")
+    }
+
+    openProfile(e) {
+        document.getElementById('profilenav').classList.toggle('open')
     }
 
     logout() {

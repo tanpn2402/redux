@@ -1026,6 +1026,104 @@ input::-webkit-calendar-picker-indicator {
     font-size: 25px;
 }
 /*END SETTING NAV*/
+
+/*PROFILE NAV*/
+.profilenav {
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+}
+.profilenav > .profile-panel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.2s;
+    text-align: left;
+}
+.profilenav.open{
+    width: 100%;
+}
+.profilenav.open > .profile-panel {
+    width: 550px;
+}
+.profilenav.open > .overlay {
+    display: block;
+}
+.profile-panel > .title {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 30px;
+    background-color: #005AA0;
+    color: #fff;
+    font-weight: 500;
+}
+.profile-panel .st-header {
+    padding: 5px 0px 5px 5px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    user-select: none;
+}
+.profile-panel .st-header:hover {
+    background-color: #dcdcdc;
+}
+.profile-panel label {
+    user-select: none;
+    font-size: 20px;
+    font-weight: 500;
+    display: inline;
+    border: none;
+}
+.profile-panel .st-icon{
+    display: inline;
+    width: 40px;
+    height: 30px;
+    float: left;
+    text-align: center;
+}
+.profile-panel span {
+    font-size: 25px;
+}
+.profile-item {
+    transition: 0.1s;
+    padding-left: 0px;
+    padding-right: 0px;
+    user-select: none;
+}
+.profile-item > li{
+    padding-left: 40px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #005899;
+}
+.profile-item > li > .selected{
+    padding-top: 6px;
+    float: right;
+}
+.profile-buttonsave{
+    margin-left: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transform: translateX(-50%);
+}
+.profile-input{
+    position: absolute;
+    right: 10px;
+    border-radius: 3px;
+}
+.profile-input:focus{
+    border-color: #005aa0;
+}
+/*END PROFILE NAV*/
+
+
 /*SIDE MENU*/
 
 .input-group-search {
