@@ -2102,13 +2102,16 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     display: inline-block;
 }
-.marketdatainfo-mini-table {
-    max-height: 50%;
-    height: auto;
-}
+
 .stock-info {
     position: relative;
     height: 100%;
+}
+
+.stock-info .marketdatainfo-mini-table:nth-child(1) {
+    position: absolute;
+    height: 105px;
+    width: 100%;
 }
 
 .stock-info .volume {
@@ -2122,7 +2125,7 @@ input::-webkit-calendar-picker-indicator {
     width: 100%;
     height: 100%;
     bottom: 0px;
-    margin-top: 5px;
+    padding-top: 105px;
 }
 
 .marketdatainfo-mini-table table {

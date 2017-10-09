@@ -55,7 +55,7 @@ export default function(props, onClose){
 			break;
 
 		case 'cancelcashtransfer':
-			return (<CancelCashtransfer onHide={props.onHide} data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<CancelCashtransfer data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
 			
 		case 'cashtransfer':

@@ -278,11 +278,12 @@ class StockMarketInfo extends Component {
 										<td>{row.BestAsk.volume}</td>
 									</tr>))}
 							</table>
+							<div className="bid-ask-footer">
+								<div ref={e=>this.perBuy = e}>-</div>
+								<div ref={e=>this.perSell = e}>-</div>
+							</div>
 						</div>
-						<div className="bid-ask-footer">
-							<div ref={e=>this.perBuy = e}>-</div>
-							<div ref={e=>this.perSell = e}>-</div>
-						</div>
+						
 						
 						<div className="marketdatainfo-mini-table" id="match-order-table">
 							<Table
