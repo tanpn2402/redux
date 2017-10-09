@@ -35,7 +35,7 @@ class AdBankPanel extends Component {
                                      <tr>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <select id="mvBank" style={{width: '100%'}} 
+                                            <select id="mvBank" className="hks-select bank-account" style={{width: '100%'}} 
                                                 onChange={this.getAdvanceOrderData.bind(this)}>
                                                 {
                                                     queryBankInfo.mvBankInfoList.map(bank => {
@@ -75,9 +75,9 @@ class AdBankPanel extends Component {
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td>
                                             <FormGroup>
-                                                <input type="number" 
-                                                    name="volume" 
-                                                    min="0" 
+                                                <input 
+                                                    className="hks-input border"
+                                                    type="number" name="volume" min="0" 
                                                     disabled={this.props.data.cTovalValue == '0'}
                                                     onBlur={e => this.doCalculateInterest()}  
                                                     id="advancePayment"
