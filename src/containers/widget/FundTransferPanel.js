@@ -169,7 +169,6 @@ class FundTransPanel extends Component {
                                                 required
                                                 ref={e => this.destClientID = e}
                                                 name="destClientID"
-                                                selectedIndex = {-1}
                                                 onChange={(e) => this.handleInputChange(e)}
                                                 style={{
                                                 width: "100%",
