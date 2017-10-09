@@ -4,7 +4,7 @@ import { changeConfig, switchLanguage, switchTheme, checkSession } from './confi
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
-import { stockSearch } from './stockaction'
+import { stockSearch, getStockWatchInfo } from './stockaction'
 import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData, exportOrderConfirm } from './confirmorder'
 import { getPorfolio } from './porfolio'
 import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
@@ -46,7 +46,10 @@ export {
   switchLanguage,
   switchTheme,
   checkSession,
+
   stockSearch,
+  getStockWatchInfo,
+  
   accountBalance,
   stockInfo,
   genEnterOrder,

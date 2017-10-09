@@ -73,3 +73,5 @@ export const EXPORTORDERHISTORY = 'exportOrderHistory.action';
 export const EXPORTCASHTRANSACTIONHISTORY = 'exportCashTransactionHistory.action';
 export const EXPORTTRANSACTIONHISTORY = 'exportTransactionHistory.action';
 export const EXPORTORDERCONFIRM = 'exportSignOrder.action';
+// Stock Watch Update
+export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action'
