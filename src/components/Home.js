@@ -66,7 +66,7 @@ class Home extends Component {
 
     render() {
         //let { authenticated, user } = this.props
-        console.log(this.props.language)
+        //console.log(this.props.language)
         this.theme = require('../themes/' + this.state.theme)
         this.handleSetConfig()
         return (

@@ -66,7 +66,7 @@
                 "entitlementHistory": "Additional Issue Shares Buying History",
                 "entitlementPanel": "Entitlement Place",
                 "advancePayment": "Advance Payment",
-                "advancePaymentBank": "Advance Payment Bank",
+                "advancePaymentBank": "Bank Advance Payment",
                 "fundTransfer": "Fund Transfer",
                 "cashTransHistory": "Cash Transaction History",
                 "orderHistory": "Order History",
@@ -571,10 +571,10 @@
                     "rejected": "Rejected"
                 },
                 "message": {
-                    "insufficientfund": "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
-                    "noamount": "Xin vui lòng kiểm tra lại số tiền.",
+                    "insufficientfund": "Insufficient Fund!",
+                    "noamount": "Amount should not be blank.",
                     "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Thành công",
+                    "advancePaymentSuccessful": "Successful",
                     "cancelSuccess": "Cash transfer order is cancelled. Please check in History screen.",
                     "cancelFailed": "Cancel cash transfer order is failed. Please contact to support team."
                 },
@@ -608,23 +608,21 @@
                     "fee": "Fee+Tax"
                 },
                 "popup": {
-                    "title": "Cash Advance",
-                    "message": "Ban co chac chan muon thuc hien ?",
-                    "ok": "OK",
-                    "cancel": "Cancel"
+                    "title": "Confirm",
+                    "message": "Do you want to do this action ?"
                 },
                 "status": {
-                    "authorized": "Authorized",
-                    "pending": "Pending Approval"
+                    "STATUS_A": "Authorized",
+                    "STATUS_P": "Pending Approval"
                 },
                 "remark": {
                     "remark": "Your cash advance will not change until it is approved"
                 },
                 "message": {
-                    "insufficientfund": "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
-                    "noamount": "123123",
+                    "insufficientfund": "Insufficient Fund!",
+                    "noamount": "Amount should not be blank.",
                     "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Thành công"
+                    "advancePaymentSuccessful": "Advance Payment successfully."
                 }
             },
             "watchlist": {
@@ -848,10 +846,11 @@
                     "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
                 },
                 "message": {
-                    "insufficientfund": "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
-                    "wrongAmount": "Số tiền Quý khách muốn ứng không hợp lệ.",
-                    "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Thành công"
+                    "insufficientfund": "Insufficient Fund!",
+                    "noamount": "Amount should not be blank.",
+                    "wrongAmount": "Wrong Amount!",
+                    "advancePaymentFailed": "Advance Payment Failed.",
+                    "advancePaymentSuccessful": "Advance Payment Successful."
                 }
             },
             "cash": {

@@ -29,7 +29,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  console.log(action.type, action.data);
   switch (action.type) {
     case ActionTypes.GETSTOCKINFO:
         return Object.assign({}, state,{

@@ -7,6 +7,7 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
+import config from '../../core/config'
 /*
 Khi tick vào 1 record thì dựa vài giá trị ở bên AdvanceBankPanel để tính phí
 Khi bên AdvanceBankPanel chọn combobox ngân hàng thì bên này query láy data hiển thị
@@ -18,7 +19,19 @@ class MatchOrderBankList extends Component {
         super(props)
         this.id = 'matchOrderBankList'
         this.defaultPageSize = 15
+        this.lang = config.cache.lang
 
+        this.accessor = [
+            'mvContractID',
+            'mvOrderID',
+            'cashSettleDay',
+            'tradeDate',
+            'mvStockID',
+            'mvPrice',
+            'mvQuantity',
+            'mvFormatedAmount',
+            'mvSettleDay'
+        ]
 
         this.MatchOrderBankListData = {
             cOrderIDArray: [],
@@ -51,67 +64,73 @@ class MatchOrderBankList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.contractid,
-                    accessor: 'contractid',
+                    accessor: this.accessor[0],
                     id: 'contractid',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.orderid,
-                    accessor: 'orderid',
+                    accessor: this.accessor[1],
                     id: 'orderid',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.settlementdate,
-                    accessor: 'settlementdate',
+                    accessor: this.accessor[2],
                     id: 'settlementdate',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.tradedate,
-                    accessor: 'tradedate',
+                    accessor: this.accessor[3],
                     id: 'tradedate',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.stockid,
-                    accessor: 'stockid',
+                    accessor: this.accessor[4],
                     id: 'stockid',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.price,
-                    accessor: 'price',
+                    accessor: this.accessor[5],
                     id: 'price',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.quantity,
-                    accessor: 'quantity',
+                    accessor: this.accessor[6],
                     id: 'quantity',
                     show: true,
                     skip: false,
                 },
                 {
                     Header: this.props.language.cashadvancebank.header.value,
-                    accessor: 'value',
+                    accessor: this.accessor[7],
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
+                    },
                     id: 'value',
                     show: true,
                     skip: false,
                 }
             ],
         }
+
+        this.rowSelected = []
     }
 
 
     render() {
         var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -125,8 +144,8 @@ class MatchOrderBankList extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
-                                (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize + 1,
-                                this.state.matchOrderBankListPageIndex * this.defaultPageSize + 1)}
+                                (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
+                                this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
                         />
                     </div>
 
@@ -157,7 +176,10 @@ class MatchOrderBankList extends Component {
                 columns: [
                     {
                         id: 'cb',
-                        Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                        Header: props => {
+                            return <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" 
+                                onChange={() => this.onRowSelected('ALL')} />
+                        },
                         maxWidth: 50,
                         width: 40,
                         Cell: props => {
@@ -170,57 +192,66 @@ class MatchOrderBankList extends Component {
                         skip: true
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.contractid,
-                        accessor: 'contractid',
+                        Header: this.props.language.cashadvancebank.header.contractid,
+                        accessor: this.accessor[0],
                         id: 'contractid',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.orderid,
-                        accessor: 'orderid',
+                        Header: this.props.language.cashadvancebank.header.orderid,
+                        accessor: this.accessor[1],
                         id: 'orderid',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.settlementdate,
-                        accessor: 'settlementdate',
+                        Header: this.props.language.cashadvancebank.header.settlementdate,
+                        accessor: this.accessor[2],
+                        Cell: props => {
+                            return Utils.formatDate(props.original.cashSettleDay, "ddmmyyyy")
+                        },
                         id: 'settlementdate',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.tradedate,
-                        accessor: 'tradedate',
+                        Header: this.props.language.cashadvancebank.header.tradedate,
+                        accessor: this.accessor[3],
+                        Cell: props => {
+                            return Utils.formatDate(props.original.tradeDate, "ddmmyyyy")
+                        },
                         id: 'tradedate',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.stockid,
-                        accessor: 'stockid',
+                        Header: this.props.language.cashadvancebank.header.stockid,
+                        accessor: this.accessor[4],
                         id: 'stockid',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.price,
-                        accessor: 'price',
+                        Header: this.props.language.cashadvancebank.header.price,
+                        accessor: this.accessor[5],
                         id: 'price',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.quantity,
-                        accessor: 'quantity',
+                        Header: this.props.language.cashadvancebank.header.quantity,
+                        accessor: this.accessor[6],
                         id: 'quantity',
                         show: true,
                         skip: false,
                     },
                     {
-                        Header: nextProps.language.cashadvancebank.header.value,
-                        accessor: 'value',
+                        Header: this.props.language.cashadvancebank.header.value,
+                        accessor: this.accessor[7],
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
+                        },
                         id: 'value',
                         show: true,
                         skip: false,
@@ -254,6 +285,7 @@ class MatchOrderBankList extends Component {
 
     }
     onRowSelected(param) {
+
         if (param === 'ALL') {
             var current = document.getElementById(this.id + '-cb-all').checked
             var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
@@ -266,12 +298,14 @@ class MatchOrderBankList extends Component {
                 this.rowSelected = []
         }
         else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
+
+            var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
+
+            if(tmp.length > 0){
+                // exist in row selected
+                this.rowSelected = this.rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
+            } else{
                 this.rowSelected.push(param)
-            }
-            else {
-                this.rowSelected.splice(index, 1)
             }
 
             if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
@@ -280,26 +314,9 @@ class MatchOrderBankList extends Component {
                 document.getElementById(this.id + "-cb-all").checked = false
         }
 
-        this.MatchOrderBankListData.cTovalValue = 0;
-        this.MatchOrderBankListData.cOrderIDArray = new Array()
-        this.MatchOrderBankListData.cContractIDArray = new Array()
-
-        for (var i = 0; i < this.rowSelected.length; i++) {
-            this.MatchOrderBankListData.cOrderIDArray[i] = this.rowSelected[i].mvOrderID
-            this.MatchOrderBankListData.cContractIDArray[i] = this.rowSelected[i].mvContractID
-            this.MatchOrderBankListData.cTovalValue += parseFloat(this.rowSelected[i].mvAvailableAmount)
-            this.MatchOrderBankListData.cTPLUSXHF = this.rowSelected[i].mvSettleDay
-        }
-
-        // var txtAdvanceAvailable = document.getElementById('txtAdvanceAvailable')
-        // var txtAdvancePayment = document.getElementById('txtAdvancePayment')
-        // txtAdvanceAvailable.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
-        // txtAdvancePayment.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
-
-        // this.props.calculateInterest({
-        //     advPayment: document.getElementById('txtAdvancePayment').value,
-        //     language: this.props.language
-        // })
+        //console.log(this.rowSelected)
+        this.props.paymentSelectionChange(this.rowSelected)
+        
     }
 
 }
@@ -314,6 +331,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     getqueryAdvancePaymentInfo: (params) => {
         dispatch(actions.getqueryAdvancePaymentInfo(params))
     },
+    paymentSelectionChange: (list) => {
+        dispatch(actions.paymentSelectionChange(list))
+    }
 
 })
 

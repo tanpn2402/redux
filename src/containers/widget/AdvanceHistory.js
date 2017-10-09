@@ -7,19 +7,37 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
+import config from '../../core/config'
 
 class AdvanceHistory extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceHistory'
+        this.lang = config.cache.lang
         this.defaultPageSize = 15
+        this.cashAdHisPageIndex = 1
+
+        this.accessor = [
+            'creationTime',
+            'receiveClientID',
+            'totalLendingAmt',
+            'interestAccured',
+            'personPayFee',
+            'status',
+            'lastApprovaltime',
+            'transType',
+            'remark',
+            'createTime',
+            'trandate',
+            'inputChanel',
+            'chanelType'
+        ]
 
         this.state = {
-            cashAdTransPageIndex: 1,
             columns: [
                 {
                     Header: this.props.language.cashadvance.header.date,
-                    accessor: 'creationTime',
+                    accessor: this.accessor[0],
                     id: 'date',
                     show: true,
                     skip: false,
@@ -27,7 +45,9 @@ class AdvanceHistory extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.advanceamount,
-                    accessor: 'totalLendingAmt',
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.totalLendingAmt, ",", this.lang)
+                    },
                     id: 'advanceamount',
                     show: true,
                     skip: false,
@@ -36,23 +56,27 @@ class AdvanceHistory extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.advancefee,
-                    accessor: 'interestAccured',
                     id: 'advancefee',
+                    Cell : props => {
+                        return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
+                    },
                     show: true,
                     skip: false,
                     width: 120,
                 },
                 {
                     Header: this.props.language.cashadvance.header.processingstatus,
-                    accessor: 'status',
                     id: 'processingstatus',
+                    Cell: props => {
+                        return this.getStatus(props.original.status)
+                    },
                     show: true,
                     skip: false,
                     width: 120,
                 },
                 {
                     Header: this.props.language.cashadvance.header.lastupdate,
-                    accessor: 'lastApprovaltime',
+                    accessor: this.accessor[6],
                     id: 'lastupdate',
                     show: true,
                     skip: false,
@@ -62,11 +86,14 @@ class AdvanceHistory extends Component {
                     Header: this.props.language.cashadvance.header.note,
                     accessor: 'remark',
                     id: 'note',
+                    Cell: props => {
+                        return this.getNotes(props.original.note)
+                    },
                     show: true,
                     skip: false,
-                    width: 120,
+                    width: 300,
                 }
-            ],
+            ]
         }
 
         this.getCashAdvanceHistoryParams = {
@@ -79,10 +106,31 @@ class AdvanceHistory extends Component {
         }
     }
 
+    getStatus(v) {
+        var language = this.props.language.cashadvance.status
+        if(v){
+            return language['STATUS_' + v.toUpperCase()]
+        }
+        else{
+            return language['STATUS_P']
+        }
+    }
+
+    getNotes(v) {
+        var language = this.props.language.cashadvance.remark
+        if (v){
+            return ''
+        } else {
+            return language.remark
+        }
+    }
+
 
     render() {
-        var cashAdvanceHistory = this.props.CashAdvanceHistory.list === undefined ? [] : this.props.CashAdvanceHistory.list
-        cashAdvanceHistory = cashAdvanceHistory === null ? [] : cashAdvanceHistory
+        var cashAdvanceHistory = this.props.cashAdvanceHistory
+        var data = cashAdvanceHistory.list
+
+        console.log(cashAdvanceHistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
@@ -95,14 +143,14 @@ class AdvanceHistory extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={cashAdvanceHistory.slice((this.state.cashAdTransPageIndex - 1) * 6, this.state.cashAdTransPageIndex * 6)}
+                            data={data}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.state.cashAdTransPageIndex}
-                            totalRecord={Math.ceil(cashAdvanceHistory.length / this.defaultPageSize)}
+                            pageIndex={this.cashAdHisPageIndex}
+                            totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onCashAdTransPageChange.bind(this)}
                             onNextPage={this.onCashAdTransNextPage.bind(this)}
                             onPrevPage={this.onCashAdTransPrevPage.bind(this)}
@@ -126,7 +174,7 @@ class AdvanceHistory extends Component {
                 columns: [
                     {
                         Header: nextProps.language.cashadvance.header.date,
-                        accessor: 'creationTime',
+                        accessor: this.accessor[0],
                         id: 'date',
                         show: true,
                         skip: false,
@@ -134,7 +182,9 @@ class AdvanceHistory extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.advanceamount,
-                        accessor: 'totalLendingAmt',
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.totalLendingAmt, ",", this.lang)
+                        },
                         id: 'advanceamount',
                         show: true,
                         skip: false,
@@ -143,23 +193,27 @@ class AdvanceHistory extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.advancefee,
-                        accessor: 'interestAccured',
                         id: 'advancefee',
+                        Cell : props => {
+                            return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
+                        },
                         show: true,
                         skip: false,
                         width: 120,
                     },
                     {
                         Header: nextProps.language.cashadvance.header.processingstatus,
-                        accessor: 'status',
                         id: 'processingstatus',
+                        Cell: props => {
+                            return this.getStatus(props.original.status)
+                        },
                         show: true,
                         skip: false,
                         width: 120,
                     },
                     {
                         Header: nextProps.language.cashadvance.header.lastupdate,
-                        accessor: 'lastApprovaltime',
+                        accessor: this.accessor[6],
                         id: 'lastupdate',
                         show: true,
                         skip: false,
@@ -169,9 +223,12 @@ class AdvanceHistory extends Component {
                         Header: nextProps.language.cashadvance.header.note,
                         accessor: 'remark',
                         id: 'note',
+                        Cell: props => {
+                            return this.getNotes(props.original.note)
+                        },
                         show: true,
                         skip: false,
-                        width: 120,
+                        width: 300,
                     }
                 ]
             })
@@ -186,18 +243,18 @@ class AdvanceHistory extends Component {
     }
 
     onCashAdTransNextPage() {
-        this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) + 1
-        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.cashAdHisPageIndex = parseInt(this.cashAdHisPageIndex) + 1
+        this.getCashAdvanceHistoryParams['start'] = (this.cashAdHisPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
         this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+        this.getCashAdvanceHistoryParams['page'] = this.cashAdHisPageIndex
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onCashAdTransPrevPage() {
-        this.state.cashAdTransPageIndex = parseInt(this.state.cashAdTransPageIndex) - 1
-        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.cashAdHisPageIndex = parseInt(this.cashAdHisPageIndex) - 1
+        this.getCashAdvanceHistoryParams['start'] = (this.cashAdHisPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
         this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+        this.getCashAdvanceHistoryParams['page'] = this.cashAdHisPageIndex
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
@@ -206,17 +263,17 @@ class AdvanceHistory extends Component {
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
     onCashAdTransPageChange(pageIndex) {
-        this.state.cashAdTransPageIndex = pageIndex
-        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdTransPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
+        this.cashAdHisPageIndex = pageIndex
+        this.getCashAdvanceHistoryParams['start'] = (this.cashAdHisPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
         this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdTransPageIndex
+        this.getCashAdvanceHistoryParams['page'] = this.cashAdHisPageIndex
         this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
 }
 const mapStateToProps = (state) => {
     return {
-        CashAdvanceHistory: state.cashadvance.CashAdvanceHistory,
+        cashAdvanceHistory: state.cashadvance.cashAdvanceHistory,
 
     }
 }
