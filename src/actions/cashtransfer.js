@@ -64,24 +64,23 @@ export function gethksCachTranHis(params) {
 // }
 function validateParamsTransfer(paramsTransfer, language, mvTransferBean) {
   //check if Available Balance is positive
-  if (paramsTransfer.txtAmnAvailable <= 0) {
+  if (paramsTransfer.mvAvaiableAmt <= 0) {
     return (dispatch) => {
-      dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.notEnoughMoney))
+      dispatch(showMessageBox(language.messagebox.title.error, language.cashtransfer.message.notenoughmoney))
     }
-    return false;
   }
 
   //check if Transfer amount equal zero
   if (paramsTransfer.mvAmount <= 0) {
     return (dispatch) => {
-      dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
+      dispatch(showMessageBox(language.messagebox.title.error, language.cashtransfer.message.noamount))
     }
   }
 
   //check if transfer amount is over available amount
-  if (paramsTransfer.mvAmount < mvTransferBean.txtAmnAvailable) {
+  if (paramsTransfer.mvAmount > mvTransferBean.mvAvailable) {
     return (dispatch) => {
-      dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.noAmount))
+      dispatch(showMessageBox(language.messagebox.title.error, language.cashtransfer.message.overtransfer))
     }
   }
   
@@ -89,12 +88,12 @@ function validateParamsTransfer(paramsTransfer, language, mvTransferBean) {
 }
 
 export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language) {
-
-  if (validateParamsTransfer(paramsTransfer, language, mvTransferBean)){
+  let validateRes = validateParamsTransfer(paramsTransfer, language, mvTransferBean)
+  if (validateRes==true){
     var responseCheckFundTransTime = function (response) {
 
       var msg = response.mvResult
-      if (msg && msg.trim().length > 0) {
+      if (msg && msg.trim().length <= 0) {
         return (dispatch) => {
           dispatch(showMessageBox(language.messagebox.title.error, msg))
         }
@@ -118,6 +117,8 @@ export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, languag
     return (dispatch) => {
       WebApi.post(ACTION.CHECKFUNDTRANSFERTIME, [], dispatch, responseCheckFundTransTime)
     }
+  }else{
+    return validateRes
   }
 }
 
@@ -132,7 +133,7 @@ export function submitCashTransfer(data, authParams, language) {
           }
         } else {
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, '123'))
+            dispatch(showMessageBox(language.messagebox.title.error, response.mvFundTransferResult))
           }
         }
       } else {

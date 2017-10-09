@@ -482,7 +482,8 @@
                     "approvetime": "Thời gian xác nhận",
                     "date": "Ngày GD",
                     "cancel": "Hủy GD",
-                    "bankordertype": "Tài khoản ngân hàng"
+                    "localaccount": "Tài khoản nội bộ",
+                    "bankaccount": "Tài khoản ngân hàng"
                 },
                 "status": {
                     "pending": "Đang chờ",
@@ -490,6 +491,9 @@
                     "rejected": "Hủy"
                 },
                 "message": {
+                    "notenoughmoney": "Quý khách không còn đủ tiền để thực hiện giao dịch này.",
+                    "noamount": "Xin vui lòng nhập số tiền.",
+                    "overtransfer" : "Số tiền cần chuyển lớn hơn số tiền bạn có.",
                     "cancelSuccess": "Gửi lệnh thành công. Vui lòng kiểm tra lại trong sổ lệnh.",
                     "cancelFailed": "Hủy lệnh thất bại."
                 },

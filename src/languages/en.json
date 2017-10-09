@@ -557,7 +557,8 @@
                     "approvetime": "Approve time",
                     "date": "Date",
                     "cancel": "Cancel",
-                    "bankordertype": "Order Type"
+                    "localaccount": "Local account",
+                    "bankaccount": "Banking account"
                 },
                 "error": {
                     "transtype": "Choose transfer type",
@@ -571,16 +572,15 @@
                     "rejected": "Rejected"
                 },
                 "message": {
-                    "insufficientfund": "Insufficient Fund!",
+                    "notenoughmoney": "Your amount is not enough to transfer.",
                     "noamount": "Amount should not be blank.",
-                    "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Successful",
+                    "overtransfer" : "Your amount is not enough",
                     "cancelSuccess": "Cash transfer order is cancelled. Please check in History screen.",
                     "cancelFailed": "Cancel cash transfer order is failed. Please contact to support team."
                 },
                 "popup": {
                     "title": "Cash Transfer",
-                    "message": "Bạn có chắc muốn thực hiện ?",
+                    "message": "Do you want to do this action?",
                     "ok": "OK",
                     "cancel": "Cancel"
                 }

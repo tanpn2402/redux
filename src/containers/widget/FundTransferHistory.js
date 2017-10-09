@@ -280,7 +280,6 @@ class FundTransHistory extends Component {
     }
 
     onPageChange(pageIndex){
-        console.log(this.id + ' onPageChange', pageIndex)
         this.setState({pageIndex: pageIndex });
     }
 
