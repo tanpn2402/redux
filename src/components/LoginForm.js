@@ -53,7 +53,6 @@ class LoginForm extends Component {
         return (
             <div className="login-form">
                 <div className="login-form-header">
-                    <div className="login-logo mirae-logo" />
                     <div className="login-logo ttx-logo" />
                 </div>
 
