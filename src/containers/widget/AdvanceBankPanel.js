@@ -6,17 +6,31 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
 import * as Utils from '../../utils'
+import config from '../../core/config'
 
 class AdBankPanel extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceBankPanel'
+        this.lang = config.cache.lang
 
 
 
 
         this.queryBankInfoParams = {
             key: (new Date()).getTime()
+        }
+
+        this.MatchOrderBankListData = {
+            cOrderIDArray: [],
+            cContractIDArray: [],
+            cTovalValue: 0,
+            cAmount: 0,
+            cMaxAmt: 0,
+            cCurrencySymbol: "",
+            cBankIDHF: "",
+            cBankACIDHF: "",
+            cTPLUSXHF: ""
         }
     }
 
@@ -38,7 +52,8 @@ class AdBankPanel extends Component {
                                      <tr>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <select id="mvBank" onChange={this.getAdvanceOrderData.bind(this)}>
+                                            <select id="mvBank" style={{width: '100%'}} 
+                                                onChange={this.getAdvanceOrderData.bind(this)}>
                                                 {
                                                     queryBankInfo.mvBankInfoList.map(bank => {
                                                         return (
@@ -53,20 +68,36 @@ class AdBankPanel extends Component {
                                     </tr>
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                        <td id="txtAdvanceAvailable">4.600.630</td>
+                                        <td>
+                                            <input
+                                                className="hks-input read-only"
+                                                id="advanceAvailable"
+                                                ref={e => this.txtAdvanceAvailable = e}
+                                                readOnly/>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
-                                            {Utils.toTTLCurrencyFormat(calculateInterestAmt.mvInterestAmt)}
+                                            <input
+                                                className="hks-input read-only"
+                                                id="advanceAvailable"
+                                                ref={e => this.txtAdvanceFee = e}
+                                                value={Utils.toTTLCurrencyFormat(calculateInterestAmt.mvInterestAmt)}
+                                                readOnly/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td>
-                                            <FormGroup controlID="volume">
-                                                <input type="number" name="volume" min="0" onBlur={this.doCalculateInterest.bind(this)}  
-                                                    id="txtAdvancePayment" required />
+                                            <FormGroup>
+                                                <input type="number" 
+                                                    name="volume" 
+                                                    min="0" 
+                                                    onBlur={this.doCalculateInterest.bind(this)}  
+                                                    id="advancePayment"
+                                                    ref={e => this.txtAdvancePayment = e}
+                                                    required />
                                             </FormGroup>
                                         </td>
                                     </tr>
@@ -74,11 +105,13 @@ class AdBankPanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" onClick={this.handleSubmit.bind(this)}>
-                                        Submit
+                                    <button className="btn btn-default" type="button" className="hks-btn btn-cancel" 
+                                        onClick={e => this.handleResetForm(this.props.paymentSelected)}>
+                                        {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel">
-                                        Cancel
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                        onClick={this.handleSubmit.bind(this)}>
+                                        {this.props.language.button.submit}
                                     </button>
                                 </span>
                             </div>
@@ -95,9 +128,47 @@ class AdBankPanel extends Component {
         this.props.getqueryBankInfo(this.queryBankInfoParams)
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.queryBankInfo.mvBankInfoList.length > 0){
+            var params = {
+                'mvBankID' : nextProps.queryBankInfo.mvBankInfoList[0].mvBankID,
+                'mvSettlement' : "3T"
+            }
+            this.props.getqueryAdvancePaymentInfo(params)
+        }
+
+        if(nextProps.paymentSelected){
+            this.calculateWhenPaymentSelectedChange(nextProps.paymentSelected)
+        }
+    }
+
+    componentWillUnmount(){
+        this.props.paymentSelectionChange([])
+    }
+
+    calculateWhenPaymentSelectedChange(list){
+        if(list.length > 0){
+            this.MatchOrderBankListData.cTovalValue = 0;
+            this.MatchOrderBankListData.cOrderIDArray = new Array()
+            this.MatchOrderBankListData.cContractIDArray = new Array()
+
+            for (var i = 0; i < list.length; i++) {
+                this.MatchOrderBankListData.cOrderIDArray[i] = list[i].mvOrderID
+                this.MatchOrderBankListData.cContractIDArray[i] = list[i].mvContractID
+                this.MatchOrderBankListData.cTovalValue += parseFloat(list[i].mvAvailableAmount)
+                this.MatchOrderBankListData.cTPLUSXHF = list[i].mvSettleDay
+            }
+
+            
+            this.txtAdvanceAvailable.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", this.lang)
+
+        } else {
+            this.handleResetForm(list)
+        }
+    }
     handleSubmit(e) {
         e.preventDefault()
-        let advPayment = document.getElementById('txtAdvancePayment').value
+        let advPayment = this.txtAdvancePayment.value
         this.MatchOrderBankListData['advAmt'] = advPayment
         this.props.beforeSubmitCashAdvBank({
             advPayment: advPayment,
@@ -106,12 +177,41 @@ class AdBankPanel extends Component {
         })
     }
 
+    handleResetForm(paymentSelected){
+        if(paymentSelected.length <= 0){
+            // do not reset txt Advance Available if some row selected
+            this.txtAdvanceAvailable.value = '0'
+
+            this.MatchOrderBankListData = {
+                cOrderIDArray: [],
+                cContractIDArray: [],
+                cTovalValue: 0,
+                cAmount: 0,
+                cMaxAmt: 0,
+                cCurrencySymbol: "",
+                cBankIDHF: "",
+                cBankACIDHF: "",
+                cTPLUSXHF: ""
+            }
+        }
+        this.txtAdvanceFee.value = "0"
+        this.txtAdvancePayment.value = ''
+        
+
+        
+    }
+
     doCalculateInterest(e) {
         e.preventDefault();
-        this.props.calculateInterest({
-            advPayment: document.getElementById('txtAdvancePayment').value,
-            language: this.props.language
-        })
+        if(this.MatchOrderBankListData.cTPLUSXHF){
+            this.txtAdvanceFee.value = "0"
+            this.props.calculateInterest({
+                advPayment: this.txtAdvancePayment.value,
+                cTPLUSXHF: this.MatchOrderBankListData.cTPLUSXHF,
+                language: this.props.language
+            })
+        }
+            
     }
 
     getAdvanceOrderData(e){
@@ -134,7 +234,11 @@ class AdBankPanel extends Component {
 const mapStateToProps = (state) => {
     return {
         queryBankInfo: state.cashadvancebank.queryBankInfo,
-        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt
+        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt,
+        //queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
+
+        paymentSelected: state.cashadvancebank.paymentSelected,
+        reloadTmp: state.cashadvancebank.key,
     }
 }
 
@@ -154,6 +258,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onShowMessageBox: (title, message) => {
         dispatch(actions.showMessageBox(title, message))
     },
+    paymentSelectionChange: (list) => {
+        dispatch(actions.paymentSelectionChange(list))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdBankPanel)

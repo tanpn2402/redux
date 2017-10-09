@@ -1,54 +1,55 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  queryAdvancePaymentInfo: {
-    mvChildBeanList: [],
-    mvErrorCode: null,
-    mvErrorResult: 'fail',
-    mvParentBean: null,
-    success: true
-  },
-  CashAdvanceHistory: {
-    list: [],
-    totalCount: 0
-  },
-  queryBankInfo: {
-    mvBankInfoList: [],
-    mvErrorCode: '0',
-    mvErrorResult: 'fail',
-    success: true
-  },
-  calculateInterestAmt: {
-    mvErrorCode : null,
-    mvErrorResult : "fail",
-    mvInterestAmt : "0",
-    success : false
-  }
+    queryAdvancePaymentInfo: {
+        mvChildBeanList: [],
+        mvErrorCode: null,
+        mvErrorResult: 'fail',
+        mvParentBean: null,
+        success: true
+    },
+    // CashAdvanceHistory: {
+    //     list: [],
+    //     totalCount: 0
+    // },
+    queryBankInfo: {
+        mvBankInfoList: [],
+        mvErrorCode: '0',
+        mvErrorResult: 'fail',
+        success: true
+    },
+    calculateInterestAmt: {
+        mvErrorCode: null,
+        mvErrorResult: "fail",
+        mvInterestAmt: "0",
+        success: false
+    },
+    paymentSelected: [],
+    key: 1
 };
 
-export default function (state = initialState, action) {
-  switch (action.type) {
-    case ActionTypes.QUERYADVANCEPAYMENTINFO:
-        return Object.assign({},state,{
-          queryAdvancePaymentInfo: action.queryAdvancePaymentInfo,
-        });
+export default function(state = initialState, action) {
+    switch (action.type) {
+        case ActionTypes.QUERYADVANCEPAYMENTINFO:
+            return Object.assign({}, state, {
+                queryAdvancePaymentInfo: action.queryAdvancePaymentInfo,
+            });
+        case ActionTypes.QUERYBANKINFO:
+            return Object.assign({}, state, {
+                queryBankInfo: action.queryBankInfo,
+            })
+        case ActionTypes.CALCULATEINTERSETAMT:
+            return Object.assign({}, state, {
+                calculateInterestAmt: action.calculateInterestAmt,
+            })
+        case ActionTypes.PAYMENTSELECTED:
+            console.log(action)
+            return Object.assign({}, state, {
+                paymentSelected: action.data,
+                key: (new Date()).getTime()
+            })
 
-    case ActionTypes.GETCASHADVANCEHISTORY:
-        action.CashAdvanceHistory.list = action.CashAdvanceHistory.list === null ? [] : action.CashAdvanceHistory.list
-        return Object.assign({},state,  {   
-          CashAdvanceHistory: action.CashAdvanceHistory,
-        });
-    case ActionTypes.QUERYBANKINFO:
-        return Object.assign({},state,{
-          queryBankInfo: action.queryBankInfo,
-        })
-    case ActionTypes.CALCULATEINTERSETAMT:
-    console.log(action.calculateInterestAmt)
-        return Object.assign({},state,{
-          calculateInterestAmt: action.calculateInterestAmt,
-        })
-
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };

@@ -6,11 +6,13 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
 import * as Utils from '../../utils'
+import config from '../../core/config'
 
 class AdvancePanel extends Component {
     constructor(props) {
         super(props)
         this.id = "advancePanel"
+        this.lang = config.cache.lang
 
         this.getLocalAdvanceCreationParam = {
             mvLastAction: 'OTHERSERVICES',
@@ -23,11 +25,15 @@ class AdvancePanel extends Component {
         }
     }
 
+    componentWillReceiProps(n){
+        console.log(n)
+    }
+
 
     render() {
-        var localAdvance = this.props.LocalAdvance.mvAdvanceBean === undefined ? [] : this.props.LocalAdvance.mvAdvanceBean
-        localAdvance = localAdvance === null ? [] : localAdvance
+        var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
+        
         return (
             <div>
                 <Title widgetID={this.id}>
@@ -40,12 +46,17 @@ class AdvancePanel extends Component {
                                 <tbody >
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                        <td>{Utils.currencyShowFormatter(advAvailable,",", 'vi-VN')}</td>
+                                        <td>{Utils.currencyShowFormatter(advAvailable,",", this.lang)}</td>
                                     </tr>
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
-                                            {Utils.currencyShowFormatter(this.state.advanceFee, ",", 'vi-VN')}
+                                            <input
+                                                className="hks-input read-only"
+                                                id="advanceFee"
+                                                ref={e => this.txtAdFee = e}
+                                                value={Utils.currencyShowFormatter(localAdvance.advFee, ",", this.lang)}
+                                                readOnly/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -62,11 +73,13 @@ class AdvancePanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" onClick={this.handleSubmit.bind(this)}>
-                                        Submit
+                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel"
+                                        onClick={e => this.handleResetForm()}>
+                                        {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel">
-                                        Cancel
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                        onClick={this.handleSubmit.bind(this)}>
+                                        {this.props.language.button.submit}
                                     </button>
                                 </span>
                             </div>
@@ -86,13 +99,17 @@ class AdvancePanel extends Component {
     handleSubmit(e) {
         e.preventDefault()
         let advPayment = document.getElementById('txtAdvancePayment').value
-        this.props.beforeSubmit(advPayment, this.props.LocalAdvance.mvAdvanceBean, this.props.language)
+        this.props.beforeSubmit(advPayment, this.props.localAdCreation.mvAdvanceBean, this.props.language)
+    }
+
+    handleResetForm(){
+
     }
 
     onAdvancePaymentChange(e) {
         e.preventDefault();
         let advPayment = e.target.value
-        let advCfgInfor = this.props.LocalAdvance.mvAdvanceBean
+        let advCfgInfor = this.props.localAdCreation.mvAdvanceBean
 
         if(advCfgInfor && advPayment > 0){
             
@@ -133,21 +150,27 @@ class AdvancePanel extends Component {
                     cont = false;
                 }
             }   
-
-            this.setState({ advanceFee: tempFee })
+            this.txtAdFee.value = Utils.currencyShowFormatter(tempFee, ",", this.lang)
         } 
     }
 
 }
 const mapStateToProps = (state) => {
     return {
-        LocalAdvance: state.cashadvance.LocalAdvance,
+        localAdCreation: state.loanrefund.localAdvanceCreation,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
     getLocalAdvanceCreation: (params) => {
+        // this action in loanrefund.js
         dispatch(actions.getLocalAdvanceCreation(params))
+    },
+    beforeSubmit: (advPayment, mvAdvanceBean, language) => {
+        dispatch(actions.beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language))
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
     },
 })
 

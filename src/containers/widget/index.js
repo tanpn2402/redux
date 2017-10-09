@@ -43,7 +43,6 @@ import TechAnalysis from './TechAnalysis'
 import WatchList from './WatchList'
 
 export default function (menuid, props){
-	console.log(menuid)
 	switch(menuid){
 
 

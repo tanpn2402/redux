@@ -7,12 +7,29 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
+import config from '../../core/config'
 
 class MatchOrderList extends Component {
     constructor(props) {
         super(props)
         this.id = 'matchOrderList'
         this.defaultPageSize = 15
+        this.lang = config.cache.lang
+
+        this.accessor = [
+            'mvOrderID',
+            'tradeDate',
+            'cashSettleDay',
+            'mvStockID',
+            'mvQuantity',
+            'mvAmount',
+            'tradingFee',
+            'tax',
+            'advancedAmt',
+            'advanceAmt',
+            'advanceFee',
+            'mvFormatedAmount'
+        ]
 
         this.state = {
 
@@ -20,7 +37,7 @@ class MatchOrderList extends Component {
             columns: [
                 {
                     Header: this.props.language.cashadvance.header.id,
-                    accessor: 'mvOrderID',
+                    accessor: this.accessor[0],
                     id: 'id',
                     show: true,
                     skip: false,
@@ -28,7 +45,7 @@ class MatchOrderList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.matchingdate,
-                    accessor: 'tradeDate',
+                    accessor: this.accessor[1],
                     id: 'matchingdate',
                     show: true,
                     skip: false,
@@ -36,7 +53,7 @@ class MatchOrderList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.paymentdate,
-                    accessor: 'cashSettleDay',
+                    accessor: this.accessor[2],
                     id: 'paymentdate',
                     show: true,
                     skip: false,
@@ -44,7 +61,7 @@ class MatchOrderList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.stock,
-                    accessor: 'mvStockID',
+                    accessor: this.accessor[3],
                     id: 'stock',
                     show: true,
                     skip: false,
@@ -52,7 +69,7 @@ class MatchOrderList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.volume,
-                    accessor: 'mvQuantity',
+                    accessor: this.accessor[4],
                     id: 'volume',
                     show: true,
                     skip: false,
@@ -60,16 +77,20 @@ class MatchOrderList extends Component {
                 },
                 {
                     Header: this.props.language.cashadvance.header.value,
-                    accessor: 'mvAmount',
                     id: 'value',
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
+                    },
                     show: true,
                     skip: false,
                     width: 150,
                 },
                 {
                     Header: this.props.language.cashadvance.header.fee,
-                    accessor: 'tradingFee',
                     id: 'fee',
+                    Cell: props => {
+                        return Utils.currencyShowFormatter(props.original.tradingFee, ",", this.lang)
+                    },
                     show: true,
                     skip: false,
                     width: 150,
@@ -80,8 +101,8 @@ class MatchOrderList extends Component {
 
 
     render() {
-        var soldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
-        soldOrders = soldOrders === null ? [] : soldOrders
+        var soldOrders = this.props.soldOrders
+        var data = soldOrders.mvChildBeanList
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
@@ -94,14 +115,16 @@ class MatchOrderList extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1) * 15, this.state.orderMatchListPageIndex * 15)}
+                            data={data.slice(
+                                (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize, 
+                                this.state.orderMatchListPageIndex * this.defaultPageSize)}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
                             pageIndex={this.state.orderMatchListPageIndex}
-                            totalRecord={soldOrders.length}
+                            totalRecord={Math.ceil( soldOrders.totalCount / this.defaultPageSize )}
                             onPageChange={this.onOrderMatchListPageChange.bind(this)}
                             onNextPage={this.onOrderMatchListNextPage.bind(this)}
                             onPrevPage={this.onOrderMatchListPrevPage.bind(this)}
@@ -126,7 +149,7 @@ class MatchOrderList extends Component {
                 columns: [
                     {
                         Header: nextProps.language.cashadvance.header.id,
-                        accessor: 'mvOrderID',
+                        accessor: this.accessor[0],
                         id: 'id',
                         show: true,
                         skip: false,
@@ -134,7 +157,7 @@ class MatchOrderList extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.matchingdate,
-                        accessor: 'tradeDate',
+                        accessor: this.accessor[1],
                         id: 'matchingdate',
                         show: true,
                         skip: false,
@@ -142,7 +165,7 @@ class MatchOrderList extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.paymentdate,
-                        accessor: 'cashSettleDay',
+                        accessor: this.accessor[2],
                         id: 'paymentdate',
                         show: true,
                         skip: false,
@@ -150,7 +173,7 @@ class MatchOrderList extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.stock,
-                        accessor: 'mvStockID',
+                        accessor: this.accessor[3],
                         id: 'stock',
                         show: true,
                         skip: false,
@@ -158,7 +181,7 @@ class MatchOrderList extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.volume,
-                        accessor: 'mvQuantity',
+                        accessor: this.accessor[4],
                         id: 'volume',
                         show: true,
                         skip: false,
@@ -166,16 +189,20 @@ class MatchOrderList extends Component {
                     },
                     {
                         Header: nextProps.language.cashadvance.header.value,
-                        accessor: 'mvAmount',
                         id: 'value',
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
+                        },
                         show: true,
                         skip: false,
                         width: 150,
                     },
                     {
                         Header: nextProps.language.cashadvance.header.fee,
-                        accessor: 'tradingFee',
                         id: 'fee',
+                        Cell: props => {
+                            return Utils.currencyShowFormatter(props.original.tradingFee, ",", this.lang)
+                        },
                         show: true,
                         skip: false,
                         width: 150,
@@ -193,35 +220,23 @@ class MatchOrderList extends Component {
     }
 
     onOrderMatchListNextPage() {
-        this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) + 1
-        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-        this.querySoldOrdersParams['key'] = (new Date()).getTime()
-        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex + 1 });
     }
 
     onOrderMatchListPrevPage() {
-        this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) - 1
-        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-        this.querySoldOrdersParams['key'] = (new Date()).getTime()
-        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex - 1  });
     }
 
     onOrderMatchListReloadPage() {
-        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+        
     }
     onOrderMatchListPageChange(pageIndex) {
-        this.state.orderMatchListPageIndex = pageIndex
-        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-        this.querySoldOrdersParams['key'] = (new Date()).getTime()
-        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+        this.setState({ orderMatchListPageIndex: pageIndex });
     }
 }
 const mapStateToProps = (state) => {
     return {
-        SoldOrders: state.cashadvance.SoldOrders,
+        soldOrders: state.cashadvance.soldOrders,
 
     }
 }

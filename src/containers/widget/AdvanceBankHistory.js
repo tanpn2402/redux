@@ -207,12 +207,13 @@ class AdBankHistory extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        cashAdvanceHistory: state.cashadvancebank.CashAdvanceHistory,
+        cashAdvanceHistory: state.cashadvance.cashAdvanceHistory,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
     getCashAdvance: (params) => {
+        // getCashAdvance function in action/cashadvance.js
         dispatch(actions.getCashAdvance(params))
     },
 })

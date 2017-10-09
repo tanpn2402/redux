@@ -14,18 +14,21 @@ import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatem
 import { loadWatchList, addStock, removeStock } from './watchlist'
 import { getClientInfo, changePassword } from './profile'
 import { getOddlotEnquiry, getOddlotHistory, submitOddLot, getBankInfo, beforeRegisterOddLot } from './oddlottrading'
-import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer, beforeCancelFundTransfer, beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer } from './cashtransfer'
+import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer, beforeCancelFundTransfer, 
+  beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer } from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import { avaiblemarginlist } from './avaiblemarginlist'
 import { getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt } from './accountinfo'
 import { showMessageBox, showFlashPopup } from './notification'
 import {
-  getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList,
+  getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getEntitlementStockList,
   entitlementGetAccountBalance, getEntitlementData, submitEntitlement
 } from './entitlement'
-import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
-import { getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
-import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank } from './cashadvancebank'
+import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, 
+  getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
+import { getCashAdvance, getQuerySoldOrders, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
+import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, 
+    submitCashAdvanceBank, paymentSelectionChange } from './cashadvancebank'
 
 import { showPopup } from './popup'
 
@@ -75,26 +78,30 @@ export {
   onCancelSubmit,
   onModifySubmit,
 
-  CancelCashtransfer,
+  // margin loan
   enquiryMarginLoan,
   avaiblemarginlist,
+
+  // account info
   getAccountBalance,
   getAccountBalanceBank,
   getStockInfo,
   getUpComingDebt,
   getOverdueDebt,
-  showMessageBox,
-  showFlashPopup,
+
+  // watch list
   loadWatchList,
   addStock,
   removeStock,
 
+  // odd lot tranding
   getOddlotEnquiry,
   getOddlotHistory,
   submitOddLot,
   getBankInfo,
   beforeRegisterOddLot,
 
+  // fund transfer
   getFundtransfer,
   gethksCachTranHis,
   getGenfundtransfer,
@@ -102,38 +109,50 @@ export {
   beforeCancelFundTransfer,
   beforeSubmitCashTransfer,
   submitCashTransfer,
+  CancelCashtransfer,
 
+  // loan refund
   getLocalRefundCreation,
+  getLocalAdvanceCreation,
   getLoanRefundHistory,
   getLoanRefundSubmit,
   getAdvanceSubmit,
   getLoanRefundData,
   beforeSubmitLoanRefund,
   beforeSubmitAdvance,
+
+  // entitlement
   getRightlist,
   getAdditionalshareinfo,
   getEntitlementHistorylist,
-  getDynamicdata,
   getEntitlementStockList,
   getEntitlementData,
   submitEntitlement,
-
   entitlementGetAccountBalance,
-  getCashAdvance,
 
-  exportGetCashTransactionHistory,
-  exportOrderHistory,
-  exportCashTransactionHistory,
-  exportTransactionHistory,
-  exportOrderConfirm,
+  // advance payment
+  getCashAdvance,
   getQuerySoldOrders,
-  getLocalAdvanceCreation,
   beforeSubmitCashAdvance,
   submitCashAdvance,
+
+  // advance payment bank
   getqueryAdvancePaymentInfo,
   getqueryBankInfo,
   calculateInterest,
   beforeSubmitCashAdvBank,
   submitCashAdvanceBank,
+  paymentSelectionChange,
+
+  // export report
+  exportGetCashTransactionHistory,
+  exportOrderHistory,
+  exportCashTransactionHistory,
+  exportTransactionHistory,
+  exportOrderConfirm,
+
+  // popup + notifications
   showPopup,
+  showMessageBox,
+  showFlashPopup,
 };

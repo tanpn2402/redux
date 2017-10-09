@@ -31,7 +31,7 @@ class TabLayout extends Component {
         var language = this.props.language
         var activeTab = this.state.activeTab
         var layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
-        console.log(this.tabbar, layout)
+        //console.log(this.tabbar, layout)
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">

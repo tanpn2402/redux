@@ -27,7 +27,7 @@ class InputSearch extends React.Component {
     	return (
         	<div className="input-search">
                 <div className="input-group input-search-group">
-                    <input type="text" autocomplete="off" id="mvStockId" className="form-control" 
+                    <input type="text" autoComplete="off" id="mvStockId" className="form-control" 
                         ref={e => this.value = e} style={this.props.style}
                         onChange={e => this.onChange(e.target.value)}
                         onBlur={e => this.onBlur(e.target.value)}/>

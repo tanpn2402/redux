@@ -26,7 +26,7 @@ export function numUnFormat(v, s){
 
 export function currencyShowFormatter(original, separator, language) {
     
-    if (language == 'vi-VN'){
+    if (language == 'vi_VN'){
         var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
         if (!original || isNaN(original)
                 || (original == "")) {
@@ -119,4 +119,17 @@ export function quantityShowFormatter(original, separator) {
                     "$1" + separator);
 
     return v;
+}
+
+export function formatDate(input,interval) {
+    if (input != null)
+        {
+          var datePart = input.match(/\d+/g),
+          year = datePart[0], 
+          month = datePart[1], day = datePart[2];
+          switch (interval) { 
+            case "ddmmyyyy" :  return day+'/'+month+'/'+year;
+            case "mmddyyyy" :  return month+'/'+day+'/'+year;
+          }
+        }
 }
