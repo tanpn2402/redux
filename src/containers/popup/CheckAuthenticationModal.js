@@ -55,10 +55,10 @@ class CheckAuthenticationModal extends Component {
                             {this.props.language.enterorder.popup.checknum}
                         </Col>
                         <Col xs={4} style={{textAlign: 'center'}}>
-                            <input className="auth-matrix-key" id="matrix-key01" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readonly />
+                            <input className="auth-matrix-key" id="matrix-key01" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readOnly />
                         </Col>
                         <Col xs={4} style={{textAlign: 'center'}}>
-                            <input className="auth-matrix-key" id="matrix-key02" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readonly />
+                            <input className="auth-matrix-key" id="matrix-key02" value={ '[' + this.generateNum() + ',' + this.generateChar() + ']' } readOnly />
                         </Col>
 
                         <Col xs={4}>

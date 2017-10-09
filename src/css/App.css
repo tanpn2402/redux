@@ -70,7 +70,7 @@ body {
 }
 .hks-input.border{
     border-radius: 2px;
-    background-color: transparent;
+    background-color: #fff;
     border: 1px solid #dcdcdc;
     padding: 3px 6px;
 }

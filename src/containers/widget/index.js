@@ -24,6 +24,11 @@ import MatchOrderBankList from './MatchOrderBankList'
 import AdvanceBankHistory from './AdvanceBankHistory'
 import AdvanceBankPlace from './AdvanceBankPlace'
 
+import LoanRefund from './LoanRefund'
+import LoanRefundPanel from './LoanRefundPanel'
+import LoanRefundHistory from './LoanRefundHistory'
+import LoanRefundStatus from './LoanRefundStatus'
+
 import AdvancePanel from './AdvancePanel'
 import MatchOrderList from './MatchOrderList'
 import AdvanceHistory from './AdvanceHistory'
@@ -194,6 +199,23 @@ export default function (menuid, props){
 		case 'sumary':
 			return (
 				<Sumary stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+			
+		case 'loanrefund':
+			return (
+				<LoanRefund language={props.language} theme={props.theme}/>
+			)
+		case 'loanRefundHistory':
+			return (
+				<LoanRefundHistory language={props.language} theme={props.theme}/>
+			)	
+		case 'loanRefundPanel':
+			return (
+				<LoanRefundPanel language={props.language} theme={props.theme}/>
+			)
+		case 'loanRefundStatus':
+			return (
+				<LoanRefundStatus language={props.language} theme={props.theme}/>
 			)
 
 
