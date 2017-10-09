@@ -326,8 +326,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     gettranSubmit: (paramsfund) => {
         dispatch(actions.getFundtransfer(paramsfund))
     },
-    getgenfundtransfer: (paramsgenfund) => {
-        dispatch(actions.getGenfundtransfer(paramsgenfund))
+    getgenfundtransfer: (paramsgenfund, language) => {
+        dispatch(actions.getGenfundtransfer(paramsgenfund, language))
     },
     beforeSubmit: (paramsTransfer, mvTransferBean, language) => {
         dispatch(actions.beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language))

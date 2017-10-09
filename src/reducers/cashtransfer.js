@@ -31,6 +31,7 @@ export default function (state = initialState, action) {
           datafundtransfer: action.data,
         });
     case ActionTypes.HKSCASHTRANHIS:
+        action.data.list = action.data.list === null ? [] : action.data.list
         return Object.assign({},state,{
           datahkscashtranhis: action.data,
         });
