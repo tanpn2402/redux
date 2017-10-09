@@ -263,16 +263,6 @@ class StockMarketInfo extends Component {
 					</div>
 
 					<div className=" col-xs-6 stock-info">
-						
-						<div className="marketdatainfo-mini-table">
-							<Table
-								key={this.id}
-								id={this.id}
-								defaultPageSize={3}
-								columns={this.state.panel2}
-								data={data}
-							/>
-						</div>
 
 						<div className="marketdatainfo-mini-table">
 							<table>
@@ -293,6 +283,17 @@ class StockMarketInfo extends Component {
 							<div ref={e=>this.perBuy = e}>-</div>
 							<div ref={e=>this.perSell = e}>-</div>
 						</div>
+						
+						<div className="marketdatainfo-mini-table" id="match-order-table">
+							<Table
+								key={this.id}
+								id={this.id}
+								defaultPageSize={15}
+								columns={this.state.panel2}
+								data={[]}
+							/>
+						</div>
+
 					</div>
 				</div>
 				

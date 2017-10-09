@@ -563,7 +563,7 @@ input::-webkit-calendar-picker-indicator {
 
 .form-group>div:nth-child(1) {
     /* font-size: 15px; */
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
 } 
 
 
@@ -947,6 +947,7 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     position: absolute;
     top: 0;
+    z-index: 5;
 }
 .settingnav > .setting-panel {
     height: 100%;
@@ -1090,7 +1091,7 @@ input::-webkit-calendar-picker-indicator {
 #notification-wrapper {
     position: absolute;
     right: 0;
-    margin-right: 20px;
+    margin-right: 15px;
 }
 /*END NOTIFICATION*/
 /*FLASH POPUP*/
@@ -1099,7 +1100,7 @@ input::-webkit-calendar-picker-indicator {
     margin-right: 2px;
     float: right;
     position: relative;
-    z-index: 99;
+    z-index: 5;
     overflow-y: hidden;
 }
 .flashpopup-child {
@@ -1107,7 +1108,7 @@ input::-webkit-calendar-picker-indicator {
     border: none;
     color: #555;
     font-size: 12px;
-    width: 150px;
+    width: 250px;
     height: 60px;
     background-color: #fff;
     padding: 5px;
@@ -2105,6 +2106,24 @@ input::-webkit-calendar-picker-indicator {
     max-height: 50%;
     height: auto;
 }
+.stock-info {
+    position: relative;
+    height: 100%;
+}
+
+.stock-info .volume {
+    text-align: center;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+#match-order-table {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0px;
+    margin-top: 5px;
+}
 
 .marketdatainfo-mini-table table {
     width: 100%;
@@ -2884,18 +2903,4 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
 }
 /* END SUMARY COMPONENT */
-
-/*Mini table rt-tr* - Nguyen*/
-/* .rt-thead > .rt-tr{
-    position: relative;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-
-
 

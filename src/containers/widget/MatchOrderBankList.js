@@ -113,7 +113,7 @@ class MatchOrderBankList extends Component {
     render() {
         var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -125,15 +125,15 @@ class MatchOrderBankList extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
-                                    (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize + 1, 
-                                    this.state.matchOrderBankListPageIndex * this.defaultPageSize + 1)}
+                                (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize + 1,
+                                this.state.matchOrderBankListPageIndex * this.defaultPageSize + 1)}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.state.matchOrderBankListPageIndex} 
-                            totalRecord={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)} 
+                            pageIndex={this.state.matchOrderBankListPageIndex}
+                            totalRecord={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -150,6 +150,86 @@ class MatchOrderBankList extends Component {
     componentDidMount() {
 
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        id: 'cb',
+                        Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                        maxWidth: 50,
+                        width: 40,
+                        Cell: props => {
+                            return (
+                                <input type='checkbox' className={this.id + "-row-checkbox"}
+                                    onChange={() => { this.onRowSelected(props.original) }} />
+                            )
+                        },
+                        sortable: false,
+                        skip: true
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.contractid,
+                        accessor: 'contractid',
+                        id: 'contractid',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.orderid,
+                        accessor: 'orderid',
+                        id: 'orderid',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.settlementdate,
+                        accessor: 'settlementdate',
+                        id: 'settlementdate',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.tradedate,
+                        accessor: 'tradedate',
+                        id: 'tradedate',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.stockid,
+                        accessor: 'stockid',
+                        id: 'stockid',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.price,
+                        accessor: 'price',
+                        id: 'price',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.quantity,
+                        accessor: 'quantity',
+                        id: 'quantity',
+                        show: true,
+                        skip: false,
+                    },
+                    {
+                        Header: nextProps.language.cashadvancebank.header.value,
+                        accessor: 'value',
+                        id: 'value',
+                        show: true,
+                        skip: false,
+                    }
+                ]
+            })
+        }
+    }
+
     onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
@@ -157,21 +237,21 @@ class MatchOrderBankList extends Component {
         });
     }
 
-    onNextPage(){
-        this.setState({ matchOrderBankListPageIndex:  parseInt(this.state.matchOrderBankListPageIndex) + 1});
+    onNextPage() {
+        this.setState({ matchOrderBankListPageIndex: parseInt(this.state.matchOrderBankListPageIndex) + 1 });
     }
 
-    onPrevPage(){
-        this.setState({ matchOrderBankListPageIndex:  parseInt(this.state.matchOrderBankListPageIndex) - 1});
-        
+    onPrevPage() {
+        this.setState({ matchOrderBankListPageIndex: parseInt(this.state.matchOrderBankListPageIndex) - 1 });
+
     }
 
-    onReloadPage(){
+    onReloadPage() {
     }
 
     onPageChange(pageIndex) {
-        this.setState({ matchOrderBankListPageIndex:  parseInt(pageIndex)});
-        
+        this.setState({ matchOrderBankListPageIndex: parseInt(pageIndex) });
+
     }
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -210,12 +290,12 @@ class MatchOrderBankList extends Component {
             this.MatchOrderBankListData.cTovalValue += parseFloat(this.rowSelected[i].mvAvailableAmount)
             this.MatchOrderBankListData.cTPLUSXHF = this.rowSelected[i].mvSettleDay
         }
-        
+
         // var txtAdvanceAvailable = document.getElementById('txtAdvanceAvailable')
         // var txtAdvancePayment = document.getElementById('txtAdvancePayment')
         // txtAdvanceAvailable.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
         // txtAdvancePayment.value = Utils.currencyShowFormatter(this.MatchOrderBankListData.cTovalValue, ",", 'vi-VN')
-        
+
         // this.props.calculateInterest({
         //     advPayment: document.getElementById('txtAdvancePayment').value,
         //     language: this.props.language

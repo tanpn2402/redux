@@ -83,7 +83,7 @@ class MatchOrderList extends Component {
         var soldOrders = this.props.SoldOrders.mvChildBeanList === undefined ? [] : this.props.SoldOrders.mvChildBeanList
         soldOrders = soldOrders === null ? [] : soldOrders
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -94,14 +94,14 @@ class MatchOrderList extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1)*15, this.state.orderMatchListPageIndex*15 )}
+                            data={soldOrders.slice((this.state.orderMatchListPageIndex - 1) * 15, this.state.orderMatchListPageIndex * 15)}
                         />
                     </div>
 
                     <div className="table-footer">
                         <Pagination
-                            pageIndex={this.state.orderMatchListPageIndex} 
-                            totalRecord={soldOrders.length} 
+                            pageIndex={this.state.orderMatchListPageIndex}
+                            totalRecord={soldOrders.length}
                             onPageChange={this.onOrderMatchListPageChange.bind(this)}
                             onNextPage={this.onOrderMatchListNextPage.bind(this)}
                             onPrevPage={this.onOrderMatchListPrevPage.bind(this)}
@@ -119,6 +119,72 @@ class MatchOrderList extends Component {
         this.props.getQuerySoldOrders(this.querySoldOrdersParams)
 
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.setState({
+                columns: [
+                    {
+                        Header: nextProps.language.cashadvance.header.id,
+                        accessor: 'mvOrderID',
+                        id: 'id',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.matchingdate,
+                        accessor: 'tradeDate',
+                        id: 'matchingdate',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.paymentdate,
+                        accessor: 'cashSettleDay',
+                        id: 'paymentdate',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.stock,
+                        accessor: 'mvStockID',
+                        id: 'stock',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.volume,
+                        accessor: 'mvQuantity',
+                        id: 'volume',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.value,
+                        accessor: 'mvAmount',
+                        id: 'value',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    },
+                    {
+                        Header: nextProps.language.cashadvance.header.fee,
+                        accessor: 'tradingFee',
+                        id: 'fee',
+                        show: true,
+                        skip: false,
+                        width: 150,
+                    }
+                ]
+            })
+        }
+    }
+
     onOrderMatchListChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
@@ -126,31 +192,31 @@ class MatchOrderList extends Component {
         });
     }
 
-    onOrderMatchListNextPage(){
-            this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) + 1
-            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-            this.querySoldOrdersParams['key'] = (new Date()).getTime()
-            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+    onOrderMatchListNextPage() {
+        this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) + 1
+        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+        this.querySoldOrdersParams['key'] = (new Date()).getTime()
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 
-    onOrderMatchListPrevPage(){
-            this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) - 1
-            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-            this.querySoldOrdersParams['key'] = (new Date()).getTime()
-            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+    onOrderMatchListPrevPage() {
+        this.state.orderMatchListPageIndex = parseInt(this.state.orderMatchListPageIndex) - 1
+        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+        this.querySoldOrdersParams['key'] = (new Date()).getTime()
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 
-    onOrderMatchListReloadPage(){
+    onOrderMatchListReloadPage() {
         this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
     onOrderMatchListPageChange(pageIndex) {
-            this.state.orderMatchListPageIndex = pageIndex
-            this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
-            this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
-            this.querySoldOrdersParams['key'] = (new Date()).getTime()
-            this.props.getQuerySoldOrders(this.querySoldOrdersParams)
+        this.state.orderMatchListPageIndex = pageIndex
+        this.querySoldOrdersParams['start'] = (this.state.orderMatchListPageIndex - 1) * this.querySoldOrdersParams['limit']
+        this.querySoldOrdersParams['page'] = this.state.orderMatchListPageIndex
+        this.querySoldOrdersParams['key'] = (new Date()).getTime()
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 }
 const mapStateToProps = (state) => {

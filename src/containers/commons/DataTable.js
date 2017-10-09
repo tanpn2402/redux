@@ -5,17 +5,11 @@ import "react-table/react-table.css"
 export default class DataTable extends React.Component {
 	constructor() {
 	    super()
-
-	    this.state = {
-	    	data: [],
-	    }
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({
-  			data: nextProps.data,
-  		})
 	}
+
 	render() {
 		let height = this.props.maxRows * 24 + 27 + 'px'
 		return (
@@ -23,7 +17,7 @@ export default class DataTable extends React.Component {
 		      <ReactTable
 		        className={'datatable'}
 		        style={{height: this.props.maxRows === undefined ? '100%' : height, }}
-		        data={this.state.data}
+		        data={this.props.data}
 		        columns={this.props.columns}
 		        showPagination= {false}
 		        defaultPageSize= {this.props.defaultPageSize} />

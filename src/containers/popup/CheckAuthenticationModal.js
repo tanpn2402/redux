@@ -12,7 +12,7 @@ class CheckAuthenticationModal extends Component {
             matrixKey02: '[4,F]',
             matrixValue01: '7',
             matrixValue02: '4',
-            savedAuthen: true,
+            savedAuthen: false,
         }
 
         // if(this.props.ref !== undefined){

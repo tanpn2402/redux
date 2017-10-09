@@ -57,8 +57,9 @@ export default function(props, onClose){
 		case 'cancelcashtransfer':
 			return (<CancelCashtransfer onHide={props.onHide} data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
 			break;
+			
 		case 'cashtransfer':
-			return (<CashTransfer onHide={props.onHide} data={props.data} onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<CashTransfer onHide={props.onHide} data={props.data} rowSelected={props.rowSelected} language={props.language}/>)
 		case 'savelayout':
 			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config}/>)
 			break;
@@ -67,6 +68,14 @@ export default function(props, onClose){
 			return (<EnterOrderConfirm onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 		break;
+		
+		case 'cancelorder':
+			return (<CancelOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
+			break;
+		
+		case 'modifyorder':
+			return (<ModifyOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
+			break;
 	}
     
 }

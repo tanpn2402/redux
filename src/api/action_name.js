@@ -66,6 +66,7 @@ export const GETMARKETDATA = 'getMarketData.action'; //Get WatchList Data at pre
 export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
 export const QUERYMARKETSTATUSINFO = 'queryMarketStatusInfo.action'
+export const GENMODIFYORDER = 'genmodifyorder.action'
 // Export Excel actions
 export const EXPORTGETCASHTRANSACTIONHISTORY = 'exportGetCashTransactionHistory.action';
 export const EXPORTORDERHISTORY = 'exportOrderHistory.action';

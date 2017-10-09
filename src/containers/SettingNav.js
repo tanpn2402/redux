@@ -17,8 +17,9 @@ class SettingNav extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            menuitem : config.menu_items
-
+            menuitem: config.menu_items,
+            language: this.props.language,
+            theme: this.props.theme
         }
 
         this.list = config.settings
@@ -27,13 +28,13 @@ class SettingNav extends Component {
         this.lang = 'vi'
 
         this.setting = {
-            language: 'vi_VN',
-            appearance: 'blue'
+            language: this.state.language.code,
+            appearance: this.state.theme
         }
     }
 
     render() {
-        console.log(this.props.language.page)
+        console.log(this.state.language.page)
         return (
             <div id="settingnav" className="settingnav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
@@ -44,27 +45,27 @@ class SettingNav extends Component {
                     <div className="setting-list">
                         {
                             this.list.map(e => {
-                                return(
+                                return (
                                     <div>
                                         <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
                                             <div className="st-icon"><i className="material-icons md-36">{e.icon}</i></div>
-                                            <label aria-expanded="true" className="main-menu-header">{this.props.language.page.setting[e.id].title}</label>
+                                            <label aria-expanded="true" className="main-menu-header">{this.state.language.page.setting[e.id].title}</label>
                                         </div>
-                                            <ul  id={e.id} className="nav nav-list tree setting-item collapse" aria-expanded="true">
-                                                {
-                                                    e.value.map(v => {
-                                                        return (
-                                                            <li><a href="javascript:void(0)" id={v} >
-                                                                {this.props.language.page.setting[e.id][v]}
-                                                                {
-                                                                    this.setting[e.id] !== v ? '' : 
+                                        <ul id={e.id} className="nav nav-list tree setting-item collapse" aria-expanded="true">
+                                            {
+                                                e.value.map(v => {
+                                                    return (
+                                                        <li><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
+                                                            {this.state.language.page.setting[e.id][v]}
+                                                            {
+                                                                this.setting[e.id] !== v ? '' :
                                                                     <i className="material-icons md-18 selected">check_box</i>
-                                                                }
-                                                            </a></li>
-                                                        )
-                                                    })
-                                                }
-                                            </ul>
+                                                            }
+                                                        </a></li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
                                     </div>
                                 )
                             })
@@ -73,15 +74,40 @@ class SettingNav extends Component {
                 </div>
             </div>
         )
-        
+
 
     }
 
-    closeSetting(){
+    componentWillReceiveProps(nextProps) {
+        if (this.state.language !== nextProps.language && nextProps.language !== undefined) {
+            this.setting.language = nextProps.language.code
+            this.setState({
+                language: nextProps.language
+            })
+        }
+        if (this.state.theme !== nextProps.theme && nextProps.theme !== undefined) {
+            this.setting.appearance = nextProps.theme.substring(6)
+            this.setState({
+                theme: nextProps.theme.substring(6)
+            })
+        }
+    }
+
+    closeSetting() {
         document.getElementById('settingnav').classList.toggle("open")
     }
 
-    onChangeConfig(e, language, style){
+    onChangeConfig(id, value) {
+        switch (id) {
+            case 'language':
+                value = (value.split('_'))[0]
+                // this.props.changeConfig(value, 'blue')
+                this.props.switchLanguage(value)
+                break;
+            case 'appearance':
+                this.props.switchTheme(value)
+                break;
+        }
         // let tmp = e.target.className.split(' ')
         // let selected = tmp[tmp.length - 1]
         // if(selected === 'selected')
@@ -90,26 +116,31 @@ class SettingNav extends Component {
         // var classList = document.getElementsByClassName(selected)
         // console.log(classList)
         // for(var i = 0; i < classList.length; i++){
-            
+
         //     document.getElementById(classList[i].id).className = 
         //         document.getElementById(classList[i].id).className.replace(' selected', '')
         // }
         // console.log( e.target.id)
         // document.getElementById(e.target.id).className = 
         //         document.getElementById(e.target.id).className + ' selected'
-        
+
         // console.log(language, style)
         // this.props.changeConfig(language, style)
+        // switch (id) {
+        //     case 'language'
+        // }
     }
 }
 
 const mapStateToProps = state => ({
     language: state.config.language,
-    style: state.config.style,
+    theme: state.config.style,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    changeConfig: (lang, theme) => {dispatch(actions.changeConfig(lang,theme))},
+    changeConfig: (lang, theme) => { dispatch(actions.changeConfig(lang, theme)) },
+    switchLanguage: (language) => { dispatch(actions.switchLanguage(language)) },
+    switchTheme: (theme) => { dispatch(actions.switchTheme(theme)) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingNav)

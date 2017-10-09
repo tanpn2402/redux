@@ -1,8 +1,7 @@
 import { doLogin, logout } from './doLogin'
 import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSavedContentLayout, saveLayout, reloadCustom } from './menu_selected'
-import { changeConfig, checkSession } from './configurations'
-import { enquiryOrder, cancelOrder, onCancelSubmit, onModifySubmit, openPopup, getEnquiry, getEnquiryData, getMsgError, submitCancel, getError } from './orderjounal'
-import { changePage } from './pagination'
+import { changeConfig, switchLanguage, switchTheme, checkSession } from './configurations'
+import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import { stockSearch, getStockWatchInfo } from './stockaction'
@@ -12,21 +11,23 @@ import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
 import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
 import { enquiryStockStatement, exportTransactionHistory } from './stockstatement'
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
-import { loadWatchList,addStock, removeStock} from './watchlist'
-import { getClientInfo, changePassword} from './profile'
-import { getOddlotEnquiry,getOddlotHistory,submitOddLot,getBankInfo , beforeRegisterOddLot} from './oddlottrading'
-import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer,beforeCancelFundTransfer,beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer} from './cashtransfer'
+import { loadWatchList, addStock, removeStock } from './watchlist'
+import { getClientInfo, changePassword } from './profile'
+import { getOddlotEnquiry, getOddlotHistory, submitOddLot, getBankInfo, beforeRegisterOddLot } from './oddlottrading'
+import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer, beforeCancelFundTransfer, beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer } from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
-import {avaiblemarginlist} from './avaiblemarginlist'
-import { getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt} from './accountinfo'
-import {showMessageBox, showFlashPopup} from './notification'
-import {getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList, 
-      entitlementGetAccountBalance, getEntitlementData, submitEntitlement} from './entitlement'
-import {getLocalRefundCreation,getLocalAdvanceCreation,getLoanRefundHistory,getLoanRefundSubmit,getAdvanceSubmit,getLoanRefundData,    beforeSubmitLoanRefund, beforeSubmitAdvance} from './loanrefund'
-import {getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance} from './cashadvance'
-import {getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank} from './cashadvancebank'
+import { avaiblemarginlist } from './avaiblemarginlist'
+import { getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt } from './accountinfo'
+import { showMessageBox, showFlashPopup } from './notification'
+import {
+  getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getDynamicdata, getEntitlementStockList,
+  entitlementGetAccountBalance, getEntitlementData, submitEntitlement
+} from './entitlement'
+import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
+import { getCashAdvance, getQuerySoldOrders/*, getLocalAdvanceCreation*/, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
+import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, submitCashAdvanceBank } from './cashadvancebank'
 
-import {showPopup} from './popup'
+import { showPopup } from './popup'
 
 export {
   reloadCustom,
@@ -39,12 +40,13 @@ export {
   onPageClicked,
   onTabClick,
   changeConfig,
+  switchLanguage,
+  switchTheme,
   checkSession,
 
   stockSearch,
   getStockWatchInfo,
   
-  enquiryOrder,
   accountBalance,
   stockInfo,
   genEnterOrder,
@@ -52,12 +54,7 @@ export {
   checkAuthentication,
   setAuthenFail,
   checkAuthen,
-  cancelOrder,
-  changePage,
-  onCancelSubmit,
-  onModifySubmit,
   pinWindow,
-  openPopup,
   onConfirmSubmit,
   enquiryConfirmOrder,
   getPorfolio,
@@ -71,12 +68,14 @@ export {
   matrixCardResponse,
   getOrderCofirm,
   getData,
+
+  // order journal
   getEnquiry,
-  getEnquiryData,
-  submitCancel,
+  genModifyOrder,
+  onCancelSubmit,
+  onModifySubmit,
+
   CancelCashtransfer,
-  getMsgError,
-  getError,
   enquiryMarginLoan,
   avaiblemarginlist,
   getAccountBalance,
@@ -87,9 +86,9 @@ export {
   showMessageBox,
   showFlashPopup,
   loadWatchList,
-  addStock, 
+  addStock,
   removeStock,
-  
+
   getOddlotEnquiry,
   getOddlotHistory,
   submitOddLot,
@@ -118,10 +117,10 @@ export {
   getEntitlementStockList,
   getEntitlementData,
   submitEntitlement,
-  
+
   entitlementGetAccountBalance,
   getCashAdvance,
-  
+
   exportGetCashTransactionHistory,
   exportOrderHistory,
   exportCashTransactionHistory,
