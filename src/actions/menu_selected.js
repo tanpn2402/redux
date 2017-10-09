@@ -1,21 +1,7 @@
 import {ActionTypes} from '../core/constants';
+import * as api from '../api/web_service_api';
+import * as ACTION from '../api/action_name';
 
-/*
-
-format of tablList
-var tabList = {
-    1:[
-      '1',
-      '2'
-    ],
-    2:[
-      '1',
-      '2'
-    ]
-  ,                 
-}
-
-*/
 export function menuSelected(menuid, pageid, tabList, reload) {
     console.log('menuSelected', tabList)
     pageid = pageid === undefined ? '1' : pageid
@@ -107,3 +93,54 @@ export function onPageClicked(pageid, tabList) {
         }
   
 };
+
+export function onTabClick(tabID){
+    return {
+        type: ActionTypes.TABCLICKEVENT,
+        tabID: tabID,
+    }
+}
+
+
+export function reloadCustom(load){
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxx" + load)
+    return {
+        type: ActionTypes.RELOADCUSTOM,
+        load: !load,
+    }
+}
+
+
+export function removeWidget(load){
+    return {
+        type: ActionTypes.REMOVEWIDGET,
+        load: !load
+    }
+}
+
+export function getSavedContentLayout(params){
+    return (dispatch) => {
+        api.get(ACTION.UICFGMANAGEMENT, params, dispatch, getSavedLayout)
+    }
+}
+
+function getSavedLayout(savedcontent){
+    return{
+        type: ActionTypes.GETSAVEDCONTENTLAYOUT,
+        savedcontent: savedcontent
+    }
+}
+
+
+
+export function saveLayout(params){
+    return (dispatch) => {
+        api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayout)
+    }
+}
+
+function savedLayout(){
+    return{
+        type: ActionTypes.SAVELAYOUT
+    }
+}

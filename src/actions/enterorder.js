@@ -1,6 +1,9 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
 import * as matrix from './authmatrix.js'
+import config from '../core/config'
+import {showMessageBox, showFlashPopup} from './notification'
+
 const { ActionTypes } = require('../core/constants');
 
 let stockInfoSell = {}
@@ -13,16 +16,9 @@ export function getstockInfo(param) {
     }
 }
 
-function isEmpty(obj) {
-    for (var prop in obj) {
-        return false;
-    }
-    return true;
-}
+function getStockB(response) {
 
-export function getStockB(response) {
-
-    if (isEmpty(response) !== true) {
+    if (response) {
         if (response.mvStockBalanceInfo !== null)
             stockInfoSell = response
         else
@@ -37,160 +33,131 @@ export function getStockB(response) {
     }
 }
 
-export function setError(isError) {
-    console.log("error", isError)
-    return {
-        type: ActionTypes.SET_ERROR,
-        isError
-    }
-}
 
-export function checkPreEnterOrder(json, language, stockList) {
-    return dispatch => {
-        if (checkmvOrderType(json.mvOrderType, json.mvVolume, language) !== "SUCCESS")
-            return dispatch(setError(checkmvOrderType(json.mvOrderType, json.mvVolume, language)))
-        console.log("action1");
-        if (checkmvRange(json.mvStatus, stockInfoSell, stockInfo.mvStockInfoBean, json.mvPrice, json.mvStock, json.mvVolume, language, stockList) !== "SUCCESS")
-            return dispatch(setError(checkmvRange(json.mvStatus, stockInfoSell, stockInfo.mvStockInfoBean, json.mvPrice, json.mvStock, json.mvVolume, language)))
-        console.log("action2");
-        if (checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus, json.mvBank, language) !== "SUCCESS")
-            return dispatch(setError(checkMoney(json.mvTotalPrice, json.mvBuyPower, json.mvStatus, json.mvBank, language)))
-        console.log("action3");
-        return dispatch(setError('Success all'))
-    }
-}
 
-function checkmvOrderType(mvOrderType, mvVolume, language) {
-    var orderType = ["L", "O", "M", "C", "MTL", "LO(Odd Lot)"];
-    if (orderType.includes(mvOrderType) && mvOrderType==="L") {
-        if (mvOrderType === "LO(Odd Lot)") {
-            if ((parseInt(mvVolume, 10) > 0) && (parseInt(mvVolume, 10) < 100)) {
-                return "SUCCESS";
-            }
-            else {
-                return language.oddlotrange;
-            }
-
-        }
-        else {
-            if ((parseInt(mvVolume, 10) > 99) && ((parseInt(mvVolume, 10) % 100) === 0)) {
-                return "SUCCESS";
-            }
-            else {
-                return language.otherrange;
-            }
+/////////////////
+export function genEnterOrder(){
+    var callback = function(response){
+        return {
+        type: ActionTypes.GENENTERORDER,
+        data: response
         }
     }
-    else
-        return language.ordertypeavailable;
 
-}
-let found = false;
-function check(array, key) {
-    if (array === undefined) {
-        return found;
-    }
-    else {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i].stockCode == key) {
-                found = true;
-                return found;
-            }
-        }
-        return found;
-    }
-}
-
-function checkmvRange(mvStatus, stockBalanceInfo, stockBeanInfo, mvPrice, mvStock, mvVolume, language, stockList) {
-    if (check(stockList, mvStock) && mvStock === "VNM") {
-        if ((parseInt(mvPrice, 10) >= parseInt(stockBeanInfo.mvFloor, 10)) && (parseInt(mvPrice, 10) <= parseInt(stockBeanInfo.mvCeiling, 10))) {
-            if (mvStatus === "B") {
-                return "SUCCESS";
-            }
-            if (stockBalanceInfo.mvStockBalanceInfo.length > 1 && stockBalanceInfo.mvStockBalanceInfo.filter(e => e.mvStockCode === mvStock)) {
-                if ((parseInt(mvVolume, 10)) <= (parseInt(stockBalanceInfo.mvStockBalanceInfo[1].mvTradableQty, 10))) {
-                    return "SUCCESS";
-                }
-                else {
-                    return language.sellvolume;
-                }
-            }
-            else {
-                return language.noitem;
-            }
-        }
-        else {
-            var error = language.pricerange + "[" + stockBeanInfo.mvFloor + "," + stockBeanInfo.mvCeiling + "]"
-            return error;
-        }
-    }
-    else {
-        return language.stockavailable;
-    }
-}
-
-function checkMoney(mvPrice, mvBuyPower, mvStatus, mvBank, language) {
-    if (mvStatus === "S") {
-        return "SUCCESS";
-    }
-    else if (mvBank === "ACB-125137309") {
-        if (parseInt(mvPrice, 10) <= parseInt(mvBuyPower, 10)) {
-            return "SUCCESS";
-        }
-        else {
-            return language.money;
-        }
-    }
-    else
-        return language.bank;
-}
-
-export function submitEnterOrder(matrix_param, enter_param) {
-    console.log(matrix_param, "action")
     return function (dispatch) {
-        api.authCardMatrix(ACTION.AUTHCARD, matrix_param, dispatch, getMsg, enter_param)
+        api.post(ACTION.GENENTERORDER, {}, dispatch, callback)
     }
 }
 
-export function getMsg(param, response) {
-    console.log("Enterorder", response, param)
-    if (response.mvSuccess === "SUCCESS") {
+export function enterOrderSubmit(language, params, authParams){
+
+    var authCardSuccess = function(response){
+
+        var successHandler = function(response){
+            if(response.mvResult == "SESSION_EXPIRED"){
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, "SESSION_EXPIRED"))
+                }
+            }
+            if(response.mvResult == "MULTI_USERS_LOGIN"){
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, "MULTI_USERS_LOGIN"))
+                }
+            }
+            if(response.mvResult == "SYSTEM_MAINTENANCE"){
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, "SYSTEM_MAINTENANCE"))
+                }
+            }
+            
+            if(response.mvReturnCode != 0) {                                          
+                // fail
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, "SYSTEM_MAINTENANCE"))
+                }
+            } else {
+                // success
+                return function (dispatch) {
+                    dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
+                }
+            }
+        }
+
+        var failHandler = function(err){
+            console.log(err)
+            return (dispatch) => {
+                dispatch(showMessageBox(language.messagebox.title.error, "SYSTEM_MAINTENANCE"))
+            }
+        }
+
         return function (dispatch) {
-            api.post(ACTION.ENTERORDER, param, dispatch, msgEnter)
+            api.post(ACTION.ENTERORDER, params, dispatch, successHandler, failHandler)
         }
     }
-    else {
-        return {
-            type: ActionTypes.NOTIFICATION,
-            message: response.mvClientCardBean.mvErrorMsg,
-            notification_type: 1,
+
+    var authCardFail = function(error){
+        return (dispatch) => {
+            dispatch(showMessageBox(language.messagebox.title.error, error.message))
         }
     }
+
+    return function (dispatch) {
+        dispatch(checkAuthentication(authParams, authCardSuccess, authCardFail))
+    }
+
 }
 
-function msgEnter(response) {
-    console.log("Enterorder get response", response)
-    if (response.success === "true") {
-        return {
-            type: ActionTypes.NOTIFICATION,
-            message: "Enteroder Success",
-            notification_type: 0,
+export function checkAuthentication(authParams, successEvent, failEvent){
+    var errMes = '';
+    var p_result = 0;
+    var authCardSuccess = function(response){                           
+                         
+        if("SUCCESS" == response.mvSuccess){
+            if(response.mvSaveAuthenticate == "true"){
+                config.cache.authentication = true;
+                p_result = 2; 
+            }else{
+                p_result = 1; 
+            }                                                                           
+        }else{      
+            if(response.mvClientCardBean.mvErrorCode=="CARD001"){
+                p_result = -2;    
+                
+            }else if(response.mvClientCardBean.mvErrorCode=="CARD002"){
+                p_result = -1;        
+                                                           
+            }else{
+                p_result = 0;                                             
+                var r_limit = 0 + response.mvClientCardBean.attemptLimit - response.mvClientCardBean.attempt;
+                if(r_limit < 1 ){
+                    p_result = -1;        
+                }      
+            } 
+
+            errMes = response.mvErrorResult;                                                                                               
         }
+        if(errMes !== ''){
+            return function (dispatch) {
+                dispatch(failEvent({message: errMes, result: p_result}))
+            }
+        }
+        else{
+            return function (dispatch) {
+                dispatch(successEvent())
+            }
+        }
+                                
+
     }
-    else {
-        var param = {};
-        var date = new Date()
-        param.key = date.getTime();
+
+    var authCardFail = function(error){
         return function (dispatch) {
-            api.post(ActionTypes.ENTERORDERFAIL, param, dispatch, msgEnterError)
+            dispatch(failEvent({message: error, result: -1}))
         }
     }
-}
 
-function msgEnterError(response) {
-    return {
-        type: ActionTypes.NOTIFICATION,
-        message: response.mvFailBean.mvErrorMsg,
-        notification_type: 1,
+
+    return function (dispatch) {
+        api.post(ACTION.AUTHCARD, authParams, dispatch, authCardSuccess, authCardFail)
     }
 }

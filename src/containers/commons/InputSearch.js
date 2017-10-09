@@ -7,10 +7,9 @@ class InputSearch extends React.Component {
  	constructor(){
  		super()
 
- 		this.state = {
-             itemSelected: '',
-             data: [],
- 		}
+        this.value = ''
+        this.data = []
+        this.callProps = false
      }
      componentWillMount(){
          this.setState({data: this.props.data})
@@ -23,8 +22,9 @@ class InputSearch extends React.Component {
     	return (
         	<div className="input-search">
                 <div className="input-group input-search-group">
-                    <input type="text" className="form-control" value={this.state.itemSelected}
-                        onChange={e => this.onChange(e.target.value)}/>
+                    <input type="text" className="form-control" ref={e => this.value = e} style={this.props.style}
+                        onChange={e => this.onChange(e.target.value)}
+                        onBlur={e => this.onBlur(e.target.value)}/>
                     <span className="input-group-addon">
                         <button type="button" className="input-suggest-button" onClick={e => this.openSuggestion()}>
                         </button>
@@ -37,8 +37,8 @@ class InputSearch extends React.Component {
                         {
                             this.state.data.map(stock => {
                                 return (
-                                    <li id={stock.stockCode} onClick={e => this.onItemClick(e.target.id)}>
-                                        <span id={stock.stockCode} onClick={e => this.onItemClick(e.target.id)}>
+                                    <li id={stock.stockCode} onClick={e => this.onItemClick(stock)}>
+                                        <span id={stock.stockCode} onClick={e => this.onItemClick(stock)}>
                                             <b>{stock.stockCode}</b> - {stock.stockName}
                                         </span>
                                     </li>
@@ -52,11 +52,12 @@ class InputSearch extends React.Component {
     }
 
     onItemClick(item){
-        console.log(item)
-        this.setState({ itemSelected: item })
+        this.value.value = item.stockCode
+        this.callOnChangeProps(item)
     }
 
     onChange(value){
+        this.callProps  = false
         var dropdowns = document.getElementById("input-suggestion");
         if (!dropdowns.classList.contains('show')) {
             dropdowns.classList.add('show')
@@ -68,27 +69,58 @@ class InputSearch extends React.Component {
             if(matchesFilter.test(stock.stockCode))
                 return stock
         })
-        tmp.sort(function(a, b) {
-            var codeA = a.stockCode.toUpperCase()
-            var codeB = b.stockCode.toUpperCase()
-            if (codeA < codeB) {
-              return -1;
-            }
-            if (codeA > codeB) {
-              return 1;
-            }
-            return 0;
-        })
-        if(value.length > 2 && tmp.length > 0){
-            this.props.onChange(value.toUpperCase())
+
+        // tmp.sort(function(a, b) {
+        //     var codeA = a.stockCode.toUpperCase()
+        //     var codeB = b.stockCode.toUpperCase()
+        //     if (codeA < codeB) {
+        //       return -1;
+        //     }
+        //     if (codeA > codeB) {
+        //       return 1;
+        //     }
+        //     return 0;
+        // })
+        
+        this.value.value = value
+        this.setState({data: tmp})
+
+    }
+
+    onBlur(value){
+        if(value === '' && this.props.onBlur != undefined){
+            this.props.onBlur(value.toUpperCase())
+            return
         }
 
-        this.setState({itemSelected: value.toUpperCase(), data: tmp})
+        let matchesFilter = new RegExp(value, "i")
+        let tmp = this.props.data.filter(stock => {
+            if(matchesFilter.test(stock.stockCode))
+                return stock
+        })
+    
+        if(tmp.length > 0){
+            this.value.value = tmp[0].stockCode
+            this.callOnChangeProps(tmp[0])
+            if(this.props.onBlur != undefined){
+                this.props.onBlur(tmp[0])
+            }
+        }
+        else if(this.props.onBlur != undefined){
+            this.props.onBlur(value.toUpperCase())
+        }
+    }
 
-
+    callOnChangeProps(stockInfo){
+        //console.log(stockInfo)
+        if(!this.callProps){
+            this.callProps = true
+            this.props.onChange(stockInfo)
+        }
     }
       
     openSuggestion() {
+        this.callProps = false
         document.getElementById("input-suggestion").classList.toggle("show")
     }
     

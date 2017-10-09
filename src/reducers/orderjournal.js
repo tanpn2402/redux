@@ -1,51 +1,30 @@
 const { ActionTypes } = require('../core/constants');
 
 const initialState = {
-  data: [],
-  isError: "nothing",
-  isCount: 0,
-  isSuccess: false,
+  enquiryorder: {
+    mvOrderBeanList: [],
+    mvTotalOrders: 0,
+    mvTotalTaxFee: "0"
+  },
+
+  genmodifyorder: {
+    mvGenModifyOrderBean: {},
+    mvReturnResult: "",
+    mvResult: null
+  }
 };
-const modifyResult = { "mvResult": null, "mvReturnResult": "ModifyOrderFail", "returnCode": 0, "savedAuthen": "true", "success": true }
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.ENQUIRYORDER:
-      //console.log('ENQUIRYORDER', action.data)
+      action.data.mvOrderBeanList = action.data.mvOrderBeanList === null ? [] : action.data.mvOrderBeanList
       return Object.assign({}, state, {
-        data: action.data,
-        language: action.language,
-        reload: action.reload,
-        menuid: action.menuid,
+        enquiryorder: action.data
       });
 
-    case ActionTypes.CANCELSUBMIT:
+    case ActionTypes.GENMODIFYORDER:
       return Object.assign({}, state, {
-        returnCode: '1',
-        message: "ok"
-      });
-    case ActionTypes.MODIFYSUBMIT:
-      return Object.assign({}, state, {
-        result: modifyResult,
-        respone: action.updateRow
-      });
-
-    case ActionTypes.MODIFYERROR:
-      console.log(action.count, action.data, "count reducer");
-      return Object.assign({}, state, {
-        isError: action.data,
-        isCount: action.count,
-      });
-
-    case ActionTypes.MODIFYSUCCESS:
-      console.log(action.data,"Success")
-      return Object.assign({}, state, {
-        isSuccess: action.data,
-      });
-      
-    case ActionTypes.OPENPOPUP:
-      return Object.assign({}, state, {
-        isPopupOpen: false,
-        menuid: action.menuid
+        genmodifyorder: action.data
       });
 
     default:

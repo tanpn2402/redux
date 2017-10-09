@@ -4,19 +4,18 @@ const { ActionTypes } = require('../core/constants');
 
 export function getStockInfo(params) {
     return (dispatch)=>{
-        WebApi.post(ACTION.STOCKINFO, params, dispatch, responseAccountInfo)
+        WebApi.post(ACTION.STOCKINFO, params, dispatch, responseStockInfo)
     }
 }
 
-function responseAccountInfo(response) {
+function responseStockInfo(response) {
     return {
-      type: ActionTypes.ACCOUNTINFO,
+      type: ActionTypes.GETSTOCKINFO,
       data: response
     }
 }
 
 export function getAccountBalance(params) {
-    console.log("GET Account balance");
     return (dispatch)=>{
         WebApi.post(ACTION.ACCOUNTBALANCE, params, dispatch, responseAccountBalance)
     }
@@ -25,6 +24,19 @@ export function getAccountBalance(params) {
 function responseAccountBalance(response) {
     return {
       type: ActionTypes.ACCOUNTBALANCEINFO,
+      data: response
+    }
+}
+
+export function getAccountBalanceBank(params) {
+    return (dispatch)=>{
+        WebApi.post(ACTION.ACCOUNTBALANCE, params, dispatch, responseAccountBalanceBank)
+    }
+}
+
+function responseAccountBalanceBank(response) {
+    return {
+      type: ActionTypes.ACCOUNTBALANCEBANKINFO,
       data: response
     }
 }

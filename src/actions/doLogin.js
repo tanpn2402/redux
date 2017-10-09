@@ -1,6 +1,9 @@
 import { ActionTypes } from '../core/constants';
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
+import { browserHistory } from 'react-router';
+import { sessionService } from 'redux-react-session';
+import * as sessionApi from '../api/sessionApi';
 // import { browserHistory } from 'react-router';
 // import { sessionService } from 'redux-react-session';
 // import * as sessionApi from '../api/sessionApi';
@@ -80,7 +83,23 @@ export function doLogin(params) {
 export function isLogin(response) {
     let isLoginError = !response.success
     return {
-       type: ActionTypes.SET_LOGIN_ERROR,
-       isLoginError
+        type: ActionTypes.SET_LOGIN_ERROR,
+        isLoginError: isLoginError
     }
+}
+
+export function logout(id) {
+    clearInterval(id)
+    return (dispatch) => {
+        api.post(ACTION.LOGOUT, {}, dispatch, responseLogout)
+    }
+}
+
+function responseLogout(response) {
+    console.log(response)
+    sessionApi.logout().then(() => {
+        sessionService.deleteSession();
+        sessionService.deleteUser();
+        window.location.assign('/login');
+    })
 }

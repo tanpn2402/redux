@@ -6,51 +6,34 @@ import SlideNav from './SlideNav'
 import SettingNav from './SettingNav'
 import FlashPopup from './commons/FlashPopup'
 import MessageBox from './commons/MessageBox'
-import Notification from './Notification'
+import Notification from './main/Notification'
+import config from '../core/config'
+import generateWindow from './view'
 
 class PageContent extends React.Component {
     constructor () {
         super()
     }
 
+    componentWillReceiveProps(nextProps){
+    }
+
     render () {
+        console.log(this.props.tabID)
+
         return (
-            <div style={this.props.theme.pagebackground} id="pagecontent">
+            <div style={this.props.theme.pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
                 <Notification language={this.props.language}/>
-                <BaseLayout 
-                    language={this.props.language}
-                    layout={this.props.layout}
-                    page={[this.props.page]}
-                    title={this.props.title}
-                    stockList={this.props.stockList} 
-                    theme={this.props.theme}
-                    >
-                </BaseLayout>
-                <SettingNav language={this.props.language} />
-                <div id="overlay" onClick={e => this.onHideSlidePanel() }></div>
+                {
+                    generateWindow(this.props.tabID, this.props)
+                }
             </div>
         )
     }
 
-    componentWillReceiveProps(nextProps){
-        
-    }
+    
 
-    onHideSlidePanel(){
-        document.getElementById("slidenav").style.width = "0"
-        document.getElementById("settingnav").style.width = "0"
-        document.getElementById("overlay").style.display = 'none'
-    }   
-
-    componentDidMount(){        
-        var h1 = document.getElementById('pageheader').offsetHeight
-        var h2 = document.getElementById('pagemenu').offsetHeight
-        var h3 = window.innerHeight
-        document.getElementById('pagecontent').style.height  = h3 - h1 - h2 +  'px'
-        document.getElementById('sidebar').style.height = h3 - h1 - h2 + 'px'
-        document.getElementById('slidenav').style.height = h3 - h1 - h2 + 'px'
-        document.getElementById('flashpopup').style.height = h3 - h1 - h2 + 'px'
-
+    componentDidMount(){     
         var param = {
             type: 'bycode',
             value: 'all',
@@ -64,10 +47,8 @@ class PageContent extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  layout: state.menuSelected.tabList,
-  page: state.menuSelected.page,
-  reload: state.menuSelected.reload,
-  stockList: state.stock.stockList,
+    tabID: state.menuSelected.tabID,
+    stockList: state.stock.stockList,
 })
 
 const mapDispatchToProps = (dispatch, props) => ({

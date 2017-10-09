@@ -1,20 +1,24 @@
 
 import {FetchAPI, POST, PUT, GET, LOGIN, DELETE} from './fetchAPI';
 
-export function	get(id, param, dispatch, callback){
+export function	get(id, param, dispatch, successHandler, failHandler){
 		return (FetchAPI(id,param, GET)).then(response => response).then( parseData => {
-			dispatch(callback(parseData))
+			dispatch(successHandler(parseData))
 			return parseData
 		}).catch(error => {
+			if(failHandler)
+				failHandler(error)
 			return error
 		})
 	};
 
-export function post(id,param,dispatch,callback){
+export function post(id,param,dispatch, successHandler, failHandler){
 		return (FetchAPI(id, param, POST)).then(response => response).then( parseData => {
-			dispatch(callback(parseData))
+			dispatch(successHandler(parseData))
 			return parseData
 		}).catch(error => {
+			if(failHandler)
+				failHandler(error)
 			return error
 		})
 		
@@ -57,12 +61,24 @@ export function dedete(id,param ,dispatch, callback){
 			return error
 		})
 	}
-export function authCardMatrix(id, paramOfAuthCard, dispatch, callback, paramOfCallback) {
+export function authCardMatrix(id, paramOfAuthCard, dispatch, callback, paramOfCallback, failHandler) {
 	return (FetchAPI(id, paramOfAuthCard, POST)).then(response => response).then(parseData => {
 		dispatch(callback(paramOfCallback, parseData))
 		return parseData
 	}).catch(error => {
+		failHandler(error)
 		return error
 	})
 
+}
+
+export function fetch(action, param, method, successHandler, failHandler) {
+	return (FetchAPI(action, param, method)).then(response => response).then(parseData => {
+		successHandler(parseData)
+		return parseData
+	}).catch(error => {
+		if(failHandler)
+			failHandler(error)
+		return error
+	})
 }

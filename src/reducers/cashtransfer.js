@@ -1,9 +1,26 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  datafundtransfer: [],
+  datafundtransfer: [
+
+  ],
   datahkscashtranhis: [],
-  datagenfundtransfer: [],
+  datagenfundtransfer: {
+    chargeRate:	null,
+    mvAvailable:	0.000,
+    mvBalance:	0,
+    mvClientID:	"",
+    mvErrorCode:	0,
+    mvErrorResult: "fail",
+    mvFundTransferFrom:	null,
+    mvIsPasswordConfirm:	false,
+    mvIsSecurityCodeConfirm: false,
+    mvReceiversList: [{
+      receiverAccID: "",
+
+    }],
+    mvTargetAccountList:	null
+  },
   cancelfundtransfer: [],
 };
 

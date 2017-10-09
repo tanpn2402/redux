@@ -2,12 +2,12 @@ import React from 'react'
 import ConfigColumnTable from './ConfigColumnTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import config from '../../core/config'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
 import $ from 'jquery'
-
+var DatePicker = require("react-bootstrap-date-picker")
 export default class SearchBar extends React.Component {
 
     constructor() {
@@ -29,6 +29,9 @@ export default class SearchBar extends React.Component {
             'mvLending': false,
             'mvActionType': false
         }
+
+        this.language = []
+        this.theme = []
     }
 
     onSearch(pageIndex) {
@@ -38,7 +41,12 @@ export default class SearchBar extends React.Component {
             if (x.elements[i].value == 'on' || x.elements[i].id === '')
                 continue
 
-            tmp[x.elements[i].id] = x.elements[i].value
+            if(x.elements[i].id == 'mvStartDate')
+                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY") 
+            else if(x.elements[i].id == 'mvEndDate')
+                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY") 
+            else
+                tmp[x.elements[i].id] = x.elements[i].value
         }
 
         this.props.onSearch(tmp)
@@ -46,12 +54,12 @@ export default class SearchBar extends React.Component {
 
     handleChangeStart(date) {
         this.setState({
-            startDate: date
+            startDate: moment(date).format("DD/MM/YYYY") 
         });
     }
     handleChangeEnd(date) {
         this.setState({
-            endDate: date
+            endDate: moment(date).format("DD/MM/YYYY") 
         });
     }
 
@@ -227,7 +235,7 @@ export default class SearchBar extends React.Component {
 
         return (
             <FormGroup controlId="mvStockId">
-		        <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Mã CK"/>
+		        <FormControl bsClass='form-control stockSearch' componentClass="input" list="stockList" placeholder="Stock"/>
 		        <datalist id="stockList">
 		          {
 		            stockList.map(e => {
@@ -245,15 +253,12 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
 		        <ControlLabel>{language.startdate}</ControlLabel>
 		        {'   '}
-		        <DatePicker   
-		            id="mvStartDate"
-		            dateFormat="DD/MM/YYYY"
-		            selected={this.state.startDate}
-		            selectsStart
-		            startDate={this.state.startDate}
-		            endDate={this.state.endDate}
-		            onChange={this.handleChangeStart.bind(this)}
-		        />
+		        <DatePicker id="mvStartDate" value={new Date().toISOString()} 
+                    cellPadding={'1px'} 
+                    style={{width: '100px'}}
+                    showClearButton={false}
+
+                    onChange={this.handleChangeStart.bind(this)} />
 		  	</FormGroup>
         )
     }
@@ -264,15 +269,12 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
 		        <ControlLabel>{language.enddate}</ControlLabel>
 		        {'   '}
-		        <DatePicker
-		            id="mvEndDate"
-		            dateFormat="DD/MM/YYYY"
-		            selected={this.state.endDate}
-		            selectsEnd
-		            startDate={this.state.startDate}
-		            endDate={this.state.endDate}
-		            onChange={this.handleChangeEnd.bind(this)}
-		        />
+		        <DatePicker id="mvEndDate" value={new Date().toISOString()} 
+                    cellPadding={'1px'} 
+                    style={{width: '100px'}}
+                    showClearButton={false}
+
+                    onChange={this.handleChangeEnd.bind(this)} />
 		  	</FormGroup>
         )
     }
@@ -323,8 +325,9 @@ export default class SearchBar extends React.Component {
 					          	this.props.onSearch === undefined ? '' :
 					          		(
 					          			<span className='tabs-item'>
-					            			<Button style={this.props.theme.buttonClicked} bsStyle="primary" type="button"  
-                                                onClick={this.onSearch.bind(this)}>{this.props.language.search}</Button>
+					            			<button style={this.props.theme.buttonClicked} className="hks-btn" type="button"  
+                                                onClick={this.onSearch.bind(this)}>{this.props.language.search}
+                                            </button>
 					            		</span>
 					          		)
 
@@ -340,22 +343,6 @@ export default class SearchBar extends React.Component {
                     </button>
                 </div>
 
-					        
-		        {
-
-                    this.props.param.indexOf('dropdown') < 0 ? '' :
-                        (
-                                <FormGroup bsClass="form-group dropdowncheckbox">
-                                    <ConfigColumnTable 
-                                        id={this.props.id}
-                                        columns={this.props.data.columns} 
-                                        onChangeStateColumn={this.props.onChangeStateColumn}/>
-                                </FormGroup>
-                           
-                        )
-
-                }
-		     
 	      	</Form>
 
         );

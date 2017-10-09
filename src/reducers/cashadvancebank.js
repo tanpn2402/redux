@@ -9,7 +9,7 @@ const initialState = {
     success: true
   },
   CashAdvanceHistory: {
-    list: null,
+    list: [],
     totalCount: 0
   },
   queryBankInfo: {
@@ -34,7 +34,8 @@ export default function (state = initialState, action) {
         });
 
     case ActionTypes.GETCASHADVANCEHISTORY:
-        return Object.assign({},state,{   
+        action.CashAdvanceHistory.list = action.CashAdvanceHistory.list === null ? [] : action.CashAdvanceHistory.list
+        return Object.assign({},state,  {   
           CashAdvanceHistory: action.CashAdvanceHistory,
         });
     case ActionTypes.QUERYBANKINFO:

@@ -16,7 +16,7 @@ class CancelCashtransfer extends Component{
         }
 
         this.id = 'Cancelcashtrans'
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.submitCancelCashTransfer = this.submitCancelCashTransfer.bind(this);
     }
     getOddLotSubmit() {
         this.props.getOddLotSubmit(this.props.rowSelected)
@@ -43,20 +43,29 @@ class CancelCashtransfer extends Component{
                 </div>
                 <Modal.Footer>
                     <Button  className="oddlotcancel" onClick={this.props.onHide}>Cancel</Button>
-                    <Button  className="oddlotsubmit" onClick={this.checkmatrix.bind(this)}>Confirm</Button>
+                    <Button  className="oddlotsubmit" onClick={this.submitCancelCashTransfer.bind(this)}>Confirm</Button>
                 </Modal.Footer>
             </div>
         )
     }
 
-    handleSubmit(e) {
-      e.preventDefault();
-    }
-
-    checkmatrix() {
-
+    submitCancelCashTransfer() {
+        console.log("TRANID")
+        console.log(this.props.data.mvTranID);
+        this.props.submitCancelCashTransfer(this.props.data, this.props.language)
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        isAuthenFail: state.checkAuthen.isAuthenFail,
+    };
+}
 
-export default (CancelCashtransfer)
+const mapDispatchToProps = (dispatch, props) => ({
+    submitCancelCashTransfer: (data, language) => {
+        dispatch(actions.CancelCashtransfer(data, language))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CancelCashtransfer)
