@@ -44,12 +44,14 @@ class ProfileNav extends Component {
     render() {
         console.log(this.state.language.page)
         let personalprofile = this.state.language.page.personalprofile
+        let profiletitle = this.props.currentTheme.profile == undefined? undefined:this.props.currentTheme.profile.profiletitle
+        let profilepanel = this.props.currentTheme.profile == undefined? undefined:this.props.currentTheme.profile.profilepanel
         this.doResponseMapping()
         return (
             <div id="profilenav" className="profilenav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="profile-panel" style={this.props.currentTheme.profilepanel} >
-                    <div className="title" style={this.props.currentTheme.profiletitle} >
+                <div className="profile-panel" style={profilepanel} >
+                    <div className="title" style={profiletitle} >
                         Profile
                     </div>
                     <div className="profile-list">

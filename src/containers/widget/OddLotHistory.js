@@ -194,6 +194,7 @@ class OddLotHistory extends Component {
     render() {
         let oddlothistory = this.props.oddlothistory
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
         console.log(oddlothistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -209,7 +210,7 @@ class OddLotHistory extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={oddlothistory.historyList} />
                     </div>
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.oddLotTransPageIndex}
                             totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize)}

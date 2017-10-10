@@ -171,6 +171,8 @@ class ActionRightList extends Component {
 
     render() {
         var allRightList = this.props.allRightList
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -186,7 +188,7 @@ class ActionRightList extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={allRightList.rightList} />
                     </div>
-                    <div className="table-header" style={this.props.theme.tableheader}>
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -197,7 +199,7 @@ class ActionRightList extends Component {
                             data={{ stockList: [], actionType: this.actionTypeStore }}
                             param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                     </div>
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}

@@ -4,18 +4,18 @@ export default {
     color: '#fff'
   },
   normal: {
-      color: "#FF0000",
+    color: "#FF0000",
   },
-  onFocus:{
-    backgroundColor:"#1C1C1C",
-    color:"#FF0000"
+  onFocus: {
+    backgroundColor: "#1C1C1C",
+    color: "#FF0000"
   },
-  button:{
-    backgroundColor:"#FF0000",
+  button: {
+    backgroundColor: "#FF0000",
     color: "#1C1C1C"
   },
-  buttonClicked:{
-    backgroundColor:"#1C1C1C",
+  buttonClicked: {
+    backgroundColor: "#1C1C1C",
     color: "#FF0000"
   },
   porfolio: {
@@ -62,33 +62,48 @@ export default {
       fontWeight: 'bold'
     },
   },
-  font:{
+  font: {
     color: '#FFFFFF'
   },
   font2: {
     color: '#FFFFFF'
   },
-  pageheader:{
-    backgroundColor: '#F0F0F0'
-  },
-  pagebackground: {
-    backgroundColor: '#474747',
-  },
-  pagemenu:{
-    backgroundColor: '#1D1C1C'
+  page: {
+    pageheader: {
+      backgroundColor: '#F0F0F0'
+    },
+    pagebackground: {
+      backgroundColor: '#474747',
+    },
+    pagemenu: {
+      backgroundColor: '#1D1C1C'
+    },
   },
   statusbar: {
     backgroundColor: '#000000'
   },
-  widgetbackground: {
-    backgroundColor: '#EEECEC'
+  widget: {
+    widgetbackground: {
+      backgroundColor: '#EEECEC'
+    },
+    widgetheader: {
+      backgroundColor: '#FF8000'
+    }
   },
-  tableheader: {
-    backgroundColor: '#474747',
-    color: '#FFFFFF'
-  },
-  tablefooter: {
-    backgroundColor: '#262626'
+  table: {
+    tableheader: {
+      backgroundColor: '#474747',
+      color: '#FFFFFF'
+    },
+    tablefooter: {
+      backgroundColor: '#262626'
+    },
+    rowodd: {
+      background: '#3F3E3E'
+    },
+    roweven: {
+      background: '#474747'
+    }
   },
   tabnormal: {
     backgroundColor: '#545353'
@@ -97,31 +112,26 @@ export default {
     backgroundColor: '#343434',
     color: 'white'
   },
-  widgetheader: {
-    backgroundColor: '#FF8000'
-  },
   savelayoutbutton: {
     backgroundColor: '#545353',
     color: '#FFFFFF'
   },
-  rowodd: {
-    background: '#3F3E3E'
+  setting: {
+    settingtitle: {
+      backgroundColor: '#1B1D1C'
+    },
+    settingpanel: {
+      backgroundColor: '#383637',
+      color: 'white'
+    },
   },
-  roweven: {
-    background: '#474747'
+  profile: {
+    profiletitle: {
+      backgroundColor: '#1B1D1C'
+    },
+    profilepanel: {
+      backgroundColor: '#383637',
+      color: 'white'
+    }
   },
-  settingtitle: {
-    backgroundColor: '#1B1D1C'
-  },
-  settingpanel: {
-    backgroundColor: '#383637',
-    color: 'white'
-  },
-  profiletitle: {
-    backgroundColor: '#1B1D1C'
-  },
-  profilepanel: {
-    backgroundColor: '#383637',
-    color: 'white'
-  }
 }

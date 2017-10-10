@@ -18,8 +18,9 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language
+        let pagemenu = this.props.theme.page == undefined? undefined:this.props.theme.page.pagemenu
         return (
-            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={this.props.theme.pagemenu}>
+            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
                 <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-tabs">
                         <nav className='vertical-align-middle'>

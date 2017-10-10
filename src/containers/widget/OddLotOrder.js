@@ -152,6 +152,8 @@ class OddLotOrder extends Component {
                 {this.props.language.oddlottrading.header.register}
             </button>
         ]
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
@@ -168,7 +170,7 @@ class OddLotOrder extends Component {
                                         (this.state.oddLotOrderPageIndex - 1)*this.defaultPageSize, 
                                         this.state.oddLotOrderPageIndex*this.defaultPageSize )}/>
                     </div>
-                    <div className="table-header" style={this.props.theme.tableheader}>
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id+ '-search'}
                             id={this.id+ '-search'}
@@ -178,7 +180,7 @@ class OddLotOrder extends Component {
                             data={{stockList: []}}
                             param={[ 'dropdown']}/>
                     </div>
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.oddLotOrderPageIndex}
                             totalRecord={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}

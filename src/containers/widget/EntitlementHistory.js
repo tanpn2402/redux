@@ -98,6 +98,8 @@ class EntitlementHistory extends Component {
 
     render() {
         var entitlementHistory = this.props.entitlementHistory
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -112,7 +114,7 @@ class EntitlementHistory extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={entitlementHistory.historyList} />
                     </div>
-                    <div className="table-header" style={this.props.theme.tableheader}>
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -123,7 +125,7 @@ class EntitlementHistory extends Component {
                             data={{ stockList: this.stockList }}
                             param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
                     </div>
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(entitlementHistory.totalCount / this.defaultPageSize)}

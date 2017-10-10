@@ -35,11 +35,13 @@ class SettingNav extends Component {
 
     render() {
         console.log(this.state.language.page)
+        let settingtitle = this.props.currentTheme.setting == undefined? undefined:this.props.currentTheme.setting.settingtitle
+        let settingpanel = this.props.currentTheme.setting == undefined? undefined:this.props.currentTheme.setting.settingpanel
         return (
             <div id="settingnav" className="settingnav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="setting-panel" style={this.props.currentTheme.settingpanel} >
-                    <div className="title" style={this.props.currentTheme.settingtitle} >
+                <div className="setting-panel" style={settingpanel} >
+                    <div className="title" style={settingtitle} >
                         Settings
                     </div>
                     <div className="setting-list">

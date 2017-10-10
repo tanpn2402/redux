@@ -236,6 +236,8 @@ class StockMarketInfo extends Component {
 	}
 
 	render(){
+		let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
  	    return(
 			<div id={this.id}>
 			<Title theme={this.props.theme}>
@@ -297,7 +299,7 @@ class StockMarketInfo extends Component {
 					</div>
 				</div>
 				
-				<div className="table-header" style={this.props.theme.tableheader}>
+				<div className="table-header" style={tableheader}>
 					<SearchBar
 						ref = {e=>this.mvStockId = e}
 						id={this.id}

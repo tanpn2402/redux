@@ -711,7 +711,8 @@ class WatchList extends Component {
                 {this.props.language.watchlist.toolbar.removestock}
             </Button>
         ]
-
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%' }}>
                 <Title theme={this.props.theme} widgetID={'watchlist'}>
@@ -722,12 +723,12 @@ class WatchList extends Component {
                         <DataUpperTable
                             theme={this.props.theme}
                             id="watchlist-table"
-                            columns={this.state.columns}
+                            columns={this.state.COLUMNS}
                             data={this.props.watchListData.mvMarketData}
-                            onRowSelected={this.onRowSelected.bind(this)}
+                            ONROWSELECTED={this.onRowSelected.bind(this)}
                         />
                     </div>
-                    <div className="table-header" style={this.props.theme.tableheader}>
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             id={this.id}
                             buttonAction={this.buttonAction}
@@ -737,7 +738,7 @@ class WatchList extends Component {
                             param={['dropdown']}
                             data={{ stockList: [], columns: this.state.columns }} />
                     </div>
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={11}

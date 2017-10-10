@@ -415,6 +415,7 @@ class AccountInfo extends Component {
 
     render(){
 		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter		
 	    return(
             <div id={this.id}>
                 <Title theme={this.props.theme}>
@@ -493,7 +494,7 @@ class AccountInfo extends Component {
                                         />
                                 </div>
   
-                                <div className="table-footer" style={this.props.theme.tablefooter}>
+                                <div className="table-footer" style={tablefooter}>
                                     <Pagination
                                         pageIndex={this.state.pageIndex} 
                                         totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length/this.defaultPageSize)} 

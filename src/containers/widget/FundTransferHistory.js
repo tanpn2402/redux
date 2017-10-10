@@ -214,6 +214,7 @@ class FundTransHistory extends Component {
     render() {
         var data = this.props.data.list === undefined ? [] : this.props.data.list
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color    
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
         return (
             <div style={{height: '100%', position: 'relative'}}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -229,7 +230,7 @@ class FundTransHistory extends Component {
                             data={data}/>
                     </div>
                     
-                    <div className="table-footer" style={this.props.theme.tablefooter}>
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex} 
                             totalRecord={this.props.data.mvTotalOrders} 
