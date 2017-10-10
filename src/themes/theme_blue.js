@@ -67,9 +67,64 @@ export default {
       fontWeight: 'bold'
     },
   },
+  font:{
+    color: '#FFFFFF'
+  },
+  font2: {
+    color: '#000000'
+  },
+  pageheader:{
+    backgroundColor: '#F0F0F0'
+  },
   pagebackground: {
-    backgroundColor: '#f5f5f5',
-    
+    backgroundColor: '#F0F0F0',
+  },
+  pagemenu:{
+    backgroundColor: '#02407D'
+  },
+  statusbar: {
+    backgroundColor: '#003E7B'
+  },
+  widgetbackground: {
+    backgroundColor: '#EEECEC'
+  },
+  tableheader: {
+    backgroundColor: '#3370C1',
+    color: '#FFFFFF'
+  },
+  tablefooter: {
+    backgroundColor: '#A1CFF0'
+  },
+  tabnormal: {
+    backgroundColor: '#286CAE'
+  },
+  tabactived: {
+    backgroundColor: '#C5D9F2',
+    color: 'black'
+  },
+  widgetheader: {
+    backgroundColor: '#002761'
+  },
+  savelayoutbutton: {
+    backgroundColor: '#286CAE',
+    color: '#FFFFFF'
+  },
+  rowodd: {
+    background: '#F0F0F0'
+  },
+  roweven: {
+    background: 'white'
+  },
+  settingtitle: {
+    backgroundColor: '#02407D'
+  },
+  settingpanel: {
+    backgroundColor: '#F0F0F0'
+  },
+  profiletitle: {
+    backgroundColor: '#02407D'
+  },
+  profilepanel: {
+    backgroundColor: '#F0F0F0'
   }
-  
 }

@@ -154,12 +154,12 @@ class OddLotOrder extends Component {
         ]
         return (
             <div style={{height: '100%', position: 'relative'}}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <div className="table-main">
-                        <Table
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
@@ -168,7 +168,7 @@ class OddLotOrder extends Component {
                                         (this.state.oddLotOrderPageIndex - 1)*this.defaultPageSize, 
                                         this.state.oddLotOrderPageIndex*this.defaultPageSize )}/>
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={this.props.theme.tableheader}>
                         <SearchBar
                             key={this.id+ '-search'}
                             id={this.id+ '-search'}
@@ -178,7 +178,7 @@ class OddLotOrder extends Component {
                             data={{stockList: []}}
                             param={[ 'dropdown']}/>
                     </div>
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.oddLotOrderPageIndex}
                             totalRecord={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}

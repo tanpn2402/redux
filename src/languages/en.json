@@ -24,7 +24,8 @@
                     "title": "Appearence",
                     "light": "Light",
                     "dark": "Dark",
-                    "blue": "Blue"
+                    "blue": "Blue",
+                    "brown": "Brown"
                 },
                 "user": {
                     "title": "User"

@@ -4,7 +4,9 @@ const initialState = {
   mvIsEnableMultiMarket: true,
   mvResult: null,
   stockList : [],
-  stockWatchInfo: null,
+  stockWatchInfo: {
+    mvStockInfoBean:[],
+  }
 };
 
 export default function (state = initialState, action) {
@@ -20,7 +22,7 @@ export default function (state = initialState, action) {
 
       case ActionTypes.STOCKWATCHDATAUPDATE:
         return Object.assign({}, state, {
-          stockWatchInfo: action.data,
+          stockWatchInfo: Object.assign({},...state.stockWatchInfo,action.data == null?{}:action.data),
         });
 
     default:

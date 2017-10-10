@@ -93,7 +93,7 @@ class OrderJournal extends Component {
                     id: 'mvPrice',
                     Header: this.props.language.orderjournal.header.price,
                     accessor: 'mvPrice',
-                    width: 80,
+                    width: 100,
                     skip: false,
                     show: true,
                 },
@@ -208,12 +208,13 @@ class OrderJournal extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <div className="table-main">
-                        <Table
+                        <Table 
+                            theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -222,7 +223,7 @@ class OrderJournal extends Component {
                         />
                     </div>
 
-                    <div className="table-header">
+                    <div className="table-header" style={this.props.theme.tableheader}>
                         <SearchBar
                             id={this.id}
                             onSearch={this.onSearch.bind(this)}
@@ -233,7 +234,7 @@ class OrderJournal extends Component {
                             param={['mvStatus', 'mvOrderType', 'mvBuysell']} />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter} style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
@@ -326,9 +327,24 @@ class OrderJournal extends Component {
                     id: 'mvBS',
                     Header: nextProps.language.orderjournal.header.buysell,
                     accessor: 'mvBS',
-                    width: 50,
+                    width: 100,
                     skip: false,
                     show: true,
+                    Cell: props => {
+                        if (props.original.mvBS == nextProps.language.searchbar.buy || props.original.mvBS == 'Mua') {
+                            return (
+                                <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
+                                    {props.original.mvBS}
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
+                                    {props.original.mvBS}
+                                </div>
+                            )
+                        }
+                    }
                 },
                 {
                     id: 'mvPrice',

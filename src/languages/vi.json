@@ -24,7 +24,8 @@
                     "title": "Giao diện",
                     "light": "Trắng",
                     "dark": "Tối",
-                    "blue": "Xanh"
+                    "blue": "Xanh",
+                    "brown": "Nâu"
                 },
                 "user": {
                     "title": "Tài khoản"

@@ -225,14 +225,15 @@ class Portfolio extends Component {
 
     render() {
         var data = this.props.data.mvPortfolioBeanList
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
-                    <div className="table-main no-header">
-                        <Table
+                    <div className="table-main no-header" style={{color: font2}}>
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -241,7 +242,7 @@ class Portfolio extends Component {
                         />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(data.length / this.defaultPageSize)}

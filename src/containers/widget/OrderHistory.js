@@ -271,12 +271,12 @@ class OrderHistory extends Component {
         var data = this.props.historyOrder.mvOrderBeanList
         return (
             <div style={{height: '100%', position: 'relative'}}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <div className="table-main">
-                        <Table
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -285,7 +285,7 @@ class OrderHistory extends Component {
                         />
                     </div>
 
-                    <div className="table-header">
+                    <div className="table-header" style={this.props.theme.tableheader}>
                         <SearchBar
                             id={this.id}
                             onSearch={this.onSearch.bind(this)}
@@ -296,7 +296,7 @@ class OrderHistory extends Component {
                             param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(this.props.historyOrder.mvTotalOrders/this.defaultPageSize)}

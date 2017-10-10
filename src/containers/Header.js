@@ -24,7 +24,7 @@ class Header extends React.Component {
 		var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
 		let lgClose = () => this.setState({ lgShow: false })
 		return (
-			<div id="pageheader" style={this.props.theme.pagebackground} >
+			<div id="pageheader" style={this.props.theme.pageheader} >
 				<div className="logo">
 					<img src={require('../assets/images/logo_main_ttl.png')} />
 				</div>

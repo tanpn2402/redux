@@ -38,8 +38,8 @@ class SettingNav extends Component {
         return (
             <div id="settingnav" className="settingnav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="setting-panel">
-                    <div className="title">
+                <div className="setting-panel" style={this.props.currentTheme.settingpanel} >
+                    <div className="title" style={this.props.currentTheme.settingtitle} >
                         Settings
                     </div>
                     <div className="setting-list">
@@ -55,7 +55,7 @@ class SettingNav extends Component {
                                             {
                                                 e.value.map(v => {
                                                     return (
-                                                        <li><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
+                                                        <li ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
                                                             {this.state.language.page.setting[e.id][v]}
                                                             {
                                                                 this.setting[e.id] !== v ? '' :
@@ -74,8 +74,6 @@ class SettingNav extends Component {
                 </div>
             </div>
         )
-
-
     }
 
     componentWillReceiveProps(nextProps) {

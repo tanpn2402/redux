@@ -486,13 +486,13 @@ class EnterOrder extends Component {
         console.log(this.state.value)
         return (
             <div>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <Form id={"form-" + this.id} className="widget-form">
                         <div className="form-group " id="form-group-enterorder">
-                            <Table responsive>
+                            <Table theme={this.props.theme} responsive>
                                 <tbody >
                                     <tr>
                                         <th>{language.header.buysell} </th>

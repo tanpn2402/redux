@@ -414,9 +414,10 @@ class AccountInfo extends Component {
 
 
     render(){
+		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
 	    return(
             <div id={this.id}>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 
@@ -431,7 +432,7 @@ class AccountInfo extends Component {
 								this.hasBank ? 
 								(
 									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 												<table className="table">
 													<tbody >
@@ -455,7 +456,7 @@ class AccountInfo extends Component {
 								) : 
 								(
 									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 												<table className="table">
 													<tbody >
@@ -481,7 +482,7 @@ class AccountInfo extends Component {
 					    (
                             <div>
                                 <div className="table-main" style={{paddingTop: '51px'}}>
-                                    <Table
+                                    <Table theme={this.props.theme}
                                         key={this.id}
                                         id={this.id}
                                         columns={this.state.columns}
@@ -492,7 +493,7 @@ class AccountInfo extends Component {
                                         />
                                 </div>
   
-                                <div className="table-footer">
+                                <div className="table-footer" style={this.props.theme.tablefooter}>
                                     <Pagination
                                         pageIndex={this.state.pageIndex} 
                                         totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length/this.defaultPageSize)} 
@@ -506,7 +507,7 @@ class AccountInfo extends Component {
                         ) : this.state.tabIndex === 2 ?
 					    (
 							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 										<table className="table">
 											<tbody >
@@ -529,7 +530,7 @@ class AccountInfo extends Component {
                         ) : this.state.tabIndex === 3 ?
 					    (
 							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 										<table className="table">
 											<tbody >

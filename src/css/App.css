@@ -1003,7 +1003,7 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 6px;
     float: right;
 }
-.setting-item > li:hover {
+.setting-item > li > a:hover {
     background-color: #fafafa;
 }
 .setting-panel label {

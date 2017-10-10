@@ -36,13 +36,13 @@ class AdvancePanel extends Component {
         
         return (
             <div>
-                <Title widgetID={this.id}>
+                <Title theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
-                            <Table responsive>
+                            <Table theme={this.props.theme} responsive>
                                 <tbody >
                                     <tr>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>

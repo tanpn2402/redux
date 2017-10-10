@@ -238,7 +238,7 @@ class StockMarketInfo extends Component {
 	render(){
  	    return(
 			<div id={this.id}>
-			<Title>
+			<Title theme={this.props.theme}>
 				{this.props.language.menu[this.id]}
 			</Title>
 			
@@ -285,7 +285,7 @@ class StockMarketInfo extends Component {
 						
 						
 						<div className="marketdatainfo-mini-table" id="match-order-table">
-							<Table
+							<Table theme={this.props.theme}
 								key={this.id}
 								id={this.id}
 								defaultPageSize={15}
@@ -297,7 +297,7 @@ class StockMarketInfo extends Component {
 					</div>
 				</div>
 				
-				<div className="table-header">
+				<div className="table-header" style={this.props.theme.tableheader}>
 					<SearchBar
 						ref = {e=>this.mvStockId = e}
 						id={this.id}

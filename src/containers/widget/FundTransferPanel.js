@@ -83,7 +83,7 @@ class FundTransPanel extends Component {
                 height: '100%',
                 position: 'relative'
             }}>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
@@ -94,7 +94,7 @@ class FundTransPanel extends Component {
                         id={"form-" + this.id}
                         className="widget-form">
                         <FormGroup>
-                            <Table responsive>
+                            <Table theme={this.props.theme} responsive>
                                 <tbody >
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.cashbalance}</th>

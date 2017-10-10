@@ -116,9 +116,12 @@ class Sumary extends Component {
                 y: d.sellStkNotInMarPort
             }
         ]
+        let rowodd = this.props.theme.rowodd == undefined? undefined:this.props.theme.rowodd.background
+        let roweven = this.props.theme.roweven == undefined? undefined:this.props.theme.roweven.background
+        let font2 = this.props.theme.font2 == undefined? undefined:this.props.theme.font2.color
         return (
             <div>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
@@ -131,14 +134,24 @@ class Sumary extends Component {
                                 <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
                                     <table className="table">
                                         <tbody >
+                                            
                                             {
-                                                this.data.map(d => {
-                                                    return(
-                                                        <tr>
-                                                            <th>{d.name}</th>
-                                                            <td>{d.y}</td>
-                                                        </tr>
-                                                    )
+                                                this.data.map((d, i) => {
+                                                    if(i%2!=0){
+                                                        return (
+                                                            <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.y}</td>
+                                                            </tr>
+                                                        )
+                                                    }else{
+                                                        return(
+                                                            <tr style={{backgroundColor: roweven, color: font2}} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.y}</td>
+                                                            </tr>
+                                                        )
+                                                    }
                                                 })
                                             }
 
@@ -154,13 +167,22 @@ class Sumary extends Component {
                                 <table className="table">
                                     <tbody >
                                         {
-                                            data2.map(d => {
-                                                return(
-                                                    <tr>
-                                                        <th>{d.name}</th>
-                                                        <td>{d.y}</td>
-                                                    </tr>
-                                                )
+                                            data2.map((d, i) => {
+                                                if(i%2!=0){
+                                                    return (
+                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }
                                             })
                                         }
 
@@ -176,13 +198,22 @@ class Sumary extends Component {
                                 <table className="table">
                                     <tbody >
                                         {
-                                            data3.map(d => {
-                                                return(
-                                                    <tr>
-                                                        <th>{d.name}</th>
-                                                        <td>{d.y}</td>
-                                                    </tr>
-                                                )
+                                            data3.map((d, i) => {
+                                                if(i%2!=0){
+                                                    return (
+                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }
                                             })
                                         }
 
@@ -199,13 +230,22 @@ class Sumary extends Component {
                                 <table className="table">
                                     <tbody >
                                         {
-                                            data4.map(d => {
-                                                return(
-                                                    <tr>
-                                                        <th>{d.name}</th>
-                                                        <td>{d.y}</td>
-                                                    </tr>
-                                                )
+                                            data4.map((d, i) => {
+                                                if(i%2!=0){
+                                                    return (
+                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }else{
+                                                    return(
+                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                            <th>{d.name}</th>
+                                                            <td>{d.y}</td>
+                                                        </tr>
+                                                    )
+                                                }
                                             })
                                         }
 
@@ -218,7 +258,6 @@ class Sumary extends Component {
                 </Body>
             </div>
         )
-
     }
 }
 const mapStateToProps = (state) => {

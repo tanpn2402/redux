@@ -193,22 +193,23 @@ class OddLotHistory extends Component {
 
     render() {
         let oddlothistory = this.props.oddlothistory
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         console.log(oddlothistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
-                    <div className="table-main no-header">
-                        <Table
+                    <div className="table-main no-header" style={{color: font2}}>
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
                             data={oddlothistory.historyList} />
                     </div>
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.oddLotTransPageIndex}
                             totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize)}

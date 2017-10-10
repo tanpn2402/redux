@@ -45,7 +45,7 @@ class StatusBar extends React.Component {
         )
 
         return (
-            <div id="status-bar">
+            <div id="status-bar" style={this.props.theme.statusbar}>
                 <div className="connection-status open">
                     <span className="glyphicon glyphicon-signal"></span>
                 </div>

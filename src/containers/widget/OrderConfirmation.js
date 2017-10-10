@@ -148,63 +148,64 @@ class OrderConfirmation extends Component {
 
         let buttonAction = [
             <Pagination
-                    pageIndex={this.state.pageIndex} 
-                    totalRecord={this.props.data.mvTotalOrders} 
-                    onPageChange={this.onPageChange.bind(this)}
-                    onNextPage={this.onNextPage.bind(this)}
-                    onPrevPage={this.onPrevPage.bind(this)}
-                    onReloadPage={this.onReloadPage.bind(this)}
-            onExportExcel={this.onExportExcel.bind(this)}
-                />,
+                pageIndex={this.state.pageIndex}
+                totalRecord={this.props.data.mvTotalOrders}
+                onPageChange={this.onPageChange.bind(this)}
+                onNextPage={this.onNextPage.bind(this)}
+                onPrevPage={this.onPrevPage.bind(this)}
+                onReloadPage={this.onReloadPage.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
+            />,
 
             <Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Thực hiện</Button>
         ]
         return (
-        <div style={{height: '100%'}}>
-            <div className="component-header" >
-                <span className="content-block-head">
-                    {this.props.language.menu[this.id]}
-                </span>
-                <ul className="btn-action">
-                    <li className="btn-close">
-                        <span className="glyphicon glyphicon-remove" ></span>
-                    </li>
-                </ul>
-            </div>
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
-                <div className="component-main">
-                    <DataUpperTable
-                        id={this.id + '-table'}
-                        defaultPageSize={15}
-                        onRowSelected={this.onRowSelected.bind(this)}
-                        columns={this.state.columns}
-                        data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
-                    />
+            <div style={{ height: '100%' }}>
+                <div className="component-header" >
+                    <span className="content-block-head">
+                        {this.props.language.menu[this.id]}
+                    </span>
+                    <ul className="btn-action">
+                        <li className="btn-close">
+                            <span className="glyphicon glyphicon-remove" ></span>
+                        </li>
+                    </ul>
                 </div>
-                <div className="component-body">
-                    <SearchBar
-                        id={this.id}
-                        onSearch={this.onSearch.bind(this)}
-                        buttonAction={buttonAction}
-                        language={this.props.language.searchbar}
-                        theme={this.props.theme}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: this.props.stockList, columns: this.state.columns}}
-                        param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                        
-                    <Popup
-                        id={this.id}
-                        show={this.state.lgShow} onHide={lgClose}
-                        rowSelected={this.rowSelected} language={this.props.language}
-                        title={this.props.language.orderconfirmation.popup.title}
-                    />
+                <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                    <div className="component-main">
+                        <DataUpperTable
+                            theme={this.props.theme}
+                            id={this.id + '-table'}
+                            defaultPageSize={15}
+                            onRowSelected={this.onRowSelected.bind(this)}
+                            columns={this.state.columns}
+                            data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
+                        />
+                    </div>
+                    <div className="component-body">
+                        <SearchBar
+                            id={this.id}
+                            onSearch={this.onSearch.bind(this)}
+                            buttonAction={buttonAction}
+                            language={this.props.language.searchbar}
+                            theme={this.props.theme}
+                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                            data={{ stockList: this.props.stockList, columns: this.state.columns }}
+                            param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
+
+                        <Popup
+                            id={this.id}
+                            show={this.state.lgShow} onHide={lgClose}
+                            rowSelected={this.rowSelected} language={this.props.language}
+                            title={this.props.language.orderconfirmation.popup.title}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onSearch(this.param)
     }
 
@@ -238,12 +239,12 @@ class OrderConfirmation extends Component {
     }
 
     showPopup() {
-        if(this.rowSelected.length > 0){
+        if (this.rowSelected.length > 0) {
             this.setState({
                 lgShow: true
             });
         }
-        else{
+        else {
             this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
         }
         // console.log('onConfirmOrder', this.rowSelected)
@@ -257,27 +258,27 @@ class OrderConfirmation extends Component {
     }
 
     onPageChange(pageIndex) {
-        if(pageIndex > 0){
+        if (pageIndex > 0) {
             this.state.pageIndex = pageIndex
-            
-        }  
+
+        }
     }
 
-    onNextPage(){
-        if(this.state.pageIndex > 0){
+    onNextPage() {
+        if (this.state.pageIndex > 0) {
             this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        
+
         }
     }
 
-    onPrevPage(){
-        if(this.state.pageIndex > 1){
+    onPrevPage() {
+        if (this.state.pageIndex > 1) {
             this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-           
+
         }
     }
 
-    onReloadPage(){
+    onReloadPage() {
         //this.props.onSearch(this.param, !this.props.reload)
     }
     onSearch(param) {

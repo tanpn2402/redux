@@ -18,13 +18,13 @@ class EntitlementPanel extends Component {
         var entitlementStockList = this.props.entitlementStockList
         return (
             <div style={{height: '100%', position: 'relative'}}>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <Form onSubmit={this.submitEntitlement.bind(this)} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
-                            <Table responsive >
+                            <Table theme={this.props.theme} responsive >
                                 <tbody >
                                     <tr>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>

@@ -103,14 +103,15 @@ class MatchOrderList extends Component {
     render() {
         var soldOrders = this.props.soldOrders
         var data = soldOrders.mvChildBeanList
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
-                    <div className="table-main no-header">
-                        <Table
+                    <div className="table-main no-header" style={{color: font2}} >
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -121,7 +122,7 @@ class MatchOrderList extends Component {
                         />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={this.props.theme.tablefooter}>
                         <Pagination
                             pageIndex={this.state.orderMatchListPageIndex}
                             totalRecord={Math.ceil( soldOrders.totalCount / this.defaultPageSize )}

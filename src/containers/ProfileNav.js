@@ -48,8 +48,8 @@ class ProfileNav extends Component {
         return (
             <div id="profilenav" className="profilenav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="profile-panel">
-                    <div className="title">
+                <div className="profile-panel" style={this.props.currentTheme.profilepanel} >
+                    <div className="title" style={this.props.currentTheme.profiletitle} >
                         Profile
                     </div>
                     <div className="profile-list">
@@ -72,7 +72,7 @@ class ProfileNav extends Component {
                                                         )
                                                     } else {
                                                         return (
-                                                            <li id={e.id + '_' + v}>
+                                                            <li id={e.id + '_' + v} style={this.props.currentTheme.font2} >
                                                                 {personalprofile[e.id][v]}
                                                                 <input type={e.id === 'changepassword' ? 'password' : 'text'} value={this.responseMap[e.id + '_' + v]} id={v} className='form-control' readOnly={e.id !== 'changepassword'} onChange={(e) => this.onChangeValue(e)} />
                                                             </li>

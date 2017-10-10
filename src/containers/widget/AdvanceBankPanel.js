@@ -40,14 +40,14 @@ class AdBankPanel extends Component {
         var calculateInterestAmt = this.props.calculateInterestAmt
         return (
             <div>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
 
                     <Form onSubmit={this.handleSubmit.bind(this)} id={this.id}  className="widget-form">
                         <FormGroup>
-                            <Table responsive>
+                            <Table theme={this.props.theme} responsive>
                                 <tbody >
                                      <tr>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
