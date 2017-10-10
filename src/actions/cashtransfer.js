@@ -24,27 +24,41 @@ export function getFundtransfer(params) {
   }
 }
 
-function responsegenfundtransfer(response) {
+function responsegenfundtransfer(response, language) {
+  
+  // if (response.mvErrorCode > 0){
+  //   return (dispatch) => {
+  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
+  //   }
+  // }
+  console.log("responsegenfundtransfer")
   return {
     type: ActionTypes.GENFUNDTRANSFER,
     data: response
   }
 }
 
-export function getGenfundtransfer(params) {
+export function getGenfundtransfer(params, language) {
+  // var callback = (response) => responsegenfundtransfer(response, language)
   return (dispatch) => {
     WebApi.post(ACTION.GENFUNDTRANSFER, params, dispatch, responsegenfundtransfer)
   }
 }
 
 function responsehksCachTranHis(response) {
+  // if (response.list == null){
+  //   return (dispatch) => {
+  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvMessage))
+  //   }
+  // }
   return {
     type: ActionTypes.HKSCASHTRANHIS,
     data: response
   }
 }
 
-export function gethksCachTranHis(params) {
+export function gethksCachTranHis(params, language) {
+  // var response = (params) => responsehksCachTranHis(params, language)
   return (dispatch) => {
     WebApi.post(ACTION.HKSCASHTRANHIS, params, dispatch, responsehksCachTranHis)
   }
@@ -197,7 +211,7 @@ export function CancelCashtransfer(data, language) {
           }
         } else {
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.mvFundTransferResult, '123'))
+            dispatch(showMessageBox(language.messagebox.title.mvFundTransferResult, ''))
           }
         }
       } else {
