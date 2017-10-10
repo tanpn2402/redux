@@ -8,6 +8,7 @@ import checkAuthen from './checkAuthenReducer'
 import orderjournal from './orderjournal'
 import pagination from './pagination'
 import stock from './stockreducer'
+import cashtranshistory from './cashtranshistory'
 import orderconfirmation from './orderconfirmation'
 import porfolio from './porfolio'
 import orderhistory from './orderhistory'
@@ -39,6 +40,7 @@ export default combineReducers({
   orderjournal,
   pagination,
   stock,
+  cashtranshistory,
   orderconfirmation,
   porfolio,
   oddlottrading,
