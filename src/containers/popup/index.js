@@ -26,7 +26,7 @@ export default function(props, onClose){
 		break;	
 		
 		case 'orderconfirmation':
-			return (<ConfirmOrder onHide={props.onHide} rowSelected={props.rowSelected} language={props.language}/>)
+			return (<ConfirmOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language}/>)
 			break;
 
 		case 'oddlottrading':

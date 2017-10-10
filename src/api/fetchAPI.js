@@ -1,4 +1,3 @@
-import axios from 'axios'
 export const GET = 'GET'
 export const POST = 'POST'
 export const PUT = 'PUT'
@@ -141,6 +140,10 @@ export async function FetchAPI(id, JsonData, method) {
             })
                 .catch(reject)
         })
+    }
+    if (method === 'REPORT') {
+        url+= '?'+formData
+        window.location.href = url
     }
 
 
