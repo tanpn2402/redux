@@ -63,7 +63,10 @@ class AdvancePanel extends Component {
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td>
                                             <FormGroup>
-                                                <input type="number" name="volume" min="0" onChange={this.onAdvancePaymentChange.bind(this)}  
+                                                <input 
+                                                    className="hks-input border"
+                                                    type="number" name="volume" min="0" 
+                                                    onChange={this.onAdvancePaymentChange.bind(this)}  
                                                     id="txtAdvancePayment" required />
                                             </FormGroup>
                                         </td>

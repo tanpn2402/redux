@@ -239,6 +239,7 @@ export default class SearchBar extends React.Component {
 		        <InputSearch data={stockList} 
                     onChange={e=> {}}
                     type={'sm'}
+                    allowAll={true}
                     style={{marginBottom: '0'}}/>
 		  	</FormGroup>
         )

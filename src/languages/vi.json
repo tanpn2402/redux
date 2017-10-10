@@ -52,7 +52,7 @@
                 "cashtransfer": "Chuyển tiền",
                 "cashadvance": "Ứng trước tiền bán chứng khoán",
                 "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)",
-                "oddlottrading": "Bán chứng khoán lô lẻ",
+                "oddLot": "Bán chứng khoán lô lẻ",
                 "entitlement": "Thực hiện quyền online",
                 "loanrefund": "Hoàn trả vay ký quỹ",
                 "help": "Giúp đỡ",
@@ -60,7 +60,33 @@
                 "defaultgroup": "Danh sách cửa sổ hệ thống",
                 "savelayout": "Lưu cách trình bày",
                 "techanalysis": "Phân tích kỹ thuật",
-                "orderconfirmation": "Ký nhận lệnh"
+                "orderconfirmation": "Ký nhận lệnh",
+                "actionRightList": "DANH SÁCH QUYỀN",
+                "additionSharesInfo": "THÔNG TIN MUA CỔ PHIẾU PHÁT HÀNH THÊM",
+                "entitlementHistory": "TRA CỨU LỊCH SỬ GIAO DỊCH MUA CỔ PHIẾU PHÁT HÀNH THÊM ",
+                "entitlementPanel": "ĐĂNG KÝ THỰC HIỆN QUYỀN",
+                "advancePayment": "Ứng tiền",
+                "advancePaymentBank": "Ứng tiền (Ngân hàng)",
+                "fundTransfer": "Chuyển tiền",
+                "cashTransHistory": "GIAO DỊCH CHUYỂN TIỀN TRONG NGÀY",
+                "orderHistory": "Order History",
+                "portfolio": "Portfolio",
+                "sumary": "Sumary",
+                "oddLotOrder": "ĐẶT LỆNH GIAO DỊCH LÔ LẺ",
+                "oddlotHistory": "TRA CỨU LỊCH SỬ GIAO DỊCH CHỨNG KHOÁN LÔ LẺ",
+                "matchOrderBankList": "DANH SÁCH LỆNH KHỚP",
+                "advanceBankHistory": "GIAO DỊCH ỨNG TRƯỚC TRONG NGÀY",
+                "advanceBankPanel": "THỰC HIỆN ỨNG TRƯỚC",
+                "matchOrderList": "DANH SÁCH LỆNH KHỚP",
+                "advanceHistory": "GIAO DỊCH ỨNG TRƯỚC TRONG NGÀY",
+                "advancePanel": "THỰC HIỆN ỨNG TRƯỚC",
+                "fundTransPanel": "THỰC HIỆN CHUYỂN TIỀN",
+                "fundTransHistory": "GIAO DỊCH CHUYỂN TIỀN TRONG NGÀY",
+                "stockmarketinfo": "Stock Market Data Realtime",
+
+                "loanRefundPanel": "HOÀN TRẢ VAY KÝ QUỸ",
+                "loanRefundHistory": "LỊCH SỬ GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ",
+                "loanRefundStatus": "TRẠNG THÁI GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -705,13 +731,6 @@
                 }
             },
             "loanrefund": {
-                "title": {
-                    "titleloanrefundstatus": "TRẠNG THÁI GIAO DỊCH HOẢN TRẢ VAY KÝ QUỸ",
-                    "titleloanrefundhistory": "LỊCH SỬ GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ",
-                    "titleloanrefundform": " HOÀN TRẢ VAY KÝ QUỸ",
-                    "titleloanrefundnotice": "Lưu Ý",
-                    "titleloanrefundnoticeinfos": "-  Thực hiện hoàn trả vay ký quỹ phải được thực hiện trước 4g30 chiều của ngày giao dịch. -  Trong trường hợp Quý khách hàng muốn 'Hoàn trả vay ký quỹ' bằng tiền ứng trước. Quý khách hàng vui lòng hoàn tất thực hiện chức năng 'ứng trước tiền bán chứng khoán' trước khi thực hiện giao dịch 'Hoàn trả vay ký quỹ'."
-                },
                 "header": {
                     "loanID": "STT",
                     "trandate": "Ngày giao dịch",
@@ -721,22 +740,9 @@
                     "remark": "Ghi chú",
                     "lastupdate": "Ngày cập nhật cuối"
                 },
-                "form": {
-                    "beginningloan": "Dư nợ đầu ngày",
-                    "availablecashforrefund": "Khả năng trả nợ",
-                    "cashadvanceable": "Khả năng ứng trước",
-                    "loanrefundamount": "Số tiền hoàn trả",
-                    "remark": "Ghi chú",
-                    "cashadvanceavailable": "Khả năng ứng trước",
-                    "advancefee": "Phí ứng trước",
-                    "advanceamount": "Số tiền ứng",
-                    "submit": "Thực hiện",
-                    "cancel": "Xóa"
-                },
                 "popup": {
                     "title": {
-                        "submitLoanRefund": "1",
-                        "submitAdvance": "2"
+                        "submitLoanRefund": "Xác nhận"
                     },
                     "message": "Bạn có chắc chắn muốn thực hiện ?"
                 },
@@ -757,6 +763,18 @@
                     "wrongAmount": "Vui lòng nhập số tiền hoàn trả.",
                     "insufficientFund": "Số tiền Quý khách muốn hoàn trả vượt quá khả năng trả nợ của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
                     "aheadMsg": "Ngày kết thúc không được trước ngày bắt đầu"
+                },
+                "form": {
+                    "beginningloan": "Dư nợ đầu ngày",
+                    "availablecashforrefund": "Khả năng trả nợ",
+                    "cashadvanceable": "Khả năng ứng trước",
+                    "loanrefundamount": "Số tiền hoàn trả",
+                    "remark": "Ghi chú",
+                    "cashadvanceavailable": "Khả năng ứng trước",
+                    "advancefee": "Phí ứng trước",
+                    "advanceamount": "Số tiền ứng",
+                    "submit": "Thực hiện",
+                    "cancel": "Xóa"
                 }
             },
             "cashadvancebank": {

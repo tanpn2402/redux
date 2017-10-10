@@ -1,48 +1,46 @@
-//render modal body + footer
 import React, { Component } from 'react';
-import { Button, Modal, } from 'react-bootstrap';
-import ReactTable from "react-table"
-import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import DataTable from '../DataTable'
-import CheckAuthenticationModal from './CheckAuthenticationModal'
+import {  Table, Modal,Button} from 'react-bootstrap';
+import '../../css/App.css';
+import CheckAuthenticationModal from './CheckAuthenticationModal';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 class LoanRefundPopup extends Component{
     constructor(props) {
         super(props)
-        this.params = {
-            lvLoanPay:'900',
-            lvAmount:'900',
-            lvRemark:'',
-            mvSeriNo:'[5,A]|[4,F]',
-            mvAnswer:'7|4',
-            key:'true',
-        }
-        this.id = 'loanrefund-popup'
     }
 
 
-    render(){
-        return(
-            <div>
+    render() {
+        var language = this.props.language
+        return (
+            <div>  
                 <Modal.Body>
                     <div>
-                        {this.props.language.loanrefund.popup.message}
+                        {language.loanrefund.popup.message}
                     </div>
                 </Modal.Body>
-                {
-                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language}/>
-                }
+                
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
+
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.button.cancel}</Button>
-                    <Button className="submit" onClick={this.submit.bind(this)}> {this.props.language.button.submit}</Button>
+                    <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
+                    <Button className="submit" onClick={this.submit.bind(this)}> {language.button.submit}</Button>
                 </Modal.Footer>
             </div>
-        )
+        );
     }
 
     submit(e){
-
+        e.preventDefault()
+        var authParams = this.auth.getParam()
+        console.log(authParams)
+        this.props.getLoanRefundSubmit({
+            me: this.props.data.me,
+            language: this.props.data.language,
+            authParams: authParams
+        })
+        this.props.onHide()
     }
 }
 
@@ -55,7 +53,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   getLoanRefundSubmit: (params) => {
-      dispatch(actions.getLoanRefundSubmit(params))
+      dispatch(actions.doSubmitLoanRefund(params))
   }
 })
 

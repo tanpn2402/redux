@@ -24,8 +24,8 @@ import {
   getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getEntitlementStockList,
   entitlementGetAccountBalance, getEntitlementData, submitEntitlement
 } from './entitlement'
-import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, 
-  getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
+import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, 
+    getLoanRefundData, beforeSubmitLoanRefund, doSubmitLoanRefund } from './loanrefund'
 import { getCashAdvance, getQuerySoldOrders, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
 import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, 
     submitCashAdvanceBank, paymentSelectionChange } from './cashadvancebank'
@@ -115,11 +115,9 @@ export {
   getLocalRefundCreation,
   getLocalAdvanceCreation,
   getLoanRefundHistory,
-  getLoanRefundSubmit,
-  getAdvanceSubmit,
   getLoanRefundData,
   beforeSubmitLoanRefund,
-  beforeSubmitAdvance,
+  doSubmitLoanRefund,
 
   // entitlement
   getRightlist,

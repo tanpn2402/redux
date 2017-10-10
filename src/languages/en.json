@@ -82,7 +82,11 @@
                 "advancePanel": "Cash Advance Place",
                 "fundTransPanel": "Cash Transfer Place",
                 "fundTransHistory": "Cash Transfer Transaction",
-                "stockmarketinfo": "Stock Market Data Realtime"
+                "stockmarketinfo": "Stock Market Data Realtime",
+
+                "loanRefundPanel": "Loan Refund Panel",
+                "loanRefundHistory": "Loan Refund Transaction History",
+                "loanRefundStatus": "Loan Refund Transaction Status"
             },
             "searchbar": {
                 "search": "Search",
@@ -621,8 +625,8 @@
                 "message": {
                     "insufficientfund": "Insufficient Fund!",
                     "noamount": "Amount should not be blank.",
-                    "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Advance Payment successfully."
+                    "advancePaymentFailed": "Advance Payment Failed.",
+                    "advancePaymentSuccessful": "Advance Payment Successful."
                 }
             },
             "watchlist": {
@@ -775,13 +779,6 @@
                 }
             },
             "loanrefund": {
-                "title": {
-                    "titleloanrefundstatus": "LOAN REFUND TRANSACTION STATUS",
-                    "titleloanrefundnhistory": "LOAN REFUND TRANSACTION HISTORY",
-                    "titleloanrefundform": " LOAN REFUND",
-                    "titleloanrefundnotice": "Notice",
-                    "titleloanrefundnoticeinfos": "-  The Refund loan request has to be made before 4:30pm. -  Customer wants to refund loan by cash advanceable, please complete function 'Cash Advance' before peforming function 'Loan refund'."
-                },
                 "header": {
                     "loanID": "ID",
                     "trandate": "Trading Date",
@@ -793,10 +790,9 @@
                 },
                 "popup": {
                     "title": {
-                        "submitLoanRefund": "1",
-                        "submitAdvance": "2"
+                        "submitLoanRefund": "Confirm"
                     },
-                    "message": "Bạn có chắc chắn muốn thực hiện ?"
+                    "message": "Do you want to do this action ?"
                 },
                 "type": {
                     "TYPE_A": "Auto Repayment",
@@ -810,11 +806,11 @@
                     "formargincall": "For Margin Call"
                 },
                 "message": {
-                    "loanRefundSuccessful": "Hoàn trả thành công.",
-                    "loanRefundFailed": "Hoàn trả thất bại.",
-                    "wrongAmount": "Vui lòng nhập số tiền hoàn trả.",
-                    "insufficientFund": "Số tiền Quý khách muốn hoàn trả vượt quá khả năng trả nợ của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
-                    "aheadMsg": "Ngày kết thúc không được trước ngày bắt đầu"
+                    "loanRefundSuccessful": "Loan Refund Successful.",
+                    "loanRefundFailed": "Loan Refund Failed.",
+                    "wrongAmount": "Please input your loan refund money.",
+                    "insufficientFund": "Insufficient Fund!.",
+                    "aheadMsg": "The end date can not be before start date"
                 },
                 "form": {
                     "beginningloan": "Beginning Loan",
@@ -852,14 +848,17 @@
                     "note": "Note"
                 },
                 "popup": {
-                    "cashadvancebank": "Ứng trước tiền bán chứng khoán (ngân hàng)"
+                    "title": "Confirm",
+                    "message": "Do you want to do this action ?"
                 },
                 "message": {
-                    "insufficientfund": "Insufficient Fund!",
-                    "noamount": "Amount should not be blank.",
-                    "wrongAmount": "Wrong Amount!",
+                    "insufficientFund": "Insufficient Fund!",
+                    "noAmount": "Amount should not be blank.",
+                    "wrongAmount": "Please input your advance payment money.",
                     "advancePaymentFailed": "Advance Payment Failed.",
-                    "advancePaymentSuccessful": "Advance Payment Successful."
+                    "advancePaymentSuccessful": "Advance Payment Successful.",
+                    "noRegisterBank": "You don't register to trading via bank.",
+                    "differentTradeDate": "You must select orders with have same trade date."
                 }
             },
             "cash": {

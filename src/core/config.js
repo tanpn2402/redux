@@ -283,11 +283,11 @@ const config = {
 			widget: [
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-				//{i: 'loanrefund',  x:0, y:0, w: 30, h: 10, minW: 6, minH: 8, maxW: 8, maxH: 12, static: true, isResizable: false},
 				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 12, isDraggable: false, isResizable: false },
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 8, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
 				{ i: 'oddLot', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
+				{ i: 'loanrefund',  x:0, y:0, w: 30, h: 10, isDraggable: false, isResizable: false},
 
 			]
 		},
@@ -320,6 +320,7 @@ const config = {
 		matchOrderBankList: { i: 'matchOrderBankList', x: 2, y: 0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceBankHistory: { i: 'advanceBankHistory', x: 0, y: 5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceBankPanel: { i: 'advanceBankPanel', x: 0, y: 0, w: 2, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
+		advanceBankPlace: { i: 'advanceBankPlace', x: 0, y: 0, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 
 		matchOrderList: { i: 'matchOrderList', x: 0, y: 5, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		advanceHistory: { i: 'advanceHistory', x: 2, y: 0, w: 6, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
@@ -331,6 +332,10 @@ const config = {
 		fundTransfer: { i: 'fundTransfer', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
 		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 3, h: 10, isDraggable: false, isResizable: false },
 		fundTransHistory: { i: 'fundTransHistory', x: 3, y: 0, w: 5, h: 10, isDraggable: false, isResizable: false },
+
+		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6, h: 5, isDraggable: false, isResizable: false },
+		loanRefundPanel: { i: 'loanRefundPanel', x: 0, y: 0, w: 2, h: 5, isDraggable: false, isResizable: false },
+		loanRefundStatus: { i: 'loanRefundStatus', x: 2, y: 0, w: 6, h: 5, isDraggable: false, isResizable: false }
 	},
 
 	settings: [

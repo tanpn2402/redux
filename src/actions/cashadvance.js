@@ -60,7 +60,7 @@ export function submitCashAdvance(data, authParams, language){
           } 
           else {
             return(dispatch)=>{
-              dispatch(showMessageBox(language.messagebox.title.error, '123'))
+              dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
             }
           }
         }

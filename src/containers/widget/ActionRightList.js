@@ -9,12 +9,14 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import moment from 'moment'
+import config from '../../core/config'
 
 class ActionRightList extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'actionRightList'
+        this.stockList = config.cache.stockList
         this.defaultPageSize = 15
         this.pageIndex = 1
         this.state = {
@@ -159,7 +161,6 @@ class ActionRightList extends Component {
     }
 
     redererToCash(original) {
-        console.log(original)
         if (original.cashRate !== null && original.cashRate.length > 0) {
             var value = (original.issueRatioDelivery / original.issueRatioPer);
             return Utils.currencyShowFormatter(value, ",", this.lang);
@@ -171,7 +172,6 @@ class ActionRightList extends Component {
 
     render() {
         var allRightList = this.props.allRightList
-        console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -194,7 +194,7 @@ class ActionRightList extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{ stockList: [], actionType: this.actionTypeStore }}
+                            data={{ stockList: this.stockList, actionType: this.actionTypeStore }}
                             param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                     </div>
                     <div className="table-footer">

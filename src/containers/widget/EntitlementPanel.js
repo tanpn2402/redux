@@ -15,6 +15,13 @@ class EntitlementPanel extends Component {
 
     render() {
         var bankInfo = this.props.bankInfo
+        bankInfo.mvBankInfoList.unshift({
+            'mvBankID': "",
+            'mvBankACID': "",
+            'mvSettlementAccountDisplayName': "MAS",
+            'mvIsDefault': "N",
+            'mvInterfaceSeq': "-1"
+        })
         var entitlementStockList = this.props.entitlementStockList
         return (
             <div style={{height: '100%', position: 'relative'}}>
@@ -75,7 +82,11 @@ class EntitlementPanel extends Component {
                                     <tr>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
-                                            <InputSearch data={entitlementStockList.stockCmbList} onChange={this.onStockChange.bind(this)}/>
+                                            <InputSearch 
+                                                type={'sm'}
+                                                style={{padding: '0 4px', height: '26px'}}
+                                                data={entitlementStockList.stockCmbList} 
+                                                onChange={this.onStockChange.bind(this)}/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -108,8 +119,7 @@ class EntitlementPanel extends Component {
                                                 id="txtPrice" 
                                                 className="hks-input read-only"
                                                 ref={e => this.txtPrice = e}
-                                                readOnly
-                                                required />
+                                                readOnly/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -119,8 +129,7 @@ class EntitlementPanel extends Component {
                                                 id="txtAmount" 
                                                 className="hks-input read-only"
                                                 ref={e => this.txtAmount = e}
-                                                readOnly
-                                                required />
+                                                readOnly/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -140,12 +149,13 @@ class EntitlementPanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
+                                    <button className="btn btn-default" type="button" className="hks-btn btn-cancel"
+                                        onClick={this.handleResetForm.bind(this)}>
+                                        {this.props.language.button.cancel}
+                                    </button>
                                     <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
                                         onClick={this.submitEntitlement.bind(this)}>
-                                        Submit
-                                    </button>
-                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel">
-                                        Cancel
+                                        {this.props.language.button.submit}
                                     </button>
                                 </span>
                             </div>
@@ -161,6 +171,7 @@ class EntitlementPanel extends Component {
         this.props.getqueryBankInfo(this.queryBankInfoParams)
         this.props.getEntitlementStockList(this.getEntitlementStockListParams)
         this.props.entitlementGetAccountBalance({
+            me: this,
             bankInfo: {
                 mvBankID: "",
                 mvBankACID: ""
@@ -168,6 +179,12 @@ class EntitlementPanel extends Component {
         })
     }
 
+    handleResetForm(e){
+        this.txtAmount.value = ''
+        this.txtPrice.value = ''
+        this.txtTradeQty.value = ''
+        this.txtStockExistQty.value = ''
+    }
 
     submitEntitlement(e){
         e.preventDefault()
@@ -190,6 +207,19 @@ class EntitlementPanel extends Component {
         this.cboStockCode = value
         var record = {}
         this.getEntitlementData(record)
+    }
+
+    // setValue
+    setCashBalanceValue(value){
+        this.cashBalance.value = value
+    }
+
+    setCashAvailableValue(value){
+        this.cashAvailable.value = value
+    }
+
+    setBuyPowerValue(value){
+        this.buyingPower.value = value
     }
 
 }
