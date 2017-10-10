@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../commons/SearchBar'
-import DataUpperTable from '../DataUpperTable'
-import Pagination from '../commons/Pagination'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Popup from '../Popup'
+import Title from '../commons/WidgetTitle'
+import Body from '../commons/WidgetBody'
+import SearchBar from '../commons/SearchBar'
+import Table from '../commons/DataTable'
+import * as Utils from '../../utils'
+import Pagination from '../commons/Pagination'
+import { Button } from 'react-bootstrap'
+import config from '../../core/config'
 import moment from 'moment'
 
 class OrderConfirmation extends Component {
     constructor(props) {
         super(props)
+        this.id = 'orderconfirmation'
+        this.stockList = config.cache.stockList
+        this.defaultPageSize = 15
 
         this.state = {
             columns: [
                 {
-                    // Create a select-all checkbox
                     id: 'cb',
                     Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
@@ -33,6 +38,7 @@ class OrderConfirmation extends Component {
                     id: 'mvTradeTime',
                     Header: this.props.language.orderconfirmation.header.tradetime,
                     accessor: 'mvTradeTime',
+                    Cell: props => Utils.formatDate(props.original.mvTradeTime, 'ddmmyyyy'),
                     width: 140,
                     skip: false,
                     show: true,
@@ -89,6 +95,7 @@ class OrderConfirmation extends Component {
                     id: 'mvStatus',
                     Header: this.props.language.orderconfirmation.header.status,
                     accessor: 'mvStatus',
+                    Cell: props => this.getStatus(props.original.mvStatus, this.props.language.orderconfirmation.status),
                     width: 120,
                     skip: false,
                     show: true,
@@ -120,18 +127,19 @@ class OrderConfirmation extends Component {
             ],
             pageIndex: 1,
         }
-        this.pageIndex = 1
 
         this.rowSelected = []
-        this.id = 'orderconfirmation'
 
         this.param = {
+            mvLastAction: "ACCOUNT",
+            mvChildLastAction: "SIGNORDERENQUIRY",
+            key: (new Date()).getTime(),
             start: 0,
-            limit: 15,
-            mvBS: 'A',
+            limit: this.defaultPageSize,
+            mvBS: 'ALL',
             page: 1,
             mvOrderType: 'ALL',
-            mvMarket: 'ALL',
+            mvMarketID: 'ALL',
             mvInstrumentID: 'ALL',
             mvStatus: 'ALL',
             mvSorting: 'InputTime desc',
@@ -140,67 +148,175 @@ class OrderConfirmation extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            columns: [
+                {
+                    id: 'cb',
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    maxWidth: 50,
+                    width: 40,
+                    Cell: props => {
+                        return (
+                            <input type='checkbox' className={this.id + "-row-checkbox"}
+                                onChange={() => { this.onRowSelected(props.original) }} />
+                        )
+                    },
+                    sortable: false,
+                    skip: true
+                },
+                {
+                    id: 'mvTradeTime',
+                    Header: nextProps.language.orderconfirmation.header.tradetime,
+                    accessor: 'mvTradeTime',
+                    Cell: props => Utils.formatDate(props.original.mvTradeTime, 'ddmmyyyy'),
+                    width: 140,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvMarketID',
+                    Header: nextProps.language.orderconfirmation.header.marketid,
+                    accessor: 'mvMarketID',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStockID',
+                    Header: nextProps.language.orderconfirmation.header.stockid,
+                    accessor: 'mvStockID',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvBS',
+                    Header: nextProps.language.orderconfirmation.header.buysell,
+                    accessor: 'mvBS',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvOrderType',
+                    Header: nextProps.language.orderconfirmation.header.ordertype,
+                    accessor: 'mvOrderType',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvQty',
+                    Header: nextProps.language.orderconfirmation.header.quantity,
+                    accessor: 'mvQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvPrice',
+                    Header: nextProps.language.orderconfirmation.header.price,
+                    accessor: 'mvPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvStatus',
+                    Header: nextProps.language.orderconfirmation.header.status,
+                    accessor: 'mvStatus',
+                    Cell: props => this.getStatus(props.original.mvStatus, nextProps.language.orderconfirmation.status),
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFilledQty',
+                    Header: nextProps.language.orderconfirmation.header.filledquantity,
+                    accessor: 'mvFilledQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvFilledPrice',
+                    Header: nextProps.language.orderconfirmation.header.filledprice,
+                    accessor: 'mvFilledPrice',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'mvCancelQty',
+                    Header: nextProps.language.orderconfirmation.header.cancelquantity,
+                    accessor: 'mvCancelQty',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+            ]
+        })
+    }
+
+    getStatus(v, lang){
+        if(v){
+            return lang['STATUS_' + v.toUpperCase()]
+        } else{
+            return v.toUpperCase()
+        }
+    }
+
     render() {
-        console.log(this.props)
-        var data = this.props.data.mvOrderBeanList === undefined ? [] : this.props.data.mvOrderBeanList
-        var page = this.props.data.mvPage === undefined ? [] : this.props.data.mvPage
-        let lgClose = () => this.setState({ lgShow: false })
+        
+        var data = this.props.data
 
         let buttonAction = [
-            <Pagination
-                    pageIndex={this.state.pageIndex} 
-                    totalRecord={this.props.data.mvTotalOrders} 
-                    onPageChange={this.onPageChange.bind(this)}
-                    onNextPage={this.onNextPage.bind(this)}
-                    onPrevPage={this.onPrevPage.bind(this)}
-                    onReloadPage={this.onReloadPage.bind(this)}
-            onExportExcel={this.onExportExcel.bind(this)}
-                />,
-
-            <Button bsStyle="primary" type="button" onClick={() => this.showPopup()}>Thực hiện</Button>
+            <button style={this.props.theme.buttonClicked} type="button" className="hks-btn"
+                onClick={() => this.execute()}>{this.props.language.button.execute}</button>,
         ]
+
+
         return (
-        <div style={{height: '100%'}}>
-            <div className="component-header" >
-                <span className="content-block-head">
+            <div style={{ height: '100%', position: 'relative' }}>
+                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
-                </span>
-                <ul className="btn-action">
-                    <li className="btn-close">
-                        <span className="glyphicon glyphicon-remove" ></span>
-                    </li>
-                </ul>
+                </Title>
+                <Body>
+                    <div className="table-main">
+                        <Table
+                            key={this.id}
+                            id={this.id}
+                            defaultPageSize={this.defaultPageSize}
+                            columns={this.state.columns}
+                            data={data.mvOrderBeanList}
+                        />
+                    </div>
+
+                    <div className="table-header">
+                        <SearchBar
+                            id={this.id}
+                            onSearch={this.onSearch.bind(this)}
+                            buttonAction={buttonAction}
+                            language={this.props.language.searchbar}
+                            theme={this.props.theme}
+                            data={{ stockList: this.stockList }}
+                            param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
+                    </div>
+
+                    <div className="table-footer">
+                        <Pagination
+                            pageIndex={this.state.pageIndex}
+                            totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+                            onPageChange={this.onPageChange.bind(this)}
+                            onNextPage={this.onNextPage.bind(this)}
+                            onPrevPage={this.onPrevPage.bind(this)}
+                            onReloadPage={this.onReloadPage.bind(this)}
+                            onExportExcel={this.onExportExcel.bind(this)}
+                        />
+                    </div>
+                </Body>
             </div>
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={ e => e.stopPropagation() }>
-                <div className="component-main">
-                    <DataUpperTable
-                        id={this.id + '-table'}
-                        defaultPageSize={15}
-                        onRowSelected={this.onRowSelected.bind(this)}
-                        columns={this.state.columns}
-                        data={data.slice((this.state.pageIndex - 1) * 15 + 1, this.state.pageIndex * 15 + 1)}
-                    />
-                </div>
-                <div className="component-body">
-                    <SearchBar
-                        id={this.id}
-                        onSearch={this.onSearch.bind(this)}
-                        buttonAction={buttonAction}
-                        language={this.props.language.searchbar}
-                        theme={this.props.theme}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: this.props.stockList, columns: this.state.columns}}
-                        param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                        
-                    <Popup
-                        id={this.id}
-                        show={this.state.lgShow} onHide={lgClose}
-                        rowSelected={this.rowSelected} language={this.props.language}
-                        title={this.props.language.orderconfirmation.popup.title}
-                    />
-                </div>
-            </div>
-        </div>
         )
     }
 
@@ -237,16 +353,24 @@ class OrderConfirmation extends Component {
         console.log('onRowSelected', this.rowSelected)
     }
 
-    showPopup() {
+    execute(){
         if(this.rowSelected.length > 0){
-            this.setState({
-                lgShow: true
-            });
+            this.props.onShowConfirm({
+                title: this.props.language.orderconfirmation.popup.title,
+                id: "orderconfirmation",
+                authcard: false,
+                language: this.props.language,
+                data: {rowSelected: this.rowSelected, me: this}
+            })
         }
-        else{
-            this.props.onShowMessageBox(1, 'Vui long chon 1 ma CK')
+        else {
+            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 
+                this.props.language.messagebox.message.selectStock)
         }
-        // console.log('onConfirmOrder', this.rowSelected)
+    }
+
+    refreshComponent(){
+        this.props.onSearch(this.param)
     }
 
     onChangeStateColumn(e) {
@@ -257,28 +381,32 @@ class OrderConfirmation extends Component {
     }
 
     onPageChange(pageIndex) {
-        if(pageIndex > 0){
-            this.state.pageIndex = pageIndex
-            
-        }  
+        this.state.pageIndex = pageIndex
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.param['key'] = (new Date()).getTime()
+        this.param['page'] = this.state.pageIndex
+        this.props.onSearch(this.param)
     }
 
     onNextPage(){
-        if(this.state.pageIndex > 0){
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.param['key'] = (new Date()).getTime()
+        this.param['page'] = this.state.pageIndex
+        this.props.onSearch(this.param)
     }
 
     onPrevPage(){
-        if(this.state.pageIndex > 1){
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-           
-        }
+        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
+        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.param['key'] = (new Date()).getTime()
+        this.param['page'] = this.state.pageIndex
+        this.props.onSearch(this.param)
     }
 
     onReloadPage(){
-        //this.props.onSearch(this.param, !this.props.reload)
+        this.param['key'] = (new Date()).getTime()
+        this.props.onSearch(this.param)
     }
     onSearch(param) {
         if (param.mvStockId === "")
@@ -289,26 +417,19 @@ class OrderConfirmation extends Component {
         this.param['mvEndTime'] = param.mvEndDate;
         this.param['mvBS'] = param.mvBuysell;
         this.param['mvInstrumentID'] = param.mvStockId;
-        this.param['mvStatus'] = "ALL";
+        //this.param['mvStatus'] = 'ALL';
         this.param['mvSorting'] = "InputTime desc";
-        this.param['page'] = this.pageIndex;
-        this.param['start'] = (this.pageIndex - 1) * 15;
-        this.param['limit'] = 15
+        this.param['key'] = (new Date()).getTime()
+
+        this.state.pageIndex = 1
+        this.param['page'] = this.state.pageIndex;
+        this.param['start'] = (this.state.pageIndex - 1) * 15;
 
         this.props.onSearch(this.param)
     }
 
     onExportExcel() {
-
         this.props.onExportExcel(this.exportParams)
-    }
-
-    onConfirmOrder(param) {
-        console.log(param)
-        this.rowSelected = []
-        this.rowSelected.push(param)
-        console.log(this.rowSelected, "row selected")
-        this.showPopup();
     }
 
 }
@@ -324,15 +445,15 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param) => {
         dispatch(actions.getOrderCofirm(param))
     },
-    onConfirmOrder: (param) => {
-        dispatch(actions.onConfirmSubmit(param))
-    },
     onExportExcel: (param) => {
         dispatch(actions.exportOrderConfirm(param))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
     },
+    onShowConfirm: (params) => {
+        dispatch(actions.showPopup(params))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderConfirmation)

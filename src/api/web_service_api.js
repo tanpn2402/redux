@@ -15,9 +15,8 @@ export function	get(id, param, dispatch, successHandler, failHandler){
 
 export function post(id,param,dispatch, successHandler, failHandler){
 		return (FetchAPI(id, param, POST)).then(response => response).then( parseData => {
-			console.log(id, parseData)
+			
 			if (parseData.mvErrorCode && parseData.mvErrorCode != 0) {
-				
 				dispatch(showMessageBox("Error", parseData.mvErrorResult))
 			} else {
 				dispatch(successHandler(parseData))

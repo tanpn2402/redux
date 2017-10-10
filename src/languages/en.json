@@ -207,19 +207,27 @@
             "orderconfirmation": {
                 "header": {
                     "tradetime": "Trade Time",
-                    "marketid": "Sàn",
-                    "price": "Giá",
-                    "quantity": "Khối lượng",
-                    "filledquantity": "Khối lượng khớp",
-                    "filledprice": "Giá khớp",
-                    "cancelquantity": "Khối lượng hủy",
-                    "status": "Trạng thái",
-                    "ordertype": "Loại lệnh",
-                    "stockid": "Mã CK",
-                    "buysell": "Mua/Bán"
+                    "marketid": "Market",
+                    "price": "Price",
+                    "quantity": "Quantity",
+                    "filledquantity": "Filled Qty",
+                    "filledprice": "Filled Price",
+                    "cancelquantity": "Canceled Qty",
+                    "status": "Status",
+                    "ordertype": "Order Type",
+                    "stockid": "Stock ID",
+                    "buysell": "Buy/Sell"
                 },
                 "popup": {
                     "title": "Order confirmation"
+                },
+                "message": {
+                    "confirmSuccess": "Comfirm Successful.",
+                    "confirmFail": "Confirm Fail."
+
+                },
+                "status":{
+                    "STATUS_FLL" :"Fully Filled"
                 }
             },
             "ordershistory": {
@@ -1050,7 +1058,7 @@
                 "ok": "OK",
                 "submit": "Submit",
                 "FTSubmit": "Thực hiện",
-                "exportData": "Xuất file",
+                "exportData": "Export",
                 "cancel": "Cancel",
                 "CTTCancel": "Cancel",
                 "clear": "Clear",

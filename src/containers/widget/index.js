@@ -47,7 +47,7 @@ import Portfolio from './Portfolio'
 import Sumary from './Sumary'
 
 import TechAnalysis from './TechAnalysis'
-
+import OrderConfirmation from './OrderConfirmation'
 import WatchList from './WatchList'
 
 export default function (menuid, props){
@@ -226,6 +226,10 @@ export default function (menuid, props){
 		case 'watchlist':
 			return (
 				<WatchList stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'orderconfirmation':
+			return (
+				<OrderConfirmation stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
 

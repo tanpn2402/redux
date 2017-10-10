@@ -296,7 +296,8 @@ const config = {
 			title: "customization",
 			widget: [
 				// {i: 'techanalysis', x:0, y:0, w: 6, h: 12, isResizable: false},
-				{ i: 'watchlist', x: 0, y: 0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: false, isResizable: true }
+				// { i: 'watchlist', x: 0, y: 0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: false, isResizable: true },
+				{ i: 'orderconfirmation', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, static: false }
 			]
 		}
 	],

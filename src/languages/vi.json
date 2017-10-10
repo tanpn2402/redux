@@ -215,6 +215,14 @@
                 },
                 "popup": {
                     "title": "Ký nhận lệnh"
+                },
+                "message": {
+                    "confirmSuccess": "Xác nhận thành công.",
+                    "confirmFail": "Xác nhận thất bại."
+
+                },
+                "status":{
+                    "STATUS_FLL" :"Khớp toàn bộ"
                 }
             },
             "ordershistory": {
