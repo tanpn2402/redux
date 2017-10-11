@@ -1,86 +1,23 @@
 export default {
-  background: {
-    backgroundColor: '#C6E2FF',
-  },
-  normal: {
-      color: "#528B8B",
-  },
-  onFocus:{
-    backgroundColor:"#8DEEEE",
+  title: 'blue',
+  buttonClicked: {
+    backgroundColor: "#C6E2FF",
     color: "#528B8B"
   },
-  button:{
-    backgroundColor:"#97FFFF",
-    color: "#528B8B"
-  },
-  buttonClicked:{
-    backgroundColor:"#C6E2FF",
-    color: "#528B8B"
-  },
-  porfolio: {
-    'titlemoney': {
-      backgroundColor: '#043b72',
-      color: '#fff'
-    },
-    'titlestock': {
-      backgroundColor: '#f60',
-      color: '#fff'
-    }
-  },
-  oddlottrading: {
-    'titleoddlotorder': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleoddlottransactionhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleoddlotnotes': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      marginLeft:'5px',
-      fontWeight: 'bold'
-    }
-  },
-  loanrefund: {
-    'titleloanrefundstatus': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundform': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundnotice': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-  },
-  font:{
+  font: {
     color: '#FFFFFF'
   },
   font2: {
     color: '#000000'
   },
   page: {
-    pageheader:{
+    pageheader: {
       backgroundColor: '#F0F0F0'
     },
     pagebackground: {
       backgroundColor: '#F0F0F0',
     },
-    pagemenu:{
+    pagemenu: {
       backgroundColor: '#02407D'
     }
   }
@@ -101,8 +38,7 @@ export default {
   },
   table: {
     tableheader: {
-      backgroundColor: '#3370C1',
-      color: '#FFFFFF'
+      backgroundColor: '#3370C1'
     },
     tablefooter: {
       backgroundColor: '#A1CFF0'
