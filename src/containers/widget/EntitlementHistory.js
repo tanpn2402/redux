@@ -98,21 +98,23 @@ class EntitlementHistory extends Component {
 
     render() {
         var entitlementHistory = this.props.entitlementHistory
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
                             data={entitlementHistory.historyList} />
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -123,7 +125,7 @@ class EntitlementHistory extends Component {
                             data={{ stockList: this.stockList }}
                             param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
                     </div>
-                    <div className="table-footer">
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(entitlementHistory.totalCount / this.defaultPageSize)}

@@ -42,10 +42,10 @@ export default class SearchBar extends React.Component {
             if (x.elements[i].value == 'on' || x.elements[i].id === '')
                 continue
 
-            if(x.elements[i].id == 'mvStartDate')
-                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY") 
-            else if(x.elements[i].id == 'mvEndDate')
-                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY") 
+            if (x.elements[i].id == 'mvStartDate')
+                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY")
+            else if (x.elements[i].id == 'mvEndDate')
+                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY")
             else
                 tmp[x.elements[i].id] = x.elements[i].value
         }
@@ -67,7 +67,7 @@ export default class SearchBar extends React.Component {
     componentWillMount() {
 
         let props = this.props
-        
+
         this.component = {
             'mvStatus': this.genStatusComponent(props),
             'mvBuysell': this.genBSComponent(props),
@@ -96,25 +96,26 @@ export default class SearchBar extends React.Component {
             'mvActionType': this.genActionTypeComponent(nextProps),
         }
     }
-    
-    genActionTypeComponent(props){
+
+    genActionTypeComponent(props) {
         let language = props.language
         var data = props.data.actionType
-        if(data === undefined)
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        if (data === undefined)
             return
 
         return (
             <FormGroup controlId="mvActionType" >
-                <ControlLabel>{language.actionType}</ControlLabel>
+                <ControlLabel style={{ color: font2 }}>{language.actionType}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
-                {
-                    data.map(e => {
-                        return (
-                            <option value={e.value}>{e.text}</option>
-                        )
-                    })
-                }
+                    {
+                        data.map(e => {
+                            return (
+                                <option value={e.value}>{e.text}</option>
+                            )
+                        })
+                    }
                 </FormControl>
             </FormGroup>
         )
@@ -122,21 +123,22 @@ export default class SearchBar extends React.Component {
 
     genStatusComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         // var data = data.actionType
         // if(data === undefined)
         //     return
         return (
             <FormGroup controlId="mvStatus" >
-                <ControlLabel>{language.status}</ControlLabel>
+                <ControlLabel style={{ color: font2 }}>{language.status}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
-                {
-                    config.orderstatus.map(e => {
-                        return (
-                            <option value={e}>{language[e.toLowerCase()]}</option>
-                        )
-                    })
-                }
+                    {
+                        config.orderstatus.map(e => {
+                            return (
+                                <option value={e}>{language[e.toLowerCase()]}</option>
+                            )
+                        })
+                    }
                 </FormControl>
             </FormGroup>
         )
@@ -144,136 +146,143 @@ export default class SearchBar extends React.Component {
 
     genOrderTypeComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup controlId="mvOrderType" >
-		        <ControlLabel>{language.ordertype}</ControlLabel>
-		        {'   '}
-		        <FormControl componentClass="select" placeholder="select">
-		           <option value="ALL">{this.props.language.all}</option>
-		           <option value="L">{this.props.language.normal}</option>
-		           <option value="O">{this.props.language.ato}</option>
-		           <option value="C">{this.props.language.atc}</option>
-		           <option value="P">{this.props.language.putthrough}</option>
-		           <option value="M">{this.props.language.mp}</option>
-		           <option value="B">{this.props.language.mok}</option>
-		           <option value="Z">{this.props.language.mak}</option>
-		           <option value="R">{this.props.language.mtl}</option>
-		        </FormControl>
-		  	</FormGroup>
+                <ControlLabel style={{ color: font2 }}>{language.ordertype}</ControlLabel>
+                {'   '}
+                <FormControl componentClass="select" placeholder="select">
+                    <option value="ALL">{this.props.language.all}</option>
+                    <option value="L">{this.props.language.normal}</option>
+                    <option value="O">{this.props.language.ato}</option>
+                    <option value="C">{this.props.language.atc}</option>
+                    <option value="P">{this.props.language.putthrough}</option>
+                    <option value="M">{this.props.language.mp}</option>
+                    <option value="B">{this.props.language.mok}</option>
+                    <option value="Z">{this.props.language.mak}</option>
+                    <option value="R">{this.props.language.mtl}</option>
+                </FormControl>
+            </FormGroup>
         )
     }
 
     genBSComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup controlId="mvBuysell" >
-		        <ControlLabel>{language.buysell}</ControlLabel>
-		        {'   '}
-		        <FormControl componentClass="select" placeholder="select">
-		          <option value="ALL">{language.all}</option>
-		          <option value="B">{language.buy}</option>
-		          <option value="S">{language.sell}</option>
-		        </FormControl>
-		  	</FormGroup>
+                <ControlLabel style={{ color: font2 }}>{language.buysell}</ControlLabel>
+                {'   '}
+                <FormControl componentClass="select" placeholder="select">
+                    <option value="ALL">{language.all}</option>
+                    <option value="B">{language.buy}</option>
+                    <option value="S">{language.sell}</option>
+                </FormControl>
+            </FormGroup>
         )
     }
 
     genPerLengthComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup controlId="mvLending" >
-        		<ControlLabel>{language.persentlength}</ControlLabel>
-        		{'   '}
-        		<FormControl type="text" />
-      		</FormGroup>
+                <ControlLabel style={{ color: font2 }}>{language.persentlength}</ControlLabel>
+                {'   '}
+                <FormControl type="text" />
+            </FormGroup>
         )
     }
 
     genMarketComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup controlId="mvMarket" >
-        <ControlLabel>{language.market}</ControlLabel>
-        {'   '}
-        <FormControl componentClass="select" placeholder="select">
-            <option value="ALL">{this.props.language.all}</option>
-            {
-                config.marketid.map(e => {
-                    return (
-                        <option value={e}>{e}</option>
-                    )
-                })
-            }
-        </FormControl>
-      </FormGroup>
+                <ControlLabel style={{ color: font2 }}>{language.market}</ControlLabel>
+                {'   '}
+                <FormControl componentClass="select" placeholder="select">
+                    <option value="ALL">{this.props.language.all}</option>
+                    {
+                        config.marketid.map(e => {
+                            return (
+                                <option value={e}>{e}</option>
+                            )
+                        })
+                    }
+                </FormControl>
+            </FormGroup>
         )
     }
 
     genTradeComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup controlId="mvTrade" >
-        <ControlLabel>{language.transtype}</ControlLabel>
-        {'   '}
-        <FormControl componentClass="select" placeholder="select">
-          {
-            config.transtype.map(e => {
-            return (
-                <option value={e}>{language[e]}</option>
-            )
-            })
-          }
-        </FormControl>
-      </FormGroup>
+                <ControlLabel style={{ color: font2 }}>{language.transtype}</ControlLabel>
+                {'   '}
+                <FormControl componentClass="select" placeholder="select">
+                    {
+                        config.transtype.map(e => {
+                            return (
+                                <option value={e}>{language[e]}</option>
+                            )
+                        })
+                    }
+                </FormControl>
+            </FormGroup>
         )
     }
 
     genStockListComponent(props) {
         let language = props.language
         let stockList = props.data.stockList
-        if(stockList === undefined)
+        if (stockList === undefined)
             return
 
         return (
             <FormGroup controlId="mvStockId">
-		        <InputSearch data={stockList} 
-                    onChange={e=> {}}
+                <InputSearch data={stockList}
+                    onChange={e => { }}
                     type={'sm'}
                     allowAll={true}
-                    style={{marginBottom: '0'}}/>
-		  	</FormGroup>
+                    style={{ marginBottom: '0' }} />
+            </FormGroup>
         )
     }
 
     genStartDateComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup bsClass="form-group datepicker" >
-		        <ControlLabel>{language.startdate}</ControlLabel>
-		        {'   '}
-		        <DatePicker id="mvStartDate" value={this.state.startDate} 
-                    cellPadding={'1px'} 
-                    style={{width: '100px'}}
+                <ControlLabel style={{ color: font2 }}>{language.startdate}</ControlLabel>
+                {'   '}
+                <DatePicker id="mvStartDate" value={this.state.startDate}
+                    cellPadding={'1px'}
+                    style={{ width: '100px' }}
                     showClearButton={false}
 
                     onChange={this.handleChangeStart.bind(this)} />
-		  	</FormGroup>
+            </FormGroup>
         )
     }
 
     genEndDateComponent(props) {
         let language = props.language
+        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
         return (
             <FormGroup bsClass="form-group datepicker" >
-		        <ControlLabel>{language.enddate}</ControlLabel>
-		        {'   '}
-		        <DatePicker id="mvEndDate" value={this.state.endDate} 
-                    cellPadding={'1px'} 
-                    style={{width: '100px'}}
+                <ControlLabel style={{ color: font2 }}>{language.enddate}</ControlLabel>
+                {'   '}
+                <DatePicker id="mvEndDate" value={this.state.endDate}
+                    cellPadding={'1px'}
+                    style={{ width: '100px' }}
                     showClearButton={false}
 
                     onChange={this.handleChangeEnd.bind(this)} />
-		  	</FormGroup>
+            </FormGroup>
         )
     }
 
@@ -281,8 +290,8 @@ export default class SearchBar extends React.Component {
         let language = props.language
         return (
             <FormGroup controlId="mvInput">
-		        <FormControl type="text" />
-		  	</FormGroup>
+                <FormControl type="text" />
+            </FormGroup>
         )
     }
 
@@ -290,49 +299,49 @@ export default class SearchBar extends React.Component {
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
-            	<div className="scrolling-tabs-main search-bar" id={this.props.id + "-scroll-bar"}>
-                   <button type="button" className="hks-btn btn-tab-prev search-bar" onClick={e => this.onTabSlideClick(1)}>
-                        <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
-                   </button>
-                   <div className="scroll search-bar" id={this.props.id + "-scroll"}>
+                <div className="scrolling-tabs-main search-bar" id={this.props.id + "-scroll-bar"}>
+                    <button type="button" className="hks-btn btn-tab-prev search-bar" onClick={e => this.onTabSlideClick(1)}>
+                        <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
+                    </button>
+                    <div className="scroll search-bar" id={this.props.id + "-scroll"}>
                         <div className="scrolling-tabs" id={this.props.id + "-search-bar"}>
                             <nav className='vertical-align-middle'>
-                            {
-					          this.props.buttonAction.map(e => {
-						                return(
-						                	<span className='tabs-item'>
-						                	{ e }
-						                	</span>
-						                )
-					              })
-					        }
-					        
-					        {
-					          this.props.param.map(e => {
-					              	this.parameter[e] = true
-					              	return (
-					              		<span className='tabs-item'>
-					              		{this.component[e]}
-					              		</span>
-					              	)
-					          })
-					        }
-					       
-					        
-					        {
-					          	this.props.onSearch === undefined ? '' :
-					          		(
-					          			<span className='tabs-item'>
-					            			<button style={this.props.theme.buttonClicked} className="hks-btn" type="button"  
-                                                onClick={this.onSearch.bind(this)}>{this.props.language.search}
-                                            </button>
-					            		</span>
-					          		)
+                                {
+                                    this.props.buttonAction.map(e => {
+                                        return (
+                                            <span className='tabs-item'>
+                                                {e}
+                                            </span>
+                                        )
+                                    })
+                                }
 
-					        }
+                                {
+                                    this.props.param.map(e => {
+                                        this.parameter[e] = true
+                                        return (
+                                            <span className='tabs-item'>
+                                                {this.component[e]}
+                                            </span>
+                                        )
+                                    })
+                                }
 
-					        
-                                
+
+                                {
+                                    this.props.onSearch === undefined ? '' :
+                                        (
+                                            <span className='tabs-item'>
+                                                <button style={this.props.theme.buttonClicked} className="hks-btn" type="button"
+                                                    onClick={this.onSearch.bind(this)}>{this.props.language.search}
+                                                </button>
+                                            </span>
+                                        )
+
+                                }
+
+
+
                             </nav>
                         </div>
                     </div>
@@ -341,26 +350,26 @@ export default class SearchBar extends React.Component {
                     </button>
                 </div>
 
-	      	</Form>
+            </Form>
 
         );
     }
 
-    componentDidMount(){
-        if(this.props.param.indexOf('dropdown') < 0){
+    componentDidMount() {
+        if (this.props.param.indexOf('dropdown') < 0) {
             document.getElementById(this.props.id + '-scroll-bar').style.paddingRight = 0
             document.getElementById(this.props.id + '-scroll').style.paddingRight = 20 + 'px'
 
         }
     }
 
-    onTabSlideClick(i){
+    onTabSlideClick(i) {
         console.log('sd')
-        if(i === 1){
-            $("#" + this.props.id + "-search-bar").animate( { scrollLeft: '-=200' }, 500);
+        if (i === 1) {
+            $("#" + this.props.id + "-search-bar").animate({ scrollLeft: '-=200' }, 500);
         }
-        else{
-            $("#" + this.props.id + "-search-bar").animate( { scrollLeft: '+=200' }, 500);
+        else {
+            $("#" + this.props.id + "-search-bar").animate({ scrollLeft: '+=200' }, 500);
         }
     }
 

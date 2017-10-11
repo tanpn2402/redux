@@ -31,7 +31,7 @@ class LoanTrans extends Component {
                 <Title widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <Form onSubmit={this.beforeSubmitLoanRefund.bind(this)} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
                             <Table responsive>

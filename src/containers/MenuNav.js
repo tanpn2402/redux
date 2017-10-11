@@ -10,7 +10,7 @@ class MenuNav extends Component {
 
     constructor(props) {
         super(props)
-        
+
         this.tabbar = config.tabbar
         this.params = {}
     }
@@ -18,41 +18,42 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language
+        let pagemenu = this.props.theme.page == undefined? undefined:this.props.theme.page.pagemenu
         return (
-            <div className="scrolling-tabs-main tab-bar" id="pagemenu">
-               <div className="scroll">
+            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
+                <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-tabs">
                         <nav className='vertical-align-middle'>
                             {
                                 this.tabbar.map(tab => {
-                                    return ( 
+                                    return (
                                         <div key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
-                                            onClick={e=> this.onTabClick(tab.id)}>
-                                           
-                                                {language.tab[tab.title]}
-                                                <button
-                                                    className="hks-btn btn-tab-reload"
-                                                    type="button"
-                                                    onClick={e => this.onReloadPage(tab.id)}
-                                                    >
-                                                    <span className="glyphicon glyphicon-repeat"></span>
-                                                </button>
-                                            
+                                            onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
+
+                                            {language.tab[tab.title]}
+                                            <button
+                                                className="hks-btn btn-tab-reload"
+                                                type="button"
+                                                onClick={e => this.onReloadPage(tab.id)}
+                                            >
+                                                <span className="glyphicon glyphicon-repeat"></span>
+                                            </button>
+
                                         </div>
                                     )
                                 })
                             }
-                            
+
                         </nav>
                     </div>
                 </div>
                 <div className="scrolling-tabs-right">
 
-                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)}>
-                        <span className="glyphicon glyphicon-menu-right"></span>
+                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={this.props.theme.tabnormal}>
+                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font}></span>
                     </button>
-                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()}>
-                        <span className="glyphicon glyphicon-floppy-disk" style={{margin: '0 1px'}}></span>
+                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={this.props.theme.savelayoutbutton}>
+                        <span className="glyphicon glyphicon-floppy-disk" style={{ margin: '0 1px' }}></span>
                         Save Layout
                     </button>
                 </div>
@@ -60,25 +61,25 @@ class MenuNav extends Component {
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
         window.addEventListener("keydown", this.myEventHandler, false)
     }
 
-    onReloadPage(tabID){
+    onReloadPage(tabID) {
 
     }
 
-    onTabClick(tabID){
+    onTabClick(tabID) {
         this.props.onTabClick(tabID)
     }
 
-    onTabSlideClick(){
+    onTabSlideClick() {
 
     }
 
-    saveLayout(){
+    saveLayout() {
         const groupId = this.props.savedcontent.mvCfgList[0].GROUPID
         this.params['mvGroupName'] = 'User1'
         this.params['mvIsDefault'] = 'Y'
@@ -96,7 +97,7 @@ const mapStateToProps = (state, props) => {
         tabID: state.menuSelected.tabID,
         savedcontent: state.menuSelected.savedcontent
     }
-    
+
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -120,5 +121,5 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);   
+export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);
 

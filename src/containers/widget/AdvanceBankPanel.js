@@ -21,18 +21,20 @@ class AdBankPanel extends Component {
     render() {
         var queryBankInfo = this.props.bankInfo
         var calculateInterestAmt = this.props.calculateInterestAmt
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
-
+                <Body theme={this.props.theme}>
                     <Form onSubmit={this.handleSubmit.bind(this)} id={this.id}  className="widget-form">
                         <FormGroup>
                             <Table responsive>
                                 <tbody >
-                                     <tr>
+                                     <tr style={{backgroundColor: rowodd, color: font2}}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
                                             <select id="mvBank" className="hks-select bank-account" style={{width: '100%'}} 
@@ -40,7 +42,7 @@ class AdBankPanel extends Component {
                                                 {
                                                     queryBankInfo.mvBankInfoList.map(bank => {
                                                         return (
-                                                            <option value={bank.mvBankID}>
+                                                            <option style={{color: 'black'}} value={bank.mvBankID}>
                                                                 {bank.mvSettlementAccountDisplayName}
                                                             </option>
                                                         )
@@ -49,7 +51,7 @@ class AdBankPanel extends Component {
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: roweven, color: font2}}>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>
                                             <input
@@ -60,7 +62,7 @@ class AdBankPanel extends Component {
                                                 readOnly/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}}>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
@@ -71,9 +73,9 @@ class AdBankPanel extends Component {
                                                 readOnly/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: roweven, color: font2}}>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
-                                        <td>
+                                        <td style={{color: 'black'}}>
                                             <FormGroup>
                                                 <input 
                                                     className="hks-input border"

@@ -129,16 +129,17 @@ class AdvanceHistory extends Component {
     render() {
         var cashAdvanceHistory = this.props.cashAdvanceHistory
         var data = cashAdvanceHistory.list
-
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
         console.log(cashAdvanceHistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
-                    <div className="table-main no-header">
-                        <Table
+                <Body theme={this.props.theme}>
+                    <div className="table-main no-header" style={{color: font2}} >
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -147,7 +148,7 @@ class AdvanceHistory extends Component {
                         />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.cashAdHisPageIndex}
                             totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
