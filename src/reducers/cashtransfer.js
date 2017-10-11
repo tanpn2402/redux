@@ -1,4 +1,4 @@
-const {ActionTypes} = require('../core/constants');
+const { ActionTypes } = require('../core/constants');
 
 const initialState = {
   datafundtransfer: {
@@ -6,20 +6,20 @@ const initialState = {
   },
   datahkscashtranhis: [],
   datagenfundtransfer: {
-    chargeRate:	null,
-    mvAvailable:	0.000,
-    mvBalance:	0,
-    mvClientID:	"",
-    mvErrorCode:	0,
+    chargeRate: null,
+    mvAvailable: 0.000,
+    mvBalance: 0,
+    mvClientID: "",
+    mvErrorCode: 0,
     mvErrorResult: "fail",
-    mvFundTransferFrom:	null,
-    mvIsPasswordConfirm:	false,
+    mvFundTransferFrom: null,
+    mvIsPasswordConfirm: false,
     mvIsSecurityCodeConfirm: false,
     mvReceiversList: [{
       receiverAccID: "",
 
     }],
-    mvTargetAccountList:	null
+    mvTargetAccountList: null
   },
   cancelfundtransfer: [],
 };
@@ -27,22 +27,23 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.FUNDTRANSFER:
-        return Object.assign({},state,{
-          datafundtransfer: action.data,
-        });
+      return Object.assign({}, state, {
+        datafundtransfer: action.data,
+      });
     case ActionTypes.HKSCASHTRANHIS:
-        action.data.list = action.data.list === null ? [] : action.data.list
-        return Object.assign({},state,{
-          datahkscashtranhis: action.data,
-        });
+      action.data.list = action.data.list === null ? [] : action.data.list
+      return Object.assign({}, state, {
+        datahkscashtranhis: action.data,
+      });
     case ActionTypes.GENFUNDTRANSFER:
-        return Object.assign({},state,{
-          datagenfundtransfer: action.data,
-        });
+      console.log(action.data, initialState.datagenfundtransfer)
+      return Object.assign({}, state, {
+        datagenfundtransfer: action.data == null ? initialState.datagenfundtransfer : action.data,
+      });
     case ActionTypes.CANCELFUNDTRANSFER:
-        return Object.assign({},state,{
-          cancelfundtransfer: action.data,
-        });
+      return Object.assign({}, state, {
+        cancelfundtransfer: action.data,
+      });
     default:
       return state;
   }
