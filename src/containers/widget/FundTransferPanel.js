@@ -69,10 +69,10 @@ class FundTransPanel extends Component {
         var isExternal = this.state.isExternalFilter
         this.listReceiverExternal = this.buildFundsTransferStore(nextProps,isExternal)
         this.listReceiverInternal = this.buildFundsTransferStore(nextProps,!isExternal)
-        if (this.listReceiverInternal.length == 0) this.internalOpt.props.disabled = true
         this.setState({
             receivers: (isExternal)?this.listReceiverExternal:this.listReceiverInternal
         })
+        
     }
 
     render() {
@@ -136,6 +136,7 @@ class FundTransPanel extends Component {
                                             <Radio
                                                 name="radioGroup"
                                                 inline
+                                                disabled = {this.listReceiverInternal.length == 0}
                                                 onClick={(e=>{
                                                     this.setState({
                                                         isExternalFilter: false,
@@ -304,7 +305,7 @@ class FundTransPanel extends Component {
     componentDidMount() {
         this
             .props
-            .getgenfundtransfer(this.paramsgenfund, !this.props.reload);
+            .getgenfundtransfer(this.paramsgenfund, this.props.language);
 
     }
 
@@ -326,8 +327,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     gettranSubmit: (paramsfund) => {
         dispatch(actions.getFundtransfer(paramsfund))
     },
-    getgenfundtransfer: (paramsgenfund) => {
-        dispatch(actions.getGenfundtransfer(paramsgenfund))
+    getgenfundtransfer: (paramsgenfund, language) => {
+        dispatch(actions.getGenfundtransfer(paramsgenfund, language))
     },
     beforeSubmit: (paramsTransfer, mvTransferBean, language) => {
         dispatch(actions.beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language))

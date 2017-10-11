@@ -33,18 +33,6 @@ class MatchOrderBankList extends Component {
             'mvSettleDay'
         ]
 
-        this.MatchOrderBankListData = {
-            cOrderIDArray: [],
-            cContractIDArray: [],
-            cTovalValue: 0,
-            cAmount: 0,
-            cMaxAmt: 0,
-            cCurrencySymbol: "",
-            cBankIDHF: "",
-            cBankACIDHF: "",
-            cTPLUSXHF: ""
-        }
-
         this.state = {
             matchOrderBankListPageIndex: 1,
             columns: [
@@ -260,6 +248,9 @@ class MatchOrderBankList extends Component {
                 ]
             })
         }
+
+        this.rowSelected = nextProps.rowSelected
+        document.getElementById(this.id + "-cb-all").checked = nextProps.selectAll
     }
 
     onChangeStateColumn(e) {
@@ -299,7 +290,6 @@ class MatchOrderBankList extends Component {
                 this.rowSelected = []
         }
         else {
-
             var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
 
             if(tmp.length > 0){
@@ -314,9 +304,8 @@ class MatchOrderBankList extends Component {
             else
                 document.getElementById(this.id + "-cb-all").checked = false
         }
-
-        //console.log(this.rowSelected)
-        this.props.paymentSelectionChange(this.rowSelected)
+        
+        this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked )
         
     }
 
@@ -324,18 +313,10 @@ class MatchOrderBankList extends Component {
 const mapStateToProps = (state) => {
     return {
         queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
-
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getqueryAdvancePaymentInfo: (params) => {
-        dispatch(actions.getqueryAdvancePaymentInfo(params))
-    },
-    paymentSelectionChange: (list) => {
-        dispatch(actions.paymentSelectionChange(list))
-    }
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchOrderBankList)

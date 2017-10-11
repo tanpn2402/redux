@@ -1,22 +1,38 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../commons/SearchBar'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import Popup from '../Popup'
-import DataUpperTable from '../DataUpperTable'
-import Pagination from '../commons/Pagination'
-import ConfigColumnTable from '../commons/ConfigColumnTable'
+import GridLayout from '../main/GridLayout.js'
+import config from '../../core/config'
 
 class LoanTrans extends Component {
     constructor(props) {
         super(props)
+
+        this.widget = [
+            'loanRefundHistory',
+            'loanRefundPanel',
+            'loanRefundStatus',
+            'advancePanel'
+        ]
+
+        this.layout = [
+            config.default_layout[this.widget[0]],
+            config.default_layout[this.widget[1]],
+            config.default_layout[this.widget[2]],
+            config.default_layout[this.widget[3]],          
+        ]
     }
 
 
     render() {
         return (
-            <div></div>
+            <GridLayout 
+                language={this.props.language}
+                layout={this.layout}
+                stockList={this.props.stockList} 
+                theme={this.props.theme}
+                >
+            </GridLayout>
         )
 
     }

@@ -5,7 +5,7 @@ import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './or
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
 import { stockSearch, getStockWatchInfo } from './stockaction'
-import { onConfirmSubmit, enquiryConfirmOrder, getOrderCofirm, getData, exportOrderConfirm } from './confirmorder'
+import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
 import { getPorfolio } from './porfolio'
 import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
 import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
@@ -24,8 +24,8 @@ import {
   getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getEntitlementStockList,
   entitlementGetAccountBalance, getEntitlementData, submitEntitlement
 } from './entitlement'
-import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, getLoanRefundSubmit, getAdvanceSubmit, 
-  getLoanRefundData, beforeSubmitLoanRefund, beforeSubmitAdvance } from './loanrefund'
+import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, 
+    getLoanRefundData, beforeSubmitLoanRefund, doSubmitLoanRefund } from './loanrefund'
 import { getCashAdvance, getQuerySoldOrders, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
 import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, 
     submitCashAdvanceBank, paymentSelectionChange } from './cashadvancebank'
@@ -58,19 +58,30 @@ export {
   setAuthenFail,
   checkAuthen,
   pinWindow,
+
+  // order confirmation
   onConfirmSubmit,
-  enquiryConfirmOrder,
+  getOrderCofirm,
+
+  //porfolio
   getPorfolio,
+
+  //orderhistory
   enquiryOrderHistory,
+
+  //cashtranshistory
   enquiryCashTransaction,
+
+  //stockStatement
   enquiryStockStatement,
+
+  //cashstatement
   enquiryCashStatement,
+
   getClientInfo,
   changePassword,
   getMatrixCard,
   matrixCardResponse,
-  getOrderCofirm,
-  getData,
 
   // order journal
   getEnquiry,
@@ -115,11 +126,9 @@ export {
   getLocalRefundCreation,
   getLocalAdvanceCreation,
   getLoanRefundHistory,
-  getLoanRefundSubmit,
-  getAdvanceSubmit,
   getLoanRefundData,
   beforeSubmitLoanRefund,
-  beforeSubmitAdvance,
+  doSubmitLoanRefund,
 
   // entitlement
   getRightlist,

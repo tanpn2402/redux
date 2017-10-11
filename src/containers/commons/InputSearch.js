@@ -12,11 +12,28 @@ class InputSearch extends React.Component {
         this.callProps = false
 
         this.type = 'lg'
+
+        this.timestampID = (new Date()).getTime()
+
+        this.allElement = {
+            lotSize: "100",
+            mvMarketID : "HA",
+            stockCode : "ALL",
+            stockName : "Select All"
+        }
+
+        this.allowAll = false
         
      }
      componentWillMount(){
-         this.setState({data: this.props.data})
-         if(this.props.type !== undefined)
+        this.setState({data: this.props.data})
+        if(this.props.allowAll !== undefined && this.props.allowAll &&
+            this.props.data.filter(el => el.stockCode == this.allElement.stockCode).length <= 0)
+        {
+            this.props.data.unshift(this.allElement)
+            this.allowAll = true
+        }
+        if(this.props.type !== undefined)
             this.type = this.props.type
      }
     componentWillReceiveProps(nextProps){
@@ -25,12 +42,14 @@ class InputSearch extends React.Component {
 
   	render() {
     	return (
-        	<div className="input-search">
+        	<div className="input-search" onMouseLeave={e => this.invisibleSuggestion()}>
                 <div className="input-group input-search-group">
                     <input type="text" autoComplete="off" id="mvStockId" className="form-control" 
                         ref={e => this.value = e} style={this.props.style}
                         onChange={e => this.onChange(e.target.value)}
-                        onBlur={e => this.onBlur(e.target.value)}/>
+                        onBlur={e => this.onBlur(e.target.value)}
+                        defaultValue={this.allowAll ? 'ALL' : ''}/>
+                        
                     <span className="input-group-addon">
                         <button type="button" className="input-suggest-button" onClick={e => this.openSuggestion()}>
                         </button>
@@ -38,7 +57,8 @@ class InputSearch extends React.Component {
                     </span>
                 </div>
                 
-                <div id="input-suggestion" className="input-suggestion-content">
+                <div id={"input-suggestion" + this.timestampID } className="input-suggestion-content"
+                    onMouseLeave={e => this.invisibleSuggestion()}>
                     <ul>
                         {
                             this.state.data.map(stock => {
@@ -58,14 +78,22 @@ class InputSearch extends React.Component {
     	)
     }
 
+    invisibleSuggestion(){
+        var dropdowns = document.getElementById("input-suggestion" + this.timestampID);
+        if (dropdowns.classList.contains('show')) {
+            dropdowns.classList.remove('show')
+        }
+    }
+
     onItemClick(item){
         this.value.value = item.stockCode
         this.callOnChangeProps(item)
+        this.invisibleSuggestion()
     }
 
     onChange(value){
         this.callProps  = false
-        var dropdowns = document.getElementById("input-suggestion");
+        var dropdowns = document.getElementById("input-suggestion" + this.timestampID);
         if (!dropdowns.classList.contains('show')) {
             dropdowns.classList.add('show')
         }
@@ -119,7 +147,6 @@ class InputSearch extends React.Component {
     }
 
     callOnChangeProps(stockInfo){
-        //console.log(stockInfo)
         if(!this.callProps){
             this.callProps = true
             this.props.onChange(stockInfo)
@@ -128,21 +155,11 @@ class InputSearch extends React.Component {
       
     openSuggestion() {
         this.callProps = false
-        document.getElementById("input-suggestion").classList.toggle("show")
+        document.getElementById("input-suggestion" + this.timestampID).classList.toggle("show")
     }
     
     componentDidMount(){
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.input-suggest-button') ) {
-                try{
-                    var dropdowns = document.getElementById("input-suggestion");
-                    if (dropdowns.classList.contains('show')) {
-                        dropdowns.classList.remove('show')
-                    }
-                }catch(e){}
-            }
-        }
+    
     }
 }
 const mapStateToProps = (state, props) => ({

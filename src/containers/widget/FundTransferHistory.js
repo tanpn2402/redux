@@ -255,7 +255,7 @@ class FundTransHistory extends Component {
     }
 
     componentDidMount() {
-        this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
+        this.props.gethkscashtranhis(this.paramshkscashtranhis, this.props.language)
     }
 
     onChangeStateColumn(e) {
@@ -311,8 +311,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    gethkscashtranhis: (paramshkscashtranhis) => {
-        dispatch(actions.gethksCachTranHis(paramshkscashtranhis))
+    gethkscashtranhis: (paramshkscashtranhis, language) => {
+        dispatch(actions.gethksCachTranHis(paramshkscashtranhis, language))
     },
     beforeCancelFundTransfer: (tranID, status, language, callback) => {
       dispatch(actions.beforeCancelFundTransfer(tranID, status, language, callback))

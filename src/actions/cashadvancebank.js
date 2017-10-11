@@ -94,16 +94,30 @@ export function beforeSubmitCashAdvBank(params) {
     var advPayment = params.advPayment
     var language = params.language
     var data = params.data
-    console.log(advPayment)
+    
     if (advPayment <= 0 ) {
         return (dispatch) => {
             dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.wrongAmount))
         }
     } else if(advPayment === ''){
         return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.noamount))
+            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.noAmount))
         }
-    } else {
+    } 
+
+    console.log(Utils.devideByCurrencyUnit(advPayment))
+
+    console.log(data)
+    
+    var advanceAvailable = data.cTovalValue
+    if (advanceAvailable < Utils.devideByCurrencyUnit(advPayment)) {
+        return (dispatch) => {
+            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.insufficientFund))
+        }
+    }
+
+
+    {
         var responseCheckAdvPaymentTime = function(response) {
             var msg = response.mvResult
             if (msg && msg.trim().length > 0) {
@@ -117,7 +131,7 @@ export function beforeSubmitCashAdvBank(params) {
                         title: language.cashadvancebank.popup.title,
                         language: language,
                         id: 'cashadvancebank',
-                        authcard: true
+                        authcard: false
                     }))
                 }
             }
@@ -143,24 +157,24 @@ export function submitCashAdvanceBank(params) {
                     }
                 } else {
                     return (dispatch) => {
-                        dispatch(showMessageBox(language.messagebox.title.error, '123'))
+                        dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
                     }
                 }
             } else {
                 if (response.mvResult == "SUCCESS") {
                     return (dispatch) => {
-                        dispatch(showMessageBox(language.messagebox.title.info, language.cashadvance.message.advancePaymentSuccessful))
+                        dispatch(showMessageBox(language.messagebox.title.info, language.cashadvancebank.message.advancePaymentSuccessful))
                     }
                 } else {
                     return (dispatch) => {
-                        dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.advancePaymentFailed))
+                        dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.advancePaymentFailed))
                     }
                 }
 
             }
         } else {
             return (dispatch) => {
-                dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.advancePaymentFailed))
+                dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.advancePaymentFailed))
             }
         }
     }

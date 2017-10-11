@@ -1,53 +1,76 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
-const { ActionTypes } = require('../core/constants');
+import {showMessageBox} from './notification'
+
+const { ActionTypes } = require('../core/constants')
 
 export function getOrderCofirm(param) {
-    console.log('OrderCofirm Action', param)
-
     return function (dispatch) {
-        (api.post(ACTION.ENQUIRYSIGNORDER, param, dispatch, getData))
-    }
-}
-export function getData(response) {
-    console.log('Orderconfirm data', response)
-
-    return {
-        type: ActionTypes.ENQUIRYCONFIRMORDER,
-        data: response
+        api.post(ACTION.ENQUIRYSIGNORDER, param, dispatch, function(response){
+            return {
+                type: ActionTypes.ENQUIRYCONFIRMORDER,
+                data: response
+            }
+        })
     }
 }
 
 export function onConfirmSubmit(param) {
-    var json = {}
+    var language = param.language
+    var data = param.data
+    var me = param.me
+
     var list = []
-    for (var i = 0; i < param.length; i++) {
-        list[i] = param[i].mvOrderID + "," + param[i].mvTradeTime;
+    for (var i = 0; i < data.length; i++) {
+        list[i] = [data[i].mvOrderID , data[i].mvTradeTime]
     }
-    json.mvOrderList = list;
-    console.log(json, json.mvOrderList)
+
+    var args = {
+        "mvSignOrderList" : [],
+        "mvOrderList" : list
+    }
+
+
+    var successHandler = function(response){
+        if (response.mvReturnCode != 0 || response.mvResult != "true") {
+
+            if (response.mvResult == "false") {
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, language.orderconfirmation.message.confirmFail))
+                }
+            } else {
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
+                }
+            }
+
+            if (response.mvReturnCode == 2) {
+                return (dispatch) => {
+                    dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
+                }
+            }
+
+        } else {
+            me.refreshComponent()
+            return (dispatch) => {
+                dispatch(showMessageBox(language.messagebox.title.info, language.orderconfirmation.message.confirmSuccess))
+            }
+        }
+            
+
+    }
 
     return function (dispatch) {
-        (api.post(ACTION.SUBMITSIGNORDER, json, dispatch, getMsgConfirmSubmit))
-    }
-}
-
-export function getMsgConfirmSubmit(response) {
-    console.log('Orderconfirm data', response)
-
-    return {
-        type: ActionTypes.CONFIRMORDERSUBMIT,
-        data: response
-    }
-}
-function responseExportExcel() {
-    return {
-        type: ActionTypes.EXPORTORDERCONFIRM,
+        api.post(ACTION.SUBMITSIGNORDER, args, dispatch, successHandler)
     }
 }
 
 export function exportOrderConfirm(params) {
     return (dispatch)=>{
-        api.report(ACTION.EXPORTORDERCONFIRM, params, dispatch, responseExportExcel)
+        api.report(ACTION.EXPORTORDERCONFIRM, params, dispatch, function(response){
+            return {
+                type: ActionTypes.EXPORTORDERCONFIRM,
+            }
+        })
     }
 }

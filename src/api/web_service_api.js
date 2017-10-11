@@ -1,5 +1,6 @@
 
 import {FetchAPI, POST, PUT, GET, LOGIN, DELETE} from './fetchAPI';
+import { showMessageBox } from '../actions/notification'
 
 export function	get(id, param, dispatch, successHandler, failHandler){
 		return (FetchAPI(id,param, GET)).then(response => response).then( parseData => {
@@ -14,8 +15,14 @@ export function	get(id, param, dispatch, successHandler, failHandler){
 
 export function post(id,param,dispatch, successHandler, failHandler){
 		return (FetchAPI(id, param, POST)).then(response => response).then( parseData => {
-			dispatch(successHandler(parseData))
-			return parseData
+			
+			if (parseData.mvErrorCode && parseData.mvErrorCode != 0) {
+				dispatch(showMessageBox("Error", parseData.mvErrorResult))
+			} else {
+				dispatch(successHandler(parseData))
+				return parseData
+			} 
+			
 		}).catch(error => {
 			if(failHandler)
 				failHandler(error)
