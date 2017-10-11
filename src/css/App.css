@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "fontawesome";
+    src: url("../../node_modules/react-modal/_book/gitbook/fonts/fontawesome/fontawesome-webfont.ttf")
+}
 body {
     margin: 0;
     padding: 0;
@@ -249,7 +253,7 @@ input::-webkit-calendar-picker-indicator {
 }
 #pagemenu {
     background-color: #005aa0;
-    top: 60px;
+    top: 90px;
     z-index: 1;
 }
 .btn-group-sm.btn-group-page {
@@ -3005,3 +3009,61 @@ input::-webkit-calendar-picker-indicator {
 }
 /* END SUMARY COMPONENT */
 
+/* MARQUEE */
+.stockMarquee {
+    height: 30px;
+    position: absolute;
+    width: 100%;
+    background: #181a22;
+    color: white;
+    z-index: 4;
+    padding: auto auto;
+    bottom: 30px;
+}
+
+.stockMarquee li {
+    display: inline-block;
+    padding: 5px 15px 5px 0;
+    position: relative;
+    color: white;
+    width: 200px;
+    box-sizing: border-box;
+    line-height: 100%;
+    vertical-align: middle;
+}
+
+.increase:after {
+    content: "\f0de";
+    font-family: fontawesome;
+    font-style: normal;
+    font-weight: normal;
+    color: green;
+    font-size: 1.5em;
+    margin: 0 5px;
+    top: 7px;
+    position: relative;
+}
+
+.decrease:after {
+    content: "\f0dd";
+    font-family: fontawesome;
+    font-style: normal;
+    font-weight: normal;
+    color: red;
+    font-size: 1.5em;
+    margin: 0 5px;
+    top: -1px;
+    position: relative;
+}
+
+.nocrease:after {
+    content: "\f0dc";
+    font-family: fontawesome;
+    font-style: normal;
+    font-weight: normal;
+    color: #dcdcdc;
+    font-size: 1.5em;
+    margin: 0 5px;
+    top: 3px;
+    position: relative;
+}
