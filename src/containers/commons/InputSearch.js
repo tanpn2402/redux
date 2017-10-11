@@ -58,7 +58,7 @@ class InputSearch extends React.Component {
                 </div>
                 
                 <div id={"input-suggestion" + this.timestampID } className="input-suggestion-content"
-                    onMouseLeave={e => this.invisibleSuggestion()}>
+                    onMouseLeave={e => this.invisibleSuggestion()} style={{color: 'black'}}>
                     <ul>
                         {
                             this.state.data.map(stock => {

@@ -4,7 +4,7 @@ export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
 const SERVER = 'http://192.168.110.190:'
-const PORT = '8080/iTrade/'
+const PORT = '9090/iTrade/'
 
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'

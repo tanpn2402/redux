@@ -110,7 +110,7 @@ class MatchOrderList extends Component {
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main no-header" style={{color: font2}} >
                         <Table theme={this.props.theme}
                             key={this.id}

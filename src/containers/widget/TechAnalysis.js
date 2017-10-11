@@ -25,7 +25,7 @@ class TechAnalysis extends Component {
                 <Title theme={this.props.theme} widgetID={'techanalysis'}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div style={{ paddingTop: '25px' }} className="bootstrap-iso">
                         <div style={{ width: '950px' }}>
                             <TTLChart width={1000} ratio={1} height={470} rawData={test} chartType={'Candle'} />

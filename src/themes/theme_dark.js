@@ -88,6 +88,9 @@ export default {
     },
     widgetheader: {
       backgroundColor: '#FF8000'
+    },
+    widgetbody: {
+      border: '2.5px solid #FF8000'
     }
   },
   table: {
@@ -134,4 +137,9 @@ export default {
       color: 'white'
     }
   },
+  chart: {
+    piechart: {
+      background: '#474747'
+    }
+  }
 }

@@ -718,7 +718,7 @@ class WatchList extends Component {
                 <Title theme={this.props.theme} widgetID={'watchlist'}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main">
                         <DataUpperTable
                             theme={this.props.theme}

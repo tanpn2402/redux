@@ -415,14 +415,16 @@ class AccountInfo extends Component {
 
     render(){
 		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter		
+		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
 	    return(
             <div id={this.id}>
                 <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="tab-wrapper">
                         <ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
                     </div>
@@ -438,13 +440,22 @@ class AccountInfo extends Component {
 												<table className="table">
 													<tbody >
 														{
-															this.cashBank.map(d => {
-																return(
-																	<tr>
-																		<th>{d.header}</th>
-																		<td>{d.value}</td>
-																	</tr>
-																)
+															this.cashBank.map((d,i) => {
+																if(i%2!=0){
+																	return(
+																		<tr style={{backgroundColor: rowodd, color: font2}} >
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}else{
+																	return(
+																		<tr style={{backgroundColor: roweven, color: font2}} >
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}
 															})
 														}
 
@@ -462,13 +473,22 @@ class AccountInfo extends Component {
 												<table className="table">
 													<tbody >
 														{
-															this.cash.map(d => {
-																return(
-																	<tr>
-																		<th>{d.header}</th>
-																		<td>{d.value}</td>
-																	</tr>
-																)
+															this.cash.map((d, i) => {
+																if(i%2!=0){
+																	return(
+																		<tr style={{backgroundColor: rowodd, color : font2}}>
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}else{
+																	return(
+																		<tr style={{backgroundColor: roweven, color: font2}}>
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}
 															})
 														}
 
@@ -483,7 +503,8 @@ class AccountInfo extends Component {
 					    (
                             <div>
                                 <div className="table-main" style={{paddingTop: '51px'}}>
-                                    <Table theme={this.props.theme}
+									<Table 
+										theme={this.props.theme}
                                         key={this.id}
                                         id={this.id}
                                         columns={this.state.columns}
@@ -513,13 +534,22 @@ class AccountInfo extends Component {
 										<table className="table">
 											<tbody >
 												{
-													this.overdueDebt.map(d => {
-														return(
-															<tr>
-																<th>{d.header}</th>
-																<td>{d.value}</td>
-															</tr>
-														)
+													this.overdueDebt.map((d, i) => {
+														if(i%2!=0){
+															return(
+																<tr style={{backgroundColor: rowodd, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}else{
+															return(
+																<tr style={{backgroundColor: roweven, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
 													})
 												}
 
@@ -536,13 +566,22 @@ class AccountInfo extends Component {
 										<table className="table">
 											<tbody >
 												{
-													this.upcomingDebt.map(d => {
-														return(
-															<tr>
-																<th>{d.header}</th>
-																<td>{d.value}</td>
-															</tr>
-														)
+													this.upcomingDebt.map((d, i) => {
+														if(i%2!=0){
+															return(
+																<tr style={{backgroundColor: rowodd, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}else{
+															return(
+																<tr style={{backgroundColor: roweven, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
 													})
 												}
 

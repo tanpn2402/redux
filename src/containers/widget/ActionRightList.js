@@ -180,7 +180,7 @@ class ActionRightList extends Component {
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main">
                         <Table theme={this.props.theme}
                             key={this.id}

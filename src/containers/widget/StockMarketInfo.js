@@ -237,26 +237,38 @@ class StockMarketInfo extends Component {
 
 	render(){
 		let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
  	    return(
 			<div id={this.id}>
 			<Title theme={this.props.theme}>
 				{this.props.language.menu[this.id]}
 			</Title>
 			
-			<Body>
+			<Body theme={this.props.theme}>
 				<div className="table-main" style={{"padding-bottom":0}}>
 					<div className="table-responsive col-xs-6"  style={{height: '100%', fontSize: '12px'}}>
 						<table className="table">
 							<tbody >
 								{
-									this.state.panel1.map(d => {
-										return(
-											<tr>
-												<th>{d.header}</th>
-												<td>{d.value}</td>
-											</tr>
-										)
+									this.state.panel1.map((d, i) => {
+										if(i%2!=0){
+											return(
+												<tr style={{backgroundColor: rowodd, color: font2}}>
+													<th>{d.header}</th>
+													<td>{d.value}</td>
+												</tr>
+											)
+										}else{
+											return(
+												<tr style={{backgroundColor: roweven, color: font2}}>
+													<th>{d.header}</th>
+													<td>{d.value}</td>
+												</tr>
+											)
+										}
 									})
 								}
 							</tbody>
@@ -271,13 +283,23 @@ class StockMarketInfo extends Component {
 									<th colSpan={2}>{this.props.language.stockmarketinform.header.BestBid}</th>
 									<th colSpan={2}>{this.props.language.stockmarketinform.header.BestAsk}</th>
 								</tr>
-								{this.state.panel3.data.map(row => 
-									(<tr>
-										<td>{row.BestBid.price}</td>
-										<td>{row.BestBid.volume}</td>
-										<td>{row.BestAsk.price}</td>
-										<td>{row.BestAsk.volume}</td>
-									</tr>))}
+								{this.state.panel3.data.map((row, i) => 
+									{
+										if(i%2!=0){
+											<tr style={{backgroundColor: rowodd, color: font2}}>
+												<td>{row.BestBid.price}</td>
+												<td>{row.BestBid.volume}</td>
+												<td>{row.BestAsk.price}</td>
+												<td>{row.BestAsk.volume}</td>
+											</tr>
+										}else{
+											<tr style={{backgroundColor: roweven, color: font2}}>
+												<td>{row.BestBid.price}</td>
+												<td>{row.BestBid.volume}</td>
+												<td>{row.BestAsk.price}</td>
+												<td>{row.BestAsk.volume}</td>
+											</tr>
+										}})}
 							</table>
 							<div className="bid-ask-footer">
 								<div ref={e=>this.perBuy = e}>-</div>

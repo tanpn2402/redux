@@ -37,6 +37,13 @@ export default class DataTable extends React.Component {
 							}
 						}
 					}}
+					getTheadGroupProps={(state, rowInfo, column, instance) => {
+						return {
+							style: {
+								color: font2
+							}
+						}
+					}}
 					className={'datatable -striped'}
 					style={{ height: this.props.maxRows === undefined ? '100%' : height, }}
 					data={this.props.data}
