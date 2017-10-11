@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Form,
     FormGroup,
@@ -9,7 +9,7 @@ import {
     Button,
     Modal,
 } from 'react-bootstrap'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
@@ -46,8 +46,8 @@ class FundTransPanel extends Component {
             .bind(this);
     }
 
-    buildFundsTransferStore(data,isExternal) {
-        if (data.datagenfund.mvReceiversList.length == 0) 
+    buildFundsTransferStore(data, isExternal) {
+        if (data.datagenfund.mvReceiversList.length == 0)
             return []
         if (isExternal) {
             return data
@@ -66,31 +66,31 @@ class FundTransPanel extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.data.datagenfund.mvReceiversList == null) return;
         var isExternal = this.state.isExternalFilter
-        this.listReceiverExternal = this.buildFundsTransferStore(nextProps,isExternal)
-        this.listReceiverInternal = this.buildFundsTransferStore(nextProps,!isExternal)
+        this.listReceiverExternal = this.buildFundsTransferStore(nextProps, isExternal)
+        this.listReceiverInternal = this.buildFundsTransferStore(nextProps, !isExternal)
         this.setState({
-            receivers: (isExternal)?this.listReceiverExternal:this.listReceiverInternal
+            receivers: (isExternal) ? this.listReceiverExternal : this.listReceiverInternal
         })
-        
+
     }
 
     render() {
-        var mreceive = this.props.datagenfund.mvReceiversList[0]
         return (
             <div
                 style={{
-                height: '100%',
-                position: 'relative'
-            }}>
+                    height: '100%',
+                    position: 'relative'
+                }}>
                 <Title>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body>
                     <Form
                         onSubmit={this
-                        .handleSubmit
-                        .bind(this)}
+                            .handleSubmit
+                            .bind(this)}
                         id={"form-" + this.id}
                         className="widget-form">
                         <FormGroup>
@@ -115,12 +115,12 @@ class FundTransPanel extends Component {
                                                 inline
                                                 defaultChecked={true}
                                                 name="radioGroup"
-                                                onClick={(e=>{
+                                                onClick={(e => {
                                                     this.setState({
                                                         isExternalFilter: true,
                                                         receivers: this.listReceiverExternal
                                                     })
-                                                    
+
                                                     this.beneficiaryfullname.disabled = false
                                                     this.bankName.disabled = false
                                                     this.bankBranch.disabled = false
@@ -136,8 +136,8 @@ class FundTransPanel extends Component {
                                             <Radio
                                                 name="radioGroup"
                                                 inline
-                                                disabled = {this.listReceiverInternal.length == 0}
-                                                onClick={(e=>{
+                                                disabled={this.listReceiverInternal.length == 0}
+                                                onClick={(e => {
                                                     this.setState({
                                                         isExternalFilter: false,
                                                         receivers: this.listReceiverInternal
@@ -165,10 +165,10 @@ class FundTransPanel extends Component {
                                                 name="destClientID"
                                                 onChange={(e) => this.handleInputChange(e)}
                                                 style={{
-                                                width: "100%",
-                                                "border-radius": "2px"
-                                            }}>
-                                                <option style={{display:"none"}}></option>
+                                                    width: "100%",
+                                                    "border-radius": "2px"
+                                                }}>
+                                                <option style={{ display: "none" }}></option>
                                                 {(this.state.receivers == undefined)
                                                     ? []
                                                     : this.state.receivers.map((reciever => <option key={reciever.receiverAccID} value={reciever.receiverAccID}>{reciever.receiverAccID}</option>))};
@@ -178,7 +178,7 @@ class FundTransPanel extends Component {
                                     <tr>
                                         <th>{this.props.language.cashtransfer.header.accounttype}</th>
                                         <td>
-                                            {this.state.isExternalFilter?this.props.language.cashtransfer.header.bankaccount:this.props.language.cashtransfer.header.localaccount}
+                                            {this.state.isExternalFilter ? this.props.language.cashtransfer.header.bankaccount : this.props.language.cashtransfer.header.localaccount}
                                         </td>
                                     </tr>
                                     <tr>
@@ -187,9 +187,9 @@ class FundTransPanel extends Component {
                                             <input
                                                 ref={e => this.beneficiaryfullname = e}
                                                 style={{
-                                                width: "180px"
-                                            }}
-                                                required/>
+                                                    width: "180px"
+                                                }}
+                                                required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -198,9 +198,9 @@ class FundTransPanel extends Component {
                                             <input
                                                 ref={e => this.bankName = e}
                                                 style={{
-                                                width: "180px"
-                                            }}
-                                                required/>
+                                                    width: "180px"
+                                                }}
+                                                required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -210,9 +210,9 @@ class FundTransPanel extends Component {
                                                 ref={e => this.bankBranch = e}
                                                 id="bankbranch"
                                                 style={{
-                                                width: "180px"
-                                            }}
-                                                required/>
+                                                    width: "180px"
+                                                }}
+                                                required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -222,9 +222,9 @@ class FundTransPanel extends Component {
                                                 type="number"
                                                 ref={e => this.transferAmount = e}
                                                 style={{
-                                                width: "180px"
-                                            }}
-                                                required/>
+                                                    width: "180px"
+                                                }}
+                                                required />
                                         </td>
                                     </tr>
                                     <tr>
@@ -259,7 +259,7 @@ class FundTransPanel extends Component {
     //
     //Update paramsfund on user's input change
     handleInputChange(e) {
-        if (e.target.value == "") 
+        if (e.target.value == "")
             return;
         var curReciever = this
             .state
@@ -320,7 +320,7 @@ class FundTransPanel extends Component {
 
 }
 const mapStateToProps = (state) => {
-    return {datagenfund: state.cashtransfer.datagenfundtransfer}
+    return { datagenfund: state.cashtransfer.datagenfundtransfer }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
