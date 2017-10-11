@@ -77,16 +77,19 @@ class FundTransPanel extends Component {
 
     render() {
         var mreceive = this.props.datagenfund.mvReceiversList[0]
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div
                 style={{
                 height: '100%',
                 position: 'relative'
             }}>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <Form
                         onSubmit={this
                         .handleSubmit
@@ -95,20 +98,20 @@ class FundTransPanel extends Component {
                         className="widget-form">
                         <FormGroup>
                             <Table responsive>
-                                <tbody >
-                                    <tr>
+                                <tbody>
+                                    <tr style={{backgroundColor: rowodd, color: font2}} >
                                         <th>{this.props.language.cashtransfer.header.cashbalance}</th>
                                         <td>
                                             {this.props.datagenfund.mvBalance}
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: roweven, color: font2}} >
                                         <th>{this.props.language.cashtransfer.header.cashwithdrawable}</th>
                                         <td ref={e => this.withdrawAmt = e}>
                                             {this.props.datagenfund.mvAvailable}
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}} >
                                         <th>{this.props.language.cashtransfer.header.transfertype}</th>
                                         <td>
                                             <Radio
@@ -156,8 +159,8 @@ class FundTransPanel extends Component {
                                             </Radio>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
+                                    <tr style={{backgroundColor: roweven}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
                                             <select
                                                 required
@@ -175,14 +178,14 @@ class FundTransPanel extends Component {
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}} >
                                         <th>{this.props.language.cashtransfer.header.accounttype}</th>
                                         <td>
                                             {this.state.isExternalFilter?this.props.language.cashtransfer.header.bankaccount:this.props.language.cashtransfer.header.localaccount}
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
+                                    <tr style={{backgroundColor: roweven}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
                                         <td>
                                             <input
                                                 ref={e => this.beneficiaryfullname = e}
@@ -192,8 +195,8 @@ class FundTransPanel extends Component {
                                                 required/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.bankname}</th>
+                                    <tr style={{backgroundColor: rowodd}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.bankname}</th>
                                         <td>
                                             <input
                                                 ref={e => this.bankName = e}
@@ -203,8 +206,8 @@ class FundTransPanel extends Component {
                                                 required/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.bankbranch}</th>
+                                    <tr style={{backgroundColor: roweven}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.bankbranch}</th>
                                         <td>
                                             <input
                                                 ref={e => this.bankBranch = e}
@@ -215,8 +218,8 @@ class FundTransPanel extends Component {
                                                 required/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.transferamount}</th>
+                                    <tr style={{backgroundColor: rowodd}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.transferamount}</th>
                                         <td>
                                             <input
                                                 type="number"
@@ -227,8 +230,8 @@ class FundTransPanel extends Component {
                                                 required/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>{this.props.language.cashtransfer.header.remark}</th>
+                                    <tr style={{backgroundColor: roweven}} >
+                                        <th style={{color: font2}}>{this.props.language.cashtransfer.header.remark}</th>
                                         <td>
                                             <textarea ref={e => this.remark = e} rows="3" cols="26"></textarea>
                                         </td>

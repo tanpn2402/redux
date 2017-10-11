@@ -4,18 +4,18 @@ export default {
     color: '#79CDCD'
   },
   normal: {
-      color: "#0000FF",
+    color: "#0000FF",
   },
-  onFocus:{
-    backgroundColor:"#C1CDC1",
+  onFocus: {
+    backgroundColor: "#C1CDC1",
     color: "#0000FF"
   },
-  button:{
-    backgroundColor:"#FFFAFA",
+  button: {
+    backgroundColor: "#FFFAFA",
     color: "#0000FF"
   },
-  buttonClicked:{
-    backgroundColor:"#337AB7",
+  buttonClicked: {
+    backgroundColor: "#337AB7",
     color: "#FFFAFA",
     borderColor: "#2E6DA4"
   },
@@ -65,6 +65,16 @@ export default {
   },
   pagebackground: {
     backgroundColor: '#fff',
-    
-  }
+  },
+  widget: {
+    widgetbackground: {
+      backgroundColor: '#EEECEC'
+    },
+    widgetheader: {
+      backgroundColor: '#005AA0'
+    },
+    widgetbody: {
+      border: '2.5px solid #005AA0'
+    }
+  },
 }

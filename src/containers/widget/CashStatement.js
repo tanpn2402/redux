@@ -165,45 +165,45 @@ class CashStatement extends Component {
 
         console.log('dasdsaddsaad', this.props.modifyData)
         return (
-        <div style={{height: '100%'}}>
-            <div className="component-header" >
-                <span className="content-block-head">
-                    {this.props.language.menu[this.id]}
-                </span>
-                <ul className="btn-action">
-                    <li className="btn-close">
-                        <span className="glyphicon glyphicon-remove" ></span>
-                    </li>
-                </ul>
-            </div>
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
-                <div className="component-main">
-                    <DataUpperTable
-                        id="cashstatement-table"
-
-                        columns={this.state.columns}
-                        data={data}
-                        defaultPageSize={15} />
+            <div style={{ height: '100%' }}>
+                <div className="component-header" >
+                    <span className="content-block-head">
+                        {this.props.language.menu[this.id]}
+                    </span>
+                    <ul className="btn-action">
+                        <li className="btn-close">
+                            <span className="glyphicon glyphicon-remove" ></span>
+                        </li>
+                    </ul>
                 </div>
-                <div className="component-body">
-                    <SearchBar
-                        id={this.id}
-                        theme={this.props.theme}
-                        buttonAction={this.buttonAction}
-                        onSearch={this.onSearch.bind(this)}
-                        language={this.props.language.searchbar}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: this.props.stockList, columns: this.state.columns}}
-                        param={['mvStartDate', 'mvEndDate', 'dropdown']} />
+                <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                    <div className="component-main">
+                        <DataUpperTable
+                            theme={this.props.theme}
+                            id="cashstatement-table"
+                            columns={this.state.columns}
+                            data={data}
+                            defaultPageSize={15} />
+                    </div>
+                    <div className="component-body">
+                        <SearchBar
+                            id={this.id}
+                            theme={this.props.theme}
+                            buttonAction={this.buttonAction}
+                            onSearch={this.onSearch.bind(this)}
+                            language={this.props.language.searchbar}
+                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                            data={{ stockList: this.props.stockList, columns: this.state.columns }}
+                            param={['mvStartDate', 'mvEndDate', 'dropdown']} />
 
-                    <Popup
-                        id={this.id}
-                        show={this.state.lgShow} onHide={lgClose}
-                        rowSelected={this.rowSelected} language={this.props.language}
-                        popupType={this.popupType} />
+                        <Popup
+                            id={this.id}
+                            show={this.state.lgShow} onHide={lgClose}
+                            rowSelected={this.rowSelected} language={this.props.language}
+                            popupType={this.popupType} />
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 

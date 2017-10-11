@@ -275,16 +275,19 @@ class OrderConfirmation extends Component {
             <button style={this.props.theme.buttonClicked} type="button" className="hks-btn"
                 onClick={() => this.execute()}>{this.props.language.button.execute}</button>,
         ]
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
 
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main">
                         <Table
+                            theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -293,7 +296,7 @@ class OrderConfirmation extends Component {
                         />
                     </div>
 
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader} >
                         <SearchBar
                             id={this.id}
                             onSearch={this.onSearch.bind(this)}
@@ -304,7 +307,7 @@ class OrderConfirmation extends Component {
                             param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
                     </div>
 
-                    <div className="table-footer">
+                    <div className="table-footer" style={tablefooter} >
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
@@ -320,7 +323,7 @@ class OrderConfirmation extends Component {
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onSearch(this.param)
     }
 

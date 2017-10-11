@@ -414,13 +414,17 @@ class AccountInfo extends Component {
 
 
     render(){
+		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
 	    return(
             <div id={this.id}>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="tab-wrapper">
                         <ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
                     </div>
@@ -431,18 +435,27 @@ class AccountInfo extends Component {
 								this.hasBank ? 
 								(
 									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 												<table className="table">
 													<tbody >
 														{
-															this.cashBank.map(d => {
-																return(
-																	<tr>
-																		<th>{d.header}</th>
-																		<td>{d.value}</td>
-																	</tr>
-																)
+															this.cashBank.map((d,i) => {
+																if(i%2!=0){
+																	return(
+																		<tr style={{backgroundColor: rowodd, color: font2}} >
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}else{
+																	return(
+																		<tr style={{backgroundColor: roweven, color: font2}} >
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}
 															})
 														}
 
@@ -455,18 +468,27 @@ class AccountInfo extends Component {
 								) : 
 								(
 									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 												<table className="table">
 													<tbody >
 														{
-															this.cash.map(d => {
-																return(
-																	<tr>
-																		<th>{d.header}</th>
-																		<td>{d.value}</td>
-																	</tr>
-																)
+															this.cash.map((d, i) => {
+																if(i%2!=0){
+																	return(
+																		<tr style={{backgroundColor: rowodd, color : font2}}>
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}else{
+																	return(
+																		<tr style={{backgroundColor: roweven, color: font2}}>
+																			<th>{d.header}</th>
+																			<td>{d.value}</td>
+																		</tr>
+																	)
+																}
 															})
 														}
 
@@ -481,7 +503,8 @@ class AccountInfo extends Component {
 					    (
                             <div>
                                 <div className="table-main" style={{paddingTop: '51px'}}>
-                                    <Table
+									<Table 
+										theme={this.props.theme}
                                         key={this.id}
                                         id={this.id}
                                         columns={this.state.columns}
@@ -492,7 +515,7 @@ class AccountInfo extends Component {
                                         />
                                 </div>
   
-                                <div className="table-footer">
+                                <div className="table-footer" style={tablefooter}>
                                     <Pagination
                                         pageIndex={this.state.pageIndex} 
                                         totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length/this.defaultPageSize)} 
@@ -506,18 +529,27 @@ class AccountInfo extends Component {
                         ) : this.state.tabIndex === 2 ?
 					    (
 							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 										<table className="table">
 											<tbody >
 												{
-													this.overdueDebt.map(d => {
-														return(
-															<tr>
-																<th>{d.header}</th>
-																<td>{d.value}</td>
-															</tr>
-														)
+													this.overdueDebt.map((d, i) => {
+														if(i%2!=0){
+															return(
+																<tr style={{backgroundColor: rowodd, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}else{
+															return(
+																<tr style={{backgroundColor: roweven, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
 													})
 												}
 
@@ -529,18 +561,27 @@ class AccountInfo extends Component {
                         ) : this.state.tabIndex === 3 ?
 					    (
 							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0'}}>
+								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
 									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
 										<table className="table">
 											<tbody >
 												{
-													this.upcomingDebt.map(d => {
-														return(
-															<tr>
-																<th>{d.header}</th>
-																<td>{d.value}</td>
-															</tr>
-														)
+													this.upcomingDebt.map((d, i) => {
+														if(i%2!=0){
+															return(
+																<tr style={{backgroundColor: rowodd, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}else{
+															return(
+																<tr style={{backgroundColor: roweven, color: font2}}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
 													})
 												}
 

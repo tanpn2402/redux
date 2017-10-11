@@ -20,9 +20,9 @@ class PageContent extends React.Component {
 
     render () {
         //console.log(this.props.tabID)
-
+        let pagebackground = this.props.theme.page == undefined? undefined:this.props.theme.page.pagebackground
         return (
-            <div style={this.props.theme.pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
+            <div style={pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
                 <Notification language={this.props.language}/>
                 {
                     generateWindow(this.props.tabID, this.props)

@@ -213,6 +213,7 @@ class ConfirmOrder extends Component {
             <div>
                 <Modal.Body>
                     <DataTable
+                        theme={this.props.theme}
                         id={this.id + "-table"}
                         data={this.props.data.rowSelected}
                         columns={this.columns}

@@ -172,21 +172,24 @@ class ActionRightList extends Component {
 
     render() {
         var allRightList = this.props.allRightList
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table
+                        <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
                             data={allRightList.rightList} />
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -197,7 +200,7 @@ class ActionRightList extends Component {
                             data={{ stockList: this.stockList, actionType: this.actionTypeStore }}
                             param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                     </div>
-                    <div className="table-footer">
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
