@@ -99,7 +99,6 @@ export default class MarqueeBar extends React.Component {
 
 
         this.capacity = Math.round(this.slider.offsetWidth/this.liWidth)
-        console.log("CAP: ",this.capacity)
         this.loop()
         this.curSliderObj = this.slider
         this.setState({
@@ -128,9 +127,7 @@ export default class MarqueeBar extends React.Component {
         } else {
             var nextHead = (this.curHead + this.capacity) % this.text.length
             var newArray = this.text.slice()
-            console.log("new array",this.capacity > newArray.length, this.capacity - newArray.length < newArray.length, this.capacity, newArray.length)
             while (this.capacity - newArray.length >= this.text.length) {
-                console.log("new array",this.capacity > newArray.length, this.capacity - newArray.length < newArray.length, this.capacity, newArray.length)
                 newArray = newArray.concat(this.text)
             }
             this.setState({
@@ -143,7 +140,6 @@ export default class MarqueeBar extends React.Component {
 
     // Render an array from data array by start and end index 
     getStack(start, end) {
-        console.log("start,end",start,end)
         if (end > start) {
             return this.text.slice(start, end)
         }else {
@@ -162,7 +158,6 @@ export default class MarqueeBar extends React.Component {
         var count = (sliderObj==this.curSliderObj)?this.count:this.countTemp
 
         if (count%this.liWidth==0) {
-            console.log("RESULT",count,this.count,this.countTemp)
         }
 
         //Slide left effect
@@ -198,7 +193,6 @@ export default class MarqueeBar extends React.Component {
         
         //Check stop condition for current slider
         if (count >= sliderObj.offsetWidth + this.marqueeWrapper.offsetWidth){
-            console.log(this.marqueeWrapper.offsetWidth,sliderObj.offsetWidth)
             clearInterval(this.state.currentSliderInterval[0])
             
             //Switch count and countTemp (reset countTemp to 0)

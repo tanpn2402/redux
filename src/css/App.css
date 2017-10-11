@@ -802,7 +802,8 @@ input::-webkit-calendar-picker-indicator {
 .pagecontent {
     overflow-y: scroll;
     height: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 60px;
+    padding-top: 30px;
 }
 .pagecontent.management,
 .pagecontent.transhistory {
@@ -3016,7 +3017,7 @@ input::-webkit-calendar-picker-indicator {
     width: 100%;
     background: #181a22;
     color: white;
-    z-index: 4;
+    z-index: 1;
     padding: auto auto;
     bottom: 30px;
 }
