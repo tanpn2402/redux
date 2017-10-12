@@ -711,8 +711,8 @@ class WatchList extends Component {
                 {this.props.language.watchlist.toolbar.removestock}
             </Button>
         ]
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%' }}>
                 <Title theme={this.props.theme} widgetID={'watchlist'}>
@@ -739,7 +739,7 @@ class WatchList extends Component {
                             data={{ stockList: [], columns: this.state.columns }} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={11}
                             onPageChange={this.onPageChange.bind(this)}

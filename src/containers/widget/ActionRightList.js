@@ -172,8 +172,8 @@ class ActionRightList extends Component {
 
     render() {
         var allRightList = this.props.allRightList
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -201,7 +201,7 @@ class ActionRightList extends Component {
                             param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}

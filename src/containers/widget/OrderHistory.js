@@ -269,10 +269,10 @@ class OrderHistory extends Component {
 
     render() {
         var data = this.props.historyOrder.mvOrderBeanList
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -294,14 +294,14 @@ class OrderHistory extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: this.stockList}}
+                            data={{ stockList: this.stockList }}
                             param={['mvStockId', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.historyOrder.mvTotalOrders/this.defaultPageSize)}
+                            totalRecord={Math.ceil(this.props.historyOrder.mvTotalOrders / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
@@ -315,7 +315,7 @@ class OrderHistory extends Component {
         )
 
     }
-componentDidMount() {
+    componentDidMount() {
         this.props.onSearch(this.params)
     }
 
@@ -370,7 +370,7 @@ componentDidMount() {
         this.exportParams['mvEndTime'] = this.params['mvEndTime']
         this.exportParams['mvBS'] = this.params['mvBS']
         this.exportParams['mvInstrumentID'] = this.params['mvInstrumentID'] != '' ? this.params['mvInstrumentID'] : 'ALL'
-        
+
         this.props.onExportExcel(this.exportParams)
     }
 

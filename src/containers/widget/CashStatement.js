@@ -148,7 +148,7 @@ class CashStatement extends Component {
     render() {
         //console.log(this.props)
         this.buttonAction = [
-            <Pagination
+            <Pagination theme={this.props.theme}
                 pageIndex={this.state.pageIndex}
                 totalRecord={this.props.data.mvTotalOrders}
                 onPageChange={this.onPageChange.bind(this)}

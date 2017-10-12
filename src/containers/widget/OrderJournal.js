@@ -202,11 +202,11 @@ class OrderJournal extends Component {
         var data = this.props.data.mvOrderBeanList
 
         this.buttonAction = [
-            <button style={this.props.theme.buttonClicked} type="button" className="hks-btn"
+            <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
         ]
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -214,7 +214,7 @@ class OrderJournal extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table 
+                        <Table
                             theme={this.props.theme}
                             key={this.id}
                             id={this.id}
@@ -236,7 +236,7 @@ class OrderJournal extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter} style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}

@@ -118,15 +118,15 @@ class MatchOrderBankList extends Component {
 
     render() {
         var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{color: font2}} >
+                    <div className="table-main no-header" style={{ color: font2 }} >
                         <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
@@ -139,7 +139,7 @@ class MatchOrderBankList extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.matchOrderBankListPageIndex}
                             totalRecord={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -166,7 +166,7 @@ class MatchOrderBankList extends Component {
                     {
                         id: 'cb',
                         Header: props => {
-                            return <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" 
+                            return <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
                                 onChange={() => this.onRowSelected('ALL')} />
                         },
                         maxWidth: 50,
@@ -292,10 +292,10 @@ class MatchOrderBankList extends Component {
         else {
             var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
 
-            if(tmp.length > 0){
+            if (tmp.length > 0) {
                 // exist in row selected
                 this.rowSelected = this.rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
-            } else{
+            } else {
                 this.rowSelected.push(param)
             }
 
@@ -304,9 +304,9 @@ class MatchOrderBankList extends Component {
             else
                 document.getElementById(this.id + "-cb-all").checked = false
         }
-        
-        this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked )
-        
+
+        this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked)
+
     }
 
 }

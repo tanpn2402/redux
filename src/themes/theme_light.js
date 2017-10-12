@@ -1,6 +1,6 @@
 export default {
   title: 'light',
-  buttonClicked: {
+  button: {
     backgroundColor: "#337AB7",
     color: "#FFFAFA",
     borderColor: "#2E6DA4"
@@ -39,16 +39,16 @@ export default {
   // Comment to use default library theme, uncomment to customize
   table: {
     tableheader: {
-  //     backgroundColor: '#262626'
+      //     backgroundColor: '#262626'
     },
     tablefooter: {
-  //     backgroundColor: '#262626'
+      //     backgroundColor: '#262626'
     },
     rowodd: {
-  //     backgroundColor: '#3F3E3E'
+      //     backgroundColor: '#3F3E3E'
     },
     roweven: {
-  //     backgroundColor: '#474747'
+      //     backgroundColor: '#474747'
     },
     nodatadisplay: {
       backgroundColor: 'transparent',

@@ -57,7 +57,7 @@ class AdvanceHistory extends Component {
                 {
                     Header: this.props.language.cashadvance.header.advancefee,
                     id: 'advancefee',
-                    Cell : props => {
+                    Cell: props => {
                         return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
                     },
                     show: true,
@@ -108,17 +108,17 @@ class AdvanceHistory extends Component {
 
     getStatus(v) {
         var language = this.props.language.cashadvance.status
-        if(v){
+        if (v) {
             return language['STATUS_' + v.toUpperCase()]
         }
-        else{
+        else {
             return language['STATUS_P']
         }
     }
 
     getNotes(v) {
         var language = this.props.language.cashadvance.remark
-        if (v){
+        if (v) {
             return ''
         } else {
             return language.remark
@@ -129,8 +129,8 @@ class AdvanceHistory extends Component {
     render() {
         var cashAdvanceHistory = this.props.cashAdvanceHistory
         var data = cashAdvanceHistory.list
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         console.log(cashAdvanceHistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -138,7 +138,7 @@ class AdvanceHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{color: font2}} >
+                    <div className="table-main no-header" style={{ color: font2 }} >
                         <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
@@ -149,7 +149,7 @@ class AdvanceHistory extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.cashAdHisPageIndex}
                             totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onCashAdTransPageChange.bind(this)}
@@ -195,7 +195,7 @@ class AdvanceHistory extends Component {
                     {
                         Header: nextProps.language.cashadvance.header.advancefee,
                         id: 'advancefee',
-                        Cell : props => {
+                        Cell: props => {
                             return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
                         },
                         show: true,

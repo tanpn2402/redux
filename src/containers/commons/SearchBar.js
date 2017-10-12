@@ -332,7 +332,7 @@ export default class SearchBar extends React.Component {
                                     this.props.onSearch === undefined ? '' :
                                         (
                                             <span className='tabs-item'>
-                                                <button style={this.props.theme.buttonClicked} className="hks-btn" type="button"
+                                                <button style={this.props.theme.button} className="hks-btn" type="button"
                                                     onClick={this.onSearch.bind(this)}>{this.props.language.search}
                                                 </button>
                                             </span>
