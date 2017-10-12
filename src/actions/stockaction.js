@@ -7,6 +7,10 @@ const stockList = {"mvIsEnableMultiMarket":true,"mvResult":null,"stockSearchList
 
 
 export function stockSearch(param) {
+    // return {
+    //     type: ActionTypes.STOCKSEARCH,
+    //     stockList: []
+    //   }
     return function (dispatch) {
     	dispatch( api.post('stockSearch.action', param, dispatch,stockListResponse) )
     }

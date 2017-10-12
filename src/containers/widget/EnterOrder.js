@@ -485,20 +485,23 @@ class EnterOrder extends Component {
 
     render() {
         var language = this.props.language.enterorder
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         console.log(this.state.value)
         return (
             <div>
-                <Title>
+                <Title theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body>
+                <Body theme={this.props.theme}>
                     <Form id={"form-" + this.id} className="widget-form">
                         <div className="form-group " id="form-group-enterorder">
-                            <Table responsive>
+                            <Table theme={this.props.theme} responsive>
                                 <tbody >
                                     <tr>
                                         <th>{language.header.buysell} </th>
-                                        <td>
+                                        <td style={{backgroundColor: rowodd, color: font2}} >
                                             <Radio name="radioGroup" inline defaultValue="BO" 
                                                 checked={this.state.value.mvBS === "BO"} 
                                                 onChange={this.onBuySellChange.bind(this)} required>
@@ -513,7 +516,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.buysellall}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven, color: font2}} >
                                             <Radio name="radioGroup" inline defaultValue="BA" 
                                                 checked={this.state.value.mvBS === "BA"} 
                                                 onChange={this.onBuySellChange.bind(this)}>
@@ -528,7 +531,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr style={{height: '23px'}}>
                                         <th>{language.header.stock}</th>
-                                        <td style={{position: 'absolute', height: '23px', border: 'none', borderBottom: '1px solid #dcdcdc'}}>
+                                        <td style={{position: 'absolute', height: '23px', border: 'none', borderBottom: '1px solid #dcdcdc', backgroundColor: rowodd}}>
                                             <InputSearch data={this.stockList} onChange={this.handleStockChange.bind(this)}
                                                 onBlur={this.handleStockOnBlur.bind(this)}
                                                 style={{padding: '0 4px', height: '20px'}}/>
@@ -536,7 +539,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr ref={e => this.bankRow = e}>
                                         <th>{language.header.bank}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven}} >
                                             <select id="mvBank" className="hks-input no-border" ref={e => this.mvBankID = e} 
                                                 onChange={this.handleBankAccChange.bind(this)}>
                                                 {
@@ -551,19 +554,21 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.lending} </th>
-                                        <td><input id="mvLending" className="hks-input no-border" readOnly
-                                            value={this.state.value.mvLending + '%'} ref={e => this.mvLending = e}/> </td>
+                                        <td style={{backgroundColor: rowodd}}>
+                                        <input id="mvLending" className="hks-input no-border" readOnly
+                                            value={this.state.value.mvLending + '%'} ref={e => this.mvLending = e}
+                                            /> </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.buyingpower}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven}} >
                                             <input id="mvBuyPower" className="hks-input no-border" readOnly 
                                                 value={this.state.value.mvBuyPower} ref={e => this.mvBuyPower = e}/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.ordertype}</th>
-                                        <td>
+                                        <td style={{backgroundColor: rowodd}} >
                                             <select id="mvOrderType" className="hks-input no-border" style={{width: '100%', padding: '0'}}
                                                 ref={e => this.mvOrderType = e}
                                                 onChange={this.handleOrderType.bind(this)}>
@@ -579,7 +584,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.volume}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven}} >
                                             <input 
                                                 id="mvVol"
                                                 ref={e => this.mvVol = e}
@@ -592,7 +597,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.price}</th>
-                                        <td>
+                                        <td style={{backgroundColor: rowodd}} >
                                             
                                                 <input 
                                                     id="mvPrice" ref={e => this.mvPrice = e}
@@ -605,21 +610,21 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.value}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven}} >
                                             <input id="mvGrossAmt"  className="hks-input no-border" readOnly
                                                 ref={e => this.mvGrossAmt = e} value={this.state.value.mvGrossAmt} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.netfee}</th>
-                                        <td>
+                                        <td style={{backgroundColor: rowodd}} >
                                             <input id="mvNetFee"  className="hks-input no-border" readOnly
                                                 ref={e => this.mvNetFee = e} value={this.state.value.mvNetFee} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.expirydate}</th>
-                                        <td>
+                                        <td style={{backgroundColor: roweven}} >
                                             <Col xs={1}>
                                                 <input name="isCheck" type="checkbox" 
                                                     checked={this.state.value.mvExpireChecked} 

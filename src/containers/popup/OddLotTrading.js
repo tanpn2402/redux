@@ -192,6 +192,7 @@ class OddLotSubmit extends Component {
                         </span>
                     </div>
                     <DataTable
+                        theme={this.props.theme}
                         id={this.id + "-table"}
                         data={this.props.data.rowSelected}
                         columns={this.columns}

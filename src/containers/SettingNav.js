@@ -19,7 +19,7 @@ class SettingNav extends Component {
         this.state = {
             menuitem: config.menu_items,
             language: this.props.language,
-            theme: this.props.theme
+            theme: this.props.currentTheme
         }
 
         this.list = config.settings
@@ -35,11 +35,13 @@ class SettingNav extends Component {
 
     render() {
         console.log(this.state.language.page)
+        let settingtitle = this.props.currentTheme.setting == undefined ? undefined : this.props.currentTheme.setting.settingtitle
+        let settingpanel = this.props.currentTheme.setting == undefined ? undefined : this.props.currentTheme.setting.settingpanel
         return (
             <div id="settingnav" className="settingnav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="setting-panel">
-                    <div className="title">
+                <div className="setting-panel" style={settingpanel} >
+                    <div className="title" style={settingtitle} >
                         Settings
                     </div>
                     <div className="setting-list">
@@ -55,11 +57,13 @@ class SettingNav extends Component {
                                             {
                                                 e.value.map(v => {
                                                     return (
-                                                        <li><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
+                                                        <li ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
                                                             {this.state.language.page.setting[e.id][v]}
                                                             {
-                                                                this.setting[e.id] !== v ? '' :
-                                                                    <i className="material-icons md-18 selected">check_box</i>
+                                                                this.setting[e.id].title !== v ?
+                                                                    this.setting[e.id] !== v ? '' :
+                                                                        <i className="material-icons md-18 selected">check_box</i>
+                                                                    : <i className="material-icons md-18 selected">check_box</i>
                                                             }
                                                         </a></li>
                                                     )
@@ -74,8 +78,6 @@ class SettingNav extends Component {
                 </div>
             </div>
         )
-
-
     }
 
     componentWillReceiveProps(nextProps) {

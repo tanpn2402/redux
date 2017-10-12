@@ -359,7 +359,8 @@ const config = {
 			value: [
 				'light',
 				'blue',
-				'dark'
+				'dark',
+				// 'brown'
 			]
 		},
 		{
@@ -434,7 +435,7 @@ const config = {
 	cache: {
 		stockList: [],
 		lang: 'vi_VN',
-		theme: 'blue'
+		theme: 'light'
 	}
 }
 

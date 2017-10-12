@@ -51,6 +51,7 @@ class CancelOrder extends Component {
             <div>
                 <Modal.Body>
                     <TableData
+                        theme={this.props.theme}
                         id={this.id + "-table"}
                         columns={this.columns}
                         defaultPageSize={15}

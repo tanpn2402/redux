@@ -304,7 +304,7 @@ class StockStatement extends Component {
                 onNextPage={this.onNextPage.bind(this)}
                 onPrevPage={this.onPrevPage.bind(this)}
                 onReloadPage={this.onReloadPage.bind(this)}
-        onExportExcel={this.onExportExcel.bind(this)}
+                onExportExcel={this.onExportExcel.bind(this)}
             />,
         ]
         var data = this.props.data.list === undefined ? [] : this.props.data.list
@@ -320,40 +320,40 @@ class StockStatement extends Component {
         }
 
         return (
-        <div style={{height: '100%'}}>
-            <div className="component-header" >
-                <span className="content-block-head">
-                    {this.props.language.menu[this.id]}
-                </span>
-                <ul className="btn-action">
-                    <li className="btn-close">
-                        <span className="glyphicon glyphicon-remove" ></span>
-                    </li>
-                </ul>
-            </div>
-            <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
-                <div className="component-main">
-                    <DataUpperTable
-                        id="stockstatement-table"
-
-                        columns={this.state.columns}
-                        data={data}
-                        defaultPageSize={15} />
+            <div style={{ height: '100%' }}>
+                <div className="component-header" >
+                    <span className="content-block-head">
+                        {this.props.language.menu[this.id]}
+                    </span>
+                    <ul className="btn-action">
+                        <li className="btn-close">
+                            <span className="glyphicon glyphicon-remove" ></span>
+                        </li>
+                    </ul>
                 </div>
-                <div className="component-body">
-                    <SearchBar
-                        id={this.id}
-                        onSearch={this.onSearch.bind(this)}
-                        buttonAction={this.buttonAction}
-                        language={this.props.language.searchbar}
-                        theme={this.props.theme}
-                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                        data={{stockList: this.props.stockList, columns: this.state.columns}}
-                        param={['mvStartDate', 'mvEndDate', 'dropdown']}
-                    />
+                <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
+                    <div className="component-main">
+                        <DataUpperTable
+                            theme={this.props.theme}
+                            id="stockstatement-table"
+                            columns={this.state.columns}
+                            data={data}
+                            defaultPageSize={15} />
+                    </div>
+                    <div className="component-body">
+                        <SearchBar
+                            id={this.id}
+                            onSearch={this.onSearch.bind(this)}
+                            buttonAction={this.buttonAction}
+                            language={this.props.language.searchbar}
+                            theme={this.props.theme}
+                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                            data={{ stockList: this.props.stockList, columns: this.state.columns }}
+                            param={['mvStartDate', 'mvEndDate', 'dropdown']}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 
