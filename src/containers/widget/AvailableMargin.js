@@ -11,141 +11,117 @@ import { Button } from 'react-bootstrap'
 import config from '../../core/config'
 import moment from 'moment'
 
-class CashStatement extends Component {
+class AvaibleMarginList extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
-
-        this.params = {
-            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
-            start: 0,
-            limit: 15,
-            timePeriod: 'Customize'
-        }
-
-        this.exportParams = {
-            mvLastAction: 'ACCOUNT',
-            mvLastChildAction: 'CASHTRANSACTIONHISTORYREPORT',
-            timePeriod: 'Customize',
-            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
-            tradeType: 'ALL',
-        }
-
+        this.id = 'available'
         this.state = {
-            columns: [
+            columns : [
                 {
-                    id: 'Date',
-                    Header: this.props.language.cashstatement.header.date,
-                    accessor: 'TRANDATE',
-                    width: 110,
+                    id: 'mvRowNum',
+                    Header: this.props.language.avaiblemarginlist.header.No,
+                    accessor: 'mvRowNum',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'description',
-                    Header: this.props.language.cashstatement.header.description,
-                    accessor: 'REMARKS',
-                    width: 210,
+                    id: 'mvInstrumentID',
+                    Header: this.props.language.avaiblemarginlist.header.Stockcode,
+                    accessor: 'mvInstrumentID',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALBF',
-                    Header: this.props.language.cashstatement.header.beginningbalance,
-                    accessor: 'BALBF',
-                    width: 120,
+                    id: 'mvInstrumentName',
+                    Header: this.props.language.avaiblemarginlist.header.Fullname,
+                    accessor: 'mvInstrumentName',
+                    width: 230,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'CREDITAMT',
-                    Header: this.props.language.cashstatement.header.creditamount,
-                    accessor: 'CREDITAMT',
-                    width: 120,
+                    id: 'mvMarketID',
+                    Header: this.props.language.avaiblemarginlist.header.Exchange,
+                    accessor: 'mvMarketID',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'DEBITAMT',
-                    Header: this.props.language.cashstatement.header.debitamount,
-                    accessor: 'DEBITAMT',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALCF',
-                    Header: this.props.language.cashstatement.header.endingbalance,
-                    accessor: 'BALCF',
-                    width: 120,
+                    id: 'mvLendPercent',
+                    Header: this.props.language.avaiblemarginlist.header.psentlending,
+                    accessor: 'mvLendPercent',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
             ],
-            pageIndex: 1
+
+            pageIndex: 1,
         }
 
-        this.id = 'cashstatement'
+        this.params = {
+            mvLastAction:'AVAIABLEMARGINLIST',
+            mvInstrumentID: '',
+            mvMarketID: 'ALL',
+            mvLending:'',
+            page: 1,
+            start: 0,
+            limit: 15,
+        }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps){
         this.setState({
-            columns: [
+            columns : [
                 {
-                    id: 'Date',
-                    Header: nextProps.language.cashstatement.header.date,
-                    accessor: 'TRANDATE',
-                    width: 110,
+                    id: 'mvRowNum',
+                    Header: nextProps.language.avaiblemarginlist.header.No,
+                    accessor: 'mvRowNum',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'description',
-                    Header: nextProps.language.cashstatement.header.description,
-                    accessor: 'REMARKS',
-                    width: 210,
+                    id: 'mvInstrumentID',
+                    Header: nextProps.language.avaiblemarginlist.header.Stockcode,
+                    accessor: 'mvInstrumentID',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALBF',
-                    Header: nextProps.language.cashstatement.header.beginningbalance,
-                    accessor: 'BALBF',
-                    width: 120,
+                    id: 'mvInstrumentName',
+                    Header: nextProps.language.avaiblemarginlist.header.Fullname,
+                    accessor: 'mvInstrumentName',
+                    width: 230,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'CREDITAMT',
-                    Header: nextProps.language.cashstatement.header.creditamount,
-                    accessor: 'CREDITAMT',
-                    width: 120,
+                    id: 'mvMarketID',
+                    Header: nextProps.language.avaiblemarginlist.header.Exchange,
+                    accessor: 'mvMarketID',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'DEBITAMT',
-                    Header: nextProps.language.cashstatement.header.debitamount,
-                    accessor: 'DEBITAMT',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALCF',
-                    Header: nextProps.language.cashstatement.header.endingbalance,
-                    accessor: 'BALCF',
-                    width: 120,
+                    id: 'mvLendPercent',
+                    Header: nextProps.language.avaiblemarginlist.header.psentlending,
+                    accessor: 'mvLendPercent',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
             ]
-        })
-    }
+        });
 
+    }
 
     render() {
 
@@ -177,7 +153,7 @@ class CashStatement extends Component {
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             data={{ stockList: this.stockList }}
-                            param={['mvStartDate', 'mvEndDate']} />
+                            param={[ 'mvStockId', 'mvMarket', 'mvLending']}/>
                     </div>
 
                     <div className="table-footer" style={tablefooter} style={tablefooter}>
@@ -188,7 +164,6 @@ class CashStatement extends Component {
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}
                             onReloadPage={this.onReloadPage.bind(this)}
-                            onExportExcel={this.onExportExcel.bind(this)}
                         />
                     </div>
                 </Body>
@@ -200,8 +175,26 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
+    onSearch(param){
+        this.state.pageIndex = 1
+        this.params['page'] = this.pageIndex
+        this.params['start'] = ( this.pageIndex - 1 ) * 15
+        this.params['limit'] = 15
+        this.params['mvMarketID'] = param['mvMarket']
+        this.params['mvInstrumentID'] = param['mvStockId'] === 'ALL' ? '': param['mvStockId']
+        this.params['mvLending'] = param['mvLending'] === 'ALL' ? '': param['mvLending']
+   
+        this.props.onSearch(this.params)
+    }
 
-    onPageChange(pageIndex) {
+    onChangeStateColumn(e){
+        const id = e.target.id
+        this.setState({
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+        });
+    }
+
+    onPageChange(pageIndex){
         this.state.pageIndex = pageIndex
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -209,7 +202,7 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
-    onNextPage() {
+    onNextPage(){
         this.state.pageIndex = this.state.pageIndex + 1
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -217,7 +210,7 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
-    onPrevPage() {
+    onPrevPage(){
         this.state.pageIndex = this.state.pageIndex - 1
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -225,51 +218,23 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
-    onReloadPage() {
-        this.param['key'] = (new Date()).getTime()
-        this.props.onSearch(this.params)
-    }
-
-    onChangeStateColumn(e) {
-        const id = e.target.id
-        this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        })
-    }
-
-    
-    onSearch(param) {
-        this.state.pageIndex = 1
-        this.params['page'] = this.state.pageIndex
-        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-
-        this.params['mvStartDate'] = param['mvStartDate']
-        this.params['mvEndDate'] = param['mvEndDate']
+    onReloadPage(){
         this.params['key'] = (new Date()).getTime()
         this.props.onSearch(this.params)
     }
 
-    onExportExcel() {
-        this.exportParams['mvStartDate'] = this.params['mvStartDate']
-        this.exportParams['mvEndDate'] = this.params['mvEndDate']
-        this.props.onExportExcel(this.exportParams)
-    }
-}
-const mapStateToProps = (state) => {
-    return {
-        data: state.cashstatement.data,
-    }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        data: state.avaiblemarginlist.data,
+    }
+}
+  
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (params) => {
-        dispatch(actions.enquiryCashStatement(params))
-    },
-    onExportExcel: (param) => {
-        dispatch(actions.exportCashTransactionHistory(param))
+        dispatch(actions.avaiblemarginlist(params))
     },
 })
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CashStatement)
+export default connect(mapStateToProps, mapDispatchToProps)(AvaibleMarginList)

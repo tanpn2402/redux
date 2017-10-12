@@ -12,7 +12,8 @@ export default function (menuid, props){
 	switch(menuid){
 		case 'management':
 		return(
-			<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
+			<Management language={props.language} stockList={props.stockList} theme={props.theme}  
+				tabID={props.tabID} subTab={props.subTabID}/>
 		)
 	case 'trading':
 		return(
@@ -28,7 +29,8 @@ export default function (menuid, props){
 		)
 	case 'transhistory':
 		return(
-			<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} 
+				tabID={props.tabID} subTab={props.subTabID}/>
 		)
 	case 'customization':
 		return(

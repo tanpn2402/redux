@@ -243,6 +243,30 @@ const config = {
 		"UPCOM"
 	],
 
+	widget: [
+		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
+		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'cashTransHistory', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true},
+		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true},
+		{ i: 'portfolio', 				smW: 8, smH: 10, lgW: 8, lgH: 14, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: true, isResizable: true},
+		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'stockmarketinform', 		smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 3, maxH: 9, isDraggable: true, isResizable: false },
+		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 10, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'fundTransfer', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'advancePayment', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'marginloan', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'available', 				smW: 8, smH: 8, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'accountinfo', 			smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 8, maxH: 8, isDraggable: true, isResizable: false },
+		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minW: 6, minW: 8, maxH: 9, isDraggable: true, isResizable: true },
+
+	],
+
 	tabbar: [
 		{
 			id: "trading",
@@ -295,9 +319,7 @@ const config = {
 			id: 'customization',
 			title: "customization",
 			widget: [
-				// {i: 'techanalysis', x:0, y:0, w: 6, h: 12, isResizable: false},
-				// { i: 'watchlist', x: 0, y: 0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: false, isResizable: true },
-				{ i: 'orderconfirmation', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, static: false }
+				{ i: 'orderconfirmation', smW: 8, smH: 8, lgW: 8, lgH: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, isDraggable: true, isResizable: true }
 			]
 		}
 	],

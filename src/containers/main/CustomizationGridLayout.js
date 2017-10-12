@@ -20,19 +20,24 @@ class CustomGridLayout extends React.Component {
             list: []
         }
         this.layoutCols = { lg: 8, md: 6, sm: 4, xs: 2, xxs: 2 }
+
+        
     }
 
     generateChild(menuid) {
-        console.log(this.state.layout)
         const layout = this.state.layout[menuid]
-        console.log(layout)
+        layout['x'] = layout['x'] === undefined ? 0 : layout['x']
+        layout['y'] = layout['y'] === undefined ? 0 : layout['y']
+
+        layout['w'] = layout['w'] === undefined ? layout['lgW'] : layout['w']
+        layout['h'] = layout['h'] === undefined ? layout['lgH'] : layout['lgH']
+
         return (
             <div key={menuid}
                 data-grid={{
-                    x: layout['x'], y: layout['y'], w: layout['w'],
-                    h: layout['h'], minW: layout['minW'], minH: layout['minH'],
-                    maxW: layout['maxW'], maxH: layout['maxH'], static: layout['static'],
-                    isResizable: layout['isResizable']
+                    x: layout['x'], y: layout['y'], w: layout['w'], h: layout['h'], minW: layout['minW'], 
+                    minH: layout['minH'], maxW: layout['maxW'], maxH: layout['maxH'], 
+                    isDraggable: layout['isDraggable'], isResizable: layout['isResizable']
                 }}>
 
                 {

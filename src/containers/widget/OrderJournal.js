@@ -8,7 +8,7 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
-import Popup from '../Popup'
+
 class OrderJournal extends Component {
     constructor(props) {
         super(props)

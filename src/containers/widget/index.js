@@ -49,6 +49,10 @@ import Sumary from './Sumary'
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
 import WatchList from './WatchList'
+import StockStatement from './StockStatement'
+import CashStatement from './CashStatement'
+import MarginLoanStatement from './MarginLoanStatement'
+import AvailableMargin from './AvailableMargin'
 
 export default function (menuid, props){
 	switch(menuid){
@@ -230,6 +234,22 @@ export default function (menuid, props){
 		case 'orderconfirmation':
 			return (
 				<OrderConfirmation stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'stockstatement':
+			return (
+				<StockStatement stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'cashstatement':
+			return (
+				<CashStatement stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'marginloan':
+			return (
+				<MarginLoanStatement stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'available':
+			return (
+				<AvailableMargin stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
 

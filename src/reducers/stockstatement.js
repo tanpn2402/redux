@@ -1,16 +1,19 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-  data: [],
+    data: {
+        list: [],
+        totalCount: 0
+    },
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case ActionTypes.ENQUIRYSTOCKSTATEMENT:
+            action.data.list = action.data.list == null ? [] : action.data.list
+            action.data.totalCount = action.data.totalCount == '' ? 0 : action.data.totalCount
             return Object.assign({},state,{          
-                data: action.data,
-                language: action.language,
-                reload: action.reload,
+                data: action.data
             });
 
         default:

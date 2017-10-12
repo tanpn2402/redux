@@ -12,7 +12,7 @@ class Customization extends Component {
         this.state = {
             layout : this.customConfig.widget.length>0?this.customConfig.widget:[]
         }
-        console.log(config.tabbar)
+
         this.reloadWidget = this.reloadLayout.bind(this)
     }
 
@@ -21,7 +21,6 @@ class Customization extends Component {
 
       
     componentWillReceiveProps(nextProps){
-        console.log("STATE CHANGE========================="+nextProps.load+"|"+this.props.load)
         if (nextProps.load != this.props.load){
             this.reloadLayout()
         }
@@ -32,20 +31,16 @@ class Customization extends Component {
     
 
     reloadLayout(){
-        console.log("LAYOUT WILL BE RELOAD")
         var widgets = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")].widget
 
         this.setState({
-            layout : widgets.length>0?[...widgets]:[]
+            layout : widgets.length > 0 ? [...widgets] : []
         })
-
-        console.log("========= LAYOUT RELOADED: ")
-        console.log(this.state.layout)
-        console.log("========= LAYOUT RELOADED: ")
     }
 
 
     render(){
+        console.log(this.state.layout)
         return(
             <GridLayout
                 language={this.props.language}
