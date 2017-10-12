@@ -100,13 +100,13 @@ export default class SearchBar extends React.Component {
     genActionTypeComponent(props) {
         let language = props.language
         var data = props.data.actionType
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         if (data === undefined)
             return
 
         return (
             <FormGroup controlId="mvActionType" >
-                <ControlLabel style={{ color: font2 }}>{language.actionType}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.actionType}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     {
@@ -123,13 +123,13 @@ export default class SearchBar extends React.Component {
 
     genStatusComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         // var data = data.actionType
         // if(data === undefined)
         //     return
         return (
             <FormGroup controlId="mvStatus" >
-                <ControlLabel style={{ color: font2 }}>{language.status}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.status}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     {
@@ -146,10 +146,10 @@ export default class SearchBar extends React.Component {
 
     genOrderTypeComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup controlId="mvOrderType" >
-                <ControlLabel style={{ color: font2 }}>{language.ordertype}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.ordertype}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     <option value="ALL">{this.props.language.all}</option>
@@ -168,10 +168,10 @@ export default class SearchBar extends React.Component {
 
     genBSComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup controlId="mvBuysell" >
-                <ControlLabel style={{ color: font2 }}>{language.buysell}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.buysell}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     <option value="ALL">{language.all}</option>
@@ -184,10 +184,10 @@ export default class SearchBar extends React.Component {
 
     genPerLengthComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup controlId="mvLending" >
-                <ControlLabel style={{ color: font2 }}>{language.persentlength}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.persentlength}</ControlLabel>
                 {'   '}
                 <FormControl type="text" />
             </FormGroup>
@@ -196,10 +196,10 @@ export default class SearchBar extends React.Component {
 
     genMarketComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup controlId="mvMarket" >
-                <ControlLabel style={{ color: font2 }}>{language.market}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.market}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     <option value="ALL">{this.props.language.all}</option>
@@ -217,10 +217,10 @@ export default class SearchBar extends React.Component {
 
     genTradeComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup controlId="mvTrade" >
-                <ControlLabel style={{ color: font2 }}>{language.transtype}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.transtype}</ControlLabel>
                 {'   '}
                 <FormControl componentClass="select" placeholder="select">
                     {
@@ -254,10 +254,10 @@ export default class SearchBar extends React.Component {
 
     genStartDateComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup bsClass="form-group datepicker" >
-                <ControlLabel style={{ color: font2 }}>{language.startdate}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.startdate}</ControlLabel>
                 {'   '}
                 <DatePicker id="mvStartDate" value={this.state.startDate}
                     cellPadding={'1px'}
@@ -271,10 +271,10 @@ export default class SearchBar extends React.Component {
 
     genEndDateComponent(props) {
         let language = props.language
-        let font2 = props.theme.font2 == undefined ? 'black' : props.theme.font2.color
+        let font = props.theme.font == undefined ? 'black' : props.theme.font.color
         return (
             <FormGroup bsClass="form-group datepicker" >
-                <ControlLabel style={{ color: font2 }}>{language.enddate}</ControlLabel>
+                <ControlLabel style={{ color: font }}>{language.enddate}</ControlLabel>
                 {'   '}
                 <DatePicker id="mvEndDate" value={this.state.endDate}
                     cellPadding={'1px'}

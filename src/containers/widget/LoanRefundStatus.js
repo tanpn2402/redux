@@ -179,10 +179,11 @@ class LoanTrans extends Component {
 
     render() {
         var loanRefundStatus = this.props.loanRefundStatus
-
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -195,7 +196,7 @@ class LoanTrans extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={loanRefundStatus.loanrefundList} />
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -206,7 +207,7 @@ class LoanTrans extends Component {
                             data={{ stockList: [] }}
                             param={[ 'mvStartDate', 'mvEndDate']} />
                     </div>
-                    <div className="table-footer">
+                    <div className="table-footer" style={tablefooter}>
                         <Pagination
                             pageIndex={this.state.loanRefundStatusPageIndex}
                             totalRecord={Math.ceil(loanRefundStatus.totalCount / this.defaultPageSize)}
