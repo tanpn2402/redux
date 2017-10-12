@@ -145,6 +145,13 @@
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting"
             },
+            "marqueebar":{
+                "status": "Trạng thái",
+                "price": "Giá",
+                "value": "Giá trị",
+                "volume": "Khối lượng",
+                "advance": "Ứng trước"
+            },
             "orderjournal": {
                 "header": {
                     "cancelmodify": "Hủy/Sửa",

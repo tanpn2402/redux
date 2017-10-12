@@ -485,8 +485,8 @@ class EnterOrder extends Component {
 
     render() {
         var language = this.props.language.enterorder
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         console.log(this.state.value)
         return (
@@ -534,13 +534,13 @@ class EnterOrder extends Component {
                                         <td style={{position: 'absolute', height: '23px', border: 'none', borderBottom: '1px solid #dcdcdc', backgroundColor: rowodd}}>
                                             <InputSearch data={this.stockList} onChange={this.handleStockChange.bind(this)}
                                                 onBlur={this.handleStockOnBlur.bind(this)}
-                                                style={{padding: '0 4px', height: '20px'}}/>
+                                                style={{padding: '0 4px', height: '20px', backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
                                     <tr ref={e => this.bankRow = e}>
                                         <th>{language.header.bank}</th>
                                         <td style={{backgroundColor: roweven}} >
-                                            <select id="mvBank" className="hks-input no-border" ref={e => this.mvBankID = e} 
+                                            <select id="mvBank" className="hks-input no-border" ref={e => this.mvBankID = e} style={{backgroundColor: 'transparent', color: font2}} 
                                                 onChange={this.handleBankAccChange.bind(this)}>
                                                 {
                                                     this.state.value.mvSettleAccList.map(bank => {
@@ -557,19 +557,20 @@ class EnterOrder extends Component {
                                         <td style={{backgroundColor: rowodd}}>
                                         <input id="mvLending" className="hks-input no-border" readOnly
                                             value={this.state.value.mvLending + '%'} ref={e => this.mvLending = e}
-                                            /> </td>
+                                            style={{backgroundColor: 'transparent', color: font2}}/> </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.buyingpower}</th>
                                         <td style={{backgroundColor: roweven}} >
                                             <input id="mvBuyPower" className="hks-input no-border" readOnly 
-                                                value={this.state.value.mvBuyPower} ref={e => this.mvBuyPower = e}/>
+                                                value={this.state.value.mvBuyPower} ref={e => this.mvBuyPower = e}
+                                                style={{backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.ordertype}</th>
                                         <td style={{backgroundColor: rowodd}} >
-                                            <select id="mvOrderType" className="hks-input no-border" style={{width: '100%', padding: '0'}}
+                                            <select id="mvOrderType" className="hks-input no-border" style={{width: '100%', padding: '0', backgroundColor: 'transparent', color: font2}}
                                                 ref={e => this.mvOrderType = e}
                                                 onChange={this.handleOrderType.bind(this)}>
                                                 {
@@ -592,7 +593,8 @@ class EnterOrder extends Component {
                                                 type="number" name="volume" min="0" 
                                                 onChange={this.handleVolChange.bind(this)} id="mvVolume" 
                                                 placeholder="ex: 100" required 
-                                                defaultValue={Utils.quantityShowFormatter(this.state.value.mvVol)}/>
+                                                defaultValue={Utils.quantityShowFormatter(this.state.value.mvVol)}
+                                                style={{backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -604,7 +606,8 @@ class EnterOrder extends Component {
                                                     className="hks-input no-border" type="number"
                                                     min="0" step="any" onChange={this.handlePriceChange.bind(this)} 
                                                     placeholder="ex: 10" required 
-                                                    defaultValue={this.state.value.mvPrice}/>
+                                                    defaultValue={this.state.value.mvPrice}
+                                                    style={{backgroundColor: 'transparent', color: font2}}/>
                                      
                                         </td>
                                     </tr>
@@ -612,14 +615,16 @@ class EnterOrder extends Component {
                                         <th>{language.header.value}</th>
                                         <td style={{backgroundColor: roweven}} >
                                             <input id="mvGrossAmt"  className="hks-input no-border" readOnly
-                                                ref={e => this.mvGrossAmt = e} value={this.state.value.mvGrossAmt} />
+                                                ref={e => this.mvGrossAmt = e} value={this.state.value.mvGrossAmt} 
+                                                style={{backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.netfee}</th>
                                         <td style={{backgroundColor: rowodd}} >
                                             <input id="mvNetFee"  className="hks-input no-border" readOnly
-                                                ref={e => this.mvNetFee = e} value={this.state.value.mvNetFee} />
+                                                ref={e => this.mvNetFee = e} value={this.state.value.mvNetFee} 
+                                                style={{backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
                                     <tr>

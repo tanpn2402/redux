@@ -25,10 +25,13 @@ class LoanTrans extends Component {
 
     render() {
         var localLoanRefundCreation = this.props.localLoanRefundCreation
-
+        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
+		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         return (
             <div>
-                <Title widgetID={this.id}>
+                <Title theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -36,7 +39,7 @@ class LoanTrans extends Component {
                         <FormGroup>
                             <Table responsive>
                                 <tbody>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}}>
                                         <th>{this.props.language.loanrefund.form.beginningloan}</th>
                                         <td >
                                             <input
@@ -49,7 +52,7 @@ class LoanTrans extends Component {
                                             
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: roweven, color: font2}}>
                                         <th>{this.props.language.loanrefund.form.availablecashforrefund}</th>
                                         <td>
                                             <input
@@ -65,7 +68,7 @@ class LoanTrans extends Component {
                                                         
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}}>
                                         <th>{this.props.language.loanrefund.form.cashadvanceable}</th>
                                         <td >
                                             <input
@@ -78,9 +81,9 @@ class LoanTrans extends Component {
                                             
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: roweven, color: font2}}>
                                         <th>{this.props.language.loanrefund.form.loanrefundamount}</th>
-                                        <td>
+                                        <td style={{color: 'black'}}>
                                             <input 
                                                 className="hks-input border" 
                                                 id="txtRefundAmt" 
@@ -88,9 +91,9 @@ class LoanTrans extends Component {
                                                 ref={el => this.txtRefundAmt = el} />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{backgroundColor: rowodd, color: font2}}>
                                         <th>{this.props.language.loanrefund.form.remark}</th>
-                                        <td>
+                                        <td style={{color: 'black'}}>
                                             <input 
                                                 className="hks-input border" 
                                                 id="txtRemark" autoComplete='off'

@@ -416,8 +416,8 @@ class AccountInfo extends Component {
     render(){
 		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
 		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
-		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
-		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
+		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
 	    return(
             <div id={this.id}>
                 <Title theme={this.props.theme}>

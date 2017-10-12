@@ -70,7 +70,7 @@ export default class PieChart extends React.Component {
     }
 
     render(){
-        let backgroundColor = this.props.theme.chart == undefined? undefined:this.props.theme.chart.piechart.background
+        let backgroundColor = this.props.theme.chart == undefined? undefined:this.props.theme.chart.piechart.backgroundColor
         this.config = {
             chart: {
                 backgroundColor: backgroundColor,

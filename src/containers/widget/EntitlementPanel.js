@@ -23,8 +23,8 @@ class EntitlementPanel extends Component {
             'mvInterfaceSeq': "-1"
         })
         var entitlementStockList = this.props.entitlementStockList
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div style={{height: '100%', position: 'relative'}}>
