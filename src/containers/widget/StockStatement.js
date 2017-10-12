@@ -1,23 +1,30 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
-import SearchBar from '../commons/SearchBar'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataUpperTable from '../DataUpperTable'
+import Title from '../commons/WidgetTitle'
+import Body from '../commons/WidgetBody'
+import SearchBar from '../commons/SearchBar'
+import Table from '../commons/DataTable'
+import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
+import { Button } from 'react-bootstrap'
+import config from '../../core/config'
 import moment from 'moment'
 
 class StockStatement extends Component {
     constructor(props) {
         super(props)
+        this.stockList = config.cache.stockList
+
         this.params = {
-            mvLastAction: '',
-            mvChildLastAction: '',
+            mvLastAction: 'ACCOUNT',
+            mvChildLastAction: 'TRANSACTIONHISTORY',
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: 15,
-            timePeriod: 'Customize'
+            timePeriod: 'Customize',
+            key: (new Date()).getTime()
         }
 
         this.exportParams = {
@@ -296,63 +303,50 @@ class StockStatement extends Component {
     }
 
     render() {
-        this.buttonAction = [
-            <Pagination theme={this.props.theme}
-                pageIndex={this.state.pageIndex}
-                totalRecord={this.props.data.mvTotalOrders}
-                onPageChange={this.onPageChange.bind(this)}
-                onNextPage={this.onNextPage.bind(this)}
-                onPrevPage={this.onPrevPage.bind(this)}
-                onReloadPage={this.onReloadPage.bind(this)}
-                onExportExcel={this.onExportExcel.bind(this)}
-            />,
-        ]
-        var data = this.props.data.list === undefined ? [] : this.props.data.list
-        var page = 1
 
-        for (let i = 0; i < data.length; i++) {
-            console.log(data[i])
-            for (let j in data[i]) {
-                if (data[i][j] === null || data[i][j] === "") {
-                    data[i][j] = 0
-                }
-            }
-        }
-
+        let data = this.props.data
+        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
         return (
-            <div style={{ height: '100%' }}>
-                <div className="component-header" >
-                    <span className="content-block-head">
-                        {this.props.language.menu[this.id]}
-                    </span>
-                    <ul className="btn-action">
-                        <li className="btn-close">
-                            <span className="glyphicon glyphicon-remove" ></span>
-                        </li>
-                    </ul>
-                </div>
-                <div id={'component-' + this.id} className="component-wrapper" onMouseDown={e => e.stopPropagation()}>
-                    <div className="component-main">
-                        <DataUpperTable
+            <div style={{ height: '100%', position: 'relative' }}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                    {this.props.language.menu[this.id]}
+                </Title>
+                <Body theme={this.props.theme}>
+                    <div className="table-main">
+                        <Table 
                             theme={this.props.theme}
-                            id="stockstatement-table"
+                            key={this.id}
+                            id={this.id}
+                            defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
-                            data={data}
-                            defaultPageSize={15} />
+                            data={data.list}
+                        />
                     </div>
-                    <div className="component-body">
+
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             id={this.id}
                             onSearch={this.onSearch.bind(this)}
-                            buttonAction={this.buttonAction}
+                            buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                            data={{ stockList: this.props.stockList, columns: this.state.columns }}
-                            param={['mvStartDate', 'mvEndDate', 'dropdown']}
+                            data={{ stockList: this.stockList }}
+                            param={['mvStartDate', 'mvEndDate']} />
+                    </div>
+
+                    <div className="table-footer" style={tablefooter} style={tablefooter}>
+                        <Pagination theme={this.props.theme}
+                            pageIndex={this.state.pageIndex}
+                            totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
+                            onPageChange={this.onPageChange.bind(this)}
+                            onNextPage={this.onNextPage.bind(this)}
+                            onPrevPage={this.onPrevPage.bind(this)}
+                            onReloadPage={this.onReloadPage.bind(this)}
+                            onExportExcel={this.onExportExcel.bind(this)}
                         />
                     </div>
-                </div>
+                </Body>
             </div>
         )
     }
@@ -369,40 +363,43 @@ class StockStatement extends Component {
     }
 
     onPageChange(pageIndex) {
-        if (pageIndex > 0) {
-            this.state.pageIndex = pageIndex
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = pageIndex
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.params['key'] = (new Date()).getTime()
+        this.props.onSearch(this.params)
     }
 
     onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = this.state.pageIndex + 1
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.params['key'] = (new Date()).getTime()
+        this.props.onSearch(this.params)
     }
 
     onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
+        this.state.pageIndex = this.state.pageIndex - 1
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+        this.params['key'] = (new Date()).getTime()
+        this.props.onSearch(this.params)
     }
 
     onReloadPage() {
-        this.props.onSearch(this.params, !this.props.reload)
+        this.param['key'] = (new Date()).getTime()
+        this.props.onSearch(this.params)
     }
 
     onSearch(param) {
+        this.state.pageIndex = 1
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
+
         this.params['mvStartDate'] = param['mvStartDate']
         this.params['mvEndDate'] = param['mvEndDate']
-        this.props.onSearch(this.params, !this.props.reload)
+        this.params['key'] = (new Date()).getTime()
+        this.props.onSearch(this.params)
     }
 
     onExportExcel() {
@@ -416,7 +413,6 @@ class StockStatement extends Component {
 const mapStateToProps = (state) => {
     return {
         data: state.stockstatement.data,
-        reload: state.stockstatement.reload,
     }
 }
 

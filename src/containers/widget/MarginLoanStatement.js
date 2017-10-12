@@ -11,141 +11,188 @@ import { Button } from 'react-bootstrap'
 import config from '../../core/config'
 import moment from 'moment'
 
-class CashStatement extends Component {
+class MarginLoanStatement extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
 
         this.params = {
+            mvLastAction: 'ACCOUNT',
+            mvChildLastAction: 'MARGINLOAN',
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
-            limit: 15,
+            limit: this.defaultPageSize,
             timePeriod: 'Customize'
         }
-
         this.exportParams = {
-            mvLastAction: 'ACCOUNT',
-            mvLastChildAction: 'CASHTRANSACTIONHISTORYREPORT',
-            timePeriod: 'Customize',
-            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
-            tradeType: 'ALL',
+            // mvLastAction: 'ACCOUNT',
+            // mvChildLastAction: 'ORDERHISTORYENQUIRY',
+            // mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
+            // mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+            // mvBS: '',
+            // mvInstrumentID: '',
+            // mvStatus: 'ALL',
+            // mvSorting: 'InputTime desc',
         }
-
         this.state = {
             columns: [
                 {
-                    id: 'Date',
-                    Header: this.props.language.cashstatement.header.date,
-                    accessor: 'TRANDATE',
-                    width: 110,
+                    id: 'mvRowNum',
+                    Header: this.props.language.marginloan.header.rownum,
+                    accessor: 'rowNum',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'description',
-                    Header: this.props.language.cashstatement.header.description,
-                    accessor: 'REMARKS',
-                    width: 210,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALBF',
-                    Header: this.props.language.cashstatement.header.beginningbalance,
-                    accessor: 'BALBF',
+                    id: 'mvTransactionDate',
+                    Header: this.props.language.marginloan.header.transactiondate,
+                    accessor: 'tranDate',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'CREDITAMT',
-                    Header: this.props.language.cashstatement.header.creditamount,
-                    accessor: 'CREDITAMT',
-                    width: 120,
+                    id: 'mvDescription',
+                    Header: this.props.language.marginloan.header.description,
+                    accessor: 'desc',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'DEBITAMT',
-                    Header: this.props.language.cashstatement.header.debitamount,
-                    accessor: 'DEBITAMT',
-                    width: 120,
+                    Header: this.props.language.marginloan.header.marginusage,
+                    skip: false,
+                    show: true,
+                    columns: [
+                        {
+                            id: 'mvDebt',
+                            Header: this.props.language.marginloan.header.debt,
+                            accessor: 'out',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'mvPayment',
+                            Header: this.props.language.marginloan.header.payment,
+                            accessor: 'in',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'mvFinalDebt',
+                            Header: this.props.language.marginloan.header.finaldept,
+                            accessor: 'balance',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                    ]
+                },
+                {
+                    id: 'mvMarginCall',
+                    Header: this.props.language.marginloan.header.margincall,
+                    accessor: 'marginCallF',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALCF',
-                    Header: this.props.language.cashstatement.header.endingbalance,
-                    accessor: 'BALCF',
-                    width: 120,
+                    id: 'mvForceSell',
+                    Header: this.props.language.marginloan.header.forcesell,
+                    accessor: 'sellAmount',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
             ],
-            pageIndex: 1
+            pageIndex: 1,
         }
 
-        this.id = 'cashstatement'
+        this.id = 'marginloan'
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
+        this.state = {
             columns: [
                 {
-                    id: 'Date',
-                    Header: nextProps.language.cashstatement.header.date,
-                    accessor: 'TRANDATE',
-                    width: 110,
+                    id: 'mvRowNum',
+                    Header: nextProps.language.marginloan.header.rownum,
+                    accessor: 'rowNum',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'description',
-                    Header: nextProps.language.cashstatement.header.description,
-                    accessor: 'REMARKS',
-                    width: 210,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALBF',
-                    Header: nextProps.language.cashstatement.header.beginningbalance,
-                    accessor: 'BALBF',
+                    id: 'mvTransactionDate',
+                    Header: nextProps.language.marginloan.header.transactiondate,
+                    accessor: 'tranDate',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'CREDITAMT',
-                    Header: nextProps.language.cashstatement.header.creditamount,
-                    accessor: 'CREDITAMT',
-                    width: 120,
+                    id: 'mvDescription',
+                    Header: nextProps.language.marginloan.header.description,
+                    accessor: 'desc',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'DEBITAMT',
-                    Header: nextProps.language.cashstatement.header.debitamount,
-                    accessor: 'DEBITAMT',
-                    width: 120,
+                    Header: nextProps.language.marginloan.header.marginusage,
+                    skip: false,
+                    show: true,
+                    columns: [
+                        {
+                            id: 'mvDebt',
+                            Header: nextProps.language.marginloan.header.debt,
+                            accessor: 'out',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'mvPayment',
+                            Header: nextProps.language.marginloan.header.payment,
+                            accessor: 'in',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'mvFinalDebt',
+                            Header: nextProps.language.marginloan.header.finaldept,
+                            accessor: 'balance',
+                            width: 100,
+                            skip: false,
+                            show: true,
+                        },
+                    ]
+                },
+                {
+                    id: 'mvMarginCall',
+                    Header: nextProps.language.marginloan.header.margincall,
+                    accessor: 'marginCallF',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALCF',
-                    Header: nextProps.language.cashstatement.header.endingbalance,
-                    accessor: 'BALCF',
-                    width: 120,
+                    id: 'mvForceSell',
+                    Header: nextProps.language.marginloan.header.forcesell,
+                    accessor: 'sellAmount',
+                    width: 250,
                     skip: false,
                     show: true,
                 },
             ]
-        })
+        }
     }
-
 
     render() {
 
@@ -180,8 +227,8 @@ class CashStatement extends Component {
                             param={['mvStartDate', 'mvEndDate']} />
                     </div>
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
+                    <div className="table-footer" style={tablefooter} style={tablefooter}>
+                        <Pagination
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -200,6 +247,12 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
+    onChangeStateColumn(e) {
+        const id = e.target.id
+        this.setState({
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        });
+    }
 
     onPageChange(pageIndex) {
         this.state.pageIndex = pageIndex
@@ -230,14 +283,6 @@ class CashStatement extends Component {
         this.props.onSearch(this.params)
     }
 
-    onChangeStateColumn(e) {
-        const id = e.target.id
-        this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        })
-    }
-
-    
     onSearch(param) {
         this.state.pageIndex = 1
         this.params['page'] = this.state.pageIndex
@@ -248,28 +293,25 @@ class CashStatement extends Component {
         this.params['key'] = (new Date()).getTime()
         this.props.onSearch(this.params)
     }
-
     onExportExcel() {
-        this.exportParams['mvStartDate'] = this.params['mvStartDate']
-        this.exportParams['mvEndDate'] = this.params['mvEndDate']
-        this.props.onExportExcel(this.exportParams)
+        
+        //this.props.onExportExcel(this.exportParams)
     }
 }
+
 const mapStateToProps = (state) => {
     return {
-        data: state.cashstatement.data,
+        data: state.marginloan.data,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (params) => {
-        dispatch(actions.enquiryCashStatement(params))
+    onSearch: (param, reload) => {
+        dispatch(actions.enquiryMarginLoan(param, reload))
     },
-    onExportExcel: (param) => {
-        dispatch(actions.exportCashTransactionHistory(param))
-    },
+    // onExportExcel: (param) => {
+    //     dispatch(actions.exportOrderHistory(param))
+    // },
 })
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CashStatement)
+export default connect(mapStateToProps, mapDispatchToProps)(MarginLoanStatement)

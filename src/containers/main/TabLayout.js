@@ -10,10 +10,19 @@ class TabLayout extends Component {
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
         if(tabs.length > 0){
             this.tabbar = tabs[0].widget
-           
-            this.state = {
-                activeTab: this.tabbar[0].i
+            
+            if(this.props.subTab !== undefined){
+                // change tab using search function
+                this.state = {
+                    activeTab: this.props.subTab
+                }
+            } else{
+                // change tab manual
+                this.state = {
+                    activeTab: this.tabbar[0].i
+                }
             }
+                
         }
         else{
             this.tabbar = []
@@ -25,13 +34,21 @@ class TabLayout extends Component {
         
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.subTab !== undefined){
+            this.setState({
+                activeTab: nextProps.subTab
+            });
+        }
+    }
+
 
 
     render() {
         var language = this.props.language
         var activeTab = this.state.activeTab
         var layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
-        //console.log(this.tabbar, layout)
+        
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">

@@ -70,8 +70,7 @@ export function menuSelected(menuid, pageid, tabList, reload) {
     }
 };
 
-export function menuRemoved(menuid, pageid, tabList, reload) {   
-    console.log('menuRemoved', menuid)
+export function menuRemoved(menuid, pageid, tabList, reload) { 
     tabList[pageid] = tabList[pageid].filter(el => el !== menuid)
 	return {
             type: ActionTypes.MENU_SELECTED,
@@ -84,8 +83,6 @@ export function menuRemoved(menuid, pageid, tabList, reload) {
 };
 
 export function onPageClicked(pageid, tabList) {
-    
-        console.log(pageid)
         return {
             type: ActionTypes.MENU_SELECTED,
             tabList: tabList,
@@ -94,16 +91,16 @@ export function onPageClicked(pageid, tabList) {
   
 };
 
-export function onTabClick(tabID){
+export function onTabClick(tabID, subTabID){
     return {
         type: ActionTypes.TABCLICKEVENT,
         tabID: tabID,
+        subTabID: subTabID,
     }
 }
 
 
 export function reloadCustom(load){
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxx" + load)
     return {
         type: ActionTypes.RELOADCUSTOM,
         load: !load,

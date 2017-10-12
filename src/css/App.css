@@ -840,31 +840,26 @@ input::-webkit-calendar-picker-indicator {
     min-height: 200px;
     max-height: 300px;
     background-color: white;
-    box-shadow: 5px -5px 1px rgba(131, 104, 104, 0.5);
+    box-shadow: 2px -1px 2px rgba(0, 0, 0, 0.5);
     position: absolute;
     bottom: 30px;
-}
-
-.widget-search-result>div>div:nth-child(1) {
-    border-bottom: 2px solid grey;
-    border-top: 2px solid grey;
 }
 
 .widget-search-result>div {
     padding: 5px;
     box-sizing: border-box;
-    transition: all .5s;
+    user-select: none;
 }
 
 .widget-search-result>div:hover {
-    background-color: black;
-    color: white;
+    background-color: #ccc;
+    color: #555;
     cursor: hand;
     cursor: pointer;
 }
 
 .widget-search-result>div {
-    margin-bottom: 5px;
+    padding: 8px 15px;
 }
 
 .widget-search input {
@@ -3067,3 +3062,34 @@ input::-webkit-calendar-picker-indicator {
     top: 3px;
     position: relative;
 }
+
+
+/* POPOVER */
+/*.popover {
+    padding: 0;
+    color: #fff;
+}
+.popover-title {
+    padding: 4px 14px;
+    background-color: #005899;
+    /*border: 1px solid #fff;
+    border-bottom: none;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 4px 4px 0 0;
+}
+.popover-content {
+    padding: 4px 8px;
+    background-color: #0060a7;
+    border-radius: 0 0 4px 4px;
+    /*border: 1px solid #fff;
+    border-top: none;
+}
+.popover.top>.arrow:after {
+    border-top-color: #0060a7;
+
+}
+.popover-content > table > tbody > tr > th,
+.popover-content > table > tbody > tr > td {
+    padding: 4px 8px;
+}*/
