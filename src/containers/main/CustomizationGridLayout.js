@@ -21,7 +21,7 @@ class CustomGridLayout extends React.Component {
         }
         this.layoutCols = { lg: 8, md: 6, sm: 4, xs: 2, xxs: 2 }
 
-        
+        this.screenSize = 'lg'
     }
 
     generateChild(menuid) {
@@ -29,8 +29,8 @@ class CustomGridLayout extends React.Component {
         layout['x'] = layout['x'] === undefined ? 0 : layout['x']
         layout['y'] = layout['y'] === undefined ? 0 : layout['y']
 
-        layout['w'] = layout['w'] === undefined ? layout['lgW'] : layout['w']
-        layout['h'] = layout['h'] === undefined ? layout['lgH'] : layout['lgH']
+        layout['w'] =  layout[this.screenSize + 'W']
+        layout['h'] =  layout[this.screenSize + 'H']
 
         return (
             <div key={menuid}
@@ -72,7 +72,8 @@ class CustomGridLayout extends React.Component {
 
     onDragStop(layout, oldItem, newItem, placeholder, e, element) {
         const _layout = this.state.layout
-        _layout[newItem.i] = newItem
+        _layout[newItem.i].x = newItem.x
+        _layout[newItem.i].y = newItem.y
         this.state.layout = _layout
         //console.log(this.state.layout)
 
@@ -81,8 +82,12 @@ class CustomGridLayout extends React.Component {
 
     onResizeStop(layout, oldItem, newItem, placeholder, e, element) {
         const _layout = this.state.layout
-        _layout[newItem.i] = newItem
+        _layout[newItem.i][this.screenSize + 'W'] = newItem.w
+        _layout[newItem.i][this.screenSize + 'H'] = newItem.h
         this.state.layout = _layout
+        //console.log(this.state.layout)
+
+        this.saveLayout()
     }
 
     saveLayout() {

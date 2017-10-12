@@ -116,8 +116,8 @@ class Sumary extends Component {
                 y: d.sellStkNotInMarPort
             }
         ]
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
+        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div>

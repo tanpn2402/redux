@@ -99,7 +99,7 @@ class LoanTrans extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             columns: [
                 {
@@ -164,49 +164,50 @@ class LoanTrans extends Component {
 
 
     getStatus(v, language) {
-        if(v){
-            return language['STATUS_' + v.toUpperCase()] 
-        }else{
-            return language['STATUS_P'] 
-        }
-	}
-	
-	getType(v, language) {
-        if(v){
-            return language['TYPE_' + v.toUpperCase()] 
-        }else{
-            return language['TYPE_M'] 
+        if (v) {
+            return language['STATUS_' + v.toUpperCase()]
+        } else {
+            return language['STATUS_P']
         }
     }
-    
-    getRemark(v, language){
-		if (v != "For Margin Call"){
-			return v
-		}else{
-			return language.formargincall
-		}
+
+    getType(v, language) {
+        if (v) {
+            return language['TYPE_' + v.toUpperCase()]
+        } else {
+            return language['TYPE_M']
+        }
+    }
+
+    getRemark(v, language) {
+        if (v != "For Margin Call") {
+            return v
+        } else {
+            return language.formargincall
+        }
     }
 
 
     render() {
         var loanRefundHistory = this.props.loanRefundHistory
-
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
                         <Table
-                            theme = {this.props.theme}
+                            theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
                             data={loanRefundHistory.loanrefundhistoryList} />
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -215,10 +216,10 @@ class LoanTrans extends Component {
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             data={{ stockList: [] }}
-                            param={[ 'mvStartDate', 'mvEndDate']} />
+                            param={['mvStartDate', 'mvEndDate']} />
                     </div>
-                    <div className="table-footer">
-                        <Pagination
+                    <div className="table-footer" style={tablefooter}>
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.loanRefundHistoryPageIndex}
                             totalRecord={Math.ceil(loanRefundHistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -252,9 +253,8 @@ class LoanTrans extends Component {
 
     onChangeStateColumn(e) {
         const id = e.target.id
-        let columns = this.state.loanRefundHistoryCol.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         this.setState({
-            loanRefundHistoryCol: columns
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
 

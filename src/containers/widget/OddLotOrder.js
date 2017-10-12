@@ -21,13 +21,13 @@ class OddLotOrder extends Component {
                 {
                     // Create a select-all checkbox
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
                         return (
                             <input type='checkbox' className={this.id + "-row-checkbox"}
-                                                onChange={() => { this.onRowSelected(props.original)}} />
+                                onChange={() => { this.onRowSelected(props.original) }} />
                         )
                     },
                     sortable: false,
@@ -87,13 +87,13 @@ class OddLotOrder extends Component {
                 {
                     // Create a select-all checkbox
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')}/>,
+                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
                         return (
                             <input type='checkbox' className={this.id + "-row-checkbox"}
-                                              onChange={() => { this.onRowSelected(props.original)}} />
+                                onChange={() => { this.onRowSelected(props.original) }} />
                         )
                     },
                     sortable: false,
@@ -147,15 +147,15 @@ class OddLotOrder extends Component {
     render() {
         let oddLotOrder = this.props.oddlotenquiry
         let buttonActionOddLotOrder = [
-            <button style={this.props.theme.buttonClicked} className="hks-btn" type="button"
+            <button style={this.props.theme.button} className="hks-btn" type="button"
                 onClick={this.registerOddLotOrder.bind(this)}>
                 {this.props.language.oddlottrading.header.register}
             </button>
         ]
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -166,22 +166,22 @@ class OddLotOrder extends Component {
                             id={this.id}
                             columns={this.state.columns}
                             defaultPageSize={this.defaultPageSize}
-                            data={oddLotOrder.oddLotList.slice( 
-                                        (this.state.oddLotOrderPageIndex - 1)*this.defaultPageSize, 
-                                        this.state.oddLotOrderPageIndex*this.defaultPageSize )}/>
+                            data={oddLotOrder.oddLotList.slice(
+                                (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
+                                this.state.oddLotOrderPageIndex * this.defaultPageSize)} />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
-                            key={this.id+ '-search'}
-                            id={this.id+ '-search'}
+                            key={this.id + '-search'}
+                            id={this.id + '-search'}
                             buttonAction={buttonActionOddLotOrder}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{stockList: []}}
-                            param={[ 'dropdown']}/>
+                            data={{ stockList: [] }}
+                            param={['dropdown']} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.oddLotOrderPageIndex}
                             totalRecord={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}
                             onPageChange={this.onOddLotOrderPageChange.bind(this)}
@@ -200,11 +200,11 @@ class OddLotOrder extends Component {
         this.props.oddLotEnquiry(this.paramsEnquiryOddLot, !this.props.reload);
     }
 
-    onOddLotOrderNextPage(){
-        this.setState({oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1})
+    onOddLotOrderNextPage() {
+        this.setState({ oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1 })
     }
 
-    onOddLotOrderPrevPage(){
+    onOddLotOrderPrevPage() {
         this.setState({ oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) - 1 })
     }
 
@@ -244,19 +244,19 @@ class OddLotOrder extends Component {
             if (document.getElementsByClassName(this.id + '-row-checkbox')
                 .length === this.rowSelected.length)
                 document.getElementById(this.id + "-cb-all")
-                .checked = true
+                    .checked = true
             else
                 document.getElementById(this.id + "-cb-all")
-                .checked = false
+                    .checked = false
         }
     }
 
     registerOddLotOrder(e) {
         e.preventDefault();
-        if(this.rowSelected.length > 0){
+        if (this.rowSelected.length > 0) {
             this.props.beforeRegisterOddLot({
                 language: this.props.language,
-                data: {rowSelected: this.rowSelected, me: this}
+                data: { rowSelected: this.rowSelected, me: this }
             })
         }
         else {
@@ -264,7 +264,7 @@ class OddLotOrder extends Component {
         }
     }
 
-    reloadData(){
+    reloadData() {
         this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
         this.props.onshowenquiry(this.paramsEnquiryOddLot)
         this.props.onshowhistory(this.paramsOddLotHisEnquiry)

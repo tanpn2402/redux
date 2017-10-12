@@ -1,8 +1,8 @@
 export default {
   title: 'blue',
-  buttonClicked: {
-    backgroundColor: "#C6E2FF",
-    color: "#528B8B"
+  button: {
+    backgroundColor: "#002761",
+    color: "#FFFFFF"
   },
   font: {
     color: '#FFFFFF'
@@ -20,8 +20,7 @@ export default {
     pagemenu: {
       backgroundColor: '#02407D'
     }
-  }
-  ,
+  },
   statusbar: {
     backgroundColor: '#003E7B'
   },
@@ -33,7 +32,7 @@ export default {
       backgroundColor: '#002761'
     },
     widgetbody: {
-      border: '2.5px solid #003474'
+      border: '1.75px solid #003474'
     }
   },
   table: {
@@ -44,10 +43,14 @@ export default {
       backgroundColor: '#A1CFF0'
     },
     rowodd: {
-      background: '#F0F0F0'
+      backgroundColor: '#F0F0F0'
     },
     roweven: {
-      background: 'white'
+      backgroundColor: 'white'
+    },
+    nodatadisplay: {
+      backgroundColor: 'transparent',
+      color: '#000000'
     }
   },
   tabnormal: {
@@ -79,7 +82,7 @@ export default {
   },
   chart: {
     piechart: {
-      background: '#EEECEC'
+      backgroundColor: '#EEECEC'
     }
   }
 }

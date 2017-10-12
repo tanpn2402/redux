@@ -303,6 +303,7 @@ class StockStatement extends Component {
     }
 
     render() {
+
         let data = this.props.data
         let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
@@ -335,7 +336,7 @@ class StockStatement extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter} style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}

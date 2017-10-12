@@ -103,30 +103,30 @@ class MatchOrderList extends Component {
     render() {
         var soldOrders = this.props.soldOrders
         var data = soldOrders.mvChildBeanList
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter        
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{color: font2}} >
+                    <div className="table-main no-header" style={{ color: font2 }} >
                         <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data.slice(
-                                (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize, 
+                                (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize,
                                 this.state.orderMatchListPageIndex * this.defaultPageSize)}
                         />
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.orderMatchListPageIndex}
-                            totalRecord={Math.ceil( soldOrders.totalCount / this.defaultPageSize )}
+                            totalRecord={Math.ceil(soldOrders.totalCount / this.defaultPageSize)}
                             onPageChange={this.onOrderMatchListPageChange.bind(this)}
                             onNextPage={this.onOrderMatchListNextPage.bind(this)}
                             onPrevPage={this.onOrderMatchListPrevPage.bind(this)}
@@ -226,11 +226,11 @@ class MatchOrderList extends Component {
     }
 
     onOrderMatchListPrevPage() {
-        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex - 1  });
+        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex - 1 });
     }
 
     onOrderMatchListReloadPage() {
-        
+
     }
     onOrderMatchListPageChange(pageIndex) {
         this.setState({ orderMatchListPageIndex: pageIndex });

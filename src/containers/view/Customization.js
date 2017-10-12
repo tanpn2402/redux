@@ -40,7 +40,6 @@ class Customization extends Component {
 
 
     render(){
-        console.log(this.state.layout)
         return(
             <GridLayout
                 language={this.props.language}

@@ -25,11 +25,11 @@ class CashTransHistory extends Component {
             limit: this.defaultPageSize,
             page: 1
         }
-       this.exportParams = {
-            mvLastAction:'CASHTRANSACTIONHISTORY',
-            tradeType:'',
-            mvStartDate:'',
-            mvEndDate:''
+        this.exportParams = {
+            mvLastAction: 'CASHTRANSACTIONHISTORY',
+            tradeType: '',
+            mvStartDate: '',
+            mvEndDate: ''
         }
 
         this.state = {
@@ -190,10 +190,10 @@ class CashTransHistory extends Component {
 
     render() {
         var data = this.props.cashTransHistory.list
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
-            <div style={{height: '100%', position: 'relative'}}>
+            <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -220,9 +220,9 @@ class CashTransHistory extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.cashTransHistory.totalCount/this.defaultPageSize)}
+                            totalRecord={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
                             onNextPage={this.onNextPage.bind(this)}
                             onPrevPage={this.onPrevPage.bind(this)}

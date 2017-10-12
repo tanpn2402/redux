@@ -1,5 +1,5 @@
 import React from 'react'
-import { OverlayTrigger, Popover } from 'react-bootstrap'
+import { OverlayTrigger, Popover, Table } from 'react-bootstrap'
 
 export default class MarqueeBar extends React.Component {
     constructor(props) {
@@ -13,12 +13,43 @@ export default class MarqueeBar extends React.Component {
         }
 
         //HoverFocus event
-        var popoverHoverFocus = (title) => {
-
-            return (<Popover id="popover-trigger-hover-focus" title="Thông tin chi tiết">
-                <strong>Tên Mã</strong> {title}<br />
-                <strong>Giá</strong> {(Math.floor(Math.random() * 1000) + 1) / 10} VNĐ
-            </Popover>)
+        var popoverHoverFocus = (data) => {
+            console.log(data)
+            let title = 
+                <div style={{textAlign: 'center'}}>
+                    <span className={data.status}>&nbsp;{data.id}</span>
+                    <span className="percent">
+                        <span className="netchange">&nbsp;{data.netchange}</span>&nbsp;(<span className="changepercentage">{data.changeper}</span>%)
+                    </span>
+                </div>
+            return (
+                <Popover id="popover-trigger-hover-focus" title={title}>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th><strong>Status</strong></th>
+                                <td>{data.statusValue}</td>
+                            </tr>
+                            <tr>
+                                <th><strong>Price</strong></th>
+                                <td>{data.price} VNĐ</td>
+                            </tr>
+                            <tr>
+                                <th><strong>Value</strong></th>
+                                <td>{data.value}</td>
+                            </tr>
+                            <tr>
+                                <th><strong>Volume</strong></th>
+                                <td>{data.volume}</td>
+                            </tr>
+                            <tr>
+                                <th><strong>Advance</strong></th>
+                                <td>{data.advance}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Popover>
+            )
         }
 
         //Default props
@@ -45,16 +76,23 @@ export default class MarqueeBar extends React.Component {
         for (let i = 0; i < 200; i++) {
 
             var newDataE = Object.assign({}, this.defaultData)
-            newDataE.id = i
+            newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
             newDataE.title = this.randomStockCode()
             newDataE.status = this.randomSym()
             newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
             newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
+            newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
+            newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
+            newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
+            newDataE.statusValue = '-'
+            newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
+
+
             this.data.push(newDataE)
         }
 
         this.text = this.data.map(dataE => (
-            <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE.title)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
+            <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
                 <li>
                     <strong className="title">{dataE.title}</strong>
                     <span className={dataE.status}>&nbsp;{dataE.id}</span>

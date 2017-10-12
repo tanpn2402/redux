@@ -27,7 +27,7 @@ class LoanTrans extends Component {
             page: 1
         }
 
-        this.state= {
+        this.state = {
             loanRefundStatusPageIndex: 1,
             columns: [
                 {
@@ -55,7 +55,7 @@ class LoanTrans extends Component {
                     id: 'type',
                     Header: this.props.language.loanrefund.header.type,
                     accessor: 'type',
-                    Cell: props => this.getType(props.original.type. this.props.language.loanrefund.type),
+                    Cell: props => this.getType(props.original.type.this.props.language.loanrefund.type),
                     width: 130,
                     show: true,
                     skip: false,
@@ -89,7 +89,7 @@ class LoanTrans extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             columns: [
                 {
@@ -117,7 +117,7 @@ class LoanTrans extends Component {
                     id: 'type',
                     Header: nextProps.language.loanrefund.header.type,
                     accessor: 'type',
-                    Cell: props => this.getType(props.original.type. nextProps.language.loanrefund.type),
+                    Cell: props => this.getType(props.original.type.nextProps.language.loanrefund.type),
                     width: 130,
                     show: true,
                     skip: false,
@@ -153,36 +153,37 @@ class LoanTrans extends Component {
 
 
     getStatus(v, language) {
-        if(v){
-            return language['STATUS_' + v.toUpperCase()] 
-        }else{
-            return language['STATUS_P'] 
+        if (v) {
+            return language['STATUS_' + v.toUpperCase()]
+        } else {
+            return language['STATUS_P']
         }
-	}
-	
-	getType(v, language) {
-        if(v){
-            return language['TYPE_' + v.toUpperCase()] 
-        }else{
-            return language['TYPE_M'] 
+    }
+
+    getType(v, language) {
+        if (v) {
+            return language['TYPE_' + v.toUpperCase()]
+        } else {
+            return language['TYPE_M']
         }
-	}
-    
-    getRemark(v, language){
-		if (v != "For Margin Call"){
-			return v
-		}else{
-			return language.formargincall
-		}
+    }
+
+    getRemark(v, language) {
+        if (v != "For Margin Call") {
+            return v
+        } else {
+            return language.formargincall
+        }
     }
 
 
     render() {
         var loanRefundStatus = this.props.loanRefundStatus
-
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -195,7 +196,7 @@ class LoanTrans extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={loanRefundStatus.loanrefundList} />
                     </div>
-                    <div className="table-header">
+                    <div className="table-header" style={tableheader}>
                         <SearchBar
                             key={this.id + '-search'}
                             id={this.id + '-search'}
@@ -204,10 +205,10 @@ class LoanTrans extends Component {
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             data={{ stockList: [] }}
-                            param={[ 'mvStartDate', 'mvEndDate']} />
+                            param={['mvStartDate', 'mvEndDate']} />
                     </div>
-                    <div className="table-footer">
-                        <Pagination
+                    <div className="table-footer" style={tablefooter}>
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.loanRefundStatusPageIndex}
                             totalRecord={Math.ceil(loanRefundStatus.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -227,7 +228,7 @@ class LoanTrans extends Component {
         this.props.getLoanRefundStatus(this.loanRefundDataParams)
     }
 
-    onSearch(param){
+    onSearch(param) {
         this.state.loanRefundStatusPageIndex = 1
         this.loanRefundStatusParams['start'] = 0
         this.loanRefundStatusParams['page'] = 1
@@ -240,26 +241,25 @@ class LoanTrans extends Component {
 
     onChangeStateColumn(e) {
         const id = e.target.id
-        console.log(this.state.loanRefundStatusCol)
         this.setState({
-            loanRefundStatusCol: this.state.loanRefundStatusCol.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
 
     onNextPage() {
-            this.state.loanRefundStatusPageIndex = parseInt(this.state.loanRefundStatusPageIndex) + 1
-            this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
-            this.loanRefundStatusParams['key'] = (new Date()).getTime()
-            this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
-            this.props.getLoanRefundStatus(this.loanRefundStatusParams)
+        this.state.loanRefundStatusPageIndex = parseInt(this.state.loanRefundStatusPageIndex) + 1
+        this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
+        this.loanRefundStatusParams['key'] = (new Date()).getTime()
+        this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
+        this.props.getLoanRefundStatus(this.loanRefundStatusParams)
     }
 
     onPrevPage() {
-            this.state.loanRefundStatusPageIndex = parseInt(this.state.loanRefundStatusPageIndex) - 1
-            this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
-            this.loanRefundStatusParams['key'] = (new Date()).getTime()
-            this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
-            this.props.getLoanRefundStatus(this.loanRefundStatusParams)
+        this.state.loanRefundStatusPageIndex = parseInt(this.state.loanRefundStatusPageIndex) - 1
+        this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
+        this.loanRefundStatusParams['key'] = (new Date()).getTime()
+        this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
+        this.props.getLoanRefundStatus(this.loanRefundStatusParams)
     }
 
     onReloadPage() {
@@ -268,11 +268,11 @@ class LoanTrans extends Component {
     }
 
     onPageChange(pageIndex) {
-            this.state.loanRefundStatusPageIndex = parseInt(pageIndex)
-            this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
-            this.loanRefundStatusParams['key'] = (new Date()).getTime()
-            this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
-            this.props.getLoanRefundStatus(this.loanRefundStatusParams)
+        this.state.loanRefundStatusPageIndex = parseInt(pageIndex)
+        this.loanRefundStatusParams['start'] = (this.state.loanRefundStatusPageIndex - 1) * this.loanRefundStatusParams['limit']
+        this.loanRefundStatusParams['key'] = (new Date()).getTime()
+        this.loanRefundStatusParams['page'] = this.state.loanRefundStatusPageIndex
+        this.props.getLoanRefundStatus(this.loanRefundStatusParams)
     }
 
 }

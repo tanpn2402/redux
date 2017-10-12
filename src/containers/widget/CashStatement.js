@@ -180,8 +180,8 @@ class CashStatement extends Component {
                             param={['mvStartDate', 'mvEndDate']} />
                     </div>
 
-                    <div className="table-footer" style={tablefooter} style={tablefooter}>
-                        <Pagination
+                    <div className="table-footer" style={tablefooter}>
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}

@@ -3,7 +3,7 @@ import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataUpperTable from '../DataUpperTable'
-import {Tabs, Tab} from 'react-bootstrap'
+import { Tabs, Tab } from 'react-bootstrap'
 import ScrollingTabs from './../commons/ScrollingTabs'
 import HorizontalTable from './../commons/HorizontalTable'
 import SearchBar from '../commons/SearchBar'
@@ -16,10 +16,10 @@ import config from '../../core/config'
 
 class AccountInfo extends Component {
 	constructor(props) {
-     	super(props)
-     	this.defaultPageSize = 20
-     	this.state= {
-			columns : [
+		super(props)
+		this.defaultPageSize = 20
+		this.state = {
+			columns: [
 				{
 					id: 'mvStockCode',
 					Header: this.props.language.accountinfo.header.stock,
@@ -51,10 +51,10 @@ class AccountInfo extends Component {
 				}
 			],
 
-          	pageIndex: 1,
-          	tabIndex: 0,
+			pageIndex: 1,
+			tabIndex: 0,
 
-          	 tabList: [
+			tabList: [
 				{
 					title: this.props.language.accountinfo.title.cash,
 					cls: 'actived',
@@ -82,10 +82,10 @@ class AccountInfo extends Component {
 
 		this.stockParams = {
 			key: (new Date()).getTime(),
-			mvEnableGetStockInfo:'N',
-			mvAction:'SB'
+			mvEnableGetStockInfo: 'N',
+			mvAction: 'SB'
 		}
-		
+
 		this.cashparams = {
 			key: (new Date()).getTime()
 		}
@@ -116,67 +116,67 @@ class AccountInfo extends Component {
 		this.cashBank = [
 			{
 				header: this.props.language.cash.header.buyingPower + " (ACB-123)",
-				value:0
-			},{
+				value: 0
+			}, {
 				header: this.props.language.cash.header.cashBanlance,
 				value: 0
-			},{
+			}, {
 				header: this.props.language.cash.header.dueBuy,
 				value: 0
-			},{
+			}, {
 				header: this.props.language.cash.header.buyingOrderAmt,
 				value: 0
-			},{
+			}, {
 				header: this.props.language.cash.header.dueSell,
 				value: 0
 			}
 		]
 
 		this.cash = [
-            {
+			{
 				header: this.props.language.cash.header.buyingPower,
 				value: 0,
-			  }, {
+			}, {
 				header: this.props.language.cash.header.cashBanlance,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.withDrawable,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.cashAdvanceable,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.temporaryHoldCash,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.dueBuy,
 				value: 0
-			  },{
+			}, {
 				header: this.props.language.cash.header.buyingOrderAmt,
 				value: 0
-			  },{
+			}, {
 				header: this.props.language.cash.header.widthdrawPendingForApproval,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.outStandingLoan,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.marginCallByOption,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.cashDeposit,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.sellStockInMarPort,
 				value: 0
-			  }, {
+			}, {
 				header: this.props.language.cash.header.sellStockNotInMarPort,
 				value: 0
-			  }
-        ]
+			}
+		]
 
-        this.overdueDebt = [
-            {
+		this.overdueDebt = [
+			{
 				header: this.props.language.overdueDebt.header.overdueDebt,
 				value: 0
 			}, {
@@ -201,122 +201,122 @@ class AccountInfo extends Component {
 				header: this.props.language.overdueDebt.header.forceSellDays,
 				value: 0
 			}
-        ]
+		]
 
-        this.upcomingDebt = [
-            
-        ]
+		this.upcomingDebt = [
 
-        this.stock = []
-    }
+		]
 
-    updateCash(response){
-    	if(!response.mvList || response.mvList.length <= 0) return;
+		this.stock = []
+	}
+
+	updateCash(response) {
+		if (!response.mvList || response.mvList.length <= 0) return;
 		var data = response.mvList[0];
-		if(data.length != 0){
-			var settledSubPendBuyPendWDHoldAmount = Utils.numUnFormat(data.mvCSettled,",") - 
-					Utils.numUnFormat(data.mvPendingBuy,",") - 
-					Utils.numUnFormat(data.mvPendingWithdraw) - 
-					Utils.numUnFormat(data.mvHoldingAmt);
+		if (data.length != 0) {
+			var settledSubPendBuyPendWDHoldAmount = Utils.numUnFormat(data.mvCSettled, ",") -
+				Utils.numUnFormat(data.mvPendingBuy, ",") -
+				Utils.numUnFormat(data.mvPendingWithdraw) -
+				Utils.numUnFormat(data.mvHoldingAmt);
 
-			var withdrawable = Utils.numUnFormat(data.mvWithdrawableAmount,",");
-			
-			var availableAdvance = Utils.numUnFormat(data.mvAdvanceableAmount,",");
-			
+			var withdrawable = Utils.numUnFormat(data.mvWithdrawableAmount, ",");
+
+			var availableAdvance = Utils.numUnFormat(data.mvAdvanceableAmount, ",");
+
 			var cashBalance = settledSubPendBuyPendWDHoldAmount > 0 ? settledSubPendBuyPendWDHoldAmount : 0;
 			var buyingPowerd = data.mvBuyingPowerd;
 			var mvTemporaryHoldCash = data.mvTemporaryHoldCash;
-			
+
 			var outStandingLoan = 0;
 			var cashDeposit = 0;
 			var sellStockInMar = 0;
 			var sellStockNotInMar = 0;
 			var marginCall = 0;
-			if (data.mvAccountType === "M"){
+			if (data.mvAccountType === "M") {
 				var minAvaiWithdraw = availableAdvance > withdrawable ? withdrawable : availableAdvance
 				availableAdvance = minAvaiWithdraw > 0 ? minAvaiWithdraw : 0
-					
+
 				//cashBalance = (withdrawable - availableAdvance>0?withdrawable - availableAdvance:0)
 				cashBalance = (withdrawable - availableAdvance) > 0 ? withdrawable - availableAdvance : 0
-				
-				outStandingLoan = Utils.numUnFormat(data.mvOutstandingLoan,",");
-				cashDeposit = Utils.numUnFormat(data.mvSupplementCash,",");
-				marginCall = Utils.numUnFormat(data.mvMarginCall,",");
-				sellStockInMar = marginCall*1.01;
-				if (cashDeposit === 0) 
+
+				outStandingLoan = Utils.numUnFormat(data.mvOutstandingLoan, ",");
+				cashDeposit = Utils.numUnFormat(data.mvSupplementCash, ",");
+				marginCall = Utils.numUnFormat(data.mvMarginCall, ",");
+				sellStockInMar = marginCall * 1.01;
+				if (cashDeposit === 0)
 					sellStockInMar = 0
 
-				sellStockNotInMar = cashDeposit*1.01
+				sellStockNotInMar = cashDeposit * 1.01
 			} else {
-				availableAdvance = settledSubPendBuyPendWDHoldAmount < 0 ? 
+				availableAdvance = settledSubPendBuyPendWDHoldAmount < 0 ?
 					availableAdvance + settledSubPendBuyPendWDHoldAmount : availableAdvance;
 			}
-			
+
 			if (availableAdvance < 0) {
-				availableAdvance=0
+				availableAdvance = 0
 			}
 
-	    	this.cash = [
-	            {
+			this.cash = [
+				{
 					header: this.props.language.cash.header.buyingPower,
 					value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
-				  }, {
+				}, {
 					header: this.props.language.cash.header.cashBanlance,
 					value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
-				  }, {
+				}, {
 					header: this.props.language.cash.header.withDrawable,
-					value:  Utils.currencyShowFormatter(withdrawable, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(withdrawable, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.cashAdvanceable,
-					value:  Utils.currencyShowFormatter(availableAdvance, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(availableAdvance, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.temporaryHoldCash,
-					value:  Utils.currencyShowFormatter(mvTemporaryHoldCash, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(mvTemporaryHoldCash, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.dueBuy,
-					value:  Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
-				  },{
+					value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.buyingOrderAmt,
-					value:  Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
-				  },{
+					value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.widthdrawPendingForApproval,
-					value:  Utils.currencyShowFormatter(data.mvPendingWithdraw, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(data.mvPendingWithdraw, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.outStandingLoan,
-					value:  Utils.currencyShowFormatter(outStandingLoan, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(outStandingLoan, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.marginCallByOption,
-					value:  Utils.currencyShowFormatter(0, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(0, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.cashDeposit,
-					value:  Utils.currencyShowFormatter(cashDeposit, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(cashDeposit, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.sellStockInMarPort,
-					value:  Utils.currencyShowFormatter(sellStockInMar, ",", this.lang)
-				  }, {
+					value: Utils.currencyShowFormatter(sellStockInMar, ",", this.lang)
+				}, {
 					header: this.props.language.cash.header.sellStockNotInMarPort,
-					value:  Utils.currencyShowFormatter(sellStockNotInMar, ",", this.lang)
-				  }
-	        ]
+					value: Utils.currencyShowFormatter(sellStockNotInMar, ",", this.lang)
+				}
+			]
 		}
-    }
+	}
 
-    updateOverdueDebt(response){
-    	if (!response.overdueDebt) {
-            return;
-        }
-        var data = response.overdueDebt
-        if (data.length !== 0) {
-        	console.log(data)
-            if (parseFloat(data.overdueDebt) === 0 && parseFloat(data.processedDebt) === 0) {
-                this.disableOverDueDebtTab = true               
-            } else {
-            	this.disableOverDueDebtTab = false
+	updateOverdueDebt(response) {
+		if (!response.overdueDebt) {
+			return;
+		}
+		var data = response.overdueDebt
+		if (data.length !== 0) {
+			console.log(data)
+			if (parseFloat(data.overdueDebt) === 0 && parseFloat(data.processedDebt) === 0) {
+				this.disableOverDueDebtTab = true
+			} else {
+				this.disableOverDueDebtTab = false
 				this.state.tabList[2].cls = 'normal'
 
 				var forceSellDays = data.forceSellDays + " " + this.props.language.overdueDebt.days
-            	this.overdueDebt = [
-		            {
+				this.overdueDebt = [
+					{
 						header: this.props.language.overdueDebt.header.overdueDebt,
 						value: Utils.currencyShowFormatter(data.overdueDebt, ",", this.lang)
 					}, {
@@ -341,15 +341,15 @@ class AccountInfo extends Component {
 						header: this.props.language.overdueDebt.header.forceSellDays,
 						value: forceSellDays
 					}
-		        ]
+				]
 
-            }
-      	}
-    }
+			}
+		}
+	}
 
-    updateCashBank(response){
+	updateCashBank(response) {
 
-    	if(!response.mvList || response.mvList.length <= 0 || response.mvList[0] == null) {
+		if (!response.mvList || response.mvList.length <= 0 || response.mvList[0] == null) {
 			this.hasBank = false
 			return
 		}
@@ -358,7 +358,7 @@ class AccountInfo extends Component {
 		this.state.tabList[0].title = this.props.language.accountinfo.title.cashBank
 
 		var data = response.mvList[0]
-		if(data.length != 0){
+		if (data.length != 0) {
 			var cashBalance = data.mvBuyingPowerd
 			var buyingPowerd = data.mvBuyingPowerd
 
@@ -366,297 +366,297 @@ class AccountInfo extends Component {
 				{
 					header: this.props.language.cash.header.buyingPower + " (" + data.mvBankId + "-" + data.mvBankAcId + ")",
 					value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
-				},{
+				}, {
 					header: this.props.language.cash.header.cashBanlance,
 					value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
-				},{
+				}, {
 					header: this.props.language.cash.header.dueBuy,
 					value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
-				},{
+				}, {
 					header: this.props.language.cash.header.buyingOrderAmt,
 					value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
-				},{
+				}, {
 					header: this.props.language.cash.header.dueSell,
 					value: Utils.currencyShowFormatter(data.mvDueSell, ",", this.lang)
 				}
 			]
 		}
-	    	
-    }
 
-    updateUpcomingDueDebt(response){
-    	var haveDebt = false
-    	this.disableupcomingDueDebtTab = true
-    	if(response.upcomingDebt && response.upcomingDebt.length > 0){
-    		var pUpcomingDebt = response.upcomingDebt
-    		for (var i = 0; i < pUpcomingDebt.length; i ++) {
-				if(parseFloat(pUpcomingDebt[i].Value) > 0){
+	}
+
+	updateUpcomingDueDebt(response) {
+		var haveDebt = false
+		this.disableupcomingDueDebtTab = true
+		if (response.upcomingDebt && response.upcomingDebt.length > 0) {
+			var pUpcomingDebt = response.upcomingDebt
+			for (var i = 0; i < pUpcomingDebt.length; i++) {
+				if (parseFloat(pUpcomingDebt[i].Value) > 0) {
 					haveDebt = true
 					break
 				}
-			}		
-			if(haveDebt){
-	            this.disableupcomingDueDebtTab = false
+			}
+			if (haveDebt) {
+				this.disableupcomingDueDebtTab = false
 				this.state.tabList[3].cls = 'normal'
-			}	
-    	}
-			
-    }
+			}
+		}
+
+	}
 
 
 
-    componentWillReceiveProps(nextProps){
-    	this.updateCash(nextProps.accountBalance)
-    	this.updateCashBank(nextProps.accountBalanceBank)
-    	this.updateOverdueDebt(nextProps.overdueDebt)
-    	this.updateUpcomingDueDebt(nextProps.upcomingDebt)
-    }
+	componentWillReceiveProps(nextProps) {
+		this.updateCash(nextProps.accountBalance)
+		this.updateCashBank(nextProps.accountBalanceBank)
+		this.updateOverdueDebt(nextProps.overdueDebt)
+		this.updateUpcomingDueDebt(nextProps.upcomingDebt)
+	}
 
 
-    render(){
-		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
-		let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.background
-		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.background
-	    return(
-            <div id={this.id}>
-                <Title theme={this.props.theme}>
-                    {this.props.language.menu[this.id]}
-                </Title>
-                
-                <Body theme={this.props.theme}>
-                    <div className="tab-wrapper">
-                        <ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id}/>
-                    </div>
-					
-                    {
-                        this.state.tabIndex === 0 ?
-					    ( 
-								this.hasBank ? 
-								(
-									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
-											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
-												<table className="table">
-													<tbody >
-														{
-															this.cashBank.map((d,i) => {
-																if(i%2!=0){
-																	return(
-																		<tr style={{backgroundColor: rowodd, color: font2}} >
-																			<th>{d.header}</th>
-																			<td>{d.value}</td>
-																		</tr>
-																	)
-																}else{
-																	return(
-																		<tr style={{backgroundColor: roweven, color: font2}} >
-																			<th>{d.header}</th>
-																			<td>{d.value}</td>
-																		</tr>
-																	)
-																}
-															})
-														}
+	render() {
+		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+		return (
+			<div id={this.id}>
+				<Title theme={this.props.theme}>
+					{this.props.language.menu[this.id]}
+				</Title>
 
-													</tbody>
-												</table>
+				<Body theme={this.props.theme}>
+					<div className="tab-wrapper">
+						<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id} />
+					</div>
+
+					{
+						this.state.tabIndex === 0 ?
+							(
+								this.hasBank ?
+									(
+										<div className="content-wrapper">
+											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
+												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+													<table className="table">
+														<tbody >
+															{
+																this.cashBank.map((d, i) => {
+																	if (i % 2 != 0) {
+																		return (
+																			<tr style={{ backgroundColor: rowodd, color: font2 }} >
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	} else {
+																		return (
+																			<tr style={{ backgroundColor: roweven, color: font2 }} >
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	}
+																})
+															}
+
+														</tbody>
+													</table>
+												</div>
 											</div>
+										</div>
+
+									) :
+									(
+										<div className="content-wrapper">
+											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
+												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+													<table className="table">
+														<tbody >
+															{
+																this.cash.map((d, i) => {
+																	if (i % 2 != 0) {
+																		return (
+																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	} else {
+																		return (
+																			<tr style={{ backgroundColor: roweven, color: font2 }}>
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	}
+																})
+															}
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									)
+
+							) : this.state.tabIndex === 1 ?
+								(
+									<div>
+										<div className="table-main" style={{ paddingTop: '51px' }}>
+											<Table
+												theme={this.props.theme}
+												key={this.id}
+												id={this.id}
+												columns={this.state.columns}
+												defaultPageSize={this.defaultPageSize}
+												data={this.props.stock.mvStockBalanceInfo.slice(
+													(this.state.pageIndex - 1) * this.defaultPageSize,
+													this.state.pageIndex * this.defaultPageSize)}
+											/>
+										</div>
+
+										<div className="table-footer" style={tablefooter}>
+											<Pagination theme={this.props.theme}
+												pageIndex={this.state.pageIndex}
+												totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
+												onPageChange={this.onPageChange.bind(this)}
+												onNextPage={this.onNextPage.bind(this)}
+												onPrevPage={this.onPrevPage.bind(this)}
+											/>
 										</div>
 									</div>
 
-								) : 
-								(
-									<div className="content-wrapper">
-										<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
-											<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
-												<table className="table">
-													<tbody >
-														{
-															this.cash.map((d, i) => {
-																if(i%2!=0){
-																	return(
-																		<tr style={{backgroundColor: rowodd, color : font2}}>
-																			<th>{d.header}</th>
-																			<td>{d.value}</td>
-																		</tr>
-																	)
-																}else{
-																	return(
-																		<tr style={{backgroundColor: roweven, color: font2}}>
-																			<th>{d.header}</th>
-																			<td>{d.value}</td>
-																		</tr>
-																	)
-																}
-															})
-														}
+								) : this.state.tabIndex === 2 ?
+									(
+										<div className="content-wrapper">
+											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
+												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+													<table className="table">
+														<tbody >
+															{
+																this.overdueDebt.map((d, i) => {
+																	if (i % 2 != 0) {
+																		return (
+																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	} else {
+																		return (
+																			<tr style={{ backgroundColor: roweven, color: font2 }}>
+																				<th>{d.header}</th>
+																				<td>{d.value}</td>
+																			</tr>
+																		)
+																	}
+																})
+															}
 
-													</tbody>
-												</table>
+														</tbody>
+													</table>
+												</div>
 											</div>
 										</div>
-									</div>
-								)
-							
-                        ) : this.state.tabIndex === 1 ?
-					    (
-                            <div>
-                                <div className="table-main" style={{paddingTop: '51px'}}>
-									<Table 
-										theme={this.props.theme}
-                                        key={this.id}
-                                        id={this.id}
-                                        columns={this.state.columns}
-                                        defaultPageSize={this.defaultPageSize}
-                                        data={this.props.stock.mvStockBalanceInfo.slice(
-                                        	(this.state.pageIndex - 1)*this.defaultPageSize, 
-                                        	this.state.pageIndex*this.defaultPageSize)}
-                                        />
-                                </div>
-  
-                                <div className="table-footer" style={tablefooter}>
-                                    <Pagination
-                                        pageIndex={this.state.pageIndex} 
-                                        totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length/this.defaultPageSize)} 
-                                        onPageChange={this.onPageChange.bind(this)}
-                                        onNextPage={this.onNextPage.bind(this)}
-                                        onPrevPage={this.onPrevPage.bind(this)}
-                                    />
-                                </div>
-                            </div>
+									) : this.state.tabIndex === 3 ?
+										(
+											<div className="content-wrapper">
+												<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
+													<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+														<table className="table">
+															<tbody >
+																{
+																	this.upcomingDebt.map((d, i) => {
+																		if (i % 2 != 0) {
+																			return (
+																				<tr style={{ backgroundColor: rowodd, color: font2 }}>
+																					<th>{d.header}</th>
+																					<td>{d.value}</td>
+																				</tr>
+																			)
+																		} else {
+																			return (
+																				<tr style={{ backgroundColor: roweven, color: font2 }}>
+																					<th>{d.header}</th>
+																					<td>{d.value}</td>
+																				</tr>
+																			)
+																		}
+																	})
+																}
 
-                        ) : this.state.tabIndex === 2 ?
-					    (
-							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
-									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
-										<table className="table">
-											<tbody >
-												{
-													this.overdueDebt.map((d, i) => {
-														if(i%2!=0){
-															return(
-																<tr style={{backgroundColor: rowodd, color: font2}}>
-																	<th>{d.header}</th>
-																	<td>{d.value}</td>
-																</tr>
-															)
-														}else{
-															return(
-																<tr style={{backgroundColor: roweven, color: font2}}>
-																	<th>{d.header}</th>
-																	<td>{d.value}</td>
-																</tr>
-															)
-														}
-													})
-												}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										) : ''
+					}
+				</Body>
+			</div>
+		)
+	}
 
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-                        ) : this.state.tabIndex === 3 ?
-					    (
-							<div className="content-wrapper">
-								<div className="table-main no-header" style={{padding: '50px 0 0 0', color: font2}}>
-									<div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
-										<table className="table">
-											<tbody >
-												{
-													this.upcomingDebt.map((d, i) => {
-														if(i%2!=0){
-															return(
-																<tr style={{backgroundColor: rowodd, color: font2}}>
-																	<th>{d.header}</th>
-																	<td>{d.value}</td>
-																</tr>
-															)
-														}else{
-															return(
-																<tr style={{backgroundColor: roweven, color: font2}}>
-																	<th>{d.header}</th>
-																	<td>{d.value}</td>
-																</tr>
-															)
-														}
-													})
-												}
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-                        ) : ''
-                    }
-                </Body>
-            </div>
-        )
-    }
-
-    componentDidMount() {
+	componentDidMount() {
 		// this.props.getStockInfo(this.params)
 		this.props.getAccountBalanceBank(this.cashbankparams)
 		this.props.getAccountBalance(this.cashparams)
 		this.props.getOverdueDebt(this.overduedebtparams)
 		this.props.getUpComingDebt(this.upcomingbebtparams)
-    }
+	}
 
-    onTabClick(tab, e){
-    	console.log(e, tab)
+	onTabClick(tab, e) {
+		console.log(e, tab)
 
 
-    	if(tab === 1){
-    		this.props.getStockInfo(this.stockParams)
-    	}
+		if (tab === 1) {
+			this.props.getStockInfo(this.stockParams)
+		}
 
-    	this.setState({
-    		tabIndex: tab,
-    	});
-    }
+		this.setState({
+			tabIndex: tab,
+		});
+	}
 
-    onChangeStateColumn(e) {
-        const id = e.target.id
-        this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        });
-    }
+	onChangeStateColumn(e) {
+		const id = e.target.id
+		this.setState({
+			columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+		});
+	}
 
-    onNextPage(){
-        if(this.state.pageIndex > 0){
-        	this.setState({pageIndex: parseInt(this.state.pageIndex) + 1 })
-        }
-    }
+	onNextPage() {
+		if (this.state.pageIndex > 0) {
+			this.setState({ pageIndex: parseInt(this.state.pageIndex) + 1 })
+		}
+	}
 
-    onPrevPage(){
-        if(this.state.pageIndex > 1){
-        	this.setState({pageIndex: parseInt(this.state.pageIndex) - 1 })
-        }
-    }
+	onPrevPage() {
+		if (this.state.pageIndex > 1) {
+			this.setState({ pageIndex: parseInt(this.state.pageIndex) - 1 })
+		}
+	}
 
-    onPageChange(pageIndex) {
-        if(pageIndex > 0){
-        	this.setState({pageIndex: pageIndex })
-        }
+	onPageChange(pageIndex) {
+		if (pageIndex > 0) {
+			this.setState({ pageIndex: pageIndex })
+		}
 	}
 
 
-	onSearch(e){
+	onSearch(e) {
 
 	}
 }
 
 const mapStateToProps = (state) => {
-  	return {
+	return {
 		accountBalanceBank: state.accountinfo.accountBalanceBank,
 		accountBalance: state.accountinfo.accountBalance,
 		overdueDebt: state.accountinfo.overdueDebt,
-		upcomingDebt : state.accountinfo.upcomingDebt,
+		upcomingDebt: state.accountinfo.upcomingDebt,
 		stock: state.accountinfo.stock
-  	}
+	}
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

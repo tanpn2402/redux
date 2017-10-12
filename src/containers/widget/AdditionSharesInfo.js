@@ -112,15 +112,15 @@ class AdditionSharesInfo extends Component {
 
     render() {
         var additionIssueShareInfo = this.props.additionIssueShareInfo
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color   
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{color: font2}} >
+                    <div className="table-main no-header" style={{ color: font2 }} >
                         <Table theme={this.props.theme}
                             key={this.id + "-table"}
                             id={this.id + "-table"}
@@ -129,7 +129,7 @@ class AdditionSharesInfo extends Component {
                             data={additionIssueShareInfo.additionList} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(additionIssueShareInfo.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
