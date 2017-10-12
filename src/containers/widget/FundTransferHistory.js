@@ -231,7 +231,7 @@ class FundTransHistory extends Component {
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={this.props.data.mvTotalOrders}
                             onPageChange={this.onPageChange.bind(this)}

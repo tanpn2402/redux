@@ -98,8 +98,8 @@ class EntitlementHistory extends Component {
 
     render() {
         var entitlementHistory = this.props.entitlementHistory
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -126,7 +126,7 @@ class EntitlementHistory extends Component {
                             param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
-                        <Pagination
+                        <Pagination theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(entitlementHistory.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}

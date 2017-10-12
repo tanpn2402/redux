@@ -1,8 +1,8 @@
 export default {
   title: 'blue',
-  buttonClicked: {
-    backgroundColor: "#C6E2FF",
-    color: "#528B8B"
+  button: {
+    backgroundColor: "#002761",
+    color: "#FFFFFF"
   },
   font: {
     color: '#FFFFFF'

@@ -148,7 +148,7 @@ class OrderConfirmation extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
             columns: [
                 {
@@ -259,24 +259,24 @@ class OrderConfirmation extends Component {
         })
     }
 
-    getStatus(v, lang){
-        if(v){
+    getStatus(v, lang) {
+        if (v) {
             return lang['STATUS_' + v.toUpperCase()]
-        } else{
+        } else {
             return v.toUpperCase()
         }
     }
 
     render() {
-        
+
         var data = this.props.data
 
         let buttonAction = [
-            <button style={this.props.theme.buttonClicked} type="button" className="hks-btn"
+            <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.execute()}>{this.props.language.button.execute}</button>,
         ]
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 
 
         return (
@@ -309,6 +309,7 @@ class OrderConfirmation extends Component {
 
                     <div className="table-footer" style={tablefooter} >
                         <Pagination
+                            theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -316,6 +317,8 @@ class OrderConfirmation extends Component {
                             onPrevPage={this.onPrevPage.bind(this)}
                             onReloadPage={this.onReloadPage.bind(this)}
                             onExportExcel={this.onExportExcel.bind(this)}
+                        // onFirstPage={this.onFirstPage.bind(this)}
+                        // onLastPage={this.onLastPage.bind(this)}
                         />
                     </div>
                 </Body>
@@ -356,23 +359,23 @@ class OrderConfirmation extends Component {
         console.log('onRowSelected', this.rowSelected)
     }
 
-    execute(){
-        if(this.rowSelected.length > 0){
+    execute() {
+        if (this.rowSelected.length > 0) {
             this.props.onShowConfirm({
                 title: this.props.language.orderconfirmation.popup.title,
                 id: "orderconfirmation",
                 authcard: false,
                 language: this.props.language,
-                data: {rowSelected: this.rowSelected, me: this}
+                data: { rowSelected: this.rowSelected, me: this }
             })
         }
         else {
-            this.props.onShowMessageBox(this.props.language.messagebox.title.error, 
+            this.props.onShowMessageBox(this.props.language.messagebox.title.error,
                 this.props.language.messagebox.message.selectStock)
         }
     }
 
-    refreshComponent(){
+    refreshComponent() {
         this.props.onSearch(this.param)
     }
 
@@ -391,7 +394,15 @@ class OrderConfirmation extends Component {
         this.props.onSearch(this.param)
     }
 
-    onNextPage(){
+    onFirstPage() {
+
+    }
+
+    onLastPage() {
+
+    }
+
+    onNextPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) + 1
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
         this.param['key'] = (new Date()).getTime()
@@ -399,7 +410,7 @@ class OrderConfirmation extends Component {
         this.props.onSearch(this.param)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex = parseInt(this.state.pageIndex) - 1
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
         this.param['key'] = (new Date()).getTime()
@@ -407,7 +418,7 @@ class OrderConfirmation extends Component {
         this.props.onSearch(this.param)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.param['key'] = (new Date()).getTime()
         this.props.onSearch(this.param)
     }
