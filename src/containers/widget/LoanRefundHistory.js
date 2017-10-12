@@ -253,9 +253,8 @@ class LoanTrans extends Component {
 
     onChangeStateColumn(e) {
         const id = e.target.id
-        let columns = this.state.loanRefundHistoryCol.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         this.setState({
-            loanRefundHistoryCol: columns
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
         });
     }
 
