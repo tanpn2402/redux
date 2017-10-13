@@ -680,6 +680,7 @@ class WatchList extends Component {
     }
 
     render() {
+        let button = this.props.theme.button || undefined
         this.buttonAction = [
             <Button bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
@@ -700,7 +701,7 @@ class WatchList extends Component {
                     }
                 </datalist>
             </FormGroup>,
-            <Button bsStyle="primary" type="button"
+            <Button type="button" style={button}
                 onClick={e => this.onAddStock(this.inputValue)}>
                 <span className="glyphicon glyphicon-plus" ></span>
                 {this.props.language.watchlist.toolbar.addstock}
@@ -723,9 +724,8 @@ class WatchList extends Component {
                         <DataUpperTable
                             theme={this.props.theme}
                             id="watchlist-table"
-                            columns={this.state.COLUMNS}
+                            columns={this.state.columns}
                             data={this.props.watchListData.mvMarketData}
-                            ONROWSELECTED={this.onRowSelected.bind(this)}
                         />
                     </div>
                     <div className="table-header" style={tableheader}>

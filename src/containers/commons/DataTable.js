@@ -11,12 +11,12 @@ export default class DataTable extends React.Component {
 	}
 
 	render() {
-		let rowodd = this.props.theme.table == undefined? '#F0F0F0':this.props.theme.table.rowodd.backgroundColor
-		let roweven = this.props.theme.table == undefined? 'white':this.props.theme.table.roweven.backgroundColor
-		let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-		let font = this.props.theme.font == undefined? 'black':this.props.theme.font.color
-		let tableheaderbackground = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader.backgroundColor
-		let nodatadisplay = this.props.theme.table == undefined? undefined:this.props.theme.table.nodatadisplay
+		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
+		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
+		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+		let font3 = this.props.theme.font3 == undefined ? 'black' : this.props.theme.font3.color
+		let tableheaderbackground = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader.backgroundColor
+		let nodatadisplay = this.props.theme.table == undefined ? undefined : this.props.theme.table.nodatadisplay
 		let height = this.props.maxRows * 24 + 27 + 'px'
 		return (
 			<div className="hks-table" id={this.props.id}>
@@ -25,18 +25,18 @@ export default class DataTable extends React.Component {
 						if (rowInfo != undefined) {
 							return {
 								style: {
-									background: rowInfo.index%2==0? roweven:rowodd,
+									background: rowInfo.index % 2 == 0 ? roweven : rowodd,
 									color: font2
 								}
 							}
-						}else{
-							return{}
+						} else {
+							return {}
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								color: font,
+								color: font3,
 								background: tableheaderbackground
 							}
 						}
@@ -44,12 +44,12 @@ export default class DataTable extends React.Component {
 					getTheadGroupProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								color: font,
+								color: font3,
 								background: tableheaderbackground
 							}
 						}
 					}}
-					getNoDataProps={(state,rowInfo, column, instance) => {
+					getNoDataProps={(state, rowInfo, column, instance) => {
 						return {
 							style: nodatadisplay
 						}

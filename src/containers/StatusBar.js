@@ -62,7 +62,7 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
 
                 </div>
-                <Popup title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language} />
+                <Popup theme={this.props.theme} title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language} />
             </div>
 
         )
