@@ -48,6 +48,7 @@ class PageContent extends React.Component {
 
 const mapStateToProps = (state, props) => ({
     tabID: state.menuSelected.tabID,
+    subTabID: state.menuSelected.subTabID,
     stockList: state.stock.stockList,
 })
 

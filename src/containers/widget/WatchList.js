@@ -695,7 +695,6 @@ class WatchList extends Component {
                 <datalist id="stockList">
                     {
                         this.props.stockList.map(e => {
-                            console.log(e)
                             return (<option value={e.stockCode}>{e.stockName}</option>)
                         })
                     }
@@ -725,18 +724,17 @@ class WatchList extends Component {
                             theme={this.props.theme}
                             id="watchlist-table"
                             columns={this.state.columns}
-                            data={this.props.watchListData.mvMarketData}
+                            data={[]}
                         />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
                             id={this.id}
                             buttonAction={this.buttonAction}
-                            language={[]}
+                            language={this.props.language}
                             theme={this.props.theme}
-                            onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                            param={['dropdown']}
-                            data={{ stockList: [], columns: this.state.columns }} />
+                            param={[]}
+                            data={{ stockList: [] }} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
                         <Pagination theme={this.props.theme}

@@ -20,19 +20,24 @@ class CustomGridLayout extends React.Component {
             list: []
         }
         this.layoutCols = { lg: 8, md: 6, sm: 4, xs: 2, xxs: 2 }
+
+        this.screenSize = 'lg'
     }
 
     generateChild(menuid) {
-        console.log(this.state.layout)
         const layout = this.state.layout[menuid]
-        console.log(layout)
+        layout['x'] = layout['x'] === undefined ? 0 : layout['x']
+        layout['y'] = layout['y'] === undefined ? 0 : layout['y']
+
+        layout['w'] =  layout[this.screenSize + 'W']
+        layout['h'] =  layout[this.screenSize + 'H']
+
         return (
             <div key={menuid}
                 data-grid={{
-                    x: layout['x'], y: layout['y'], w: layout['w'],
-                    h: layout['h'], minW: layout['minW'], minH: layout['minH'],
-                    maxW: layout['maxW'], maxH: layout['maxH'], static: layout['static'],
-                    isResizable: layout['isResizable']
+                    x: layout['x'], y: layout['y'], w: layout['w'], h: layout['h'], minW: layout['minW'], 
+                    minH: layout['minH'], maxW: layout['maxW'], maxH: layout['maxH'], 
+                    isDraggable: layout['isDraggable'], isResizable: layout['isResizable']
                 }}>
 
                 {
@@ -67,7 +72,8 @@ class CustomGridLayout extends React.Component {
 
     onDragStop(layout, oldItem, newItem, placeholder, e, element) {
         const _layout = this.state.layout
-        _layout[newItem.i] = newItem
+        _layout[newItem.i].x = newItem.x
+        _layout[newItem.i].y = newItem.y
         this.state.layout = _layout
         //console.log(this.state.layout)
 
@@ -76,8 +82,12 @@ class CustomGridLayout extends React.Component {
 
     onResizeStop(layout, oldItem, newItem, placeholder, e, element) {
         const _layout = this.state.layout
-        _layout[newItem.i] = newItem
+        _layout[newItem.i][this.screenSize + 'W'] = newItem.w
+        _layout[newItem.i][this.screenSize + 'H'] = newItem.h
         this.state.layout = _layout
+        //console.log(this.state.layout)
+
+        this.saveLayout()
     }
 
     saveLayout() {

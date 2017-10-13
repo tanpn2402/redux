@@ -14,12 +14,11 @@ class TransHistory extends Component {
 
     render(){
         return(
-            <TabLayout theme={this.props.theme} language={this.props.language} tabID={this.props.tabID}/>
+            <TabLayout theme={this.props.theme} language={this.props.language} 
+                tabID={this.props.tabID} subTab={this.props.subTab}/>
         )
     }
 
-    componentDidMount() {
-    }
 }
 
 const mapStateToProps = (state) => {

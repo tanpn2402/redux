@@ -3,7 +3,8 @@ import { ActionTypes } from '../core/constants';
 const initialState = {
     tabList: [],
     page: '1',
-    tabID: 'portfoliotab',
+    tabID: 'trading',
+    subTabID: 'enterorder',
     widgetList: [],
     load: false,
 };
@@ -18,11 +19,11 @@ export default function (state = initialState, action) {
             });
         case ActionTypes.TABCLICKEVENT:
             return Object.assign({}, state, {
-                tabID: action.tabID
+                tabID: action.tabID,
+                subTabID: action.subTabID,
             });
 
         case ActionTypes.RELOADCUSTOM:
-            console.log("=====================")
             return Object.assign({},state,{
               load: action.load,
             });

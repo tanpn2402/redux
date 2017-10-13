@@ -16,7 +16,7 @@ class StatusBar extends React.Component {
             showSearchBox: true,
             lgShow: false
         }
-        this.allWidget = config.layoutdefault
+        this.allWidget = config.widget
         this.onBlur = this.onBlur.bind(this)
         this.onFocus = this.onFocus.bind(this)
         this.openSetting = this.openSetting.bind(this)
@@ -28,18 +28,16 @@ class StatusBar extends React.Component {
     }
 
     render() {
+
         let lgClose = () => { this.setState({ lgShow: false }) }
-        const searchResultBox = (
+        let searchResultBox = (
             <div tabIndex="0" className="widget-search-result" style={{ display: this.state.showSearchBox ? "block" : "none" }}>
                 {
-                    this.state.searchResult.map((mainTab, index) =>
-                        (
-                            mainTab.subitems.map((subRs, index) =>
-                                <div key={index} onClick={e => this.gotoResultTab(subRs.data.id, this.props.language)}>{subRs.label}</div>)
+                    this.state.searchResult.map(el => {
+                        return (
+                            <div key={el.i} onClick={e => this.gotoResultTab(el.i, this.props.language)}>{this.props.language.menu[el.i]}</div>
                         )
-
-
-                    )
+                    })
                 }
             </div>
         )
@@ -51,8 +49,11 @@ class StatusBar extends React.Component {
                 </div>
                 <div className="widget-search">
                     <input type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
-                        onChange={e => this.onChange(e, this.props.language)} onBlur={e => this.onBlur(e)} onFocus={this.onFocus} />
-                    {(this.state.searchResult.length > 0 && this.state.searchInputVal.length > 0) ? searchResultBox : null}
+                        onChange={e => this.onChange(e, this.props.language)}
+                        onBlur={e => this.onBlur(e)}
+                        onFocus={this.onFocus} />
+
+                    {(this.state.searchResult.length > 0) ? searchResultBox : null}
                 </div>
 
 
@@ -80,7 +81,6 @@ class StatusBar extends React.Component {
     }
 
     logout() {
-        // this.props.onLogoutClick(this.props.checkSessionID)
         this.setState({
             lgShow: true
         })
@@ -92,17 +92,11 @@ class StatusBar extends React.Component {
         var widgetList = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
 
         tabItems.forEach(item => {
-            // console.log("subitem:"+subMenuID)
-            // console.log(item.widget)
             var tmp = item.widget.filter(subitem => {
                 return subitem.i == subMenuID
             })
-            // console.log("this")
-            // console.log("result")
-            // console.log(tmp)
             if (tmp.length > 0) {
-                // console.log("FOUND" + item.id)
-                this.props.onTabClick(item.id)
+                this.props.onTabClick(item.id, subMenuID)
                 isTabMenu = true
             }
         })
@@ -110,12 +104,24 @@ class StatusBar extends React.Component {
         if (!isTabMenu && widgetList.find(wg => wg == subMenuID) == null) {
             this.addWidget(subMenuID)
         }
+
+        this.setState({
+            showSearchBox: false,
+        })
     }
 
     onFocus() {
-        this.setState({
-            showSearchBox: true
-        })
+        if (this.state.searchInputVal !== '') {
+            this.setState({
+                showSearchBox: true,
+            })
+        } else {
+            this.setState({
+                showSearchBox: true,
+                menuitem: config.widget,
+                searchResult: config.widget,
+            })
+        }
     }
 
     onBlur(e) {
@@ -128,72 +134,23 @@ class StatusBar extends React.Component {
     }
 
     onChange(e, language) {
-        // console.log(language.menu["enterorder"])
         let value = e.target.value
-        var menuItems = config.menu_items
+        var widgets = config.widget
 
-
+        var matchesFilter = new RegExp(value, "i")
+        var tmp = widgets.filter(el => {
+            var text = language.menu[el.i]
+            if (matchesFilter.test(text))
+                return true
+        })
 
         //Control text input
         this.setState({
-            searchInputVal: value
+            searchInputVal: value,
+            searchResult: tmp,
         })
 
-        if (value === '') {
-            this.setState({
-                menuitem: config.menu_items,
-            })
-        }
-        else {
-            var list = []
-
-            try {
-                var matchesFilter = new RegExp(value, "i")
-                menuItems.forEach(item => {
-                    // console.log(item.subitems)
-                    var tmp = item.subitems.filter(subitem => {
-                        var text = language.menu[subitem.text]
-                        // console.log(text)
-                        if (matchesFilter.test(text))
-                            return true
-                    })
-                    // console.log("this")
-                    // console.log(tmp)
-                    if (tmp.length > 0) {
-                        var result = JSON.parse(JSON.stringify(item))
-                        tmp = tmp.map(data => new Object({ label: language.menu[data.id], data: data }))
-                        // console.log(result);
-                        result['subitems'] = tmp
-                        list.push(result)
-                    }
-
-                })
-            }
-            catch (e) { }
-            // console.log(list)
-            this.setState({
-                searchResult: list,
-            });
-        }
-
-
     }
-
-    // whichTab(widgetID){
-    //     try{
-    //         var matchesFilter = new RegExp(value, "i")
-    //         menuItems.forEach(tab => {
-    //             var result = tab.find(widget => {
-    //                 return widgetID === widget.i
-    //             })
-    //             if (result!=null){
-    //                 return tab.id
-    //             }
-    //         })
-    //     }
-    //     catch(e){}
-    //     return null
-    // }
 
     widgetIsExist(widgetID, widgetList) {
 
@@ -206,18 +163,16 @@ class StatusBar extends React.Component {
     }
 
     addWidget(widgetID) {
-        console.log("WIDGET " + widgetID + " WILL BE INSERTED")
         var curWidgets = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
         var isWidgetExist = this.widgetIsExist(widgetID, config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget) != null
         if (isWidgetExist) {
             return
         }
 
-        var newWidgetConfig = this.allWidget[widgetID]
-        // console.log("************")
-        // console.log(this.allWidget)
-        if (newWidgetConfig != null) {
-            config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget = [...curWidgets, newWidgetConfig]
+        var newWidgetList = this.allWidget.filter(el => el.i === widgetID)
+        if (newWidgetList.length > 0) {
+            var newWidget = newWidgetList[0]
+            config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget = [...curWidgets, newWidget]
             this.props.onTabClick("customization")
             this.props.reloadCustom(this.props.load)
         }
@@ -242,8 +197,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onLogoutClick: (params) => {
         dispatch(actions.logout(params))
     },
-    onTabClick: (tabID) => {
-        dispatch(actions.onTabClick(tabID));
+    onTabClick: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID));
     },
     reloadCustom: (load) => {
         dispatch(actions.reloadCustom(load))
