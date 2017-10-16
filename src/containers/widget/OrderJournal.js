@@ -332,7 +332,7 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     Cell: props => {
-                        if (props.original.mvBS == nextProps.language.searchbar.buy || props.original.mvBS == 'Mua') {
+                        if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
                             return (
                                 <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
                                     {props.original.mvBS}
@@ -578,7 +578,6 @@ class OrderJournal extends Component {
 const mapStateToProps = (state) => {
     return {
         data: state.orderjournal.enquiryorder,
-
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
 

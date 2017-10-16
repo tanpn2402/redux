@@ -34,6 +34,12 @@
                     "title": "Thông báo"
                 }
             },
+            "global": {
+                "buysell": {
+                    "B": "B",
+                    "S": "S"
+                }
+            },
             "menu": {
                 "tradingplatform": "Giao dịch",
                 "enterorder": "Đặt lệnh giao dịch",
@@ -84,7 +90,6 @@
                 "fundTransPanel": "THỰC HIỆN CHUYỂN TIỀN",
                 "fundTransHistory": "GIAO DỊCH CHUYỂN TIỀN TRONG NGÀY",
                 "stockmarketinfo": "Stock Market Data Realtime",
-
                 "loanRefundPanel": "HOÀN TRẢ VAY KÝ QUỸ",
                 "loanRefundHistory": "LỊCH SỬ GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ",
                 "loanRefundStatus": "TRẠNG THÁI GIAO DỊCH HOÀN TRẢ VAY KÝ QUỸ"
@@ -145,7 +150,7 @@
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting"
             },
-            "marqueebar":{
+            "marqueebar": {
                 "status": "Trạng thái",
                 "price": "Giá",
                 "value": "Giá trị",
@@ -227,10 +232,9 @@
                 "message": {
                     "confirmSuccess": "Xác nhận thành công.",
                     "confirmFail": "Xác nhận thất bại."
-
                 },
-                "status":{
-                    "STATUS_FLL" :"Khớp toàn bộ"
+                "status": {
+                    "STATUS_FLL": "Khớp toàn bộ"
                 }
             },
             "ordershistory": {
@@ -535,7 +539,7 @@
                 "message": {
                     "notenoughmoney": "Quý khách không còn đủ tiền để thực hiện giao dịch này.",
                     "noamount": "Xin vui lòng nhập số tiền.",
-                    "overtransfer" : "Số tiền cần chuyển lớn hơn số tiền bạn có.",
+                    "overtransfer": "Số tiền cần chuyển lớn hơn số tiền bạn có.",
                     "cancelSuccess": "Gửi lệnh thành công. Vui lòng kiểm tra lại trong sổ lệnh.",
                     "cancelFailed": "Hủy lệnh thất bại."
                 },

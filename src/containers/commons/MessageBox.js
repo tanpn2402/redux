@@ -32,13 +32,14 @@ class MessageBox extends Component {
     }
 
     render() {
+        let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
         return (
             <div>
                 {
                     this.state.listMessage.map(msg => {
                         return (
                             <Modal show={true} onHide={e => this.onClose(msg.id)} className="messagebox">
-                                <Modal.Header closeButton>
+                                <Modal.Header closeButton style={widgetheader}>
                                     <Modal.Title>{this.props.type}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>

@@ -10,6 +10,9 @@ export default {
   font2: {
     color: '#000000'
   },
+  font3: {
+    color: '#FFFFFF'
+  },
   page: {
     pageheader: {
       backgroundColor: '#F0F0F0'

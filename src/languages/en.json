@@ -34,6 +34,12 @@
                     "title": "Prompt"
                 }
             },
+            "global": {
+                "buysell": {
+                    "B": "B",
+                    "S": "S"
+                }
+            },
             "menu": {
                 "tradingplatform": "Trading Platform",
                 "enterorder": "Enter Order",
@@ -83,7 +89,6 @@
                 "fundTransPanel": "Cash Transfer Place",
                 "fundTransHistory": "Cash Transfer Transaction",
                 "stockmarketinfo": "Stock Market Data Realtime",
-
                 "loanRefundPanel": "Loan Refund Panel",
                 "loanRefundHistory": "Loan Refund Transaction History",
                 "loanRefundStatus": "Loan Refund Transaction Status"
@@ -231,10 +236,9 @@
                 "message": {
                     "confirmSuccess": "Comfirm Successful.",
                     "confirmFail": "Confirm Fail."
-
                 },
-                "status":{
-                    "STATUS_FLL" :"Fully Filled"
+                "status": {
+                    "STATUS_FLL": "Fully Filled"
                 }
             },
             "ordershistory": {
@@ -593,7 +597,7 @@
                 "message": {
                     "notenoughmoney": "Your amount is not enough to transfer.",
                     "noamount": "Amount should not be blank.",
-                    "overtransfer" : "Your amount is not enough",
+                    "overtransfer": "Your amount is not enough",
                     "cancelSuccess": "Cash transfer order is cancelled. Please check in History screen.",
                     "cancelFailed": "Cancel cash transfer order is failed. Please contact to support team."
                 },
