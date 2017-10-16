@@ -12,7 +12,7 @@ export default class Notification extends React.Component {
 			<div id="notification-wrapper">
 				<MessageBox theme={this.props.theme} language={this.props.language} />
 				<FlashPopup language={this.props.language} />
-				<Popup />
+				<Popup theme={this.props.theme} />
 			</div>
 
 		)
