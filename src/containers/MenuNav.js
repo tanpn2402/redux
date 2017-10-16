@@ -18,7 +18,7 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language
-        let pagemenu = this.props.theme.page == undefined? undefined:this.props.theme.page.pagemenu
+        let pagemenu = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagemenu
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
                 <div className="scroll">
@@ -50,7 +50,7 @@ class MenuNav extends Component {
                 <div className="scrolling-tabs-right">
 
                     <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={this.props.theme.tabnormal}>
-                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font}></span>
+                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font3}></span>
                     </button>
                     <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={this.props.theme.savelayoutbutton}>
                         <span className="glyphicon glyphicon-floppy-disk" style={{ margin: '0 1px' }}></span>
