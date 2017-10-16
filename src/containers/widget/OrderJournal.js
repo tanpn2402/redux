@@ -199,8 +199,7 @@ class OrderJournal extends Component {
 
 
     render() {
-        var data = this.props.data.mvOrderBeanList
-
+        let data = this.props.data.mvOrderBeanList
         this.buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
@@ -332,7 +331,7 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     Cell: props => {
-                        if (props.original.mvBS == nextProps.language.searchbar.buy || props.original.mvBS == 'Mua') {
+                        if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
                             return (
                                 <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
                                     {props.original.mvBS}
@@ -394,6 +393,11 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Cell: props => {
+                        return (
+                            nextProps.language.global.status[props.original.mvStatus]
+                        )
+                    }
                 },
                 {
                     id: 'mvOrderType',
@@ -402,6 +406,11 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Cell: props => {
+                        return (
+                            nextProps.language.global.ordertype[props.original.mvOrderTypeValue]
+                        )
+                    }
                 },
                 {
                     id: 'mvFeeTax',
@@ -410,6 +419,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Cell: props => {
+                        return feeTaxParser(Utils, props.original.mvBSValue, props.original.mvNetAmtValue, props.original.mvGrossAmt)
+                    }
                 },
                 {
                     id: 'mvBankID',
@@ -575,10 +587,20 @@ class OrderJournal extends Component {
 
 
 }
+
+function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {
+    let tmp = 0
+    if (mvBSValue == 'B') {
+        tmp = mvNetAmtValue - mvGrossAmt
+    } else {
+        tmp = mvNetAmtValue - mvGrossAmt
+    }
+    return utils.currencyShowFormatter(tmp)
+}
+
 const mapStateToProps = (state) => {
     return {
         data: state.orderjournal.enquiryorder,
-
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
 
