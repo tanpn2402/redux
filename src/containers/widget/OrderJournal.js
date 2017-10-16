@@ -12,8 +12,6 @@ import { Button } from 'react-bootstrap'
 class OrderJournal extends Component {
     constructor(props) {
         super(props)
-
-
         this.state = {
             columns: [
                 {
@@ -21,17 +19,21 @@ class OrderJournal extends Component {
                     Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
-                    Cell: props => {
-                        if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                            if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                return (
-                                    <input type='checkbox' className={this.id + "-row-checkbox"}
-                                        onChange={() => { this.onRowSelected(props.original) }} />
-                                )
-                            }
-                        }
+                    // Cell: props => {
+                    //     console.log('aaaaaaaaaaaa', props)
+                    //     if (props.aggregated) {
 
-                    },
+                    //     } else {
+                    //         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                    //             if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                    //                 return (
+                    //                     <input type='checkbox' className={this.id + "-row-checkbox"}
+                    //                         onChange={() => { this.onRowSelected(props.original) }} />
+                    //                 )
+                    //             }
+                    //         }
+                    //     }
+                    // },
                     sortable: false,
                     skip: true
                 },
@@ -39,37 +41,41 @@ class OrderJournal extends Component {
                     id: 'can',
                     Header: this.props.language.orderjournal.header.cancelmodify,
                     maxWidth: 80,
-                    Cell: props => {
-                        var child = []
-                        if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                            if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                child.push(
-                                    <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                        onClick={() => this.handleCancelOrder(props.original)}>
-                                        <span className="glyphicon glyphicon-remove"></span>
-                                    </Button>
-                                )
-                            }
-                        }
+                    // Cell: props => {
+                    //     if (props.aggregated) {
 
-                        if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                            if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
-                                child.push(
-                                    <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                        onClick={() => this.handleModifyOrder(props.original)}>
-                                        <span className="glyphicon glyphicon-edit"></span>
-                                    </Button>
-                                )
-                            }
-                        }
+                    //     } else {
+                    //         var child = []
+                    //         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                    //             if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                    //                 child.push(
+                    //                     <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                    //                         onClick={() => this.handleCancelOrder(props.original)}>
+                    //                         <span className="glyphicon glyphicon-remove"></span>
+                    //                     </Button>
+                    //                 )
+                    //             }
+                    //         }
 
-                        return (
-                            <span>
-                                {
-                                    child
-                                }
-                            </span>)
-                    },
+                    //         if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                    //             if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                    //                 child.push(
+                    //                     <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                    //                         onClick={() => this.handleModifyOrder(props.original)}>
+                    //                         <span className="glyphicon glyphicon-edit"></span>
+                    //                     </Button>
+                    //                 )
+                    //             }
+                    //         }
+
+                    //         return (
+                    //             <span>
+                    //                 {
+                    //                     child
+                    //                 }
+                    //             </span>)
+                    //     }
+                    // },
                     sortable: false,
                     skip: true
                 },
@@ -180,7 +186,7 @@ class OrderJournal extends Component {
 
             ],
             pageIndex: 1,
-            key: false
+            key: false,
         }
 
         this.rowSelected = []
@@ -220,6 +226,7 @@ class OrderJournal extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data}
+                            pivot={["mvStockID"]}
                         />
                     </div>
 
@@ -264,16 +271,20 @@ class OrderJournal extends Component {
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
-                        if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                            if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                return (
-                                    <input type='checkbox' className={this.id + "-row-checkbox"}
-                                        onChange={() => { this.onRowSelected(props.original) }} />
-                                )
+                        if (props.aggregated) {
+
+                        } else {
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                    return (
+                                        <input type='checkbox' className={this.id + "-row-checkbox"}
+                                            onChange={() => { this.onRowSelected(props.original) }} />
+                                    )
+                                }
                             }
                         }
-
                     },
+                    Aggregated: '',
                     sortable: false,
                     skip: true
                 },
@@ -282,35 +293,39 @@ class OrderJournal extends Component {
                     Header: nextProps.language.orderjournal.header.cancelmodify,
                     maxWidth: 80,
                     Cell: props => {
-                        var child = []
-                        if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                            if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                child.push(
-                                    <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                        onClick={() => this.handleCancelOrder(props.original)}>
-                                        <span className="glyphicon glyphicon-remove"></span>
-                                    </Button>
-                                )
-                            }
-                        }
+                        if (props.aggregated) {
 
-                        if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                            if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
-                                child.push(
-                                    <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                        onClick={() => this.handleModifyOrder(props.original)}>
-                                        <span className="glyphicon glyphicon-edit"></span>
-                                    </Button>
-                                )
-                            }
-                        }
-
-                        return (
-                            <span>
-                                {
-                                    child
+                        } else {
+                            var child = []
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                            onClick={() => this.handleCancelOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-remove"></span>
+                                        </Button>
+                                    )
                                 }
-                            </span>)
+                            }
+
+                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
+                                            onClick={() => this.handleModifyOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-edit"></span>
+                                        </Button>
+                                    )
+                                }
+                            }
+
+                            return (
+                                <span>
+                                    {
+                                        child
+                                    }
+                                </span>)
+                        }
                     },
                     sortable: false,
                     skip: true
@@ -322,6 +337,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Pivot: cellInfo => {
+                        return <span> {cellInfo.row._pivotVal} </span>
+                    }
                 },
                 {
                     id: 'mvBS',
@@ -331,19 +349,26 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     Cell: props => {
-                        if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
-                            return (
-                                <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
-                                    {props.original.mvBS}
-                                </div>
-                            )
+                        if (props.aggregated) {
+
                         } else {
-                            return (
-                                <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
-                                    {props.original.mvBS}
-                                </div>
-                            )
+                            if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
+                                return (
+                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
+                                        {nextProps.language.searchbar.buy}
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
+                                        {nextProps.language.searchbar.sell}
+                                    </div>
+                                )
+                            }
                         }
+                    },
+                    Aggregated: () => {
+                        return null
                     }
                 },
                 {
@@ -353,6 +378,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvQty',
@@ -361,6 +389,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvPendingQty',
@@ -369,6 +400,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvExecutedQty',
@@ -377,6 +411,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvAvgPrice',
@@ -385,18 +422,29 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvStatus',
                     Header: nextProps.language.orderjournal.header.status,
                     accessor: 'mvStatus',
-                    width: 80,
+                    width: 110,
                     skip: false,
                     show: true,
                     Cell: props => {
-                        return (
-                            nextProps.language.global.status[props.original.mvStatus]
-                        )
+                        if (props.aggregated) {
+
+                        } else {
+                            let status = nextProps.language.global.status[props.original.mvStatus]
+                            return (
+                                Utils.statusRenderer(status)
+                            )
+                        }
+                    },
+                    Aggregated: () => {
+                        return null
                     }
                 },
                 {
@@ -407,9 +455,16 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     Cell: props => {
-                        return (
-                            nextProps.language.global.ordertype[props.original.mvOrderTypeValue]
-                        )
+                        if (props.aggregated) {
+
+                        } else {
+                            return (
+                                nextProps.language.global.ordertype[props.original.mvOrderTypeValue]
+                            )
+                        }
+                    },
+                    Aggregated: () => {
+                        return null
                     }
                 },
                 {
@@ -420,7 +475,14 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     Cell: props => {
-                        return feeTaxParser(Utils, props.original.mvBSValue, props.original.mvNetAmtValue, props.original.mvGrossAmt)
+                        if (props.aggregated) {
+
+                        } else {
+                            return feeTaxParser(Utils, props.original.mvBSValue, props.original.mvNetAmtValue, props.original.mvGrossAmt)
+                        }
+                    },
+                    Aggregated: () => {
+                        return null
                     }
                 },
                 {
@@ -430,6 +492,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvExpiryDate',
@@ -438,6 +503,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
                 {
                     id: 'mvRejectReason',
@@ -446,6 +514,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: () => {
+                        return null
+                    }
                 },
 
             ]
@@ -593,7 +664,7 @@ function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {
     if (mvBSValue == 'B') {
         tmp = mvNetAmtValue - mvGrossAmt
     } else {
-        tmp = mvNetAmtValue - mvGrossAmt
+        tmp = mvGrossAmt - mvNetAmtValue
     }
     return utils.currencyShowFormatter(tmp)
 }
