@@ -368,6 +368,7 @@
             },
             "portfolio": {
                 "header": {
+                    "mvMaketID" : "Market",
                     "sumary": "Sumary",
                     "valuevnd": "Value (VND)",
                     "value": "Value",

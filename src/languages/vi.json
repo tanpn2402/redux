@@ -367,6 +367,7 @@
             },
             "portfolio": {
                 "header": {
+                    "mvMaketID":"Sàn",
                     "sumary": "Tổng quan",
                     "valuevnd": "Giá trị(VND)",
                     "value": "Giá trị",

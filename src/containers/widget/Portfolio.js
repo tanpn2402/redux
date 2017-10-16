@@ -21,20 +21,35 @@ class Portfolio extends Component {
 
         this.state = {
             pageIndex: 1,
+            defaultPageSize: 0,
             columns: [
                 {
-                    Header: 'Info',
-                    accessor: 'Info',
                     columns: [
-                        {
-                            Header: 'Ord',
-                            accessor: 'STT',
-                            maxWidth: 50
-                        },
+                        // {
+                        //     Header: 'Ord',
+                        //     accessor: 'STT',
+                        //     maxWidth: 50
+                        // },
                         {
                             Header: this.props.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
-                            maxWidth: 60
+                            maxWidth: 60,
+                            Aggregated: () => {
+                                return null
+                            }
+                        }
+                    ]
+                },
+                {
+                    Header: ' ',
+                    columns: [
+                        {
+                            Header: this.props.language.portfolio.header.mvMaketID,
+                            accessor: 'mvMarketID',
+                            maxWidth: 60,
+                            Pivot: (cellInfo) => {
+                                return <span> {cellInfo.row._pivotVal} </span>
+                            }
                         }
                     ]
                 },
@@ -131,19 +146,30 @@ class Portfolio extends Component {
         this.setState({
             columns: [
                 {
-                    Header: 'Info',
-                    accessor: 'Info',
                     columns: [
-                        {
-                            Header: 'Ord',
-                            accessor: 'STT',
-                            maxWidth: 50
-                        },
+                        // {
+                        //     Header: 'Ord',
+                        //     accessor: 'STT',
+                        //     maxWidth: 50
+                        // },
                         {
                             Header: nextProps.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
                             maxWidth: 60,
-                            Pivot: cellInfo => {
+                            Aggregated: () => {
+                                return null;
+                            }
+                        }
+                    ]
+                },
+                {
+                    Header: ' ',
+                    columns: [
+                        {
+                            Header: nextProps.language.portfolio.header.mvMaketID,
+                            accessor: 'mvMarketID',
+                            maxWidth: 60,
+                            Pivot: (cellInfo) => {
                                 return <span> {cellInfo.row._pivotVal} </span>
                             }
                         }
@@ -308,6 +334,8 @@ class Portfolio extends Component {
         var data = this.props.data.mvPortfolioBeanList
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+
+        this.state.defaultPageSize = data.length
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -318,10 +346,10 @@ class Portfolio extends Component {
                         <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
-                            defaultPageSize={this.defaultPageSize}
+                            defaultPageSize={this.state.defaultPageSize}
                             columns={this.state.columns}
                             data={data.slice((this.state.pageIndex - 1) * this.defaultPageSize, this.state.pageIndex * this.defaultPageSize)}
-                            pivot={['mvStockID']}
+                            pivot={['mvMarketID']}
                         />
                     </div>
 

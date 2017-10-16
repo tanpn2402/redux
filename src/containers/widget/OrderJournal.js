@@ -226,7 +226,6 @@ class OrderJournal extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data}
-                            pivot={["mvStockID"]}
                         />
                     </div>
 
