@@ -3,6 +3,7 @@
     src: url("../../node_modules/react-modal/_book/gitbook/fonts/fontawesome/fontawesome-webfont.ttf")
 }
 body {
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
     overflow-y: hidden;
@@ -377,7 +378,7 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 1px;
 }
 .search-bar .vertical-align-middle {
-    position: absolute;
+    /* position: absolute; */
 }
 .search-bar .popover-content {
     font-size: 11px;
@@ -3087,6 +3088,7 @@ input::-webkit-calendar-picker-indicator {
 .PowerSelect {
     border: none;
     background-color: transparent;
+    max-width: 200px;
 }
 .PowerSelect__SearchInputContainer {
     padding: 2px 8px;
@@ -3124,4 +3126,10 @@ input::-webkit-calendar-picker-indicator {
 }
 .PowerSelect__TriggerStatus:before {
     border-top: 4px solid #000;
+}
+
+.search-bar .PowerSelect {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 150px;
 }

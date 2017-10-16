@@ -2,12 +2,14 @@ import React from 'react'
 import ConfigColumnTable from './ConfigColumnTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-// import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import config from '../../core/config'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
-import InputSearch from './InputSearch'
 import $ from 'jquery'
+import { PowerSelect } from 'react-power-select'
+import 'react-power-select/dist/react-power-select.css'
+
+
 var DatePicker = require("react-bootstrap-date-picker")
 export default class SearchBar extends React.Component {
 
@@ -16,6 +18,9 @@ export default class SearchBar extends React.Component {
         this.state = {
             startDate: new Date().toISOString(),
             endDate: new Date().toISOString(),
+            mvStockIdValue: {
+                stockCode: 'ALL'
+            }
         };
 
         this.parameter = {
@@ -234,20 +239,38 @@ export default class SearchBar extends React.Component {
             </FormGroup>
         )
     }
-
+    handleStockChange = ({option}) => {
+        if(option === null)
+            return
+        this.mvStockId.value = option.stockCode
+        this.setState({ mvStockIdValue : Object.assign(this.state.mvStockIdValue, { stockCode: option.stockCode }) })
+    }
     genStockListComponent(props) {
         let language = props.language
         let stockList = props.data.stockList
-        if (stockList === undefined)
+        if (stockList === undefined || stockList.length <= 0)
             return
-
+        if(stockList[0].stockCode !== 'ALL' ){
+            stockList.unshift({
+                stockCode: 'ALL',
+                stockName: 'ALL'
+            })
+        }
         return (
             <FormGroup controlId="mvStockId">
-                <InputSearch data={stockList}
-                    onChange={e => { }}
-                    type={'sm'}
-                    allowAll={true}
-                    style={{ marginBottom: '0' }} />
+                <PowerSelect
+                    options={stockList}
+                    selected={this.state.mvStockIdValue}
+                    onChange={this.handleStockChange.bind(this)}
+                    optionLabelPath={'stockCode'}
+                    showClear={false}
+                />
+                <input
+                    type='hidden'
+                    id='mvStockId'
+                    ref={e => this.mvStockId = e}
+                    value={this.state.mvStockIdValue.stockCode}
+                />
             </FormGroup>
         )
     }
