@@ -2,12 +2,16 @@ export default {
   title: 'dark',
   button: {
     backgroundColor: "#FF8000",
-    color: "#FFFFFF"
+    color: "#FFFFFF",
+    borderColor: 'transparent'
   },
   font: {
     color: '#FFFFFF'
   },
   font2: {
+    color: '#FFFFFF'
+  },
+  font3: {
     color: '#FFFFFF'
   },
   page: {
