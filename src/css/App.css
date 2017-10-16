@@ -683,9 +683,11 @@ input::-webkit-calendar-picker-indicator {
 }
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
     background-color: #fff;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 #form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > th {
-    background-color: #f60;
+    background-color: #f88100;
     color: #fff;
 }
 #form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > td {
@@ -696,20 +698,9 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 1px;
     padding-bottom: 1px;
 }
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td select {
-    padding: 0 6px;
-    height: 20px;
-    border-radius: 4px;
-    width: 100%;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td input {
-    padding: 0 0px;
-    border-color: #fff;
-    border-width: 1px;
-    border-radius: 4px;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td .input-search-group .input-group-addon {
-    border: none;
+#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td > input {
+    padding: 0;
+    padding-left: 5px;
 }
 #form-enterorder .popover-content {
     font-size: 11px;
@@ -3093,3 +3084,44 @@ input::-webkit-calendar-picker-indicator {
 .popover-content > table > tbody > tr > td {
     padding: 4px 8px;
 }*/
+.PowerSelect {
+    border: none;
+    background-color: transparent;
+}
+.PowerSelect__SearchInputContainer {
+    padding: 2px 8px;
+}
+.PowerSelect__SearchInput {
+    height: 24px;
+}
+.PowerSelect__Menu {
+    max-width: 230px;
+}
+.PowerSelect__Options {
+    max-height: 150px;
+}
+.PowerSelect__Option {
+    padding: 3px 8px;
+    font-size: 12px;
+}
+.PowerSelect__Option:hover {
+    background-color: #270A0A;
+}
+.PowerSelect__Trigger,
+.PowerSelect__Clear, 
+.PowerSelect__TriggerInputContainer, 
+.PowerSelect__TriggerLabel, 
+.PowerSelect__TriggerStatus, 
+.PowerSelectMultiple__OptionsContainer {
+    height: 20px;
+}
+.PowerSelect__Clear, 
+.PowerSelect__TriggerInputContainer, 
+.PowerSelect__TriggerLabel, 
+.PowerSelect__TriggerStatus, 
+.PowerSelectMultiple__OptionsContainer {
+    padding: 2px 8px;
+}
+.PowerSelect__TriggerStatus:before {
+    border-top: 4px solid #000;
+}

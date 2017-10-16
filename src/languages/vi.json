@@ -296,6 +296,7 @@
                 "title": {
                     "stock": "CHỨNG KHOÁN",
                     "cash": "TIỀN",
+                    "cashBank": "TIỀN - NGÂN HÀNG",
                     "overduedebt": "NỢ ĐẾN HẠN",
                     "upcomingduedebt": "NỢ SẮP ĐÁO HẠN "
                 },
@@ -428,6 +429,10 @@
             },
             "enterorder": {
                 "header": {
+                    "buy": "Mua",
+                    "sell": "Bán",
+                    "buyAll": "Mua",
+                    "sellAll": "Bán",
                     "buysell": "Mua/Bán",
                     "buysellall": "Mua/Bán (tất cả)",
                     "stock": "Mã CK",
@@ -440,6 +445,44 @@
                     "value": "Giá trị GD",
                     "netfee": "Phí tạm tính",
                     "expirydate": "Lệnh đến hạn"
+                },
+                "data": {
+                    "Buy": "Buy",
+                    "Sell": "Sell",
+                    "BuyAll": "Buy all",
+                    "SellAll": "Sell all",
+                    "Up": "Up",
+                    "Down": "Down",
+                    "enhancedLimit": "Enhanced Limit",
+                    "atAuctionLimit": "At Auction Limit",
+                    "atAuction": "At Auction",
+                    "limit": "Limit",
+                    "stoplimit": "Stop Limit",
+                    "specialLimit": "Special Limit",
+                    "OTLO": "LO",
+                    "OTATO": "ATO",
+                    "OTATC": "ATC",
+                    "OTMP": "MP",
+                    "OTMAK": "MAK",
+                    "OTMOK": "MOK",
+                    "OTMTL": "MTL",
+                    "OTLOddLot": "LO(Odd Lot)"
+                },
+                "value": {
+                    "enhancedLimit": "X",
+                    "atAuctionLimit": "I",
+                    "atAuction": "A",
+                    "limit": "L",
+                    "stoplimit": "SL",
+                    "specialLimit": "S",
+                    "OTLO": "L",
+                    "OTATO": "O",
+                    "OTATC": "C",
+                    "OTMP": "M",
+                    "OTLOddLot": "LO",
+                    "OTMOK": "B",
+                    "OTMAK": "Z",
+                    "OTMTL": "R"
                 },
                 "popup": {
                     "title": "Đặt lệnh",
