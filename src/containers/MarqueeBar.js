@@ -1,5 +1,6 @@
 import React from 'react'
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap'
+import ReactHighcharts from 'react-highcharts'
 
 export default class MarqueeBar extends React.Component {
     constructor(props) {
@@ -14,40 +15,31 @@ export default class MarqueeBar extends React.Component {
 
         //HoverFocus event
         var popoverHoverFocus = (data) => {
-            console.log(data)
-            let title = 
-                <div style={{textAlign: 'center'}}>
-                    <span className={data.status}>&nbsp;{data.id}</span>
-                    <span className="percent">
-                        <span className="netchange">&nbsp;{data.netchange}</span>&nbsp;(<span className="changepercentage">{data.changeper}</span>%)
-                    </span>
-                </div>
+            var config = {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: data.title
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                navigator: {
+                    enabled: false
+                },
+                scrollbar: {
+                    enabled: false
+                },
+                series: [
+                    {
+                        data: [71.4, 80.1, 66.9, 99.9, 58.4, 96.5, 85.4, 51.9, 50.0, 29.9, 19.7, 57.2]
+                    }
+                ]
+            }
             return (
-                <Popover id="popover-trigger-hover-focus" title={title}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th><strong>Status</strong></th>
-                                <td>{data.statusValue}</td>
-                            </tr>
-                            <tr>
-                                <th><strong>Price</strong></th>
-                                <td>{data.price} VNĐ</td>
-                            </tr>
-                            <tr>
-                                <th><strong>Value</strong></th>
-                                <td>{data.value}</td>
-                            </tr>
-                            <tr>
-                                <th><strong>Volume</strong></th>
-                                <td>{data.volume}</td>
-                            </tr>
-                            <tr>
-                                <th><strong>Advance</strong></th>
-                                <td>{data.advance}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <Popover id="popover-trigger-hover-focus" style={{ width: '500px', maxWidth: 'none' }}>
+                    <ReactHighcharts config={config} />
                 </Popover>
             )
         }
