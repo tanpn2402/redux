@@ -367,7 +367,7 @@
             },
             "portfolio": {
                 "header": {
-                    "mvMaketID":"Sàn",
+                    "mvMaketID": "Sàn",
                     "sumary": "Tổng quan",
                     "valuevnd": "Giá trị(VND)",
                     "value": "Giá trị",
@@ -927,6 +927,7 @@
                     "warning": "Cảnh báo",
                     "error": "Lỗi",
                     "failed": "Thất bại",
+                    "success": "Thành công",
                     "note": "Ghi chú",
                     "info": "Thông tin"
                 },
@@ -934,6 +935,8 @@
                     "systemMaintain": "Hệ thống đang bảo trì",
                     "oneWindow": "Bạn chỉ mở được 1 cửa sổ giống vậy",
                     "saveLayoutConfirm": "Bạn có muốn lưu lại công việc hiện tại không?",
+                    "saveLayoutSuccess": "Lưu thành công!",
+                    "saveLayoutFail": "Đã có lỗi trong quá trình, xin thử lại sau....",
                     "invalidStepPrice": "Giá phải là bội số của range_value với chứng khoán có giá nằm trong khoảng từ from_value đến to_value.",
                     "invalidStepPriceMaxRange": "Giá phải là bội số của range_value với chứng khoán có giá lớn hơn hoặc bằng to_value.",
                     "invaliedStepPriceWithOutRange": "Giá phải là bội số của range_value.",

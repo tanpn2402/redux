@@ -18,7 +18,7 @@ class AvaibleMarginList extends Component {
         this.defaultPageSize = 15
         this.id = 'available'
         this.state = {
-            columns : [
+            columns: [
                 {
                     id: 'mvRowNum',
                     Header: this.props.language.avaiblemarginlist.header.No,
@@ -65,19 +65,19 @@ class AvaibleMarginList extends Component {
         }
 
         this.params = {
-            mvLastAction:'AVAIABLEMARGINLIST',
+            mvLastAction: 'AVAIABLEMARGINLIST',
             mvInstrumentID: '',
             mvMarketID: 'ALL',
-            mvLending:'',
+            mvLending: '',
             page: 1,
             start: 0,
             limit: 15,
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            columns : [
+            columns: [
                 {
                     id: 'mvRowNum',
                     Header: nextProps.language.avaiblemarginlist.header.No,
@@ -126,16 +126,16 @@ class AvaibleMarginList extends Component {
     render() {
 
         let data = this.props.data
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={'available'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table 
+                        <Table
                             theme={this.props.theme}
                             key={this.id}
                             id={this.id}
@@ -153,7 +153,7 @@ class AvaibleMarginList extends Component {
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
                             data={{ stockList: this.stockList }}
-                            param={[ 'mvStockId', 'mvMarket', 'mvLending']}/>
+                            param={['mvStockId', 'mvMarket', 'mvLending']} />
                     </div>
 
                     <div className="table-footer" style={tablefooter}>
@@ -175,26 +175,26 @@ class AvaibleMarginList extends Component {
         this.props.onSearch(this.params)
     }
 
-    onSearch(param){
+    onSearch(param) {
         this.state.pageIndex = 1
         this.params['page'] = this.pageIndex
-        this.params['start'] = ( this.pageIndex - 1 ) * 15
+        this.params['start'] = (this.pageIndex - 1) * 15
         this.params['limit'] = 15
         this.params['mvMarketID'] = param['mvMarket']
-        this.params['mvInstrumentID'] = param['mvStockId'] === 'ALL' ? '': param['mvStockId']
-        this.params['mvLending'] = param['mvLending'] === 'ALL' ? '': param['mvLending']
-   
+        this.params['mvInstrumentID'] = param['mvStockId'] === 'ALL' ? '' : param['mvStockId']
+        this.params['mvLending'] = param['mvLending'] === 'ALL' ? '' : param['mvLending']
+
         this.props.onSearch(this.params)
     }
 
-    onChangeStateColumn(e){
+    onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, {show: !el.show}) : el)
+            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
 
-    onPageChange(pageIndex){
+    onPageChange(pageIndex) {
         this.state.pageIndex = pageIndex
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -202,7 +202,7 @@ class AvaibleMarginList extends Component {
         this.props.onSearch(this.params)
     }
 
-    onNextPage(){
+    onNextPage() {
         this.state.pageIndex = this.state.pageIndex + 1
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -210,7 +210,7 @@ class AvaibleMarginList extends Component {
         this.props.onSearch(this.params)
     }
 
-    onPrevPage(){
+    onPrevPage() {
         this.state.pageIndex = this.state.pageIndex - 1
         this.params['page'] = this.state.pageIndex
         this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
@@ -218,7 +218,7 @@ class AvaibleMarginList extends Component {
         this.props.onSearch(this.params)
     }
 
-    onReloadPage(){
+    onReloadPage() {
         this.params['key'] = (new Date()).getTime()
         this.props.onSearch(this.params)
     }
@@ -230,7 +230,7 @@ const mapStateToProps = (state) => {
         data: state.avaiblemarginlist.data,
     }
 }
-  
+
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (params) => {
         dispatch(actions.avaiblemarginlist(params))

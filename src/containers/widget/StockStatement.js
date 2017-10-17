@@ -305,16 +305,16 @@ class StockStatement extends Component {
     render() {
 
         let data = this.props.data
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={'stockstatement'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table 
+                        <Table
                             theme={this.props.theme}
                             key={this.id}
                             id={this.id}
