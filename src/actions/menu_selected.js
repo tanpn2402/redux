@@ -134,7 +134,13 @@ function getSavedLayout(savedcontent) {
 export function saveLayout(params, language) {
     return (dispatch) => {
         const savedLayoutWithLanguage = (data) => { savedLayout(data, language, dispatch) }
-        api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayoutWithLanguage)
+        api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayoutWithLanguage , 
+            function(err){
+                let title = language.messagebox.title.failed
+                let message = language.messagebox.message.saveLayoutFail
+                dispatch(showMessageBox(title, message))
+
+        })
     }
 }
 
