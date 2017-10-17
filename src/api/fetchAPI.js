@@ -142,7 +142,7 @@ export async function FetchAPI(id, JsonData, method) {
         })
     }
     if (method === 'REPORT') {
-        url+= '?'+formData
+        url += '?' + formData
         window.location.href = url
     }
 

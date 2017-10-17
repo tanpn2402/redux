@@ -90,16 +90,7 @@ export function isLogin(response) {
 
 export function logout(id) {
     clearInterval(id)
-    return (dispatch) => {
-        api.post(ACTION.LOGOUT, {}, dispatch, responseLogout)
-    }
-}
-
-function responseLogout(response) {
-    console.log(response)
-    sessionApi.logout().then(() => {
-        sessionService.deleteSession();
-        sessionService.deleteUser();
-        window.location.assign('/login');
-    })
+    sessionService.deleteSession();
+    sessionService.deleteUser();
+    window.location.assign('/login');
 }

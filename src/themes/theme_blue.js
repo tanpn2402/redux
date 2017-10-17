@@ -86,6 +86,10 @@ export default {
   chart: {
     piechart: {
       backgroundColor: '#EEECEC'
+    },
+    popoverchart: {
+      backgroundColor: '#a5a5a5',
+      color: '#201e50'
     }
   }
 }
