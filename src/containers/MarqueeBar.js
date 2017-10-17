@@ -15,8 +15,8 @@ export default class MarqueeBar extends React.Component {
 
         //HoverFocus event
         var popoverHoverFocus = (data) => {
-            let popoverchartBackground = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.backgroundColor
-            let popoverchartColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.color
+            // let popoverchartBackground = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.backgroundColor
+            // let popoverchartColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.color
             var config = {
                 chart: {
                     height: '200',
@@ -52,20 +52,22 @@ export default class MarqueeBar extends React.Component {
                     {
                         name: 'A',
                         data: [71.4, 80.1, 66.9, 99.9, 58.4, 96.5, 85.4, 51.9, 50.0, 29.9, 19.7, 57.2],
+                        type: 'line',
                     },
-                    {
-                        name: 'B',
-                        data: [98.74, 43.82, 29.55, 25.7, 57.02, 24.99, 55.75, 80.87, 21.51, 7.34, 46.29, 45.75],
-                    },
-                    {
-                        name: 'C',
-                        data: [31.8, 8.95, 86.39, 96.33, 78.82, 44.43, 75.36, 59.04, 45.61, 42.93, 94.02, 49.78],
+                    // {
+                    //     name: 'B',
+                    //     data: [98.74, 43.82, 29.55, 25.7, 57.02, 24.99, 55.75, 80.87, 21.51, 7.34, 46.29, 45.75],
+                    //     type: 'area',
+                    // },
+                    // {
+                    //     name: 'C',
+                    //     data: [31.8, 8.95, 86.39, 96.33, 78.82, 44.43, 75.36, 59.04, 45.61, 42.93, 94.02, 49.78],
 
-                    }
+                    // }
                 ]
             }
             return (
-                <Popover id="popover-trigger-hover-focus" style={{ backgroundColor: popoverchartBackground }}>
+                <Popover id="popover-trigger-hover-focus">
                     <ReactHighcharts config={config} />
                 </Popover>
             )

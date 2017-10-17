@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Calendar from 'react-calendar'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import $ from 'jquery'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const {Contants} = require('../../core/constants')
+const { Contants } = require('../../core/constants')
 class Portal extends React.Component {
-    constructor(...args){
+    constructor(...args) {
         super(...args)
         this.id = this.props.id
 
@@ -21,7 +20,7 @@ class Portal extends React.Component {
         }
     }
 
-    mountPortal(){
+    mountPortal() {
         var parentID = this.props.id
         this.target = document.createElement('div');
         document.body.appendChild(this.target);
@@ -31,34 +30,33 @@ class Portal extends React.Component {
         this.target.id = 'calendar-picker'
         var x = document.getElementById(parentID).getBoundingClientRect()
         let offX = x.left, offY = x.top, hei = x.height
-        this.target.style.transform =  'translateX(' + offX +  'px) translateY(' + (offY + hei) + 'px)'
-        
+        this.target.style.transform = 'translateX(' + offX + 'px) translateY(' + (offY + hei) + 'px)'
+
         document.body.addEventListener("click", this.handleBaseBlur, false)
         this.renderPortal()
-        
+
     }
 
-    handleScroll(){
+    handleScroll() {
         var x = document.getElementById(this.id).getBoundingClientRect()
         let offX = x.left, offY = x.top, hei = x.height
-        this.target.style.transform =  'translateX(' + offX +  'px) translateY(' + (offY + hei) + 'px)'
+        this.target.style.transform = 'translateX(' + offX + 'px) translateY(' + (offY + hei) + 'px)'
     }
 
 
-    handleBaseBlur(e){
+    handleBaseBlur(e) {
         var target = e.target.className
-        if( target.includes('react-datepicker__current-month') || target.includes('react-datepicker__navigation') || 
+        if (target.includes('react-datepicker__current-month') || target.includes('react-datepicker__navigation') ||
             target.includes('react-datepicker__day-name') || target.includes('react-datepicker__month-container') ||
-            target.includes('react-datepicker__week') || e.target.id === this.props.id || 
-            target.includes('react-datepicker__today-button') || target.includes('react-datepicker__day') )
-        {
+            target.includes('react-datepicker__week') || e.target.id === this.props.id ||
+            target.includes('react-datepicker__today-button') || target.includes('react-datepicker__day')) {
 
-        }else {
+        } else {
             this.props.onBlur()
         }
     }
 
-    unMountPortal(){
+    unMountPortal() {
         ReactDOM.unmountComponentAtNode(this.target);
         document.body.removeChild(this.target);
         document.body.removeEventListener("click", this.handleBaseBlur, false)
@@ -69,7 +67,7 @@ class Portal extends React.Component {
         this.mountPortal()
     }
 
-    componentWillUpdate(){
+    componentWillUpdate() {
         this.unMountPortal()
         this.mountPortal()
     }
@@ -84,7 +82,7 @@ class Portal extends React.Component {
 
     renderPortal() {
         let date = this.props.date
-        if(date.format(Contants.dateFormat) == 'Invalid date') {
+        if (date.format(Contants.dateFormat) == 'Invalid date') {
             date = moment()
         }
         ReactDOM.render(
@@ -102,13 +100,13 @@ class Portal extends React.Component {
         document.getElementById('pagecontent').addEventListener('scroll', this.handleScroll, false);
     }
 
-    render(){
+    render() {
         return null
     }
 }
 
 class CalendarPicker extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -125,31 +123,31 @@ class CalendarPicker extends React.Component {
         this.handleInputKeyUp = this.handleInputKeyUp.bind(this)
     }
 
-    removeAllCalendarPicker(){
-        var x= document.getElementById('calendar-picker')
+    removeAllCalendarPicker() {
+        var x = document.getElementById('calendar-picker')
         console.log(x)
-        if(x){
+        if (x) {
             document.body.removeChild(x)
-        
+
         }
     }
 
-    handleInputFocus(e){
+    handleInputFocus(e) {
         this.setState({ showPicker: !this.state.showPicker })
     }
 
-    handleInputChange(e){
+    handleInputChange(e) {
         const myDate = moment(e.target.value, Contants.dateFormat)
 
         this.setState({
-            selectedDate : Object.assign(this.state.selectedDate, myDate)
+            selectedDate: Object.assign(this.state.selectedDate, myDate)
         })
 
         this.props.onChange(myDate)
     }
 
-    handleInputKeyUp(e){
-        if(!e.ctrlKey && !e.metaKey && e.keyCode > 46 && e.target.value.length < 10) {
+    handleInputKeyUp(e) {
+        if (!e.ctrlKey && !e.metaKey && e.keyCode > 46 && e.target.value.length < 10) {
             // var format = 'dd/mm/yyyy';
 
             // var match = new RegExp(format
@@ -165,14 +163,14 @@ class CalendarPicker extends React.Component {
             //     .replace(match, replace)             // fields
             //     .replace(/(\W)+/g, "$1");            // remove repeats
 
-        } 
-        else if(e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39 ) {
+        }
+        else if (e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39) {
 
-        } 
-        else if(e.keyCode == 13) {
+        }
+        else if (e.keyCode == 13) {
             e.preventDefault()
             this.setState({ showPicker: false })
-            if(this.props.onEnter !== undefined){
+            if (this.props.onEnter !== undefined) {
                 this.props.onEnter()
             }
         }
@@ -181,24 +179,24 @@ class CalendarPicker extends React.Component {
         }
     }
 
-    handleCanlendarClick(date){
+    handleCanlendarClick(date) {
         this.setState({ showPicker: false, selectedDate: date })
         document.getElementById(this.id).value = date.format(Contants.dateFormat)
 
         this.props.onChange(date)
     }
 
-    handleCanlendarBlur(){
+    handleCanlendarBlur() {
         this.setState({ showPicker: false })
     }
 
-    render(){
+    render() {
 
         return (
             <div style={{ display: 'inline-block' }}>
                 <input id={this.id} className="calendar-picker-input"
                     onClick={this.handleInputFocus}
-                    onChange={this.handleInputChange} 
+                    onChange={this.handleInputChange}
                     onKeyDown={this.handleInputKeyUp}
                     defaultValue={this.state.selectedDate.format(Contants.dateFormat)}
                     placeholder={Contants.dateFormat}
@@ -206,13 +204,13 @@ class CalendarPicker extends React.Component {
                     disabled={this.props.disabled}
                 />
                 {
-                    this.state.showPicker ? 
+                    this.state.showPicker ?
                         <Portal key={this.id} id={this.id}
-                            onClick={this.handleCanlendarClick} 
+                            onClick={this.handleCanlendarClick}
                             onBlur={this.handleCanlendarBlur}
-                            date={this.state.selectedDate} 
-                        /> 
-                    : null
+                            date={this.state.selectedDate}
+                        />
+                        : null
                 }
             </div>
         )
