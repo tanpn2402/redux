@@ -7,22 +7,21 @@ import * as actions from '../../actions'
 class WidgetTitle extends Component {
     constructor(props) {
         super(props)
-        this.customConfig = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")]
     }
 
     removeWidget() {
         var widgetID = this.props.widgetID
-        //console.log("WIDGET " + widgetID + " WILL BE DELETED")
-        //console.log(this.customConfig)
-        var tabs = this.customConfig.widget
+        console.log("WIDGET " + widgetID + " WILL BE DELETED")
+        console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
+        var tabs = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
 
         var indexOfTobeDelWidget = tabs.findIndex(tab => {
             return tab.i == widgetID
         })
 
         if (indexOfTobeDelWidget > -1) {
-            //console.log(this.customConfig)
-            this.customConfig.widget.splice(indexOfTobeDelWidget, 1) //Delete widget from CustomConfig
+            console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
+            config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget.splice(indexOfTobeDelWidget, 1) //Delete widget from CustomConfig
             this.props.reloadCustom(this.props.load)
         }
 
@@ -31,7 +30,7 @@ class WidgetTitle extends Component {
 
     render() {
         //console.log(this.props.children)
-        let widgetheader = this.props.theme.widget == undefined? undefined:this.props.theme.widget.widgetheader
+        let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
         return (
             <div className="widget-header" style={widgetheader}>
                 <div className="widget-title">

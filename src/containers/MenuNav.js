@@ -67,6 +67,10 @@ class MenuNav extends Component {
         window.addEventListener("keydown", this.myEventHandler, false)
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
     onReloadPage(tabID) {
 
     }
@@ -87,7 +91,7 @@ class MenuNav extends Component {
         this.params['mvGroupID'] = groupId
         this.params['mvSavedContent'] = JSON.stringify(config.tabbar)
         this.params['mvAction'] = 'MODIFY'
-        this.props.onSaveLayout(this.params)
+        this.props.onSaveLayout(this.params, this.props.language)
     }
 
 }
@@ -95,7 +99,8 @@ class MenuNav extends Component {
 const mapStateToProps = (state, props) => {
     return {
         tabID: state.menuSelected.tabID,
-        savedcontent: state.menuSelected.savedcontent
+        savedcontent: state.menuSelected.savedcontent,
+        resultSavelayout: state.menuSelected.resultSavelayout
     }
 
 }
@@ -104,8 +109,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onGetSavedContentLayout: (params) => {
         dispatch(actions.getSavedContentLayout(params))
     },
-    onSaveLayout: (params) => {
-        dispatch(actions.saveLayout(params))
+    onSaveLayout: (params, language) => {
+        dispatch(actions.saveLayout(params, language))
     },
     onRemoveTab: (menuid, pageid, tabList, reload) => {
         dispatch(actions.menuRemoved(menuid, pageid, tabList, reload));
