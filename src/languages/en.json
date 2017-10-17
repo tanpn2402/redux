@@ -34,6 +34,40 @@
                     "title": "Prompt"
                 }
             },
+            "global": {
+                "buysell": {
+                    "B": "B",
+                    "S": "S"
+                },
+                "ordertype": {
+                    "L": "Normal",
+                    "O": "ATO",
+                    "C": "ATC",
+                    "P": "Put through",
+                    "M": "MP",
+                    "B": "MOK",
+                    "Z": "MAK",
+                    "R": "MTL"
+                },
+                "status": {
+                    "NEW": "New",
+                    "CAN": "Cancelled",
+                    "REJ": "Rejected",
+                    "WA": "Waiting",
+                    "FEX": "Fully Executed",
+                    "PEX": "Partially Filled",
+                    "Q": "Queued",
+                    "WC": "Waiting Cancel",
+                    "WM": "Waiting Modify",
+                    "IAT": "Inactive",
+                    "SND": "Sending",
+                    "EXP": "Expired",
+                    "TRIG": "Trigger Order",
+                    "CPD": "Completed",
+                    "PXP": "Partially Expired",
+                    "FLL": "Fully Filled"
+                }
+            },
             "menu": {
                 "tradingplatform": "Trading Platform",
                 "enterorder": "Enter Order",
@@ -83,7 +117,6 @@
                 "fundTransPanel": "Cash Transfer Place",
                 "fundTransHistory": "Cash Transfer Transaction",
                 "stockmarketinfo": "Stock Market Data Realtime",
-
                 "loanRefundPanel": "Loan Refund Panel",
                 "loanRefundHistory": "Loan Refund Transaction History",
                 "loanRefundStatus": "Loan Refund Transaction Status"
@@ -231,10 +264,9 @@
                 "message": {
                     "confirmSuccess": "Comfirm Successful.",
                     "confirmFail": "Confirm Fail."
-
                 },
-                "status":{
-                    "STATUS_FLL" :"Fully Filled"
+                "status": {
+                    "STATUS_FLL": "Fully Filled"
                 }
             },
             "ordershistory": {
@@ -336,6 +368,7 @@
             },
             "portfolio": {
                 "header": {
+                    "mvMaketID": "Market",
                     "sumary": "Sumary",
                     "valuevnd": "Value (VND)",
                     "value": "Value",
@@ -593,7 +626,7 @@
                 "message": {
                     "notenoughmoney": "Your amount is not enough to transfer.",
                     "noamount": "Amount should not be blank.",
-                    "overtransfer" : "Your amount is not enough",
+                    "overtransfer": "Your amount is not enough",
                     "cancelSuccess": "Cash transfer order is cancelled. Please check in History screen.",
                     "cancelFailed": "Cancel cash transfer order is failed. Please contact to support team."
                 },
@@ -946,6 +979,7 @@
                     "info": "Info",
                     "error": "Error",
                     "failed": "Failed",
+                    "success": "Success",
                     "orderInformation": "Order information",
                     "confirmCancel": "Confirm cancel",
                     "rejectReason": "Reject reason",
@@ -956,6 +990,8 @@
                     "maxWindows": "You only have |NoW| windows in this workspace!",
                     "oneWindow": "You can open only one window",
                     "saveLayoutConfirm": "Do you want to save your work?",
+                    "saveLayoutSuccess": "Layout saved successful!",
+                    "saveLayoutFail": "There was an error, please try again later....",
                     "invalidStepPrice": "Price must be the multiple of range_value for input price between from_value and to_value.",
                     "invalidStepPriceMaxRange": "Price must be the multiple of range_value for input price greater than to_value.",
                     "invaliedStepPriceWithOutRange": "Price must be the multiple of range_value.",

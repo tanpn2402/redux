@@ -49,11 +49,11 @@ class StatusBar extends React.Component {
                 </div>
                 <div className="widget-search">
                     <input type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
-                        onChange={e => this.onChange(e, this.props.language)} 
-                        onBlur={e => this.onBlur(e)} 
+                        onChange={e => this.onChange(e, this.props.language)}
+                        onBlur={e => this.onBlur(e)}
                         onFocus={this.onFocus} />
 
-                    {(this.state.searchResult.length > 0 ) ? searchResultBox : null}
+                    {(this.state.searchResult.length > 0) ? searchResultBox : null}
                 </div>
 
 
@@ -63,8 +63,7 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
 
                 </div>
-                <Popup title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} 
-                    onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language} />
+                <Popup theme={this.props.theme} title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language} />
             </div>
 
         )
@@ -112,17 +111,17 @@ class StatusBar extends React.Component {
     }
 
     onFocus() {
-        if(this.state.searchInputVal !== ''){
+        if (this.state.searchInputVal !== '') {
             this.setState({
                 showSearchBox: true,
             })
-        } else{
+        } else {
             this.setState({
                 showSearchBox: true,
                 menuitem: config.widget,
                 searchResult: config.widget,
             })
-        }   
+        }
     }
 
     onBlur(e) {

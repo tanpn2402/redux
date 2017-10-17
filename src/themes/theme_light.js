@@ -6,9 +6,12 @@ export default {
     borderColor: "#2E6DA4"
   },
   font: {
-    color: '#000000'
+    color: '#FFFFFF'
   },
   font2: {
+    color: '#000000'
+  },
+  font3: {
     color: '#000000'
   },
   page: {

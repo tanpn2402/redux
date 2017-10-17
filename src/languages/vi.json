@@ -34,6 +34,40 @@
                     "title": "Thông báo"
                 }
             },
+            "global": {
+                "buysell": {
+                    "B": "B",
+                    "S": "S"
+                },
+                "ordertype": {
+                    "L": "Thường",
+                    "O": "ATO",
+                    "C": "ATC",
+                    "P": "Thỏa thuận",
+                    "M": "Thị trường",
+                    "B": "MOK",
+                    "Z": "MAK",
+                    "R": "MTL"
+                },
+                "status": {
+                    "NEW": "Chờ xử lý",
+                    "CAN": "Đã huỷ",
+                    "REJ": "Không hợp lệ",
+                    "WA": "Chờ xác nhận",
+                    "FEX": "Khớp toàn bộ",
+                    "PEX": "Khớp một phần",
+                    "Q": "Chờ khớp",
+                    "WC": "Chờ huỷ",
+                    "WM": "Chờ sửa",
+                    "IAT": "Không hiệu lực",
+                    "SND": "Đang gửi",
+                    "EXP": "Hết hiệu lực",
+                    "TRIG": "Lệnh điều kiện",
+                    "CPD": "Khớp toàn bộ",
+                    "PXP": "Hết hiệu lực một phần",
+                    "FLL": "Khớp toàn bộ"
+                }
+            },
             "menu": {
                 "tradingplatform": "Giao dịch",
                 "enterorder": "Đặt lệnh giao dịch",
@@ -84,7 +118,6 @@
                 "fundTransPanel": "Thực hiện chuyển tiền",
                 "fundTransHistory": "Giao dịch chuyển tiền trong ngày",
                 "stockmarketinfo": "Stock Market Data Realtime",
-
                 "loanRefundPanel": "Hoàn trả vay ký quỹ",
                 "loanRefundHistory": "Lịch sử giao dịch hoàn trả vay ký quỹ",
                 "loanRefundStatus": "Trạng tháI giao dịch hoàn trả vay ký quỹ"
@@ -145,7 +178,7 @@
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting"
             },
-            "marqueebar":{
+            "marqueebar": {
                 "status": "Trạng thái",
                 "price": "Giá",
                 "value": "Giá trị",
@@ -227,10 +260,9 @@
                 "message": {
                     "confirmSuccess": "Xác nhận thành công.",
                     "confirmFail": "Xác nhận thất bại."
-
                 },
-                "status":{
-                    "STATUS_FLL" :"Khớp toàn bộ"
+                "status": {
+                    "STATUS_FLL": "Khớp toàn bộ"
                 }
             },
             "ordershistory": {
@@ -336,6 +368,7 @@
             },
             "portfolio": {
                 "header": {
+                    "mvMaketID": "Sàn",
                     "sumary": "Tổng quan",
                     "valuevnd": "Giá trị(VND)",
                     "value": "Giá trị",
@@ -578,7 +611,7 @@
                 "message": {
                     "notenoughmoney": "Quý khách không còn đủ tiền để thực hiện giao dịch này.",
                     "noamount": "Xin vui lòng nhập số tiền.",
-                    "overtransfer" : "Số tiền cần chuyển lớn hơn số tiền bạn có.",
+                    "overtransfer": "Số tiền cần chuyển lớn hơn số tiền bạn có.",
                     "cancelSuccess": "Gửi lệnh thành công. Vui lòng kiểm tra lại trong sổ lệnh.",
                     "cancelFailed": "Hủy lệnh thất bại."
                 },
@@ -937,6 +970,7 @@
                     "warning": "Cảnh báo",
                     "error": "Lỗi",
                     "failed": "Thất bại",
+                    "success": "Thành công",
                     "note": "Ghi chú",
                     "info": "Thông tin"
                 },
@@ -944,6 +978,8 @@
                     "systemMaintain": "Hệ thống đang bảo trì",
                     "oneWindow": "Bạn chỉ mở được 1 cửa sổ giống vậy",
                     "saveLayoutConfirm": "Bạn có muốn lưu lại công việc hiện tại không?",
+                    "saveLayoutSuccess": "Lưu thành công!",
+                    "saveLayoutFail": "Đã có lỗi trong quá trình, xin thử lại sau....",
                     "invalidStepPrice": "Giá phải là bội số của range_value với chứng khoán có giá nằm trong khoảng từ from_value đến to_value.",
                     "invalidStepPriceMaxRange": "Giá phải là bội số của range_value với chứng khoán có giá lớn hơn hoặc bằng to_value.",
                     "invaliedStepPriceWithOutRange": "Giá phải là bội số của range_value.",

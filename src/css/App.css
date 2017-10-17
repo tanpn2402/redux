@@ -764,9 +764,9 @@ input::-webkit-calendar-picker-indicator {
         width: 700px;
     }
 }
-@media (min-width: 768) {
+@media (min-width: 768px) {
     .modal-lg {
-        width: 500px;
+        width: 430px;
     }
 }
 /*END OVERRIDE BOOTSTRAP*/

@@ -275,7 +275,7 @@ const config = {
 				{ i: 'enterorder', x: 0, y: 0, w: 2, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'stockmarketinform', x: 5, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'accountinfo', x: 2, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 0, y: 6, w: 8, h: 4, minW: 8, maxW: 8, minH: 6, maxH: 10, isDraggable: false, isResizable: true }
+				{ i: 'orderjournal', x: 0, y: 6, w: 8, h: 4, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: true }
 			]
 		},
 		{

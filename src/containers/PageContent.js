@@ -11,19 +11,19 @@ import config from '../core/config'
 import generateWindow from './view'
 
 class PageContent extends React.Component {
-    constructor () {
+    constructor() {
         super()
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
     }
 
-    render () {
+    render() {
         //console.log(this.props.tabID)
-        let pagebackground = this.props.theme.page == undefined? undefined:this.props.theme.page.pagebackground
+        let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
         return (
             <div style={pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
-                <Notification language={this.props.language}/>
+                <Notification theme={this.props.theme} language={this.props.language} />
                 {
                     generateWindow(this.props.tabID, this.props)
                 }
@@ -31,9 +31,9 @@ class PageContent extends React.Component {
         )
     }
 
-    
 
-    componentDidMount(){     
+
+    componentDidMount() {
         var param = {
             type: 'bycode',
             value: 'all',
@@ -43,7 +43,7 @@ class PageContent extends React.Component {
         this.props.getStockIdList(param)
     }
 
-    
+
 }
 
 const mapStateToProps = (state, props) => ({

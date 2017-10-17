@@ -18,7 +18,7 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language
-        let pagemenu = this.props.theme.page == undefined? undefined:this.props.theme.page.pagemenu
+        let pagemenu = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagemenu
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
                 <div className="scroll">
@@ -50,7 +50,7 @@ class MenuNav extends Component {
                 <div className="scrolling-tabs-right">
 
                     <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={this.props.theme.tabnormal}>
-                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font}></span>
+                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font3}></span>
                     </button>
                     <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={this.props.theme.savelayoutbutton}>
                         <span className="glyphicon glyphicon-floppy-disk" style={{ margin: '0 1px' }}></span>
@@ -65,6 +65,10 @@ class MenuNav extends Component {
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
         window.addEventListener("keydown", this.myEventHandler, false)
+    }
+
+    componentWillReceiveProps(nextProps) {
+
     }
 
     onReloadPage(tabID) {
@@ -87,7 +91,7 @@ class MenuNav extends Component {
         this.params['mvGroupID'] = groupId
         this.params['mvSavedContent'] = JSON.stringify(config.tabbar)
         this.params['mvAction'] = 'MODIFY'
-        this.props.onSaveLayout(this.params)
+        this.props.onSaveLayout(this.params, this.props.language)
     }
 
 }
@@ -95,7 +99,8 @@ class MenuNav extends Component {
 const mapStateToProps = (state, props) => {
     return {
         tabID: state.menuSelected.tabID,
-        savedcontent: state.menuSelected.savedcontent
+        savedcontent: state.menuSelected.savedcontent,
+        resultSavelayout: state.menuSelected.resultSavelayout
     }
 
 }
@@ -104,8 +109,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onGetSavedContentLayout: (params) => {
         dispatch(actions.getSavedContentLayout(params))
     },
-    onSaveLayout: (params) => {
-        dispatch(actions.saveLayout(params))
+    onSaveLayout: (params, language) => {
+        dispatch(actions.saveLayout(params, language))
     },
     onRemoveTab: (menuid, pageid, tabList, reload) => {
         dispatch(actions.menuRemoved(menuid, pageid, tabList, reload));
