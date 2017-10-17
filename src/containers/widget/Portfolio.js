@@ -13,15 +13,15 @@ class Portfolio extends Component {
         super(props)
         this.id = "portfolio"
         this.defaultPageSize = 15
+
         this.params = {
             mvLastAction: 'AccountInfo',
             mvChildLastAction: 'AccountInfo',
-            key: '123123123123',
+            key: (new Date()).getTime(),
         }
 
         this.state = {
             pageIndex: 1,
-            defaultPageSize: 0,
             columns: [
                 {
                     columns: [
@@ -335,7 +335,6 @@ class Portfolio extends Component {
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 
-        this.state.defaultPageSize = data.length
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
@@ -346,7 +345,7 @@ class Portfolio extends Component {
                         <Table theme={this.props.theme}
                             key={this.id}
                             id={this.id}
-                            defaultPageSize={this.state.defaultPageSize}
+                            defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data.slice((this.state.pageIndex - 1) * this.defaultPageSize, this.state.pageIndex * this.defaultPageSize)}
                             pivot={['mvMarketID']}
