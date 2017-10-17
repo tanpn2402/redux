@@ -253,7 +253,7 @@ input::-webkit-calendar-picker-indicator {
 }
 #pagemenu {
     background-color: #005aa0;
-    top: 90px;
+    top: 60px;
     z-index: 1;
 }
 .btn-group-sm.btn-group-page {
@@ -343,7 +343,7 @@ input::-webkit-calendar-picker-indicator {
     border-radius: 2px;
     font-size: 12px;
     height: 20px;
-    width: auto;
+    /* width: auto; */
 }
 .form-inline.search-bar{
     height: 25px;
@@ -773,7 +773,7 @@ input::-webkit-calendar-picker-indicator {
 /*MAIN CONTENT */
 #maincontent {
     position: absolute;
-    padding-top: 90px;
+    padding-top: 60px;
     width: 100%;
     height: 100%;
 }
@@ -904,6 +904,7 @@ input::-webkit-calendar-picker-indicator {
 #pageheader {
     position: absolute;
     width: 100%;
+    z-index: 4;
 }
 #pageheader .logo {
     padding: 10px 0px 10px 10px;
@@ -3132,4 +3133,24 @@ input::-webkit-calendar-picker-indicator {
     border: 1px solid #ccc;
     background-color: transparent;
     width: 150px;
+}
+
+/* CALENDAER PICKER */
+.calendar-picker .react-datepicker__day-names {
+    font-size: 11px;
+}
+.calendar-picker .react-datepicker__month {
+    font-size: 12px;
+    width: 170px;
+} 
+.calendar-picker .react-datepicker__today-button {
+    font-size: 12px;
+} 
+.react-datepicker__day--today {
+    border-radius: 3px;
+    border: 1px solid #555;
+    font-weight: normal;
+}
+.calendar-picker-input {
+    width: 80px;
 }

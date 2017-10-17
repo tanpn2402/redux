@@ -5,19 +5,20 @@ import * as actions from '../../actions'
 import moment from 'moment'
 import config from '../../core/config'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
+import InputSearch from './InputSearch'
 import $ from 'jquery'
 import { PowerSelect } from 'react-power-select'
 import 'react-power-select/dist/react-power-select.css'
 
+import CalendarPicker from './CalendarPicker';
 
-var DatePicker = require("react-bootstrap-date-picker")
 export default class SearchBar extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            startDate: new Date().toISOString(),
-            endDate: new Date().toISOString(),
+            startDate: moment(),
+            endDate: moment(),
             mvStockIdValue: {
                 stockCode: 'ALL'
             }
@@ -41,24 +42,22 @@ export default class SearchBar extends React.Component {
     }
 
     onSearch(pageIndex) {
+        
         var x = document.getElementById(this.props.id + "form-search")
         var tmp = {}
         for (var i = 0; i < x.length; i++) {
             if (x.elements[i].value == 'on' || x.elements[i].id === '')
                 continue
-
-            if (x.elements[i].id == 'mvStartDate')
-                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY")
-            else if (x.elements[i].id == 'mvEndDate')
-                tmp[x.elements[i].id] = moment(x.elements[i].value).format("DD/MM/YYYY")
-            else
-                tmp[x.elements[i].id] = x.elements[i].value
+            tmp[x.elements[i].id] = x.elements[i].value
         }
 
+        tmp['mvStartDate'] = this.state.startDate.format("DD/MM/YYYY")
+        tmp['mvEndDate'] = this.state.endDate.format("DD/MM/YYYY")
         this.props.onSearch(tmp)
     }
 
     handleChangeStart(date) {
+        
         this.setState({
             startDate: date
         });
@@ -250,16 +249,16 @@ export default class SearchBar extends React.Component {
         let stockList = props.data.stockList
         if (stockList === undefined || stockList.length <= 0)
             return
-        if(stockList[0].stockCode !== 'ALL' ){
-            stockList.unshift({
-                stockCode: 'ALL',
-                stockName: 'ALL'
-            })
-        }
+
+        let stockL = JSON.parse(JSON.stringify(stockList))
+        stockL.unshift({
+            stockCode: 'ALL',
+            stockName: 'ALL'
+        })
         return (
             <FormGroup controlId="mvStockId">
                 <PowerSelect
-                    options={stockList}
+                    options={stockL}
                     selected={this.state.mvStockIdValue}
                     onChange={this.handleStockChange.bind(this)}
                     optionLabelPath={'stockCode'}
@@ -282,12 +281,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font }}>{language.startdate}</ControlLabel>
                 {'   '}
-                <DatePicker id="mvStartDate" value={this.state.startDate}
-                    cellPadding={'1px'}
-                    style={{ width: '100px' }}
-                    showClearButton={false}
-
-                    onChange={this.handleChangeStart.bind(this)} />
+                <CalendarPicker onChange={this.handleChangeStart.bind(this)} id={'startDate'}/>
             </FormGroup>
         )
     }
@@ -299,12 +293,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font }}>{language.enddate}</ControlLabel>
                 {'   '}
-                <DatePicker id="mvEndDate" value={this.state.endDate}
-                    cellPadding={'1px'}
-                    style={{ width: '100px' }}
-                    showClearButton={false}
-
-                    onChange={this.handleChangeEnd.bind(this)} />
+                <CalendarPicker onChange={this.handleChangeEnd.bind(this)}  id={'endDate'}/>
             </FormGroup>
         )
     }
