@@ -57,7 +57,7 @@ class GridLayout extends React.Component {
         var x = this.generateDOM(layout)
         return (
 
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={55} width={1320} 
                 margin={[3,3]}
                 >
                 {x}
