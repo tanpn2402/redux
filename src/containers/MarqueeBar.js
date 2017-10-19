@@ -69,20 +69,44 @@ export default class MarqueeBar extends React.Component {
             const data = [
                 { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
                 { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
-                { name: '13:00', index: 109.9084, volume: 1336.1 }, { name: '14:00', index: 110.782, volume: 1067.9 },
+                { name: '13:00', index: 109.5084, volume: 1336.1 }, { name: '14:00', index: 110.7820, volume: 1067.9 },
             ]
+            const data2 = [
+                { name: '09:00', index: 110.9808, volume: 1595.6 }, { name: '10:00', index: 109.5505, volume: 1796.6 },
+                { name: '11:00', index: 109.2242, volume: 1748.5 }, { name: '12:00', index: 110.1041, volume: 1131.1 },
+                { name: '13:00', index: 110.4313, volume: 1336.1 }, { name: '14:00', index: 109.8071, volume: 1067.9 },
+            ]
+            const data3 = [
+                { name: '09:00', index: 109.1825, volume: 1595.6 }, { name: '10:00', index: 109.3075, volume: 1796.6 },
+                { name: '11:00', index: 110.8301, volume: 1748.5 }, { name: '12:00', index: 110.1019, volume: 1131.1 },
+                { name: '13:00', index: 109.2077, volume: 1336.1 }, { name: '14:00', index: 109.5897, volume: 1067.9 },
+            ]
+            const colorBreakPoint = 110 //threshold
+            const { min, max } = data.reduce((result, dataPoint) => ({
+                min: (dataPoint.index < result.min || result.min === 0) ? dataPoint.index : result.min,
+                max: (dataPoint.index > result.max || result.max === 0) ? dataPoint.index : result.max,
+            }), { min: 0, max: 0 });
+            const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
             return (
                 <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
                     <ComposedChart
                         data={data}
                         width={500}
                         height={250}>
+                        <defs>
+                            <linearGradient x1='0%' x2='0%' y1='0%' y2='100%' id='aaa'>
+                                <stop offset='0%' stopColor='#00ff1d' />
+                                <stop offset={colorBreakPointPercentage} stopColor='#00ff1d' />
+                                <stop offset={colorBreakPointPercentage} stopColor='red' />
+                                <stop offset='100%' stopColor='red' />
+                            </linearGradient>
+                        </defs>
                         <XAxis dataKey="name" stroke='white' />
                         <YAxis yAxisId="left" stroke='white' domain={['109', '111']} orientation="left" ticks={[109, 110, 111]} />
                         <YAxis type="number" stroke='white' ticks={[1000, 4000, 8000]} domain={['0', 'dataMax + 7000']} yAxisId="right" orientation="right" />
                         <CartesianGrid stroke='black' fill='black' />
-                        <ReferenceLine isFront={true} strokeWidth='2' yAxisId="left" stroke='yellow' strokeDasharray="9 9" y={110} />
-                        <Line yAxisId="left" type="linear" dot={false} dataKey="index" strokeWidth='2' stroke="#00ff1d" />
+                        <ReferenceLine strokeWidth='2' yAxisId="left" stroke='yellow' strokeDasharray="9 9" y={110} /*the 'y' props is the breakpoint (threshold)*/ />
+                        <Line yAxisId="left" type="linear" dot={false} dataKey="index" strokeWidth='2' stroke='url(#aaa)' />
                         <Area yAxisId="right" type="monotone" dataKey='volume' fill="#8884d8" stroke="#7bdff2" />
                     </ComposedChart>
                 </Popover>
