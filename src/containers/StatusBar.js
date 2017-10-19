@@ -70,6 +70,10 @@ class StatusBar extends React.Component {
     }
 
     componentDidMount() {
+        var lastTab = localStorage.getItem('lastTab')
+        if (lastTab) {
+            this.gotoResultTab(lastTab, this.props.language)
+        }
     }
 
     openSetting(e) {
@@ -81,12 +85,15 @@ class StatusBar extends React.Component {
     }
 
     logout() {
+        localStorage.removeItem('lastTab')
         this.setState({
             lgShow: true
         })
     }
 
     gotoResultTab(subMenuID, language) {
+        localStorage.setItem('lastTab', subMenuID)
+
         let isTabMenu = false;
         let tabItems = config.tabbar
         var widgetList = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
