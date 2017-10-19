@@ -1,6 +1,6 @@
 import React from 'react'
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap'
-import ReactHighcharts from 'react-highcharts'
+import { ComposedChart, ReferenceLine, Line, Area, Legend, CartesianGrid, XAxis, YAxis } from 'recharts'
 
 export default class MarqueeBar extends React.Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class MarqueeBar extends React.Component {
         }
 
         //HoverFocus event
-        var popoverHoverFocus = (data) => {
+        let popoverHoverFocus = (d) => {
             // let popoverchartBackground = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.backgroundColor
             // let popoverchartColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.color
             var config = {
@@ -66,9 +66,25 @@ export default class MarqueeBar extends React.Component {
                     // }
                 ]
             }
+            const data = [
+                { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
+                { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
+                { name: '13:00', index: 109.9084, volume: 1336.1 }, { name: '14:00', index: 110.782, volume: 1067.9 },
+            ]
             return (
-                <Popover id="popover-trigger-hover-focus">
-                    <ReactHighcharts config={config} />
+                <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
+                    <ComposedChart
+                        data={data}
+                        width={500}
+                        height={250}>
+                        <XAxis dataKey="name" stroke='white' />
+                        <YAxis yAxisId="left" stroke='white' domain={['109', '111']} orientation="left" ticks={[109, 110, 111]} />
+                        <YAxis type="number" stroke='white' ticks={[1000, 4000, 8000]} domain={['0', 'dataMax + 7000']} yAxisId="right" orientation="right" />
+                        <CartesianGrid stroke='black' fill='black' />
+                        <ReferenceLine isFront={true} strokeWidth='2' yAxisId="left" stroke='yellow' strokeDasharray="9 9" y={110} />
+                        <Line yAxisId="left" type="linear" dot={false} dataKey="index" strokeWidth='2' stroke="#00ff1d" />
+                        <Area yAxisId="right" type="monotone" dataKey='volume' fill="#8884d8" stroke="#7bdff2" />
+                    </ComposedChart>
                 </Popover>
             )
         }
