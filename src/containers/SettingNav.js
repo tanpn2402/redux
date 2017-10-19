@@ -25,7 +25,8 @@ class SettingNav extends Component {
         this.list = config.settings
 
         this.theme = 'blue'
-        this.lang = 'vi'
+        this.language = 'vi'
+
 
         this.setting = {
             language: this.state.language.code,
@@ -79,8 +80,11 @@ class SettingNav extends Component {
             </div>
         )
     }
-
+    componentDidMount(){
+      
+    }
     componentWillReceiveProps(nextProps) {
+        console.log("NEW PROPS", nextProps.language, nextProps.theme)
         if (this.state.language !== nextProps.language && nextProps.language !== undefined) {
             this.setting.language = nextProps.language.code
             this.setState({
@@ -105,9 +109,12 @@ class SettingNav extends Component {
                 value = (value.split('_'))[0]
                 // this.props.changeConfig(value, 'blue')
                 this.props.switchLanguage(value)
+                localStorage.setItem('lastLang',value)
+                console.log("set lang", localStorage.getItem("lastLang"))
                 break;
             case 'appearance':
                 this.props.switchTheme(value)
+                localStorage.setItem('lastTheme',"theme_" + value)
                 break;
         }
         // let tmp = e.target.className.split(' ')

@@ -89,6 +89,9 @@ export function isLogin(response) {
 }
 
 export function logout(id) {
+    localStorage.removeItem('lastTab')
+    localStorage.removeItem('lastTheme')
+    localStorage.removeItem('lastLang')
     clearInterval(id)
     sessionService.deleteSession();
     sessionService.deleteUser();
