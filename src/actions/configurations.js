@@ -26,6 +26,7 @@ export function switchLanguage(language) {
 }
 
 export function switchTheme(style) {
+  console.log("STYLE========= ",style)
   return {
     type: ActionTypes.SWITCH_THEME,
     style: style

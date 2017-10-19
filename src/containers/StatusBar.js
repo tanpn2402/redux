@@ -85,7 +85,6 @@ class StatusBar extends React.Component {
     }
 
     logout() {
-        localStorage.removeItem('lastTab')
         this.setState({
             lgShow: true
         })
