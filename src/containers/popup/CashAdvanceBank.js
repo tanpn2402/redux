@@ -7,23 +7,11 @@ import * as actions from '../../actions/index';
 
 class CashAdvanceBank extends Component {
     constructor(props) {
-        super(props);
-        this.state = {};
-        this.checkAuthentication = this.checkAuthentication.bind(this);
-    }
-
-    checkAuthentication(e) {
-        // Prevent from reloading page when submit
-        e.preventDefault();
-        const code1 = document.getElementById("code1").innerText;
-        const code2 = document.getElementById("code2").innerText;
-        const input1 = document.getElementById("input1").value;
-        const input2 = document.getElementById("input2").value;
-        this.props.checkAuthen(code1, code2, input1, input2, this.props.language.matrixcard);
+        super(props)
     }
 
     render() {
-
+        var language = this.props.language
         return (
             <div>  
                 <Modal.Body>
@@ -31,35 +19,30 @@ class CashAdvanceBank extends Component {
                         {this.props.language.cashadvancebank.popup.message}
                     </div>
                 </Modal.Body>
-                {
-                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language}/>
-                }
+                
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
+
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.cashadvancebank.popup.cancel}</Button>
-                    <Button className="submit" onClick={this.submit.bind(this)}> {this.props.language.cashadvancebank.popup.ok}</Button>
-                </Modal.Footer>
+                <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
+                <Button className="submit" onClick={this.submit.bind(this)}> {language.button.submit}</Button>
+            </Modal.Footer>
             </div>
         );
     }
 
     submit(e){
         e.preventDefault();
- 
-        let authParams = {
-            matrixKey01: document.getElementById("matrix-key01").value,
-            matrixKey02: document.getElementById("matrix-key02").value,
-            matrixValue01: document.getElementById("matrix-value01").value,
-            matrixValue02: document.getElementById("matrix-value02").value,
-            savedAuthen: document.getElementById("matrix-save-authen").checked,
-        }
+        var authParams = this.auth.getParam()
+
         this.props.submit({
             data: this.props.data, 
             authParams: authParams , 
             language: this.props.language
         })
-    }
 
-    
+
+        this.props.onHide()
+    }
 }
 
 const mapStateToProps = (state) => {

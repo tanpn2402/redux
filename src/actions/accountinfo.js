@@ -4,19 +4,18 @@ const { ActionTypes } = require('../core/constants');
 
 export function getStockInfo(params) {
     return (dispatch)=>{
-        WebApi.post(ACTION.STOCKINFO, params, dispatch, responseAccountInfo)
+        WebApi.post(ACTION.STOCKINFO, params, dispatch, responseStockInfo)
     }
 }
 
-function responseAccountInfo(response) {
+function responseStockInfo(response) {
     return {
-      type: ActionTypes.ACCOUNTINFO,
+      type: ActionTypes.GETSTOCKINFO,
       data: response
     }
 }
 
 export function getAccountBalance(params) {
-    console.log("GET Account balance");
     return (dispatch)=>{
         WebApi.post(ACTION.ACCOUNTBALANCE, params, dispatch, responseAccountBalance)
     }
@@ -29,8 +28,21 @@ function responseAccountBalance(response) {
     }
 }
 
+export function getAccountBalanceBank(params) {
+    return (dispatch)=>{
+        WebApi.post(ACTION.ACCOUNTBALANCE, params, dispatch, responseAccountBalanceBank)
+    }
+}
+
+function responseAccountBalanceBank(response) {
+    return {
+      type: ActionTypes.ACCOUNTBALANCEBANKINFO,
+      data: response
+    }
+}
+
 export function getOverdueDebt(params) {
-    console.log("GET Over Due Debt");
+    //console.log("GET Over Due Debt");
     return (dispatch)=>{
         WebApi.get(ACTION.OVERDUEDEBT, params, dispatch, responseOverDueDebt)
     }
@@ -45,7 +57,7 @@ function responseOverDueDebt(response) {
 }
 
 export function getUpComingDebt(params) {
-    console.log("GET UpComingDebt");
+    //console.log("GET UpComingDebt");
     return (dispatch)=>{
         WebApi.get(ACTION.UPCOMINGDEBT, params, dispatch, responseUpComingDebt)
     }

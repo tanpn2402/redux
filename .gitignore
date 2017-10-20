@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+.idea
 
 # production
 build
@@ -9,3 +10,4 @@ build
 # misc
 .DS_Store
 npm-debug.log
+src/api/fetchAPI.js

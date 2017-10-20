@@ -6,6 +6,15 @@ const initialState = {
     account: null,
     isShow: false,
     isError: null,
+
+    genEnterOrder: {
+        genEnterOrderBean: {},
+        mvDisplaySettlementAccInEnterOrder: '',
+        mvEnableOrderType: '',
+        mvNumberOfAvailableGoodTillDate: '',
+        mvResult: null,
+        mvSettlementAccList: []
+    }
 };
 
 export default function (state = initialState, action) {
@@ -32,6 +41,12 @@ export default function (state = initialState, action) {
         case ActionTypes.SET_ERROR:
             return Object.assign({}, state, {
                 isError: action.isError
+            });
+
+
+        case ActionTypes.GENENTERORDER:
+            return Object.assign({}, state, {
+                genEnterOrder: action.data
             });
         default:
             return state;

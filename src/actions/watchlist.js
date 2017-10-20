@@ -14,7 +14,7 @@ export function loadWatchList(params) {
   }
 }
 function responseGetMarketData(response){
-  console.log("watchListData ",response)
+  console.log("watchListData ", response)
   return {
       type: ActionTypes.LOADWATCHLIST,
       watchListData: response,

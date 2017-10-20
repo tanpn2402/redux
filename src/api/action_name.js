@@ -1,5 +1,5 @@
 export const LOGIN = 'dologin.action';		// do login
-export const LOGOUT = '';					// do logout
+export const LOGOUT = 'logout.action';					// do logout
 export const AUTHCARD = 'authCardMatrix.action';	// do authencation cart matrix
 export const STOCKSEARCH = 'stockSearch.action';	//	get list stock data
 export const QUERYACCOUNTSUMARY = 'queryAccountSummary.action';	// get Balance Account
@@ -24,7 +24,7 @@ export const HKSMODIFYORDER = 'hksModifyOrder.action';
 export const HKSMODIFYORDERFAIL = 'hksModifyOrderFail.action';
 export const GENFUNDTRANSFER = 'genfundtransfer.action';	//fund transfer info
 export const CHECKFUNDTRANSFERTIME = 'checkFundTransferTime.action';	//Check Time For Service Cash Transfer
-export const DOFOUNDTRANSFER = 'dofundtransfer.action';	// cash transfer place
+export const DOFUNDTRANSFER = 'dofundtransfer.action';	// cash transfer place
 export const HKSCASHTRANSACTIONHISTORY = 'queryCashTranHistory.action';	//Cash Transfer History
 export const HKSCASHTRANHIS = 'hksCashTransactionHistory.action';
 export const CANCELFUNDTRANSFER = 'cancelFundTransfer.action';	// Cancel Cash Transfer (Cancel when status == pending)
@@ -63,11 +63,15 @@ export const CASHADVANCEBANK = ''; // not already support in itrade
 export const ACCOUNTBALANCE = 'accountbalance.action' // not already support in itrade
 export const ADDORREMOVEACTION = 'addOrRemoveAction.action'; //Add or Remove Stock to WatchList
 export const GETMARKETDATA = 'getMarketData.action'; //Get WatchList Data at present
+export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
-
+export const QUERYMARKETSTATUSINFO = 'queryMarketStatusInfo.action'
+export const GENMODIFYORDER = 'genmodifyorder.action'
 // Export Excel actions
 export const EXPORTGETCASHTRANSACTIONHISTORY = 'exportGetCashTransactionHistory.action';
 export const EXPORTORDERHISTORY = 'exportOrderHistory.action';
 export const EXPORTCASHTRANSACTIONHISTORY = 'exportCashTransactionHistory.action';
 export const EXPORTTRANSACTIONHISTORY = 'exportTransactionHistory.action';
 export const EXPORTORDERCONFIRM = 'exportSignOrder.action';
+// Stock Watch Update
+export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action'

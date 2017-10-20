@@ -1,70 +1,97 @@
 export default {
-  background: {
-    backgroundColor: '#FFFAFA',
-    color: '#79CDCD'
-  },
-  normal: {
-      color: "#0000FF",
-  },
-  onFocus:{
-    backgroundColor:"#C1CDC1",
-    color: "#0000FF"
-  },
-  button:{
-    backgroundColor:"#FFFAFA",
-    color: "#0000FF"
-  },
-  buttonClicked:{
-    backgroundColor:"#337AB7",
+  title: 'light',
+  button: {
+    backgroundColor: "#337AB7",
     color: "#FFFAFA",
     borderColor: "#2E6DA4"
   },
-  porfolio: {
-    'titlemoney': {
-      backgroundColor: '#043b72',
-      color: '#fff'
+  font: {
+    color: '#FFFFFF'
+  },
+  font2: {
+    color: '#000000'
+  },
+  font3: {
+    color: '#000000'
+  },
+  page: {
+    pageheader: {
+      backgroundColor: '#FFFFFF'
     },
-    'titlestock': {
-      backgroundColor: '#f60',
-      color: '#fff'
+    pagebackground: {
+      backgroundColor: '#FFFFFF'
+    },
+    pagemenu: {
+      backgroundColor: '#005aa0'
     }
   },
-  oddlottrading: {
-    'titleoddlotorder': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleoddlottransactionhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
+  statusbar: {
+    backgroundColor: '#005aa0'
   },
-  loanrefund: {
-    'titleloanrefundstatus': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+  widget: {
+    widgetbackground: {
+      backgroundColor: '#EEECEC'
     },
-    'titleloanrefundhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+    widgetheader: {
+      backgroundColor: '#005AA0'
     },
-    'titleloanrefundform': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundnotice': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
+    widgetbody: {
+      border: '1.75px solid #005AA0'
+    }
   },
-  pagebackground: {
-    backgroundColor: '#fff',
-    
+  // Comment to use default library theme, uncomment to customize
+  table: {
+    tableheader: {
+      //     backgroundColor: '#262626'
+    },
+    tablefooter: {
+      //     backgroundColor: '#262626'
+    },
+    rowodd: {
+      //     backgroundColor: '#3F3E3E'
+    },
+    roweven: {
+      //     backgroundColor: '#474747'
+    },
+    nodatadisplay: {
+      backgroundColor: 'transparent',
+      color: '#000000'
+    }
+  },
+  // tabnormal: {
+  //   backgroundColor: '#286CAE'
+  // },
+  // tabactived: {
+  //   backgroundColor: '#fff',
+  //   color: '#555'
+  // },
+  // savelayoutbutton: {
+  //   backgroundColor: '#286CAE',
+  //   color: '#FFFFFF'
+  // },
+  // setting: {
+  //   settingtitle: {
+  //     backgroundColor: '#02407D'
+  //   },
+  //   settingpanel: {
+  //     backgroundColor: '#F0F0F0'
+  //   }
+  // },
+  // profile: {
+  //   profiletitle: {
+  //     backgroundColor: '#02407D'
+  //   },
+  //   profilepanel: {
+  //     backgroundColor: '#F0F0F0'
+  //   }
+  // },
+  chart: {
+    // piechart: {
+    //   backgroundColor: '#EEECEC'
+    // },
+    popoverchart: {
+      backgroundColor: '#FFF',
+      color: '#000'
+    }
   }
 }

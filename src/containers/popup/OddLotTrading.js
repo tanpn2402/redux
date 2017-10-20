@@ -7,22 +7,22 @@ import * as actions from '../../actions'
 import DataTable from '../DataUpperTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 
-class OddLotSubmit extends Component{
+class OddLotSubmit extends Component {
     constructor(props) {
         super(props)
-        
+
         this.params = {
-            mvOddList:'',
-            annoucementId:'',
-            mvInterfaceSeq:'',
-            mvSeriNo:'',
-            mvAnswer:'',
+            mvOddList: '',
+            annoucementId: '',
+            mvInterfaceSeq: '',
+            mvSeriNo: '',
+            mvAnswer: '',
             mvSaveAuthenticate: false
         }
-        
+
         this.getBankInfoParams = {
             key: (new Date()).getTime()
-        }     
+        }
         this.authParams = {
             matrixKey01: '[5,A]',
             matrixKey02: '[4,F]',
@@ -67,6 +67,42 @@ class OddLotSubmit extends Component{
         this.mvInterfaceSeq = -1
     }
 
+    compnentWillReceiveProps(nextProps) {
+        if (nextProps.language !== undefined) {
+            this.columns = [
+                {
+                    id: 'stockID',
+                    Header: nextProps.language.oddlottrading.header.stockid,
+                    accessor: 'stockCode',
+                    sortable: false,
+                    show: true,
+                },
+                {
+                    id: 'Type',
+                    Header: nextProps.language.oddlottrading.header.type,
+                    accessor: 'location',
+                    sortable: false,
+                    show: true,
+                },
+                {
+                    id: 'Volume',
+                    Header: nextProps.language.oddlottrading.header.oddlotquantity,
+                    accessor: 'oddLotQty',
+                    Cell: props => {
+                        console.log(props)
+                        return (
+                            <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
+                                min="0" max={props.original.oddLotQty} />
+                        )
+                    },
+                    width: 200,
+                    sortable: false,
+                    show: true,
+                }
+            ]
+        }
+    }
+
     submitOddLot() {
         // this.props.getOddLotSubmit(this.params,this.props.rowSelected,!this.props.reload)
         // this.props.onHide()
@@ -77,20 +113,20 @@ class OddLotSubmit extends Component{
         let overQty = false
         data.map(e => {
             let qty = document.getElementById(e.stockCode + '-qty').value
-            if(qty <= 0){
+            if (qty <= 0) {
                 overQty = true
             }
-            else if(qty > e.oddLotQty){
+            else if (qty > e.oddLotQty) {
                 overQty = true
             }
-            else{
+            else {
                 e.oddLotQty = qty
             }
         })
 
-        if(!overQty){
+        if (!overQty) {
 
-            if(this.props.authcard){
+            if (this.props.authcard) {
                 this.authParams = {
                     matrixKey01: document.getElementById("matrix-key01").value,
                     matrixKey02: document.getElementById("matrix-key02").value,
@@ -99,7 +135,7 @@ class OddLotSubmit extends Component{
                     savedAuthen: document.getElementById("matrix-save-authen").checked,
                 }
             }
-            
+
             console.log(this.authParams)
             this.props.submitOddLot({
                 oddLotData: data,
@@ -112,18 +148,18 @@ class OddLotSubmit extends Component{
             })
             //this.props.onHide()
         }
-        else{
+        else {
             this.props.onShowMessageBox(language.messagebox.title.error, language.oddlottrading.message.wrongQty)
         }
 
     }
 
-    handleChange(e){
+    handleChange(e) {
         var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
-        if(bank.length > 0){
+        if (bank.length > 0) {
             this.mvInterfaceSeq = bank[0].mvInterfaceSeq
         }
-        else if(e.target.value === "MAS"){
+        else if (e.target.value === "MAS") {
             this.mvInterfaceSeq = -1
         }
     }
@@ -132,14 +168,14 @@ class OddLotSubmit extends Component{
         this.props.getBankInfo(this.getBankInfoParams)
     }
 
-    closePopup(){
+    closePopup() {
         this.props.onHide()
     }
 
-    render(){
+    render() {
         var bankinfo = this.props.bankinfo
-        return(
-            <div style={{textAlign:'center'}}>
+        return (
+            <div style={{ textAlign: 'center' }}>
                 <Modal.Body>
                     <div className="oddlotdropdownlist">
                         <span>
@@ -156,6 +192,7 @@ class OddLotSubmit extends Component{
                         </span>
                     </div>
                     <DataTable
+                        theme={this.props.theme}
                         id={this.id + "-table"}
                         data={this.props.data.rowSelected}
                         columns={this.columns}
@@ -164,24 +201,24 @@ class OddLotSubmit extends Component{
                     />
                 </Modal.Body>
                 {
-                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language}/>
+                    this.props.authcard === false ? '' : <CheckAuthenticationModal language={this.props.language} />
                 }
 
                 <Modal.Footer>
-                    <Button  className="cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
-                    <Button  className="submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
+                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
+                    <Button className="submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
                 </Modal.Footer>
             </div>
         )
     }
 }
 const mapStateToProps = (state) => {
-  return {
-    returnCode: state.orderjournal.returnCode,
-    message: state.orderjournal.message,
-    isAuthenFail: state.checkAuthen.isAuthenFail,
-    bankinfo: state.oddlottrading.bankinfo,
-  }
+    return {
+        returnCode: state.orderjournal.returnCode,
+        message: state.orderjournal.message,
+        isAuthenFail: state.checkAuthen.isAuthenFail,
+        bankinfo: state.oddlottrading.bankinfo,
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -192,7 +229,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.checkAuthen(code1, code2, input1, input2, language))
     },
     getBankInfo: (params) => {
-      dispatch(actions.getBankInfo(params))
+        dispatch(actions.getBankInfo(params))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
