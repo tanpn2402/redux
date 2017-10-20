@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import config from '../../core/config'
 
-class SaveLayout extends Component{
+class SaveLayout extends Component {
     constructor(props) {
         super(props)
         this.params = {}
@@ -15,16 +15,19 @@ class SaveLayout extends Component{
         this.logoutAndSave = this.logoutAndSave.bind(this)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
     }
 
-    logout(){
+    componentWillReceiveProps(nextProps) {
+    }
+
+    logout() {
         this.props.onLogoutClick(this.props.checkSessionID)
     }
 
-    logoutAndSave(){
+    logoutAndSave() {
         const groupId = this.props.savedcontent.mvCfgList[0].GROUPID
         this.params['mvGroupName'] = 'User1'
         this.params['mvIsDefault'] = 'Y'
@@ -36,10 +39,10 @@ class SaveLayout extends Component{
         this.props.onLogoutClick(this.props.checkSessionID)
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <Modal.Body>
+                <Modal.Body style={{ textAlign: 'center' }}>
                     {this.props.language.messagebox.message.saveLayoutConfirm}
                 </Modal.Body>
                 <Modal.Footer>
@@ -51,9 +54,9 @@ class SaveLayout extends Component{
     }
 }
 const mapStateToProps = (state) => {
-  return {
-    savedcontent: state.menuSelected.savedcontent
-  }
+    return {
+        savedcontent: state.menuSelected.savedcontent
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

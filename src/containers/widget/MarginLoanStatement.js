@@ -197,16 +197,16 @@ class MarginLoanStatement extends Component {
     render() {
 
         let data = this.props.data
-        let tableheader = this.props.theme.table == undefined? undefined:this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
+        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
+        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={'marginloan'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <Table 
+                        <Table
                             theme={this.props.theme}
                             key={this.id}
                             id={this.id}
@@ -229,6 +229,7 @@ class MarginLoanStatement extends Component {
 
                     <div className="table-footer" style={tablefooter} style={tablefooter}>
                         <Pagination
+                            theme={this.props.theme}
                             pageIndex={this.state.pageIndex}
                             totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
                             onPageChange={this.onPageChange.bind(this)}
@@ -294,7 +295,7 @@ class MarginLoanStatement extends Component {
         this.props.onSearch(this.params)
     }
     onExportExcel() {
-        
+
         //this.props.onExportExcel(this.exportParams)
     }
 }

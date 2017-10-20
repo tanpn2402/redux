@@ -368,7 +368,7 @@
             },
             "portfolio": {
                 "header": {
-                    "mvMaketID" : "Market",
+                    "mvMaketID": "Market",
                     "sumary": "Sumary",
                     "valuevnd": "Value (VND)",
                     "value": "Value",
@@ -979,6 +979,7 @@
                     "info": "Info",
                     "error": "Error",
                     "failed": "Failed",
+                    "success": "Success",
                     "orderInformation": "Order information",
                     "confirmCancel": "Confirm cancel",
                     "rejectReason": "Reject reason",
@@ -989,6 +990,8 @@
                     "maxWindows": "You only have |NoW| windows in this workspace!",
                     "oneWindow": "You can open only one window",
                     "saveLayoutConfirm": "Do you want to save your work?",
+                    "saveLayoutSuccess": "Layout saved successful!",
+                    "saveLayoutFail": "There was an error, please try again later....",
                     "invalidStepPrice": "Price must be the multiple of range_value for input price between from_value and to_value.",
                     "invalidStepPriceMaxRange": "Price must be the multiple of range_value for input price greater than to_value.",
                     "invaliedStepPriceWithOutRange": "Price must be the multiple of range_value.",

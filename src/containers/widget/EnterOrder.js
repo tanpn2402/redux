@@ -8,12 +8,22 @@ import InputSearch from '../commons/InputSearch'
 import * as Utils from '../../utils'
 import moment from 'moment'
 import config from '../../core/config'
-
+import { PowerSelect } from 'react-power-select'
+import 'react-power-select/dist/react-power-select.css'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
-
+import CalendarPicker from '../commons/CalendarPicker'
 const {Contants} = require('../../core/constants')
 var DatePicker = require("react-bootstrap-date-picker")
+
+
+const StockViewOption = ({ option }) =>
+    <div style={{maxWidth: '100%'}}>
+        <span>{option.stockCode}</span>
+        <small style={{paddingLeft: '5px'}}> - {option.stockName}</small>
+    </div>
+
+
 class EnterOrder extends Component {
     constructor(props) {
         super(props)
@@ -35,9 +45,10 @@ class EnterOrder extends Component {
                 mvSettleAccList: [],
                 mvSettlementAccSelected: null,
                 mvStockSelected : null,
+                mvOrderTypeSelected: null,
                 mvExpireChecked: false,
                 mvExpireDate: new Date().toISOString()
-            }
+            },
         }
 
         this.store = {
@@ -220,8 +231,11 @@ class EnterOrder extends Component {
 
     }
 
-    handleStockChange(pvStockInfo){
+    handleStockChange = ({ option }) => {
+        if(option === null)
+            return
 
+        var pvStockInfo = option
         this.state.value.mvStockSelected = pvStockInfo
         var marketID = pvStockInfo.mvMarketID
         var stockCode = pvStockInfo.stockCode
@@ -323,11 +337,13 @@ class EnterOrder extends Component {
         }
         
         if(mvOrderTypeArray.length > 0){
-            var defaultValue = mvOrderTypeArray[0]['value'];
-            
-            this.state.value.mvOrderType = defaultValue
             // update order type
-            this.setState({value: Object.assign(this.state.value, {mvOrderTypeList: mvOrderTypeArray} )});
+            this.setState({value: Object.assign(this.state.value, {
+                mvOrderType: mvOrderTypeArray[0]['value'],
+                mvOrderTypeList: mvOrderTypeArray,
+                mvOrderTypeSelected: mvOrderTypeArray[0]
+            
+            } )});
     
             // calculate gross amount
             this.calculateGrossAmt(); 
@@ -346,16 +362,13 @@ class EnterOrder extends Component {
         }
     }
 
-    handleBankAccChange(e){
-        var bankID = e.target.id
-        var tmp = this.state.value.mvSettleAccList.filter(el => el.settleAccValue === bankID);
-        if(tmp.length > 0){
-            this.state.value.mvSettlementAccSelected = tmp[0]
-            this.state.value.mvBankID = tmp[0].mvBankID;
-            this.state.value.mvBankACID = tmp[0].mvBankACID;
+    handleBankAccChange= ({option}) => {
+       
+        this.state.value.mvSettlementAccSelected = option
+        this.state.value.mvBankID = option.mvBankID;
+        this.state.value.mvBankACID = option.mvBankACID;
 
-            this.updateMarginPower();
-        }
+        this.updateMarginPower();
     }
 
     initBankAccountCombo(mvSettlementAccList){
@@ -377,15 +390,18 @@ class EnterOrder extends Component {
                 defaultBankValue = mvSettlementAccList[i].mvSettlementAccountValue;
             }
         }
-        if (defaultBankValue !== ""){
-            
-            // update bank account combo box
-            this.setState({value: Object.assign(this.state.value, {mvSettleAccList: mvSettleAccArray} )});
 
-            // default value
-            this.state.value.mvBankID = mvSettleAccArray[0].mvBankID;
-            this.state.value.mvBankACID = mvSettleAccArray[0].mvBankACID;
-            this.state.value.mvSettlementAccSelected = mvSettleAccArray[0];
+
+        if (mvSettleAccArray.length > 0){
+            // show if has bank
+            this.bankRow.style.display = 'table-row'
+            // update bank account combo box
+            this.setState({value: Object.assign(this.state.value, {
+                mvSettleAccList: mvSettleAccArray,
+                mvSettlementAccSelected: mvSettleAccArray[0],
+                mvBankID: mvSettleAccArray[0].mvBankID,
+                mvBankACID: mvSettleAccArray[0].mvBankACID
+            } )});
         } else { 
             // hide if no bank     
             this.bankRow.style.display = 'none'
@@ -393,8 +409,9 @@ class EnterOrder extends Component {
         }
     }
 
-    handleOrderType(e){
-        var type = e.target.value
+    handleOrderTypeChange = ({option}) => {
+        var orderTypeValue = option.value
+        var type = option.value
         this.state.value.mvOrderType = type
 
         this.calculateGrossAmt();
@@ -408,6 +425,8 @@ class EnterOrder extends Component {
             this.mvPrice.value = ''
             this.mvPrice.readOnly = true
         }
+
+        this.setState({value: Object.assign(this.state.value, {mvOrderTypeSelected: option} )})
     }
 
     handleVolChange(e){
@@ -423,8 +442,6 @@ class EnterOrder extends Component {
     }
 
     handleDateExpireChange(value){
-        //var date = moment(value).format("DD/MM/YYYY")
-        //console.log(date)
         this.setState({value: Object.assign(this.state.value, {mvExpireDate: value} )})
     }
 
@@ -435,7 +452,7 @@ class EnterOrder extends Component {
             mvStockName: this.state.value.mvStockSelected.stockName,
             mvPrice: this.mvPrice.value,
             mvVolume: this.mvVol.value,
-            mvOrderType: this.mvOrderType.value,
+            mvOrderType: this.state.value.mvOrderType,
             mvGrossAmt: this.mvGrossAmt.value,
             mvExpireDate: moment(this.state.value.mvExpireDate).format(Contants.dateFormat),
             mvExpireChecked: this.state.value.mvExpireChecked,
@@ -471,7 +488,10 @@ class EnterOrder extends Component {
                 mvBuyPower: '0',
                 mvStockSelected : null,
                 mvExpireChecked: false,
-                mvExpireDate: new Date().toISOString()
+                mvExpireDate: new Date().toISOString(),
+                mvStockSelected: null,
+                mvOrderTypeSelected: null,
+                mvSettlementAccSelected: null
             }) 
         })
         
@@ -482,13 +502,14 @@ class EnterOrder extends Component {
         this.initBankAccountCombo(nextProps.genEnterOrderData.mvSettlementAccList)
     }
 
-
     render() {
+        this.stockList = config.cache.stockList
+        console.log(this.stockList)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-        console.log(this.state.value)
+        
         return (
             <div>
                 <Title theme={this.props.theme}>
@@ -531,25 +552,30 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr style={{height: '23px'}}>
                                         <th>{language.header.stock}</th>
-                                        <td style={{position: 'absolute', height: '23px', border: 'none', borderBottom: '1px solid #dcdcdc', backgroundColor: rowodd}}>
-                                            <InputSearch data={this.stockList} onChange={this.handleStockChange.bind(this)}
-                                                onBlur={this.handleStockOnBlur.bind(this)}
-                                                style={{padding: '0 4px', height: '20px', backgroundColor: 'transparent', color: font2}}/>
+                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: rowodd}}>
+                                            
+                                            <PowerSelect
+                                                options={this.stockList}
+                                                selected={this.state.value.mvStockSelected}
+                                                onChange={this.handleStockChange.bind(this)}
+                                                optionComponent={<StockViewOption />}
+                                                optionLabelPath={'stockCode'}
+                                                showClear={false}
+                                            />
+        
                                         </td>
                                     </tr>
-                                    <tr ref={e => this.bankRow = e}>
+                                    <tr ref={e => this.bankRow = e}  style={{height: '23px'}}>
                                         <th>{language.header.bank}</th>
-                                        <td style={{backgroundColor: roweven}} >
-                                            <select id="mvBank" className="hks-input no-border" ref={e => this.mvBankID = e} style={{backgroundColor: 'transparent', color: font2}} 
-                                                onChange={this.handleBankAccChange.bind(this)}>
-                                                {
-                                                    this.state.value.mvSettleAccList.map(bank => {
-                                                        return(
-                                                            <option value={bank.settleAccValue}>{bank.settleAccName}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
+                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: roweven}} >
+                                            <PowerSelect
+                                                options={this.state.value.mvSettleAccList}
+                                                selected={this.state.value.mvSettlementAccSelected}
+                                                onChange={this.handleBankAccChange.bind(this)}
+                                                optionLabelPath={'settleAccName'}
+                                                showClear={false}
+                                                searchEnabled={false}
+                                            />
                                         </td>
                                     </tr>
                                     <tr>
@@ -567,20 +593,18 @@ class EnterOrder extends Component {
                                                 style={{backgroundColor: 'transparent', color: font2}}/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{height: '23px'}}>
                                         <th>{language.header.ordertype}</th>
-                                        <td style={{backgroundColor: rowodd}} >
-                                            <select id="mvOrderType" className="hks-input no-border" style={{width: '100%', padding: '0', backgroundColor: 'transparent', color: font2}}
-                                                ref={e => this.mvOrderType = e}
-                                                onChange={this.handleOrderType.bind(this)}>
-                                                {
-                                                    this.state.value.mvOrderTypeList.map(e => {
-                                                        return (
-                                                            <option value={e.value}>{e.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
+                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: rowodd}} >
+
+                                            <PowerSelect
+                                                options={this.state.value.mvOrderTypeList}
+                                                selected={this.state.value.mvOrderTypeSelected}
+                                                onChange={this.handleOrderTypeChange.bind(this)}
+                                                optionLabelPath={'name'}
+                                                showClear={false}
+                                                searchEnabled={false}
+                                            />
                                         </td>
                                     </tr>
                                     <tr>
@@ -637,14 +661,19 @@ class EnterOrder extends Component {
                                                     value={this.state.value.mvExpireChecked} />
                                             </Col>
                                             <Col xs={11}>
-                                                <DatePicker id="mvStartDate" value={this.state.value.mvExpireDate} 
+                                                <CalendarPicker 
+                                                    id="expireDate"
+                                                    disabled={!this.state.value.mvExpireChecked} 
+                                                    onChange={this.handleDateExpireChange.bind(this)}    
+                                                />
+                                                {/* <DatePicker id="mvStartDate" value={this.state.value.mvExpireDate} 
                                                     cellPadding={'1px'} 
                                                     dateFormat={Contants.dateFormat}
                                                     style={{width: '100px', height: '20px', marginLeft: '5px', border: '1px solid #dcdcdc'}}
                                                     disabled={!this.state.value.mvExpireChecked} 
                                                     showClearButton={false}
                                                     calendarPlacement ={'top'}
-                                                    onChange={this.handleDateExpireChange.bind(this)} />
+                                                    onChange={this.handleDateExpireChange.bind(this)} /> */}
                                             </Col>
                                         </td>
                                     </tr>
@@ -703,7 +732,7 @@ class EnterOrder extends Component {
         }else{
 
             var lotSize = value.mvStockSelected.lotSize
-            var orderType = this.mvOrderType.value
+            var orderType = this.state.value.mvOrderType
             var volume = this.mvVol.value
             console.log(orderType, volume)
             var errorMsg = ''
@@ -767,9 +796,9 @@ class EnterOrder extends Component {
 
         var me = this
         // check time order
-        console.log(value.mvStockSelected.mvMarketID, this.mvOrderType.value, value.mvExpireChecked)
+        console.log(value.mvStockSelected.mvMarketID, this.state.value.mvOrderType, value.mvExpireChecked)
                                 
-        this.checkTimeOrder( value.mvStockSelected.mvMarketID, this.mvOrderType.value, value.mvExpireChecked , 
+        this.checkTimeOrder( value.mvStockSelected.mvMarketID, this.state.value.mvOrderType, value.mvExpireChecked , 
             function(){
                 var ceil =  store.stockInfoBean.mvCeiling;
                 var floor = store.stockInfoBean.mvFloor;
@@ -781,21 +810,19 @@ class EnterOrder extends Component {
                 if (value.mvFeeRate !== ''){
                     netFee = Utils.numUnFormat(value.mvFeeRate, ',');
                 }
-
-
                 console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, value.mvSettlementAccSelected)
-
 
                 me.checkOrderBalanceStatus( value.mvSettlementAccSelected, bs, value.mvStockSelected.stockCode, 
                     value.mvStockSelected.mvMarketID, priceValue, quantity, netFee, 
                     function(){
+                        console.log('SUCCESS SECOND')
                             var param = {                                            
                                     mvBS: value.mvBS.slice(0,1),
                                     mvStockCode: value.mvStockSelected.stockCode,
                                     mvMarketID: value.mvStockSelected.mvMarketID,
                                     mvPrice: me.mvPrice.value,
                                     mvQuantity: me.mvVol.value,
-                                    mvOrderTypeValue: me.mvOrderType.value,                                            
+                                    mvOrderTypeValue: me.mvOrderType,                                            
                                     mvGoodTillDate: moment(value.mvExpireDate).format(Contants.dateFormat),
                                     mvGrossAmt: value.mvGrossAmt,
                                     mvBankID: value.mvBankID,
@@ -1002,11 +1029,11 @@ class EnterOrder extends Component {
                 var mvEnableGetStockInfo="N";                                   
                 this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo, 
                     function(json){ // success
+                        
                         var usableStock1 = parseFloat(Utils.numUnFormat(json.mvStockInfoBean.mvUsable));
                         if (qty > usableStock1) {                                                       
                             me.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeStock)
                             failHandler();
-                            return;
                         }else{
                             callback();
                         }
