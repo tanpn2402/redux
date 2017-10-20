@@ -8,7 +8,6 @@ import * as api_language from '../api/api_change_language'
 const { ActionTypes } = require('../core/constants');
 
 export function changeConfig(language, style) { // Obsoleted, should implement each config switch function instead of one? 
-  console.log(language, style)
   let requestedLanguage = api_language.getContent(language)
   return {
     type: ActionTypes.CONFIGUATIONS,
@@ -18,7 +17,9 @@ export function changeConfig(language, style) { // Obsoleted, should implement e
 }
 
 export function switchLanguage(language) {
+  //Save language into localstorage
   let requestedLanguage = api_language.getContent(language)
+  localStorage.setItem('lastLang', language)
   return {
     type: ActionTypes.SWITCH_LANGUAGE,
     language: requestedLanguage
@@ -26,6 +27,8 @@ export function switchLanguage(language) {
 }
 
 export function switchTheme(style) {
+  //Save language into localstorage  
+  localStorage.setItem('lastTheme',"theme_" + style)
   return {
     type: ActionTypes.SWITCH_THEME,
     style: style
@@ -47,7 +50,6 @@ export function checkSession(handleCheckSessionID) {
 }
 
 function responseCheckSession(response, id) {
-  //console.log(response)
   if (response.success) {
     clearInterval(id)
     //   // var result = response.mvResult_2

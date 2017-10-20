@@ -70,6 +70,10 @@ class StatusBar extends React.Component {
     }
 
     componentDidMount() {
+        var lastTab = localStorage.getItem('lastTab')
+        if (lastTab) {
+            this.gotoResultTab(lastTab, this.props.language)
+        }
     }
 
     openSetting(e) {

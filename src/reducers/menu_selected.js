@@ -3,8 +3,8 @@ import { ActionTypes } from '../core/constants';
 const initialState = {
     tabList: [],
     page: '1',
-    tabID: 'trading',
-    subTabID: 'enterorder',
+    tabID: localStorage.getItem('lastTabID')!=null?localStorage.getItem('lastTabID'):'trading',
+    subTabID: localStorage.getItem('lastSubTabID')!=null?localStorage.getItem('lastSubTabID'):'enterorder',
     widgetList: [],
     load: false,
 };
