@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHighstock from 'react-highcharts/ReactHighstock.src'
+// import ReactHighstock from 'react-highcharts/ReactHighstock.src'
 import moment from 'moment'
 import { PieChart as PChart, Pie, Tooltip, Cell } from 'recharts'
 
