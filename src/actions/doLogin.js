@@ -89,9 +89,12 @@ export function isLogin(response) {
 }
 
 export function logout(id) {
+    //Clear localstorage
     localStorage.removeItem('lastTab')
     localStorage.removeItem('lastTheme')
     localStorage.removeItem('lastLang')
+    localStorage.removeItem('lastTabID')
+    localStorage.removeItem('lastSubTabID')
     clearInterval(id)
     return (dispatch) => {
         api.post(ACTION.LOGOUT, {}, dispatch, responseLogout)

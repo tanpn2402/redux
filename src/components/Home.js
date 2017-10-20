@@ -27,7 +27,6 @@ class Home extends Component {
 
     componentWillMount() {
         // this.theme = require('../themes/' + this.props.theme)
-        //console.log(this.theme)
         this.props.checkSession(this.handleCheckSessionID)
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)

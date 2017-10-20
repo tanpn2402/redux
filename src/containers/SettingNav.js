@@ -109,12 +109,9 @@ class SettingNav extends Component {
                 value = (value.split('_'))[0]
                 // this.props.changeConfig(value, 'blue')
                 this.props.switchLanguage(value)
-                localStorage.setItem('lastLang',value)
-                console.log("set lang", localStorage.getItem("lastLang"))
                 break;
             case 'appearance':
                 this.props.switchTheme(value)
-                localStorage.setItem('lastTheme',"theme_" + value)
                 break;
         }
         // let tmp = e.target.className.split(' ')

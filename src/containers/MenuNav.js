@@ -65,9 +65,6 @@ class MenuNav extends Component {
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
         window.addEventListener("keydown", this.myEventHandler, false)
-        if (localStorage.getItem('lastTab')){
-            this.onTabClick(localStorage.getItem('lastTab'))
-        }
     }
 
     onReloadPage(tabID) {
@@ -75,7 +72,6 @@ class MenuNav extends Component {
     }
 
     onTabClick(tabID) {
-        localStorage.setItem('lastTab', tabID)
         this.props.onTabClick(tabID)
     }
 

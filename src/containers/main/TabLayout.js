@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Modal, } from 'react-bootstrap'
 import GridLayout from './GridLayout.js'
 import config from '../../core/config'
+import * as actions from '../../actions'
+import { connect } from 'react-redux'
 
 class TabLayout extends Component {
     constructor(props){
@@ -48,7 +50,6 @@ class TabLayout extends Component {
         var language = this.props.language
         var activeTab = this.state.activeTab
         var layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
-        
         return (
             <div>
                 <div className="scrolling-tabs-main tab-layout">
@@ -57,6 +58,7 @@ class TabLayout extends Component {
                             <nav className='vertical-align-middle'>
                                 {
                                     this.tabbar.map(tab => {
+                                        
                                         return ( 
                                             <div key={tab.id} className={'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')}
                                                 onClick={e=> this.onTabClick(tab.i)}>
@@ -91,9 +93,10 @@ class TabLayout extends Component {
         )
     }
 
-    onTabClick(tabID){
+    onTabClick(subTabID){
+        this.props.onTabClick(this.props.tabID, subTabID)
         this.setState({
-            activeTab: tabID
+            activeTab: subTabID
         })
     }
 
@@ -102,5 +105,16 @@ class TabLayout extends Component {
     }
 
 }
+const mapStateToProps = (state) => {
+    return {
+        subTabID: state.menuSelected.subTabID,
+    }
+}
+const mapDispatchToProps = (dispatch, props) => ({
+    onTabClick: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID));
+    }
+})
 
-export default TabLayout
+
+export default connect(mapStateToProps,mapDispatchToProps)(TabLayout)
