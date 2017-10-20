@@ -2,8 +2,8 @@ const { ActionTypes } = require('../core/constants');
 const api = require('../api/api_change_language');
 
 const initialState = {
-  language: api.getContent(), // Loads default language content (en) as an initial state
-  style: 'theme_light',
+  language: api.getContent(localStorage.getItem("lastLang")!=undefined?localStorage.getItem("lastLang"):"en"), // Loads default language content (en) as an initial state
+  style: localStorage.getItem("lastTheme")!=undefined?localStorage.getItem("lastTheme"):'theme_light',
 };
 
 export default function (state = initialState, action) {

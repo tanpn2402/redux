@@ -1,10 +1,10 @@
 import { ActionTypes } from '../core/constants';
 import * as api from '../api/web_service_api';
 import * as ACTION from '../api/action_name';
+import config from '../core/config';
 import { showMessageBox } from '../actions/notification'
 
 export function menuSelected(menuid, pageid, tabList, reload) {
-    console.log('menuSelected', tabList)
     pageid = pageid === undefined ? '1' : pageid
 
     if (tabList === undefined || tabList === []) {
@@ -92,7 +92,25 @@ export function onPageClicked(pageid, tabList) {
 
 };
 
-export function onTabClick(tabID, subTabID) {
+export function onTabClick(tabID, subTabID){
+    //Save tabID into localstorage
+    if (tabID != null) {
+        localStorage.setItem('lastTabID',tabID)
+    }
+    //Save subTabID into localstorage (Default widget[0])
+    if (subTabID==null) {
+        var curTab = config.tabbar.find((tab) => tab.id === tabID)
+        if (curTab != undefined && curTab.widget.length > 0) {
+            subTabID = curTab.widget[0].i
+        }
+    }
+
+    if (subTabID!=null) {
+        localStorage.setItem('lastSubTabID',subTabID)
+    } else {
+        localStorage.removeItem('lastSubTabID')
+    }
+
     return {
         type: ActionTypes.TABCLICKEVENT,
         tabID: tabID,

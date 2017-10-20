@@ -19,11 +19,14 @@ class Home extends Component {
             language: this.props.language,
             theme: this.props.theme
         }
+
+
+        
+        
     }
 
     componentWillMount() {
         // this.theme = require('../themes/' + this.props.theme)
-        //console.log(this.theme)
         this.props.checkSession(this.handleCheckSessionID)
         this.params['mvAction'] = 'QUERYDEFAULT'
         this.props.onGetSavedContentLayout(this.params)
@@ -66,7 +69,8 @@ class Home extends Component {
 
     render() {
         //let { authenticated, user } = this.props
-        //console.log(this.props.language)
+
+        
         this.theme = require('../themes/' + this.state.theme)
         this.handleSetConfig()
         return (
