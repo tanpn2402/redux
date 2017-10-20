@@ -13,7 +13,6 @@ class TransHistory extends Component {
     }	
 
     render(){
-        console.log("hahahahaha")
         return(
             <TabLayout theme={this.props.theme} language={this.props.language} 
                 tabID={this.props.tabID} subTab={this.props.subTab}/>
