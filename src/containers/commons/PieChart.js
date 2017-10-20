@@ -1,7 +1,7 @@
 import React from 'react'
 // import ReactHighstock from 'react-highcharts/ReactHighstock.src'
 import moment from 'moment'
-import { PieChart as PChart, Pie, Tooltip, Cell } from 'recharts'
+import { PieChart as PChart, Pie, Tooltip, Cell, ResponsiveContainer } from 'recharts'
 
 export default class PieChart extends React.Component {
     constructor(props) {
@@ -158,7 +158,8 @@ export default class PieChart extends React.Component {
         const colors = ['#55dde0', '#eac435', '#f2545b', '#564d65', '#1a181b']
         return (
             // <ReactHighstock config={this.config} domProps={{ id: this.props.id }}></ReactHighstock>
-            <PChart width={150} height={150}>
+        <ResponsiveContainer>
+            <PChart>
                 <Pie data={data}>
                     {
                         data.map((entry, index) => {
@@ -170,6 +171,7 @@ export default class PieChart extends React.Component {
                 </Pie>
                 <Tooltip />
             </PChart>
+        </ResponsiveContainer>
         )
     }
 }
