@@ -254,7 +254,7 @@ input::-webkit-calendar-picker-indicator {
 #pagemenu {
     background-color: #005aa0;
     top: 60px;
-    z-index: 1;
+    z-index: 2;
 }
 .btn-group-sm.btn-group-page {
     vertical-align: unset;
@@ -684,7 +684,7 @@ input::-webkit-calendar-picker-indicator {
 }
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
     background-color: #fff;
-    padding-right: 6px;
+    padding-right: 1px;
     padding-left: 6px;
 }
 #form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > th {
@@ -702,6 +702,7 @@ input::-webkit-calendar-picker-indicator {
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td > input {
     padding: 0;
     padding-left: 5px;
+    width: 100%;
 }
 #form-enterorder .popover-content {
     font-size: 11px;
@@ -2866,7 +2867,7 @@ input::-webkit-calendar-picker-indicator {
     height: 25px;
     position: absolute;
     background-color: #005AA0;
-    z-index: 10;
+    z-index: 1;
 }
 .widget-header > .widget-title {
     float: left;
@@ -2965,7 +2966,8 @@ input::-webkit-calendar-picker-indicator {
 .widget-body .table > tbody > tr > th,
 .widget-body .table > tbody > tr > td {
     padding-top: 5px;
-    padding-bottom: 5px;    
+    padding-bottom: 5px;   
+    border-top: 1px solid rgba(221, 221, 221, 0.5); 
 }
 .widget-form .table > tbody > tr {
     border: 1px solid #dcdcdc;
@@ -3126,13 +3128,29 @@ input::-webkit-calendar-picker-indicator {
     padding: 2px 8px;
 }
 .PowerSelect__TriggerStatus:before {
-    border-top: 4px solid #000;
+    /* border-top: 5px solid #505050; */
+    border: none;
+    content: '\25BC';
+    color: #505050;
 }
-
+.PowerSelect__TriggerStatus {
+    background: #f2f2f1;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 11px;
+}
+.PowerSelect__TriggerStatus:hover {
+    background-color: #ccc;
+}
 .search-bar .PowerSelect {
     border: 1px solid #ccc;
-    background-color: transparent;
+    background-color: #fff;
     width: 150px;
+}
+
+#form-enterorder .PowerSelect {
+    width: 100%;
+    max-width: unset;
 }
 
 /* CALENDAER PICKER */
@@ -3153,4 +3171,110 @@ input::-webkit-calendar-picker-indicator {
 }
 .calendar-picker-input {
     width: 80px;
+}
+
+
+/* CHART */
+.TTLStockChart {
+    width: 100%;
+    height: 100%;
+}
+.TTLStockChart_C_Main {
+    width: 100%;
+    height: 100%;
+
+
+    left: 0;
+}
+.TTLTimeLineChart {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.TTLMainChart {
+    height: 100%;
+    padding-bottom: 100px;
+    padding-top: 25px;
+}
+.TTLStockChart.dark {
+    background-color: #303030;
+}
+.TTLStockChart.dark .react-stockcharts-tooltip{
+    fill: white;
+}
+.TTLStockChart.dark .react-stockcharts-tooltip-label {
+    fill: yellow;
+}
+.TTLStockChart.dark tspan {
+    fill: white;
+}
+.TTLStockChart.light tspan {
+    fill: #000;
+}
+.TTLStockChart.light {
+    background-color: #FFFFFF;
+}
+.TTLStockChart.light .react-stockcharts-tooltip{
+    fill: #000;
+}
+.TTLStockChart.light .react-stockcharts-tooltip-label {
+    fill: rgb(70, 130, 180);
+}
+.TTLStockChart_C_Ctl_Disp {
+    float: right;
+    position: absolute;
+    width: 300px;
+    z-index: 1000;
+    outline-style: none;
+    right: 0;
+    top: 24px;
+}
+.TTLStockChart_C_Ctl_Disp > .panel > .panel-body .input-group > .input-group-addon{
+    text-align: left;
+}
+.TTLStockChart_C_EditCtl .dropdown {
+    z-index: 3;
+}
+.TTLStockChart_C_Ctl {
+    z-index: 3;
+    right: 55px;
+}
+.TTLStockChart_C_EditCtl {
+    margin-right: 55px;
+}
+
+#ChartEditDropdown {
+    padding: 0px 5px;
+    margin: 0 2px;
+    font-size: 16px;
+    top: -1px;border: none;
+    background: transparent;
+    color: #fff;
+}
+#ChartControlDropdown {
+    padding: 0px 5px;
+    margin: 0 2px;
+    font-size: 16px;
+    top: -1px;border: none;
+    background: transparent;
+    color: #fff;
+}
+#ChartControlDropdown:hover {
+    color: #999;
+}
+#ChartEditDropdown:hover {
+    color: #999;
+}
+
+.bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+    transition: none;
+    -webkit-transition: none;
+}
+
+
+#techanalysis label {
+    display: none;
+}
+#techanalysis select {
+    display: none;
 }

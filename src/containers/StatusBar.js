@@ -29,6 +29,7 @@ class StatusBar extends React.Component {
         this.openSetting = this.openSetting.bind(this)
         this.openProfile = this.openProfile.bind(this)
         this.logout = this.logout.bind(this)
+        this.onKeyDown = this.onKeyDown.bind(this)
     }
 
     componentWillMount() {
@@ -40,7 +41,6 @@ class StatusBar extends React.Component {
             <div tabIndex="0" className="widget-search-result"
                 id="widget-search-result"
                 style={{ display: this.state.showSearchBox ? "block" : "none" }}
-                onKeyDown={e => this.onKeyDown(e)}
             >
                 {
                     this.state.searchResult.map((el, index) => {
@@ -65,7 +65,7 @@ class StatusBar extends React.Component {
                     <input ref={input => this.inputSearchValue = input} type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
                         onChange={e => this.onChange(e, this.props.language)}
                         onBlur={e => this.onBlur(e)}
-                        onFocus={this.onFocus}
+                        onClick={this.onFocus}
                         onKeyDown={e => this.onKeyDown(e)}
                     />
 
@@ -127,27 +127,37 @@ class StatusBar extends React.Component {
     }
 
     onKeyDown(e) {
-        e.preventDefault()
+        
+        //e.preventDefault()
         let keyCode = e.keyCode
         let searchResultSize = this.state.searchResult.length - 1
         let previousItem = (this.state.currentlySelectedItemIndex - 1) < 0 ? searchResultSize : (this.state.currentlySelectedItemIndex - 1)
         let nextItem = (this.state.currentlySelectedItemIndex + 1) > searchResultSize ? 0 : (this.state.currentlySelectedItemIndex + 1)
+        console.log(e.keyCode, searchResultSize, previousItem, nextItem)
         switch (keyCode) {
-            case 38:
+            case 38: // Up
                 this.setState({
                     currentlySelectedItemIndex: (previousItem)
                 })
-                document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
                 break;
-            case 40:
+            case 40: // Down
                 this.setState({
                     currentlySelectedItemIndex: (nextItem)
                 })
-                document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
                 break;
-            case 13:
+            case 13: // Enter
                 let subMenuID = this.state.searchResult[this.state.currentlySelectedItemIndex].i
                 this.gotoResultTab(subMenuID, this.props.language)
+                break;
+            case 27: // Esc
+                this.setState({
+                    showSearchBox: false,
+                    searchResult: [],
+                })
                 break;
         }
     }
@@ -170,7 +180,8 @@ class StatusBar extends React.Component {
         if (e.relatedTarget != null) {
             return;
         }
-        document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
+        if(document.getElementById('widget-search-result'))
+            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
         this.setState({
             showSearchBox: false,
             currentlySelectedItemIndex: 0,
@@ -188,7 +199,9 @@ class StatusBar extends React.Component {
             if (matchesFilter.test(text))
                 return true
         })
-
+        if(tmp.length > 0 && document.getElementById('widget-search-result')){
+            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
+        }
         //Control text input
         this.setState({
             searchInputVal: value,
