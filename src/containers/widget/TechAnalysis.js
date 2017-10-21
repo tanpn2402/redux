@@ -9,7 +9,7 @@ import TTLChart from "../../assets/js/TTLChart"
 import Title from "../commons/WidgetTitle"
 import Body from "../commons/WidgetBody"
 
-import Chart from "../commons/Chart"
+import Chart from "../commons/chart"
 class TechAnalysis extends Component {
 
     constructor(props) {
