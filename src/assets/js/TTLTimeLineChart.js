@@ -33,7 +33,7 @@ class TTLTimeLineChart extends React.Component {
     }
 
 	render() {
-		var { width, height, ratio, chartLayout } = this.props;
+		var { width, height, ratio, chartLayout, config } = this.props;
 		var { data: initialData } = this.state;
 
         var margin = {left: 70, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 25} // 25 is XAxis height (20 with grid)
@@ -65,6 +65,13 @@ class TTLTimeLineChart extends React.Component {
             onTouchStart: (e)=>this.handlePress(touchPosition2(e)),
         }
 
+        const AreaAppearance = {
+            stroke: config.chart.appearance.strokeNormal,
+            fill: config.chart.appearance.fill,
+            opacity: config.chart.appearance.opacity,            
+        }
+        
+
 		return (
             <ChartCanvas ref={node => {this.canvas=node;}} width={width} height={mainChartHeight} pointsPerPxThreshold={2}
                 ratio={ratio}
@@ -80,8 +87,9 @@ class TTLTimeLineChart extends React.Component {
                 >
                 <Chart id={1} height={height} padding={{ top: 0, bottom: 0 }}
                     yExtents={[d => [d.high, d.low]]}>
-                    <XAxis axisAt="bottom" orient="bottom" ticks={5} fontSize={chartLayout.axis_fontSize} zoomEnabled={false}/>
-                    <AreaSeries yAccessor={(d) => d.close}/>;
+                    <XAxis axisAt="bottom" orient="bottom" ticks={5} fontSize={chartLayout.axis_fontSize} 
+                        tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={false}/>
+                        return <AreaSeries yAccessor={d => d.close} {...AreaAppearance}/>;
                     <MovingWindow ref={node => {this.movingWindow=node;}} height={height} range={range} usingProps={listenerProps} />
                 </Chart>
             </ChartCanvas>

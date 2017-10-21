@@ -114,7 +114,7 @@ class CustomGridLayout extends React.Component {
                 onResizeStop={this.onResizeStop.bind(this)}
                 onDragStop={this.onDragStop.bind(this)}
                 margin={[3, 3]}
-                useCSSTransforms={true}
+                useCSSTransforms={false}
             >
                 {this.generateDOM(layout)}
             </ResponsiveReactGridLayout>

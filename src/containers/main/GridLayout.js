@@ -58,7 +58,7 @@ class GridLayout extends React.Component {
         return (
 
             <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={55} width={1320} 
-                margin={[3,3]}
+                margin={[3,3]} useCSSTransforms={false}
                 >
                 {x}
             </ResponsiveReactGridLayout>

@@ -26,6 +26,7 @@ class Portal extends React.Component {
         document.body.appendChild(this.target);
 
         this.target.style.position = 'absolute'
+        this.target.style.zIndex = '3'
         this.target.className = 'calendar-picker'
         this.target.id = 'calendar-picker'
         var x = document.getElementById(parentID).getBoundingClientRect()
