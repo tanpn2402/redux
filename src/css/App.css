@@ -254,7 +254,7 @@ input::-webkit-calendar-picker-indicator {
 #pagemenu {
     background-color: #005aa0;
     top: 60px;
-    z-index: 1;
+    z-index: 2;
 }
 .btn-group-sm.btn-group-page {
     vertical-align: unset;

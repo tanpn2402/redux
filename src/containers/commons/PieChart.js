@@ -1,9 +1,10 @@
 import React from 'react'
-import ReactHighstock from 'react-highcharts/ReactHighstock.src'
+// import ReactHighstock from 'react-highcharts/ReactHighstock.src'
 import moment from 'moment'
+import { PieChart as PChart, Pie, Tooltip, Cell, ResponsiveContainer } from 'recharts'
 
 export default class PieChart extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
         }
@@ -39,7 +40,7 @@ export default class PieChart extends React.Component {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: false,
-                        
+
                     }
                 }
             },
@@ -69,8 +70,8 @@ export default class PieChart extends React.Component {
 
     }
 
-    render(){
-        let backgroundColor = this.props.theme.chart == undefined? undefined:this.props.theme.chart.piechart.backgroundColor
+    render() {
+        let backgroundColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.piechart.backgroundColor
         this.config = {
             chart: {
                 backgroundColor: backgroundColor,
@@ -104,7 +105,7 @@ export default class PieChart extends React.Component {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: false,
-                        
+
                     }
                 }
             },
@@ -131,9 +132,46 @@ export default class PieChart extends React.Component {
                 }]
             }]
         }
-          
-        return(
-            <ReactHighstock config={this.config} domProps={{ id: this.props.id }}></ReactHighstock>
+
+        const data = [
+            {
+                name: 'Total asset',
+                value: 60
+            },
+            {
+                name: 'Equity',
+                value: 30
+            },
+            {
+                name: 'Total stock market value',
+                value: 7
+            },
+            {
+                name: 'Profit/Loss',
+                vaue: 1
+            },
+            {
+                name: '% Profit/Loss (per equity)',
+                value: 2
+            }
+        ]
+        const colors = ['#55dde0', '#eac435', '#f2545b', '#564d65', '#1a181b']
+        return (
+            // <ReactHighstock config={this.config} domProps={{ id: this.props.id }}></ReactHighstock>
+        <ResponsiveContainer>
+            <PChart>
+                <Pie data={data}>
+                    {
+                        data.map((entry, index) => {
+                            return (
+                                <Cell key={'cell-' + index} fill={colors[index]} />
+                            )
+                        })
+                    }
+                </Pie>
+                <Tooltip />
+            </PChart>
+        </ResponsiveContainer>
         )
     }
 }

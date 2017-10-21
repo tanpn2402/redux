@@ -25,7 +25,8 @@ class SettingNav extends Component {
         this.list = config.settings
 
         this.theme = 'blue'
-        this.lang = 'vi'
+        this.language = 'vi'
+
 
         this.setting = {
             language: this.state.language.code,
@@ -79,8 +80,11 @@ class SettingNav extends Component {
             </div>
         )
     }
-
+    componentDidMount(){
+      
+    }
     componentWillReceiveProps(nextProps) {
+        console.log("NEW PROPS", nextProps.language, nextProps.theme)
         if (this.state.language !== nextProps.language && nextProps.language !== undefined) {
             this.setting.language = nextProps.language.code
             this.setState({

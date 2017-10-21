@@ -14,7 +14,14 @@ class StatusBar extends React.Component {
             searchResult: [],
             reload: false,
             showSearchBox: true,
-            lgShow: false
+            lgShow: false,
+            onHoverDiv: {
+                backgroundColor: '#ccc',
+                color: '#555',
+                cursor: 'hand',
+                cursor: 'pointer'
+            },
+            currentlySelectedItemIndex: 0
         }
         this.allWidget = config.widget
         this.onBlur = this.onBlur.bind(this)
@@ -22,20 +29,27 @@ class StatusBar extends React.Component {
         this.openSetting = this.openSetting.bind(this)
         this.openProfile = this.openProfile.bind(this)
         this.logout = this.logout.bind(this)
+        this.onKeyDown = this.onKeyDown.bind(this)
     }
 
     componentWillMount() {
     }
 
     render() {
-
         let lgClose = () => { this.setState({ lgShow: false }) }
         let searchResultBox = (
-            <div tabIndex="0" className="widget-search-result" style={{ display: this.state.showSearchBox ? "block" : "none" }}>
+            <div tabIndex="0" className="widget-search-result"
+                id="widget-search-result"
+                style={{ display: this.state.showSearchBox ? "block" : "none" }}
+            >
                 {
-                    this.state.searchResult.map(el => {
+                    this.state.searchResult.map((el, index) => {
                         return (
-                            <div key={el.i} onClick={e => this.gotoResultTab(el.i, this.props.language)}>{this.props.language.menu[el.i]}</div>
+                            <div
+                                id={'item-' + index}
+                                style={index == this.state.currentlySelectedItemIndex ? this.state.onHoverDiv : undefined}
+                                key={el.i}
+                                onClick={e => this.gotoResultTab(el.i, this.props.language)}>{this.props.language.menu[el.i]}</div>
                         )
                     })
                 }
@@ -48,10 +62,12 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-signal"></span>
                 </div>
                 <div className="widget-search">
-                    <input type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
+                    <input ref={input => this.inputSearchValue = input} type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
                         onChange={e => this.onChange(e, this.props.language)}
                         onBlur={e => this.onBlur(e)}
-                        onFocus={this.onFocus} />
+                        onClick={this.onFocus}
+                        onKeyDown={e => this.onKeyDown(e)}
+                    />
 
                     {(this.state.searchResult.length > 0) ? searchResultBox : null}
                 </div>
@@ -70,6 +86,10 @@ class StatusBar extends React.Component {
     }
 
     componentDidMount() {
+        var lastTab = localStorage.getItem('lastTab')
+        if (lastTab) {
+            this.gotoResultTab(lastTab, this.props.language)
+        }
     }
 
     openSetting(e) {
@@ -90,7 +110,6 @@ class StatusBar extends React.Component {
         let isTabMenu = false;
         let tabItems = config.tabbar
         var widgetList = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
-
         tabItems.forEach(item => {
             var tmp = item.widget.filter(subitem => {
                 return subitem.i == subMenuID
@@ -100,14 +119,47 @@ class StatusBar extends React.Component {
                 isTabMenu = true
             }
         })
-
         if (!isTabMenu && widgetList.find(wg => wg == subMenuID) == null) {
             this.addWidget(subMenuID)
         }
+        this.inputSearchValue.blur()
+        this.onBlur({})
+    }
 
-        this.setState({
-            showSearchBox: false,
-        })
+    onKeyDown(e) {
+        
+        //e.preventDefault()
+        let keyCode = e.keyCode
+        let searchResultSize = this.state.searchResult.length - 1
+        let previousItem = (this.state.currentlySelectedItemIndex - 1) < 0 ? searchResultSize : (this.state.currentlySelectedItemIndex - 1)
+        let nextItem = (this.state.currentlySelectedItemIndex + 1) > searchResultSize ? 0 : (this.state.currentlySelectedItemIndex + 1)
+        console.log(e.keyCode, searchResultSize, previousItem, nextItem)
+        switch (keyCode) {
+            case 38: // Up
+                this.setState({
+                    currentlySelectedItemIndex: (previousItem)
+                })
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
+                break;
+            case 40: // Down
+                this.setState({
+                    currentlySelectedItemIndex: (nextItem)
+                })
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
+                break;
+            case 13: // Enter
+                let subMenuID = this.state.searchResult[this.state.currentlySelectedItemIndex].i
+                this.gotoResultTab(subMenuID, this.props.language)
+                break;
+            case 27: // Esc
+                this.setState({
+                    showSearchBox: false,
+                    searchResult: [],
+                })
+                break;
+        }
     }
 
     onFocus() {
@@ -128,8 +180,12 @@ class StatusBar extends React.Component {
         if (e.relatedTarget != null) {
             return;
         }
+        if(document.getElementById('widget-search-result'))
+            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
         this.setState({
-            showSearchBox: false
+            showSearchBox: false,
+            currentlySelectedItemIndex: 0,
+            searchInputVal: ''
         })
     }
 
@@ -143,11 +199,14 @@ class StatusBar extends React.Component {
             if (matchesFilter.test(text))
                 return true
         })
-
+        if(tmp.length > 0 && document.getElementById('widget-search-result')){
+            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
+        }
         //Control text input
         this.setState({
             searchInputVal: value,
             searchResult: tmp,
+            currentlySelectedItemIndex: 0
         })
 
     }
