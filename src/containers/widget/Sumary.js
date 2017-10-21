@@ -127,7 +127,7 @@ class Sumary extends Component {
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
                         <div className="col-sm-3" style={{ height: '100%' }}>
-                            <div className="col-sm-4" style={{ height: 'auto', marginTop: '10%', zIndex: 1 }}>
+                            <div className="col-sm-4" style={{ height: '100%'}}>
                                 <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} />
                             </div>
                             <div className="col-sm-8" style={{ height: '100%' }}>
