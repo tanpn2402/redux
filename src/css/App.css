@@ -72,6 +72,7 @@ body {
 .hks-input {
     border: none;
     outline: none;
+    width: 100%;
 }
 .hks-input.border{
     border-radius: 2px;
@@ -86,7 +87,7 @@ body {
 }
 .hks-select {
     border-radius: 2px;
-    background-color: transparent;
+    background-color: #ffffff;
     border: 1px solid #dcdcdc;
     padding: 3px 6px;
     width: 100%;
@@ -681,6 +682,7 @@ input::-webkit-calendar-picker-indicator {
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th {
     background-color: #286cae;
     color: #fff;
+    width: 60%;
 }
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
     background-color: #fff;
@@ -2960,7 +2962,7 @@ input::-webkit-calendar-picker-indicator {
     overflow-x: auto;
 }
 .widget-form .table > tbody > tr > th {
-    width: 60%;
+    width: 50%;
     font-weight: normal;
 }
 .widget-body .table > tbody > tr > th,
@@ -3278,3 +3280,6 @@ input::-webkit-calendar-picker-indicator {
 #techanalysis select {
     display: none;
 }
+
+
+
