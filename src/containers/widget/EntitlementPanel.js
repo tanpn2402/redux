@@ -5,23 +5,34 @@ import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
+import { PowerSelect } from 'react-power-select'
+
 class EntitlementPanel extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'entitlementPanel'
+
+        this.state = {
+            mvStockSelected: '',
+            mvSettlementAccount: {
+                'mvSettlementAccountDisplayName': "MAS"
+            }
+        }
     }
 
 
     render() {
-        var bankInfo = this.props.bankInfo
-        bankInfo.mvBankInfoList.unshift({
-            'mvBankID': "",
-            'mvBankACID': "",
-            'mvSettlementAccountDisplayName': "MAS",
-            'mvIsDefault': "N",
-            'mvInterfaceSeq': "-1"
-        })
+        var bankInfoList = this.props.bankInfo.mvBankInfoList
+        if(bankInfoList && bankInfoList.length > 0 && bankInfoList[0].mvSettlementAccountDisplayName !== 'MAS'){
+            bankInfoList.unshift({
+                'mvBankID': "",
+                'mvBankACID': "",
+                'mvSettlementAccountDisplayName': "MAS",
+                'mvIsDefault': "N",
+                'mvInterfaceSeq': "-1"
+            })
+        }
         var entitlementStockList = this.props.entitlementStockList
         let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
@@ -39,17 +50,14 @@ class EntitlementPanel extends Component {
                                     <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
                                         <td>
-                                            <select onChange={this.getAccountBalance.bind(this)} className="hks-select bank-account">
-                                                {
-                                                    bankInfo.mvBankInfoList.map(bank => {
-                                                        return (
-                                                            <option style={{ color: 'black' }} value={bank.mvSettlementAccountDisplayName}>
-                                                                {bank.mvSettlementAccountDisplayName}
-                                                            </option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
+                                            <PowerSelect
+                                                options={bankInfoList}
+                                                selected={this.state.mvSettlementAccount}
+                                                onChange={this.onSettlementAccountChange.bind(this)}
+                                                optionLabelPath={'mvSettlementAccountDisplayName'}
+                                                showClear={false}
+                                                searchEnabled={false}
+                                            />
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: roweven, color: font2 }}>
@@ -85,11 +93,13 @@ class EntitlementPanel extends Component {
                                     <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
-                                            <InputSearch
-                                                type={'sm'}
-                                                style={{ padding: '0 4px', height: '26px' }}
-                                                data={entitlementStockList.stockCmbList}
-                                                onChange={this.onStockChange.bind(this)} />
+                                            <PowerSelect
+                                                options={entitlementStockList.stockCmbList}
+                                                selected={this.state.mvStockSelected}
+                                                onChange={this.onStockChange.bind(this)}
+                                                optionLabelPath={'stockCode'}
+                                                showClear={false}
+                                            />
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: roweven, color: font2 }}>
@@ -196,22 +206,26 @@ class EntitlementPanel extends Component {
             language: this.props.language
         })
     }
-    getAccountBalance(e) {
-        var bankInfo = this.props.bankInfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
-        if (bankInfo.length > 0) {
+    getAccountBalance(bankInfo){
+        if(bankInfo) {
             this.props.entitlementGetAccountBalance({
                 me: this,
-                bankInfo: bankInfo[0]
+                bankInfo: bankInfo
             })
         }
     }
-    onStockChange(value) {
-        console.log(value)
-        this.cboStockCode = value
+    onStockChange = ({option}) => {
+        this.setState({ mvStockSelected: option })
         var record = {}
         this.getEntitlementData(record)
     }
 
+    onSettlementAccountChange = ({option}) => {
+        if(option){
+            this.setState({ mvSettlementAccount: option })
+            this.getAccountBalance(option)
+        }
+    }
     // setValue
     setCashBalanceValue(value) {
         this.cashBalance.value = value

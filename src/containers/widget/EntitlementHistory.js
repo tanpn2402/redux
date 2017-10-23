@@ -16,7 +16,7 @@ class EntitlementHistory extends Component {
         super(props)
 
         this.id = 'entitlementHistory'
-        this.stockList = config.cache.stockList
+        console.log(this.stockList)
         this.state = {
             pageIndex: 1,
             columns: [
@@ -97,6 +97,7 @@ class EntitlementHistory extends Component {
 
 
     render() {
+        var stockList = this.props.stockList
         var entitlementHistory = this.props.entitlementHistory
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
@@ -122,7 +123,7 @@ class EntitlementHistory extends Component {
                             buttonAction={[]}
                             language={this.props.language.searchbar}
                             theme={this.props.theme}
-                            data={{ stockList: this.stockList }}
+                            data={{ stockList: stockList }}
                             param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
                     </div>
                     <div className="table-footer" style={tablefooter}>
