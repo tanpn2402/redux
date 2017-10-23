@@ -1119,7 +1119,17 @@
                 "execute": "Execute",
                 "next": "Next",
                 "debitint": "Thanh toán lãi",
-                "saveLayout": "Save Layout"
+                "saveLayout": "Save Layout",
+                "login": "Login"
+            },
+            "login": {
+                "username": "Account No",
+                "password": "Password",
+                "securityCode": "Security Code",
+                "message": {
+                    "wrongAccountNo" : "Wrong Account Number or Password. Please try again.",
+                    "changePasswordRequest": "Please, change your password for the first login"
+                }
             }
         }
     }
