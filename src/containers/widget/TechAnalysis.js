@@ -14,8 +14,24 @@ class TechAnalysis extends Component {
 
     constructor(props) {
         super(props)
-
+        this.globalLoad = false;
+        
         this.id = 'techanalysis'
+    }
+
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
     }
 
     render() {
@@ -45,9 +61,10 @@ class TechAnalysis extends Component {
     }
 
 }
-const mapStateToProps = (state) => {
-
-}
+const mapStateToProps = (state) => ({
+    load: state.menuSelected.load,
+    loadWidgetID: state.menuSelected.loadWidgetID,
+})
 
 const mapDispatchToProps = (dispatch, props) => ({
 

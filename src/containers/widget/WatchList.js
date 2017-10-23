@@ -12,6 +12,9 @@ import Body from '../commons/WidgetBody'
 class WatchList extends Component {
     constructor(props) {
         super(props)
+
+        this.globalLoad = false
+
         this.state = {
             columns: [
                 {
@@ -679,6 +682,21 @@ class WatchList extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
+
     render() {
         let button = this.props.theme.button || undefined
         this.buttonAction = [
@@ -761,6 +779,8 @@ class WatchList extends Component {
 const mapStateToProps = (state) => {
     return {
         watchListData: state.watchlist.watchListData,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

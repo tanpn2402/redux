@@ -17,8 +17,26 @@ class FundTransfer extends Component {
             config.default_layout[this.widget[0]],
             config.default_layout[this.widget[1]],         
         ]
+        // this.id = "fundtransfer"
+        // this.globalLoad = false;
+        
     }
 
+
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
         return (
@@ -40,7 +58,8 @@ class FundTransfer extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-
+        // load: state.menuSelected.load,
+        // loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

@@ -18,6 +18,8 @@ class AccountInfo extends Component {
 	constructor(props) {
 		super(props)
 		this.defaultPageSize = 20
+		this.globalLoad = false;
+		
 		this.state = {
 			columns: [
 				{
@@ -412,15 +414,45 @@ class AccountInfo extends Component {
 		this.updateUpcomingDueDebt(nextProps.upcomingDebt)
 	}
 
+	shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+	}
+	
+	shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
 	render() {
+		console.log("render ",this.id)
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
 		return (
 			<div id={this.id}>
-				<Title theme={this.props.theme}>
+				<Title widgetID={this.id} theme={this.props.theme}>
 					{this.props.language.menu[this.id]}
 				</Title>
 
@@ -655,7 +687,10 @@ const mapStateToProps = (state) => {
 		accountBalance: state.accountinfo.accountBalance,
 		overdueDebt: state.accountinfo.overdueDebt,
 		upcomingDebt: state.accountinfo.upcomingDebt,
-		stock: state.accountinfo.stock
+		stock: state.accountinfo.stock,
+
+		load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
 	}
 }
 

@@ -15,7 +15,8 @@ class StockStatement extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
-
+        this.globalLoad = false;
+        
         this.params = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'TRANSACTIONHISTORY',
@@ -302,8 +303,24 @@ class StockStatement extends Component {
         })
     }
 
-    render() {
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
+    render() {
+        console.log("Render ", this.id)
+        
         let data = this.props.data
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
@@ -413,6 +430,8 @@ class StockStatement extends Component {
 const mapStateToProps = (state) => {
     return {
         data: state.stockstatement.data,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

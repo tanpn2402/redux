@@ -15,7 +15,8 @@ class MatchOrderList extends Component {
         this.id = 'matchOrderList'
         this.defaultPageSize = 15
         this.lang = config.cache.lang
-
+        this.globalLoad = false;
+        
         this.accessor = [
             'mvOrderID',
             'tradeDate',
@@ -99,15 +100,30 @@ class MatchOrderList extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Render ", this.id)
         var soldOrders = this.props.soldOrders
         var data = soldOrders.mvChildBeanList
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -239,7 +255,8 @@ class MatchOrderList extends Component {
 const mapStateToProps = (state) => {
     return {
         soldOrders: state.cashadvance.soldOrders,
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

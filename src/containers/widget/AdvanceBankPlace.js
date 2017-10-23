@@ -18,7 +18,8 @@ class AdvanceBankPlace extends React.Component {
     constructor () {
         super()
         this.layoutCols =  {lg: 8, md: 8, sm: 8, xs: 2, xxs: 2}
-
+        this.globalLoad = false;
+        
         this.layout= [
             config.default_layout['matchOrderBankList'],
             config.default_layout['advanceBankPanel']

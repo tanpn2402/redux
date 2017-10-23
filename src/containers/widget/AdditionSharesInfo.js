@@ -12,6 +12,8 @@ class AdditionSharesInfo extends Component {
     constructor(props) {
         super(props)
         this.id = 'additionSharesInfo'
+        this.globalLoad = false;
+        
         this.state = {
             pageIndex: 1,
             columns: [
@@ -109,14 +111,30 @@ class AdditionSharesInfo extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Reload", this.id)
+        
         var additionIssueShareInfo = this.props.additionIssueShareInfo
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -283,6 +301,8 @@ class AdditionSharesInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         additionIssueShareInfo: state.entitlement.additionIssueShareInfo,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

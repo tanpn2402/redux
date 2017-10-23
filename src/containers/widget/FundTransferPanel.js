@@ -21,6 +21,8 @@ class FundTransPanel extends Component {
         this.id = 'fundTransPanel'
         this.listReceiverInternal = []
         this.listReceiverExternal = []
+        this.globalLoad = false;
+        
         this.paramsgenfund = {
             mvLastAction: 'OTHERSERVICES',
             mvChildLastAction: 'FUNDTRANSFER'
@@ -77,16 +79,18 @@ class FundTransPanel extends Component {
     }
 
     render() {
+        console.log("Reload", this.id)        
         let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
+            
             <div
                 style={{
                     height: '100%',
                     position: 'relative'
                 }}>
-                <Title theme={this.props.theme}>
+                <Title widgetID={ this.id } theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -323,7 +327,11 @@ class FundTransPanel extends Component {
 
 }
 const mapStateToProps = (state) => {
-    return { datagenfund: state.cashtransfer.datagenfundtransfer }
+    return { 
+        datagenfund: state.cashtransfer.datagenfundtransfer,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

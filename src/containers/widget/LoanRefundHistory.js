@@ -16,7 +16,8 @@ class LoanTrans extends Component {
         super(props)
         this.id = 'loanRefundHistory'
         this.defaultPageSize = 15
-
+        this.globalLoad = false;
+        
         this.loanRefundHistoryParams = {
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
@@ -187,14 +188,30 @@ class LoanTrans extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Render ", this.id)
+        
         var loanRefundHistory = this.props.loanRefundHistory
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -290,7 +307,9 @@ class LoanTrans extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        loanRefundHistory: state.loanrefund.loanRefundHistory
+        loanRefundHistory: state.loanrefund.loanRefundHistory,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

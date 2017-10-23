@@ -14,7 +14,8 @@ class OddLotHistory extends Component {
         super(props)
 
         this.id = 'oddlotHistory'
-
+        this.globalLoad = false;
+        
         this.state = {
             oddLotTransPageIndex: 1,
             columns: [
@@ -191,14 +192,31 @@ class OddLotHistory extends Component {
         })
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
+
     render() {
+        console.log("Render ", this.id)
+        
         let oddlothistory = this.props.oddlothistory
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         console.log(oddlothistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -271,6 +289,8 @@ class OddLotHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         oddlothistory: state.oddlottrading.oddlothistory,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

@@ -25,12 +25,29 @@ class Profile extends Component {
           height: "24px",
         }
         this.showPopup=false
+        this.globalLoad = false;
+        
     }
     
+    shouldComponentUpdate (nextProps, nextState){
+      // return a boolean value
+      if (this.globalLoad != nextProps.load){
+    this.globalLoad = nextProps.load
+          if (nextProps.loadWidgetID === this.id) {
+              console.log(nextProps.loadWidgetID == this.id)
+              return true
+          }else {
+              return false
+          }
+      }
       
+      return true
+  }
       
 
     render() {
+        console.log("Render ", this.id)
+      
         var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
         var result= this.props.changePassResult.changePasswordBean
         if(result !== undefined){
@@ -230,7 +247,9 @@ class Profile extends Component {
 }
 const mapStateToProps = (state, props) => ({
   clientDetails: state.profile.clientDetails,
-  changePassResult: state.profile.changePassword
+  changePassResult: state.profile.changePassword,
+  load: state.menuSelected.load,
+  loadWidgetID: state.menuSelected.loadWidgetID,
 }) 
 
 const mapDispatchToProps = (dispatch, props) => ({

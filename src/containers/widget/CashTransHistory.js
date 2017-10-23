@@ -16,7 +16,8 @@ class CashTransHistory extends Component {
         this.rowSelected = []
         this.id = 'cashTransHistory'
         this.defaultPageSize = 15
-
+        this.globalLoad = false;
+        
         this.params = {
             tradeType: 'ALL',
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
@@ -187,14 +188,29 @@ class CashTransHistory extends Component {
 
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Render ",this.id)
         var data = this.props.cashTransHistory.list
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -323,7 +339,9 @@ class CashTransHistory extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        cashTransHistory: state.cashtranshistory.cashTransHistory
+        cashTransHistory: state.cashtranshistory.cashTransHistory,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

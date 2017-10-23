@@ -12,12 +12,29 @@ class Sumary extends Component {
     constructor(props) {
         super(props)
         this.id = "sumary"
-
+        this.globalLoad = false;
+        
         
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("render ",this.id)
+        
         var d = this.props.data.mvPortfolioAccSummaryBean
 
         this.data = [
@@ -121,7 +138,7 @@ class Sumary extends Component {
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title widgetID = { this.id } theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -263,6 +280,8 @@ class Sumary extends Component {
 const mapStateToProps = (state) => {
     return {
         data: state.porfolio.data,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

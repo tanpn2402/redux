@@ -15,6 +15,8 @@ class OddLotOrder extends Component {
 
         this.id = 'oddLotOrder'
         this.rowSelected = []
+        this.globalLoad = false;
+        
         this.state = {
             oddLotOrderPageIndex: 1,
             columns: [
@@ -143,8 +145,24 @@ class OddLotOrder extends Component {
         })
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Render ", this.id)
+        
         let oddLotOrder = this.props.oddlotenquiry
         let buttonActionOddLotOrder = [
             <button style={this.props.theme.button} className="hks-btn" type="button"
@@ -156,7 +174,7 @@ class OddLotOrder extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -274,6 +292,8 @@ class OddLotOrder extends Component {
 const mapStateToProps = (state) => {
     return {
         oddlotenquiry: state.oddlottrading.oddlotenquiry,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

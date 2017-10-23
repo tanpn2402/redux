@@ -13,6 +13,8 @@ class AdvancePanel extends Component {
         super(props)
         this.id = "advancePanel"
         this.lang = config.cache.lang
+        this.globalLoad = false;
+        
 
         this.getLocalAdvanceCreationParam = {
             mvLastAction: 'OTHERSERVICES',
@@ -27,10 +29,26 @@ class AdvancePanel extends Component {
 
     componentWillReceiProps(n){
         console.log(n)
+        
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("RE-RENDER", this.id)
         var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
@@ -38,7 +56,7 @@ class AdvancePanel extends Component {
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme} widgetID={this.id}>
+                <Title widgetID={this.id} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -163,6 +181,8 @@ class AdvancePanel extends Component {
 const mapStateToProps = (state) => {
     return {
         localAdCreation: state.loanrefund.localAdvanceCreation,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

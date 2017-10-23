@@ -17,6 +17,8 @@ class AvaibleMarginList extends Component {
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
         this.id = 'available'
+        this.globalLoad = false;
+        
         this.state = {
             columns: [
                 {
@@ -123,8 +125,24 @@ class AvaibleMarginList extends Component {
 
     }
 
-    render() {
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
+    render() {
+        console.log("Render ", this.id)
+        
         let data = this.props.data
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter

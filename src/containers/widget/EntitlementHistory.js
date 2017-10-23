@@ -17,6 +17,8 @@ class EntitlementHistory extends Component {
 
         this.id = 'entitlementHistory'
         this.stockList = config.cache.stockList
+        this.globalLoad = false;
+        
         this.state = {
             pageIndex: 1,
             columns: [
@@ -95,14 +97,30 @@ class EntitlementHistory extends Component {
         return stt === undefined ? status.toUpperCase() : stt
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Reload", this.id)
+        
         var entitlementHistory = this.props.entitlementHistory
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -268,6 +286,8 @@ class EntitlementHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         entitlementHistory: state.entitlement.entitlementHistory,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

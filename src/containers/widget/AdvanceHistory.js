@@ -16,6 +16,8 @@ class AdvanceHistory extends Component {
         this.lang = config.cache.lang
         this.defaultPageSize = 15
         this.cashAdHisPageIndex = 1
+        this.globalLoad = false;
+        
 
         this.accessor = [
             'creationTime',
@@ -125,8 +127,24 @@ class AdvanceHistory extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Render ", this.id)
+        
         var cashAdvanceHistory = this.props.cashAdvanceHistory
         var data = cashAdvanceHistory.list
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
@@ -134,7 +152,7 @@ class AdvanceHistory extends Component {
         console.log(cashAdvanceHistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -275,7 +293,8 @@ class AdvanceHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         cashAdvanceHistory: state.cashadvance.cashAdvanceHistory,
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

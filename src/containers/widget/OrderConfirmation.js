@@ -17,6 +17,8 @@ class OrderConfirmation extends Component {
         this.id = 'orderconfirmation'
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
+        this.globalLoad = false;
+        
 
         this.state = {
             columns: [
@@ -267,8 +269,24 @@ class OrderConfirmation extends Component {
         }
     }
 
-    render() {
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
+    render() {
+        console.log("Render ", this.id)
+        
         var data = this.props.data
 
         let buttonAction = [
@@ -280,6 +298,7 @@ class OrderConfirmation extends Component {
 
 
         return (
+            
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title widgetID={'orderconfirmation'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
@@ -452,6 +471,8 @@ const mapStateToProps = (state) => {
     return {
         data: state.orderconfirmation.data,
         //reload: state.orderconfirmation.reload,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

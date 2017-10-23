@@ -12,6 +12,8 @@ import { Button } from 'react-bootstrap'
 class OrderJournal extends Component {
     constructor(props) {
         super(props)
+        this.globalLoad = false;
+        
         this.state = {
             columns: [
                 {
@@ -203,8 +205,23 @@ class OrderJournal extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("Reload ",this.id)
         let data = this.props.data.mvOrderBeanList
         this.buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
@@ -214,7 +231,7 @@ class OrderJournal extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={ this.id } theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -673,7 +690,8 @@ const mapStateToProps = (state) => {
         data: state.orderjournal.enquiryorder,
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

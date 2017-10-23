@@ -19,6 +19,8 @@ class ActionRightList extends Component {
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
         this.pageIndex = 1
+        this.globalLoad = false;
+        
         this.state = {
             columns: [
                 {
@@ -170,14 +172,31 @@ class ActionRightList extends Component {
     }
 
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
+
     render() {
+        console.log("Reload", this.id)
+        
         var allRightList = this.props.allRightList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -390,6 +409,8 @@ class ActionRightList extends Component {
 const mapStateToProps = (state) => {
     return {
         allRightList: state.entitlement.allRightList,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

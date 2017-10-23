@@ -14,6 +14,9 @@ class OrderHistory extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
+        this.globalLoad = false
+        this.id = "orderHistory"
+        
         this.state = {
             columns: [
                 {
@@ -266,14 +269,30 @@ class OrderHistory extends Component {
         });
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        console.log("render ",this.id)
+        
         var data = this.props.historyOrder.mvOrderBeanList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={ this.id } theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -379,6 +398,8 @@ class OrderHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         historyOrder: state.orderhistory.historyOrder,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

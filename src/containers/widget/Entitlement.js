@@ -7,7 +7,7 @@ import config from '../../core/config'
 class Entitlement extends Component {
     constructor(props) {
         super(props)
-
+        
         this.widget = [
             'actionRightList',
             'additionSharesInfo',
@@ -21,8 +21,24 @@ class Entitlement extends Component {
             config.default_layout[this.widget[2]],    
             config.default_layout[this.widget[3]]            
         ]
+
+        // this.globalLoad = false;
     }
 
+    // shouldComponentUpdate (nextProps, nextState){
+    //     // return a boolean value
+    //     if (this.globalLoad != nextProps.load){
+	// 		this.globalLoad = nextProps.load
+    //         if (nextProps.loadWidgetID === this.id) {
+    //             console.log(nextProps.loadWidgetID == this.id)
+    //             return true
+    //         }else {
+    //             return false
+    //         }
+    //     }
+        
+    //     return true
+    // }
 
     render() {
         return (
@@ -44,7 +60,8 @@ class Entitlement extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-
+        // load: state.menuSelected.load,
+        // loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 
