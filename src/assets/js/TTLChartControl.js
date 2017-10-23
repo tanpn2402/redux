@@ -89,7 +89,7 @@ class TTLChartControl extends React.Component
         const AddDropDown = (props) => this.createAddIndicatorButton("main");
         return (
             <div>
-                <Button bsSize='sm' onClick={()=>this.setState({controlShow: !controlShow})}><Glyphicon glyph="cog"/></Button>
+                <Button id="ChartControlDropdown" bsSize='sm' onClick={()=>this.setState({controlShow: !controlShow})}><Glyphicon glyph="cog"/></Button>
                 <div style={{'display': (controlShow ? 'block' : 'none')}} className="TTLStockChart_C_Ctl_Disp">
                     <div className="panel panel-default" style={{'marginBottom': '0px'}} id="mainCtrl">
                         <div className="panel-heading">

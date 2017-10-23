@@ -570,7 +570,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr style={{height: '23px'}}>
                                         <th>{language.header.stock}</th>
-                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: rowodd}}>
+                                        <td style={{ color: font2, backgroundColor: rowodd}}>
                                             
                                             <PowerSelect
                                                 options={this.stockList}
@@ -585,7 +585,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr ref={e => this.bankRow = e}  style={{height: '23px'}}>
                                         <th>{language.header.bank}</th>
-                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: roweven}} >
+                                        <td style={{ color: font2, backgroundColor: roweven}} >
                                             <PowerSelect
                                                 options={this.state.value.mvSettleAccList}
                                                 selected={this.state.value.mvSettlementAccSelected}
@@ -613,7 +613,7 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr style={{height: '23px'}}>
                                         <th>{language.header.ordertype}</th>
-                                        <td style={{padding: '0px 2px', color: font2, backgroundColor: rowodd}} >
+                                        <td style={{ color: font2, backgroundColor: rowodd}} >
 
                                             <PowerSelect
                                                 options={this.state.value.mvOrderTypeList}

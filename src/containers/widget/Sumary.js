@@ -12,9 +12,14 @@ class Sumary extends Component {
     constructor(props) {
         super(props)
         this.id = "sumary"
+<<<<<<< HEAD
         this.globalLoad = false;
         
         
+=======
+
+
+>>>>>>> a3e197add75de14708af961f3662549626830dc5
     }
 
     shouldComponentUpdate (nextProps, nextState){
@@ -38,22 +43,22 @@ class Sumary extends Component {
         var d = this.props.data.mvPortfolioAccSummaryBean
 
         this.data = [
-                {
-                    name: this.props.language.portfolio.header.totalAsset,
-                    y: d.totalAsset
-                }, {
-                    name: this.props.language.portfolio.header.equity,
-                    y: d.equity
-                }, {
-                    name: this.props.language.portfolio.header.stockValue,
-                    y: d.stockValue
-                }, {
-                    name: this.props.language.portfolio.header.profitLoss,
-                    y: d.profitLoss
-                }, {
-                    name: this.props.language.portfolio.header.PLPercent,
-                    y: d.PLPercent
-                }
+            {
+                name: this.props.language.portfolio.header.totalAsset,
+                y: d.totalAsset
+            }, {
+                name: this.props.language.portfolio.header.equity,
+                y: d.equity
+            }, {
+                name: this.props.language.portfolio.header.stockValue,
+                y: d.stockValue
+            }, {
+                name: this.props.language.portfolio.header.profitLoss,
+                y: d.profitLoss
+            }, {
+                name: this.props.language.portfolio.header.PLPercent,
+                y: d.PLPercent
+            }
         ]
         var data2 = [
             {
@@ -133,9 +138,9 @@ class Sumary extends Component {
                 y: d.sellStkNotInMarPort
             }
         ]
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
             <div>
                 <Title widgetID = { this.id } theme={this.props.theme}>
@@ -143,27 +148,27 @@ class Sumary extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
-                        <div className="col-sm-3" style={{height: '100%'}}>
-                            <div className="col-sm-4" style={{height: '100%'}}>
+                        <div className="col-sm-3" style={{ height: '100%' }}>
+                            <div className="col-sm-4" style={{ height: '100%'}}>
                                 <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} />
                             </div>
-                            <div className="col-sm-8" style={{height: '100%'}}>
-                                <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                            <div className="col-sm-8" style={{ height: '100%' }}>
+                                <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">
                                         <tbody >
-                                            
+
                                             {
                                                 this.data.map((d, i) => {
-                                                    if(i%2!=0){
+                                                    if (i % 2 != 0) {
                                                         return (
-                                                            <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                            <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                                                 <th>{d.name}</th>
                                                                 <td>{d.y}</td>
                                                             </tr>
                                                         )
-                                                    }else{
-                                                        return(
-                                                            <tr style={{backgroundColor: roweven, color: font2}} >
+                                                    } else {
+                                                        return (
+                                                            <tr style={{ backgroundColor: roweven, color: font2 }} >
                                                                 <th>{d.name}</th>
                                                                 <td>{d.y}</td>
                                                             </tr>
@@ -177,24 +182,24 @@ class Sumary extends Component {
                                 </div>
                             </div>
                         </div>
-                        
-                        <div className="col-sm-3" style={{height: '100%'}}>
-                            
-                            <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+
+                        <div className="col-sm-3" style={{ height: '100%' }}>
+
+                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
                                         {
                                             data2.map((d, i) => {
-                                                if(i%2!=0){
+                                                if (i % 2 != 0) {
                                                     return (
-                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                        <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
                                                     )
-                                                }else{
-                                                    return(
-                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                } else {
+                                                    return (
+                                                        <tr style={{ backgroundColor: roweven, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
@@ -206,26 +211,26 @@ class Sumary extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
 
-                        <div className="col-sm-3" style={{height: '100%'}}>
-                        
-                            <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                        <div className="col-sm-3" style={{ height: '100%' }}>
+
+                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
                                         {
                                             data3.map((d, i) => {
-                                                if(i%2!=0){
+                                                if (i % 2 != 0) {
                                                     return (
-                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                        <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
                                                     )
-                                                }else{
-                                                    return(
-                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                } else {
+                                                    return (
+                                                        <tr style={{ backgroundColor: roweven, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
@@ -237,27 +242,27 @@ class Sumary extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
 
 
-                        <div className="col-sm-3" style={{height: '100%'}}>
-                            
-                            <div className="table-responsive"  style={{height: '100%', fontSize: '12px'}}>
+                        <div className="col-sm-3" style={{ height: '100%' }}>
+
+                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
                                         {
                                             data4.map((d, i) => {
-                                                if(i%2!=0){
+                                                if (i % 2 != 0) {
                                                     return (
-                                                        <tr style={{backgroundColor: rowodd, color: font2}} >
+                                                        <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
                                                     )
-                                                }else{
-                                                    return(
-                                                        <tr style={{backgroundColor: roweven, color: font2}} >
+                                                } else {
+                                                    return (
+                                                        <tr style={{ backgroundColor: roweven, color: font2 }} >
                                                             <th>{d.name}</th>
                                                             <td>{d.y}</td>
                                                         </tr>
@@ -269,7 +274,7 @@ class Sumary extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
                     </div>
                 </Body>

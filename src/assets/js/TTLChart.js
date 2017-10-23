@@ -14,7 +14,7 @@ import "../css/chart_hist.css";
 
 // react-stockcharts
 import { ChartCanvas, Chart } from "react-stockcharts";
-import { fitWidth } from "react-stockcharts/lib/helper";
+import { fitWidth , TypeChooser} from "react-stockcharts/lib/helper";
 import { CrossHairCursor, MouseCoordinateX, MouseCoordinateY, CurrentCoordinate } from "react-stockcharts/lib/coordinates";
 import { sma, wma, ema, sar, bollingerBand, macd, rsi, stochasticOscillator } from "react-stockcharts/lib/indicator";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
@@ -31,7 +31,10 @@ class TTLChart extends React.Component
 {
 	constructor(props) {
 		super(props);
-        
+        // Previous chart type and sub chart list paramerters
+        this.prevChartType = this.props.config.chart.type;
+        this.subChartVarArray = [];
+        this.inChartVarArray = [];
         // Bind function
 		this.refresh = this.refresh.bind(this);
 		this.addRawData = this.addRawData.bind(this);
@@ -50,7 +53,7 @@ class TTLChart extends React.Component
         this.data = convertRawData(this.props.rawData);
         this.state = {
             refreshState: false,
-            mainChartSeries: createMainChartSeries(this.props.chartType),
+            mainChartSeries: createMainChartSeries(this.props.config.chart.type, this.props.config),
             drawingSwitch: false,
             data: this.data,
             inChartList: [],
@@ -86,6 +89,11 @@ class TTLChart extends React.Component
             };
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        this.state.mainChartSeries = createMainChartSeries(this.prevChartType, nextProps.config);
+        this.state.subChartList = this.handleSetSubCharts(this.inChartVarArray, this.subChartVarArray, nextProps.config);
+    }
     
     componentDidMount()
     {
@@ -96,35 +104,55 @@ class TTLChart extends React.Component
     }
 
 	render() {
-		var { width, height, ratio } = this.props;
-		var { refreshState } = this.state;
+		var { width, height, ratio, config } = this.props;
+        var { refreshState } = this.state;
         
+        // console.log(config)
 		return (
-            <div>
+            <div className={"TTLStockChart " + config.chart.appearance.theme} 
+                style={{backgroundColor: config.chart.appearance.background}}>
+                
                 <div id="TTLStockChart_C_Main" className="TTLStockChart_C_Main">
-                    <div>
-                        <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
+                    <div className="TTLMainChart">
+                        <div style={{ width: '100%', height: '100%', overflowY: 'scroll', overflowX: 'hidden' }}>
+                            <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
+                                chartLayout={this.chartLayout}
+                                data={this.state.data}
+                                config={config}
+                                onChartEvent={this.handleMainChartEvents}
+                                mainSeries={this.state.mainChartSeries}
+                                drawingSwitch={this.state.drawingSwitch}
+                                interactEnabled={this.interactEnabled}
+                                interactGraph={this.interactGraph}
+                                interactRef={this.interactRef}
+                                undoList={this.undoList}
+                                onInteractComplete={(id) => this.handleOnInteractComplete(id)}
+                                inChartList={this.state.inChartList}
+                                subChartList={this.state.subChartList}
+                                />
+
+                        </div>
+                    </div>
+                    <div className="TTLTimeLineChart">
+                        <TTLTimeLineChart width={width} height={70} ratio={ratio} 
+                            ref={node => {this.timeLine=node;}} baseref={this}
                             chartLayout={this.chartLayout}
                             data={this.state.data}
-                            onChartEvent={this.handleMainChartEvents}
-                            mainSeries={this.state.mainChartSeries}
-                            drawingSwitch={this.state.drawingSwitch}
-                            interactEnabled={this.interactEnabled}
-                            interactGraph={this.interactGraph}
-                            interactRef={this.interactRef}
-                            undoList={this.undoList}
-                            onInteractComplete={(id) => this.handleOnInteractComplete(id)}
-                            inChartList={this.state.inChartList}
-                            subChartList={this.state.subChartList}
-                            />
-                        <TTLTimeLineChart width={width} height={100} ratio={ratio} ref={node => {this.timeLine=node;}} baseref={this}
-                            chartLayout={this.chartLayout}
-                            data={this.state.data}
+                            config={config}
                             />
                     </div>
+                   
                 </div>
                 <div id="TTLStockChart_C_Ctl" className="TTLStockChart_C_Ctl" >
-                    <TTLChartControl mainChartSeries={this.props.chartType} handleSeriesChange={(series) => this.handleCreateMainChartSeries(series)} handleSetSubCharts={(inChartVarArray, subChartVarArray) => this.handleSetSubCharts(inChartVarArray, subChartVarArray)}/>
+                    <TTLChartControl 
+                        mainChartSeries={config.chart.type} 
+                        handleSeriesChange={(series) => this.handleCreateMainChartSeries(series, config)} 
+                        handleSetSubCharts={(inChartVarArray, subChartVarArray) => {
+                                    this.subChartVarArray = subChartVarArray;
+                                    this.inChartVarArray = inChartVarArray;
+                                    this.handleSetSubCharts(inChartVarArray, subChartVarArray, config)
+                                }
+                            }/>
                 </div>
                 <div id="TTLStockChart_C_EditCtl" className="TTLStockChart_C_EditCtl">
                     <TTLChartEditControl startInteract={(id) => this.handleStartInteract(id)}/>
@@ -179,13 +207,13 @@ class TTLChart extends React.Component
     
     handleMainChartEvents(newXScaleDomain)
     {
-        this.timeLine.refreshMovingWindow(newXScaleDomain);
+            this.timeLine.refreshMovingWindow(newXScaleDomain);
     }
     
     refresh()
     {
         this.setState({
-            refreshState: !this.state.refreshState
+            refreshState: !this.state.refreshState  
         });
     }
 
@@ -222,9 +250,9 @@ class TTLChart extends React.Component
         this.mainChart.setState({
             data: this.state.data
         }, callBack);
-        this.timeLine.setState({
-            data: this.state.data
-        }, callBack);
+            this.timeLine.setState({
+                data: this.state.data
+            }, callBack);
     }
     
     resetXExtents()
@@ -257,13 +285,15 @@ class TTLChart extends React.Component
         this.mainChart.startInteract(id);
     }
 
-    handleCreateMainChartSeries(pSeriesName){
-        var pSeries = createMainChartSeries(pSeriesName);
+    handleCreateMainChartSeries(pSeriesName, pConfig){
+        var pSeries = createMainChartSeries(pSeriesName, pConfig);
         this.setState({mainChartSeries: pSeries})
+        this.prevChartType = pSeriesName;
     }
 
-    handleSetSubCharts(pInChartVarArray, pSubChartVarArray)
+    handleSetSubCharts(pInChartVarArray, pSubChartVarArray, pConfig)
     {
+        console.log(pInChartVarArray, pSubChartVarArray)
         var lvDisplayInChartVol = false;
         if (pInChartVarArray != undefined)
         {
@@ -277,7 +307,7 @@ class TTLChart extends React.Component
         }
         const lvInChartList = createInChartList(pInChartVarArray, this.chartLayout);
         const lvSubChartListForInChart = createSubChartListForInChart(lvDisplayInChartVol, this.chartLayout);
-        const lvSubChartList = createSubChartList(lvDisplayInChartVol, pSubChartVarArray, this.chartLayout);
+        const lvSubChartList = createSubChartList(lvDisplayInChartVol, pSubChartVarArray, this.chartLayout, pConfig);
         const lvTotalSubChartList = lvSubChartListForInChart.concat(lvSubChartList);
         var lvData;
         if (this.state.data)
@@ -292,7 +322,7 @@ class TTLChart extends React.Component
         
     }
 }
-
+// END OF CLASS TTLChart
 const upColor = "#CC0000";
 const downColor = "#1054A9";
 const inChartFuncMap = {"InChartSMA": createInChartSMA, "InChartEMA": createInChartEMA, "InChartWMA": createInChartWMA, "InChartSAR": createInChartSAR, "InChartBB": createInChartBB};
@@ -320,10 +350,12 @@ const stoAppearance = {
 		StochasticSeries.defaultProps.stroke)
 };
 
+
+// CREATE SUB CHART
 function createInChartVol(props)
 {
-    const {id, height, origin, para, addPadding, chartLayout} = props;
-    console.log(chartLayout)
+    const {id, height, origin, para, addPadding, chartLayout, config} = props;
+    console.log('create In Chart Vol')
     return (
         <Chart
             id={id}
@@ -331,7 +363,8 @@ function createInChartVol(props)
             yExtents={d => d.volume}
             height={height}
             origin={origin}>
-            <YAxis axisAt="left" orient="left" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")}/>
+            <YAxis axisAt="left" orient="left" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
+                tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
                 at="left"
@@ -344,7 +377,8 @@ function createInChartVol(props)
 
 function createVol(props)
 {
-    const {id, height, origin, para, addPadding, chartLayout} = props;
+    console.log('create Vol')
+    const {id, height, origin, para, addPadding, chartLayout, config} = props;
     // No para
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
     
@@ -359,8 +393,9 @@ function createVol(props)
             origin={origin}
             padding={{ top: topPadding, bottom: 0 }}>
             
-            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0}/>
-            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")}/>
+            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
+                tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
                 at="right"
@@ -380,7 +415,8 @@ function createVol(props)
 
 function createRSI(props)
 {
-    const {id, height, origin, para, addPadding, chartLayout} = props;
+    console.log('create RSI')
+    const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pPeriod] = para; //14
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
     
@@ -399,8 +435,9 @@ function createRSI(props)
             origin={origin}
             padding={{ top: topPadding, bottom: 0 }}>
             
-            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0}/>
-            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} tickValues={[30, 50, 70]}/>
+            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} tickValues={[30, 50, 70]} 
+                tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
     
             <MouseCoordinateY
                 at="right"
@@ -421,7 +458,8 @@ function createRSI(props)
 
 function createMACD(props)
 {
-    const {id, height, origin, para, addPadding, chartLayout} = props;
+    console.log('create MACD')
+    const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pShortEMA, pLongEMA, pSignalLine] = para;//12,26,9
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
     const calculator = macd()
@@ -439,8 +477,9 @@ function createMACD(props)
             origin={origin}
             padding={{ top: topPadding, bottom: 0 }}>
             
-            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0}/>
-            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} />
+            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} 
+                tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} />
     
             <MouseCoordinateY
                 at="right"
@@ -463,7 +502,8 @@ function createMACD(props)
 
 function createSTO(props)
 {
-    const {id, height, origin, para, addPadding, chartLayout} = props;
+    console.log('create STO')
+    const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pK, pD, pKW] = para; //slow:14,5,3  fast:20,5,1
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
     const calculator = stochasticOscillator()
@@ -481,8 +521,9 @@ function createSTO(props)
             origin={origin}
             padding={{ top: topPadding, bottom: 0 }}>
             
-            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0}/>
-            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} tickValues={[20, 50, 80]}/>
+            <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} tickValues={[20, 50, 80]}
+                tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
                 at="right"
@@ -506,6 +547,7 @@ function createSTO(props)
 
 function createInChartSMA(props)
 {
+    console.log('create In Chart SMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -534,6 +576,7 @@ function createInChartSMA(props)
 
 function createInChartWMA(props)
 {
+    console.log('create In Chart WMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -562,6 +605,7 @@ function createInChartWMA(props)
 
 function createInChartEMA(props)
 {
+    console.log('create In Chart EMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -590,6 +634,7 @@ function createInChartEMA(props)
 
 function createInChartSAR(props)
 {
+    console.log('create In Chart SAR')
     const {id, tooltipStruct, para, chartLayout} = props;
     var [pSccelerationFactor, pMaxAccelerationFactor] = para; // 0.02,0.2
     var lvInChartArray = [];
@@ -610,6 +655,7 @@ function createInChartSAR(props)
 
 function createInChartBB(props)
 {
+    console.log('create In Chart BB')
     const {id, tooltipStruct, para, chartLayout} = props;
     const lvInChartArray = [];
     const calculator = bollingerBand()
@@ -675,7 +721,7 @@ function prepareInChart(pChartName, pDataID, pToolTipStruct, pPara, pChartLayout
     // }
 }
 
-function createSubChart(pChartName, pNextChartID, pHeight, pOrigin, pPara, pAddPadding, pChartLayout)
+function createSubChart(pChartName, pNextChartID, pHeight, pOrigin, pPara, pAddPadding, pChartLayout, pConfig)
 {
     const props = {
         id: pNextChartID,
@@ -684,6 +730,7 @@ function createSubChart(pChartName, pNextChartID, pHeight, pOrigin, pPara, pAddP
         para: pPara,
         addPadding: pAddPadding,
         chartLayout: pChartLayout,
+        config: pConfig
     };
     return subChartFuncMap[pChartName](props);
 }
@@ -704,7 +751,7 @@ function createSubChartListForInChart(pDisplayInChartVol, pChartLayout)
     return subChartList;
 }
 
-function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout)
+function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout, pConfig)
 {
     const subChartList = [];
     var lvOriginFunc = (t) => { return (w, h) => [0, h-t] }
@@ -722,7 +769,7 @@ function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout)
     
             lvTotalSubChartHeight += pHeight;
             var lvOrigin = lvOriginFunc(lvTotalSubChartHeight);
-            var subChart = createSubChart(pChartName, lvChartID, pHeight, lvOrigin, pPara, lvAddPadding, pChartLayout);
+            var subChart = createSubChart(pChartName, lvChartID, pHeight, lvOrigin, pPara, lvAddPadding, pChartLayout, pConfig);
             subChartList.push(subChart);
         }
         if (pDisplayInChartVol)
@@ -731,7 +778,7 @@ function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout)
             var lvChartID = 3; // always use 3
             lvTotalSubChartHeight += pHeight;
             var lvOrigin = lvOriginFunc(lvTotalSubChartHeight);
-            var subChart = createSubChart(pChartName, lvChartID, pHeight, lvOrigin, pPara, false, pChartLayout);
+            var subChart = createSubChart(pChartName, lvChartID, pHeight, lvOrigin, pPara, false, pChartLayout, pConfig);
             subChartList.push(subChart);
         }
         subChartList.reverse();
@@ -739,30 +786,45 @@ function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout)
     return subChartList;
 }
 
-function createMainChartSeries(pSeriesName)
+function createMainChartSeries(pSeriesName, pConfig)
 {
+    console.log(pConfig)
     if (pSeriesName == "Line")
     {
-        return <LineSeries yAccessor={d => d.close} strokeWidth={2}/>;
+        return <LineSeries yAccessor={d => d.close} strokeWidth={2} stroke={pConfig.chart.appearance.strokeNormal} />;
     }
     if (pSeriesName == "Area")
     {
-        return <AreaSeries yAccessor={d => d.close}/>;
+        const AreaAppearance = {
+            stroke: pConfig.chart.appearance.strokeNormal,
+            fill: pConfig.chart.appearance.fill,
+            opacity: pConfig.chart.appearance.opacity,            
+        }
+        return <AreaSeries yAccessor={d => d.close} {...AreaAppearance}/>;
     }
     else if (pSeriesName == "OHLC")
-    {
-        return <OHLCSeries />;
+    {   const OHLCAppearance = {
+            stroke: pConfig.chart.appearance.strokeNormal
+        }
+        return <OHLCSeries {...OHLCAppearance}/>;
     }
     else // if (pSeriesName == "Candlestick") //or "Candle"
     {
-        var candlechart = <CandlestickSeries 
-            yAccessor = {d => ({ open: d.open, high: d.high, low: d.low, close: d.close, pclose: d.pclose })}
-            stroke={d => d.pclose > d.close ? upColor : downColor}
-            wickStroke={d => d.pclose > d.close ? upColor : downColor}
-            fill={d => d.close > d.open ? "rgba(0,0,0,0)": (d.pclose > d.close ? upColor : downColor)}
-            opacity={1}
-            candleStrokeWidth={1}
-            />;
+        const candlesAppearance = {
+			wickStroke: function wickStroke(d) {
+				return d.close > d.open ? pConfig.chart.appearance.strokeDown : pConfig.chart.appearance.strokeUp;
+            },
+			fill: function fill(d) {
+				return d.close > d.open ? "rgba(0,0,0,0)" : d.close > d.open ? pConfig.chart.appearance.strokeDown : pConfig.chart.appearance.strokeUp;
+			},
+			stroke: function stroke(d) {
+				return d.close > d.open ? pConfig.chart.appearance.strokeDown : pConfig.chart.appearance.strokeUp;
+            },
+			candleStrokeWidth: 1,
+			opacity: 1,
+        }
+        
+        var candlechart = <CandlestickSeries {...candlesAppearance}/>;
         return candlechart;
     }
 }
@@ -821,11 +883,51 @@ TTLChart.propTypes = {
 };
 
 TTLChart.defaultProps = {
+    config: {
+        chart: {
+            type: "Line",
+            appearance: {
+                strokeDasharray: "Solid",
+                strokeWidth: 1,
+                strokeNormal: "#FF6600",
+                strokeUp: "",
+                strokeDown: "",
+
+                wickStroke: "#000000", // for Candlestick Chart
+                background: "#303030",
+                theme: 'dark'
+            },
+        },
+
+        axis: {
+            xAxis: true,
+            yAxis: true,
+
+            showGrid: true,
+            tickStrokeDasharray: "Solid",
+            tickStrokeOpacity: 0.2,
+            tickStrokeWidth: 1,
+
+            showTicks: true,
+            stroke: '#fff',
+            tickStroke: '#fff',
+        },
+
+        tooltip: {
+            fontSize: '12px',
+        },
+
+        option: {
+            timeline: true,
+            control: true,
+            editor: true,
+        }
+    }
 };
 
-TTLChart.fitWidth = function(pChart)
-{
-    return fitWidth(pChart);
-}
+/*
+stroke: "#ff7f0e"
+ */
+TTLChart = fitWidth(TTLChart);
 
 export default TTLChart

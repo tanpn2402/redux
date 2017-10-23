@@ -262,7 +262,7 @@ const config = {
 		{ i: 'accountinfo', 			smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 8, maxH: 8, isDraggable: true, isResizable: false },
 		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
 		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 4, lgH: 12, minW: 4, minH: 6, maxW: 4, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minW: 6, minW: 8, maxH: 9, isDraggable: true, isResizable: true },
 
 	],
@@ -319,7 +319,7 @@ const config = {
 			id: 'customization',
 			title: "customization",
 			widget: [
-				{ i: 'orderconfirmation', smW: 8, smH: 8, lgW: 8, lgH: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, isDraggable: true, isResizable: true }
+				// { i: 'orderconfirmation', smW: 8, smH: 8, lgW: 8, lgH: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, isDraggable: true, isResizable: true }
 			]
 		}
 	],
@@ -380,7 +380,7 @@ const config = {
 			icon: 'font_download',
 			value: [
 				'light',
-				'blue',
+				//'blue',
 				'dark',
 				// 'brown'
 			]
