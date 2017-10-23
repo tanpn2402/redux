@@ -1102,7 +1102,17 @@
                 "execute": "Thực hiện",
                 "next": "Bỏ qua",
                 "debitint": "Thanh toán lãi",
-                "saveLayout": "Lưu giao diện"
+                "saveLayout": "Lưu giao diện",
+                "login": "Đăng nhập"
+            },
+            "login": {
+                "username": "Số tài khoản",
+                "password": "Mật khẩu",
+                "securityCode": "Mã an toàn",
+                "message": {
+                    "wrongAccountNo" : "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
+                    "changePasswordRequest": "Để bảo mật, quý khách vui lòng thay đổi mật khẩu cho lần đăng nhập đầu tiên"
+                }
             }
         }
     }
