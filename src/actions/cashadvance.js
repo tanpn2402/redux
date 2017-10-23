@@ -12,7 +12,7 @@ export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language) {
     
     if(advPayment <= 0){
         return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.noAmount))
+            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.noamount))
         }
     }
 
@@ -36,7 +36,7 @@ export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language) {
                         title: language.cashadvance.popup.title,
                         language: language,
                         id: 'cashadvance',
-                        authcard: true
+                        authcard: false
                     }))
                 }
             }
@@ -60,7 +60,7 @@ export function submitCashAdvance(data, authParams, language){
           } 
           else {
             return(dispatch)=>{
-              dispatch(showMessageBox(language.messagebox.title.error, '123'))
+              dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
             }
           }
         }
@@ -106,7 +106,6 @@ export function submitCashAdvance(data, authParams, language){
 }
 
 export function getCashAdvance (params) {
-    console.log("Hello",params)
   return(dispatch) => {
     WebApi.get(ACTION.GETCASHADVANCEHISTORY, params, dispatch, CashAdvance)
   }

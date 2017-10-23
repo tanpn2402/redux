@@ -4,7 +4,7 @@ import moment from 'moment'
 const {ActionTypes} = require('../core/constants')
 
 
-export function showMessageBox(notifType, notifDetail){
+export function showMessageBox(notifType, notifDetail, handleFunction = null){
 	// return function(dispatch){
 	// 	setTimeout(function(){
 	// 		dispatch(b(notifType, notifDetail))
@@ -14,12 +14,12 @@ export function showMessageBox(notifType, notifDetail){
 	// 		dispatch(a(notifType, notifDetail))
 	// 	}, 3000)
 	// }
-
 	return {
 	  type: ActionTypes.MESSAGEBOX,
 	  message: notifDetail,
 	  notification_type: notifType,
-	  id: moment().valueOf(),
+		id: moment().valueOf(),
+		handleFunction: handleFunction
 	}
 }
 

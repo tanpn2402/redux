@@ -1,69 +1,137 @@
 export default {
-  background: {
-    backgroundColor: '#000',
-    color: '#fff'
+  title: 'dark',
+  button: {
+    backgroundColor: "#FF8000",
+    color: "#FFFFFF",
+    borderColor: 'transparent'
   },
-  normal: {
-      color: "#FF0000",
+  font: {
+    color: '#FFFFFF'
   },
-  onFocus:{
-    backgroundColor:"#1C1C1C",
-    color:"#FF0000"
+  font2: {
+    color: '#FFFFFF'
   },
-  button:{
-    backgroundColor:"#FF0000",
-    color: "#1C1C1C"
+  font3: {
+    color: '#FFFFFF'
   },
-  buttonClicked:{
-    backgroundColor:"#1C1C1C",
-    color: "#FF0000"
-  },
-  porfolio: {
-    'titlemoney': {
-      backgroundColor: '#043b72',
-      color: '#fff'
+  page: {
+    pageheader: {
+      backgroundColor: '#F0F0F0'
     },
-    'titlestock': {
-      backgroundColor: '#f60',
-      color: '#fff'
+    pagebackground: {
+      backgroundColor: '#474747',
+    },
+    pagemenu: {
+      backgroundColor: '#1D1C1C'
+    },
+  },
+  statusbar: {
+    backgroundColor: '#000000'
+  },
+  widget: {
+    widgetbackground: {
+      backgroundColor: '#EEECEC'
+    },
+    widgetheader: {
+      backgroundColor: '#FF8000'
+    },
+    widgetbody: {
+      border: '1.75px solid #FF8000'
     }
   },
-  oddlottrading: {
-    'titleoddlotorder': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+  table: {
+    tableheader: {
+      backgroundColor: '#262626'
     },
-    'titleoddlottransactionhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+    tablefooter: {
+      backgroundColor: '#262626'
+    },
+    rowodd: {
+      backgroundColor: '#3F3E3E'
+    },
+    roweven: {
+      backgroundColor: '#474747'
+    },
+    nodatadisplay: {
+      backgroundColor: 'transparent',
+      color: '#FFFFFF'
     }
   },
-  loanrefund: {
-    'titleloanrefundstatus': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+  tabnormal: {
+    backgroundColor: '#545353'
+  },
+  tabactived: {
+    backgroundColor: '#343434',
+    color: 'white'
+  },
+  savelayoutbutton: {
+    backgroundColor: '#545353',
+    color: '#FFFFFF'
+  },
+  setting: {
+    settingtitle: {
+      backgroundColor: '#1B1D1C'
     },
-    'titleloanrefundhistory': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundform': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
-    },
-    'titleloanrefundnotice': {
-      backgroundColor: '#f60',
-      color: '#fff',
-      fontWeight: 'bold'
+    settingpanel: {
+      backgroundColor: '#383637',
+      color: 'white'
     },
   },
-  pagebackground: {
-    backgroundColor: '#999',
-    
+  profile: {
+    profiletitle: {
+      backgroundColor: '#1B1D1C'
+    },
+    profilepanel: {
+      backgroundColor: '#383637',
+      color: 'white'
+    }
+  },
+  chart: {
+    piechart: {
+      backgroundColor: '#474747'
+    },
+    popoverchart: {
+      backgroundColor: '#273043',
+      color: '#FFF'
+    }
+  },
+  techanalysis: {
+    backgroundColor: '#474747',
+    chartConfig: {
+      chart: {
+          appearance: {
+              strokeNormal: "#FF6600",
+              strokeDown: "rgba(52, 152, 219,1.0)",
+              strokeUp: "rgb(255, 128, 0)",
+              fill: "#FF6600",
+              opacity: 0.5,
+              wickStroke: "#000000",
+              background: "#474747",
+              theme: "dark"
+          },
+      },
+
+      axis: {
+          stroke: "#FFFFFF",
+          tickStroke: "#FFFFFF"
+
+      },
+      
+      control: {
+          edgeFill1: "#FFFFFF",
+          edgeFill2: "#250B98",
+          edgeStroke: "#FFFFFF",
+          strokeOpacity: 1,
+          edgeRadius: 5,
+          strokeWidth: 1,
+          
+          stroke: "#FFFFFF",
+          fill: "#8AAFE2",
+          fillOpacity: 0.2,
+          gannFanFill: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#000000"]
+
+
+      }
+    }
   }
 }

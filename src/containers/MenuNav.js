@@ -10,137 +10,121 @@ class MenuNav extends Component {
 
     constructor(props) {
         super(props)
+
+        this.tabbar = config.tabbar
+        this.params = {}
     }
 
     render() {
-        console.log(this.props)
-        let tabList = this.props.tabList[this.props.page]
-        tabList = tabList === undefined ? [] : tabList
-
+        var activeTab = this.props.tabID
+        var language = this.props.language
+        let pagemenu = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagemenu
         return (
-            <div className="scrolling-tabs-main" id="pagemenu">
-               <div className="scrolling-tabs-left">
-                    <button className="hks-btn btn-main-menu" onClick={e => this.onOpenMenuPanel()} >
-                        <span className="glyphicon glyphicon-list"></span> Menu
-                   </button>
-                    <div className="btn-group btn-group-sm btn-group-page" role="group" aria-label="...">
-                        <button style={this.props.page === '1' ? this.props.theme.buttonClicked : this.props.theme.button} className="hks-btn btn-page" id='1' onClick={this.onPageClicked.bind(this)}>1</button>
-                        <button style={this.props.page === '2' ? this.props.theme.buttonClicked : this.props.theme.button} className="hks-btn btn-page" id='2' onClick={this.onPageClicked.bind(this)}>2</button>
-                        <button style={this.props.page === '3' ? this.props.theme.buttonClicked : this.props.theme.button} className="hks-btn btn-page" id='3' onClick={this.onPageClicked.bind(this)}>3</button>
-                        <button style={this.props.page === '4' ? this.props.theme.buttonClicked : this.props.theme.button} className="hks-btn btn-page" id='4' onClick={this.onPageClicked.bind(this)}>4</button>
-                     </div>
-                    <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)}>
-                        <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
-                    </button>
-                    <SlideNav language={this.props.language} />
-               </div>
-               <div className="scroll">
+            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
+                <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-tabs">
                         <nav className='vertical-align-middle'>
                             {
-                                tabList.map(tab => {
-                                    console.log(tab)
-                                    return ( 
-                                        <span id={tab} key={tab} className='tabs-item'>
-                                            {this.props.language[tab]}
+                                this.tabbar.map(tab => {
+                                    return (
+                                        <div key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
+                                            onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
+
+                                            {language.tab[tab.title]}
                                             <button
-                                                id={tab}
-                                                className="hks-btn btn-tab-close"
+                                                className="hks-btn btn-tab-reload"
                                                 type="button"
-                                                // title="Remove this page"
-                                                onClick={e => this.onRemove(e.target.id, this.props.page)}
-                                                >
-                                                ×
+                                                onClick={e => this.onReloadPage(tab.id)}
+                                            >
+                                                <span className="glyphicon glyphicon-repeat"></span>
                                             </button>
-                                        </span>
+
+                                        </div>
                                     )
                                 })
                             }
-                            
+
                         </nav>
                     </div>
                 </div>
                 <div className="scrolling-tabs-right">
-                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)}>
-                        <span className="glyphicon glyphicon-menu-right"></span>
+
+                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={this.props.theme.tabnormal}>
+                        <span className="glyphicon glyphicon-menu-right" style={this.props.theme.font3}></span>
+                    </button>
+                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={this.props.theme.savelayoutbutton}>
+                        <span className="glyphicon glyphicon-floppy-disk" style={{ margin: '0 1px' }}></span>
+                        Save Layout
                     </button>
                 </div>
             </div>
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        this.params['mvAction'] = 'QUERYDEFAULT'
+        this.props.onGetSavedContentLayout(this.params)
         window.addEventListener("keydown", this.myEventHandler, false)
     }
 
-    onTabSlideClick(i){
-        if(i === 1){
-            $("#scrolling-tabs").animate( { scrollLeft: '-=100' }, 500);
-        }
-        else{
-            $("#scrolling-tabs").animate( { scrollLeft: '+=100' }, 500);
-        }
+    componentWillReceiveProps(nextProps) {
+
     }
 
-    onRemove(e, page) {
-        this.props.onRemoveTab(
-            e,
-            page,
-            this.props.tabList,
-            this.props.reload
-        );
+    onReloadPage(tabID) {
+
     }
 
-    onPageClicked(e) {
-        var pageId = e.target.id;
-        this.props.onPageClicked(pageId, this.props.tabList);
+    onTabClick(tabID) {
+        this.props.onTabClick(tabID)
     }
 
-    onOpenMenuPanel(){
-        document.getElementById("overlay").style.display = 'block'
-        document.getElementById("slidenav").style.width = "250px"
-        document.getElementById("slidenav").style.width = document.getElementById("pagecontent").offsetHeight
-        document.getElementById("main-menu-search").focus()
+    onTabSlideClick() {
+
     }
-    myEventHandler(e){
-        var keyCode = e.keyCode;
-        //console.log(keyCode)
-        if(keyCode === 221){
-            document.getElementById("overlay").style.display = 'block'
-            document.getElementById("slidenav").style.width = "250px"
-            document.getElementById("main-menu-search").focus()
-            document.getElementById("main-menu-search").value = ''
-        }
-        else if(keyCode === 27){
-            document.getElementById("overlay").style.display = 'none'
-            document.getElementById("slidenav").style.width = "0px"
-        }
-        else if(keyCode === 219){
-            document.getElementById('sidebar').classList.toggle('opensidebar');
-            document.getElementById('favorite').classList.toggle('opensidebar');
-            document.getElementById('helping').classList.toggle('opensidebar');
-            document.getElementById('footer').classList.toggle('opensidebar');
-        }
+
+    saveLayout() {
+        const groupId = this.props.savedcontent.mvCfgList[0].GROUPID
+        this.params['mvGroupName'] = 'User1'
+        this.params['mvIsDefault'] = 'Y'
+        this.params['mvGroupType'] = 'U'
+        this.params['mvGroupID'] = groupId
+        this.params['mvSavedContent'] = JSON.stringify(config.tabbar)
+        this.params['mvAction'] = 'MODIFY'
+        this.props.onSaveLayout(this.params, this.props.language)
     }
 
 }
 
-const mapStateToProps = state => ({
-    tabList: state.menuSelected.tabList,
-    page: state.menuSelected.page,
-    reload: state.menuSelected.reload,
-});
+const mapStateToProps = (state, props) => {
+    return {
+        tabID: state.menuSelected.tabID,
+        savedcontent: state.menuSelected.savedcontent,
+        resultSavelayout: state.menuSelected.resultSavelayout
+    }
+
+}
 
 const mapDispatchToProps = (dispatch, props) => ({
-    
+    onGetSavedContentLayout: (params) => {
+        dispatch(actions.getSavedContentLayout(params))
+    },
+    onSaveLayout: (params, language) => {
+        dispatch(actions.saveLayout(params, language))
+    },
     onRemoveTab: (menuid, pageid, tabList, reload) => {
         dispatch(actions.menuRemoved(menuid, pageid, tabList, reload));
     },
-
     onPageClicked: (pageid, tabList) => {
         dispatch(actions.onPageClicked(pageid, tabList));
-    }
+    },
+    onTabClick: (tabID) => {
+        dispatch(actions.onTabClick(tabID));
+    },
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);   
+export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);
 
