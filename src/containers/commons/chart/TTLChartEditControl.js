@@ -2,10 +2,8 @@
 "use strict";
 
 // css
-import "../css/bootstrap-iso.css";
-// import "../css/bootstrap.css";
-// import "../css/bootstrap-theme.css";
-import "../css/react-bootstrap-switch.css";
+import "./../../../assets/css/bootstrap-iso.css";
+import "./../../../assets/css/react-bootstrap-switch.css";
 
 // react element
 import React from "react";

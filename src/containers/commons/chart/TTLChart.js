@@ -10,7 +10,7 @@ import { timeParse, timeFormat } from "d3-time-format";
 import { format } from "d3-format";
 
 // css
-import "../css/chart_hist.css";
+import "./../../../assets/css/chart_hist.css";
 
 // react-stockcharts
 import { ChartCanvas, Chart } from "react-stockcharts";

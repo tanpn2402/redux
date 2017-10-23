@@ -3,13 +3,17 @@ import $ from 'jquery'
 export default class ScrollingTabs extends Component {
 
     render() {
+        let scrollBtnStyle = this.props.theme.scrolling.button
         return (
             <div className="scrolling-tabs-main scrolling-tabbar">
-               <button className="hks-btn btn-tabbar-prev" onClick={e => this.onTabSlideClick(1)}>
-                    <span className="glyphicon glyphicon-menu-left" style={{zIndex: '1'}}></span>
-               </button>
+                <button type="button" className="hks-btn btn-tab-prev search-bar" 
+                    onClick={e => this.onTabSlideClick(1)}
+                    style={scrollBtnStyle}>
+                        <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
+                </button>
+
                <div className="scroll">
-                    <div className="scrolling-tabs">
+                    <div className="scrolling-tabs" id={"scrolling-tab-" + this.props.id}>
                         <nav className='vertical-align-middle'>
                             {
                                 this.props.tabList.map(tab => {
@@ -25,8 +29,10 @@ export default class ScrollingTabs extends Component {
                         </nav>
                     </div>
                 </div>
-                <button className="hks-btn btn-tabbar-next" onClick={e => this.onTabSlideClick(2)}>
-                    <span className="glyphicon glyphicon-menu-right"></span>
+                <button type="button" className="hks-btn btn-tab-next search-bar" 
+                    onClick={e => this.onTabSlideClick(2)}
+                    style={scrollBtnStyle}>
+                        <span className="glyphicon glyphicon-menu-right"></span>
                 </button>
             </div>
         )
@@ -42,12 +48,11 @@ export default class ScrollingTabs extends Component {
         this.props.onTabClick(tab, e)
     }
     onTabSlideClick(i){
-        console.log('sd')
         if(i === 1){
-            $("#scrolling-tabbar").animate( { scrollLeft: '-=200' }, 500);
+            $("#scrolling-tab-" + this.props.id).animate( { scrollLeft: '-=200' }, 500);
         }
         else{
-            $("#scrolling-tabbar").animate( { scrollLeft: '+=200' }, 500);
+            $("#scrolling-tab-" + this.props.id).animate( { scrollLeft: '+=200' }, 500);
         }
     }
     

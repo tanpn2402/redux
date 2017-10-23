@@ -803,23 +803,23 @@
                     "STATUS_D": "Đã phân bổ"
                 },
                 "issueType": {
-                    "ISSUE_1": "Chia cổ tức bằng tiền",
-                    "ISSUE_2": "Chia cổ tức bằng tiền",
-                    "ISSUE_3": "Chia cổ tức bằng tiền",
-                    "ISSUE_4": "Chia cổ tức bằng tiền",
-                    "ISSUE_5": "Chia cổ tức bằng tiền",
-                    "ISSUE_6": "Chia cổ tức bằng tiền",
-                    "ISSUE_7": "Chia cổ tức bằng tiền",
-                    "ISSUE_8": "Tiền cổ phiếu lẻ",
-                    "ISSUE_9": "Special Interim Dividend",
-                    "ISSUE_A": "Scrip Option",
-                    "ISSUE_B": "Chia cổ phiếu thưởng",
-                    "ISSUE_C": "Bonus Warrant",
-                    "ISSUE_D": "Quyền mua",
-                    "ISSUE_E": "Bonus Others",
-                    "ISSUE_G": "Cash Offer",
-                    "ISSUE_H": "Stock Offer",
-                    "ISSUE_I": "Chia cổ tức bằng cổ phiếu"
+                    "ISSUE_1" : "Cash Dividend",
+                    "ISSUE_2" : "Cash Dividend",
+                    "ISSUE_3" : "Cash Dividend",
+                    "ISSUE_4" : "Cash Dividend",
+                    "ISSUE_5" : "Cash Dividend",
+                    "ISSUE_6" : "Interim Dividend",
+                    "ISSUE_7" : "Final Dividend",
+                    "ISSUE_8" : "Special Dividend",
+                    "ISSUE_9" : "Special Interim Dividend",
+                    "ISSUE_A" : "Scrip Option",
+                    "ISSUE_B" : "Bonus Share",
+                    "ISSUE_C" : "Bonus Warrant",
+                    "ISSUE_D" : "Additional Issuance",
+                    "ISSUE_E" : "Bonus Others",
+                    "ISSUE_G" : "Cash Offer",
+                    "ISSUE_H" : "Stock Offer",
+                    "ISSUE_I" : "Stock Dividend"
                 },
                 "exercise": {
                     "STATUS_O": "Mở",
@@ -1115,7 +1115,8 @@
                 "search": "Search",
                 "execute": "Execute",
                 "next": "Next",
-                "debitint": "Thanh toán lãi"
+                "debitint": "Thanh toán lãi",
+                "saveLayout": "Save Layout"
             }
         }
     }
