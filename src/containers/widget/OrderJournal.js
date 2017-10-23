@@ -189,8 +189,14 @@ class OrderJournal extends Component {
             key: false,
         }
 
-        this.indexA = undefined
-        this.indexB = undefined
+        this.colA = {
+            index: 0,
+            object: {}
+        }
+        this.colB = {
+            index: 0,
+            object: {}
+        }
 
         this.rowSelected = []
         this.id = 'orderjournal'
@@ -568,27 +574,47 @@ class OrderJournal extends Component {
     }
 
     handleOnMouseDown(e) { // begin dragging
-        let idA = e.target.id
+        this.colA.object = e.target
+        if(this.colA.object.id == undefined) return
+        let idA = this.colA.object.id
         let result = this.state.columns.findIndex((column) => {
             return column.id == idA
         })
-        this.indexA = result != -1 ? result : 0
+        this.colA.index = result != -1 ? result : 0
     }
 
     handleOnMouseUp(e) { // end dragging
-        let idB = e.target.id
+        this.colB.object = e.target
+        if(this.colA.object.id == undefined) return
+        let idB = this.colB.object.id
         let result = this.state.columns.findIndex((column) => {
             return column.id == idB
         })
-        this.indexB = result != -1 ? result : 0
+        this.colB.index = result != -1 ? result : 0
         let arr = this.state.columns.slice()
-        let a = arr[this.indexA]
-        arr[this.indexA] = arr[this.indexB]
-        arr[this.indexB] = a
-        console.log(arr, this.indexA, this.indexB)
+        let a = arr[this.colA.index]
+        arr[this.colA.index] = arr[this.colB.index]
+        arr[this.colB.index] = a
         this.setState({
             columns: arr
         })
+        this.colA = {
+            index: 0,
+            object: {}
+        }
+        this.colB = {
+            index: 0,
+            object: {}
+        }
+    }
+
+    handleOnMouseEnter(e){
+        if(e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
+        e.target.style = 'color: white; background-color: black;'
+    }
+
+    handleOnMouseLeave(e){
+        e.target.style = ''
     }
 
     onRowSelected(param) {
@@ -697,7 +723,7 @@ function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {
 
 function headerRenderer(component, id, text) {
     return (
-        <span id={id} onMouseDown={e => component.handleOnMouseDown(e)} onMouseUp={(e) => component.handleOnMouseUp(e)} >{text}</span>
+        <div id={id} onMouseLeave={e => component.handleOnMouseLeave(e)} onMouseEnter={e => component.handleOnMouseEnter(e)} onMouseDown={e => component.handleOnMouseDown(e)} onMouseUp={(e) => component.handleOnMouseUp(e)} >{text}</div>
     )
 }
 
