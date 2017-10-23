@@ -20,7 +20,8 @@ class MatchOrderBankList extends Component {
         this.id = 'matchOrderBankList'
         this.defaultPageSize = 15
         this.lang = config.cache.lang
-
+        this.globalLoad = false;
+        
         this.accessor = [
             'mvContractID',
             'mvOrderID',
@@ -115,14 +116,28 @@ class MatchOrderBankList extends Component {
         this.rowSelected = []
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        
         var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -313,6 +328,8 @@ class MatchOrderBankList extends Component {
 const mapStateToProps = (state) => {
     return {
         queryAdvancePaymentInfo: state.cashadvancebank.queryAdvancePaymentInfo,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

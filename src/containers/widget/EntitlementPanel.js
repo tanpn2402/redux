@@ -10,10 +10,26 @@ class EntitlementPanel extends Component {
         super(props)
 
         this.id = 'entitlementPanel'
+        this.globalLoad = false;
+        
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        
         var bankInfo = this.props.bankInfo
         bankInfo.mvBankInfoList.unshift({
             'mvBankID': "",
@@ -28,7 +44,7 @@ class EntitlementPanel extends Component {
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div style={{height: '100%', position: 'relative'}}>
-                <Title theme={this.props.theme}>
+                <Title widgetID={this.id} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -206,7 +222,6 @@ class EntitlementPanel extends Component {
         }
     }
     onStockChange(value){
-        console.log(value)
         this.cboStockCode = value
         var record = {}
         this.getEntitlementData(record)
@@ -229,7 +244,9 @@ class EntitlementPanel extends Component {
 const mapStateToProps = (state) => {
     return {
         bankInfo: state.cashadvancebank.queryBankInfo,
-        entitlementStockList: state.entitlement.entitlementStockList
+        entitlementStockList: state.entitlement.entitlementStockList,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

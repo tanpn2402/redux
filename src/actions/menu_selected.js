@@ -119,10 +119,10 @@ export function onTabClick(tabID, subTabID){
 }
 
 
-export function reloadCustom(load) {
+export function reloadCustom(loadWidgetID) {
     return {
         type: ActionTypes.RELOADCUSTOM,
-        load: !load,
+        loadWidgetID: loadWidgetID,
     }
 }
 

@@ -5,7 +5,10 @@ export default class WidgetBody extends Component {
         super(props)
     }
 
-
+    componentWillReceiveProps(nextProps) {
+        
+    }
+    
     render() {
         let widgetbody = this.props.theme.widget == undefined? undefined:this.props.theme.widget.widgetbody.border
         if(this.props.chart!= undefined){

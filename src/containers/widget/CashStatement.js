@@ -16,6 +16,8 @@ class CashStatement extends Component {
         super(props)
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
+        this.globalLoad = false;
+        
 
         this.params = {
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
@@ -146,9 +148,22 @@ class CashStatement extends Component {
         })
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
-
+        
         let data = this.props.data
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter

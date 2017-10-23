@@ -12,14 +12,15 @@ class OddLot extends Component {
             'oddLotOrder',
             'oddLotHistory'
         ]
-
+        this.globalLoad = false;
+        
         this.layout = [
             config.default_layout[this.widget[0]],
             config.default_layout[this.widget[1]],          
         ]
     }
 
-
+    
     render() {
         return (
             <GridLayout 
@@ -40,7 +41,8 @@ class OddLot extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

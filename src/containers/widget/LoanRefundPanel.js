@@ -13,7 +13,8 @@ class LoanTrans extends Component {
         super(props)
         this.id = "loanRefundPanel"
         this.lang = config.cache.lang
-
+        this.globalLoad = false;
+        
 
 
         this.localLoanRefundCreationParams = {
@@ -22,8 +23,22 @@ class LoanTrans extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        
         var localLoanRefundCreation = this.props.localLoanRefundCreation
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
 		let tablefooter = this.props.theme.table == undefined? undefined:this.props.theme.table.tablefooter
@@ -31,7 +46,7 @@ class LoanTrans extends Component {
 		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         return (
             <div>
-                <Title theme={this.props.theme} widgetID={this.id}>
+                <Title widgetID={this.id} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -155,6 +170,8 @@ class LoanTrans extends Component {
 const mapStateToProps = (state) => {
     return {
         localLoanRefundCreation: state.loanrefund.localLoanRefundCreation,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

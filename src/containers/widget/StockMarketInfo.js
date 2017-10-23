@@ -14,7 +14,8 @@ import Table from '../commons/DataTable'
 class StockMarketInfo extends Component {
 	constructor(props) {
 		super(props)
-
+        this.globalLoad = false;
+		
 		this.state = {
 
 			panel3: {
@@ -247,7 +248,22 @@ class StockMarketInfo extends Component {
 		return value
 	}
 
+	shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
+
 	render() {
+		
 		let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
 		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
@@ -255,7 +271,7 @@ class StockMarketInfo extends Component {
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		return (
 			<div id={this.id}>
-				<Title theme={this.props.theme}>
+				<Title widgetID={this.id} theme={this.props.theme}>
 					{this.props.language.menu[this.id]}
 				</Title>
 
@@ -384,7 +400,11 @@ class StockMarketInfo extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return { stockWatchInfo: state.stock.stockWatchInfo }
+	return {
+		stockWatchInfo: state.stock.stockWatchInfo,
+		load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
+	}
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

@@ -14,6 +14,9 @@ class OrderHistory extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
+        this.globalLoad = false
+        this.id = "orderHistory"
+        
         this.state = {
             columns: [
                 {
@@ -266,14 +269,28 @@ class OrderHistory extends Component {
         });
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
+        
         var data = this.props.historyOrder.mvOrderBeanList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={ this.id } theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -353,7 +370,6 @@ class OrderHistory extends Component {
         this.params['mvInstrumentID'] = param['mvStockId']
         this.params['mvStartTime'] = param['mvStartDate']
         this.params['mvEndTime'] = param['mvEndDate']
-        console.log(this.params)
         this.props.onSearch(this.params)
     }
 
@@ -364,7 +380,6 @@ class OrderHistory extends Component {
         });
     }
     onExportExcel() {
-        console.log(this.params['mvStartTime'])
 
         this.exportParams['mvStartTime'] = this.params['mvStartTime']
         this.exportParams['mvEndTime'] = this.params['mvEndTime']
@@ -379,6 +394,8 @@ class OrderHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         historyOrder: state.orderhistory.historyOrder,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

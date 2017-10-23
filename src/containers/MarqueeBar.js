@@ -115,12 +115,13 @@ export default class MarqueeBar extends React.Component {
 
         //Default props
         this.curSliderObj = null
-        this.liWidth = 200  //width of every <li>
+        this.liWidth = 220  //width of every <li>
         this.capacity = 0   //how many <li> does slider contain
         this.curHead = 0    //the index of slider's first <li>'s data
         this.count = 0      //count var to loop
         this.countTemp = 0  //count var for sub-loop after loop
         this.step = 1       //speed
+        this.interval = 20  //interval time gap
         ////////////////////////
         this.data = []
         this.text = []
@@ -185,8 +186,8 @@ export default class MarqueeBar extends React.Component {
     render() {
         return (
             <div ref={e => this.marqueeWrapper = e} className="stockMarquee" >
-                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap" }}>{this.state.stack1}</div>
-                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", "display": "none" }}>{this.state.stack2}</div>
+                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "2200px", "overflow": "hidden", "white-space": "nowrap" }}>{this.state.stack1}</div>
+                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "2200px", "overflow": "hidden", "white-space": "nowrap", "display": "none" }}>{this.state.stack2}</div>
             </div>
         )
     }
@@ -201,7 +202,7 @@ export default class MarqueeBar extends React.Component {
         this.loop()
         this.curSliderObj = this.slider
         this.setState({
-            currentSliderInterval: [setInterval((e => (this.animation(this.curSliderObj))).bind(this), 20)],
+            currentSliderInterval: [setInterval((e => (this.animation(this.curSliderObj))).bind(this), this.interval)],
         })
         this.curSliderObj.style.left = this.marqueeWrapper.offsetWidth + "px";
 
@@ -277,7 +278,7 @@ export default class MarqueeBar extends React.Component {
 
             //Add setInterval event
             this.setState({
-                currentSliderInterval: [this.state.currentSliderInterval[0], setInterval((e => (this.animation(nextSlider))).bind(this), 20)]
+                currentSliderInterval: [this.state.currentSliderInterval[0], setInterval((e => (this.animation(nextSlider))).bind(this), this.interval)]
             })
 
         }

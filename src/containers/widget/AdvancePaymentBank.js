@@ -19,7 +19,23 @@ class AdBankPayment extends Component {
         ]
     }
 
+    componentWillReceiveProps(nextProps) {}
 
+    // shouldComponentUpdate (nextProps, nextState){
+    //     // return a boolean value
+    //     if (this.globalLoad != nextProps.load){
+	// 		this.globalLoad = nextProps.load
+    //         if (nextProps.loadWidgetID === this.id) {
+    //             console.log(nextProps.loadWidgetID == this.id)
+    //             return true
+    //         }else {
+    //             return false
+    //         }
+    //     }
+        
+    //     return true
+    // }
+    
     render() {
         return (
             <GridLayout 

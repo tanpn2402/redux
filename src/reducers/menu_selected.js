@@ -7,6 +7,7 @@ const initialState = {
     subTabID: localStorage.getItem('lastSubTabID')!=null?localStorage.getItem('lastSubTabID'):'enterorder',
     widgetList: [],
     load: false,
+    loadWidgetID: "",
 };
 
 export default function (state = initialState, action) {
@@ -24,8 +25,10 @@ export default function (state = initialState, action) {
             });
 
         case ActionTypes.RELOADCUSTOM:
+            console.log("Update in reducer",action.load, action.loadWidgetID, state.load)
             return Object.assign({},state,{
-              load: action.load,
+              load: !state.load,
+              loadWidgetID: action.loadWidgetID,
             });
 
         case ActionTypes.REMOVEWIDGET:

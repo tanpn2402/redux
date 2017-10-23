@@ -12,6 +12,9 @@ import Body from '../commons/WidgetBody'
 class WatchList extends Component {
     constructor(props) {
         super(props)
+
+        this.globalLoad = false
+
         this.state = {
             columns: [
                 {
@@ -332,7 +335,6 @@ class WatchList extends Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
@@ -635,7 +637,6 @@ class WatchList extends Component {
             this.onRefresh()
         } else {
             //show Alert
-            console.log("alert")
         }
 
     }
@@ -651,7 +652,6 @@ class WatchList extends Component {
         this.onRefresh()
     }
     onChange(e) {
-        console.log(e.target.value)
         this.inputValue = e.target.value
     }
     alreadyInList(stockID) {
@@ -677,6 +677,21 @@ class WatchList extends Component {
         if (this.state.pageIndex > 1) {
             this.setState({ pageIndex: parseInt(this.state.pageIndex) - 1 });
         }
+    }
+
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                console.log(nextProps.loadWidgetID == this.id)
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
     }
 
     render() {
@@ -761,6 +776,8 @@ class WatchList extends Component {
 const mapStateToProps = (state) => {
     return {
         watchListData: state.watchlist.watchListData,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

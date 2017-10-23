@@ -58,6 +58,8 @@ class EnterOrder extends Component {
 
 
         this.id = 'enterorder'
+
+        this.globalLoad = false;
     }
 
     onBuySellChange(e){
@@ -107,7 +109,6 @@ class EnterOrder extends Component {
                 this.state.value.mvVol = vol;
 
                 // update vol input value
-                console.log(vol)
                 this.mvVol.value = vol;
                 //this.calculateGrossAmt()
 
@@ -446,7 +447,6 @@ class EnterOrder extends Component {
     }
 
     showOrderConfirm(){
-        console.log(this.state.value.mvStockSelected)
         var data = {
             mvStockCode: this.state.value.mvStockSelected.stockCode,
             mvStockName: this.state.value.mvStockSelected.stockName,
@@ -500,11 +500,26 @@ class EnterOrder extends Component {
 
     componentWillReceiveProps(nextProps){
         this.initBankAccountCombo(nextProps.genEnterOrderData.mvSettlementAccList)
+        
+
+    }
+
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
     }
 
     render() {
         this.stockList = config.cache.stockList
-        console.log(this.stockList)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
@@ -512,7 +527,7 @@ class EnterOrder extends Component {
         
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title widgetID={this.id} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -1051,7 +1066,8 @@ const mapStateToProps = (state) => {
         mvStockInfo: state.enterOrder.stockInfo,
         mvStockBalance: state.enterOrder.stockBalance,
         isError: state.enterOrder.isError,
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
         genEnterOrderData: state.enterOrder.genEnterOrder
     }
 }
@@ -1066,6 +1082,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     showOrderConfirm: (param) => {
         dispatch(actions.showPopup(param))
     }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder)

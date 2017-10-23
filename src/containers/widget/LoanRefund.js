@@ -7,7 +7,7 @@ import config from '../../core/config'
 class LoanTrans extends Component {
     constructor(props) {
         super(props)
-
+        this.globalLoad = false;        
         this.widget = [
             'loanRefundHistory',
             'loanRefundPanel',
@@ -44,7 +44,8 @@ class LoanTrans extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

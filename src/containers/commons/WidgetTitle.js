@@ -7,12 +7,22 @@ import * as actions from '../../actions'
 class WidgetTitle extends Component {
     constructor(props) {
         super(props)
+        
+        this.globalLoad = false
+        this.state = {
+            reload: false
+        }
+
+        this.reloadWidget = this.reloadWidget.bind(this)
+    }
+
+    reloadWidget() {
+        this.props.reloadCustom(this.props.widgetID)
     }
 
     removeWidget() {
         var widgetID = this.props.widgetID
-        console.log("WIDGET " + widgetID + " WILL BE DELETED")
-        console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
+        //console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
         var tabs = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
 
         var indexOfTobeDelWidget = tabs.findIndex(tab => {
@@ -20,16 +30,28 @@ class WidgetTitle extends Component {
         })
 
         if (indexOfTobeDelWidget > -1) {
-            console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
+            //console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")])
             config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget.splice(indexOfTobeDelWidget, 1) //Delete widget from CustomConfig
             this.props.reloadCustom(this.props.load)
         }
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.globalLoad = nextProps.load
+    }
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+            this.globalLoad = nextProps.load
+            return false
+        }
+        
+        return true
+    }
 
     render() {
-        //console.log(this.props.children)
+        //console.log("RELOAD TITLE")
         let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
         return (
             <div className="widget-header" style={widgetheader}>
@@ -53,7 +75,7 @@ class WidgetTitle extends Component {
                         }
 
                         <li className="btn-close" >
-                            <span className="glyphicon glyphicon-repeat"></span>
+                            <span className="glyphicon glyphicon-repeat" onClick={()=>this.reloadWidget()}></span>
                         </li>
 
                         {
@@ -72,13 +94,12 @@ class WidgetTitle extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    tabID: state.menuSelected.tabID,
     load: state.menuSelected.load
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-    reloadCustom: (load) => {
-        dispatch(actions.reloadCustom(load))
+    reloadCustom: (widgetID) => {
+        dispatch(actions.reloadCustom(widgetID))
     }
 })
 

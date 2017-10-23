@@ -15,8 +15,23 @@ class AdBankPanel extends Component {
         super(props)
         this.id = 'advanceBankPanel'
         this.lang = config.cache.lang
+        this.globalLoad = false;
+        
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
         var queryBankInfo = this.props.bankInfo
@@ -26,7 +41,7 @@ class AdBankPanel extends Component {
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title widgetID={this.id} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -181,7 +196,9 @@ class AdBankPanel extends Component {
 const mapStateToProps = (state) => {
     return {
         bankInfo: state.cashadvancebank.queryBankInfo,
-        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt
+        calculateInterestAmt: state.cashadvancebank.calculateInterestAmt,
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 

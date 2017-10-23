@@ -12,6 +12,8 @@ import { Button } from 'react-bootstrap'
 class OrderJournal extends Component {
     constructor(props) {
         super(props)
+        this.globalLoad = false;
+        
         this.state = {
             columns: [
                 {
@@ -206,6 +208,19 @@ class OrderJournal extends Component {
         }
     }
 
+    shouldComponentUpdate (nextProps, nextState){
+        // return a boolean value
+        if (this.globalLoad != nextProps.load){
+			this.globalLoad = nextProps.load
+            if (nextProps.loadWidgetID === this.id) {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     render() {
         let data = this.props.data.mvOrderBeanList
@@ -217,7 +232,7 @@ class OrderJournal extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title widgetID={ this.id } theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -585,7 +600,6 @@ class OrderJournal extends Component {
         let a = arr[this.indexA]
         arr[this.indexA] = arr[this.indexB]
         arr[this.indexB] = a
-        console.log(arr, this.indexA, this.indexB)
         this.setState({
             columns: arr
         })
@@ -618,7 +632,6 @@ class OrderJournal extends Component {
             else
                 document.getElementById("orderjournal-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     showPopup() {
@@ -628,7 +641,6 @@ class OrderJournal extends Component {
         });
         this.title = this.props.language.orderjournal.popup.title.cancel
         this.popupType = 'CANCELORDER'
-        console.log('onCancelOrder', this.rowSelected)
     }
 
     onChangeStateColumn(e) {
@@ -637,7 +649,6 @@ class OrderJournal extends Component {
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
 
-        //console.log(this.state.columns)
     }
 
     onPageChange(pageIndex) {
@@ -669,7 +680,6 @@ class OrderJournal extends Component {
         this.param['mvStatus'] = param.mvStatus
         this.param['mvOrderType'] = param.mvOrderType
         this.param['mvOrderBS'] = param.mvBuysell
-        console.log('orderjournal Page', this.state.pageIndex)
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
@@ -677,7 +687,6 @@ class OrderJournal extends Component {
     }
 
     updateView() {
-        console.log('update View')
         this.rowSelected = []
         this.props.onSearch(this.param)
     }
@@ -706,7 +715,8 @@ const mapStateToProps = (state) => {
         data: state.orderjournal.enquiryorder,
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
-
+        load: state.menuSelected.load,
+        loadWidgetID: state.menuSelected.loadWidgetID,
     }
 }
 
