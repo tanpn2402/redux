@@ -1,12 +1,19 @@
 import { ActionTypes } from '../core/constants';
 
-export default function(state = {
-    isLoginError: null
-}, action) {
+const initialState = {
+    result: {
+        mvMessage: "",
+        needChangePwd: "",
+        success: false
+    },
+    mvClientID: ""
+}
+export default function(state = initialState, action) {
     switch (action.type) {
-        case ActionTypes.SET_LOGIN_ERROR:
+        case ActionTypes.DOLOGINACTION:
             return Object.assign({}, state, {
-                isLoginError: action.isLoginError
+                result: action.result,
+                mvClientID: action.mvClientID
             });
         default:
             return state;

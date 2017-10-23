@@ -8,35 +8,28 @@ import * as sessionApi from '../api/sessionApi';
 import * as FetchAPI from '../api/fetchAPI';
 
 
-const user = [
-    {
-        email: 'linh@yahoo.com',
-        name: 'Jordan Walke',
-        clientID: 'linh',
-        password: '123'
-    },
-]
-
 class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        this.props = {
-            isLoginError: true,
-        };
         this.params = {
             mvClientID: '',
             mvPassword: '',
             securitycode: '12345'
         }
+        this.user = 
+            {
+                mvClientID: 'linh'
+            }
         this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
         this.state = {};
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.isLoginError === false) {
-            sessionApi.login(user[0]).then(response => {
+        this.user.mvClientID = nextProps.mvClientID
+        if (nextProps.loginResult.success) {
+            sessionApi.login(this.user).then(response => {
                 const { token, data } = response;
                 sessionService.saveSession({ token })
                     .then(() => {
@@ -50,62 +43,82 @@ class LoginForm extends Component {
     }
 
     render() {
+        let language = this.props.language.page
+        console.log(language)
         return (
-            <div className="login-form">
+            <div className="login-form-wrapper">
                 <div className="login-form-header">
-                    <div className="login-logo ttx-logo" />
+                    <div id="company-logo" />
                 </div>
 
-                <div className="login-form-footer">                 
-                    <div className="divBranch">
-                        <a id="headOffice" href="#">TRỤ SỞ CHÍNH:</a>
-                        <p id="headOfficeData">Tầng 7, Tòa nhà Sài Gòn Royal, số 91 Pasteur, Phường Bến Nghé, Quận 1, Tp. Hồ Chí Minh
-                            <br/> ĐT: 84-8-3-9102222 - Fax: 84-8-3-9107222</p>
-                    </div>
-                    <div className="divBranch">
-                        <a id="hanoiBranch" href="#">CHI NHÁNH HÀ NỘI:</a>
-                        <p id="hanoiBranchData">Tòa nhà Phương Nam Bank, lầu 4, 27 Hàng Bài, Quận Hoàn Kiếm, Hà Nội
-                            <br/> ĐT: 84-4-62730541 - Fax: 84-4-62730544</p>
-                    </div>
-                    <div className="divCopyright">
-                        <p id="copyrightData">© 2013 Bản quyền thuộc về CTCP Chứng khoán Mirae Asset (Việt Nam)</p>
+                <div className="login-form-body">
+                    <Form horizontal onSubmit={this.onSubmit} className="login-form">
+                        <FormGroup>
+                            <Col xs={4}>
+                                {language.login.username}
+                            </Col>
+                            <Col xs={8}>
+                                <input type="text" defaultValue="077C081111" autoComplete="off"
+                                name="username" className="hks-input border" ref={node => { this.username = node }} />
+                            </Col>
+                            
+                        </FormGroup>
+                        <FormGroup controlId="formHorizontalPass">
+                            <Col xs={4}>
+                                {language.login.password}
+                            </Col>
+                            <Col xs={8}>
+                                <input type="password" defaultValue="123456" className="hks-input border" name="password" ref={node => { this.password = node }} />
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Col xs={4}>
+                            </Col>
+                            <Col xs={8} id="security-image">
+                                <img src={this.captchaURL} />
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup id="security-input">
+                            <Col xs={4}>
+                                {language.login.securityCode}
+                            </Col>
+                            <Col xs={8}>
+                                <input pattern="\d{4}" type="text" className="hks-input border" name="security" ref={node => { this.securitycode = node }} />
+                            </Col>
+                        </FormGroup>
+                        
+                        <div className="login-button-group">
+                            <button className="hks-btn btn-login" type="submit">
+                                {language.button.login}
+                            </button>
+                        </div>
+                    </Form>
+                    <div className="login-message">
+                        {this.props.loginResult.mvMessage}
                     </div>
                 </div>
+
                 
-                <Form horizontal onSubmit={this.onSubmit} className="login">
-                    <FormGroup controlId="formHorizontalUser">
-                        <div sm={3}>
-                            Username
-                        </div>
-                        <div className="inputgroup" sm={8}>
-                            <span className="glyphicon glyphicon-user"></span>
-                            <input type="text" name="username" className="form-control inputs" ref={node => { this.username = node }} />
-                        </div>
-                    </FormGroup>
-                    <FormGroup controlId="formHorizontalPass">
-                        <div sm={3}>
-                            Password
-                        </div>
-                        <div className="inputgroup" sm={8}>
-                            <span className="glyphicon glyphicon-lock"></span>
-                            <input type="password" className="form-control inputs" name="password" ref={node => { this.password = node }} />
-                        </div>
-                    </FormGroup>
-                    <FormGroup id="security-wrapper">
-                            <img src={this.captchaURL} id="activateCodeImg" />
-                            <input pattern="\d{4}" type="text" className="form-control" id="security" name="security" ref={node => { this.securitycode = node }} />
-                    </FormGroup>
-                    <FormGroup>
-                            <div className="login-button-group">
-                                <button className="hks-btn btn-login" type="submit">
-                                    Login
-                                </button>
-                            </div>
-                    </FormGroup>
-                    <div className="msg">
-                        {this.props.isLoginError && <div>Something Wrong</div>}
-                    </div>
-                </Form>
+
+                <div className="login-form-footer">                 
+                    <Col sm={4}>
+                        <h5> Hong Kong Head Office:</h5>
+                        <p>21/F, Guangdong Finance Building, 88 Connaught Road West, Sheung Wan, Hong Kong
+                            <br/> Phone: (+852) 2869-6346 - Fax: (+852) 2869-7998</p>
+                    </Col>
+                    <Col sm={4}>
+                        <h5>Vietnam Office:</h5>
+                        <p>5/F HBT Tower, 456-458 Hai Bai Trung Street, Tan Dinh Ward, Dist. 1, HCMC, Vietnam
+                            <br/> Phone: 0283 848 4472</p>
+                    </Col>
+                    <Col sm={4}>
+                        <p>©2017 TTL</p>
+                    </Col>
+                </div>
+                
+                
                 
             </div>
         )
@@ -122,7 +135,9 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoginError: state.dologin.isLoginError,
+        loginResult: state.dologin.result,
+        mvClientID: state.dologin.mvClientID,
+        language: state.config.language,
     };
 }
 
