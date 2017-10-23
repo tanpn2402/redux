@@ -274,7 +274,6 @@ class OrderHistory extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -285,7 +284,6 @@ class OrderHistory extends Component {
     }
 
     render() {
-        console.log("render ",this.id)
         
         var data = this.props.historyOrder.mvOrderBeanList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
@@ -372,7 +370,6 @@ class OrderHistory extends Component {
         this.params['mvInstrumentID'] = param['mvStockId']
         this.params['mvStartTime'] = param['mvStartDate']
         this.params['mvEndTime'] = param['mvEndDate']
-        console.log(this.params)
         this.props.onSearch(this.params)
     }
 
@@ -383,7 +380,6 @@ class OrderHistory extends Component {
         });
     }
     onExportExcel() {
-        console.log(this.params['mvStartTime'])
 
         this.exportParams['mvStartTime'] = this.params['mvStartTime']
         this.exportParams['mvEndTime'] = this.params['mvEndTime']

@@ -14,14 +14,9 @@ class TechAnalysis extends Component {
 
     constructor(props) {
         super(props)
-<<<<<<< HEAD
         this.globalLoad = false;
         
         this.id = 'techanalysis'
-=======
-
-        this.id = "techanalysis"
->>>>>>> a3e197add75de14708af961f3662549626830dc5
     }
 
     shouldComponentUpdate (nextProps, nextState){
@@ -29,7 +24,6 @@ class TechAnalysis extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false

@@ -34,7 +34,6 @@ class Profile extends Component {
       if (this.globalLoad != nextProps.load){
     this.globalLoad = nextProps.load
           if (nextProps.loadWidgetID === this.id) {
-              console.log(nextProps.loadWidgetID == this.id)
               return true
           }else {
               return false
@@ -46,7 +45,6 @@ class Profile extends Component {
       
 
     render() {
-        console.log("Render ", this.id)
       
         var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
         var result= this.props.changePassResult.changePasswordBean

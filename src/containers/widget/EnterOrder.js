@@ -109,7 +109,6 @@ class EnterOrder extends Component {
                 this.state.value.mvVol = vol;
 
                 // update vol input value
-                console.log(vol)
                 this.mvVol.value = vol;
                 //this.calculateGrossAmt()
 
@@ -510,7 +509,6 @@ class EnterOrder extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -522,7 +520,6 @@ class EnterOrder extends Component {
 
     render() {
         this.stockList = config.cache.stockList
-        console.log("Reload", this.id)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor

@@ -193,7 +193,6 @@ class CashTransHistory extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -204,7 +203,6 @@ class CashTransHistory extends Component {
     }
 
     render() {
-        console.log("Render ",this.id)
         var data = this.props.cashTransHistory.list
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
@@ -275,7 +273,6 @@ class CashTransHistory extends Component {
                 this.rowSelected.splice(index, 1)
             }
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     onChangeStateColumn(e) {

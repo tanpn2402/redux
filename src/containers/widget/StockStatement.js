@@ -308,7 +308,6 @@ class StockStatement extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -319,7 +318,6 @@ class StockStatement extends Component {
     }
 
     render() {
-        console.log("Render ", this.id)
         
         let data = this.props.data
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader

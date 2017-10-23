@@ -213,7 +213,6 @@ class OrderJournal extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -224,7 +223,6 @@ class OrderJournal extends Component {
     }
 
     render() {
-        console.log("Reload ",this.id)
         let data = this.props.data.mvOrderBeanList
         this.buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
@@ -602,7 +600,6 @@ class OrderJournal extends Component {
         let a = arr[this.indexA]
         arr[this.indexA] = arr[this.indexB]
         arr[this.indexB] = a
-        console.log(arr, this.indexA, this.indexB)
         this.setState({
             columns: arr
         })
@@ -635,7 +632,6 @@ class OrderJournal extends Component {
             else
                 document.getElementById("orderjournal-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     showPopup() {
@@ -645,7 +641,6 @@ class OrderJournal extends Component {
         });
         this.title = this.props.language.orderjournal.popup.title.cancel
         this.popupType = 'CANCELORDER'
-        console.log('onCancelOrder', this.rowSelected)
     }
 
     onChangeStateColumn(e) {
@@ -654,7 +649,6 @@ class OrderJournal extends Component {
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
 
-        //console.log(this.state.columns)
     }
 
     onPageChange(pageIndex) {
@@ -686,7 +680,6 @@ class OrderJournal extends Component {
         this.param['mvStatus'] = param.mvStatus
         this.param['mvOrderType'] = param.mvOrderType
         this.param['mvOrderBS'] = param.mvBuysell
-        console.log('orderjournal Page', this.state.pageIndex)
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
@@ -694,7 +687,6 @@ class OrderJournal extends Component {
     }
 
     updateView() {
-        console.log('update View')
         this.rowSelected = []
         this.props.onSearch(this.param)
     }

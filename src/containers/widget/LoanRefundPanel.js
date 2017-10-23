@@ -28,7 +28,6 @@ class LoanTrans extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -39,7 +38,6 @@ class LoanTrans extends Component {
     }
 
     render() {
-        console.log("Render ", this.id)
         
         var localLoanRefundCreation = this.props.localLoanRefundCreation
         let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color

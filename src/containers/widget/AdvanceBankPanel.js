@@ -24,7 +24,6 @@ class AdBankPanel extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -35,7 +34,6 @@ class AdBankPanel extends Component {
     }
 
     render() {
-        console.log("Render ",this.id)
         var queryBankInfo = this.props.bankInfo
         var calculateInterestAmt = this.props.calculateInterestAmt
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor

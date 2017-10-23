@@ -419,7 +419,6 @@ class AccountInfo extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -434,7 +433,6 @@ class AccountInfo extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -445,7 +443,6 @@ class AccountInfo extends Component {
     }
 
 	render() {
-		console.log("render ",this.id)
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor

@@ -28,7 +28,6 @@ class AdvancePanel extends Component {
     }
 
     componentWillReceiProps(n){
-        console.log(n)
         
     }
 
@@ -37,7 +36,6 @@ class AdvancePanel extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -48,7 +46,6 @@ class AdvancePanel extends Component {
     }
 
     render() {
-        console.log("RE-RENDER", this.id)
         var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor

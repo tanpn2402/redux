@@ -274,7 +274,6 @@ class OrderConfirmation extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -285,7 +284,6 @@ class OrderConfirmation extends Component {
     }
 
     render() {
-        console.log("Render ", this.id)
         
         var data = this.props.data
 
@@ -375,7 +373,6 @@ class OrderConfirmation extends Component {
             else
                 document.getElementById(this.id + "-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     execute() {

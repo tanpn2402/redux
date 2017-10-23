@@ -116,7 +116,6 @@ class AdditionSharesInfo extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -127,7 +126,6 @@ class AdditionSharesInfo extends Component {
     }
 
     render() {
-        console.log("Reload", this.id)
         
         var additionIssueShareInfo = this.props.additionIssueShareInfo
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color

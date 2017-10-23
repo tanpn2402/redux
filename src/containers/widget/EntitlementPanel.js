@@ -19,7 +19,6 @@ class EntitlementPanel extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -30,7 +29,6 @@ class EntitlementPanel extends Component {
     }
 
     render() {
-        console.log("Reload", this.id)
         
         var bankInfo = this.props.bankInfo
         bankInfo.mvBankInfoList.unshift({
@@ -224,7 +222,6 @@ class EntitlementPanel extends Component {
         }
     }
     onStockChange(value){
-        console.log(value)
         this.cboStockCode = value
         var record = {}
         this.getEntitlementData(record)

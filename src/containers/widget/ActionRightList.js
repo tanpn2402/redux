@@ -177,7 +177,6 @@ class ActionRightList extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -188,12 +187,10 @@ class ActionRightList extends Component {
     }
 
     render() {
-        console.log("Reload", this.id)
         
         var allRightList = this.props.allRightList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(allRightList)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title widgetID={this.id} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>

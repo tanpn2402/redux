@@ -105,7 +105,6 @@ class MatchOrderList extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -116,7 +115,6 @@ class MatchOrderList extends Component {
     }
 
     render() {
-        console.log("Render ", this.id)
         var soldOrders = this.props.soldOrders
         var data = soldOrders.mvChildBeanList
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color

@@ -102,7 +102,6 @@ class EntitlementHistory extends Component {
         if (this.globalLoad != nextProps.load){
 			this.globalLoad = nextProps.load
             if (nextProps.loadWidgetID === this.id) {
-                console.log(nextProps.loadWidgetID == this.id)
                 return true
             }else {
                 return false
@@ -113,7 +112,6 @@ class EntitlementHistory extends Component {
     }
 
     render() {
-        console.log("Reload", this.id)
         
         var entitlementHistory = this.props.entitlementHistory
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
