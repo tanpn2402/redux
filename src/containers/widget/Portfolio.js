@@ -24,6 +24,8 @@ class Portfolio extends Component {
             pageIndex: 1,
             columns: [
                 {
+                    id: '',
+                    Header: '',
                     columns: [
                         // {
                         //     Header: 'Ord',
@@ -31,6 +33,7 @@ class Portfolio extends Component {
                         //     maxWidth: 50
                         // },
                         {
+                            id: 'mvStockID',
                             Header: this.props.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
                             maxWidth: 60,
@@ -41,9 +44,11 @@ class Portfolio extends Component {
                     ]
                 },
                 {
-                    Header: ' ',
+                    id: '',
+                    Header: '',
                     columns: [
                         {
+                            id: 'mvMarketID',
                             Header: this.props.language.portfolio.header.mvMaketID,
                             accessor: 'mvMarketID',
                             maxWidth: 60,
@@ -54,87 +59,131 @@ class Portfolio extends Component {
                     ]
                 },
                 {
+                    id: 'mvVolume',
                     Header: 'Volume',
                     headerClassName: 'volume',
                     columns: [{
+                        id: 'mvTradableQty',
                         Header: this.props.language.portfolio.header.mvTradableQty,
                         accessor: 'mvTradableQty',
-                    }, {
+                    },
+                    {
+                        id: 'mvTSettled',
                         Header: this.props.language.portfolio.header.mvTSettled,
                         accessor: 'mvTSettled'
-                    }, {
+                    },
+                    {
+                        id: 'mvHoldingAmt',
                         Header: this.props.language.portfolio.header.mvHoldingAmt,
                         accessor: 'mvHoldingAmt'
-                    }, {
+                    },
+                    {
+                        id: 'mvQueuingBuy',
                         Header: this.props.language.portfolio.header.mvQueuingBuy,
                         accessor: 'mvQueuingBuy'
-                    }, {
+                    },
+                    {
+                        id: 'mvTT1UnsettleBuy',
                         Header: this.props.language.portfolio.header.mvTT1UnsettleBuy,
                         accessor: 'mvTT1UnsettleBuy'
-                    }, {
+                    },
+                    {
+                        id: 'mvTDueBuy',
                         Header: this.props.language.portfolio.header.mvTDueBuy,
                         accessor: 'mvTDueBuy'
-                    }, {
+                    },
+                    {
+                        id: 'mvTMortgageQty',
                         Header: this.props.language.portfolio.header.mvTMortgageQty,
                         accessor: 'mvTMortgageQty'
-                    }, {
+                    },
+                    {
+                        id: 'mvTManualHold',
                         Header: this.props.language.portfolio.header.mvTManualHold,
                         accessor: 'mvTManualHold'
-                    }, {
+                    },
+                    {
+                        id: 'mvTEntitlementQty',
                         Header: this.props.language.portfolio.header.mvTEntitlementQty,
                         accessor: 'mvTEntitlementQty'
-                    }, {
+                    },
+                    {
+                        id: 'mvTAwaitingTraceCert',
                         Header: this.props.language.portfolio.header.mvTAwaitingTraceCert,
                         accessor: 'mvTAwaitingTraceCert'
-                    }, {
+                    },
+                    {
+                        id: 'mvTAwaitingDepositCert',
                         Header: this.props.language.portfolio.header.mvTAwaitingDepositCert,
                         accessor: 'mvTAwaitingDepositCert'
-                    }, {
+                    },
+                    {
+                        id: 'mvTAwaitingWithdrawalCert',
                         Header: this.props.language.portfolio.header.mvTAwaitingWithdrawalCert,
                         accessor: 'mvTAwaitingWithdrawalCert'
                     }]
                 },
                 {
+                    id: 'mvPrice',
                     Header: 'Price',
                     headerClassName: 'price',
                     columns: [{
+                        id: 'mvAvgPrice',
                         Header: this.props.language.portfolio.header.mvAvgPrice,
                         accessor: 'mvAvgPrice'
-                    }, {
+                    },
+                    {
+                        id: 'mvMarketPrice',
                         Header: this.props.language.portfolio.header.mvMarketPrice,
                         accessor: 'mvMarketPrice'
                     }]
                 },
                 {
-                    Header: 'Pofolio assessment',
+                    id: 'mvPortfolioAssessment',
+                    Header: 'Portfolio assessment',
                     headerClassName: 'rate',
                     columns: [{
+                        id: 'mvWAC',
                         Header: this.props.language.portfolio.header.mvWAC,
                         accessor: 'mvWAC'
-                    }, {
+                    },
+                    {
+                        id: 'mvMarketValue',
                         Header: this.props.language.portfolio.header.mvMarketValue,
                         accessor: 'mvMarketValue'
-                    }, {
+                    },
+                    {
+                        id: 'mvPL',
                         Header: this.props.language.portfolio.header.mvPL,
                         accessor: 'mvPL'
-                    }, {
+                    },
+                    {
+                        id: 'mvPLPercent',
                         Header: this.props.language.portfolio.header.mvPLPercent,
                         accessor: 'mvPLPercent'
                     }]
                 },
                 {
+                    id: 'mvMargin',
                     Header: '(%) Margin',
                     headerClassName: 'deposit',
                     columns: [{
+                        id: 'mvMarginPercentage',
                         Header: this.props.language.portfolio.header.mvMarginPercentage,
                         accessor: 'mvMarginPercentage'
-                    }, {
+                    },
+                    {
+                        id: 'mvMartginValue',
                         Header: this.props.language.portfolio.header.mvMartginValue,
                         accessor: 'mvMartginValue'
-                    }, {
+                    },
+                    {
+                        id: 'maintenancePercentage',
                         Header: this.props.language.portfolio.header.maintenancePercentage,
                         accessor: 'maintenancePercentage'
-                    }, {
+                    },
+                    {
+                        id: 'maintenanceValue',
                         Header: this.props.language.portfolio.header.maintenanceValue,
                         accessor: 'maintenanceValue'
                     }]
@@ -146,6 +195,8 @@ class Portfolio extends Component {
         this.setState({
             columns: [
                 {
+                    id: '',
+                    Header: '',
                     columns: [
                         // {
                         //     Header: 'Ord',
@@ -153,6 +204,7 @@ class Portfolio extends Component {
                         //     maxWidth: 50
                         // },
                         {
+                            id: 'mvStockID',
                             Header: nextProps.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
                             maxWidth: 60,
@@ -163,9 +215,11 @@ class Portfolio extends Component {
                     ]
                 },
                 {
+                    id: '',
                     Header: ' ',
                     columns: [
                         {
+                            id: 'mvMarketID',
                             Header: nextProps.language.portfolio.header.mvMaketID,
                             accessor: 'mvMarketID',
                             maxWidth: 60,
@@ -176,75 +230,100 @@ class Portfolio extends Component {
                     ]
                 },
                 {
+                    id: 'mvVolume',
                     Header: 'Volume',
                     headerClassName: 'volume',
                     columns: [{
+                        id: 'mvTradableQty',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTradableQty,
                         accessor: 'mvTradableQty',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTSettled',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTSettled,
                         accessor: 'mvTSettled',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvHoldingAmt',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvHoldingAmt,
                         accessor: 'mvHoldingAmt', //not sure
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvQueuingBuy',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvQueuingBuy,
                         accessor: 'mvQueuingBuy', //not sure
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTT1UnsettleBuy',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTT1UnsettleBuy,
                         accessor: 'mvTT1UnsettleBuy', // not sure
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTDueBuy',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTDueBuy,
                         accessor: 'mvTDueBuy',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTMortgageQty',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTMortgageQty,
                         accessor: 'mvTMortgageQty',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTManualHold',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTManualHold,
                         accessor: 'mvTManualHold',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTEntitlementQty',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTEntitlementQty,
                         accessor: 'mvTEntitlementQty',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTAwaitingTraceCert',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingTraceCert,
                         accessor: 'mvTAwaitingTraceCert',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTAwaitingDepositCert',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingDepositCert,
                         accessor: 'mvTAwaitingDepositCert',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvTAwaitingWithdrawalCert',
+                        parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingWithdrawalCert,
                         accessor: 'mvTAwaitingWithdrawalCert',
                         Aggregated: () => {
@@ -253,15 +332,20 @@ class Portfolio extends Component {
                     }]
                 },
                 {
+                    id: 'mvPrice',
                     Header: 'Price',
                     headerClassName: 'price',
                     columns: [{
+                        id: 'mvAvgPrice',
+                        parent: 'mvPrice',
                         Header: nextProps.language.portfolio.header.mvAvgPrice,
                         accessor: 'mvAvgPrice',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvMarketPrice',
+                        parent: 'mvPrice',
                         Header: nextProps.language.portfolio.header.mvMarketPrice,
                         accessor: 'mvMarketPrice',
                         Aggregated: () => {
@@ -270,27 +354,36 @@ class Portfolio extends Component {
                     }]
                 },
                 {
-                    Header: 'Pofolio assessment',
+                    id: 'PortfolioAssessment',
+                    Header: 'Portfolio assessment',
                     headerClassName: 'rate',
                     columns: [{
+                        id: 'mvWAC',
+                        parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvWAC,
                         accessor: 'mvWAC',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvMarketValue',
+                        parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvMarketValue,
                         accessor: 'mvMarketValue',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvPL',
+                        parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvPL,
                         accessor: 'mvPL',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvPLPercent',
+                        parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvPLPercent,
                         accessor: 'mvPLPercent',
                         Aggregated: () => {
@@ -299,27 +392,36 @@ class Portfolio extends Component {
                     }]
                 },
                 {
+                    id: 'mvMargin',
                     Header: '(%) Margin',
                     headerClassName: 'deposit',
                     columns: [{
+                        id: 'mvMarginPercentage',
+                        parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.mvMarginPercentage,
                         accessor: 'mvMarginPercentage',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'mvMartginValue',
+                        parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.mvMartginValue,
                         accessor: 'mvMartginValue',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'maintenancePercentage',
+                        parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.maintenancePercentage,
                         accessor: 'maintenancePercentage',
                         Aggregated: () => {
                             return null
                         }
                     }, {
+                        id: 'maintenanceValue',
+                        parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.maintenanceValue,
                         accessor: 'maintenanceValue',
                         Aggregated: () => {

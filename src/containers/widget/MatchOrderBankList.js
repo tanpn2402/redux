@@ -127,7 +127,8 @@ class MatchOrderBankList extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
+                        <Table
+                            theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
@@ -135,6 +136,7 @@ class MatchOrderBankList extends Component {
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
                                 (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
                                 this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
+                            onRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -277,7 +279,6 @@ class MatchOrderBankList extends Component {
 
     }
     onRowSelected(param) {
-
         if (param === 'ALL') {
             var current = document.getElementById(this.id + '-cb-all').checked
             var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
@@ -288,8 +289,7 @@ class MatchOrderBankList extends Component {
                 this.rowSelected = this.props.queryAdvancePaymentInfo.mvChildBeanList
             else
                 this.rowSelected = []
-        }
-        else {
+        } else {
             var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
 
             if (tmp.length > 0) {

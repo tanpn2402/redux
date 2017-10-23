@@ -235,6 +235,7 @@ class OrderJournal extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data}
+                            onRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -298,7 +299,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'can',
-                    Header: headerRenderer(this, 'can', nextProps.language.orderjournal.header.cancelmodify),
+                    Header: nextProps.language.orderjournal.header.cancelmodify,
                     maxWidth: 80,
                     Cell: props => {
                         if (props.aggregated) {
@@ -340,7 +341,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvStockID',
-                    Header: headerRenderer(this, 'mvStockID', nextProps.language.orderjournal.header.stockid),
+                    Header: nextProps.language.orderjournal.header.stockid,
                     accessor: 'mvStockID',
                     width: 80,
                     skip: false,
@@ -351,7 +352,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvBS',
-                    Header: headerRenderer(this, 'mvBS', nextProps.language.orderjournal.header.buysell),
+                    Header: nextProps.language.orderjournal.header.buysell,
                     accessor: 'mvBS',
                     width: 100,
                     skip: false,
@@ -381,7 +382,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvPrice',
-                    Header: headerRenderer(this, 'mvPrice', nextProps.language.orderjournal.header.price),
+                    Header: nextProps.language.orderjournal.header.price,
                     accessor: 'mvPrice',
                     width: 80,
                     skip: false,
@@ -392,7 +393,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvQty',
-                    Header: headerRenderer(this, 'mvQty', nextProps.language.orderjournal.header.quantity),
+                    Header: nextProps.language.orderjournal.header.quantity,
                     accessor: 'mvQty',
                     width: 80,
                     skip: false,
@@ -403,7 +404,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvPendingQty',
-                    Header: headerRenderer(this, 'mvPendingQty', nextProps.language.orderjournal.header.pendingQty),
+                    Header: nextProps.language.orderjournal.header.pendingQty,
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
@@ -414,7 +415,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvExecutedQty',
-                    Header: headerRenderer(this, 'mvExecutedQty', nextProps.language.orderjournal.header.executedQty),
+                    Header: nextProps.language.orderjournal.header.executedQty,
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
@@ -425,7 +426,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvAvgPrice',
-                    Header: headerRenderer(this, 'mvAvgPrice', nextProps.language.orderjournal.header.avgprice),
+                    Header: nextProps.language.orderjournal.header.avgprice,
                     accessor: 'mvAvgPriceValue',
                     width: 80,
                     skip: false,
@@ -436,7 +437,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvStatus',
-                    Header: headerRenderer(this, 'mvStatus', nextProps.language.orderjournal.header.status),
+                    Header: nextProps.language.orderjournal.header.status,
                     accessor: 'mvStatus',
                     width: 110,
                     skip: false,
@@ -457,7 +458,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvOrderType',
-                    Header: headerRenderer(this, 'mvOrderType', nextProps.language.orderjournal.header.ordertype),
+                    Header: nextProps.language.orderjournal.header.ordertype,
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
@@ -477,7 +478,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvFeeTax',
-                    Header: headerRenderer(this, 'mvFeeTax', nextProps.language.orderjournal.header.feetax),
+                    Header: nextProps.language.orderjournal.header.feetax,
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
@@ -495,7 +496,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvBankID',
-                    Header: headerRenderer(this, 'mvBankID', nextProps.language.orderjournal.header.bankid),
+                    Header: nextProps.language.orderjournal.header.bankid,
                     accessor: 'mvBankID',
                     width: 80,
                     skip: false,
@@ -506,7 +507,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvExpiryDate',
-                    Header: headerRenderer(this, 'mvExpiryDate', nextProps.language.orderjournal.header.expirydate),
+                    Header: nextProps.language.orderjournal.header.expirydate,
                     accessor: 'mvDateTime',
                     width: 80,
                     skip: false,
@@ -517,7 +518,7 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'mvRejectReason',
-                    Header: headerRenderer(this, 'mvRejectReason', nextProps.language.orderjournal.header.rejectreason),
+                    Header: nextProps.language.orderjournal.header.rejectreason,
                     accessor: 'mvRejectReason',
                     width: 80,
                     skip: false,
@@ -564,6 +565,7 @@ class OrderJournal extends Component {
 
     handleModifyOrder(param) {
         // modify one order
+
         this.props.showPopup({
             data: { me: this, data: param },
             title: this.props.language.orderjournal.popup.title.modify,
@@ -573,54 +575,10 @@ class OrderJournal extends Component {
         })
     }
 
-    handleOnMouseDown(e) { // begin dragging
-        this.colA.object = e.target
-        if(this.colA.object.id == undefined) return
-        let idA = this.colA.object.id
-        let result = this.state.columns.findIndex((column) => {
-            return column.id == idA
-        })
-        this.colA.index = result != -1 ? result : 0
-    }
-
-    handleOnMouseUp(e) { // end dragging
-        this.colB.object = e.target
-        if(this.colA.object.id == undefined) return
-        let idB = this.colB.object.id
-        let result = this.state.columns.findIndex((column) => {
-            return column.id == idB
-        })
-        this.colB.index = result != -1 ? result : 0
-        let arr = this.state.columns.slice()
-        let a = arr[this.colA.index]
-        arr[this.colA.index] = arr[this.colB.index]
-        arr[this.colB.index] = a
-        this.setState({
-            columns: arr
-        })
-        this.colA = {
-            index: 0,
-            object: {}
-        }
-        this.colB = {
-            index: 0,
-            object: {}
-        }
-    }
-
-    handleOnMouseEnter(e){
-        if(e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
-        e.target.style = 'color: white; background-color: black;'
-    }
-
-    handleOnMouseLeave(e){
-        e.target.style = ''
-    }
-
     onRowSelected(param) {
         if (param === 'ALL') {
-            var current = document.getElementById('orderjournal-cb-all').checked
-            var checkboxes = document.getElementsByClassName('orderjournal-row-checkbox')
+            var current = document.getElementById(this.id + '-cb-all').checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
             for (var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = current;
             }
