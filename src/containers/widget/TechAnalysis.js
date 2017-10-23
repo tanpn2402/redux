@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import * as actions from "../../actions"
 import DataUpperTable from "../DataUpperTable"
 import Pagination from "../commons/Pagination"
-import TTLChart from "../../assets/js/TTLChart"
 import Title from "../commons/WidgetTitle"
 import Body from "../commons/WidgetBody"
 

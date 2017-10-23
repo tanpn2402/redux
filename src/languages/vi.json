@@ -1101,7 +1101,8 @@
                 "search": "Tra cứu",
                 "execute": "Thực hiện",
                 "next": "Bỏ qua",
-                "debitint": "Thanh toán lãi"
+                "debitint": "Thanh toán lãi",
+                "saveLayout": "Lưu giao diện"
             }
         }
     }
