@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import SearchBar from '../commons/SearchBar'
-import DataUpperTable from '../DataUpperTable'
+import DataTable from '../commons/DataTable'
 import Pagination from '../commons/Pagination'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
 import Title from '../commons/WidgetTitle'
@@ -306,37 +305,12 @@ class WatchList extends Component {
     }
 
     onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById('watchlist-cb-all').checked
-            var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.watchListData !== undefined ?
-                    this.props.watchListData : []
-            else
-                this.rowSelected = []
-        }
-        else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
-                this.rowSelected.push(param)
-            }
-            else {
-                this.rowSelected.splice(index, 1)
-            }
-
-            if (document.getElementsByClassName("watchlist-row-checkbox").length === this.rowSelected.length)
-                document.getElementById("watchlist-cb-all").checked = true
-            else
-                document.getElementById("watchlist-cb-all").checked = false
-        }
-        console.log('onRowSelected', this.rowSelected)
+        this.rowSelected = param.rowSelected
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
     }
+
     componentDidMount() {
         this.onRefresh()
     }
@@ -720,11 +694,12 @@ class WatchList extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <DataUpperTable
+                        <DataTable
                             theme={this.props.theme}
                             id="watchlist-table"
                             columns={this.state.columns}
                             data={[]}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
                     <div className="table-header" style={tableheader}>

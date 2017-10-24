@@ -168,7 +168,8 @@ class OddLotOrder extends Component {
                             defaultPageSize={this.defaultPageSize}
                             data={oddLotOrder.oddLotList.slice(
                                 (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
-                                this.state.oddLotOrderPageIndex * this.defaultPageSize)} />
+                                this.state.oddLotOrderPageIndex * this.defaultPageSize)}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)} />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -222,33 +223,8 @@ class OddLotOrder extends Component {
     }
 
     onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById(this.id + '-cb-all')
-                .checked
-            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.oddlotenquiry.oddLotList !== undefined ? this.props.oddlotenquiry.oddLotList : []
-            else
-                this.rowSelected = []
-        } else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
-                this.rowSelected.push(param)
-            } else {
-                this.rowSelected.splice(index, 1)
-            }
+        this.rowSelected = param.rowSelected
 
-            if (document.getElementsByClassName(this.id + '-row-checkbox')
-                .length === this.rowSelected.length)
-                document.getElementById(this.id + "-cb-all")
-                    .checked = true
-            else
-                document.getElementById(this.id + "-cb-all")
-                    .checked = false
-        }
     }
 
     registerOddLotOrder(e) {

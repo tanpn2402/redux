@@ -136,7 +136,7 @@ class MatchOrderBankList extends Component {
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
                                 (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
                                 this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
-                            onRowSelected={(param) => this.onRowSelected(param)}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -279,34 +279,8 @@ class MatchOrderBankList extends Component {
 
     }
     onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById(this.id + '-cb-all').checked
-            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.queryAdvancePaymentInfo.mvChildBeanList
-            else
-                this.rowSelected = []
-        } else {
-            var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
-
-            if (tmp.length > 0) {
-                // exist in row selected
-                this.rowSelected = this.rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
-            } else {
-                this.rowSelected.push(param)
-            }
-
-            if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
-                document.getElementById(this.id + "-cb-all").checked = true
-            else
-                document.getElementById(this.id + "-cb-all").checked = false
-        }
-
+        this.rowSelected = param.rowSelected
         this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked)
-
     }
 
 }

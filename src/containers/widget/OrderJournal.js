@@ -235,7 +235,7 @@ class OrderJournal extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data}
-                            onRowSelected={(param) => this.onRowSelected(param)}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -272,6 +272,7 @@ class OrderJournal extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.data)
         this.setState({
             columns: [
                 {
@@ -293,6 +294,7 @@ class OrderJournal extends Component {
                             }
                         }
                     },
+                    filterable: false,
                     Aggregated: '',
                     sortable: false,
                     skip: true
@@ -336,6 +338,7 @@ class OrderJournal extends Component {
                                 </span>)
                         }
                     },
+                    filterable: false,
                     sortable: false,
                     skip: true
                 },
@@ -378,6 +381,24 @@ class OrderJournal extends Component {
                     },
                     Aggregated: () => {
                         return null
+                    },
+                    filterMethod: (filter, row) => {
+                        if (filter.value == 'all') {
+                            return true
+                        } else {
+                            return filter.value === row._original.mvBSValue
+                        }
+                    },
+                    Filter: ({ filter, onChange }) => {
+                        return (<select
+                            onChange={event => onChange(event.target.value)}
+                            style={{ width: '100%' }}
+                            value={filter ? filter.value : 'all'}
+                        >
+                            <option value='all'>Show All</option>
+                            <option value='B'>{nextProps.language.searchbar.buy}</option>
+                            <option value='S'>{nextProps.language.searchbar.sell}</option>
+                        </select>)
                     }
                 },
                 {
@@ -389,6 +410,9 @@ class OrderJournal extends Component {
                     show: true,
                     Aggregated: () => {
                         return null
+                    },
+                    sortMethod: (a, b) => {
+                        return a - b > 0 ? 1 : a - b == 0 ? 0 : -1
                     }
                 },
                 {
@@ -446,14 +470,18 @@ class OrderJournal extends Component {
                         if (props.aggregated) {
 
                         } else {
-                            let status = nextProps.language.global.status[props.original.mvStatus]
+                            let text = nextProps.language.global.status[props.original.mvStatus]
                             return (
-                                Utils.statusRenderer(status)
+                                Utils.statusRenderer(text, props.original.mvStatus)
                             )
                         }
                     },
                     Aggregated: () => {
                         return null
+                    },
+                    filterMethod: (filter, row, column) => {
+                        let status = nextProps.language.global.status[row._original.mvStatus]
+                        return status.includes(filter.value)
                     }
                 },
                 {
@@ -474,6 +502,10 @@ class OrderJournal extends Component {
                     },
                     Aggregated: () => {
                         return null
+                    },
+                    filterMethod: (filter, row) => {
+                        let type = nextProps.language.global.ordertype[row._original.mvOrderTypeValue]
+                        return type.includes(filter.value)
                     }
                 },
                 {
@@ -525,7 +557,8 @@ class OrderJournal extends Component {
                     show: true,
                     Aggregated: () => {
                         return null
-                    }
+                    },
+                    filterable: false
                 },
 
             ]
@@ -576,32 +609,7 @@ class OrderJournal extends Component {
     }
 
     onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById(this.id + '-cb-all').checked
-            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ?
-                    this.props.data.mvOrderBeanList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
-            else
-                this.rowSelected = []
-        }
-        else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
-                this.rowSelected.push(param)
-            }
-            else {
-                this.rowSelected.splice(index, 1)
-            }
-
-            if (document.getElementsByClassName("orderjournal-row-checkbox").length === this.rowSelected.length)
-                document.getElementById("orderjournal-cb-all").checked = true
-            else
-                document.getElementById("orderjournal-cb-all").checked = false
-        }
+        this.rowSelected = param.rowSelected
         console.log('onRowSelected', this.rowSelected)
     }
 

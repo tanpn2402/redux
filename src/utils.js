@@ -134,105 +134,105 @@ export function formatDate(input, interval) {
     }
 }
 
-export function statusRenderer(status) {
+export function statusRenderer(text, status) {
     switch (status) {
-        case 'New':
+        case 'NEW':
             return (
                 <div style={{ backgroundColor: '#30d6b4', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Cancelled':
+        case 'CAN':
             return (
                 <div style={{ backgroundColor: '#881600', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Rejected':
+        case 'REJ':
             return (
                 <div style={{ backgroundColor: '#001011', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Fully Executed':
+        case 'FEX':
             return (
                 <div style={{ backgroundColor: '#1b5041', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Partially Filled':
+        case 'PEX':
             return (
                 <div style={{ backgroundColor: '#49dcb1', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Fully Filled':
+        case 'FLL':
             return (
                 <div style={{ backgroundColor: '#36a181', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Waiting':
+        case 'WA':
             return (
                 <div style={{ backgroundColor: '#e6e8e6', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Queued':
+        case 'Q':
             return (
                 <div style={{ backgroundColor: '#e6e8e6', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Waiting Cancel':
+        case 'WC':
             return (
                 <div style={{ backgroundColor: '#eac435', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Waiting Modify':
+        case 'WM':
             return (
                 <div style={{ backgroundColor: '#6b5a19', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Inactive':
+        case 'IAT':
             return (
                 <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Sending':
+        case 'SND':
             return (
                 <div style={{ backgroundColor: '#aafac8', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Expired':
+        case 'EXP':
             return (
                 <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Partially Expired':
+        case 'PXP':
             return (
                 <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Trigger Order':
+        case 'TRIG':
             return (
                 <div style={{ backgroundColor: '#95c623', color: '#000' }}>
-                    {status}
+                    {text}
                 </div>
             )
-        case 'Completed':
+        case 'CPD':
             return (
                 <div style={{ backgroundColor: '#6320ee', color: '#FFF' }}>
-                    {status}
+                    {text}
                 </div>
             )
         default:
-            return status
+            return text
     }
 }

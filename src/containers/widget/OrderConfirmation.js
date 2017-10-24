@@ -293,6 +293,7 @@ class OrderConfirmation extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data.mvOrderBeanList}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -331,31 +332,8 @@ class OrderConfirmation extends Component {
     }
 
     onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById(this.id + '-cb-all').checked
-            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ? this.props.data.mvOrderBeanList : []
-            else
-                this.rowSelected = []
-        }
-        else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
-                this.rowSelected.push(param)
-            }
-            else {
-                this.rowSelected.splice(index, 1)
-            }
+        this.rowSelected = param.rowSelected
 
-            if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
-                document.getElementById(this.id + "-cb-all").checked = true
-            else
-                document.getElementById(this.id + "-cb-all").checked = false
-        }
         console.log('onRowSelected', this.rowSelected)
     }
 
