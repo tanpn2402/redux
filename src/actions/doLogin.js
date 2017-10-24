@@ -12,8 +12,13 @@ export function doLogin(params) {
             console.log(response)
             return {
                 type: ActionTypes.DOLOGINACTION,
-                result: response,
-                mvClientID: params.mvClientID
+                result: response
+            }
+        },
+        function(err){
+            return {
+                type: ActionTypes.DOLOGINACTION,
+                //status: "NETWORK_FAIL"
             }
         })
     }
@@ -27,7 +32,61 @@ export function logout(id) {
     localStorage.removeItem('lastTabID')
     localStorage.removeItem('lastSubTabID')
     clearInterval(id)
-    sessionService.deleteSession();
-    sessionService.deleteUser();
-    window.location.assign('/login');
+    // sessionService.deleteSession();
+    // sessionService.deleteUser();
+
+    return (dispatch) => {
+        api.post(ACTION.LOGOUT, {force: 1,fromIndexPage: "Y", sessionID: "<s:property value='mvSessionID'/>"}, dispatch,
+            function(response){
+                window.location.assign('/login');
+            },
+            function(err){
+                console.log(err)
+            })
+    }
+
+
+    
+
+
+
+}
+
+export function checkAuth(){
+    var params = {
+        mvTimelyUpdate: "N",
+        key: (new Date()).getTime()
+    }
+    return (dispatch) => {
+        api.login(ACTION.CHECKSESSION, params, dispatch, 
+            function(response){
+                
+                var lvResult = response.mvResult;
+
+                if( response.mvResult_2 =="SESSION_EXPIRED" ||
+                    response.mvResult_2 =="MULTI_USERS_LOGIN" ||
+                    response.mvResult_2 =="SYSTEM_MAINTENANCE" ||
+                    response.mvResult =="Time Out" || 
+                    response.mvResult  == "Will time Out" )
+                {
+                    // not login
+                    console.log("fail", response)
+                    return {
+                        type: ActionTypes.CHECKAUTH,
+                        status: "FAIL",
+                    }
+                }
+                else return {
+                    type: ActionTypes.CHECKAUTH,
+                    status: "SUCCESS",
+                }
+            },
+            function(err){
+                console.log("err", err)
+                return {
+                    type: ActionTypes.CHECKAUTH,
+                    status: "ERROR",
+                }
+            })
+    }
 }

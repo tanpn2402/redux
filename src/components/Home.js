@@ -92,12 +92,12 @@ class Home extends Component {
     }
 
     handleSetConfig() {
-        if (this.props.savedcontent != undefined) {
-            var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
-            if (savedContent.windows == undefined) {
-                config.tabbar = savedContent
-            }
-        }
+        // if (this.props.savedcontent != undefined) {
+        //     var savedContent = $.parseJSON(this.props.savedcontent.mvCfgList[0].SAVEDCONTENT)
+        //     if (savedContent.windows == undefined) {
+        //         config.tabbar = savedContent
+        //     }
+        // }
     }
 }
 

@@ -1,4 +1,4 @@
-import { doLogin, logout } from './doLogin'
+import { doLogin, logout, checkAuth } from './doLogin'
 import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSavedContentLayout, saveLayout, reloadCustom } from './menu_selected'
 import { changeConfig, switchLanguage, switchTheme, checkSession } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
@@ -36,17 +36,25 @@ export {
   reloadCustom,
   getSavedContentLayout,
   saveLayout,
+
+  // doLogin
   doLogin,
   logout,
+  checkAuth,
+
+  // menu selected
   menuSelected,
   menuRemoved,
   onPageClicked,
   onTabClick,
+
+  // configuration
   changeConfig,
   switchLanguage,
   switchTheme,
   checkSession,
 
+  // stock action
   stockSearch,
   getStockWatchInfo,
   

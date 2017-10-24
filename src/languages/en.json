@@ -1125,7 +1125,8 @@
                 "securityCode": "Security Code",
                 "message": {
                     "wrongAccountNo" : "Wrong Account Number or Password. Please try again.",
-                    "changePasswordRequest": "Please, change your password for the first login"
+                    "changePasswordRequest": "Please, change your password for the first login",
+                    "serviceNotAvailable": "Web services temporarily unavailable. Please call our Customer Service Team at (028) 3848 4472 if you require assistance."
                 }
             }
         }

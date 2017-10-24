@@ -6,14 +6,18 @@ const initialState = {
         needChangePwd: "",
         success: false
     },
-    mvClientID: ""
+    loginStatus: "WAIT",
 }
 export default function(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.DOLOGINACTION:
             return Object.assign({}, state, {
-                result: action.result,
-                mvClientID: action.mvClientID
+                result: action.result
+            });
+        case ActionTypes.CHECKAUTH:
+        console.log(action)
+            return Object.assign({}, state, {
+                loginStatus: action.status
             });
         default:
             return state;

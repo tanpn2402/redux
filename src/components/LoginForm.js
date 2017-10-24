@@ -17,34 +17,22 @@ class LoginForm extends Component {
             mvPassword: '',
             securitycode: '12345'
         }
-        this.user = 
-            {
-                mvClientID: 'linh'
-            }
+
         this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
-        this.state = {};
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.user.mvClientID = nextProps.mvClientID
-        if (nextProps.loginResult.success) {
-            sessionApi.login(this.user).then(response => {
-                const { token, data } = response;
-                sessionService.saveSession({ token })
-                    .then(() => {
-                        sessionService.saveUser(data)
-                            .then(() => {
-                                window.location.assign('/')
-                            });
-                    });
-            });
+       
+        if (nextProps.loginResult && nextProps.loginResult.success) {
+            // go to home
+            window.location.assign('/')
         }
     }
 
     render() {
         let language = this.props.language.page
-        console.log(language)
+        console.log(this.props.loginStatus)
         return (
             <div className="login-form-wrapper">
                 <div className="login-form-header">
@@ -74,6 +62,7 @@ class LoginForm extends Component {
 
                         <FormGroup>
                             <Col xs={4}>
+                                {language.login.securityCode}
                             </Col>
                             <Col xs={8} id="security-image">
                                 <img src={this.captchaURL} />
@@ -82,7 +71,7 @@ class LoginForm extends Component {
 
                         <FormGroup id="security-input">
                             <Col xs={4}>
-                                {language.login.securityCode}
+                                
                             </Col>
                             <Col xs={8}>
                                 <input pattern="\d{4}" type="text" className="hks-input border" name="security" ref={node => { this.securitycode = node }} />
@@ -90,13 +79,14 @@ class LoginForm extends Component {
                         </FormGroup>
                         
                         <div className="login-button-group">
-                            <button className="hks-btn btn-login" type="submit">
+                            <button className={"hks-btn btn-login" + (this.props.loginStatus === "ERROR" ? " disabled" : "")} 
+                                type="submit" disabled={this.props.loginStatus === "ERROR" ? true : false}>
                                 {language.button.login}
                             </button>
                         </div>
                     </Form>
                     <div className="login-message">
-                        {this.props.loginResult.mvMessage}
+                        {this.props.loginStatus === "ERROR" ? language.login.message.serviceNotAvailable : this.props.loginResult.mvMessage}
                     </div>
                 </div>
 
@@ -136,8 +126,8 @@ class LoginForm extends Component {
 const mapStateToProps = (state) => {
     return {
         loginResult: state.dologin.result,
-        mvClientID: state.dologin.mvClientID,
         language: state.config.language,
+        loginStatus: state.dologin.loginStatus
     };
 }
 

@@ -52,11 +52,12 @@ export function report(id, param, dispatch, callback) {
 
 };
 
-export function login(id, param, dispatch, callback) {
+export function login(id, param, dispatch, successHandler, failHandler) {
 	return (FetchAPI(id, param, LOGIN)).then(response => response).then(parseData => {
-		dispatch(callback(parseData));
-	}).catch(error => {
-		return error
+		dispatch(successHandler(parseData));
+	}).catch(error => { 
+		if(failHandler)
+			dispatch(failHandler(error));
 	})
 
 };
