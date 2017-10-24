@@ -72,6 +72,7 @@ body {
 .hks-input {
     border: none;
     outline: none;
+    width: 100%;
 }
 .hks-input.border{
     border-radius: 2px;
@@ -86,7 +87,7 @@ body {
 }
 .hks-select {
     border-radius: 2px;
-    background-color: transparent;
+    background-color: #ffffff;
     border: 1px solid #dcdcdc;
     padding: 3px 6px;
     width: 100%;
@@ -135,6 +136,23 @@ input[type=number]::-webkit-outer-spin-button {
 }
 input::-webkit-calendar-picker-indicator {
     opacity: 1;
+}
+label {
+    margin-bottom: 0;
+}
+@media (max-width: 768px){
+    .form-inline .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+}
+@media (max-width: 768px){
+    .form-inline .form-group {
+        /* display: inline-block; */
+        /* margin-bottom: 0; */
+        vertical-align: middle;
+    }
 }
 /*END COMMONS*/
 /*LAYOUT*/
@@ -445,42 +463,32 @@ input::-webkit-calendar-picker-indicator {
     z-index: 99;
     transform: translateY(0%);
     transition-delay: 0s, 0s, 0.3s;
-    margin-left: -85px;
+    /* margin-left: -85px; */
+    right: 25px;
 }
 /*END DROPDOWN CHECKBOX*/
-/*ENTER ORDER*/
-.login-form {
+/* LOGIN */
+.login-form-wrapper {
     width: 100%;
     height: 100%;
-    min-height: 900px;
     position: absolute;
     background-color: #003664;
-    overflow: scroll;
 }
 
 .login-form-header {
     width: 100%;
-    height: auto;
+    height: auto;   
     border-bottom: 3px solid rgb(75, 99, 123);
-    position: relative;
+    position: absolute;
     background-color: white;
-    overflow: auto;
 }
 
-.login-logo {
-    height: 100px;
+#company-logo {
+    height: 90px;
     width: 300px;
     display: inline-block;
-    float: left;
     position: relative;
     margin: 0 15px;
-}
-.mirae-logo {
-    background: url(../assets/images/Mirae_logo.png);
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-}
-.ttx-logo {
     background: url(../assets/images/logo_main_ttl.png);
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -496,127 +504,55 @@ input::-webkit-calendar-picker-indicator {
     bottom: 0px;
     color: white;
 }
-
-.login-form-footer .divBranch {
-    display: inline-block;
-    float: left;
-    width: 35%;
-    min-width: 300px;
-    color: white;
-    padding: 20px;
-    position: relative;
-    box-sizing: border-box;
+.login-form-footer > .col-sm-4 {
+    padding: 10px;
 }
-
-.divCopyright {
-    width: 100%;
-    float: left;
-    text-align: right;
-    font-weight: bold;
-    font-size: small;
-    display: block;
-    bottom: 0;
-    padding: 5px;
-}
-
-.divBranch a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-
-.login.form-horizontal .control-label{
-    text-align: center;
-}
-.login.form-horizontal input {
-    border: none;
-    border-radius: 0px;
-}
-.inputs{
-    border: none;
-    margin-bottom: 3px;
-    height: 35px;
-    text-indent: 40px;
-    font-size: 18px;
-}
-#security-wrapper {
-    margin: auto;
-    position: relative;
-    width: 90%;
-    max-height: 100px;
-    line-height: 100%;
-}
-
-#security-wrapper img {
-    height: 60px;
-    overflow: hidden;
-    background: #cdcdcd;
-}
-
-#security {
-    width: 40%;
-    margin: auto;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    height: 40px;
-    font-size: 1.75em;
-    text-align: center;
-}
-
-
-.form-group>div:nth-child(1) {
-    /* font-size: 15px; */
-    /*margin-bottom: 5px;*/
-} 
-
-
-.login {
-    color: #fff;
-    padding: 20px 30px 40px 30px;
-    min-width: 350px;
-    width: 40%;
-    max-width: 400px;
-    height: 300px;
-    position: absolute;
-    box-sizing: border-box;
+.login-form-body {
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    border: 3px solid #ff6600;
-    border-radius: 15px;
-    background-color: #003664;
-    margin: 25vh auto auto auto;
-}
-
-.inputgroup {
-    position: relative;
-    margin-bottom: 6px;
-    margin-left: 10px;
-}
-
-#activateCodeImg {
-    width: 50%;
-    height: auto;
-    float: left;
-    position: relative;
-    display: block;
-    margin-top: 10px;
-    border: 1px solid white;
-    margin: 10px;
-}
-
-.login .glyphicon{
-    color: white;
-    height: 35px;
-    top: 0;
-    line-height: 100%;
     position: absolute;
-    font-size: 20px;
-    background-color: rgb(252, 106, 8);
-    padding: 6px 10px 3px 10px;
-    box-sizing: border-box; 
+    margin: auto;
+    box-sizing: border-box;
+    width: 400px;
+    height: 250px;
+}
+.login-form {
+    color: #fff;
+    padding: 20px 30px 40px 30px;
+    width: 400px;
+    height: 250px;
+
+    border: 3px solid #ff6600;
+    border-radius: 5px;
+    background-color: #003664;
+    font-size: 15px;
+}
+.login-form > .form-group {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.login-message {
+    margin-top: 10px;
+    width: 400px;
+    text-align: center;
+    color: #ffff00;
+    
+}
+.login-form .hks-input {
+    color: black;
+}
+.login-form #security-image {
+    border-radius: 2px;
+    height: 40px;
+    border: 1px solid #dcdcdc;
+    background-color: #f0f1f1;
+    padding: 1px;
+}
+.login-form #security-image > img {
+    border-radius: 2px;
+    height: 38px;
 }
 .login-button-group {
     text-align: center;
@@ -625,50 +561,23 @@ input::-webkit-calendar-picker-indicator {
     background-color: #ff6600;
     border: none; 
     color: #fff;
-    padding: 10px 20px;
-    font-size: 1.25em;
+    padding: 8px 35px;
 }
-.msg {
-    margin: 40px;
-}
-.inline {
+/* .inline {
     float: right;
 }
-.Radiobox {
-    padding-top: 3px;
-}
+ */
 .form-group {
     margin: 0;
     font-size: 12px;
 }
-.date {
-    position: relative;
-}
-.button {
-    margin: 0px 35%;
-}
 
-.error {
-    margin: 15px 15px;
-}
-@media(max-width: 768px){
-    /* .login.form-horizontal {
-        height: 200px;
-    } */
-    .hks-btn.btn-login {
-        padding: 10px 25px;
-    }
-    /* .login {
-        width: 0%;
-        height: 300px;
-    } */
-    .login-button-group {
-        padding-top: 5px;
-    }
-}
 /*END LOGIN*/
 
 /*ENTER ORDER*/
+.Radiobox {
+    padding-top: 3px;
+}
 #form-enterorder {
     font-size: 12px;
 }
@@ -681,6 +590,7 @@ input::-webkit-calendar-picker-indicator {
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th {
     background-color: #286cae;
     color: #fff;
+    width: 60%;
 }
 #form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
     background-color: #fff;
@@ -736,6 +646,8 @@ input::-webkit-calendar-picker-indicator {
 .modal-header {
     padding-top: 5px;
     padding-bottom: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .modal-footer {
     padding-top: 5px;
@@ -1613,11 +1525,12 @@ input::-webkit-calendar-picker-indicator {
     margin-top: 0;
 }
 .hks-btn.btn-tab-prev {
-    margin: 0px 10px;
     background-color: rgb(255, 250, 250);
     height: 26px;
     color: #005aa0;
     padding: 0px 3px;
+    position: relative;
+    z-index: 2;
 }
 .hks-btn.btn-tab-next {
     margin: 0;
@@ -1625,6 +1538,8 @@ input::-webkit-calendar-picker-indicator {
     height: 100%;
     color: #005aa0;
     padding: 0px 3px;
+    position: relative;
+    z-index: 1;
 }
 .hks-btn.btn-tab-next span{
     line-height: inherit;
@@ -1641,7 +1556,7 @@ input::-webkit-calendar-picker-indicator {
     overflow-y: hidden;
     height: 100%;
     white-space: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -1649,7 +1564,7 @@ input::-webkit-calendar-picker-indicator {
     font-size: 14px;
     background-color: #fffafa;
     border: none;
-    padding: 5px 0 5px 4px;
+    padding: 5px 2px 5px 2px;
     height: 26px;
     margin-top: 0px;
     outline: none;
@@ -1691,7 +1606,7 @@ input::-webkit-calendar-picker-indicator {
     }
     .scrolling-tabs-main.tab-bar .vertical-align-middle {
         padding-top: 2px;
-        padding-left: 5px;
+        /* padding-left: 5px; */
     }
     .scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
         font-size: 14px;
@@ -1703,7 +1618,6 @@ input::-webkit-calendar-picker-indicator {
         font-weight: 600;
         user-select: none;
         display: inline-block;
-        float: left;
     }
     .scrolling-tabs-main.tab-bar .tabs-item:hover {
         opacity: 0.8;
@@ -1727,10 +1641,14 @@ input::-webkit-calendar-picker-indicator {
         height: auto;
         float: right;
     }
-    .scrolling-tabs-main.tab-bar .tabs-item.actived .btn-tab-reload {
-        color: #286CAE;
+    .scrolling-tabs-main.tab-bar .tabs-item.actived .hks-btn.btn-tab-reload {
+        color: #555;
     }
-
+    .scrolling-tabs-main.tab-bar .scrolling-tabs-left {
+        position: relative;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
     .scrolling-tabs-main.tab-bar .scrolling-tabs-right {
         position: relative;
         padding-top: 2px;
@@ -1758,7 +1676,8 @@ input::-webkit-calendar-picker-indicator {
     .scrolling-tabs-main.tab-bar > .scroll {
         position: absolute;
         width: 100%;
-        padding-right: 135px;
+        padding-right: 130px;
+        padding-left: 22px;
         height: 100%;
     }
 
@@ -1784,9 +1703,6 @@ input::-webkit-calendar-picker-indicator {
         -webkit-box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
         box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
     }
-    .scrolling-tabs-main.tab-layout .vertical-align-middle {
-        
-    }
     .scrolling-tabs-main.tab-layout .tabs-item{ 
         font-size: 14px;
         padding: 0 5px;
@@ -1798,7 +1714,6 @@ input::-webkit-calendar-picker-indicator {
         font-weight: 600;
         user-select: none;
         display: inline-block;
-        float: right;
     }
     .scrolling-tabs-main.tab-layout .tabs-item:hover {
         opacity: 0.8;
@@ -1824,11 +1739,10 @@ input::-webkit-calendar-picker-indicator {
         height: auto;
         float: right;
     }
-
-    .scrolling-tabs-main.tab-layout .scrolling-tabs-right {
+    .scrolling-tabs-main.tab-layout .scrolling-tabs-right,
+    .scrolling-tabs-main.tab-layout .scrolling-tabs-left {
         position: relative;
-        padding-top: 2px;
-        padding-bottom: 2px;
+        padding: 2px 3px;
     }
     .hks-btn.btn-tabbar-prev {
         margin: 0;
@@ -1852,7 +1766,8 @@ input::-webkit-calendar-picker-indicator {
     .scrolling-tabs-main.tab-layout > .scroll {
         position: absolute;
         width: 100%;
-        padding-right: 22px;
+        padding-right: 25px;
+        padding-left: 25px;
         height: 100%;
     }
 
@@ -1887,7 +1802,6 @@ input::-webkit-calendar-picker-indicator {
         cursor: pointer;
         user-select: none;
         display: inline-block;
-        float: left;
     }
     .scrolling-tabs-main.scrolling-tabbar > .scroll {
         position: absolute;
@@ -2272,8 +2186,8 @@ input::-webkit-calendar-picker-indicator {
     padding-top: 25px;
 }
 #accountinfo  > .widget-body > .tab-wrapper > .scrolling-tabbar > .scroll{
-    z-index: 3;
-    box-shadow: 0 4px 2px -2px #cecece;    
+    z-index: 1;
+    box-shadow: 0 2px 2px -2px #cecece;    
 }
 #accountinfo  > .widget-body > .content-wrapper{
     position: absolute;
@@ -2960,7 +2874,7 @@ input::-webkit-calendar-picker-indicator {
     overflow-x: auto;
 }
 .widget-form .table > tbody > tr > th {
-    width: 60%;
+    width: 50%;
     font-weight: normal;
 }
 .widget-body .table > tbody > tr > th,
@@ -3089,9 +3003,11 @@ input::-webkit-calendar-picker-indicator {
     padding: 4px 8px;
 }*/
 .PowerSelect {
-    border: none;
-    background-color: transparent;
-    max-width: 200px;
+    border-radius: 2px;
+    border-color: #dcdcdc;
+    /* border: none; */
+    /* background-color: transparent; */
+    /* max-width: 200px; */
 }
 .PowerSelect__SearchInputContainer {
     padding: 2px 8px;
@@ -3127,6 +3043,10 @@ input::-webkit-calendar-picker-indicator {
 .PowerSelectMultiple__OptionsContainer {
     padding: 2px 8px;
 }
+.PowerSelect__TriggerLabel, 
+.PowerSelect__TriggerStatus {
+    padding-top: 1px;
+}
 .PowerSelect__TriggerStatus:before {
     /* border-top: 5px solid #505050; */
     border: none;
@@ -3142,15 +3062,22 @@ input::-webkit-calendar-picker-indicator {
 .PowerSelect__TriggerStatus:hover {
     background-color: #ccc;
 }
+.PowerSelect--open {
+    border-bottom: 1px solid transparent;
+}
 .search-bar .PowerSelect {
     border: 1px solid #ccc;
     background-color: #fff;
     width: 150px;
+    height: 20px;
 }
 
 #form-enterorder .PowerSelect {
     width: 100%;
     max-width: unset;
+    border: none;
+    background-color: transparent;
+
 }
 
 /* CALENDAER PICKER */
@@ -3279,6 +3206,7 @@ input::-webkit-calendar-picker-indicator {
     display: none;
 }
 
+<<<<<<< HEAD
 /* Table-dragNdrop */
 #draglabel {
     border: 1px solid rgba(0,0,0,.05);
@@ -3300,3 +3228,7 @@ input::-webkit-calendar-picker-indicator {
 .ReactTable .rt-tr>.rt-resizable-header {
     padding: 5px 0;
 }
+=======
+
+
+>>>>>>> ver2

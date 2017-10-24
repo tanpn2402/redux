@@ -29,13 +29,6 @@ class FundTransPanel extends Component {
         this.state = {
             isExternalFilter: true,
             receivers: [],
-            //     paramsfund: {       mvBankId: '',       mvDestClientID: '',
-            // mvDestBankID: '',       inputBankName: '',       inputBankBranch: '',
-            // mvDestAccountName: 'Test',       mvAmount: '1000',       mvTransferType: '',
-            //      mvRemark: 'FUND TRANSFER',       mvSeriNo: '[5,A][4,f]',       mvAnswer:
-            // '7|4',       mvSaveAuthenticate: 'true',       mvPersonCharged: '1',
-            // mvWithdrawAmt: '1,000,000',       mvAvaiableAmt: '15,000,000',
-            // mvTransferFee: '0'     },
         }
 
         this.handleInputChange = this
@@ -90,12 +83,7 @@ class FundTransPanel extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <Form
-                        onSubmit={this
-                            .handleSubmit
-                            .bind(this)}
-                        id={"form-" + this.id}
-                        className="widget-form">
+                    <Form onSubmit={this.handleSubmit.bind(this)} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
                             <Table responsive>
                                 <tbody>
@@ -163,6 +151,7 @@ class FundTransPanel extends Component {
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
                                             <select
+                                                className="hks-select"
                                                 required
                                                 ref={e => this.destClientID = e}
                                                 name="destClientID"
@@ -188,10 +177,8 @@ class FundTransPanel extends Component {
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
                                         <td>
                                             <input
+                                                className="hks-input border"
                                                 ref={e => this.beneficiaryfullname = e}
-                                                style={{
-                                                    width: "180px"
-                                                }}
                                                 required />
                                         </td>
                                     </tr>
@@ -199,10 +186,8 @@ class FundTransPanel extends Component {
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.bankname}</th>
                                         <td>
                                             <input
+                                                className="hks-input border"
                                                 ref={e => this.bankName = e}
-                                                style={{
-                                                    width: "180px"
-                                                }}
                                                 required />
                                         </td>
                                     </tr>
@@ -210,11 +195,9 @@ class FundTransPanel extends Component {
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.bankbranch}</th>
                                         <td>
                                             <input
+                                                className="hks-input border"
                                                 ref={e => this.bankBranch = e}
                                                 id="bankbranch"
-                                                style={{
-                                                    width: "180px"
-                                                }}
                                                 required />
                                         </td>
                                     </tr>
@@ -222,33 +205,32 @@ class FundTransPanel extends Component {
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.transferamount}</th>
                                         <td>
                                             <input
+                                                className="hks-input border"
                                                 type="number"
                                                 ref={e => this.transferAmount = e}
-                                                style={{
-                                                    width: "180px"
-                                                }}
                                                 required />
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: roweven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.remark}</th>
                                         <td>
-                                            <textarea ref={e => this.remark = e} rows="3" cols="26"></textarea>
+                                            <textarea ref={e => this.remark = e} className="hks-input border"
+                                                rows="3" cols="26"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
                             </Table>
-                            <div className="group-btn-action cashtransfer-action">
+                            <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <Button
-                                        className="btn btn-default"
-                                        type="submit"
-                                        className="submit">
-                                        Submit
-                                    </Button>
-                                    <Button className="btn btn-default" type="reset" className="cancel">Cancel</Button>
+                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel" >
+                                        {this.props.language.button.cancel}
+                                    </button>
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" >
+                                        {this.props.language.button.submit}
+                                    </button>
                                 </span>
                             </div>
+
                         </FormGroup>
                     </Form>
 
