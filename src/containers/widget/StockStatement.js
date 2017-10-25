@@ -357,8 +357,26 @@ class StockStatement extends Component {
 
     onChangeStateColumn(e) {
         const id = e.target.id
+        let newCols = this.state.columns.map(parentCol => {
+            if (parentCol.columns !== undefined) {
+                let cols = parentCol.columns.map(column => {
+                    if (column.id == id) {
+                        return Object.assign({}, column, { show: !column.show })
+                    } else {
+                        return column
+                    }
+                })
+                return Object.assign({}, parentCol, { columns: cols })
+            } else {
+                if (parentCol.id == id) {
+                    return Object.assign({}, parentCol, { show: !parentCol.show })
+                } else {
+                    return parentCol
+                }
+            }
+        })
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+            columns: newCols
         });
     }
 

@@ -197,6 +197,7 @@ class Portfolio extends Component {
                 {
                     id: '',
                     Header: '',
+                    skip: false,
                     columns: [
                         // {
                         //     Header: 'Ord',
@@ -207,6 +208,8 @@ class Portfolio extends Component {
                             id: 'mvStockID',
                             Header: nextProps.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
+                            skip: false,
+                            show: true,
                             maxWidth: 60,
                             Aggregated: () => {
                                 return null;
@@ -217,11 +220,14 @@ class Portfolio extends Component {
                 {
                     id: '',
                     Header: ' ',
+                    skip: false,
                     columns: [
                         {
                             id: 'mvMarketID',
                             Header: nextProps.language.portfolio.header.mvMaketID,
                             accessor: 'mvMarketID',
+                            skip: false,
+                            show: true,
                             maxWidth: 60,
                             Pivot: (cellInfo) => {
                                 return <span> {cellInfo.row._pivotVal} </span>
@@ -233,11 +239,14 @@ class Portfolio extends Component {
                     id: 'mvVolume',
                     Header: 'Volume',
                     headerClassName: 'volume',
+                    skip: false,
                     columns: [{
                         id: 'mvTradableQty',
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTradableQty,
                         accessor: 'mvTradableQty',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -246,6 +255,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTSettled,
                         accessor: 'mvTSettled',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -254,6 +265,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvHoldingAmt,
                         accessor: 'mvHoldingAmt', //not sure
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -262,6 +275,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvQueuingBuy,
                         accessor: 'mvQueuingBuy', //not sure
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -270,6 +285,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTT1UnsettleBuy,
                         accessor: 'mvTT1UnsettleBuy', // not sure
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -278,6 +295,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTDueBuy,
                         accessor: 'mvTDueBuy',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -286,6 +305,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTMortgageQty,
                         accessor: 'mvTMortgageQty',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -294,6 +315,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTManualHold,
                         accessor: 'mvTManualHold',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -302,6 +325,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTEntitlementQty,
                         accessor: 'mvTEntitlementQty',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -310,6 +335,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingTraceCert,
                         accessor: 'mvTAwaitingTraceCert',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -318,6 +345,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingDepositCert,
                         accessor: 'mvTAwaitingDepositCert',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -326,6 +355,8 @@ class Portfolio extends Component {
                         parent: 'mvVolume',
                         Header: nextProps.language.portfolio.header.mvTAwaitingWithdrawalCert,
                         accessor: 'mvTAwaitingWithdrawalCert',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -335,11 +366,14 @@ class Portfolio extends Component {
                     id: 'mvPrice',
                     Header: 'Price',
                     headerClassName: 'price',
+                    skip: false,
                     columns: [{
                         id: 'mvAvgPrice',
                         parent: 'mvPrice',
                         Header: nextProps.language.portfolio.header.mvAvgPrice,
                         accessor: 'mvAvgPrice',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -348,6 +382,8 @@ class Portfolio extends Component {
                         parent: 'mvPrice',
                         Header: nextProps.language.portfolio.header.mvMarketPrice,
                         accessor: 'mvMarketPrice',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -357,11 +393,14 @@ class Portfolio extends Component {
                     id: 'PortfolioAssessment',
                     Header: 'Portfolio assessment',
                     headerClassName: 'rate',
+                    skip: false,
                     columns: [{
                         id: 'mvWAC',
                         parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvWAC,
                         accessor: 'mvWAC',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -370,6 +409,8 @@ class Portfolio extends Component {
                         parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvMarketValue,
                         accessor: 'mvMarketValue',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -378,6 +419,8 @@ class Portfolio extends Component {
                         parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvPL,
                         accessor: 'mvPL',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -386,6 +429,8 @@ class Portfolio extends Component {
                         parent: 'PortfolioAssessment',
                         Header: nextProps.language.portfolio.header.mvPLPercent,
                         accessor: 'mvPLPercent',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -395,11 +440,14 @@ class Portfolio extends Component {
                     id: 'mvMargin',
                     Header: '(%) Margin',
                     headerClassName: 'deposit',
+                    skip: false,
                     columns: [{
                         id: 'mvMarginPercentage',
                         parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.mvMarginPercentage,
                         accessor: 'mvMarginPercentage',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -408,6 +456,8 @@ class Portfolio extends Component {
                         parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.mvMartginValue,
                         accessor: 'mvMartginValue',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -416,6 +466,8 @@ class Portfolio extends Component {
                         parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.maintenancePercentage,
                         accessor: 'maintenancePercentage',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -424,6 +476,8 @@ class Portfolio extends Component {
                         parent: 'mvMargin',
                         Header: nextProps.language.portfolio.header.maintenanceValue,
                         accessor: 'maintenanceValue',
+                        skip: false,
+                        show: true,
                         Aggregated: () => {
                             return null
                         }
@@ -477,8 +531,26 @@ class Portfolio extends Component {
 
     onChangeStateColumn(e) {
         const id = e.target.id
+        let newCols = this.state.columns.map(parentCol => {
+            if (parentCol.columns !== undefined) {
+                let cols = parentCol.columns.map(column => {
+                    if (column.id == id) {
+                        return Object.assign({}, column, { show: !column.show })
+                    } else {
+                        return column
+                    }
+                })
+                return Object.assign({}, parentCol, { columns: cols })
+            } else {
+                if (parentCol.id == id) {
+                    return Object.assign({}, parentCol, { show: !parentCol.show })
+                } else {
+                    return parentCol
+                }
+            }
+        })
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+            columns: newCols
         })
     }
 
