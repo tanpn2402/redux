@@ -121,13 +121,13 @@ class Sumary extends Component {
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
                         <div className="col-sm-3" style={{ height: '100%' }}>
-                            <div className="col-sm-4" style={{ height: '100%'}}>
+                            <div className="col-sm-4" style={{ height: '100%' }}>
                                 <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} />
                             </div>
                             <div className="col-sm-8" style={{ height: '100%' }}>

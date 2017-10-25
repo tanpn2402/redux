@@ -122,7 +122,7 @@ class MatchOrderBankList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -279,7 +279,31 @@ class MatchOrderBankList extends Component {
 
     }
     onRowSelected(param) {
-        this.rowSelected = param.rowSelected
+        if (param === 'ALL') {
+            var current = document.getElementById(this.id + '-cb-all').checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.queryAdvancePaymentInfo.mvChildBeanList
+            else
+                this.rowSelected = []
+        } else {
+            var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
+
+            if (tmp.length > 0) {
+                // exist in row selected
+                this.rowSelected = this.rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
+            } else {
+                this.rowSelected.push(param)
+            }
+
+            if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
+                document.getElementById(this.id + "-cb-all").checked = true
+            else
+                document.getElementById(this.id + "-cb-all").checked = false
+        }
         this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked)
     }
 

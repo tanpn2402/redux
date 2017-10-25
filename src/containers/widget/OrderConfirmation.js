@@ -281,7 +281,7 @@ class OrderConfirmation extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title widgetID={'orderconfirmation'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'orderconfirmation'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -332,10 +332,34 @@ class OrderConfirmation extends Component {
     }
 
     onRowSelected(param) {
-        this.rowSelected = param.rowSelected
+        if (param === 'ALL') {
+            var current = document.getElementById(this.id + '-cb-all').checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ? this.props.data.mvOrderBeanList : []
+            else
+                this.rowSelected = []
+        }
+        else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            }
+            else {
+                this.rowSelected.splice(index, 1)
+            }
 
+            if (document.getElementsByClassName(this.id + '-row-checkbox').length === this.rowSelected.length)
+                document.getElementById(this.id + "-cb-all").checked = true
+            else
+                document.getElementById(this.id + "-cb-all").checked = false
+        }
         console.log('onRowSelected', this.rowSelected)
     }
+
 
     execute() {
         if (this.rowSelected.length > 0) {

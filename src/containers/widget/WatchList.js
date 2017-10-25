@@ -305,7 +305,33 @@ class WatchList extends Component {
     }
 
     onRowSelected(param) {
-        this.rowSelected = param.rowSelected
+        if (param === 'ALL') {
+            var current = document.getElementById('watchlist-cb-all').checked
+            var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.watchListData !== undefined ?
+                    this.props.watchListData : []
+            else
+                this.rowSelected = []
+        }
+        else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            }
+            else {
+                this.rowSelected.splice(index, 1)
+            }
+
+            if (document.getElementsByClassName("watchlist-row-checkbox").length === this.rowSelected.length)
+                document.getElementById("watchlist-cb-all").checked = true
+            else
+                document.getElementById("watchlist-cb-all").checked = false
+        }
+        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
@@ -689,7 +715,7 @@ class WatchList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%' }}>
-                <Title theme={this.props.theme} widgetID={'watchlist'}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>

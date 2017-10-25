@@ -41,14 +41,14 @@ export default class DataTable extends React.Component {
 		if (!this.props.id.includes('-table')) {
 			newColumns = this.state.columns.map((column) => {
 				return Object.assign({}, column, {
-					Header: headerRenderer(this, column.id, column.reorderable, column.Header)
+					Header: headerRenderer(this, column.id, column, column.Header)
 				})
 			})
 		}
 		return (
 			<div className="hks-table" id={this.props.id}>
 				<ReactTable
-					filterable
+					filterable={this.props.filterable != undefined ? this.props.filterable : false}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -203,20 +203,20 @@ function expand(data) {
 	return rows;
 }
 
-function headerRenderer(component, id, reorderable, text) {
+function headerRenderer(component, id, column, text) {
 	switch (id) {
 		case 'cb':
 			return (
-				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => component.onRowSelected('ALL')} />
+				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => component.props.onRowSelected('ALL')} />
 			)
 		default:
 			return (
-				<div id={id} reorderable={reorderable}
+				<div id={id} reorderable={column.reorderable}
 					onMouseLeave={e => component.handleOnMouseLeave(e)}
 					onMouseEnter={e => component.handleOnMouseEnter(e)}
 					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)} >{text}</div>
+					onMouseUp={(e) => component.handleOnMouseUp(e)}
+				>{text}</div>
 			)
 	}
-
 }

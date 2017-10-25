@@ -21,28 +21,28 @@ class AdBankPanel extends Component {
     render() {
         var queryBankInfo = this.props.bankInfo
         var calculateInterestAmt = this.props.calculateInterestAmt
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <Form onSubmit={this.handleSubmit.bind(this)} id={this.id}  className="widget-form">
+                    <Form onSubmit={this.handleSubmit.bind(this)} id={this.id} className="widget-form">
                         <FormGroup>
                             <Table responsive>
                                 <tbody >
-                                     <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <select id="mvBank" className="hks-select bank-account" style={{width: '100%'}} 
+                                            <select id="mvBank" className="hks-select bank-account" style={{ width: '100%' }}
                                                 onChange={this.getAdvanceOrderData.bind(this)}>
                                                 {
                                                     queryBankInfo.mvBankInfoList.map(bank => {
                                                         return (
-                                                            <option style={{color: 'black'}} value={bank.mvBankID}>
+                                                            <option style={{ color: 'black' }} value={bank.mvBankID}>
                                                                 {bank.mvSettlementAccountDisplayName}
                                                             </option>
                                                         )
@@ -51,7 +51,7 @@ class AdBankPanel extends Component {
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>
                                             <input
@@ -59,10 +59,10 @@ class AdBankPanel extends Component {
                                                 id="advanceAvailable"
                                                 value={Utils.currencyShowFormatter(this.props.data.cTovalValue, ",", this.lang)}
                                                 ref={e => this.txtAdvanceAvailable = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
@@ -70,18 +70,18 @@ class AdBankPanel extends Component {
                                                 id="advanceAvailable"
                                                 ref={e => this.txtAdvanceFee = e}
                                                 value="0"
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
-                                        <td style={{color: 'black'}}>
+                                        <td style={{ color: 'black' }}>
                                             <FormGroup>
-                                                <input 
+                                                <input
                                                     className="hks-input border"
-                                                    type="number" name="volume" min="0" 
+                                                    type="number" name="volume" min="0"
                                                     disabled={this.props.data.cTovalValue == '0'}
-                                                    onBlur={e => this.doCalculateInterest()}  
+                                                    onBlur={e => this.doCalculateInterest()}
                                                     id="advancePayment"
                                                     ref={e => this.txtAdvancePayment = e}
                                                     required />
@@ -92,11 +92,11 @@ class AdBankPanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <button className="btn btn-default" type="button" className="hks-btn btn-cancel" 
+                                    <button className="btn btn-default" type="button" className="hks-btn btn-cancel"
                                         onClick={e => this.handleResetForm(this.props.paymentSelected)}>
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
                                         onClick={this.handleSubmit.bind(this)}>
                                         {this.props.language.button.submit}
                                     </button>
@@ -104,14 +104,14 @@ class AdBankPanel extends Component {
                             </div>
                         </FormGroup>
                     </Form>
-                    
+
                 </Body>
             </div>
         )
 
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.txtAdvancePayment.value = this.props.data.cTovalValue * 1000
         this.doCalculateInterest()
     }
@@ -128,13 +128,13 @@ class AdBankPanel extends Component {
         })
     }
 
-    handleResetForm(paymentSelected){
+    handleResetForm(paymentSelected) {
         this.txtAdvanceFee.value = "0"
-        this.txtAdvancePayment.value = '' 
+        this.txtAdvancePayment.value = ''
     }
 
     doCalculateInterest() {
-        if(this.props.data.cTPLUSXHF){
+        if (this.props.data.cTPLUSXHF) {
             this.txtAdvanceFee.value = "0"
 
             var advPayment = this.txtAdvancePayment.value
@@ -142,7 +142,7 @@ class AdBankPanel extends Component {
             var me = this
 
             if (advPayment <= 0) {
-                
+
             } else {
                 var stleDay = "3";
                 if (soldT == "T0") {
@@ -152,29 +152,29 @@ class AdBankPanel extends Component {
                 } else if (soldT == "T2") {
                     stleDay = "1";
                 }
-        
+
                 var _params = {
                     "mvSettlement": stleDay,
                     'mvAmount': advPayment
                 }
 
                 api.fetch(ACTION.CALCULATEINTERSETAMT, _params, 'POST',
-                    function(response){ // success handler
+                    function (response) { // success handler
                         if (response != null) {
                             me.txtAdvanceFee.value = Utils.toTTLCurrencyFormat(response.mvInterestAmt)
                         }
                     })
             }
         }
-            
+
     }
 
-    getAdvanceOrderData(e){
+    getAdvanceOrderData(e) {
         var bank = e.target.value
-        if(bank){
+        if (bank) {
             this.props.getAdvanceOrderData(bank)
         }
-        
+
     }
 
 }

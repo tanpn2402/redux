@@ -86,7 +86,7 @@ class FundTransPanel extends Component {
                     height: '100%',
                     position: 'relative'
                 }}>
-                <Title theme={this.props.theme}>
+                <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>

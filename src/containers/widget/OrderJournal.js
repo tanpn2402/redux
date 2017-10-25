@@ -187,6 +187,7 @@ class OrderJournal extends Component {
             ],
             pageIndex: 1,
             key: false,
+            filterable: true
         }
 
         this.colA = {
@@ -223,7 +224,7 @@ class OrderJournal extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} language={this.props.language} columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -235,7 +236,8 @@ class OrderJournal extends Component {
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
                             data={data}
-                            handleOnRowSelected={(param) => this.onRowSelected(param)}
+                            onRowSelected={(param) => this.onRowSelected(param)}
+                            filterable={this.state.filterable}
                         />
                     </div>
 
@@ -272,7 +274,6 @@ class OrderJournal extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.data)
         this.setState({
             columns: [
                 {
@@ -404,16 +405,13 @@ class OrderJournal extends Component {
                 {
                     id: 'mvPrice',
                     Header: nextProps.language.orderjournal.header.price,
-                    accessor: 'mvPrice',
+                    accessor: d => parseFloat(d.mvPrice),
                     width: 80,
                     skip: false,
                     show: true,
                     Aggregated: () => {
                         return null
                     },
-                    sortMethod: (a, b) => {
-                        return a - b > 0 ? 1 : a - b == 0 ? 0 : -1
-                    }
                 },
                 {
                     id: 'mvQty',
@@ -609,7 +607,32 @@ class OrderJournal extends Component {
     }
 
     onRowSelected(param) {
-        this.rowSelected = param.rowSelected
+        if (param === 'ALL') {
+            var current = document.getElementById(this.id + '-cb-all').checked
+            var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ?
+                    this.props.data.mvOrderBeanList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
+            else
+                this.rowSelected = []
+        }
+        else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            }
+            else {
+                this.rowSelected.splice(index, 1)
+            }
+
+            if (document.getElementsByClassName("orderjournal-row-checkbox").length === this.rowSelected.length)
+                document.getElementById("orderjournal-cb-all").checked = true
+            else
+                document.getElementById("orderjournal-cb-all").checked = false
+        }
         console.log('onRowSelected', this.rowSelected)
     }
 
@@ -629,7 +652,13 @@ class OrderJournal extends Component {
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
 
-        //console.log(this.state.columns)
+        // console.log(this.state.columns)
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     onPageChange(pageIndex) {

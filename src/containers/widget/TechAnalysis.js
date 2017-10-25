@@ -37,26 +37,26 @@ class TechAnalysis extends Component {
                     theme: theme.chart.appearance.theme
                 },
             },
-    
+
             axis: {
                 xAxis: true,
                 yAxis: true,
-    
+
                 showGrid: false,
                 tickStrokeDasharray: "Solid",
                 tickStrokeOpacity: 0.2,
                 tickStrokeWidth: 1,
-    
+
                 showTicks: true,
                 stroke: theme.axis.stroke,
                 tickStroke: theme.axis.tickStroke
-    
+
             },
-    
+
             tooltip: {
                 fontSize: "12px",
             },
-    
+
             option: {
                 timeline: true,
                 control: true,
@@ -65,14 +65,14 @@ class TechAnalysis extends Component {
 
             control: theme.control
         }
-        
+
         return (
             <div style={{ height: "100%", position: "relative" }} id={this.id}>
-                <Title theme={this.props.theme} widgetID={"techanalysis"}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={"techanalysis"}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                <Chart height={470} rawData={test} config={config}/>
+                    <Chart height={470} rawData={test} config={config} />
                 </Body>
             </div>
         )
