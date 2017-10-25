@@ -458,7 +458,9 @@ const config = {
 		stockList: [],
 		lang: 'vi_VN',
 		theme: 'light'
-	}
+	},
+	tableColReorder: [],
+	tableColWidth: [],
 }
 
 export default config

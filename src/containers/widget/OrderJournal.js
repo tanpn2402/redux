@@ -9,6 +9,7 @@ import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
 
+
 class OrderJournal extends Component {
     constructor(props) {
         super(props)

@@ -3206,7 +3206,6 @@ label {
     display: none;
 }
 
-<<<<<<< HEAD
 /* Table-dragNdrop */
 #draglabel {
     border: 1px solid rgba(0,0,0,.05);
@@ -3228,7 +3227,3 @@ label {
 .ReactTable .rt-tr>.rt-resizable-header {
     padding: 5px 0;
 }
-=======
-
-
->>>>>>> ver2
