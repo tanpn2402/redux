@@ -341,7 +341,7 @@ export default class DataTable extends React.Component {
 			}
 			this.colB = {
 				index: 0,
-				object: {}this.props.id == 'portfolio' ? this.props.columns : 
+				object: {}
 			}
 		}
 		
@@ -352,7 +352,6 @@ export default class DataTable extends React.Component {
 	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
 	// 	e.target.style = 'color: white; background-color: black;'
 	// }
-	this.props.id == 'portfolio' ? this.props.columns : 
 	// handleOnMouseLeave(e) {
 	// 	e.target.style = ''this.props.id == 'portfolio' ? this.props.columns : 
 	// }
