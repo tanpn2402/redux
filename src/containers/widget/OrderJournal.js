@@ -35,7 +35,8 @@ class OrderJournal extends Component {
                     //     }
                     // },
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    reorderable: false,
                 },
                 {
                     id: 'can',
@@ -86,6 +87,7 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    reorderable: false,                    
                 },
                 {
                     id: 'mvBS',
@@ -298,7 +300,8 @@ class OrderJournal extends Component {
                     filterable: false,
                     Aggregated: '',
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    reorderable: false,
                 },
                 {
                     id: 'can',
@@ -350,6 +353,7 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    reorderable: false,
                     Pivot: cellInfo => {
                         return <span> {cellInfo.row._pivotVal} </span>
                     }

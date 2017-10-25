@@ -1,11 +1,13 @@
 import React from "react"
 import ReactTable from "react-table"
 import "react-table/react-table.css"
+import ReactDOM from 'react-dom'
 
 export default class DataTable extends React.Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
+			mouseDownCol: null,
 			columns: []
 		}
 
@@ -17,15 +19,64 @@ export default class DataTable extends React.Component {
 			index: 0,
 			object: {}
 		}
+
+		this.scrollLeft = 0
+		this.mousePos = { x: 0, y: 0 }
+		this.dragLabel = null
+		this.dragHighlight = null
+		this.prevColIndex = 0
+		this.curColIndex = 0
+		this.colsWidth = []
+		this.hasCB = true
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.columns) {
+			document.getElementsByClassName("customCol")
 			this.setState({
 				columns: nextProps.columns
 			})
 		}
 	}
+
+	getExactWidth(e) {
+		let rect = e.getBoundingClientRect()
+		if (rect.width) {
+			// `width` is available for IE9+
+			return rect.width;
+		} else {
+			// Calculate width for IE8 and below
+			return rect.right - rect.left;
+		}
+	}
+
+	getExactHeight(e) {
+		let rect = e.getBoundingClientRect()
+		if (rect.height) {
+			// `width` is available for IE9+
+			return rect.height;
+		} else {
+			// Calculate width for IE8 and below
+			return rect.bottom - rect.top;
+		}
+	}
+
+	createTableMask() {
+		const border = 1
+		var cols = [...document.getElementsByClassName("customCol")]
+
+		var sum = 0 - this.scrollLeft
+		this.colsWidth = cols.map(col => {
+			//Check reorderable props
+			let reorderable = (col.className.indexOf("reorderable") === -1 ? false : true)
+			var width = this.getExactWidth(col.parentNode) + border
+			let start = sum
+			sum += width
+			let end = sum
+			return { "id": col.id, "s": start, "e": end, "w": width, "reorderable": reorderable }
+		})
+	}
+
 
 	render() {
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
@@ -46,9 +97,10 @@ export default class DataTable extends React.Component {
 			})
 		}
 		return (
-			<div className="hks-table" id={this.props.id}>
+			<div className="hks-table" id={this.props.id} onScroll={e => this.handleOnScroll(e)}>
 				<ReactTable
 					filterable={this.props.filterable != undefined ? this.props.filterable : false}
+					ref={e => this.mainTable = e}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -101,7 +153,97 @@ export default class DataTable extends React.Component {
 		)
 	}
 
-	handleOnMouseDown(e) { // begin dragging
+	componentDidMount() {
+		window.addEventListener('mousemove', this.handleMouseMove.bind(this))
+		window.addEventListener('mouseup', this.handleOnMouseUp.bind(this))
+	}
+
+	mountPortal(newLabel, newLabelID) {
+		if (this.dragLabel != null) {
+			this.unmountPortal()
+		}
+		//Add label on cursor
+		this.dragLabel = document.createElement('div')
+		this.dragLabel.id = "draglabel"
+		this.dragLabel.innerHTML = newLabel
+		var curComp = ReactDOM.findDOMNode(this);
+		curComp.appendChild(this.dragLabel)
+
+		this.createTableMask()
+		//which col is being selected
+		this.curColIndex = this.colsWidth.findIndex(col => (col.id == newLabelID))
+		this.prevColIndex = this.curColIndex
+		var curCol = this.colsWidth[this.curColIndex]
+		//Add highlight
+		this.dragHighlight = document.createElement('div')
+		this.dragHighlight.id = "draghighlight"
+		this.dragHighlight.style.left = curCol.s + "px"
+		this.dragHighlight.style.width = curCol.w + "px"
+		var parentTable = document.getElementsByClassName('datatable -striped')[0]
+		this.dragHighlight.style.top = window.getComputedStyle(curComp.parentNode).getPropertyValue("padding-top")
+		this.dragHighlight.style.height = this.getExactHeight(parentTable) + "px"
+		curComp.appendChild(this.dragHighlight)
+
+	}
+
+	unmountPortal() {
+		if (this.dragLabel == null) {
+			return
+		}
+		//Unmount draglabel
+		var parentNode = this.dragLabel.parentNode
+		parentNode.removeChild(this.dragLabel)
+		this.dragLabel = null
+
+		//Unmount draghighlight
+		var parentNode = this.dragHighlight.parentNode
+		parentNode.removeChild(this.dragHighlight)
+		this.dragHighlight = null
+
+		this.curColIndex = -1
+		this.prevColIndex = -1
+	}
+
+	handleOnScroll(e) {
+		var curComp = ReactDOM.findDOMNode(this)
+		var scrollComp = curComp.getElementsByClassName('rt-table')[0]
+		this.scrollLeft = scrollComp.scrollLeft
+	}
+
+	handleMouseMove(e) {
+		if (this.dragLabel == null || this.dragLabel == undefined) {
+			return;
+		}
+		var x = e.pageX
+		var y = e.pageY
+
+		this.dragLabel.style.left = x + "px"
+		this.dragLabel.style.top = y + "px"
+
+		var curCol = this.colsWidth[this.curColIndex]
+
+		if (x > curCol.e && this.curColIndex < this.colsWidth.length - 1) {
+			this.curColIndex += 1
+			curCol = this.colsWidth[this.curColIndex]
+		} else if (x < curCol.s && this.curColIndex > 0) {
+			this.curColIndex -= 1
+			curCol = this.colsWidth[this.curColIndex]
+		} else {
+			return;
+		}
+		if (!curCol.reorderable || !this.colsWidth[this.prevColIndex].reorderable) {
+			this.dragHighlight.style.background = "rgba(220, 220, 220, .5)"
+		} else {
+			this.dragHighlight.style.background = "rgba(236, 141, 141, .4)"
+		}
+		this.dragHighlight.style.left = curCol.s + "px"
+		this.dragHighlight.style.width = curCol.w + "px"
+
+	}
+
+
+	handleOnMouseDown(e) { // begin dragging	
+
 		this.colA.object = e.target
 		if (this.colA.object.id == undefined) return
 		let idA = this.colA.object.id
@@ -109,41 +251,47 @@ export default class DataTable extends React.Component {
 			return column.id == idA
 		})
 		this.colA.index = result != -1 ? result : 0
+
+		this.mountPortal(e.target.innerHTML, e.target.id)
+		this.handleMouseMove(e)
 	}
 
 	handleOnMouseUp(e) { // end dragging
-		this.colB.object = e.target
-		if (this.colA.object.id == undefined) return
-		let idB = this.colB.object.id
-		let result = this.state.columns.findIndex((column) => {
-			return column.id == idB
-		})
-		this.colB.index = result != -1 ? result : 0
-		let arr = this.state.columns.slice()
-		let a = arr[this.colA.index]
-		arr[this.colA.index] = arr[this.colB.index]
-		arr[this.colB.index] = a
-		this.setState({
-			columns: arr
-		})
-		this.colA = {
-			index: 0,
-			object: {}
+		if (this.curColIndex != this.prevColIndex
+			&& this.colsWidth[this.curColIndex].reorderable
+			&& this.colsWidth[this.prevColIndex].reorderable) {
+			var arr = [...this.state.columns]
+			//swap two column
+
+			var temp = arr[this.prevColIndex]
+			arr[this.prevColIndex] = arr[this.curColIndex]
+			arr[this.curColIndex] = temp
+
+
+			this.setState({
+				columns: arr
+			})
+			this.colA = {
+				index: 0,
+				object: {}
+			}
+			this.colB = {
+				index: 0,
+				object: {}
+			}
 		}
-		this.colB = {
-			index: 0,
-			object: {}
-		}
+
+		this.unmountPortal()
 	}
 
-	handleOnMouseEnter(e) {
-		if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
-		e.target.style = 'color: white; background-color: black;'
-	}
+	// handleOnMouseEnter(e) {
+	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
+	// 	e.target.style = 'color: white; background-color: black;'
+	// }
 
-	handleOnMouseLeave(e) {
-		e.target.style = ''
-	}
+	// handleOnMouseLeave(e) {
+	// 	e.target.style = ''
+	// }
 
 	onRowSelected(param) {
 		let rowSelected = []
@@ -207,16 +355,18 @@ function headerRenderer(component, id, column, text) {
 	switch (id) {
 		case 'cb':
 			return (
-				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => component.props.onRowSelected('ALL')} />
+				<input id={component.props.id + "-cb-all"}
+					onMouseDown={e => component.handleOnMouseDown(e)}
+					onMouseUp={(e) => component.handleOnMouseUp(e)}
+					type='checkbox'
+					className={"row-checkbox customCol" + (column.reorderable == false ? "" : " reorderable")}
+					onChange={() => component.props.onRowSelected('ALL')} />
 			)
 		default:
 			return (
-				<div id={id} reorderable={column.reorderable}
-					onMouseLeave={e => component.handleOnMouseLeave(e)}
-					onMouseEnter={e => component.handleOnMouseEnter(e)}
+				<div id={id} className={"customCol " + (column.reorderable == false ? "" : " reorderable")}
 					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)}
-				>{text}</div>
+					onMouseUp={(e) => component.handleOnMouseUp(e)}>{text}</div>
 			)
 	}
 }
