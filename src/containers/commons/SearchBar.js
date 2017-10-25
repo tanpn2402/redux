@@ -308,12 +308,16 @@ export default class SearchBar extends React.Component {
     }
 
     render() {
+        let scrollBtnStyle = this.props.theme.scrolling.button
+        
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
                 <div className="scrolling-tabs-main search-bar" id={this.props.id + "-scroll-bar"}>
-                    <button type="button" className="hks-btn btn-tab-prev search-bar" onClick={e => this.onTabSlideClick(1)}>
-                        <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
+                    <button type="button" className="hks-btn btn-tab-prev search-bar" 
+                        onClick={e => this.onTabSlideClick(1)}
+                        style={scrollBtnStyle}>
+                            <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
                     </button>
                     <div className="scroll search-bar" id={this.props.id + "-scroll"}>
                         <div className="scrolling-tabs" id={this.props.id + "-search-bar"}>
@@ -357,8 +361,10 @@ export default class SearchBar extends React.Component {
                             </nav>
                         </div>
                     </div>
-                    <button type="button" className="hks-btn btn-tab-next search-bar" onClick={e => this.onTabSlideClick(2)}>
-                        <span className="glyphicon glyphicon-menu-right"></span>
+                    <button type="button" className="hks-btn btn-tab-next search-bar" 
+                        onClick={e => this.onTabSlideClick(2)}
+                        style={scrollBtnStyle}>
+                            <span className="glyphicon glyphicon-menu-right"></span>
                     </button>
                 </div>
 

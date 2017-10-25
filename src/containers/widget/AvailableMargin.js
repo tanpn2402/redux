@@ -63,7 +63,7 @@ class AvaibleMarginList extends Component {
 
             pageIndex: 1,
         }
-
+        
         this.params = {
             mvLastAction: 'AVAIABLEMARGINLIST',
             mvInstrumentID: '',
@@ -71,7 +71,7 @@ class AvaibleMarginList extends Component {
             mvLending: '',
             page: 1,
             start: 0,
-            limit: 15,
+            limit: this.defaultPageSize,
         }
     }
 
@@ -177,8 +177,8 @@ class AvaibleMarginList extends Component {
 
     onSearch(param) {
         this.state.pageIndex = 1
-        this.params['page'] = this.pageIndex
-        this.params['start'] = (this.pageIndex - 1) * 15
+        this.params['page'] = this.state.pageIndex
+        this.params['start'] = (this.state.pageIndex - 1) * 15
         this.params['limit'] = 15
         this.params['mvMarketID'] = param['mvMarket']
         this.params['mvInstrumentID'] = param['mvStockId'] === 'ALL' ? '' : param['mvStockId']

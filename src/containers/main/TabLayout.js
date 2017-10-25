@@ -4,6 +4,7 @@ import GridLayout from './GridLayout.js'
 import config from '../../core/config'
 import * as actions from '../../actions'
 import { connect } from 'react-redux'
+import $ from 'jquery'
 
 class TabLayout extends Component {
     constructor(props){
@@ -47,14 +48,22 @@ class TabLayout extends Component {
 
 
     render() {
-        var language = this.props.language
-        var activeTab = this.state.activeTab
-        var layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
+        let language = this.props.language
+        let activeTab = this.state.activeTab
+        let layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
+
+        let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
+        let scrollBtnStyle = this.props.theme.scrolling.button
         return (
             <div>
-                <div className="scrolling-tabs-main tab-layout">
+                <div className="scrolling-tabs-main tab-layout" style={pagebackground}>
+                    <div className="scrolling-tabs-left">
+                        <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
+                            <span className="glyphicon glyphicon-menu-left"></span>
+                        </button>
+                    </div>
                     <div className="scroll">
-                        <div className="scrolling-tabs" id="scrolling-tabs">
+                        <div className="scrolling-tabs" id="scrolling-tablayout">
                             <nav className='vertical-align-middle'>
                                 {
                                     this.tabbar.map(tab => {
@@ -74,7 +83,7 @@ class TabLayout extends Component {
                         </div>
                     </div>
                     <div className="scrolling-tabs-right">
-                        <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)}>
+                        <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollBtnStyle}>
                             <span className="glyphicon glyphicon-menu-right"></span>
                         </button>
                     </div>
@@ -100,7 +109,13 @@ class TabLayout extends Component {
         })
     }
 
-    onTabSlideClick(e){
+    onTabSlideClick(i){
+        if(i === 1){
+            $("#scrolling-tablayout").animate( { scrollLeft: '-=200' }, 500);
+        }
+        else{
+            $("#scrolling-tablayout").animate( { scrollLeft: '+=200' }, 500);
+        }
         
     }
 

@@ -426,7 +426,11 @@ class AccountInfo extends Component {
 
 				<Body theme={this.props.theme}>
 					<div className="tab-wrapper">
-						<ScrollingTabs tabList={this.state.tabList} onTabClick={this.onTabClick.bind(this)} id={this.id} />
+						<ScrollingTabs 
+							theme={this.props.theme} 
+							tabList={this.state.tabList} 
+							onTabClick={this.onTabClick.bind(this)} 
+							id={this.id} />
 					</div>
 
 					{

@@ -9,17 +9,26 @@ import * as Utils from '../../utils'
 import config from '../../core/config'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
+import { PowerSelect } from 'react-power-select'
 
 class AdBankPanel extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceBankPanel'
         this.lang = config.cache.lang
+        this.state = {
+            mvSettlementAccount: ''
+        }
     }
 
 
     render() {
         var queryBankInfo = this.props.bankInfo
+        if (queryBankInfo.mvBankInfoList.length > 0) {
+            this.state.mvSettlementAccount = {
+                mvSettlementAccountDisplayName: queryBankInfo.mvBankInfoList[0].mvSettlementAccountDisplayName
+            }
+        }
         var calculateInterestAmt = this.props.calculateInterestAmt
         let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
@@ -37,18 +46,14 @@ class AdBankPanel extends Component {
                                     <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <select id="mvBank" className="hks-select bank-account" style={{ width: '100%' }}
-                                                onChange={this.getAdvanceOrderData.bind(this)}>
-                                                {
-                                                    queryBankInfo.mvBankInfoList.map(bank => {
-                                                        return (
-                                                            <option style={{ color: 'black' }} value={bank.mvBankID}>
-                                                                {bank.mvSettlementAccountDisplayName}
-                                                            </option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
+                                            <PowerSelect
+                                                options={queryBankInfo.mvBankInfoList}
+                                                selected={this.state.mvSettlementAccount}
+                                                onChange={this.getAdvanceOrderData.bind(this)}
+                                                optionLabelPath={'mvSettlementAccountDisplayName'}
+                                                showClear={false}
+                                                searchEnabled={false}
+                                            />
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: roweven, color: font2 }}>
@@ -169,10 +174,13 @@ class AdBankPanel extends Component {
 
     }
 
-    getAdvanceOrderData(e) {
-        var bank = e.target.value
-        if (bank) {
-            this.props.getAdvanceOrderData(bank)
+    getAdvanceOrderData = ({ option }) => {
+        if (option) {
+            this.setState({ mvSettlementAccount: option })
+            var bank = option.mvBankID
+            if (bank) {
+                this.props.getAdvanceOrderData(bank)
+            }
         }
 
     }

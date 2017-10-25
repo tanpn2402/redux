@@ -133,5 +133,12 @@ export default {
 
       }
     }
+  },
+  scrolling: {
+    button: {
+      backgroundColor: "rgb(66, 64, 64)",
+      color: "#ffffff",
+    },
+    background: ""
   }
 }
