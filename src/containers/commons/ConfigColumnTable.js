@@ -15,14 +15,23 @@ export default class ConfigColumnTable extends React.Component {
     clickOutside(e) {
         let className = e.target.className
         let id = e.target.id
-        console.log(e.target)
         let columns = this.props.columns.map(column => {
-            return column.id
+            if (column.columns != undefined) {
+                return column.columns.map(subCol => {
+                    return subCol.id
+                })
+            } else {
+                return column.id
+            }
+        })
+        columns = columns.reduce((acc, obj) => {
+            return acc.concat(obj)
         })
         if (className !== 'dropdown-display'
             && className !== 'dropdown-item'
             && className !== 'dropdown-sublist'
             && className !== 'glyphicon glyphicon-th-list'
+            && className !== 'glyphicon glyphicon-triangle-left'
             && className !== 'dropdown-item-column'
             && className !== 'checkbox'
             && !columns.includes(id)
@@ -127,23 +136,45 @@ export default class ConfigColumnTable extends React.Component {
     }
 
     renderListItems() {
-        var items = [];
+        let items = [];
         for (var i = 0; i < this.props.columns.length; i++) {
-            var item = this.props.columns[i]
-            if (item.skip === false) {
-                items.push(
-                    <div className="dropdown-item" key={item.id}
-                        onMouseDown={e => e.stopPropagation()}>
-                        <div className='checkbox'>
-                            <label style={{ width: '100%' }} className='dropdown-item-column'>
-                                <input type='checkbox' id={item.id} defaultChecked='true'
-                                    readOnly='false' onChange={this.props.onChangeStateColumn} />
-                                <span style={{ lineHeight: '2.2' }} className='dropdown-item-column' >{item.Header}</span>
-                            </label>
+            let item = this.props.columns[i]
+            if (item.columns !== undefined) {
+                let subItems = item.columns
+                for (var j = 0; j < subItems.length; j++) {
+                    let subItem = subItems[j]
+                    if (subItem.skip === false) {
+                        items.push(
+                            <div className="dropdown-item" key={subItem.id}
+                                onMouseDown={e => e.stopPropagation()}>
+                                <div className='checkbox'>
+                                    <label style={{ width: '100%' }} className='dropdown-item-column'>
+                                        <input type='checkbox' id={subItem.id} defaultChecked='true'
+                                            readOnly='false' onChange={this.props.onChangeStateColumn} />
+                                        <span style={{ lineHeight: '2.2' }} className='dropdown-item-column' >{subItem.Header}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        )
+                    }
+                }
+            } else {
+                if (item.skip === false) {
+                    items.push(
+                        <div className="dropdown-item" key={item.id}
+                            onMouseDown={e => e.stopPropagation()}>
+                            <div className='checkbox'>
+                                <label style={{ width: '100%' }} className='dropdown-item-column'>
+                                    <input type='checkbox' id={item.id} defaultChecked='true'
+                                        readOnly='false' onChange={this.props.onChangeStateColumn} />
+                                    <span style={{ lineHeight: '2.2' }} className='dropdown-item-column' >{item.Header}</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
             }
+
 
         }
         return items
