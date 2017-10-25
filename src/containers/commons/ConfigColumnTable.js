@@ -26,7 +26,7 @@ export default class ConfigColumnTable extends React.Component {
         })
         columns = columns.reduce((acc, obj) => {
             return acc.concat(obj)
-        })
+        }, [])
         if (className !== 'dropdown-display'
             && className !== 'dropdown-item'
             && className !== 'dropdown-sublist'
