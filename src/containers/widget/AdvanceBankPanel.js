@@ -174,12 +174,6 @@ class AdBankPanel extends Component {
 
     }
 
-<<<<<<< HEAD
-    getAdvanceOrderData(e) {
-        var bank = e.target.value
-        if (bank) {
-            this.props.getAdvanceOrderData(bank)
-=======
     getAdvanceOrderData = ({option}) => {
         if(option){
             this.setState({ mvSettlementAccount: option })
@@ -187,7 +181,6 @@ class AdBankPanel extends Component {
             if(bank){
                 this.props.getAdvanceOrderData(bank)
             }
->>>>>>> 1e98894... fix some display bugs
         }
 
     }
