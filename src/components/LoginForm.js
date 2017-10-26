@@ -46,7 +46,7 @@ class LoginForm extends Component {
                                 {language.login.username}
                             </Col>
                             <Col xs={8}>
-                                <input type="text" defaultValue="077C081111" autoComplete="off"
+                                <input type="text" defaultValue="077" autoComplete="off"
                                 name="username" className="hks-input border" ref={node => { this.username = node }} />
                             </Col>
                             
@@ -56,7 +56,7 @@ class LoginForm extends Component {
                                 {language.login.password}
                             </Col>
                             <Col xs={8}>
-                                <input type="password" defaultValue="123456" className="hks-input border" name="password" ref={node => { this.password = node }} />
+                                <input type="password" defaultValue="" className="hks-input border" name="password" ref={node => { this.password = node }} />
                             </Col>
                         </FormGroup>
 

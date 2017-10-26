@@ -20,11 +20,6 @@ class Home extends Component {
         this.handleCheckSessionID = this.handleCheckSessionID.bind(this)
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        
-    }
-
     render() {
         // we do not use state at here
         // we use state to reload this component
@@ -68,12 +63,6 @@ const mapDispatchToProps = (dispatch, props) => ({
     checkSession: (handleCheckSessionID) => { 
         dispatch(actions.checkSession(handleCheckSessionID)) 
     },
-    onShowMessageBox: (type, message, handleFunction) => {
-        dispatch(actions.showMessageBox(type, message, handleFunction))
-    },
-    onLogout: (id) => { 
-        dispatch(actions.doLogout(id)) 
-    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
