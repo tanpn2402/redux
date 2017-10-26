@@ -174,7 +174,6 @@ export default class DataTable extends React.Component {
 				if (column.columns!=null) {
 					if (!this.isDoubleHeader){
 						this.isDoubleHeader = true
-						console.log("======================")
 					}
 					var newSubColumns = column.columns.map(subColumn=>{
 						return Object.assign({}, subColumn, {
@@ -360,9 +359,9 @@ export default class DataTable extends React.Component {
 		&& this.colsWidth[this.curColIndex].reorderable
 		&& this.colsWidth[this.prevColIndex].reorderable){
 			
-			var arr = [...this.state.columns]
+			var arr = this.state.columns
 			var startFromIdx = 0
-			console.log("IsDouble  ", this.colsWidth[this.prevColIndex].parent == this.colsWidth[this.curColIndex].parent)
+			console.log("IsDouble  ", this.isDoubleHeader)
 			if (this.isDoubleHeader){
 				if (this.colsWidth[this.curColIndex].parent==null
 					|| this.colsWidth[this.prevColIndex].parent==null
