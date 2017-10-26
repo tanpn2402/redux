@@ -87,7 +87,7 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
-                    reorderable: false,                    
+                    reorderable: false,
                 },
                 {
                     id: 'mvBS',
@@ -226,7 +226,8 @@ class OrderJournal extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} language={this.props.language} columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title theme={this.props.theme} language={this.props.language}
+                    columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>

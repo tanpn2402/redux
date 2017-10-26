@@ -124,7 +124,8 @@ export default class DataTable extends React.Component {
 					getTheadFilterProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								background: filterrow
+								background: filterrow,
+								color: '#000'
 							}
 						}
 					}}

@@ -96,6 +96,7 @@ class MatchOrderList extends Component {
                     width: 150,
                 }
             ],
+            filterable: true
         }
     }
 
@@ -107,7 +108,10 @@ class MatchOrderList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onOrderMatchListChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -117,6 +121,7 @@ class MatchOrderList extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.slice(
                                 (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize,
                                 this.state.orderMatchListPageIndex * this.defaultPageSize)}
@@ -138,6 +143,12 @@ class MatchOrderList extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

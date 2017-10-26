@@ -85,7 +85,8 @@ class CashStatement extends Component {
                     show: true,
                 },
             ],
-            pageIndex: 1
+            pageIndex: 1,
+            filterable: true
         }
 
         this.id = 'cashstatement'
@@ -154,7 +155,10 @@ class CashStatement extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} widgetID={'cashstatement'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'cashstatement'}
+                    theme={this.props.theme} columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -165,6 +169,7 @@ class CashStatement extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.list}
                         />
                     </div>
@@ -194,6 +199,12 @@ class CashStatement extends Component {
                 </Body>
             </div>
         )
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

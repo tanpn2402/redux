@@ -110,6 +110,7 @@ class MatchOrderBankList extends Component {
                     skip: false,
                 }
             ],
+            filterable: true
         }
 
         this.rowSelected = []
@@ -122,7 +123,10 @@ class MatchOrderBankList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -133,6 +137,7 @@ class MatchOrderBankList extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
                                 (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
                                 this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
@@ -155,6 +160,12 @@ class MatchOrderBankList extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

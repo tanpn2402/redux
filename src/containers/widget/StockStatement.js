@@ -165,6 +165,7 @@ class StockStatement extends Component {
                 },
             ],
             pageIndex: 1,
+            filterable: true
         }
 
         this.id = 'stockstatement'
@@ -309,7 +310,10 @@ class StockStatement extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} widgetID={'stockstatement'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'stockstatement'}
+                    theme={this.props.theme} columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -320,6 +324,7 @@ class StockStatement extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.list}
                         />
                     </div>
@@ -349,6 +354,12 @@ class StockStatement extends Component {
                 </Body>
             </div>
         )
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

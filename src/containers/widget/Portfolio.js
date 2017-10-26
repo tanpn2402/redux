@@ -187,7 +187,8 @@ class Portfolio extends Component {
                         Header: this.props.language.portfolio.header.maintenanceValue,
                         accessor: 'maintenanceValue'
                     }]
-                }]
+                }],
+            filterable: true
         }
     }
 
@@ -493,7 +494,10 @@ class Portfolio extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -503,6 +507,7 @@ class Portfolio extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.slice((this.state.pageIndex - 1) * this.defaultPageSize, this.state.pageIndex * this.defaultPageSize)}
                             pivot={['mvMarketID']}
                         />
@@ -524,6 +529,11 @@ class Portfolio extends Component {
 
     }
 
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
+    }
 
     componentDidMount() {
         this.props.getPorfolio(this.params, !this.props.reload);

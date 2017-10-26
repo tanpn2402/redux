@@ -319,6 +319,15 @@ label {
     padding-bottom: 1px;
     height: 18px;
 }
+.ReactTable input, .ReactTable select {
+    padding: 2px 4px;
+}
+.ReactTable .rt-thead.-filters {
+    height: 26px;
+}
+.ReactTable .rt-thead.-filters .rt-th {
+    padding: 3px 5px;
+}
 /*END DATATABLE*/
 /*DATATABLE FOOTER*/
 

@@ -124,6 +124,7 @@ class OrderHistory extends Component {
 
             ],
             pageIndex: 1,
+            filterable: true
         }
 
         this.id = 'ordershistory'
@@ -273,7 +274,10 @@ class OrderHistory extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -283,6 +287,7 @@ class OrderHistory extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data}
                         />
                     </div>
@@ -315,6 +320,13 @@ class OrderHistory extends Component {
         )
 
     }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
+    }
+
     componentDidMount() {
         this.props.onSearch(this.params)
     }
