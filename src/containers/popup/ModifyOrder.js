@@ -10,7 +10,6 @@ class ModifyOrder extends Component {
 
         var data = this.props.data.data
 
-        console.log(data)
         this.paramGenModifyOrder = {
             mvOrderId: data.mvOrderID,
             mvBSValue: data.mvBSValue,

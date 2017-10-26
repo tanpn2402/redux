@@ -12,14 +12,14 @@ class MenuNav extends Component {
         super(props)
 
         this.tabbar = config.tabbar
-        this.params = {}
     }
 
     render() {
         var activeTab = this.props.tabID
-        var language = this.props.language
-        let pagemenu = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagemenu
+        var language = this.props.language.page
+        let pagemenu = this.props.theme.page.pagemenu
         let scrollBtnStyle = this.props.theme.scrolling.button
+
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
                 
@@ -39,13 +39,13 @@ class MenuNav extends Component {
                                             onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
 
                                             {language.tab[tab.title]}
-                                            <button
+                                            {/* <button
                                                 className="hks-btn btn-tab-reload"
                                                 type="button"
                                                 onClick={e => this.onReloadPage(tab.id)}
                                             >
                                                 <span className="glyphicon glyphicon-repeat"></span>
-                                            </button>
+                                            </button> */}
 
                                         </span>
                                     )
@@ -70,8 +70,6 @@ class MenuNav extends Component {
     }
 
     componentDidMount() {
-        this.params['mvAction'] = 'QUERYDEFAULT'
-        this.props.onGetSavedContentLayout(this.params)
         window.addEventListener("keydown", this.myEventHandler, false)
     }
 
@@ -88,7 +86,6 @@ class MenuNav extends Component {
     }
 
     onTabSlideClick(i) {
-        console.log(i)
         if(i === 1){
             $("#scrolling-menu-tabs").animate( { scrollLeft: '-=200' }, 500);
         }
@@ -98,14 +95,13 @@ class MenuNav extends Component {
     }
 
     saveLayout() {
-        const groupId = this.props.savedcontent.mvCfgList[0].GROUPID
-        this.params['mvGroupName'] = 'User1'
-        this.params['mvIsDefault'] = 'Y'
-        this.params['mvGroupType'] = 'U'
-        this.params['mvGroupID'] = groupId
-        this.params['mvSavedContent'] = JSON.stringify(config.tabbar)
-        this.params['mvAction'] = 'MODIFY'
-        this.props.onSaveLayout(this.params, this.props.language)
+        let userSavedData = this.props.userSavedData
+        if(userSavedData && userSavedData.mvCfgList.length > 0) {
+            let groupId = userSavedData.mvCfgList[0].GROUPID
+            
+            this.props.onSaveLayout(groupId, this.props.language.page)
+        }
+        
     }
 
 }
@@ -114,15 +110,15 @@ const mapStateToProps = (state, props) => {
     return {
         tabID: state.menuSelected.tabID,
         savedcontent: state.menuSelected.savedcontent,
-        resultSavelayout: state.menuSelected.resultSavelayout
+        resultSavelayout: state.menuSelected.resultSavelayout,
+
+        userSavedData: state.dologin.userSavedData,
+        userService: state.dologin.userService
     }
 
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onGetSavedContentLayout: (params) => {
-        dispatch(actions.getSavedContentLayout(params))
-    },
     onSaveLayout: (params, language) => {
         dispatch(actions.saveLayout(params, language))
     },

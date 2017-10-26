@@ -230,7 +230,6 @@ class TTLChartControl extends React.Component
                     lvInChartList.push([id, setMap[id].getPara()])
             }
         });
-        console.log(lvInChartList)
     
         this.getIndicatorValues().forEach((value)=>
         {
@@ -371,7 +370,6 @@ class TTLChartControl extends React.Component
     changeInSubChart()
     {
         var state = this.exportState();
-        console.log(state[1])
         // if (this.chartMethodGlobal)
         //     this.chartMethodGlobal.chartObj.setSubCharts(state[1], state[2]);
         this.props.handleSetSubCharts(state[1], state[2]);

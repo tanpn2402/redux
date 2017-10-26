@@ -135,7 +135,6 @@ class OddLotHistory extends Component {
                     id: 'exepriceH',
                     Header: nextProps.language.oddlottrading.header.exepriceH,
                     Cell: props => {
-                        console.log(props.original.price)
                         if (props.original.price === '0E-9')
                             return 0
                         else
@@ -195,7 +194,6 @@ class OddLotHistory extends Component {
         let oddlothistory = this.props.oddlothistory
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(oddlothistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>

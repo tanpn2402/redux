@@ -174,7 +174,7 @@ class ActionRightList extends Component {
         var allRightList = this.props.allRightList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(allRightList)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>

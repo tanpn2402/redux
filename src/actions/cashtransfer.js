@@ -31,7 +31,7 @@ function responsegenfundtransfer(response, language) {
   //     dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
   //   }
   // }
-  console.log("responsegenfundtransfer")
+
   return {
     type: ActionTypes.GENFUNDTRANSFER,
     data: response

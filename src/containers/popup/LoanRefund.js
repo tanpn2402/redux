@@ -34,7 +34,6 @@ class LoanRefundPopup extends Component{
     submit(e){
         e.preventDefault()
         var authParams = this.auth.getParam()
-        console.log(authParams)
         this.props.getLoanRefundSubmit({
             me: this.props.data.me,
             language: this.props.data.language,

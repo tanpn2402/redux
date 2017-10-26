@@ -104,10 +104,6 @@ export function beforeSubmitCashAdvBank(params) {
             dispatch(showMessageBox(language.messagebox.title.error, language.cashadvancebank.message.noAmount))
         }
     } 
-
-    console.log(Utils.devideByCurrencyUnit(advPayment))
-
-    console.log(data)
     
     var advanceAvailable = data.cTovalValue
     if (advanceAvailable < Utils.devideByCurrencyUnit(advPayment)) {

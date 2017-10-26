@@ -456,8 +456,8 @@ const config = {
 	,
 	cache: {
 		stockList: [],
-		lang: 'vi_VN',
-		theme: 'light'
+		lang: '',
+		theme: ''
 	}
 }
 

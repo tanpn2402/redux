@@ -26,7 +26,6 @@ class AdvancePanel extends Component {
     }
 
     componentWillReceiProps(n){
-        console.log(n)
     }
 
 

@@ -7,7 +7,6 @@ export default class VerticalTable extends Component {
     	}
 
 	render() {
-		console.log('VerticalTable', this.props)
 		return(
 			<table className={'table table-bordered vertical-table'}>
 				{

@@ -14,7 +14,6 @@ export function loadWatchList(params) {
   }
 }
 function responseGetMarketData(response){
-  console.log("watchListData ", response)
   return {
       type: ActionTypes.LOADWATCHLIST,
       watchListData: response,
@@ -28,7 +27,6 @@ export function addStock(params) {
 }
 
 function responseAddStock(response){
-  console.log("watchListData ",response)
   return {
       type: ActionTypes.ADDSTOCK,
       watchListData: response,
@@ -37,13 +35,11 @@ function responseAddStock(response){
 
 
 export function removeStock(params) {
-  console.log("param dcgoila: ",params)
   return (dispatch)=>{
     api.get(ACTION.ADDORREMOVEACTION,params,dispatch,responseRemoveStock)
   }
 }
 function responseRemoveStock(response){
-  console.log("watchListData ",response)
   return {
       type: ActionTypes.REMOVESTOCK,
       watchListData: response,

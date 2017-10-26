@@ -32,7 +32,6 @@ export function entitlementGetAccountBalance(params) {
         if (response.mvList.length > 0) {
             var mvAccountBalanceBean = response.mvList[0]
             var lang = 'vi_VN'
-            console.log(mvAccountBalanceBean)
             if (isBank) {
                 me.setCashBalanceValue(Utils.currencyShowFormatter(mvAccountBalanceBean.mvBuyingPowerd, ",", lang))
                 me.setCashAvailableValue(Utils.currencyShowFormatter(mvAccountBalanceBean.mvBuyingPowerd, ",", lang))
@@ -70,7 +69,7 @@ function responsedynamicdata(response) {
 }
 
 export function getDynamicdata(params) {
-    console.log("hello", params)
+    
     return (dispatch) => {
         WebApi.post(ACTION.GETDYNAMICUPDATEDATA, params, dispatch, responsedynamicdata)
     }

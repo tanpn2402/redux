@@ -272,7 +272,7 @@ label {
 #pagemenu {
     background-color: #005aa0;
     top: 60px;
-    z-index: 2;
+    z-index: 3;
 }
 .btn-group-sm.btn-group-page {
     vertical-align: unset;
@@ -440,6 +440,7 @@ label {
 }
 .dropdown-item > .checkbox > label {
     font-size: 12px;
+    width: 100%;
 }
 .dropdown-item:hover {
     transition: all 0.2s ease-in-out;
@@ -562,6 +563,10 @@ label {
     border: none; 
     color: #fff;
     padding: 8px 35px;
+}
+.hks-btn.btn-login.disabled {
+    background-color: #575757;
+    cursor: not-allowed;
 }
 /* .inline {
     float: right;
@@ -1062,13 +1067,20 @@ label {
 /* LOADING */
 
 .loading > img {
+    position: absolute;
     width: 30px;
     height: 30px;
-    margin: 0 10px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 .loading {
+    position: absolute;
     text-align: center;
-    padding: 20px 20px;
+    width: 100%;
+    height: 100%;
+    background: #003664;
 }
 /*DATE PICKER*/
 
@@ -1610,7 +1622,7 @@ label {
     }
     .scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
         font-size: 14px;
-        padding: 0 0 0 5px;
+        padding: 0 5px;
         height: 100%;
         line-height: 2;
         min-width: 130px;

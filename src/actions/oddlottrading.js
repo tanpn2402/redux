@@ -83,7 +83,6 @@ export function getBankInfo(params) {
     response.mvBankInfoList.unshift(      
       {'mvBankID': "", 'mvBankACID': "", 'mvSettlementAccountDisplayName': "MAS", 'mvIsDefault': "N", 'mvInterfaceSeq': "-1"}    
     )
-    console.log(response)
     return {
       type: ActionTypes.BANKINFO,
       bankinfo: response,

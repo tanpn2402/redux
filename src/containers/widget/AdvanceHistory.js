@@ -131,7 +131,7 @@ class AdvanceHistory extends Component {
         var data = cashAdvanceHistory.list
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(cashAdvanceHistory)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>

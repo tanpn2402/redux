@@ -5,7 +5,6 @@ import moment from 'moment'
 
 class InputWithButton extends React.Component {
 	render(){
-		console.log(this.props)
 		return(
 		    <span className="input-group my-data-picker">
 		      	<FormControl className="react-datepicker-ignore-onclickoutside" 
@@ -35,7 +34,6 @@ class DateTimePicker extends React.Component {
  	}
 
   	render() {
-  		console.log(this.props)
     	return (
         	<DatePicker 
         		id={this.props.id}

@@ -1,6 +1,6 @@
-import { doLogin, logout } from './doLogin'
+import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
 import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSavedContentLayout, saveLayout, reloadCustom } from './menu_selected'
-import { changeConfig, switchLanguage, switchTheme, checkSession } from './configurations'
+import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
@@ -36,17 +36,24 @@ export {
   reloadCustom,
   getSavedContentLayout,
   saveLayout,
+
+  // doLogin
   doLogin,
-  logout,
+  doLogout,
+  checkAuth,
+  checkSession,
+
+  // menu selected
   menuSelected,
   menuRemoved,
   onPageClicked,
   onTabClick,
-  changeConfig,
+
+  // configuration
   switchLanguage,
   switchTheme,
-  checkSession,
 
+  // stock action
   stockSearch,
   getStockWatchInfo,
   

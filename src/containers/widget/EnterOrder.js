@@ -504,7 +504,6 @@ class EnterOrder extends Component {
 
     render() {
         this.stockList = config.cache.stockList
-        console.log(this.stockList)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor

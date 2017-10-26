@@ -30,7 +30,6 @@ export default function (state = initialState, action) {
                 stockInfo: action.stockInfo
             });
         case ActionTypes.STOCKBALANCE:
-            console.log('reducer stockinfo', action.stockBalance)
             return Object.assign({}, state, {
                 stockBalance: action.stockBalance
             });
