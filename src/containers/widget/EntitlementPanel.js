@@ -24,7 +24,7 @@ class EntitlementPanel extends Component {
 
     render() {
         var bankInfoList = this.props.bankInfo.mvBankInfoList
-        if(bankInfoList && bankInfoList.length > 0 && bankInfoList[0].mvSettlementAccountDisplayName !== 'MAS'){
+        if (bankInfoList && bankInfoList.length > 0 && bankInfoList[0].mvSettlementAccountDisplayName !== 'MAS') {
             bankInfoList.unshift({
                 'mvBankID': "",
                 'mvBankACID': "",
@@ -34,12 +34,12 @@ class EntitlementPanel extends Component {
             })
         }
         var entitlementStockList = this.props.entitlementStockList
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
-            <div style={{height: '100%', position: 'relative'}}>
-                <Title theme={this.props.theme}>
+            <div style={{ height: '100%', position: 'relative' }}>
+                <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -47,7 +47,7 @@ class EntitlementPanel extends Component {
                         <FormGroup>
                             <Table responsive >
                                 <tbody >
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
                                         <td>
                                             <PowerSelect
@@ -60,37 +60,37 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashbalance}</th>
                                         <td>
                                             <input
                                                 className="hks-input read-only"
                                                 id="cashBalance"
                                                 ref={e => this.cashBalance = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashavailable}</th>
                                         <td>
                                             <input
                                                 className="hks-input read-only"
                                                 id="cashAvailable"
                                                 ref={e => this.cashAvailable = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.buyingpower}</th>
                                         <td>
                                             <input
                                                 className="hks-input read-only"
                                                 id="buyingPower"
                                                 ref={e => this.buyingPower = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
                                             <PowerSelect
@@ -102,61 +102,61 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.availableqty}</th>
                                         <td>
                                             <input
                                                 className="hks-input read-only"
-                                                id="txtStockExistQty" 
+                                                id="txtStockExistQty"
                                                 ref={e => this.txtStockExistQty = e}
                                                 readOnly
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.registerqty}</th>
-                                        <td style={{color: 'black'}}>
+                                        <td style={{ color: 'black' }}>
                                             <input
                                                 className="hks-input border"
-                                                id="txtTradeQty" 
+                                                id="txtTradeQty"
                                                 ref={e => this.txtTradeQty = e}
                                                 type="number"
                                                 min="0"
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}}>
+                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.actionprice}</th>
                                         <td>
                                             <input
-                                                id="txtPrice" 
+                                                id="txtPrice"
                                                 className="hks-input read-only"
                                                 ref={e => this.txtPrice = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}}>
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.amountVND}</th>
                                         <td>
                                             <input
-                                                id="txtAmount" 
+                                                id="txtAmount"
                                                 className="hks-input read-only"
                                                 ref={e => this.txtAmount = e}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <input ref={e => this.txtTradeStockCode = e} type="hidden"/>
-                                        <input ref={e => this.txtBeginTransferDate = e} type="hidden"/>
-                                        <input ref={e => this.txtEndTransferDate = e} type="hidden"/>
-                                        <input ref={e => this.txtMaxQty = e} type="hidden"/>
-                                        <input ref={e => this.txtRequestedQty = e} type="hidden"/>
-                                        <input ref={e => this.txtQuantity = e} type="hidden"/>
-                                        <input ref={e => this.txtRightDate = e} type="hidden"/>
-                                        <input ref={e => this.txtStockRequestedQty = e} type="hidden"/>
-                                        <input ref={e => this.txtTotalRights = e} type="hidden"/>
-                                        <input ref={e => this.txtTotalStock = e} type="hidden"/>
-                                        <input ref={e => this.txtTimePeriod = e} type="hidden"/>
+                                        <input ref={e => this.txtTradeStockCode = e} type="hidden" />
+                                        <input ref={e => this.txtBeginTransferDate = e} type="hidden" />
+                                        <input ref={e => this.txtEndTransferDate = e} type="hidden" />
+                                        <input ref={e => this.txtMaxQty = e} type="hidden" />
+                                        <input ref={e => this.txtRequestedQty = e} type="hidden" />
+                                        <input ref={e => this.txtQuantity = e} type="hidden" />
+                                        <input ref={e => this.txtRightDate = e} type="hidden" />
+                                        <input ref={e => this.txtStockRequestedQty = e} type="hidden" />
+                                        <input ref={e => this.txtTotalRights = e} type="hidden" />
+                                        <input ref={e => this.txtTotalStock = e} type="hidden" />
+                                        <input ref={e => this.txtTimePeriod = e} type="hidden" />
                                     </tr>
                                 </tbody>
                             </Table>
@@ -166,7 +166,7 @@ class EntitlementPanel extends Component {
                                         onClick={this.handleResetForm.bind(this)}>
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
                                         onClick={this.submitEntitlement.bind(this)}>
                                         {this.props.language.button.submit}
                                     </button>
@@ -192,50 +192,50 @@ class EntitlementPanel extends Component {
         })
     }
 
-    handleResetForm(e){
+    handleResetForm(e) {
         this.txtAmount.value = ''
         this.txtPrice.value = ''
         this.txtTradeQty.value = ''
         this.txtStockExistQty.value = ''
     }
 
-    submitEntitlement(e){
+    submitEntitlement(e) {
         e.preventDefault()
         this.props.submitEntitlement({
             me: this,
             language: this.props.language
         })
     }
-    getAccountBalance(bankInfo){
-        if(bankInfo) {
+    getAccountBalance(bankInfo) {
+        if (bankInfo) {
             this.props.entitlementGetAccountBalance({
                 me: this,
                 bankInfo: bankInfo
             })
         }
     }
-    onStockChange = ({option}) => {
+    onStockChange = ({ option }) => {
         this.setState({ mvStockSelected: option })
         var record = {}
         this.getEntitlementData(record)
     }
 
-    onSettlementAccountChange = ({option}) => {
-        if(option){
+    onSettlementAccountChange = ({ option }) => {
+        if (option) {
             this.setState({ mvSettlementAccount: option })
             this.getAccountBalance(option)
         }
     }
     // setValue
-    setCashBalanceValue(value){
+    setCashBalanceValue(value) {
         this.cashBalance.value = value
     }
 
-    setCashAvailableValue(value){
+    setCashAvailableValue(value) {
         this.cashAvailable.value = value
     }
 
-    setBuyPowerValue(value){
+    setBuyPowerValue(value) {
         this.buyingPower.value = value
     }
 

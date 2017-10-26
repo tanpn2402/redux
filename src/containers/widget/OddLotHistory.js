@@ -84,6 +84,7 @@ class OddLotHistory extends Component {
                     show: true,
                 },
             ],
+            filterable: true
         }
         this.defaultPageSize = 15
         this.paramsOddLotHisEnquiry = {
@@ -198,7 +199,10 @@ class OddLotHistory extends Component {
         console.log(oddlothistory)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -207,6 +211,7 @@ class OddLotHistory extends Component {
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
                             data={oddlothistory.historyList} />
                     </div>
@@ -225,6 +230,12 @@ class OddLotHistory extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

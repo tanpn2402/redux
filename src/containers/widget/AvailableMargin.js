@@ -60,10 +60,10 @@ class AvaibleMarginList extends Component {
                     show: true,
                 },
             ],
-
+            filterable: true,
             pageIndex: 1,
         }
-        
+
         this.params = {
             mvLastAction: 'AVAIABLEMARGINLIST',
             mvInstrumentID: '',
@@ -130,7 +130,10 @@ class AvaibleMarginList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title widgetID={'available'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'available'}
+                    theme={this.props.theme} columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -141,6 +144,7 @@ class AvaibleMarginList extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.list}
                         />
                     </div>
@@ -169,6 +173,12 @@ class AvaibleMarginList extends Component {
                 </Body>
             </div>
         )
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {
