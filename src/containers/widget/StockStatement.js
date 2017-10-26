@@ -165,6 +165,7 @@ class StockStatement extends Component {
                 },
             ],
             pageIndex: 1,
+            filterable: true
         }
 
         this.id = 'stockstatement'
@@ -309,7 +310,10 @@ class StockStatement extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title widgetID={'stockstatement'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'stockstatement'}
+                    theme={this.props.theme} columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -320,6 +324,7 @@ class StockStatement extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.list}
                         />
                     </div>
@@ -351,14 +356,38 @@ class StockStatement extends Component {
         )
     }
 
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
+    }
+
     componentDidMount() {
         this.props.onSearch(this.params)
     }
 
     onChangeStateColumn(e) {
         const id = e.target.id
+        let newCols = this.state.columns.map(parentCol => {
+            if (parentCol.columns !== undefined) {
+                let cols = parentCol.columns.map(column => {
+                    if (column.id == id) {
+                        return Object.assign({}, column, { show: !column.show })
+                    } else {
+                        return column
+                    }
+                })
+                return Object.assign({}, parentCol, { columns: cols })
+            } else {
+                if (parentCol.id == id) {
+                    return Object.assign({}, parentCol, { show: !parentCol.show })
+                } else {
+                    return parentCol
+                }
+            }
+        })
         this.setState({
-            columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+            columns: newCols
         });
     }
 

@@ -126,6 +126,7 @@ class OrderConfirmation extends Component {
                 },
             ],
             pageIndex: 1,
+            filterable: true
         }
 
         this.rowSelected = []
@@ -281,7 +282,10 @@ class OrderConfirmation extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title widgetID={'orderconfirmation'} theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} widgetID={'orderconfirmation'}
+                    theme={this.props.theme} columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -292,7 +296,9 @@ class OrderConfirmation extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data.mvOrderBeanList}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -324,6 +330,12 @@ class OrderConfirmation extends Component {
                 </Body>
             </div>
         )
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {
@@ -358,6 +370,7 @@ class OrderConfirmation extends Component {
         }
         console.log('onRowSelected', this.rowSelected)
     }
+
 
     execute() {
         if (this.rowSelected.length > 0) {

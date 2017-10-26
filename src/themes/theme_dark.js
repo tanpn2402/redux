@@ -52,6 +52,9 @@ export default {
     roweven: {
       backgroundColor: '#474747'
     },
+    filterrow: {
+      backgroundColor: '#a2a2a5'
+    },
     nodatadisplay: {
       backgroundColor: 'transparent',
       color: '#FFFFFF'
@@ -99,36 +102,36 @@ export default {
     backgroundColor: '#474747',
     chartConfig: {
       chart: {
-          appearance: {
-              strokeNormal: "#FF6600",
-              strokeDown: "rgba(52, 152, 219,1.0)",
-              strokeUp: "rgb(255, 128, 0)",
-              fill: "#FF6600",
-              opacity: 0.5,
-              wickStroke: "#000000",
-              background: "#474747",
-              theme: "dark"
-          },
+        appearance: {
+          strokeNormal: "#FF6600",
+          strokeDown: "rgba(52, 152, 219,1.0)",
+          strokeUp: "rgb(255, 128, 0)",
+          fill: "#FF6600",
+          opacity: 0.5,
+          wickStroke: "#000000",
+          background: "#474747",
+          theme: "dark"
+        },
       },
 
       axis: {
-          stroke: "#FFFFFF",
-          tickStroke: "#FFFFFF"
+        stroke: "#FFFFFF",
+        tickStroke: "#FFFFFF"
 
       },
-      
+
       control: {
-          edgeFill1: "#FFFFFF",
-          edgeFill2: "#250B98",
-          edgeStroke: "#FFFFFF",
-          strokeOpacity: 1,
-          edgeRadius: 5,
-          strokeWidth: 1,
-          
-          stroke: "#FFFFFF",
-          fill: "#8AAFE2",
-          fillOpacity: 0.2,
-          gannFanFill: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#000000"]
+        edgeFill1: "#FFFFFF",
+        edgeFill2: "#250B98",
+        edgeStroke: "#FFFFFF",
+        strokeOpacity: 1,
+        edgeRadius: 5,
+        strokeWidth: 1,
+
+        stroke: "#FFFFFF",
+        fill: "#8AAFE2",
+        fillOpacity: 0.2,
+        gannFanFill: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#000000"]
 
 
       }

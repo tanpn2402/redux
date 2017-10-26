@@ -31,7 +31,7 @@ class LoanTrans extends Component {
 		let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
         return (
             <div>
-                <Title theme={this.props.theme} widgetID={this.id}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
