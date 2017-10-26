@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import { sessionService } from 'redux-react-session';
 import * as sessionApi from '../api/sessionApi';
 import * as FetchAPI from '../api/fetchAPI';
-
+import {getLanguage} from '../utils'
 
 class LoginForm extends Component {
 
@@ -31,8 +31,8 @@ class LoginForm extends Component {
     }
 
     render() {
-        let language = this.props.language.page
-        console.log(this.props.loginStatus)
+        let language = getLanguage(this.props.language).page
+        
         return (
             <div className="login-form-wrapper">
                 <div className="login-form-header">
@@ -51,7 +51,7 @@ class LoginForm extends Component {
                             </Col>
                             
                         </FormGroup>
-                        <FormGroup controlId="formHorizontalPass">
+                        <FormGroup>
                             <Col xs={4}>
                                 {language.login.password}
                             </Col>
@@ -125,7 +125,7 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loginResult: state.dologin.result,
+        loginResult: state.dologin.loginResult,
         language: state.config.language,
         loginStatus: state.dologin.loginStatus
     };

@@ -16,8 +16,6 @@ class SaveLayout extends Component {
     }
 
     componentDidMount() {
-        this.params['mvAction'] = 'QUERYDEFAULT'
-        this.props.onGetSavedContentLayout(this.params)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,15 +26,14 @@ class SaveLayout extends Component {
     }
 
     logoutAndSave() {
-        const groupId = this.props.savedcontent.mvCfgList[0].GROUPID
-        this.params['mvGroupName'] = 'User1'
-        this.params['mvIsDefault'] = 'Y'
-        this.params['mvGroupType'] = 'U'
-        this.params['mvGroupID'] = groupId
-        this.params['mvSavedContent'] = JSON.stringify(this.props.config)
-        this.params['mvAction'] = 'MODIFY'
-        this.props.onSaveLayout(this.params)
-        this.props.onLogoutClick(this.props.checkSessionID)
+        console.log(this.props)
+        let userSavedData = this.props.userSavedData
+        if(userSavedData && userSavedData.mvCfgList.length > 0) {
+            let groupId = userSavedData.mvCfgList[0].GROUPID
+            
+            this.props.onSaveLayout(groupId, this.props.language)
+            this.props.onLogoutClick(this.props.checkSessionID)
+        }
     }
 
     render() {
@@ -46,8 +43,8 @@ class SaveLayout extends Component {
                     {this.props.language.messagebox.message.saveLayoutConfirm}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.logout}>Don't save and logout</Button>
-                    <Button onClick={this.logoutAndSave}>Save and logout</Button>
+                    <Button onClick={this.logout}>{this.props.language.button.no}</Button>
+                    <Button onClick={this.logoutAndSave}>{this.props.language.button.yes}</Button>
                 </Modal.Footer>
             </div>
         )
@@ -55,16 +52,13 @@ class SaveLayout extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        savedcontent: state.menuSelected.savedcontent
+        userSavedData: state.dologin.userSavedData,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onGetSavedContentLayout: (params) => {
-        dispatch(actions.getSavedContentLayout(params))
-    },
     onLogoutClick: (params) => {
-        dispatch(actions.logout(params))
+        dispatch(actions.doLogout(params))
     },
     onSaveLayout: (params) => {
         dispatch(actions.saveLayout(params))

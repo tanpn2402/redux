@@ -44,6 +44,7 @@ export default class DataTable extends React.Component {
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
+						console.log(state, rowInfo, column, instance)
 						return {
 							style: {
 								color: font3,

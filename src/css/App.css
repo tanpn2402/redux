@@ -272,7 +272,7 @@ label {
 #pagemenu {
     background-color: #005aa0;
     top: 60px;
-    z-index: 2;
+    z-index: 3;
 }
 .btn-group-sm.btn-group-page {
     vertical-align: unset;
@@ -440,6 +440,7 @@ label {
 }
 .dropdown-item > .checkbox > label {
     font-size: 12px;
+    width: 100%;
 }
 .dropdown-item:hover {
     transition: all 0.2s ease-in-out;
@@ -1621,7 +1622,7 @@ label {
     }
     .scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
         font-size: 14px;
-        padding: 0 0 0 5px;
+        padding: 0 5px;
         height: 100%;
         line-height: 2;
         min-width: 130px;

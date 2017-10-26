@@ -19,11 +19,11 @@ export default class MainContent extends Component {
     render() {
         return (
             <div id="maincontent">
-                <StatusBar theme={this.props.theme} language={this.props.language} checkSessionID={this.props.checkSessionID} />
-                <MarqueeBar theme={this.props.theme} language={this.props.language} />
-                <ProfileNav currentTheme={this.props.theme} language={this.props.langauge} />
-                <SettingNav currentTheme={this.props.theme} language={this.props.language} />
-                <PageContent theme={this.props.theme} language={this.props.language} />
+                <StatusBar  theme={this.props.theme} language={this.props.language.page} checkSessionID={this.props.checkSessionID} />
+                <MarqueeBar theme={this.props.theme} language={this.props.language.page}    />
+                <ProfileNav theme={this.props.theme} language={this.props.language.page}    />
+                <SettingNav theme={this.props.theme} language={this.props.language}         />
+                <PageContent theme={this.props.theme} language={this.props.language.page}   />
             </div>
         )
     }

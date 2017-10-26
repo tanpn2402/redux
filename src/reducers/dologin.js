@@ -1,24 +1,42 @@
 import { ActionTypes } from '../core/constants';
 
 const initialState = {
-    result: {
+    loginResult: {
         mvMessage: "",
         needChangePwd: "",
         success: false
     },
     loginStatus: "WAIT",
+
+    userSavedData: {
+        mvCfgList: [],
+        mvResult: null,
+        success: false
+    },
+
+    userService: {
+        mvListCustServiceBean: [],
+        mvListDefaultServiceBean: []
+    }
 }
 export default function(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.DOLOGINACTION:
             return Object.assign({}, state, {
-                result: action.result
+                loginResult: action.loginResult,
             });
+            
         case ActionTypes.CHECKAUTH:
-        console.log(action)
             return Object.assign({}, state, {
-                loginStatus: action.status
+                loginStatus: action.status,
+                userSavedData: action.userSavedData,
+                userService: action.userService
             });
+
+        case ActionTypes.CHECKSESSION:
+            return Object.assign({}, state, {
+                sessionState: action.sessionState
+            })
         default:
             return state;
     }

@@ -16,7 +16,6 @@ class EntitlementHistory extends Component {
         super(props)
 
         this.id = 'entitlementHistory'
-        console.log(this.stockList)
         this.state = {
             pageIndex: 1,
             columns: [

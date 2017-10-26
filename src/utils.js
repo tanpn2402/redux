@@ -236,3 +236,33 @@ export function statusRenderer(status) {
             return status
     }
 }
+
+export function getLanguage(lang){
+    let language
+    try {
+        language = require('./languages/' + lang).default
+    } catch(ex) {
+        try {
+            language = require('./languages/en_US').default
+        }catch(ex) {
+            language = require('./languages/vi_VN').default
+        }
+    }
+
+    return language
+}
+
+export function getTheme(theme){
+    let t
+    try {
+        t = require('./themes/' + theme).default
+    } catch(ex) {
+        try {
+            t = require('./themes/light').default
+        }catch(ex) {
+            t = require('./themes/dark').default
+        }
+    }
+
+    return t
+}

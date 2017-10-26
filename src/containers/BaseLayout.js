@@ -24,9 +24,7 @@ class BaseLayout extends React.Component {
     }
 
     generateChild(menuid){
-        console.log(this.state.layout)
         const layout = this.state.layout[menuid]
-        console.log(layout)
         return (
             <div key={menuid} 
                 data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 

@@ -11,8 +11,9 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.props.loginStatus)
+        
         if( this.props.loginStatus === "SUCCESS" ){
+            // console.log(this.props.loginStatus)
             return (
                 <Home />
             )

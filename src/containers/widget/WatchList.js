@@ -332,7 +332,6 @@ class WatchList extends Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
@@ -635,7 +634,6 @@ class WatchList extends Component {
             this.onRefresh()
         } else {
             //show Alert
-            console.log("alert")
         }
 
     }
@@ -651,7 +649,6 @@ class WatchList extends Component {
         this.onRefresh()
     }
     onChange(e) {
-        console.log(e.target.value)
         this.inputValue = e.target.value
     }
     alreadyInList(stockID) {

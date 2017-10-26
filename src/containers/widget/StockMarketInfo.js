@@ -51,7 +51,7 @@ class StockMarketInfo extends Component {
 				askVol: 0,
 			},
 			panel2: [{
-				Header: 'Volume',
+				Header: this.props.language.stockmarketinform.header.Volume,
 				headerClassName: 'volume',
 				columns: [
 					{
@@ -164,38 +164,38 @@ class StockMarketInfo extends Component {
 		this.setState({
 			panel1: [
 				{
-					header: this.props.language.stockmarketinform.header.Current,
+					header: nextProps.language.stockmarketinform.header.Current,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvNomial,
 				}, {
-					header: this.props.language.stockmarketinform.header.ChangeRate,
+					header: nextProps.language.stockmarketinform.header.ChangeRate,
 					value: 0.0,
 				}, {
-					header: this.props.language.stockmarketinform.header.Ref,
+					header: nextProps.language.stockmarketinform.header.Ref,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvReferencePrice,
 				}, {
-					header: this.props.language.stockmarketinform.header.FloorCell,
+					header: nextProps.language.stockmarketinform.header.FloorCell,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvFloor + "/" + nextProps.stockWatchInfo.mvStockInfoBean.mvCeiling,
 				}, {
-					header: this.props.language.stockmarketinform.header.LowHigh,
+					header: nextProps.language.stockmarketinform.header.LowHigh,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvLow + "/" + nextProps.stockWatchInfo.mvStockInfoBean.mvHigh,
 				}, {
-					header: this.props.language.stockmarketinform.header.Open,
+					header: nextProps.language.stockmarketinform.header.Open,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvDayOpen,
 				}, {
-					header: this.props.language.stockmarketinform.header.Avg,
+					header: nextProps.language.stockmarketinform.header.Avg,
 					value: "-",
 				}, {
-					header: this.props.language.stockmarketinform.header.Volume,
+					header: nextProps.language.stockmarketinform.header.Volume,
 					value: "-",
 				}, {
-					header: this.props.language.stockmarketinform.header.Total,
+					header: nextProps.language.stockmarketinform.header.Total,
 					value: '-',
 				}, {
-					header: this.props.language.stockmarketinform.header.ForBuySell,
+					header: nextProps.language.stockmarketinform.header.ForBuySell,
 					value: '/',
 				},
 				{
-					header: this.props.language.stockmarketinform.header.Room,
+					header: nextProps.language.stockmarketinform.header.Room,
 					value: nextProps.stockWatchInfo.mvStockInfoBean.mvCurrentRoom,
 				},
 			],
@@ -231,7 +231,57 @@ class StockMarketInfo extends Component {
 				],
 				bidVol: 0,
 				askVol: 0,
-			}
+			},
+			panel2: [{
+				Header: nextProps.language.stockmarketinform.header.Volume,
+				headerClassName: 'volume',
+				columns: [
+					{
+						id: 'stockTime',
+						Header: nextProps.language.stockmarketinform.header.Time,
+						maxWidth: 50,
+						width: 50,
+						accessor: 'Time',
+						skip: false,
+						show: true,
+						sortable: false,
+						skip: true
+					},
+					{
+						id: 'stockPrice',
+						Header: nextProps.language.stockmarketinform.header.Price,
+						maxWidth: 50,
+						accessor: 'Price',
+						width: 50,
+						skip: false,
+						show: true,
+						sortable: false,
+						skip: true
+					},
+					{
+						id: 'stockVolume',
+						Header: nextProps.language.stockmarketinform.header.Volume,
+						maxWidth: 50,
+						accessor: 'Volume',
+						width: 50,
+						skip: false,
+						show: true,
+						sortable: false,
+						skip: true
+					},
+					{
+						id: 'stockTotal',
+						Header: nextProps.language.stockmarketinform.header.Total,
+						maxWidth: 50,
+						accessor: 'Total',
+						width: 50,
+						skip: false,
+						show: true,
+						sortable: false,
+						skip: true
+					}
+				]
+			}],
 		})
 	}
 
