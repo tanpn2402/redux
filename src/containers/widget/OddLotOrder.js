@@ -31,7 +31,8 @@ class OddLotOrder extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    filterable: false
                 },
                 {
                     id: 'stockID',
@@ -73,7 +74,8 @@ class OddLotOrder extends Component {
                     skip: false,
                     show: true,
                 },
-            ]
+            ],
+            filterable: true
         }
         this.defaultPageSize = 15
         this.paramsEnquiryOddLot = {
@@ -97,7 +99,8 @@ class OddLotOrder extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    filterable: false
                 },
                 {
                     id: 'stockID',
@@ -156,7 +159,10 @@ class OddLotOrder extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeOddLotOrderStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -165,10 +171,12 @@ class OddLotOrder extends Component {
                             key={this.id}
                             id={this.id}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
                             data={oddLotOrder.oddLotList.slice(
                                 (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
-                                this.state.oddLotOrderPageIndex * this.defaultPageSize)} />
+                                this.state.oddLotOrderPageIndex * this.defaultPageSize)}
+                            onRowSelected={(param) => this.onRowSelected(param)} />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -194,6 +202,12 @@ class OddLotOrder extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {
@@ -249,10 +263,12 @@ class OddLotOrder extends Component {
                 document.getElementById(this.id + "-cb-all")
                     .checked = false
         }
+
     }
 
     registerOddLotOrder(e) {
         e.preventDefault();
+        //console.log(this.props.language, this.rowSelected)
         if (this.rowSelected.length > 0) {
             this.props.beforeRegisterOddLot({
                 language: this.props.language,

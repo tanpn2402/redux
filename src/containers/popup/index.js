@@ -28,7 +28,7 @@ export default function (props, onClose) {
 			break;
 
 		case 'oddlottrading':
-			return (<OddLotTrading onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<OddLotTrading theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
 
 		case 'cashadvance':

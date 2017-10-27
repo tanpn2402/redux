@@ -4,7 +4,7 @@ import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataUpperTable'
+import DataTable from '../commons/DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 
 class OddLotSubmit extends Component {

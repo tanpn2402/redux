@@ -110,6 +110,7 @@ class MatchOrderBankList extends Component {
                     skip: false,
                 }
             ],
+            filterable: true
         }
 
         this.rowSelected = []
@@ -122,19 +123,25 @@ class MatchOrderBankList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
+                        <Table
+                            theme={this.props.theme}
                             key={this.id}
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={queryAdvancePaymentInfo.mvChildBeanList.slice(
                                 (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
                                 this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
 
@@ -153,6 +160,12 @@ class MatchOrderBankList extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {
@@ -277,7 +290,6 @@ class MatchOrderBankList extends Component {
 
     }
     onRowSelected(param) {
-
         if (param === 'ALL') {
             var current = document.getElementById(this.id + '-cb-all').checked
             var checkboxes = document.getElementsByClassName(this.id + '-row-checkbox')
@@ -288,8 +300,7 @@ class MatchOrderBankList extends Component {
                 this.rowSelected = this.props.queryAdvancePaymentInfo.mvChildBeanList
             else
                 this.rowSelected = []
-        }
-        else {
+        } else {
             var tmp = this.rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
 
             if (tmp.length > 0) {
@@ -304,9 +315,7 @@ class MatchOrderBankList extends Component {
             else
                 document.getElementById(this.id + "-cb-all").checked = false
         }
-
         this.props.onPaymentChange(this.rowSelected, document.getElementById(this.id + "-cb-all").checked)
-
     }
 
 }

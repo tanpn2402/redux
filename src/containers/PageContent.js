@@ -19,6 +19,7 @@ class PageContent extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
         return (
             <div style={pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
