@@ -3,6 +3,7 @@ import ReactTable from "react-table"
 import "react-table/react-table.css"
 import ReactDOM from 'react-dom'
 import Config from '../../core/config'
+import Utils from '../../ttl/utils/TTLUtils'
 
 export default class DataTable extends React.Component {
 	constructor(props) {
@@ -22,22 +23,26 @@ export default class DataTable extends React.Component {
 			object: {}
 		}
 
-		this.isDoubleHeader = false
+		this.isDoubleHeaderTable = false
 		this.scrollLeft = 0
 		this.mousePos = {x: 0, y:0}
 		this.dragLabel = null
 		this.dragHighlight = null
-		this.prevColIndex = 0
-		this.curColIndex = 0
+		this.fromColIndex = 0
+		this.toColIndex = 0
 		this.hasCB = true
 		this.colsOrder = null
+
+		this.handleOnMouseUp = this.handleOnMouseUp.bind(this)
+		this.handleMouseMove = this.handleMouseMove.bind(this)
+		this.handleOnMouseDown = this.handleOnMouseDown.bind(this)
 	}
 
 	// getCurColsOrder(columns) {	
-	// 	console.log(this.isDoubleHeader)	
+	// 	Utils.log(this.isDoubleHeader)	
 	// 	var result = []
 	// 	for (let col of columns){
-	// 		console.log(col)
+	// 		Utils.log(col)
 	// 		if (this.isDoubleHeader){
 	// 			result = result.concat(col.columns.map(subCol=>({
 	// 				id: subCol.id,
@@ -51,19 +56,41 @@ export default class DataTable extends React.Component {
 	// }
 
 
+	// COMPONENT LIFE CYCLE
+	componentDidMount() {
+		Utils.log("===========will mount ",this.props.id, this.curComp)
+	}
+	
+	componentWillUnmount() {
+		// Make sure to remove the DOM listener when the component is unmounted.
+		Utils.log("===========will unmount ",this.props.id)		
+		
+	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(Config.colsOrder)
 		if (nextProps.columns) {document.getElementsByClassName("customCol")
 			//Get columns model
-			var colsOrderInConf = Config.tableColReorder.find(tbl=>tbl.id==this.props.id)
-			var colsWidthInConf = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
-			if (colsOrderInConf!=undefined){
-				console.log(colsOrderInConf,nextProps.columns)
-				nextProps.columns = colsOrderInConf.colsOrder
+			var colsOrderInConfig = Config.tableColReorder.find(tbl=>tbl.id==this.props.id)
+			var colsWidthInConfig = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
+
+			if (colsOrderInConfig!=undefined){
+				this.colsOrder = colsOrderInConfig.colsOrder
 			}
-			if (colsWidthInConf!=undefined){
-				this.setState({resized: colsWidthInConf.colsWidth})
+
+			if (colsWidthInConfig!=undefined){
+				this.setState({resized: colsWidthInConfig.colsWidth})
+			}
+			var newColumns = nextProps.columns
+			if (this.colsOrder != null) {
+				newColumns = this.colsOrder(curColInfo => {
+					var curCol = nextProps.columns.find(col => col.id == curColInfo.id)
+					if (curCol.columns != null) {
+						var newSubCol = curColInfo.columns.map(subCol => (curCol.columns.find(col => 
+																			col.id == subCol.id)))
+						curCol.columns = newSubCol
+					}
+					return curCol
+				})
 			}
 			// if (this.colsOrder!=null){
 			// 	var curParent = null
@@ -90,75 +117,18 @@ export default class DataTable extends React.Component {
 			// 		}
 			// 	})
 			// }
-			// console.log(nextProps.columns,this.colsOrder)			
 			this.setState({
-				columns: nextProps.columns
+				columns: newColumns
 			})
+			Utils.log("Will receive props ", newColumns, this.colsOrder)
 		}
-	}
-
-	getExactWidth(e) {
-		let rect = e.getBoundingClientRect()
-		if (rect.width) {
-			// `width` is available for IE9+
-			return rect.width;
-		  } else {
-			// Calculate width for IE8 and below
-			return rect.right - rect.left;
-		}
-	}
-
-	getExactHeight(e) {
-		let rect = e.getBoundingClientRect()
-		if (rect.height) {
-			// `width` is available for IE9+
-			return rect.height;
-		  } else {
-			// Calculate width for IE8 and below
-			return rect.bottom - rect.top;
-		}
-	}
-
-	extractColInfoForTableMask(i, start,col) {
-		//Check double header
-		var parent = null
-		if (col.className.indexOf("parent-")!=-1){
-			parent = col.className.substring(col.className.indexOf("parent-")+7,col.className.length)
-		}
-		const border = 1
-		//Check reorderable props
-		let reorderable = (col.className.indexOf("reorderable")===-1?false:true)
-		var width = this.getExactWidth(col.parentNode) + border
-		let end = start + width
-		return {i: i, "id":col.id,"s":start,"e":end,"w":width,"reorderable":reorderable,"parent":parent}
-	}
-
-	createTableMask() {
-		
-		var cols = [...document.getElementsByClassName("customCol")]
-		var sum = 0 - this.scrollLeft
-		var i = 0
-		this.colsWidth = cols.map(col=>{
-			var colInfo = this.extractColInfoForTableMask(i++, sum,col)
-			sum+= colInfo.w
-			return colInfo
-		})
-	}
-
-	onChangeHeaderWidth(resized){
-		this.setState({resized})
-		//save for next props update
-		var curColsWidthInConf = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
-		if (curColsWidthInConf == undefined){
-			curColsWidthInConf = resized
-			Config.tableColWidth = [...Config.tableColWidth, {id:this.props.id,colsWidth:curColsWidthInConf}]
-			
-		}
-		curColsWidthInConf.colsWidth = resized
 	}
 
 	
+
+	
 	render() {
+		Utils.log("Render",this.props.id)
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
@@ -168,29 +138,40 @@ export default class DataTable extends React.Component {
 		let nodatadisplay = this.props.theme.table == undefined ? undefined : this.props.theme.table.nodatadisplay
 		let height = this.props.maxRows * 24 + 27 + 'px'
 		let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader.backgroundColor
-		let newColumns = this.state.columns
-		if (!this.props.id.includes('-table') && this.state.columns===this.props.columns) {
-			newColumns = this.state.columns.map((column) => {
-				if (column.columns!=null) {
-					if (!this.isDoubleHeader){
-						this.isDoubleHeader = true
+		
+		let newStateColumns = this.state.columns
+
+		let notPopupTable = !this.props.id.includes('-table')
+
+		if (notPopupTable) { //Then render div in header
+			newStateColumns = this.state.columns.map((column) => {
+				let tableHasSubColumns = column.columns!=null
+				
+				if (tableHasSubColumns) {
+					if (!this.isDoubleHeaderTable){
+						this.isDoubleHeaderTable = true
 					}
+					//Render div header in subcolumns header
 					var newSubColumns = column.columns.map(subColumn=>{
+						//Render header
 						return Object.assign({}, subColumn, {
 							Header: headerRenderer(this, subColumn.id, subColumn.reorderable, subColumn.Header, subColumn.parent)
 						})
 					})
 					return Object.assign({}, column, {"columns": newSubColumns})
 				}else{
+					//Render div header in columns header
 					return Object.assign({}, column, {
 						Header: headerRenderer(this, column.id, column.reorderable, column.Header)
 					})
 				}
 			})
+
+			this.state.columns = newStateColumns
 		}
-		
+		Utils.log(Config.tableColReorder)
 		return (
-			<div className="hks-table" id={this.props.id} onScroll={e=>this.handleOnScroll(e)}>
+			<div ref={e=>{this.curComp = e}} className="hks-table" id={this.props.id} onScroll={e=>this.handleOnScroll(e)}>
 				<ReactTable
 					ref = {e=>this.mainTable = e}
 					getTrProps={(state, rowInfo, column, instance) => {
@@ -238,7 +219,7 @@ export default class DataTable extends React.Component {
 					className={'datatable -striped'}
 					style={{ height: this.props.maxRows === undefined ? '100%' : height, }}
 					data={this.props.data}
-					columns={newColumns}
+					columns={newStateColumns}
 					showPagination={false}
 					defaultPageSize={this.props.defaultPageSize}
 					onResizedChange={resized => this.onChangeHeaderWidth(resized)}
@@ -249,45 +230,112 @@ export default class DataTable extends React.Component {
 		
 	}
 
-	componentDidMount() {
-		window.addEventListener('mousemove', this.handleMouseMove.bind(this))
-		window.addEventListener('mouseup', this.handleOnMouseUp.bind(this))
-    }
 
-	mountPortal(newLabel,newLabelID) {
+	// handleOnMouseEnter(e) {
+	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
+	// 	e.target.style = 'color: white; background-color: black;'
+	// }
+	// handleOnMouseLeave(e) {
+	// 	e.target.style = ''this.props.id == 'portfolio' ? this.props.columns : 
+	// }
+
+
+	// COLUMN INFO EXTRACTOR
+	getColInfo(i, start, colNode) {
+		const BORDER_WIDTH = 1
+		const DEF_COL_SIZE = {
+			"i": "",
+			"id": "",
+			"s": "",
+			"e": "",
+			"w": "",
+			"reorderable": "",
+			"parent": ""
+		}
+
+		//Check double header
+		let haveParentHeader = colNode.className.indexOf("parent-")!=-1
+		var parentID = null
+
+		if (haveParentHeader){
+			parentID = colNode.className.substring(colNode.className.indexOf("parent-")+7,colNode.className.length)
+		}
+		
+		//Check reorderable props
+		let reorderable = (colNode.className.indexOf("reorderable")===-1?false:true)
+		let width = this.getComponentExactWidth(colNode.parentNode) + BORDER_WIDTH
+		let end = start + width
+
+		return Object.assign( {}, DEF_COL_SIZE,
+				{i: i, "id":colNode.id,"s":start,"e":end,"w":width,"reorderable":reorderable,"parent":parentID})
+	}
+
+	getColsSizeArray(targetComp) {
+		if (targetComp == null) return
+		
+		var cols = [...targetComp.getElementsByClassName("customCol")]
+		var sum = 0 - this.scrollLeft
+		var i = 0
+		this.colsWidth = cols.map(col=>{
+			var colInfo = this.getColInfo(i++, sum, col)
+			sum+= colInfo.w
+			return colInfo
+		})
+	}
+
+	onChangeHeaderWidth(resized){
+		this.setState({resized})
+		//save for next props update
+		var curColsWidthInConf = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
+		if (curColsWidthInConf == undefined){
+			curColsWidthInConf = resized
+			Config.tableColWidth = [...Config.tableColWidth, {id:this.props.id,colsWidth:curColsWidthInConf}]
+		}
+		curColsWidthInConf.colsWidth = resized
+	}
+
+	// DYNAMIC RENDERERS
+	mountColLabelCursor (newLabel,newLabelID) {
+		Utils.log("mount portal ",this.props.id, this.curComp)
 		if (this.dragLabel!=null){
-			this.unmountPortal()
+			this.unmountColLabelCursor()
 		}
 		//Add label on cursor
 		this.dragLabel = document.createElement('div')
 		this.dragLabel.id = "draglabel"
 		this.dragLabel.innerHTML = newLabel
-		var curComp = ReactDOM.findDOMNode(this);
-		curComp.appendChild(this.dragLabel)
+		
+		if (this.curComp == null) return
+		
+		this.curComp.appendChild(this.dragLabel)
 
-		this.createTableMask()
+		this.getColsSizeArray()
+
 		//which col is being selected
-		this.curColIndex = this.colsWidth.findIndex(col=>(col.id==newLabelID))
-		this.prevColIndex = this.curColIndex
-		var curCol = this.colsWidth[this.curColIndex]
+		this.toColIndex = this.colsWidth.findIndex(col=>(col.id==newLabelID))
+		this.fromColIndex = this.toColIndex
+		var curCol = this.colsWidth[this.toColIndex]
 		//Add highlight
 		this.dragHighlight = document.createElement('div')
 		this.dragHighlight.id ="draghighlight"
 		this.dragHighlight.style.left = curCol.s + "px"
 		this.dragHighlight.style.width = curCol.w + "px"
 		var parentTable = document.getElementsByClassName('datatable -striped')[0]
-		this.dragHighlight.style.top = window.getComputedStyle(curComp.parentNode).getPropertyValue("padding-top")
-		this.dragHighlight.style.height = this.getExactHeight(parentTable) + "px"
-		curComp.appendChild(this.dragHighlight)
+		this.dragHighlight.style.top = window.getComputedStyle(this.curComp.parentNode).getPropertyValue("padding-top")
+		this.dragHighlight.style.height = this.getComponentExactHeight(parentTable) + "px"
+		this.curComp.appendChild(this.dragHighlight)
 		
 	}
 
-	unmountPortal() {
+	unmountColLabelCursor() {
+		Utils.log("unmount portal ",this.props.id)
+		
 		if (this.dragLabel == null) {
 			return
 		}
 		//Unmount draglabel
 		var parentNode = this.dragLabel.parentNode
+		if (parentNode == null) return
 		parentNode.removeChild(this.dragLabel)
 		this.dragLabel = null
 
@@ -296,40 +344,47 @@ export default class DataTable extends React.Component {
 		parentNode.removeChild(this.dragHighlight)
 		this.dragHighlight = null
 
-		this.curColIndex = -1 
-		this.prevColIndex = -1
+		this.toColIndex = -1 
+		this.fromColIndex = -1
 	}
 
+
+	// EVENT HANDLERS
 	handleOnScroll(e) {
-		var curComp = ReactDOM.findDOMNode(this)
-		var scrollComp = curComp.getElementsByClassName('rt-table')[0]
+		if (this.curComp == null) return
+		
+		var scrollComp = this.curComp.getElementsByClassName('rt-table')[0]
 		this.scrollLeft = scrollComp.scrollLeft
 	}
-	
+
 	handleMouseMove(e) {
+		
 		if (this.dragLabel==null || this.dragLabel==undefined) {
 			return;
 		}
-		var curComp = ReactDOM.findDOMNode(this)
-		var curCompRect = curComp.getBoundingClientRect()
+		Utils.log("mouse move ",this.props.id)
+		
+		if (this.curComp == null) return
+		
+		var curCompRect = this.curComp.getBoundingClientRect()
 		var x = e.pageX - curCompRect.left
 		var y = e.pageY - curCompRect.top
 
 		this.dragLabel.style.left = x + "px"
 		this.dragLabel.style.top = y + "px"
 
-		var curCol = this.colsWidth[this.curColIndex]
+		var curCol = this.colsWidth[this.toColIndex]
 
-		if (x > curCol.e && this.curColIndex < this.colsWidth.length - 1) {
-			this.curColIndex += 1
-			curCol = this.colsWidth[this.curColIndex]
-		} else if (x < curCol.s && this.curColIndex > 0) {
-			this.curColIndex -= 1
-			curCol = this.colsWidth[this.curColIndex]
+		if (x > curCol.e && this.toColIndex < this.colsWidth.length - 1) {
+			this.toColIndex += 1
+			curCol = this.colsWidth[this.toColIndex]
+		} else if (x < curCol.s && this.toColIndex > 0) {
+			this.toColIndex -= 1
+			curCol = this.colsWidth[this.toColIndex]
 		} else {
 			return;
 		}
-		if (!curCol.reorderable || !this.colsWidth[this.prevColIndex].reorderable) {
+		if (!curCol.reorderable || !this.colsWidth[this.fromColIndex].reorderable || (this.isDoubleHeaderTable && (curCol.parent==null || this.colsWidth[this.fromColIndex].parent == null))) {
 			this.dragHighlight.style.border = "3px solid rgba(220, 220, 220, .5)"
 		}else {
 			this.dragHighlight.style.border = "3px solid rgba(236, 141, 141, .4)"
@@ -341,6 +396,7 @@ export default class DataTable extends React.Component {
 			
 
 	handleOnMouseDown(e) { // begin dragging	
+		Utils.log("mouse down ",this.props.id, this.curComp, this)
 
 		this.colA.object = e.target
 		if (this.colA.object.id == undefined) return
@@ -350,69 +406,82 @@ export default class DataTable extends React.Component {
 		})
 		this.colA.index = result != -1 ? result : 0
 
-		this.mountPortal(e.target.innerHTML, e.target.id)
+		this.mountColLabelCursor(e.target.innerHTML, e.target.id)
 		this.handleMouseMove(e)
+		Utils.log("eventlistener will be added",this.curComp)
+		window.addEventListener('mousemove', this.handleMouseMove)
+		window.addEventListener('mouseup', this.handleOnMouseUp)
 	}
 
 	handleOnMouseUp(e) { // end dragging
-		if (this.curColIndex != this.prevColIndex
-		&& this.colsWidth[this.curColIndex].reorderable
-		&& this.colsWidth[this.prevColIndex].reorderable){
+		Utils.log("mouse up ",this.props.id)
+		var toColumn = this.colsWidth[this.toColIndex]
+		var fromColumn = this.colsWidth[this.fromColIndex]
+		
+		if (this.toColIndex != this.fromColIndex
+		&& toColumn.reorderable
+		&& fromColumn.reorderable){
 			
-			var arr = this.state.columns
-			var startFromIdx = 0
-			console.log("IsDouble  ", this.isDoubleHeader)
-			if (this.isDoubleHeader){
-				if (this.colsWidth[this.curColIndex].parent==null
-					|| this.colsWidth[this.prevColIndex].parent==null
-					|| this.colsWidth[this.prevColIndex].parent!=this.colsWidth[this.curColIndex].parent){
-						this.unmountPortal()
-						return
-					}
-				arr = arr.find(el=>(el.id==this.colsWidth[this.curColIndex].parent)).columns				
-				startFromIdx = this.colsWidth.find(col=>col.id == arr[0].id).i
-			}
-			//swap two column
-			
-			var temp = arr[this.prevColIndex-startFromIdx]
-			arr[this.prevColIndex - startFromIdx] = arr[this.curColIndex - startFromIdx]
-			arr[this.curColIndex - startFromIdx] = temp
+			var curColsArray = this.state.columns
+			var curColsOrderArray = this.colsOrder
+			var colIndexInArray = 0
 
+
+			const FROMCOLUMN_HAS_PARENT = this.colsWidth[this.toColIndex].parent==null
+			const TOCOLUMN_HAS_PARENT = this.colsWidth[this.fromColIndex].parent==null
+			const FROMCOLUMN_TOCOLUMN_SAMEPARENT = this.colsWidth[this.fromColIndex].parent!=this.colsWidth[this.toColIndex].parent
 			
+			if (this.isDoubleHeaderTable){
+				if (FROMCOLUMN_HAS_PARENT || TOCOLUMN_HAS_PARENT || FROMCOLUMN_TOCOLUMN_SAMEPARENT){
+						this.unmountColLabelCursor()
+						return
+				}
+				curColsArray = curColsArray.find(el=>(el.id==this.colsWidth[this.toColIndex].parent)).columns				
+				colIndexInArray = this.colsWidth.find(col=>col.id == curColsArray[0].id).i
+			}
+			Utils.log(curColsArray)
+			
+			// Swap two column in Columns State
+			swap(curColsArray[this.fromColIndex-colIndexInArray], curColsArray[this.toColIndex - colIndexInArray])
+			// Swap two column in Columns Order Array
+			swap(curColsOrderArray[this.fromColIndex],curColsOrderArray[this.toColIndex])
+
+
 			//save for next props update
 			// this.colsOrder = this.getCurColsOrder([...this.state.columns])
-			// console.log(this.colsOrder)
-			var curColsOrderInConf = Config.tableColReorder.find(tbl=>tbl.id==this.props.id)
-			if (curColsOrderInConf==undefined){
-				curColsOrderInConf = {id:this.props.id, colsOrder:[]}
-				Config.tableColReorder = [...Config.tableColReorder, curColsOrderInConf]
+			// Utils.log(this.colsOrder)
+			var colsOrderInConfig = Config.tableColReorder.find(tbl=>tbl.id == this.props.id)
+			if (colsOrderInConfig == undefined){
+				colsOrderInConfig = { id: this.props.id, colsOrder: [] }
+				Config.tableColReorder = [...Config.tableColReorder, colsOrderInConfig]
 			}
-			
-			curColsOrderInConf.colsOrder = this.state.columns
+
+			this.colsOrder = getColsOrder(this.state.columns)
+			colsOrderInConfig = this.colsOrder
+
 			this.setState({
 				columns: [...this.state.columns]
 			})
-			this.colA = {
-				index: 0,
-				object: {}
-			}
-			this.colB = {
-				index: 0,
-				object: {}
-			}
+
+			// this.colA = {
+			// 	index: 0,
+			// 	object: {}
+			// }
+			// this.colB = {
+			// 	index: 0,
+			// 	object: {}
+			// }
 		}
 		
-		this.unmountPortal()
+		this.unmountColLabelCursor()
+		Utils.log("eventlistener will be removed",this.curComp)
+		
+		window.removeEventListener('mousemove', this.handleMouseMove)
+		window.removeEventListener('mouseup', this.handleOnMouseUp)
 	}
-
-	// handleOnMouseEnter(e) {
-	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
-	// 	e.target.style = 'color: white; background-color: black;'
-	// }
-	// handleOnMouseLeave(e) {
-	// 	e.target.style = ''this.props.id == 'portfolio' ? this.props.columns : 
-	// }
 }
+
+//UTILS FUNCTIONS
 function expand(data) {
 	let rows = []
 	for (var i = 1; i <= data.length; i++) {
@@ -422,12 +491,12 @@ function expand(data) {
 }
 
 function headerRenderer(component, id, reorderable, text, parent) {
+	Utils.log("header ran")
 	switch (id) {
 		case 'cb':
 			return (
 				<input id={component.props.id + "-cb-all" + (parent!=undefined?" parent-"+parent:"")} 
-					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)} 
+					onMouseDown={e => component.handleOnMouseDown(e)} 
 					type='checkbox'
 					className={"row-checkbox customCol" + (reorderable==false?"":" reorderable")}
 					onChange={() => component.props.onRowSelected('ALL')} />
@@ -435,9 +504,54 @@ function headerRenderer(component, id, reorderable, text, parent) {
 		default:
 			return (
 				<div id={id} className={"customCol " + (reorderable==false?"":" reorderable") + (parent!=undefined?" parent-"+parent:"")}
-					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)}>{text}</div>
+					onMouseDown={e => component.handleOnMouseDown(e)}>{text}</div>
 			)
 	}
+	
 
+}
+
+function getComponentExactWidth(e) {
+	let rect = e.getBoundingClientRect()
+	if (rect.width) {
+		// `width` is available for IE9+
+		return rect.width;
+	  } else {
+		// Calculate width for IE8 and below
+		return rect.right - rect.left;
+	}
+}
+
+function getComponentExactHeight(e) {
+	let rect = e.getBoundingClientRect()
+	if (rect.height) {
+		// `width` is available for IE9+
+		return rect.height;
+	  } else {
+		// Calculate width for IE8 and below
+		return rect.bottom - rect.top;
+	}
+}
+
+function swap (objA, objB) {
+	let temp = objA
+	objA = objB
+	objB = temp
+}
+
+function getColsOrder(columnsObject) {
+	return columnsObject.map(col => {
+		if (col.columns != null) {
+			return {
+				id: col.id,
+				columns: col.columns.map(subcol => (
+					{id: subcol.id}
+				))
+			}
+		}else {
+			return {
+				id: col.id
+			}
+		}
+	})
 }

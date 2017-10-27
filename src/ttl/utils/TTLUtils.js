@@ -50,3 +50,5 @@ TTLUtils.currencyFormatter = function(original, hasSpace, dp, dSeparator, tSepar
     return rightPosition ? v + spaceText + symbol : symbol + spaceText + v;
     
 }
+
+TTLUtils.log = (msg) => console.log(msg)
