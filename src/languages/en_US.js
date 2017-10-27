@@ -67,6 +67,9 @@ export default
                 "CPD": "Completed",
                 "PXP": "Partially Expired",
                 "FLL": "Fully Filled"
+            },                
+            "filter": {                    
+                "toggle": "Toggle Filter"                
             }
         },
         "menu": {

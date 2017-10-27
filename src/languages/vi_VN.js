@@ -67,6 +67,9 @@ export default
                 "CPD": "Khớp toàn bộ",
                 "PXP": "Hết hiệu lực một phần",
                 "FLL": "Khớp toàn bộ"
+            },                
+            "filter": {                    
+                "toggle": "Bộ lọc"                
             }
         },
         "menu": {

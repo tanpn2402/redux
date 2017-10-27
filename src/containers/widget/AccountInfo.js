@@ -487,7 +487,7 @@ class AccountInfo extends Component {
 		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
 		return (
 			<div id={this.id}>
-				<Title theme={this.props.theme}>
+				<Title language={this.props.language} theme={this.props.theme}>
 					{this.props.language.menu[this.id]}
 				</Title>
 

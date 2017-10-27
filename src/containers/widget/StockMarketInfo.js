@@ -305,7 +305,7 @@ class StockMarketInfo extends Component {
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		return (
 			<div id={this.id}>
-				<Title theme={this.props.theme}>
+				<Title language={this.props.language} theme={this.props.theme}>
 					{this.props.language.menu[this.id]}
 				</Title>
 
