@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import { OverlayTrigger, Popover, Table } from 'react-bootstrap'
-import { ComposedChart, ReferenceLine, Line, Area, Legend, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { ComposedChart } from './commons/ComposedChart'
 
-export default class MarqueeBar extends React.Component {
+class MarqueeBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,104 +16,6 @@ export default class MarqueeBar extends React.Component {
         }
 
         //HoverFocus event
-        let popoverHoverFocus = (d) => {
-            // let popoverchartBackground = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.backgroundColor
-            // let popoverchartColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.color
-            var config = {
-                chart: {
-                    height: '200',
-                    type: 'line',
-                    // backgroundColor: popoverchartBackground
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    // labels: {
-                    //     style: {
-                    //         color: popoverchartColor
-                    //     }
-                    // }
-                    // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: '',
-                    // labels: {
-                    //     style: {
-                    //         color: popoverchartColor
-                    //     }
-                    // }
-                },
-                navigator: {
-                    enabled: false
-                },
-                scrollbar: {
-                    enabled: false
-                },
-                series: [
-                    {
-                        name: 'A',
-                        data: [71.4, 80.1, 66.9, 99.9, 58.4, 96.5, 85.4, 51.9, 50.0, 29.9, 19.7, 57.2],
-                        type: 'line',
-                    },
-                    // {
-                    //     name: 'B',
-                    //     data: [98.74, 43.82, 29.55, 25.7, 57.02, 24.99, 55.75, 80.87, 21.51, 7.34, 46.29, 45.75],
-                    //     type: 'area',
-                    // },
-                    // {
-                    //     name: 'C',
-                    //     data: [31.8, 8.95, 86.39, 96.33, 78.82, 44.43, 75.36, 59.04, 45.61, 42.93, 94.02, 49.78],
-
-                    // }
-                ]
-            }
-            const data = [
-                { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
-                { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
-                { name: '13:00', index: 109.5084, volume: 1336.1 }, { name: '14:00', index: 110.7820, volume: 1067.9 },
-            ]
-            const data2 = [
-                { name: '09:00', index: 110.9808, volume: 1595.6 }, { name: '10:00', index: 109.5505, volume: 1796.6 },
-                { name: '11:00', index: 109.0000, volume: 1748.5 }, { name: '12:00', index: 110.1041, volume: 1131.1 },
-                { name: '13:00', index: 110.4313, volume: 1336.1 }, { name: '14:00', index: 109.8071, volume: 1067.9 },
-            ]
-            const data3 = [
-                { name: '09:00', index: 109.1825, volume: 1595.6 }, { name: '10:00', index: 109.3075, volume: 1796.6 },
-                { name: '11:00', index: 110.8301, volume: 1748.5 }, { name: '12:00', index: 110.1019, volume: 1131.1 },
-                { name: '13:00', index: 109.2077, volume: 1336.1 }, { name: '14:00', index: 109.5897, volume: 1067.9 },
-            ]
-            const colorBreakPoint = 110 //threshold
-            const { min, max } = data2.reduce((result, dataPoint) => ({
-                min: (dataPoint.index < result.min || result.min === 0) ? dataPoint.index : result.min,
-                max: (dataPoint.index > result.max || result.max === 0) ? dataPoint.index : result.max,
-            }), { min: 0, max: 0 });
-            const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
-            return (
-                <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
-                    <ComposedChart
-                        data={data2}
-                        width={500}
-                        height={250}>
-                        <defs>
-                            <linearGradient x1='0%' x2='0%' y1='0%' y2='100%' id='aaa'>
-                                <stop offset='0%' stopColor='#00ff1d' />
-                                <stop offset={colorBreakPointPercentage} stopColor='#00ff1d' />
-                                <stop offset={colorBreakPointPercentage} stopColor='red' />
-                                <stop offset='100%' stopColor='red' />
-                            </linearGradient>
-                        </defs>
-                        <XAxis dataKey="name" stroke='white' />
-                        <YAxis yAxisId="left" stroke='white' domain={['dataMin', 'dataMax']} orientation="left" ticks={[109, 110, 111]} />
-                        <YAxis type="number" stroke='white' ticks={[1000, 4000, 8000]} domain={['0', 'dataMax + 7000']} yAxisId="right" orientation="right" />
-                        <CartesianGrid stroke='black' fill='black' />
-                        <ReferenceLine strokeWidth='2' yAxisId="left" stroke='yellow' strokeDasharray="9 9" y={colorBreakPoint} /*the 'y' props is the breakpoint (threshold)*/ />
-                        <Line yAxisId="left" type="linear" dot={false} dataKey="index" strokeWidth='2' stroke='url(#aaa)' />
-                        <Area yAxisId="right" type="monotone" dataKey='volume' fill="#8884d8" stroke="#7bdff2" />
-                    </ComposedChart>
-                </Popover>
-            )
-        }
 
         //Default props
         this.curSliderObj = null
@@ -134,35 +38,37 @@ export default class MarqueeBar extends React.Component {
         }
 
         //Hard-coded generated data
-        for (let i = 0; i < 200; i++) {
+        // for (let i = 0; i < 200; i++) {
 
-            var newDataE = Object.assign({}, this.defaultData)
-            newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
-            newDataE.title = this.randomStockCode()
-            newDataE.status = this.randomSym()
-            newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
-            newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
-            newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
-            newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
-            newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
-            newDataE.statusValue = '-'
-            newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
+        //     var newDataE = Object.assign({}, this.defaultData)
+        //     newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
+        //     newDataE.title = this.randomStockCode()
+        //     newDataE.status = this.randomSym()
+        //     newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
+        //     newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
+        //     newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
+        //     newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
+        //     newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
+        //     newDataE.statusValue = '-'
+        //     newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
 
 
-            this.data.push(newDataE)
-        }
+        //     this.data.push(newDataE)
+        // }
 
-        this.text = this.data.map(dataE => (
-            <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
-                <li>
-                    <strong className="title">{dataE.title}</strong>
-                    <span className={dataE.status}>&nbsp;{dataE.id}</span>
-                    <span className="percent">
-                        <span className="netchange">&nbsp;{dataE.netchange}</span>&nbsp;(<span className="changepercentage">{dataE.changeper}</span>%)
-                    </span>
-                </li>
-            </OverlayTrigger>
-        ))
+        this.test = []
+
+        // this.text = this.data.map((dataE, index) => (
+        //     <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
+        //         <li>
+        //             <strong ref={e => this.test[index] = e} className="title">{dataE.title}</strong>
+        //             <span className={dataE.status}>&nbsp;{dataE.id}</span>
+        //             <span className="percent">
+        //                 <span className="netchange">&nbsp;{dataE.netchange}</span>&nbsp;(<span className="changepercentage">{dataE.changeper}</span>%)
+        //             </span>
+        //         </li>
+        //     </OverlayTrigger>
+        // ))
     }
 
     //For testing
@@ -193,18 +99,80 @@ export default class MarqueeBar extends React.Component {
 
     // Generate first loop
     componentDidMount() {
+        this.props.getStocksFromLocalStore()
+    }
 
-        window.addEventListener('wheel', this.handleScroll.bind(this))
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.watchListLocalStockList.length > 0) {
+            let popoverHoverFocus = (d) => {
+                const data = [
+                    { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
+                    { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
+                    { name: '13:00', index: 109.5084, volume: 1336.1 }, { name: '14:00', index: 110.7820, volume: 1067.9 },
+                ]
+                const data2 = [
+                    { name: '09:00', index: 110.9808, volume: 1595.6 }, { name: '10:00', index: 109.5505, volume: 1796.6 },
+                    { name: '11:00', index: 109.0000, volume: 1748.5 }, { name: '12:00', index: 110.1041, volume: 1131.1 },
+                    { name: '13:00', index: 110.4313, volume: 1336.1 }, { name: '14:00', index: 109.8071, volume: 1067.9 },
+                ]
+                const data3 = [
+                    { name: '09:00', index: 109.1825, volume: 1595.6 }, { name: '10:00', index: 109.3075, volume: 1796.6 },
+                    { name: '11:00', index: 110.8301, volume: 1748.5 }, { name: '12:00', index: 110.1019, volume: 1131.1 },
+                    { name: '13:00', index: 109.2077, volume: 1336.1 }, { name: '14:00', index: 109.5897, volume: 1067.9 },
+                ]
+                const colorBreakPoint = 110 //threshold
+                const { min, max } = data2.reduce((result, dataPoint) => ({
+                    min: (dataPoint.index < result.min || result.min === 0) ? dataPoint.index : result.min,
+                    max: (dataPoint.index > result.max || result.max === 0) ? dataPoint.index : result.max,
+                }), { min: 0, max: 0 });
+                const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
+                return (
+                    <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
+                        <ComposedChart data={data2} width={500} height={250}
+                            threshHoldPercentage={colorBreakPointPercentage} timeDataKey='name'
+                            leftTicks={[109, 110, 111]} rightTicks={[1000, 4000, 8000]}
+                            threshHold={colorBreakPoint} indexDataKey='index' volumeDataKey='volume' />
+                    </Popover>
+                )
+            }
+
+            let stockList = nextProps.watchListLocalStockList
+            stockList.forEach(stock => {
+                let newDataE = Object.assign({}, this.defaultData)
+                newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
+                newDataE.title = stock.mvStockCode
+                newDataE.status = this.randomSym()
+                newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
+                newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
+                newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
+                newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
+                newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
+                newDataE.statusValue = '-'
+                newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
+                this.data.push(newDataE)
+            })
+            this.text = this.data.map((dataE, index) => (
+                <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
+                    <li>
+                        <strong ref={e => this.test[index] = e} className="title">{dataE.title}</strong>
+                        <span className={dataE.status}>&nbsp;{dataE.id}</span>
+                        <span className="percent">
+                            <span className="netchange">&nbsp;{dataE.netchange}</span>&nbsp;(<span className="changepercentage">{dataE.changeper}</span>%)
+                    </span>
+                    </li>
+                </OverlayTrigger>
+            ))
+            window.addEventListener('wheel', this.handleScroll.bind(this))
 
 
-        this.capacity = Math.round(this.slider.offsetWidth / this.liWidth)
-        this.loop()
-        this.curSliderObj = this.slider
-        this.setState({
-            currentSliderInterval: [setInterval((e => (this.animation(this.curSliderObj))).bind(this), 20)],
-        })
-        this.curSliderObj.style.left = this.marqueeWrapper.offsetWidth + "px";
-
+            this.capacity = Math.round(this.slider.offsetWidth / this.liWidth)
+            this.loop()
+            this.curSliderObj = this.slider
+            this.setState({
+                currentSliderInterval: [setInterval((e => (this.animation(this.curSliderObj))).bind(this), 20)],
+            })
+            this.curSliderObj.style.left = this.marqueeWrapper.offsetWidth + "px";
+        }
     }
 
     componentWillUnmount() {
@@ -358,3 +326,17 @@ export default class MarqueeBar extends React.Component {
         })
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        watchListLocalStockList: state.watchlist.watchListLocalStockList
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    getStocksFromLocalStore: () => {
+        dispatch(actions.getStocksFromLocalStore())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MarqueeBar)
