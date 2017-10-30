@@ -25,12 +25,6 @@ class MessageBox extends Component {
         }
     }
 
-    compoenentWillUnmount() {
-        if (this.props.handleFunction != null) {
-            this.props.handleFunction()
-        }
-    }
-
     render() {
         let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
         return (
@@ -62,7 +56,7 @@ class MessageBox extends Component {
         msg = msg.filter(e => e.id !== id)
 
         this.setState({ listMessage: msg })
-        console.log('listMessage', msg)
+        
         if (this.props.handleFunction != null) {
             this.props.handleFunction()
         }

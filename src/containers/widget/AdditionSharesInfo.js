@@ -14,7 +14,7 @@ class AdditionSharesInfo extends Component {
         this.id = 'additionSharesInfo'
         this.state = {
             pageIndex: 1,
-            filterable: true,
+            filterable: false,
             columns: [
                 {
                     id: 'stockId',

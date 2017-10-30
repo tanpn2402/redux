@@ -19,21 +19,6 @@ class OrderJournal extends Component {
                     Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
-                    // Cell: props => {
-                    //     console.log('aaaaaaaaaaaa', props)
-                    //     if (props.aggregated) {
-
-                    //     } else {
-                    //         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                    //             if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                    //                 return (
-                    //                     <input type='checkbox' className={this.id + "-row-checkbox"}
-                    //                         onChange={() => { this.onRowSelected(props.original) }} />
-                    //                 )
-                    //             }
-                    //         }
-                    //     }
-                    // },
                     sortable: false,
                     skip: true
                 },
@@ -41,41 +26,6 @@ class OrderJournal extends Component {
                     id: 'can',
                     Header: this.props.language.orderjournal.header.cancelmodify,
                     maxWidth: 80,
-                    // Cell: props => {
-                    //     if (props.aggregated) {
-
-                    //     } else {
-                    //         var child = []
-                    //         if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                    //             if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                    //                 child.push(
-                    //                     <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                    //                         onClick={() => this.handleCancelOrder(props.original)}>
-                    //                         <span className="glyphicon glyphicon-remove"></span>
-                    //                     </Button>
-                    //                 )
-                    //             }
-                    //         }
-
-                    //         if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                    //             if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
-                    //                 child.push(
-                    //                     <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                    //                         onClick={() => this.handleModifyOrder(props.original)}>
-                    //                         <span className="glyphicon glyphicon-edit"></span>
-                    //                     </Button>
-                    //                 )
-                    //             }
-                    //         }
-
-                    //         return (
-                    //             <span>
-                    //                 {
-                    //                     child
-                    //                 }
-                    //             </span>)
-                    //     }
-                    // },
                     sortable: false,
                     skip: true
                 },
@@ -225,8 +175,11 @@ class OrderJournal extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} language={this.props.language}
-                    columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
+                <Title id={this.id}
+                    theme={this.props.theme} 
+                    language={this.props.language}
+                    columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} 
+                    onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -608,6 +561,30 @@ class OrderJournal extends Component {
         })
     }
 
+
+    // handleOnMouseDown(e) { // begin dragging
+    //     let idA = e.target.id
+    //     let result = this.state.columns.findIndex((column) => {
+    //         return column.id == idA
+    //     })
+    //     this.indexA = result != -1 ? result : 0
+    // }
+
+    // handleOnMouseUp(e) { // end dragging
+    //     let idB = e.target.id
+    //     let result = this.state.columns.findIndex((column) => {
+    //         return column.id == idB
+    //     })
+    //     this.indexB = result != -1 ? result : 0
+    //     let arr = this.state.columns.slice()
+    //     let a = arr[this.indexA]
+    //     arr[this.indexA] = arr[this.indexB]
+    //     arr[this.indexB] = a
+    //     this.setState({
+    //         columns: arr
+    //     })
+    // }
+
     onRowSelected(param) {
         if (param === 'ALL') {
             var current = document.getElementById(this.id + '-cb-all').checked
@@ -635,7 +612,6 @@ class OrderJournal extends Component {
             else
                 document.getElementById("orderjournal-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
     }
 
     showPopup() {
@@ -645,7 +621,6 @@ class OrderJournal extends Component {
         });
         this.title = this.props.language.orderjournal.popup.title.cancel
         this.popupType = 'CANCELORDER'
-        console.log('onCancelOrder', this.rowSelected)
     }
 
     onChangeStateColumn(e) {
@@ -692,7 +667,6 @@ class OrderJournal extends Component {
         this.param['mvStatus'] = param.mvStatus
         this.param['mvOrderType'] = param.mvOrderType
         this.param['mvOrderBS'] = param.mvBuysell
-        console.log('orderjournal Page', this.state.pageIndex)
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
@@ -700,7 +674,6 @@ class OrderJournal extends Component {
     }
 
     updateView() {
-        console.log('update View')
         this.rowSelected = []
         this.props.onSearch(this.param)
     }

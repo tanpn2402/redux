@@ -67,6 +67,9 @@ export const UICFGMANAGEMENT = 'UICfgManagement.action';//Get saved layout
 export const CALCULATEINTERSETAMT = 'calculateInterestAmt.action'; //calculateInterestAmt
 export const QUERYMARKETSTATUSINFO = 'queryMarketStatusInfo.action'
 export const GENMODIFYORDER = 'genmodifyorder.action'
+export const CHANGELANGUAGE = 'changelanguage.action'
+export const GETCUSTOMERSERVICE = 'getCustomerService.action'
+
 // Export Excel actions
 export const EXPORTGETCASHTRANSACTIONHISTORY = 'exportGetCashTransactionHistory.action';
 export const EXPORTORDERHISTORY = 'exportOrderHistory.action';

@@ -53,7 +53,8 @@ export default {
       backgroundColor: '#474747'
     },
     filterrow: {
-      backgroundColor: '#a2a2a5'
+      backgroundColor: 'rgb(121, 121, 121)',
+      color: '#FFF'
     },
     nodatadisplay: {
       backgroundColor: 'transparent',

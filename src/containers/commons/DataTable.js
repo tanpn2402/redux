@@ -30,7 +30,7 @@ export default class DataTable extends React.Component {
 	render() {
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
-		let filterrow = this.props.theme.table.filterrow.backgroundColor
+		let filterrow = this.props.theme.table.filterrow
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let font3 = this.props.theme.font3 == undefined ? 'black' : this.props.theme.font3.color
 		let font = this.props.theme.font == undefined ? 'black' : this.props.theme.font.color
@@ -72,12 +72,13 @@ export default class DataTable extends React.Component {
 					getTheadFilterProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								background: filterrow,
-								color: '#000'
+								background: filterrow.backgroundColor,
+								color: filterrow.color
 							}
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
+						console.log(state, rowInfo, column, instance)
 						return {
 							style: {
 								color: font3,
@@ -216,7 +217,8 @@ function headerRenderer(component, id, column, text) {
 	switch (id) {
 		case 'cb':
 			return (
-				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => component.props.onRowSelected('ALL')} />
+				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" 
+					onChange={() => component.props.onRowSelected('ALL')} />
 			)
 		default:
 			return (

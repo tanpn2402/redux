@@ -21,7 +21,6 @@ export function getSuccess(response){
 
 function matrixCardResponse(response) {
     getSuccess(response);
-    console.log('matrixCardResponse res', response)
     return {
         type: ActionTypes.MATRIXCARD,
         data: response

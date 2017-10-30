@@ -10,7 +10,6 @@ let stockInfoSell = {}
 let stockInfo = {}
 
 export function getstockInfo(param) {
-    console.log('stockInfo Action', param)
     return function (dispatch) {
         (api.post(ACTION.STOCKINFO, param, dispatch, getStockB))
     }
@@ -25,7 +24,6 @@ function getStockB(response) {
             stockInfo = response
         if (stockInfo.mvStockInfoBean.mvMarginPercentage==="null")
             stockInfo.mvStockInfoBean.mvMarginPercentage = "0"
-        console.log('stockInfo data', stockInfoSell, stockInfo)
     }
     return {
         type: ActionTypes.STOCKINFO,

@@ -9,7 +9,7 @@ export function enquiryMarginLoan(params, reload) {
 }
 
 function responseMarginLoan(response){
-    console.log(response)
+    
     return {
         type: ActionTypes.ENQUIRYMARGINLOAN,
         data: response,

@@ -12,7 +12,6 @@ export default function (state = initialState, action) {
                 isAuthenFail: action.isAuthenFail
             });
         case ActionTypes.MATRIXCARD:
-            console.log(action.data.mvSuccess)
             return Object.assign({}, state, {
                 matrixResponse: action.data.mvSuccess
             });

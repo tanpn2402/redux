@@ -15,7 +15,6 @@ export function get(id, param, dispatch, successHandler, failHandler) {
 
 export function post(id, param, dispatch, successHandler, failHandler) {
 	return (FetchAPI(id, param, POST)).then(response => response).then(parseData => {
-
 		if (parseData.mvErrorCode && parseData.mvErrorCode != 0) {
 			dispatch(showMessageBox("Error", parseData.mvErrorResult))
 		} else {
@@ -33,7 +32,6 @@ export function post(id, param, dispatch, successHandler, failHandler) {
 
 export function test(id, param) {
 	return (FetchAPI(id, param, POST)).then(response => response).then(parseData => {
-		console.log(parseData)
 		return parseData
 	}).catch(error => {
 		return error
@@ -52,11 +50,12 @@ export function report(id, param, dispatch, callback) {
 
 };
 
-export function login(id, param, dispatch, callback) {
+export function login(id, param, dispatch, successHandler, failHandler) {
 	return (FetchAPI(id, param, LOGIN)).then(response => response).then(parseData => {
-		dispatch(callback(parseData));
-	}).catch(error => {
-		return error
+		dispatch(successHandler(parseData));
+	}).catch(error => { 
+		if(failHandler)
+			dispatch(failHandler(error));
 	})
 
 };

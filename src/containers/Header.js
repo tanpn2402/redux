@@ -11,18 +11,10 @@ import Popup from './Popup'
 class Header extends React.Component {
 	constructor() {
 		super()
-		this.id = 'header'
-	}
-
-	componentWillMount() {
-		//this.props.getHeaderChart(this.params)
+		this.id = 'pageheader'
 	}
 
 	render() {
-		var currentThemeName = this.props.currentThemeName.substring(6, 11)
-		var currentLanguage = this.props.currentLanguage
-		var clientDetails = this.props.clientDetails.mvPersonnalProfileBean === undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
-		let lgClose = () => this.setState({ lgShow: false })
 		let pageheader = this.props.theme.page == undefined ? undefined : this.props.theme.page.pageheader
 		return (
 			<div id="pageheader" style={pageheader} >
@@ -33,26 +25,14 @@ class Header extends React.Component {
 		)
 	}
 
-	componentDidMount() {
-		//this.props.getClientInfo([])
-	}
 }
 
 
 const mapStateToProps = (state) => {
-	return {
-		clientDetails: state.profile.clientDetails,
-		chart: state.profile.headerChart
-	}
+
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	getClientInfo: (param) => {
-		dispatch(actions.getClientInfo(param))
-	},
-	getHeaderChart: (param) => {
-		dispatch(actions.getClientInfo(param))
-	},
 
 })
 

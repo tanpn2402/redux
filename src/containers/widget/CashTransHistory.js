@@ -270,7 +270,7 @@ class CashTransHistory extends Component {
                 this.rowSelected.splice(index, 1)
             }
         }
-        console.log('onRowSelected', this.rowSelected)
+        
     }
 
     onChangeStateColumn(e) {

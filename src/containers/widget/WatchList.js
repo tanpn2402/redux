@@ -331,7 +331,6 @@ class WatchList extends Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })

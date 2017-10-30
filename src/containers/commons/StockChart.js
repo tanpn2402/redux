@@ -94,7 +94,6 @@ export default class StockChart extends React.Component {
         arrayvar2.pop()
         arrayvar2.push(value2)
 
-        console.log(value1, value2)
         p.setState({
 
 
@@ -103,7 +102,6 @@ export default class StockChart extends React.Component {
         });
     }
     render() {
-        console.log('asd')
         return (
             null
             // <ReactHighstock config={this.config} domProps={{ id: this.props.id }}></ReactHighstock>

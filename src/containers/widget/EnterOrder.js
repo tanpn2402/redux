@@ -507,7 +507,6 @@ class EnterOrder extends Component {
 
     render() {
         this.stockList = config.cache.stockList
-        console.log(this.stockList)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
@@ -663,20 +662,12 @@ class EnterOrder extends Component {
                                                     onChange={this.handleDateExpireCheck.bind(this)}
                                                     value={this.state.value.mvExpireChecked} />
                                             </Col>
-                                            <Col xs={11}>
+                                            <Col xs={11} style={{paddingLeft: '10px'}}>
                                                 <CalendarPicker
                                                     id="expireDate"
                                                     disabled={!this.state.value.mvExpireChecked}
                                                     onChange={this.handleDateExpireChange.bind(this)}
                                                 />
-                                                {/* <DatePicker id="mvStartDate" value={this.state.value.mvExpireDate} 
-                                                    cellPadding={'1px'} 
-                                                    dateFormat={Contants.dateFormat}
-                                                    style={{width: '100px', height: '20px', marginLeft: '5px', border: '1px solid #dcdcdc'}}
-                                                    disabled={!this.state.value.mvExpireChecked} 
-                                                    showClearButton={false}
-                                                    calendarPlacement ={'top'}
-                                                    onChange={this.handleDateExpireChange.bind(this)} /> */}
                                             </Col>
                                         </td>
                                     </tr>
