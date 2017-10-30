@@ -24,7 +24,7 @@ class Portfolio extends Component {
             pageIndex: 1,
             columns: [
                 {
-                    id: '',
+                    id: 'stockIDWrapper',
                     Header: '',
                     columns: [
                         // {
@@ -44,7 +44,7 @@ class Portfolio extends Component {
                     ]
                 },
                 {
-                    id: '',
+                    id: 'stockIDWrapper',
                     Header: '',
                     columns: [
                         {
@@ -192,31 +192,27 @@ class Portfolio extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        
         this.setState({
             columns: [
                 {
-                    id: '',
+                    id: 'stockIDWrapper',
                     Header: '',
                     columns: [
-                        // {
-                        //     Header: 'Ord',
-                        //     accessor: 'STT',
-                        //     maxWidth: 50
-                        // },
                         {
                             id: 'mvStockID',
                             Header: nextProps.language.portfolio.header.mvStockID,
                             accessor: 'mvStockID',
                             maxWidth: 60,
                             Aggregated: () => {
-                                return null;
+                                return null
                             }
                         }
                     ]
                 },
                 {
-                    id: '',
-                    Header: ' ',
+                    id: 'stockIDWrapper',
+                    Header: '',
                     columns: [
                         {
                             id: 'mvMarketID',
@@ -433,6 +429,7 @@ class Portfolio extends Component {
     }
 
     render() {
+        console.log("PORT RE-RENDER ",this.state.columns)
         var data = this.props.data.mvPortfolioBeanList
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter

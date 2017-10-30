@@ -114,7 +114,7 @@ class OrderHistory extends Component {
                 },
                 {
                     id: 'mvInputTime',
-                    Header: this.props.language.ordershistory.header.matcheddate,
+                    Header: this.props.language.ordershistory.header.tradetime,
                     accessor: 'mvInputTime',
                     width: 80,
                     skip: false,
@@ -254,7 +254,7 @@ class OrderHistory extends Component {
                 },
                 {
                     id: 'mvInputTime',
-                    Header: nextProps.language.ordershistory.header.matcheddate,
+                    Header: nextProps.language.ordershistory.header.tradetime,
                     accessor: 'mvInputTime',
                     width: 80,
                     skip: false,
