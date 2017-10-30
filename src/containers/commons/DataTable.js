@@ -32,6 +32,7 @@ export default class DataTable extends React.Component {
 		this.toColIndex = 0
 		this.hasCB = true
 		this.colsOrder = null
+		this.colsWidth = null
 
 		this.handleOnMouseUp = this.handleOnMouseUp.bind(this)
 		this.handleMouseMove = this.handleMouseMove.bind(this)
@@ -137,6 +138,7 @@ export default class DataTable extends React.Component {
 		log("Render",this.props.id)
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
+		let filterrow = this.props.theme.table.filterrow
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let font3 = this.props.theme.font3 == undefined ? 'black' : this.props.theme.font3.color
 		let font = this.props.theme.font == undefined ? 'black' : this.props.theme.font.color
@@ -180,6 +182,7 @@ export default class DataTable extends React.Component {
 			<div ref={e=>{this.curComp = e}} className="hks-table" id={this.props.id} onScroll={e=>this.handleOnScroll(e)}>
 				<ReactTable
 					ref = {e=>this.mainTable = e}
+					filterable={this.props.filterable != undefined ? this.props.filterable : false}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -199,7 +202,16 @@ export default class DataTable extends React.Component {
 							return {}
 						}
 					}}
+					getTheadFilterProps={(state, rowInfo, column, instance) => {
+						return {
+							style: {
+								background: filterrow.backgroundColor,
+								color: filterrow.color
+							}
+						}
+					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
+						console.log(state, rowInfo, column, instance)
 						return {
 							style: {
 								color: font3,
@@ -484,6 +496,56 @@ export default class DataTable extends React.Component {
 		
 		window.removeEventListener('mousemove', this.handleMouseMove)
 		window.removeEventListener('mouseup', this.handleOnMouseUp)
+	}
+
+	onRowSelected(param) {
+		let rowSelected = []
+		if (param === 'ALL') {
+			var current = document.getElementById(this.props.id + '-cb-all').checked
+			var checkboxes = document.getElementsByClassName(this.props.id + '-row-checkbox')
+			for (var i = 0; i < checkboxes.length; i++) {
+				checkboxes[i].checked = current;
+			}
+			if (current) {
+				switch (this.props.id) {
+					case 'orderjournal':
+						rowSelected = this.props.data !== undefined ?
+							this.props.data.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
+						break;
+					default:
+						rowSelected = this.props.data
+				}
+			} else {
+				rowSelected = []
+			}
+		} else {
+			switch (this.props.id) {
+				case 'matchOrderBankList':
+					var tmp = rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
+
+					if (tmp.length > 0) {
+						// exist in row selected
+						rowSelected = rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
+					} else {
+						rowSelected.push(param)
+					}
+					break;
+				default:
+					var index = this.rowSelected.indexOf(param)
+					if (index === -1) {
+						this.rowSelected.push(param)
+					}
+					else {
+						this.rowSelected.splice(index, 1)
+					}
+			}
+
+			if (document.getElementsByClassName(this.props.id + '-row-checkbox').length === rowSelected.length)
+				document.getElementById(this.props.id + "-cb-all").checked = true
+			else
+				document.getElementById(this.props.id + "-cb-all").checked = false
+		}
+		this.props.handleOnRowSelected({ rowSelected: rowSelected })
 	}
 }
 

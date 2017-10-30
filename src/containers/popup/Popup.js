@@ -26,6 +26,10 @@ class Popup extends Component {
             return (
                 <Modal show={true}>
                     <div className="modal-header popup-main-header" style={{ backgroundColor: widgetheader, color: font }} >
+                        <button type="button" className="close" onClick={ e => this.onClose() }>
+                            <span aria-hidden="true">×</span>
+                            <span className="sr-only">Close</span
+                        ></button>
                         <h4 className="title modal-title">{this.props.title}</h4>
                     </div>
                     {generatePopup(this.props, this.onClose.bind(this))}

@@ -13,14 +13,14 @@ import 'react-power-select/dist/react-power-select.css'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
-const {Contants} = require('../../core/constants')
+const { Contants } = require('../../core/constants')
 var DatePicker = require("react-bootstrap-date-picker")
 
 
 const StockViewOption = ({ option }) =>
-    <div style={{maxWidth: '100%'}}>
+    <div style={{ maxWidth: '100%' }}>
         <span>{option.stockCode}</span>
-        <small style={{paddingLeft: '5px'}}> - {option.stockName}</small>
+        <small style={{ paddingLeft: '5px' }}> - {option.stockName}</small>
     </div>
 
 
@@ -44,7 +44,7 @@ class EnterOrder extends Component {
                 mvBuyPower: '0',
                 mvSettleAccList: [],
                 mvSettlementAccSelected: null,
-                mvStockSelected : null,
+                mvStockSelected: null,
                 mvOrderTypeSelected: null,
                 mvExpireChecked: false,
                 mvExpireDate: new Date().toISOString()
@@ -60,16 +60,16 @@ class EnterOrder extends Component {
         this.id = 'enterorder'
     }
 
-    onBuySellChange(e){
-        this.setState({ value : Object.assign(this.state.value, { mvBS: e.target.value }) })
+    onBuySellChange(e) {
+        this.setState({ value: Object.assign(this.state.value, { mvBS: e.target.value }) })
         this.onChangeBackground();
         this.calBuySellAll()
-        
+
     }
 
-    calBuySellAll(){
+    calBuySellAll() {
         var stockInfoBean = this.store.stockInfoBean
-        if (!stockInfoBean) 
+        if (!stockInfoBean)
             return;
 
 
@@ -78,32 +78,31 @@ class EnterOrder extends Component {
         var orderType = this.state.value.mvOrderType;
         var buysell = this.state.value.mvBS
 
-        if (orderType === "O" || orderType === "C" || orderType === "M" || 
-            orderType === "B" || orderType === "Z" || orderType === "R") 
-        {
-            if(buysell.slice(0,1) === 'B' ){
-                price  = (stockInfoBean.mvCeiling && stockInfoBean.mvCeiling.trim().length > 0) ? stockInfoBean.mvCeiling : "0";
+        if (orderType === "O" || orderType === "C" || orderType === "M" ||
+            orderType === "B" || orderType === "Z" || orderType === "R") {
+            if (buysell.slice(0, 1) === 'B') {
+                price = (stockInfoBean.mvCeiling && stockInfoBean.mvCeiling.trim().length > 0) ? stockInfoBean.mvCeiling : "0";
             } else {
                 price = (stockInfoBean.mvFloor && stockInfoBean.mvFloor.trim().length > 0) ? stockInfoBean.mvFloor : "0";
             }
         }
-        
-        if(buysell === 'BA'){
-            if (price != 0){
+
+        if (buysell === 'BA') {
+            if (price != 0) {
 
                 var marginPercentage = stockInfoBean.mvMarginPercentage;
                 if (!marginPercentage || marginPercentage === "null")
                     marginPercentage = 0;
                 var tmpBP = Utils.numUnFormat(stockInfoBean.mvBuyingPowerd);
-                if (tmpBP < 0) 
+                if (tmpBP < 0)
                     tmpBP = 0;
-                var tmpVol = tmpBP / (price * 1.005 * (1 - marginPercentage/100));
-                if (marketID == 'HO'){
-                    tmpVol = tmpVol/10;
+                var tmpVol = tmpBP / (price * 1.005 * (1 - marginPercentage / 100));
+                if (marketID == 'HO') {
+                    tmpVol = tmpVol / 10;
                 } else {
-                    tmpVol = tmpVol/100;
+                    tmpVol = tmpVol / 100;
                 }
-                var vol = parseInt(tmpVol)*(marketID == 'HO' ? 10 : 100);
+                var vol = parseInt(tmpVol) * (marketID == 'HO' ? 10 : 100);
                 this.state.value.mvVol = vol;
 
                 // update vol input value
@@ -112,30 +111,30 @@ class EnterOrder extends Component {
                 //this.calculateGrossAmt()
 
             }
-        }else if(buysell === 'SA'){
-            if(this.state.value.mvStockSelected !== null){
+        } else if (buysell === 'SA') {
+            if (this.state.value.mvStockSelected !== null) {
                 this.getStockBalance()
             }
         }
     }
 
-    getStockBalance(){
+    getStockBalance() {
         var stockSelected = this.state.value.mvStockSelected
         var volComponent = this.mvVol
         var value = this.state.value
         var me = this
 
-        var callback = function(response){
+        var callback = function (response) {
             var data = response.mvStockBalanceInfo;
             var len = data.length;
             var vol = 0;
             var stockCode = stockSelected.stockCode
             var marketID = stockSelected.mvMarketID
-            
+
             var stockInfo = data.filter(el => el.mvStockCode === stockCode)
-            if(stockInfo.length > 0){
+            if (stockInfo.length > 0) {
                 vol = stockInfo[0].mvTradableQty;
-                vol = marketID === 'HO' ? parseInt(vol/10)*10 : parseInt(vol/100)*100;
+                vol = marketID === 'HO' ? parseInt(vol / 10) * 10 : parseInt(vol / 100) * 100;
             }
             //console.log(data)
             volComponent.value = vol;
@@ -143,7 +142,7 @@ class EnterOrder extends Component {
             //me.calculateGrossAmt()
         }
         var params = {
-            "key" : (new Date()).getTime(),
+            "key": (new Date()).getTime(),
             "mvEnableGetStockInfo": "N",
             "mvAction": "SB"
         }
@@ -151,20 +150,19 @@ class EnterOrder extends Component {
         api.fetch(ACTION.STOCKINFO, params, 'GET', callback)
     }
 
-    calculateGrossAmt(){
+    calculateGrossAmt() {
         // get mvPrice from Form     
         var price = this.mvPrice.value;
         var orderType = this.state.value.mvOrderType
         var stockInfoBean = this.store.stockInfoBean
         //console.log(orderType)
-        if (orderType == "O" || orderType == "C" || orderType == "M" || 
-            orderType == "B" || orderType == "Z" || orderType == "R") 
-        {
-            if(this.state.value.mvBS.slice(0,1) === 'B'){
-                price  = (stockInfoBean.mvCeiling && stockInfoBean.mvCeiling.trim().length > 0) ? 
+        if (orderType == "O" || orderType == "C" || orderType == "M" ||
+            orderType == "B" || orderType == "Z" || orderType == "R") {
+            if (this.state.value.mvBS.slice(0, 1) === 'B') {
+                price = (stockInfoBean.mvCeiling && stockInfoBean.mvCeiling.trim().length > 0) ?
                     stockInfoBean.mvCeiling : "0";
             } else {
-                price = (stockInfoBean.mvFloor && stockInfoBean.mvFloor.trim().length > 0) ? 
+                price = (stockInfoBean.mvFloor && stockInfoBean.mvFloor.trim().length > 0) ?
                     stockInfoBean.mvFloor : "0";
             }
         }
@@ -175,42 +173,42 @@ class EnterOrder extends Component {
         var volume = this.mvVol.value;
         var netFee = 0;
 
-        if (this.state.value.mvFeeRate != ''){
+        if (this.state.value.mvFeeRate != '') {
             netFee = Utils.numUnFormat(this.state.value.mvFeeRate, ',');
         }
-        
-        if(volume === 0 || price === 0 ){
+
+        if (volume === 0 || price === 0) {
             return false;
         }
-        this.state.value.mvGrossAmt = Utils.currencyShowFormatter((price*volume).toFixed(4), ",", this.lang)
-        this.state.value.mvNetFee = Utils.currencyShowFormatter((price*volume*netFee/100).toFixed(2), ",", this.lang);
+        this.state.value.mvGrossAmt = Utils.currencyShowFormatter((price * volume).toFixed(4), ",", this.lang)
+        this.state.value.mvNetFee = Utils.currencyShowFormatter((price * volume * netFee / 100).toFixed(2), ",", this.lang);
 
-        this.mvGrossAmt.value = Utils.currencyShowFormatter((price*volume).toFixed(4), ",", this.lang);
-        this.mvNetFee.value = Utils.currencyShowFormatter((price*volume*netFee/100).toFixed(2), ",", this.lang);
+        this.mvGrossAmt.value = Utils.currencyShowFormatter((price * volume).toFixed(4), ",", this.lang);
+        this.mvNetFee.value = Utils.currencyShowFormatter((price * volume * netFee / 100).toFixed(2), ",", this.lang);
     }
 
-    onChangeBackground(){
+    onChangeBackground() {
         var dom = document.getElementById('form-group-enterorder')
-        if(this.state.value.mvBS.slice(0,1) === 'S'){
-            if(dom.classList.contains('sell')){
+        if (this.state.value.mvBS.slice(0, 1) === 'S') {
+            if (dom.classList.contains('sell')) {
                 dom.classList.remove('sell')
             }
-        }else{
-            if(!dom.classList.contains('sell')){
+        } else {
+            if (!dom.classList.contains('sell')) {
                 dom.classList.add('sell')
             }
         }
         document.getElementById('form-group-enterorder').classList.toggle('sell')
     }
 
-    updateMarginPower(){
+    updateMarginPower() {
 
-        if(this.store.stockInfoBean !== null){
+        if (this.store.stockInfoBean !== null) {
             var marginPercentage = Utils.numUnFormat(this.store.stockInfoBean.mvMarginPercentage);
             var buyingPowerd = 0;
 
             if (this.state.value.mvSettlementAccSelected !== null) {
-                marginPercentage = 0;       
+                marginPercentage = 0;
                 buyingPowerd = this.state.value.mvSettlementAccSelected.mvBalance
             } else {
                 if (!marginPercentage || marginPercentage === "null") {
@@ -225,14 +223,14 @@ class EnterOrder extends Component {
             this.state.value.mvBuyPower = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
             this.state.value.mvLending = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang));
 
-            this.mvLending.value = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang)+ "%");
+            this.mvLending.value = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang) + "%");
             this.mvBuyPower.value = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
         }
 
     }
 
     handleStockChange = ({ option }) => {
-        if(option === null)
+        if (option === null)
             return
 
         var pvStockInfo = option
@@ -241,129 +239,131 @@ class EnterOrder extends Component {
         var stockCode = pvStockInfo.stockCode
 
         var showBP = true;
-        var mvEnableGetStockInfo="N";
+        var mvEnableGetStockInfo = "N";
         var mvActionStockInfo = "OI";   //OI = Order Info
-        if (showBP && this.state.value.mvBS.slice(0,1) === 'B'){
+        if (showBP && this.state.value.mvBS.slice(0, 1) === 'B') {
             mvActionStockInfo += ",BP";
         }
-        if (this.state.value.mvFeeRate === ''){
+        if (this.state.value.mvFeeRate === '') {
             mvActionStockInfo += ",FE";
         }
-        
+
         var params = {
             mvInstrument: stockCode,
             mvMarketId: marketID,
-            mvBS: this.state.value.mvBS.slice(0,1),
+            mvBS: this.state.value.mvBS.slice(0, 1),
             mvEnableGetStockInfo: mvEnableGetStockInfo,
             mvAction: mvActionStockInfo,
             key: (new Date()).getTime()
         }
 
         var me = this
-        var callback = function(response){
-            
+        var callback = function (response) {
+
             me.store.stockInfoBean = response.mvStockInfoBean;
             me.store.stockBalanceInfo = response.mvStockBalanceInfo;
 
-            if (me.store.stockInfoBean.mvTemporaryFee){
+            if (me.store.stockInfoBean.mvTemporaryFee) {
                 me.state.value.mvFeeRate = me.store.stockInfoBean.mvTemporaryFee;
             } else {
                 me.store.stockInfoBean.mvTemporaryFee = Utils.numUnFormat(me.state.value.mvFeeRate);
             }
 
             me.updateMarginPower()
-            
+
         }
 
         api.fetch(ACTION.STOCKINFO, params, 'POST', callback)
-        
+
         var mvOrderTypeArray = new Array();
         var mvEnableOrderTypeArray = this.props.genEnterOrderData.mvEnableOrderType;
-        if(marketID == "HO"){
-            for(var i=0; i<mvEnableOrderTypeArray.length; i++){
-                if(mvEnableOrderTypeArray[i]=="OTLO" 
-                    || mvEnableOrderTypeArray[i]=="OTATO" 
-                    || mvEnableOrderTypeArray[i]=="OTATC" 
-                    || mvEnableOrderTypeArray[i]=="OTMP"){             
+        if (marketID == "HO") {
+            for (var i = 0; i < mvEnableOrderTypeArray.length; i++) {
+                if (mvEnableOrderTypeArray[i] == "OTLO"
+                    || mvEnableOrderTypeArray[i] == "OTATO"
+                    || mvEnableOrderTypeArray[i] == "OTATC"
+                    || mvEnableOrderTypeArray[i] == "OTMP") {
                     mvOrderTypeArray.push(
                         {
                             'name': this.props.language.enterorder.data[mvEnableOrderTypeArray[i]],
-                            'value':  this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
-                        }
-                    );                      
-                }
-            }
-        }else if(marketID == "HA" ){
-            for(var i=0; i<mvEnableOrderTypeArray.length; i++){
-                if(mvEnableOrderTypeArray[i]=="OTLO" 
-                    || mvEnableOrderTypeArray[i]=="OTMOK" 
-                    || mvEnableOrderTypeArray[i]=="OTMAK" 
-                    || mvEnableOrderTypeArray[i]=="OTMTL"
-                    || mvEnableOrderTypeArray[i]=="OTATC"
-                    || mvEnableOrderTypeArray[i]=="OTLOddLot"){             
-                    mvOrderTypeArray.push(
-                        {
-                            'name': this.props.language.enterorder.data[mvEnableOrderTypeArray[i]],
-                            'value':  this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
+                            'value': this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
                         }
                     );
                 }
             }
-        }else if(marketID == "OTC"){
-            for(var i=0; i<mvEnableOrderTypeArray.length; i++){
-                if(mvEnableOrderTypeArray[i]=="OTLO" || mvEnableOrderTypeArray[i]=="OTLOddLot"){                
+        } else if (marketID == "HA") {
+            for (var i = 0; i < mvEnableOrderTypeArray.length; i++) {
+                if (mvEnableOrderTypeArray[i] == "OTLO"
+                    || mvEnableOrderTypeArray[i] == "OTMOK"
+                    || mvEnableOrderTypeArray[i] == "OTMAK"
+                    || mvEnableOrderTypeArray[i] == "OTMTL"
+                    || mvEnableOrderTypeArray[i] == "OTATC"
+                    || mvEnableOrderTypeArray[i] == "OTLOddLot") {
                     mvOrderTypeArray.push(
                         {
                             'name': this.props.language.enterorder.data[mvEnableOrderTypeArray[i]],
-                            'value':  this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
+                            'value': this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
                         }
                     );
                 }
             }
-        }else{
-            for(var i=0; i<mvEnableOrderTypeArray.length; i++){
-                if(mvEnableOrderTypeArray[i] !="OTLO" &&
-                    mvEnableOrderTypeArray[i]!="OTATO" && 
-                    mvEnableOrderTypeArray[i]!="OTATC"
-                ){              
+        } else if (marketID == "OTC") {
+            for (var i = 0; i < mvEnableOrderTypeArray.length; i++) {
+                if (mvEnableOrderTypeArray[i] == "OTLO" || mvEnableOrderTypeArray[i] == "OTLOddLot") {
                     mvOrderTypeArray.push(
                         {
                             'name': this.props.language.enterorder.data[mvEnableOrderTypeArray[i]],
-                            'value':  this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
+                            'value': this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
+                        }
+                    );
+                }
+            }
+        } else {
+            for (var i = 0; i < mvEnableOrderTypeArray.length; i++) {
+                if (mvEnableOrderTypeArray[i] != "OTLO" &&
+                    mvEnableOrderTypeArray[i] != "OTATO" &&
+                    mvEnableOrderTypeArray[i] != "OTATC"
+                ) {
+                    mvOrderTypeArray.push(
+                        {
+                            'name': this.props.language.enterorder.data[mvEnableOrderTypeArray[i]],
+                            'value': this.props.language.enterorder.value[mvEnableOrderTypeArray[i]]
                         }
                     );
                 }
             }
         }
-        
-        if(mvOrderTypeArray.length > 0){
+
+        if (mvOrderTypeArray.length > 0) {
             // update order type
-            this.setState({value: Object.assign(this.state.value, {
-                mvOrderType: mvOrderTypeArray[0]['value'],
-                mvOrderTypeList: mvOrderTypeArray,
-                mvOrderTypeSelected: mvOrderTypeArray[0]
-            
-            } )});
-    
+            this.setState({
+                value: Object.assign(this.state.value, {
+                    mvOrderType: mvOrderTypeArray[0]['value'],
+                    mvOrderTypeList: mvOrderTypeArray,
+                    mvOrderTypeSelected: mvOrderTypeArray[0]
+
+                })
+            });
+
             // calculate gross amount
-            this.calculateGrossAmt(); 
+            this.calculateGrossAmt();
         }
     }
 
-    handleStockOnBlur(stockInfo){
-        if(stockInfo.stockCode === undefined){
+    handleStockOnBlur(stockInfo) {
+        if (stockInfo.stockCode === undefined) {
             this.state.value.mvStockSelected = null
-            if(stockInfo !== '')
-                this.props.onShowMessageBox(this.props.language.messagebox.title.error, 
+            if (stockInfo !== '')
+                this.props.onShowMessageBox(this.props.language.messagebox.title.error,
                     stockInfo + this.props.language.messagebox.message.stockNotExist)
         }
-        else{
+        else {
 
         }
     }
 
-    handleBankAccChange= ({option}) => {
-       
+    handleBankAccChange = ({ option }) => {
+
         this.state.value.mvSettlementAccSelected = option
         this.state.value.mvBankID = option.mvBankID;
         this.state.value.mvBankACID = option.mvBankACID;
@@ -371,7 +371,7 @@ class EnterOrder extends Component {
         this.updateMarginPower();
     }
 
-    initBankAccountCombo(mvSettlementAccList){
+    initBankAccountCombo(mvSettlementAccList) {
         var mvSettleAccArray = new Array();
         var defaultBankValue = "";
         for (var i = 0; i < mvSettlementAccList.length; i++) {
@@ -386,30 +386,32 @@ class EnterOrder extends Component {
                     }
                 );
             }
-            if(defaultBankValue === "" && mvSettlementAccList[i].mvBankACID !== ""){
+            if (defaultBankValue === "" && mvSettlementAccList[i].mvBankACID !== "") {
                 defaultBankValue = mvSettlementAccList[i].mvSettlementAccountValue;
             }
         }
 
 
-        if (mvSettleAccArray.length > 0){
+        if (mvSettleAccArray.length > 0) {
             // show if has bank
             this.bankRow.style.display = 'table-row'
             // update bank account combo box
-            this.setState({value: Object.assign(this.state.value, {
-                mvSettleAccList: mvSettleAccArray,
-                mvSettlementAccSelected: mvSettleAccArray[0],
-                mvBankID: mvSettleAccArray[0].mvBankID,
-                mvBankACID: mvSettleAccArray[0].mvBankACID
-            } )});
-        } else { 
+            this.setState({
+                value: Object.assign(this.state.value, {
+                    mvSettleAccList: mvSettleAccArray,
+                    mvSettlementAccSelected: mvSettleAccArray[0],
+                    mvBankID: mvSettleAccArray[0].mvBankID,
+                    mvBankACID: mvSettleAccArray[0].mvBankACID
+                })
+            });
+        } else {
             // hide if no bank     
             this.bankRow.style.display = 'none'
 
         }
     }
 
-    handleOrderTypeChange = ({option}) => {
+    handleOrderTypeChange = ({ option }) => {
         var orderTypeValue = option.value
         var type = option.value
         this.state.value.mvOrderType = type
@@ -419,33 +421,33 @@ class EnterOrder extends Component {
 
         ////console.log(type)
 
-        if(type === this.props.language.enterorder.value.OTLO || type === this.props.language.enterorder.value.OTLOddLot){
+        if (type === this.props.language.enterorder.value.OTLO || type === this.props.language.enterorder.value.OTLOddLot) {
             this.mvPrice.readOnly = false
-        }else{
+        } else {
             this.mvPrice.value = ''
             this.mvPrice.readOnly = true
         }
 
-        this.setState({value: Object.assign(this.state.value, {mvOrderTypeSelected: option} )})
+        this.setState({ value: Object.assign(this.state.value, { mvOrderTypeSelected: option }) })
     }
 
-    handleVolChange(e){
-        this.calculateGrossAmt();
-    }   
-
-    handlePriceChange(e){
+    handleVolChange(e) {
         this.calculateGrossAmt();
     }
 
-    handleDateExpireCheck(e){
-        this.setState({value: Object.assign(this.state.value, {mvExpireChecked: e.target.checked} )});
+    handlePriceChange(e) {
+        this.calculateGrossAmt();
     }
 
-    handleDateExpireChange(value){
-        this.setState({value: Object.assign(this.state.value, {mvExpireDate: value} )})
+    handleDateExpireCheck(e) {
+        this.setState({ value: Object.assign(this.state.value, { mvExpireChecked: e.target.checked }) });
     }
 
-    showOrderConfirm(){
+    handleDateExpireChange(value) {
+        this.setState({ value: Object.assign(this.state.value, { mvExpireDate: value }) })
+    }
+
+    showOrderConfirm() {
         console.log(this.state.value.mvStockSelected)
         var data = {
             mvStockCode: this.state.value.mvStockSelected.stockCode,
@@ -462,22 +464,23 @@ class EnterOrder extends Component {
             mvMarketID: this.state.value.mvStockSelected.mvMarketID,
             mvBankACID: this.state.value.mvBankACID,
             mvBankID: this.state.value.mvBankID,
-            mvBS: this.state.value.mvBS.slice(0,1),
+            mvBS: this.state.value.mvBS.slice(0, 1),
             language: this.props.language
         }
         this.props.showOrderConfirm({
             data: data,
-            title: this.props.language.enterorder.popup.title.replace('{0}', this.state.value.mvBS.slice(0,1) === 'B' ? 
-                    this.props.language.enterorder.header.buy : 
-                    this.props.language.enterorder.header.sell),
+            title: this.props.language.enterorder.popup.title.replace('{0}', this.state.value.mvBS.slice(0, 1) === 'B' ?
+                this.props.language.enterorder.header.buy :
+                this.props.language.enterorder.header.sell),
             language: this.props.language,
             id: 'enterorderconfirm',
             authcard: true
         })
     }
 
-    handleResetForm(e){
-        this.setState({ value: Object.assign(this.state.value, {
+    handleResetForm(e) {
+        this.setState({
+            value: Object.assign(this.state.value, {
                 mvBS: 'BO',
                 mvStockName: '',
                 mvPrice: '0',
@@ -486,33 +489,32 @@ class EnterOrder extends Component {
                 mvNetFee: '0',
                 mvLending: '0',
                 mvBuyPower: '0',
-                mvStockSelected : null,
+                mvStockSelected: null,
                 mvExpireChecked: false,
                 mvExpireDate: new Date().toISOString(),
                 mvStockSelected: null,
                 mvOrderTypeSelected: null,
                 mvSettlementAccSelected: null
-            }) 
+            })
         })
-        
+
         this.onChangeBackground()
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.initBankAccountCombo(nextProps.genEnterOrderData.mvSettlementAccList)
     }
 
     render() {
         this.stockList = config.cache.stockList
-        console.log(this.stockList)
         var language = this.props.language.enterorder
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
-        
+        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+
         return (
             <div>
-                <Title theme={this.props.theme}>
+                <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -522,38 +524,38 @@ class EnterOrder extends Component {
                                 <tbody >
                                     <tr>
                                         <th>{language.header.buysell} </th>
-                                        <td style={{backgroundColor: rowodd, color: font2}} >
-                                            <Radio name="radioGroup" inline defaultValue="BO" 
-                                                checked={this.state.value.mvBS === "BO"} 
+                                        <td style={{ backgroundColor: rowodd, color: font2 }} >
+                                            <Radio name="radioGroup" inline defaultValue="BO"
+                                                checked={this.state.value.mvBS === "BO"}
                                                 onChange={this.onBuySellChange.bind(this)} required>
-                                                    <div className="Radiobox">{language.header.buy}</div>
+                                                <div className="Radiobox">{language.header.buy}</div>
                                             </Radio>
-                                            <Radio name="radioGroup" inline defaultValue="SO" 
-                                                checked={this.state.value.mvBS === "SO"} 
+                                            <Radio name="radioGroup" inline defaultValue="SO"
+                                                checked={this.state.value.mvBS === "SO"}
                                                 onChange={this.onBuySellChange.bind(this)}>
-                                                    <div className="Radiobox">{language.header.sell}</div>
+                                                <div className="Radiobox">{language.header.sell}</div>
                                             </Radio>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.buysellall}</th>
-                                        <td style={{backgroundColor: roweven, color: font2}} >
-                                            <Radio name="radioGroup" inline defaultValue="BA" 
-                                                checked={this.state.value.mvBS === "BA"} 
+                                        <td style={{ backgroundColor: roweven, color: font2 }} >
+                                            <Radio name="radioGroup" inline defaultValue="BA"
+                                                checked={this.state.value.mvBS === "BA"}
                                                 onChange={this.onBuySellChange.bind(this)}>
-                                                    <div className="Radiobox">{language.header.buyAll}</div>
+                                                <div className="Radiobox">{language.header.buyAll}</div>
                                             </Radio>
-                                            <Radio name="radioGroup" inline defaultValue="SA" 
-                                                checked={this.state.value.mvBS === "SA"} 
+                                            <Radio name="radioGroup" inline defaultValue="SA"
+                                                checked={this.state.value.mvBS === "SA"}
                                                 onChange={this.onBuySellChange.bind(this)}>
-                                                    <div className="Radiobox">{language.header.sellAll}</div>
+                                                <div className="Radiobox">{language.header.sellAll}</div>
                                             </Radio>
                                         </td>
                                     </tr>
-                                    <tr style={{height: '23px'}}>
+                                    <tr style={{ height: '23px' }}>
                                         <th>{language.header.stock}</th>
-                                        <td style={{ color: font2, backgroundColor: rowodd}}>
-                                            
+                                        <td style={{ color: font2, backgroundColor: rowodd }}>
+
                                             <PowerSelect
                                                 options={this.stockList}
                                                 selected={this.state.value.mvStockSelected}
@@ -562,12 +564,12 @@ class EnterOrder extends Component {
                                                 optionLabelPath={'stockCode'}
                                                 showClear={false}
                                             />
-        
+
                                         </td>
                                     </tr>
-                                    <tr ref={e => this.bankRow = e}  style={{height: '23px'}}>
+                                    <tr ref={e => this.bankRow = e} style={{ height: '23px' }}>
                                         <th>{language.header.bank}</th>
-                                        <td style={{ color: font2, backgroundColor: roweven}} >
+                                        <td style={{ color: font2, backgroundColor: roweven }} >
                                             <PowerSelect
                                                 options={this.state.value.mvSettleAccList}
                                                 selected={this.state.value.mvSettlementAccSelected}
@@ -580,22 +582,22 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.lending} </th>
-                                        <td style={{backgroundColor: rowodd}}>
-                                        <input id="mvLending" className="hks-input no-border" readOnly
-                                            value={this.state.value.mvLending + '%'} ref={e => this.mvLending = e}
-                                            style={{backgroundColor: 'transparent', color: font2}}/> </td>
+                                        <td style={{ backgroundColor: rowodd }}>
+                                            <input id="mvLending" className="hks-input no-border" readOnly
+                                                value={this.state.value.mvLending + '%'} ref={e => this.mvLending = e}
+                                                style={{ backgroundColor: 'transparent', color: font2 }} /> </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.buyingpower}</th>
-                                        <td style={{backgroundColor: roweven}} >
-                                            <input id="mvBuyPower" className="hks-input no-border" readOnly 
+                                        <td style={{ backgroundColor: roweven }} >
+                                            <input id="mvBuyPower" className="hks-input no-border" readOnly
                                                 value={this.state.value.mvBuyPower} ref={e => this.mvBuyPower = e}
-                                                style={{backgroundColor: 'transparent', color: font2}}/>
+                                                style={{ backgroundColor: 'transparent', color: font2 }} />
                                         </td>
                                     </tr>
-                                    <tr style={{height: '23px'}}>
+                                    <tr style={{ height: '23px' }}>
                                         <th>{language.header.ordertype}</th>
-                                        <td style={{ color: font2, backgroundColor: rowodd}} >
+                                        <td style={{ color: font2, backgroundColor: rowodd }} >
 
                                             <PowerSelect
                                                 options={this.state.value.mvOrderTypeList}
@@ -609,71 +611,63 @@ class EnterOrder extends Component {
                                     </tr>
                                     <tr>
                                         <th>{language.header.volume}</th>
-                                        <td style={{backgroundColor: roweven}} >
-                                            <input 
+                                        <td style={{ backgroundColor: roweven }} >
+                                            <input
                                                 id="mvVol"
                                                 ref={e => this.mvVol = e}
-                                                className="hks-input no-border" 
-                                                type="number" name="volume" min="0" 
-                                                onChange={this.handleVolChange.bind(this)} id="mvVolume" 
-                                                placeholder="ex: 100" required 
+                                                className="hks-input no-border"
+                                                type="number" name="volume" min="0"
+                                                onChange={this.handleVolChange.bind(this)} id="mvVolume"
+                                                placeholder="ex: 100" required
                                                 defaultValue={Utils.quantityShowFormatter(this.state.value.mvVol)}
-                                                style={{backgroundColor: 'transparent', color: font2}}/>
+                                                style={{ backgroundColor: 'transparent', color: font2 }} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.price}</th>
-                                        <td style={{backgroundColor: rowodd}} >
-                                            
-                                                <input 
-                                                    id="mvPrice" ref={e => this.mvPrice = e}
-                                                    className="hks-input no-border" type="number"
-                                                    min="0" step="any" onChange={this.handlePriceChange.bind(this)} 
-                                                    placeholder="ex: 10" required 
-                                                    defaultValue={this.state.value.mvPrice}
-                                                    style={{backgroundColor: 'transparent', color: font2}}/>
-                                     
+                                        <td style={{ backgroundColor: rowodd }} >
+
+                                            <input
+                                                id="mvPrice" ref={e => this.mvPrice = e}
+                                                className="hks-input no-border" type="number"
+                                                min="0" step="any" onChange={this.handlePriceChange.bind(this)}
+                                                placeholder="ex: 10" required
+                                                defaultValue={this.state.value.mvPrice}
+                                                style={{ backgroundColor: 'transparent', color: font2 }} />
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.value}</th>
-                                        <td style={{backgroundColor: roweven}} >
-                                            <input id="mvGrossAmt"  className="hks-input no-border" readOnly
-                                                ref={e => this.mvGrossAmt = e} value={this.state.value.mvGrossAmt} 
-                                                style={{backgroundColor: 'transparent', color: font2}}/>
+                                        <td style={{ backgroundColor: roweven }} >
+                                            <input id="mvGrossAmt" className="hks-input no-border" readOnly
+                                                ref={e => this.mvGrossAmt = e} value={this.state.value.mvGrossAmt}
+                                                style={{ backgroundColor: 'transparent', color: font2 }} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.netfee}</th>
-                                        <td style={{backgroundColor: rowodd}} >
-                                            <input id="mvNetFee"  className="hks-input no-border" readOnly
-                                                ref={e => this.mvNetFee = e} value={this.state.value.mvNetFee} 
-                                                style={{backgroundColor: 'transparent', color: font2}}/>
+                                        <td style={{ backgroundColor: rowodd }} >
+                                            <input id="mvNetFee" className="hks-input no-border" readOnly
+                                                ref={e => this.mvNetFee = e} value={this.state.value.mvNetFee}
+                                                style={{ backgroundColor: 'transparent', color: font2 }} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.expirydate}</th>
-                                        <td style={{backgroundColor: roweven}} >
+                                        <td style={{ backgroundColor: roweven }} >
                                             <Col xs={1}>
-                                                <input name="isCheck" type="checkbox" 
-                                                    checked={this.state.value.mvExpireChecked} 
-                                                    onChange={this.handleDateExpireCheck.bind(this)} 
+                                                <input name="isCheck" type="checkbox"
+                                                    checked={this.state.value.mvExpireChecked}
+                                                    onChange={this.handleDateExpireCheck.bind(this)}
                                                     value={this.state.value.mvExpireChecked} />
                                             </Col>
-                                            <Col xs={11}>
-                                                <CalendarPicker 
+                                            <Col xs={11} style={{paddingLeft: '10px'}}>
+                                                <CalendarPicker
                                                     id="expireDate"
-                                                    disabled={!this.state.value.mvExpireChecked} 
-                                                    onChange={this.handleDateExpireChange.bind(this)}    
+                                                    disabled={!this.state.value.mvExpireChecked}
+                                                    onChange={this.handleDateExpireChange.bind(this)}
                                                 />
-                                                {/* <DatePicker id="mvStartDate" value={this.state.value.mvExpireDate} 
-                                                    cellPadding={'1px'} 
-                                                    dateFormat={Contants.dateFormat}
-                                                    style={{width: '100px', height: '20px', marginLeft: '5px', border: '1px solid #dcdcdc'}}
-                                                    disabled={!this.state.value.mvExpireChecked} 
-                                                    showClearButton={false}
-                                                    calendarPlacement ={'top'}
-                                                    onChange={this.handleDateExpireChange.bind(this)} /> */}
                                             </Col>
                                         </td>
                                     </tr>
@@ -686,7 +680,7 @@ class EnterOrder extends Component {
                                         onClick={this.handleResetForm.bind(this)}>
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
                                         onClick={this.handleSubmit.bind(this)}>
                                         {this.props.language.button.submit}
                                     </button>
@@ -694,7 +688,7 @@ class EnterOrder extends Component {
                             </div>
 
                         </div>
-                        
+
                     </Form>
                 </Body>
             </div>
@@ -702,51 +696,50 @@ class EnterOrder extends Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.genEnterOrder()
     }
 
-    handleDateChange(e){
+    handleDateChange(e) {
 
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault()
         var value = this.state.value
         var store = this.store
         var language = this.props.language
 
-        if(value.mvStockSelected === null){
-            this.props.onShowMessageBox(language.messagebox.title.error, 
+        if (value.mvStockSelected === null) {
+            this.props.onShowMessageBox(language.messagebox.title.error,
                 language.messagebox.message.enterStockCode)
 
             return
         }
 
-        if(!this.mvVol.value || this.mvVol.value === '' || parseInt(this.mvVol.value) === 0){
-            this.props.onShowMessageBox(language.messagebox.title.note, 
+        if (!this.mvVol.value || this.mvVol.value === '' || parseInt(this.mvVol.value) === 0) {
+            this.props.onShowMessageBox(language.messagebox.title.note,
                 language.messagebox.message.enterQty)
 
             this.mvVol.focus()
             return
-        }else{
+        } else {
 
             var lotSize = value.mvStockSelected.lotSize
             var orderType = this.state.value.mvOrderType
             var volume = this.mvVol.value
             console.log(orderType, volume)
             var errorMsg = ''
-            if (volume % lotSize > 0 && orderType !== language.enterorder.value.OTLOddLot) {                                
+            if (volume % lotSize > 0 && orderType !== language.enterorder.value.OTLOddLot) {
                 errorMsg = language.messagebox.message.invalidLotSize;
                 errorMsg = errorMsg.replace("{0}", lotSize);
-                
+
                 this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
 
                 this.mvVol.focus()
-                return                                
+                return
             }
-            else if (volume % lotSize > 0 && orderType === language.enterorder.value.OTLOddLot && volume >= lotSize)
-            {
+            else if (volume % lotSize > 0 && orderType === language.enterorder.value.OTLOddLot && volume >= lotSize) {
                 errorMsg = language.messagebox.message.invalidLotSizeOddLot;
                 errorMsg = errorMsg.replace("{0}", lotSize);
 
@@ -754,27 +747,27 @@ class EnterOrder extends Component {
 
 
                 this.mvVol.focus()
-                return    
+                return
             }
         }
 
-        if(!this.mvPrice.readOnly){
+        if (!this.mvPrice.readOnly) {
             var price = this.mvPrice.value
-            if(!price || parseInt(price) === 0){
+            if (!price || parseInt(price) === 0) {
                 this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.enterPrice)
                 this.mvPrice.focus()
                 return
-            }else if (price < 0) {
+            } else if (price < 0) {
                 this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.priceNegative)
                 this.mvPrice.focus()
                 return
-            }else{                             
-                console.log(this.store.stockInfoBean, value)     
+            } else {
+                console.log(this.store.stockInfoBean, value)
                 var floor = parseFloat(this.store.stockInfoBean.mvFloor);
                 var ceil = parseFloat(this.store.stockInfoBean.mvCeiling);
-                if(!value.mvExpireChecked){
-                    if( ceil != 0 && floor != 0 ){
-                         if (price > ceil || price < floor) {
+                if (!value.mvExpireChecked) {
+                    if (ceil != 0 && floor != 0) {
+                        if (price > ceil || price < floor) {
                             var errorMsg = language.messagebox.message.invaliedPriceOutRange;
                             errorMsg = errorMsg.replace('from_value', floor).replace('to_value', ceil);
 
@@ -783,7 +776,7 @@ class EnterOrder extends Component {
                             this.mvPrice.focus()
                             return
                         }
-                     }
+                    }
                 }
 
                 // var result = Utils.checkStepPrice(price, me.marketIDHidden.getValue(), true, me.symbolInfo.spreadTableCode);
@@ -797,136 +790,136 @@ class EnterOrder extends Component {
         var me = this
         // check time order
         console.log(value.mvStockSelected.mvMarketID, this.state.value.mvOrderType, value.mvExpireChecked)
-                                
-        this.checkTimeOrder( value.mvStockSelected.mvMarketID, this.state.value.mvOrderType, value.mvExpireChecked , 
-            function(){
-                var ceil =  store.stockInfoBean.mvCeiling;
+
+        this.checkTimeOrder(value.mvStockSelected.mvMarketID, this.state.value.mvOrderType, value.mvExpireChecked,
+            function () {
+                var ceil = store.stockInfoBean.mvCeiling;
                 var floor = store.stockInfoBean.mvFloor;
 
-                var bs = value.mvBS.slice(0,1)
+                var bs = value.mvBS.slice(0, 1)
                 var priceValue = !me.mvPrice.readOnly ? me.mvPrice.value : ceil;
                 var quantity = me.mvVol.value
                 var netFee = 0;
-                if (value.mvFeeRate !== ''){
+                if (value.mvFeeRate !== '') {
                     netFee = Utils.numUnFormat(value.mvFeeRate, ',');
                 }
                 console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, value.mvSettlementAccSelected)
 
-                me.checkOrderBalanceStatus( value.mvSettlementAccSelected, bs, value.mvStockSelected.stockCode, 
-                    value.mvStockSelected.mvMarketID, priceValue, quantity, netFee, 
-                    function(){
+                me.checkOrderBalanceStatus(value.mvSettlementAccSelected, bs, value.mvStockSelected.stockCode,
+                    value.mvStockSelected.mvMarketID, priceValue, quantity, netFee,
+                    function () {
                         console.log('SUCCESS SECOND')
-                            var param = {                                            
-                                    mvBS: value.mvBS.slice(0,1),
-                                    mvStockCode: value.mvStockSelected.stockCode,
-                                    mvMarketID: value.mvStockSelected.mvMarketID,
-                                    mvPrice: me.mvPrice.value,
-                                    mvQuantity: me.mvVol.value,
-                                    mvOrderTypeValue: me.mvOrderType,                                            
-                                    mvGoodTillDate: moment(value.mvExpireDate).format(Contants.dateFormat),
-                                    mvGrossAmt: value.mvGrossAmt,
-                                    mvBankID: value.mvBankID,
-                                    mvBankACID: value.mvBankACID,
-                                }
+                        var param = {
+                            mvBS: value.mvBS.slice(0, 1),
+                            mvStockCode: value.mvStockSelected.stockCode,
+                            mvMarketID: value.mvStockSelected.mvMarketID,
+                            mvPrice: me.mvPrice.value,
+                            mvQuantity: me.mvVol.value,
+                            mvOrderTypeValue: me.mvOrderType,
+                            mvGoodTillDate: moment(value.mvExpireDate).format(Contants.dateFormat),
+                            mvGrossAmt: value.mvGrossAmt,
+                            mvBankID: value.mvBankID,
+                            mvBankACID: value.mvBankACID,
+                        }
 
-                            console.log('SUCCESS SECOND', param)
-                            api.fetch(ACTION.VERIFYORDER, param, 'POST',
-                                function(result){//success
+                        console.log('SUCCESS SECOND', param)
+                        api.fetch(ACTION.VERIFYORDER, param, 'POST',
+                            function (result) {//success
 
-                                    try {
-                                        if(result.mvResult=="SESSION_EXPIRED"){
-                                            //sessionExpired();
-                                            return ;
-                                        }
-                                        if(result.mvResult=="MULTI_USERS_LOGIN"){
-                                            //multiUsersLogin();
-                                            return ;
-                                        }
-                                        
-                                        if(result.mvResult=="SYSTEM_MAINTENANCE"){
-                                            //systemMaintenance();
-                                            return ;
-                                        }
-                                        
-                                        if(result.mvReturnCode == 30013 ){
-                                            //Ext.Msg.alert(error.FAILED_TITLE, messageBox.message.disablePlaceOrderMarket +  action.result.mvResult );
-                                            return;
-                                        }
-                                        
-                                        me.showOrderConfirm()
-                                    } 
-                                    catch (e) {} 
-                                    finally {}
-                                    
-                                },
-                                function(json){//fail    
-                                    api.fetch(ACTION.ENTERORDERFAIL,{key: ''+(new Date()).getTime()}, 'POST', function(result){
-                                        if(result.mvResult=="SESSION_EXPIRED"){
-                                            //sessionExpired();
-                                            return ;
-                                        }
-                                        if(result.mvResult=="MULTI_USERS_LOGIN"){
-                                            //multiUsersLogin();
-                                            return ;
-                                        }
-                                        if(result.mvResult=="SYSTEM_MAINTENANCE"){
-                                            //systemMaintenance();
-                                            return ;
-                                        }
-                                    });
+                                try {
+                                    if (result.mvResult == "SESSION_EXPIRED") {
+                                        //sessionExpired();
+                                        return;
+                                    }
+                                    if (result.mvResult == "MULTI_USERS_LOGIN") {
+                                        //multiUsersLogin();
+                                        return;
+                                    }
+
+                                    if (result.mvResult == "SYSTEM_MAINTENANCE") {
+                                        //systemMaintenance();
+                                        return;
+                                    }
+
+                                    if (result.mvReturnCode == 30013) {
+                                        //Ext.Msg.alert(error.FAILED_TITLE, messageBox.message.disablePlaceOrderMarket +  action.result.mvResult );
+                                        return;
+                                    }
+
+                                    me.showOrderConfirm()
                                 }
-                            )                             
-                                
+                                catch (e) { }
+                                finally { }
+
+                            },
+                            function (json) {//fail    
+                                api.fetch(ACTION.ENTERORDERFAIL, { key: '' + (new Date()).getTime() }, 'POST', function (result) {
+                                    if (result.mvResult == "SESSION_EXPIRED") {
+                                        //sessionExpired();
+                                        return;
+                                    }
+                                    if (result.mvResult == "MULTI_USERS_LOGIN") {
+                                        //multiUsersLogin();
+                                        return;
+                                    }
+                                    if (result.mvResult == "SYSTEM_MAINTENANCE") {
+                                        //systemMaintenance();
+                                        return;
+                                    }
+                                });
+                            }
+                        )
+
                     },
-                    function(){ // fail Handler
+                    function () { // fail Handler
                         console.log('FAIL SECOND')
 
                     }
                 )
 
             },
-            function(){ // fail Handler
+            function () { // fail Handler
                 console.log('FAIL FIRST')
             }
         )
 
     }
 
-    checkTimeOrder(marketID, orderType, expiryChecked, successHandler, failHandler){
-        if (expiryChecked){
+    checkTimeOrder(marketID, orderType, expiryChecked, successHandler, failHandler) {
+        if (expiryChecked) {
             successHandler()
             return
         }
 
         var me = this
-        this.getMarketStatus(marketID, 
-            function(response){
+        this.getMarketStatus(marketID,
+            function (response) {
                 var t = response.mvMarketStatus;
                 var enableEnterTime = response.canEnterOrder
                 var language = me.props.language
                 var errorMsg = ''
                 if (marketID == 'HO') {
-                    if ((t != "T1" && t != "T2" && t != "T3")  && (enableEnterTime != "true")) {
-                            errorMsg = language.messagebox.message.marketClose_HO
-                    }else {
+                    if ((t != "T1" && t != "T2" && t != "T3") && (enableEnterTime != "true")) {
+                        errorMsg = language.messagebox.message.marketClose_HO
+                    } else {
                         if (orderType == "O" && (t == "T2" || t == "T3")) {
                             errorMsg = language.messagebox.message.invalidTime_ATO
                         }
 
                     }
-                            
-                            
-                }else {
-                    if (t == null || t =="13") {
+
+
+                } else {
+                    if (t == null || t == "13") {
                         if (marketID == 'HA') {
                             errorMsg = language.messagebox.message.marketClose_HNX
-                        }else 
+                        } else
                             if (marketID == 'OTC') {
                                 errorMsg = language.messagebox.message.marketClose_UPCOM
-                            }                                                   
+                            }
                     }
                 }
-                if(errorMsg !== ''){
+                if (errorMsg !== '') {
                     me.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
                     failHandler()
                     return
@@ -941,39 +934,39 @@ class EnterOrder extends Component {
     }
 
 
-    getMarketStatus(marketID, successHandler, failHandler){
+    getMarketStatus(marketID, successHandler, failHandler) {
         var param = {
-            "mvMarketID" : marketID,
-            "key" : new Date().getTime()
+            "mvMarketID": marketID,
+            "key": new Date().getTime()
         }
-        api.fetch(ACTION.QUERYMARKETSTATUSINFO, param, 'POST', successHandler, failHandler )
+        api.fetch(ACTION.QUERYMARKETSTATUSINFO, param, 'POST', successHandler, failHandler)
     }
 
-    getSymbolInfo(stockCode, marketID, bs, enableGetStockInfo, actionStockInfo, successHandler, failHandler){
+    getSymbolInfo(stockCode, marketID, bs, enableGetStockInfo, actionStockInfo, successHandler, failHandler) {
 
         var param = {
-            "mvInstrument" : stockCode,
-            "mvMarketId" : marketID,
-            "mvBS" : bs,
-            "key" : new Date().getTime(),
+            "mvInstrument": stockCode,
+            "mvMarketId": marketID,
+            "mvBS": bs,
+            "key": new Date().getTime(),
             "mvEnableGetStockInfo": enableGetStockInfo,
             "mvAction": actionStockInfo
         }
-        api.fetch(ACTION.STOCKINFO, param, 'POST',successHandler, failHandler);
+        api.fetch(ACTION.STOCKINFO, param, 'POST', successHandler, failHandler);
     }
 
-    checkOrderBalanceStatus(settleAcc, bs, stockCode, mvMarketID, price, pQty ,temporaryFee, callback, failHandler){
+    checkOrderBalanceStatus(settleAcc, bs, stockCode, mvMarketID, price, pQty, temporaryFee, callback, failHandler) {
 
         var p = parseFloat(price);
         var qty = parseFloat(pQty);
-        var buyVol = qty * p; 
-        var language = this.props.language  
-        var me = this                      
-        console.log('checkOrderBalanceStatus', settleAcc, p, qty, buyVol)      
+        var buyVol = qty * p;
+        var language = this.props.language
+        var me = this
+        console.log('checkOrderBalanceStatus', settleAcc, p, qty, buyVol)
         // check buying power when user buy CK
         if (bs == 'B') {
             // If bank account
-            if (settleAcc != null) {   
+            if (settleAcc != null) {
 
                 var buyingPowerd = parseFloat(settleAcc.mvBalance);
                 var temporaryFeeAmount = buyVol * temporaryFee / 100;
@@ -982,66 +975,66 @@ class EnterOrder extends Component {
                     this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeCash)
 
                     failHandler();
-                }else{
+                } else {
                     callback();
                 }
             } else {
                 // If has no bank
                 var mvActionStockInfo = "BP";
-                var mvEnableGetStockInfo="N";                                   
-                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo, 
-                    function(json){ //success
+                var mvEnableGetStockInfo = "N";
+                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo,
+                    function (json) { //success
                         var buyingPower1 = parseFloat(Utils.numUnFormat(json.mvStockInfoBean.mvBuyingPowerd));
                         var marPer = json.mvStockInfoBean.mvMarginPercentage;
                         var nominal = json.mvStockInfoBean.mvNomial;
-                        if (marPer && marPer != "null"){
+                        if (marPer && marPer != "null") {
                             marPer = parseFloat(Utils.numUnFormat(marPer));
                         } else {
                             marPer = 0;
                         }
-                        if (nominal && nominal != "null"){
+                        if (nominal && nominal != "null") {
                             nominal = parseFloat(Utils.numUnFormat(nominal));
-                            if (nominal == 0){
+                            if (nominal == 0) {
                                 nominal = p;
                             }
                         } else {
                             nominal = p;
                         }
-                        
+
                         var temporaryFeeAmount = buyVol * temporaryFee / 100;
-                        if (buyingPower1 + qty*nominal*marPer/100 + temporaryFeeAmount < buyVol) {
+                        if (buyingPower1 + qty * nominal * marPer / 100 + temporaryFeeAmount < buyVol) {
                             me.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeCash)
                             failHandler();
-                        }else{
+                        } else {
                             callback();
                         }
                     },
-                    function(err){
+                    function (err) {
                         console.log(err)
                         failHandler()
                     }
                 )
-            }                           
+            }
         }
-        else 
+        else
             if (bs == 'S') {
-                var mvActionStockInfo = "SI";       
-                var mvEnableGetStockInfo="N";                                   
-                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo, 
-                    function(json){ // success
-                        
+                var mvActionStockInfo = "SI";
+                var mvEnableGetStockInfo = "N";
+                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo,
+                    function (json) { // success
+
                         var usableStock1 = parseFloat(Utils.numUnFormat(json.mvStockInfoBean.mvUsable));
-                        if (qty > usableStock1) {                                                       
+                        if (qty > usableStock1) {
                             me.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeStock)
                             failHandler();
-                        }else{
+                        } else {
                             callback();
                         }
                     },
                     failHandler
                 )
             }
-                        
+
     }
 }
 

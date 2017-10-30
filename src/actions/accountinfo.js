@@ -42,7 +42,6 @@ function responseAccountBalanceBank(response) {
 }
 
 export function getOverdueDebt(params) {
-    //console.log("GET Over Due Debt");
     return (dispatch)=>{
         WebApi.get(ACTION.OVERDUEDEBT, params, dispatch, responseOverDueDebt)
     }
@@ -57,7 +56,6 @@ function responseOverDueDebt(response) {
 }
 
 export function getUpComingDebt(params) {
-    //console.log("GET UpComingDebt");
     return (dispatch)=>{
         WebApi.get(ACTION.UPCOMINGDEBT, params, dispatch, responseUpComingDebt)
     }

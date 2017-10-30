@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import DataTable from '../DataTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import SearchBar from '../commons/SearchBar'
-import DataUpperTable from '../DataUpperTable'
+import DataTable from '../commons/DataTable'
 import Pagination from '../commons/Pagination'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
 import Title from '../commons/WidgetTitle'
@@ -332,11 +331,11 @@ class WatchList extends Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
     }
+
     componentDidMount() {
         this.onRefresh()
     }
@@ -635,7 +634,6 @@ class WatchList extends Component {
             this.onRefresh()
         } else {
             //show Alert
-            console.log("alert")
         }
 
     }
@@ -651,7 +649,6 @@ class WatchList extends Component {
         this.onRefresh()
     }
     onChange(e) {
-        console.log(e.target.value)
         this.inputValue = e.target.value
     }
     alreadyInList(stockID) {
@@ -715,16 +712,17 @@ class WatchList extends Component {
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
         return (
             <div style={{ height: '100%' }}>
-                <Title theme={this.props.theme} widgetID={'watchlist'}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main">
-                        <DataUpperTable
+                        <DataTable
                             theme={this.props.theme}
                             id="watchlist-table"
                             columns={this.state.columns}
                             data={[]}
+                            handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
                     <div className="table-header" style={tableheader}>

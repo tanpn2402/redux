@@ -93,7 +93,8 @@ class AdvanceHistory extends Component {
                     skip: false,
                     width: 300,
                 }
-            ]
+            ],
+            filterable: true
         }
 
         this.getCashAdvanceHistoryParams = {
@@ -131,10 +132,13 @@ class AdvanceHistory extends Component {
         var data = cashAdvanceHistory.list
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(cashAdvanceHistory)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title theme={this.props.theme} columns={this.state.columns} onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}>
+                <Title language={this.props.language} theme={this.props.theme}
+                    columns={this.state.columns}
+                    onChangeStateColumn={this.onCashAdTransChangeStateColumn.bind(this)}
+                    onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -144,6 +148,7 @@ class AdvanceHistory extends Component {
                             id={this.id}
                             defaultPageSize={this.defaultPageSize}
                             columns={this.state.columns}
+                            filterable={this.state.filterable}
                             data={data}
                         />
                     </div>
@@ -163,6 +168,12 @@ class AdvanceHistory extends Component {
             </div>
         )
 
+    }
+
+    onToggleFilter(value) {
+        this.setState((prevState) => {
+            return { filterable: !prevState.filterable }
+        })
     }
 
     componentDidMount() {

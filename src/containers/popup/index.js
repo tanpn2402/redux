@@ -5,7 +5,6 @@ import ConfirmOrder from './ConfirmOrder'
 import OddLotTrading from './OddLotTrading'
 import CashAdvancePopup from './CashAdvance'
 import LoanRefund from './LoanRefund'
-import Settings from './Settings'
 import CancelCashtransfer from './CancelCashtransfer'
 import CashTransfer from './CashTransfer'
 import CashAdvanceBank from './CashAdvanceBank'
@@ -29,7 +28,7 @@ export default function (props, onClose) {
 			break;
 
 		case 'oddlottrading':
-			return (<OddLotTrading onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<OddLotTrading theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
 
 		case 'cashadvance':
@@ -42,10 +41,6 @@ export default function (props, onClose) {
 
 		case 'loanrefund':
 			return (<LoanRefund onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
-			break;
-
-		case 'setting':
-			return (<Settings onHide={props.onHide} rowSelected={props.rowSelected} language={props.language} />)
 			break;
 
 		case 'cancelcashtransfer':

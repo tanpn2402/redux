@@ -25,20 +25,15 @@ class AdvancePanel extends Component {
         }
     }
 
-    componentWillReceiProps(n){
-        console.log(n)
-    }
-
-
     render() {
         var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
-        let rowodd = this.props.theme.table == undefined? undefined:this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined? undefined:this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined? 'black':this.props.theme.font2.color
+        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
+        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         return (
             <div>
-                <Title theme={this.props.theme} widgetID={this.id}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -46,11 +41,11 @@ class AdvancePanel extends Component {
                         <FormGroup>
                             <Table theme={this.props.theme} responsive>
                                 <tbody >
-                                    <tr style={{backgroundColor: rowodd, color: font2}} >
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                        <td>{Utils.currencyShowFormatter(advAvailable,",", this.lang)}</td>
+                                        <td>{Utils.currencyShowFormatter(advAvailable, ",", this.lang)}</td>
                                     </tr>
-                                    <tr style={{backgroundColor: roweven, color: font2}} >
+                                    <tr style={{ backgroundColor: roweven, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
@@ -58,22 +53,22 @@ class AdvancePanel extends Component {
                                                 id="advanceFee"
                                                 ref={e => this.txtAdFee = e}
                                                 value={Utils.currencyShowFormatter(localAdvance.advFee, ",", this.lang)}
-                                                readOnly/>
+                                                readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowodd, color: font2}} >
+                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
-                                        <td style={{color: 'black'}}>
+                                        <td style={{ color: 'black' }}>
                                             <FormGroup>
-                                                <input 
+                                                <input
                                                     className="hks-input border"
-                                                    type="number" name="volume" min="0" 
-                                                    onChange={this.onAdvancePaymentChange.bind(this)}  
+                                                    type="number" name="volume" min="0"
+                                                    onChange={this.onAdvancePaymentChange.bind(this)}
                                                     id="txtAdvancePayment" required />
                                             </FormGroup>
                                         </td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </Table>
                             <div className="group-btn-action form-submit-action">
@@ -82,14 +77,14 @@ class AdvancePanel extends Component {
                                         onClick={e => this.handleResetForm()}>
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
                                         onClick={this.handleSubmit.bind(this)}>
                                         {this.props.language.button.submit}
                                     </button>
                                 </span>
                             </div>
                         </FormGroup>
-                       
+
                     </Form>
                 </Body>
             </div>
@@ -107,7 +102,7 @@ class AdvancePanel extends Component {
         this.props.beforeSubmit(advPayment, this.props.localAdCreation.mvAdvanceBean, this.props.language)
     }
 
-    handleResetForm(){
+    handleResetForm() {
 
     }
 
@@ -116,47 +111,47 @@ class AdvancePanel extends Component {
         let advPayment = e.target.value
         let advCfgInfor = this.props.localAdCreation.mvAdvanceBean
 
-        if(advCfgInfor && advPayment > 0){
-            
+        if (advCfgInfor && advPayment > 0) {
+
             var tempFee = 0;
-            
+
             var advAmt = Utils.devideByCurrencyUnit(advPayment)
-            
+
             var nt2Adv = parseFloat(advCfgInfor.t2AdvAvailable)
             var cont = true;
-            if(nt2Adv > 0){
-                if(advAmt > nt2Adv){
-                    tempFee += parseFloat(nt2Adv)*parseFloat(advCfgInfor.t2Days)*parseFloat(advCfgInfor.interestRate)/100;
+            if (nt2Adv > 0) {
+                if (advAmt > nt2Adv) {
+                    tempFee += parseFloat(nt2Adv) * parseFloat(advCfgInfor.t2Days) * parseFloat(advCfgInfor.interestRate) / 100;
                     advAmt = advAmt - nt2Adv;
-                }else {
-                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t2Days)*parseFloat(advCfgInfor.interestRate)/100;
-                    cont = false;
-                }
-            } 
-            
-            var nt1Adv = parseFloat(advCfgInfor.t1AdvAvailable);
-            if(cont && nt1Adv > 0){
-                if(advAmt > nt1Adv){
-                    tempFee += parseFloat(nt1Adv)*parseFloat(advCfgInfor.t1Days)*parseFloat(advCfgInfor.interestRate)/100;
-                    advAmt = advAmt - nt1Adv;
-                }else {
-                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t1Days)*parseFloat(advCfgInfor.interestRate)/100;
+                } else {
+                    tempFee += parseFloat(advAmt) * parseFloat(advCfgInfor.t2Days) * parseFloat(advCfgInfor.interestRate) / 100;
                     cont = false;
                 }
             }
-            
-            var nt0Adv = parseFloat(advCfgInfor.t0AdvAvailable);
-            if(cont && nt0Adv > 0){
-                if(advAmt > nt0Adv){
-                    tempFee += parseFloat(nt0Adv)*parseFloat(advCfgInfor.t0Days)*parseFloat(advCfgInfor.interestRate)/100;
-                    advAmt = advAmt - nt0Adv;
-                }else {
-                    tempFee += parseFloat(advAmt)*parseFloat(advCfgInfor.t0Days)*parseFloat(advCfgInfor.interestRate)/100;
+
+            var nt1Adv = parseFloat(advCfgInfor.t1AdvAvailable);
+            if (cont && nt1Adv > 0) {
+                if (advAmt > nt1Adv) {
+                    tempFee += parseFloat(nt1Adv) * parseFloat(advCfgInfor.t1Days) * parseFloat(advCfgInfor.interestRate) / 100;
+                    advAmt = advAmt - nt1Adv;
+                } else {
+                    tempFee += parseFloat(advAmt) * parseFloat(advCfgInfor.t1Days) * parseFloat(advCfgInfor.interestRate) / 100;
                     cont = false;
                 }
-            }   
+            }
+
+            var nt0Adv = parseFloat(advCfgInfor.t0AdvAvailable);
+            if (cont && nt0Adv > 0) {
+                if (advAmt > nt0Adv) {
+                    tempFee += parseFloat(nt0Adv) * parseFloat(advCfgInfor.t0Days) * parseFloat(advCfgInfor.interestRate) / 100;
+                    advAmt = advAmt - nt0Adv;
+                } else {
+                    tempFee += parseFloat(advAmt) * parseFloat(advCfgInfor.t0Days) * parseFloat(advCfgInfor.interestRate) / 100;
+                    cont = false;
+                }
+            }
             this.txtAdFee.value = Utils.currencyShowFormatter(tempFee, ",", this.lang)
-        } 
+        }
     }
 
 }

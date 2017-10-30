@@ -79,7 +79,6 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
 
                 </div>
-                <Popup theme={this.props.theme} title={this.props.language.menu.savelayout} show={this.state.lgShow} id={'savelayout'} onHide={lgClose} checkSessionID={this.props.checkSessionID} config={config.tabbar} language={this.props.language} />
             </div>
 
         )
@@ -101,8 +100,12 @@ class StatusBar extends React.Component {
     }
 
     logout() {
-        this.setState({
-            lgShow: true
+        this.props.showDialog({
+            data: {checkSessionID: this.props.checkSessionID},
+            title: this.props.language.menu.savelayout,
+            language: this.props.language,
+            id: 'savelayout',
+            authcard: false
         })
     }
 
@@ -133,7 +136,7 @@ class StatusBar extends React.Component {
         let searchResultSize = this.state.searchResult.length - 1
         let previousItem = (this.state.currentlySelectedItemIndex - 1) < 0 ? searchResultSize : (this.state.currentlySelectedItemIndex - 1)
         let nextItem = (this.state.currentlySelectedItemIndex + 1) > searchResultSize ? 0 : (this.state.currentlySelectedItemIndex + 1)
-        console.log(e.keyCode, searchResultSize, previousItem, nextItem)
+        
         switch (keyCode) {
             case 38: // Up
                 this.setState({
@@ -253,14 +256,14 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onLogoutClick: (params) => {
-        dispatch(actions.logout(params))
-    },
     onTabClick: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID));
     },
     reloadCustom: (load) => {
         dispatch(actions.reloadCustom(load))
+    },
+    showDialog: (param) => {
+        dispatch(actions.showPopup(param))
     }
 })
 

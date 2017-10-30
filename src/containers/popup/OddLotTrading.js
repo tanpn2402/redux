@@ -4,7 +4,7 @@ import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import DataTable from '../commons/DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 
 class OddLotSubmit extends Component {
@@ -51,7 +51,6 @@ class OddLotSubmit extends Component {
                 Header: this.props.language.oddlottrading.header.oddlotquantity,
                 accessor: 'oddLotQty',
                 Cell: props => {
-                    console.log(props)
                     return (
                         <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
                             min="0" max={props.original.oddLotQty} />
@@ -89,7 +88,6 @@ class OddLotSubmit extends Component {
                     Header: nextProps.language.oddlottrading.header.oddlotquantity,
                     accessor: 'oddLotQty',
                     Cell: props => {
-                        console.log(props)
                         return (
                             <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
                                 min="0" max={props.original.oddLotQty} />
@@ -136,7 +134,6 @@ class OddLotSubmit extends Component {
                 }
             }
 
-            console.log(this.authParams)
             this.props.submitOddLot({
                 oddLotData: data,
                 annoucementId: this.props.data.annoucementId,

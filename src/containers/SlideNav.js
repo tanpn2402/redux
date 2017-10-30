@@ -47,7 +47,6 @@ class SlideNav extends Component {
     }
 
     onMenuSelected(e){
-        console.log(e.target.id)
         var eventKey = e.target.id
         var isExist = false;
 
@@ -74,7 +73,6 @@ class SlideNav extends Component {
     }
 
     onChange(value, language){
-        console.log(value)
         if(value === ']'){
             document.getElementById('main-menu-search').value = 
                 document.getElementById('main-menu-search').value.replace(']', '')
@@ -110,7 +108,6 @@ class SlideNav extends Component {
                 })
             }
             catch(e){}
-            console.log(list)
             this.setState({
                 menuitem: list,
             });
