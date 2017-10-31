@@ -43,7 +43,6 @@ export default function(state = initialState, action) {
                 calculateInterestAmt: action.calculateInterestAmt,
             })
         case ActionTypes.PAYMENTSELECTED:
-            console.log(action)
             return Object.assign({}, state, {
                 paymentSelected: action.data,
                 key: (new Date()).getTime()

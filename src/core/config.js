@@ -142,8 +142,8 @@ const config = {
 		orderconfirmation: { i: 'orderconfirmation', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, static: false },
 		porfolio: { i: 'porfolio', x: 0, y: 0, w: 8, h: 10, minW: 6, minH: 10, maxW: 8, maxH: 20, static: false, isResizable: true },
 		ordershistory: { i: 'ordershistory', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
-		stockstatement: { i: 'stockstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
-		cashstatement: { i: 'cashstatement', x: 0, y: 0, w: 8, h: 8, minW: 6, minH: 6, maxW: 8, maxH: 11 },
+		stockstatement: { i: 'stockstatement', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11 },
+		cashstatement: { i: 'cashstatement', x: 0, y: 0, w: 8, h: 8, minW: 4, minH: 6, maxW: 8, maxH: 11 },
 		watchlist: { i: 'watchlist', x: 0, y: 0, w: 6, h: 8, minW: 6, minH: 8, maxW: 8, maxH: 10, static: false, isResizable: true },
 		stockmarketinform: { i: 'stockmarketinform', x: 0, y: 0, w: 3, h: 6, minW: 3, minH: 6, maxW: 3, maxH: 6, static: false, isResizable: false },
 		personalprofile: { i: 'personalprofile', x: 0, y: 0, w: 6, h: 6, minW: 6, minH: 6, maxW: 6, maxH: 6, static: false, isResizable: false },
@@ -250,8 +250,8 @@ const config = {
 		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true},
 		{ i: 'portfolio', 				smW: 8, smH: 10, lgW: 8, lgH: 14, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: true, isResizable: true},
 		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
 		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
 		{ i: 'stockmarketinform', 		smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 3, maxH: 9, isDraggable: true, isResizable: false },
 		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 10, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
@@ -456,8 +456,8 @@ const config = {
 	,
 	cache: {
 		stockList: [],
-		lang: 'vi_VN',
-		theme: 'light'
+		lang: '',
+		theme: ''
 	}
 }
 

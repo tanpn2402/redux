@@ -9,6 +9,7 @@ import InputSearch from './InputSearch'
 import $ from 'jquery'
 import { PowerSelect } from 'react-power-select'
 import 'react-power-select/dist/react-power-select.css'
+import Select from '../commons/Select'
 
 import CalendarPicker from './CalendarPicker';
 
@@ -42,7 +43,7 @@ export default class SearchBar extends React.Component {
     }
 
     onSearch(pageIndex) {
-        
+
         var x = document.getElementById(this.props.id + "form-search")
         var tmp = {}
         for (var i = 0; i < x.length; i++) {
@@ -57,7 +58,7 @@ export default class SearchBar extends React.Component {
     }
 
     handleChangeStart(date) {
-        
+
         this.setState({
             startDate: date
         });
@@ -238,11 +239,11 @@ export default class SearchBar extends React.Component {
             </FormGroup>
         )
     }
-    handleStockChange = ({option}) => {
-        if(option === null)
+    handleStockChange = ({ option }) => {
+        if (option === null)
             return
         this.mvStockId.value = option.stockCode
-        this.setState({ mvStockIdValue : Object.assign(this.state.mvStockIdValue, { stockCode: option.stockCode }) })
+        this.setState({ mvStockIdValue: Object.assign(this.state.mvStockIdValue, { stockCode: option.stockCode }) })
     }
     genStockListComponent(props) {
         let language = props.language
@@ -281,7 +282,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font3 }}>{language.startdate}</ControlLabel>
                 {'   '}
-                <CalendarPicker onChange={this.handleChangeStart.bind(this)} id={'startDate'}/>
+                <CalendarPicker onChange={this.handleChangeStart.bind(this)} id={'startDate'} />
             </FormGroup>
         )
     }
@@ -293,7 +294,7 @@ export default class SearchBar extends React.Component {
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font3 }}>{language.enddate}</ControlLabel>
                 {'   '}
-                <CalendarPicker onChange={this.handleChangeEnd.bind(this)}  id={'endDate'}/>
+                <CalendarPicker onChange={this.handleChangeEnd.bind(this)} id={'endDate'} />
             </FormGroup>
         )
     }
@@ -309,15 +310,15 @@ export default class SearchBar extends React.Component {
 
     render() {
         let scrollBtnStyle = this.props.theme.scrolling.button
-        
+
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
                 <div className="scrolling-tabs-main search-bar" id={this.props.id + "-scroll-bar"}>
-                    <button type="button" className="hks-btn btn-tab-prev search-bar" 
+                    <button type="button" className="hks-btn btn-tab-prev search-bar"
                         onClick={e => this.onTabSlideClick(1)}
                         style={scrollBtnStyle}>
-                            <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
+                        <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
                     </button>
                     <div className="scroll search-bar" id={this.props.id + "-scroll"}>
                         <div className="scrolling-tabs" id={this.props.id + "-search-bar"}>
@@ -361,10 +362,10 @@ export default class SearchBar extends React.Component {
                             </nav>
                         </div>
                     </div>
-                    <button type="button" className="hks-btn btn-tab-next search-bar" 
+                    <button type="button" className="hks-btn btn-tab-next search-bar"
                         onClick={e => this.onTabSlideClick(2)}
                         style={scrollBtnStyle}>
-                            <span className="glyphicon glyphicon-menu-right"></span>
+                        <span className="glyphicon glyphicon-menu-right"></span>
                     </button>
                 </div>
 

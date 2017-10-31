@@ -35,9 +35,9 @@ class WatchList extends Component {
                     id: 'name',
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
-                        id: 'mvSymbol',
+                        id: 'mvStockCode',
                         Header: this.props.language.watchlist.header.stock,
-                        accessor: 'mvSymbol',
+                        accessor: 'mvStockCode',
                         width: 60,
                         show: true,
                         skip: false
@@ -331,7 +331,6 @@ class WatchList extends Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        console.log('onRowSelected', this.rowSelected)
         this.setState({
             disableRemove: this.rowSelected.length == 0 ? true : false
         })
@@ -366,9 +365,9 @@ class WatchList extends Component {
                     id: 'name',
                     Header: nextProps.language.watchlist.header.name,
                     columns: [{
-                        id: 'mvSymbol',
+                        id: 'mvStockCode',
                         Header: nextProps.language.watchlist.header.stock,
-                        accessor: 'mvSymbol',
+                        accessor: 'mvStockCode',
                         width: 60,
                         show: true,
                         skip: false
@@ -613,7 +612,8 @@ class WatchList extends Component {
                     skip: false,
                     show: true,
                 }
-            ]
+            ],
+            listStock: nextProps.watchListLocalStockList
         })
     }
 
@@ -622,45 +622,68 @@ class WatchList extends Component {
         this.getDataParams['key'] = time
         this.props.onRefresh(this.getDataParams)
     }
-    onAddStock(stockID) {
-        this.props.stockList.map(stock => {
-            if (stockID === stock.stockCode) {
-                this.addRemoveParams['mvAddOrRemove'] = 'Add'
-                this.addRemoveParams['mvStockCode'] = stockID
-                this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-            }
-        })
-        if (!this.alreadyInList(stockID)) {
-            this.props.onAddStock(this.addRemoveParams);
-            this.onRefresh()
-        } else {
-            //show Alert
-            console.log("alert")
-        }
 
+    onAddStock(stockID) {
+        let stock = this.state.listStock.find(stock => {
+            return stock.mvStockCode == stockID
+        })
+        if (stock === undefined) {
+            this.props.stockList.map(stock => {
+                if (stockID === stock.stockCode) {
+                    // this.addRemoveParams['mvAddOrRemove'] = 'Add'
+                    // this.addRemoveParams['mvStockCode'] = stockID
+                    // this.addRemoveParams['mvMarketID'] = stock.mvMarketID
+                    let newStock = {
+                        mvStockCode: stockID,
+                        mvMarketID: stock.mvMarketID
+                    }
+                    this.props.addStockToLocalStore(newStock)
+                }
+            })
+        }
+        // if (!this.alreadyInList(stockID)) {
+        //     this.props.onAddStock(this.addRemoveParams);
+        //     this.onRefresh()
+        // } else {
+        //     //show Alert
+        //     console.log("alert")
+        // }
     }
+
     onRemoveStock(removeList) {
-        this.addRemoveParams['mvAddOrRemove'] = 'Remove'
         removeList.map(stock => {
-            this.addRemoveParams['mvStockCode'] = stock.mvSymbol
-            this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-            this.props.onRemoveStock(this.addRemoveParams)
+            let removeStock = {
+                mvStockCode: stock.mvStockCode,
+                mvMarketID: stock.mvMarketID
+            }
+            this.props.removeStockFromLocalStore(removeStock)
         })
         this.rowSelected = []
+        document.getElementById("watchlist-cb-all").checked = false
+        // this.addRemoveParams['mvAddOrRemove'] = 'Remove'
+        // removeList.map(stock => {
+        //     this.addRemoveParams['mvStockCode'] = stock.mvStockCode
+        //     this.addRemoveParams['mvMarketID'] = stock.mvMarketID
+        //     this.props.onRemoveStock(this.addRemoveParams)
+        // })
+        // this.rowSelected = []
 
-        this.onRefresh()
+        // this.onRefresh()
     }
+
     onChange(e) {
         console.log(e.target.value)
+
         this.inputValue = e.target.value
     }
+
     alreadyInList(stockID) {
-        var i = 0;
-        this.props.watchListData.mvMarketData.map(stock => {
-            if (stockID === stock.mvStockId)
-                i++
-        })
-        return i === 0 ? false : true
+        // var i = 0;
+        // this.props.watchListData.mvMarketData.map(stock => {
+        //     if (stockID === stock.mvStockId)
+        //         i++
+        // })
+        // return i === 0 ? false : true
     }
 
     onPageChange(pageIndex) {
@@ -724,7 +747,7 @@ class WatchList extends Component {
                             theme={this.props.theme}
                             id="watchlist-table"
                             columns={this.state.columns}
-                            data={[]}
+                            data={this.state.listStock}
                             handleOnRowSelected={(param) => this.onRowSelected(param)}
                         />
                     </div>
@@ -762,6 +785,7 @@ class WatchList extends Component {
 const mapStateToProps = (state) => {
     return {
         watchListData: state.watchlist.watchListData,
+        watchListLocalStockList: state.watchlist.watchListLocalStockList
     }
 }
 
@@ -774,6 +798,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onRemoveStock: (param) => {
         dispatch(actions.removeStock(param))
+    },
+    addStockToLocalStore: (param) => {
+        dispatch(actions.addStockToLocalStore(param))
+    },
+    removeStockFromLocalStore: (param) => {
+        dispatch(actions.removeStockFromLocalStore(param))
     },
 })
 

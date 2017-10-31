@@ -149,7 +149,7 @@ export function doSubmitLoanRefund(params){
             }
         } 
     }
-    console.log(me)
+    
     var refundAmt = Utils.devideByCurrencyUnit(me.txtRefundAmt.value)
     var loancurAmt = parseFloat(Utils.toTTLCurrencyFormat(me.txtBeginLoan.value))
     var loanremain = Utils.currencyShowFormatter(loancurAmt - refundAmt, ",", lang)

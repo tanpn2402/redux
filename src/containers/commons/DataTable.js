@@ -8,7 +8,8 @@ export default class DataTable extends React.Component {
 		super(props)
 		this.state = {
 			mouseDownCol: null,
-			columns: []
+			columns: [],
+			sorted: []
 		}
 
 		this.colA = {
@@ -81,7 +82,7 @@ export default class DataTable extends React.Component {
 	render() {
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
-		let filterrow = this.props.theme.table.filterrow.backgroundColor
+		let filterrow = this.props.theme.table.filterrow
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let font3 = this.props.theme.font3 == undefined ? 'black' : this.props.theme.font3.color
 		let font = this.props.theme.font == undefined ? 'black' : this.props.theme.font.color
@@ -93,7 +94,8 @@ export default class DataTable extends React.Component {
 		if (!this.props.id.includes('-table')) {
 			newColumns = this.state.columns.map((column) => {
 				return Object.assign({}, column, {
-					Header: headerRenderer(this, column.id, column, column.Header)
+					Header: headerRenderer(this, column.id, column, column.Header),
+					headerStyle: { boxShadow: 'none' }
 				})
 			})
 		}
@@ -102,6 +104,7 @@ export default class DataTable extends React.Component {
 				<ReactTable
 					filterable={this.props.filterable != undefined ? this.props.filterable : false}
 					ref={e => this.mainTable = e}
+					onSortedChange={(sorted) => this.setState({ sorted: sorted })}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -124,12 +127,13 @@ export default class DataTable extends React.Component {
 					getTheadFilterProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								background: filterrow,
-								color: '#000'
+								background: filterrow.backgroundColor,
+								color: filterrow.color
 							}
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
+						console.log(state, rowInfo, column, instance)
 						return {
 							style: {
 								color: font3,
@@ -361,21 +365,24 @@ function expand(data) {
 }
 
 function headerRenderer(component, id, column, text) {
+	let col = component.state.sorted.filter(col => col.id == id)
+	let classSort = ''
+	if (col.length) {
+		classSort = col[0].desc ? 'glyphicon glyphicon-sort-by-attributes-alt'
+			: 'glyphicon glyphicon-sort-by-attributes'
+	}
 	switch (id) {
 		case 'cb':
 			return (
-				<input id={component.props.id + "-cb-all"}
-					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)}
-					type='checkbox'
-					className={"row-checkbox customCol" + (column.reorderable == false ? "" : " reorderable")}
+				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox"
 					onChange={() => component.props.onRowSelected('ALL')} />
 			)
 		default:
 			return (
 				<div id={id} className={"customCol " + (column.reorderable == false ? "" : " reorderable")}
 					onMouseDown={e => component.handleOnMouseDown(e)}
-					onMouseUp={(e) => component.handleOnMouseUp(e)}>{text}</div>
+					onMouseUp={(e) => component.handleOnMouseUp(e)}
+				>{text} <span className={classSort}></span></div>
 			)
 	}
 }

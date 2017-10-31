@@ -59,18 +59,25 @@ export default class ConfigColumnTable extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="dropdown-container" id={this.props.id + "-columns"}>
-                <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}><span className="glyphicon glyphicon-th-list"></span></div>
+                <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}>
+                    <span className="glyphicon glyphicon-th-list"></span>
+                </div>
                 <div className={"dropdown-list " + (this.state.listVisible ? "show" : "hide")}>
                     <div className='dropdown-item' onClick={e => this.toggleDropdownSubList(e)} >
-                        <span className='glyphicon glyphicon-triangle-left' /> Columns</div>
+                        <span className='glyphicon glyphicon-triangle-left' /> Columns
+                    </div>
 
                     <div id='filter' className='dropdown-item'>
                         <div className='checkbox'>
                             <label style={{ width: '100%' }} className='dropdown-item-column'>
-                                <input type='checkbox' id='filter' readOnly='false' defaultChecked='true' onChange={this.props.onToggleFilter} />
-                                <span style={{ lineHeight: '2.2' }} className='dropdown-item-column' >{this.props.language.global.filter.toggle}</span>
+                                <input type='checkbox' id='filter' readOnly='false'
+                                    defaultChecked='true' onChange={this.props.onToggleFilter} />
+                                <span className='dropdown-item-column' >
+                                    {this.props.language.global.filter.toggle}
+                                </span>
                             </label>
                         </div>
                     </div>

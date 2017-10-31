@@ -124,7 +124,7 @@ class ActionRightList extends Component {
                     skip: false,
                     show: true,
                 }],
-            filterable: true
+            filterable: false
         }
 
         this.paramsright = {
@@ -175,7 +175,7 @@ class ActionRightList extends Component {
         var allRightList = this.props.allRightList
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        console.log(allRightList)
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language}

@@ -6,12 +6,6 @@ import * as actions from "../actions"
 import { FormControl, Button } from 'react-bootstrap'
 import * as $ from 'jquery'
 
-// import '../assets/js/plugins/smoothdivscroll/jquery-ui-1.10.3.custom.js'
-// import '../assets/js/plugins/smoothdivscroll/jquery.kinetic.js'
-// import '../assets/js/plugins/smoothdivscroll/jquery.mousewheel.js'
-// import '../assets/js/plugins/smoothdivscroll/jquery.smoothDivScroll-1.3.js'
-
-
 class ProfileNav extends Component {
 
     constructor(props) {
@@ -33,19 +27,14 @@ class ProfileNav extends Component {
         this.list = config.profiles
         this.retypePass = ''
 
-        this.setting = {
-            language: this.state.language.code,
-            appearance: this.state.theme
-        }
-
         this.responseMap = {}
     }
 
     render() {
-        console.log(this.state.language.page)
-        let personalprofile = this.state.language.page.personalprofile
-        let profiletitle = this.props.currentTheme.profile == undefined? undefined:this.props.currentTheme.profile.profiletitle
-        let profilepanel = this.props.currentTheme.profile == undefined? undefined:this.props.currentTheme.profile.profilepanel
+        let personalprofile = this.props.language.personalprofile
+        let profiletitle = this.props.theme.profile.profiletitle
+        let profilepanel = this.props.theme.profile.profilepanel
+
         this.doResponseMapping()
         return (
             <div id="profilenav" className="profilenav">
@@ -68,15 +57,19 @@ class ProfileNav extends Component {
                                                 e.value.map(v => {
                                                     if (e.id === 'changepassword' && v === 'save') {
                                                         return (
-                                                            <Button bsStyle='primary' className='profile-buttonsave' onClick={() => this.onChangePassword()}>
+                                                            <Button bsStyle='primary' className='profile-buttonsave' 
+                                                                onClick={() => this.onChangePassword()}>
                                                                 {personalprofile[e.id][v]}
                                                             </Button>
                                                         )
                                                     } else {
                                                         return (
-                                                            <li id={e.id + '_' + v} style={this.props.currentTheme.font2} >
+                                                            <li id={e.id + '_' + v} style={this.props.theme.font2} >
                                                                 {personalprofile[e.id][v]}
-                                                                <input type={e.id === 'changepassword' ? 'password' : 'text'} value={this.responseMap[e.id + '_' + v]} id={v} className='form-control' readOnly={e.id !== 'changepassword'} onChange={(e) => this.onChangeValue(e)} />
+                                                                <input type={e.id === 'changepassword' ? 'password' : 'text'} 
+                                                                    value={this.responseMap[e.id + '_' + v]} id={v} 
+                                                                    className='form-control' readOnly={e.id !== 'changepassword'} 
+                                                                    onChange={(e) => this.onChangeValue(e)} />
                                                             </li>
                                                         )
                                                     }
@@ -93,12 +86,13 @@ class ProfileNav extends Component {
         )
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getClientInfo([])
     }
 
 
     doResponseMapping() { // append actual data into each list item of the list instead of hardcode all in the render part
+        
         try {
             let clientDetails = this.props.clientDetails.mvPersonnalProfileBean == undefined ? [] : this.props.clientDetails.mvPersonnalProfileBean
             this.responseMap = {
@@ -116,7 +110,6 @@ class ProfileNav extends Component {
         } catch (error) {
             console.log('ERROR_', error)
         }
-
     }
 
     onChangePassword() {
@@ -149,18 +142,7 @@ class ProfileNav extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.language !== nextProps.language && nextProps.language !== undefined) {
-            this.setting.language = nextProps.language.code
-            this.setState({
-                language: nextProps.language
-            })
-        }
-        if (this.state.theme !== nextProps.theme && nextProps.theme !== undefined) {
-            this.setting.appearance = nextProps.theme.substring(6)
-            this.setState({
-                theme: nextProps.theme.substring(6)
-            })
-        }
+
         if (nextProps.changePasswordResult.length > 0) {
             let result = nextProps.changePasswordResult.changePasswordBean
             this.props.onShowMessageBox(
@@ -181,15 +163,17 @@ class ProfileNav extends Component {
 }
 
 const mapStateToProps = state => ({
-    language: state.config.language,
-    theme: state.config.style,
     clientDetails: state.profile.clientDetails,
     changePasswordResult: state.profile.changePassword
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getClientInfo: (param) => { dispatch(actions.getClientInfo(param)) },
-    changePassword: (param) => { dispatch(actions.changePassword(param)) },
+    getClientInfo: (param) => { 
+        dispatch(actions.getClientInfo(param)) 
+    },
+    changePassword: (param) => { 
+        dispatch(actions.changePassword(param)) 
+    },
     onShowMessageBox: (type, message, handleFunction) => {
         dispatch(actions.showMessageBox(type, message, handleFunction))
     }

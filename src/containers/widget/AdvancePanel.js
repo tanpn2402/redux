@@ -25,11 +25,6 @@ class AdvancePanel extends Component {
         }
     }
 
-    componentWillReceiProps(n) {
-        console.log(n)
-    }
-
-
     render() {
         var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)

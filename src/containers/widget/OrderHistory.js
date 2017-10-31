@@ -365,7 +365,7 @@ class OrderHistory extends Component {
         this.params['mvInstrumentID'] = param['mvStockId']
         this.params['mvStartTime'] = param['mvStartDate']
         this.params['mvEndTime'] = param['mvEndDate']
-        console.log(this.params)
+        
         this.props.onSearch(this.params)
     }
 
@@ -376,7 +376,6 @@ class OrderHistory extends Component {
         });
     }
     onExportExcel() {
-        console.log(this.params['mvStartTime'])
 
         this.exportParams['mvStartTime'] = this.params['mvStartTime']
         this.exportParams['mvEndTime'] = this.params['mvEndTime']

@@ -10,9 +10,11 @@ import moment from 'moment'
 import config from '../../core/config'
 import { PowerSelect } from 'react-power-select'
 import 'react-power-select/dist/react-power-select.css'
+import Select from '../commons/Select'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
+import { MobileNumberInput } from '../commons/MobileNumberInput'
 const { Contants } = require('../../core/constants')
 var DatePicker = require("react-bootstrap-date-picker")
 
@@ -507,7 +509,6 @@ class EnterOrder extends Component {
 
     render() {
         this.stockList = config.cache.stockList
-        console.log(this.stockList)
         var language = this.props.language.enterorder
         let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
         let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
@@ -556,8 +557,7 @@ class EnterOrder extends Component {
                                     <tr style={{ height: '23px' }}>
                                         <th>{language.header.stock}</th>
                                         <td style={{ color: font2, backgroundColor: rowodd }}>
-
-                                            <PowerSelect
+                                            <Select
                                                 options={this.stockList}
                                                 selected={this.state.value.mvStockSelected}
                                                 onChange={this.handleStockChange.bind(this)}
@@ -571,7 +571,7 @@ class EnterOrder extends Component {
                                     <tr ref={e => this.bankRow = e} style={{ height: '23px' }}>
                                         <th>{language.header.bank}</th>
                                         <td style={{ color: font2, backgroundColor: roweven }} >
-                                            <PowerSelect
+                                            <Select
                                                 options={this.state.value.mvSettleAccList}
                                                 selected={this.state.value.mvSettlementAccSelected}
                                                 onChange={this.handleBankAccChange.bind(this)}
@@ -599,8 +599,7 @@ class EnterOrder extends Component {
                                     <tr style={{ height: '23px' }}>
                                         <th>{language.header.ordertype}</th>
                                         <td style={{ color: font2, backgroundColor: rowodd }} >
-
-                                            <PowerSelect
+                                            <Select
                                                 options={this.state.value.mvOrderTypeList}
                                                 selected={this.state.value.mvOrderTypeSelected}
                                                 onChange={this.handleOrderTypeChange.bind(this)}
@@ -613,28 +612,21 @@ class EnterOrder extends Component {
                                     <tr>
                                         <th>{language.header.volume}</th>
                                         <td style={{ backgroundColor: roweven }} >
-                                            <input
-                                                id="mvVol"
-                                                ref={e => this.mvVol = e}
-                                                className="hks-input no-border"
-                                                type="number" name="volume" min="0"
-                                                onChange={this.handleVolChange.bind(this)} id="mvVolume"
-                                                placeholder="ex: 100" required
+                                            <MobileNumberInput
+                                                onChange={() => this.handleVolChange()}
+                                                onRef={(e) => this.mvVol = e}
                                                 defaultValue={Utils.quantityShowFormatter(this.state.value.mvVol)}
-                                                style={{ backgroundColor: 'transparent', color: font2 }} />
+                                            />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>{language.header.price}</th>
                                         <td style={{ backgroundColor: rowodd }} >
-
-                                            <input
-                                                id="mvPrice" ref={e => this.mvPrice = e}
-                                                className="hks-input no-border" type="number"
-                                                min="0" step="any" onChange={this.handlePriceChange.bind(this)}
-                                                placeholder="ex: 10" required
+                                            <MobileNumberInput
+                                                onChange={() => this.handlePriceChange()}
+                                                onRef={(e) => this.mvPrice = e}
                                                 defaultValue={this.state.value.mvPrice}
-                                                style={{ backgroundColor: 'transparent', color: font2 }} />
+                                            />
 
                                         </td>
                                     </tr>
@@ -663,20 +655,12 @@ class EnterOrder extends Component {
                                                     onChange={this.handleDateExpireCheck.bind(this)}
                                                     value={this.state.value.mvExpireChecked} />
                                             </Col>
-                                            <Col xs={11}>
+                                            <Col xs={11} style={{ paddingLeft: '10px' }}>
                                                 <CalendarPicker
                                                     id="expireDate"
                                                     disabled={!this.state.value.mvExpireChecked}
                                                     onChange={this.handleDateExpireChange.bind(this)}
                                                 />
-                                                {/* <DatePicker id="mvStartDate" value={this.state.value.mvExpireDate} 
-                                                    cellPadding={'1px'} 
-                                                    dateFormat={Contants.dateFormat}
-                                                    style={{width: '100px', height: '20px', marginLeft: '5px', border: '1px solid #dcdcdc'}}
-                                                    disabled={!this.state.value.mvExpireChecked} 
-                                                    showClearButton={false}
-                                                    calendarPlacement ={'top'}
-                                                    onChange={this.handleDateExpireChange.bind(this)} /> */}
                                             </Col>
                                         </td>
                                     </tr>

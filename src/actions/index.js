@@ -1,6 +1,6 @@
-import { doLogin, logout } from './doLogin'
+import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
 import { menuSelected, menuRemoved, onPageClicked, pinWindow, onTabClick, getSavedContentLayout, saveLayout, reloadCustom } from './menu_selected'
-import { changeConfig, switchLanguage, switchTheme, checkSession } from './configurations'
+import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
 import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
@@ -11,11 +11,16 @@ import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
 import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
 import { enquiryStockStatement, exportTransactionHistory } from './stockstatement'
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
-import { loadWatchList, addStock, removeStock } from './watchlist'
+import {
+  loadWatchList, addStock, removeStock, addStockToLocalStore, removeStockFromLocalStore,
+  getStocksFromLocalStore
+} from './watchlist'
 import { getClientInfo, changePassword } from './profile'
 import { getOddlotEnquiry, getOddlotHistory, submitOddLot, getBankInfo, beforeRegisterOddLot } from './oddlottrading'
-import { getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer, beforeCancelFundTransfer, 
-  beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer } from './cashtransfer'
+import {
+  getFundtransfer, gethksCachTranHis, getGenfundtransfer, getCancelfundtransfer, beforeCancelFundTransfer,
+  beforeSubmitCashTransfer, submitCashTransfer, CancelCashtransfer
+} from './cashtransfer'
 import { enquiryMarginLoan } from './marginloan'
 import { avaiblemarginlist } from './avaiblemarginlist'
 import { getStockInfo, getAccountBalance, getAccountBalanceBank, getOverdueDebt, getUpComingDebt } from './accountinfo'
@@ -24,11 +29,15 @@ import {
   getRightlist, getAdditionalshareinfo, getEntitlementHistorylist, getEntitlementStockList,
   entitlementGetAccountBalance, getEntitlementData, submitEntitlement
 } from './entitlement'
-import { getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory, 
-    getLoanRefundData, beforeSubmitLoanRefund, doSubmitLoanRefund } from './loanrefund'
+import {
+  getLocalRefundCreation, getLocalAdvanceCreation, getLoanRefundHistory,
+  getLoanRefundData, beforeSubmitLoanRefund, doSubmitLoanRefund
+} from './loanrefund'
 import { getCashAdvance, getQuerySoldOrders, beforeSubmitCashAdvance, submitCashAdvance } from './cashadvance'
-import { getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank, 
-    submitCashAdvanceBank, paymentSelectionChange } from './cashadvancebank'
+import {
+  getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank,
+  submitCashAdvanceBank, paymentSelectionChange
+} from './cashadvancebank'
 
 import { showPopup } from './popup'
 
@@ -36,20 +45,27 @@ export {
   reloadCustom,
   getSavedContentLayout,
   saveLayout,
+
+  // doLogin
   doLogin,
-  logout,
+  doLogout,
+  checkAuth,
+  checkSession,
+
+  // menu selected
   menuSelected,
   menuRemoved,
   onPageClicked,
   onTabClick,
-  changeConfig,
+
+  // configuration
   switchLanguage,
   switchTheme,
-  checkSession,
 
+  // stock action
   stockSearch,
   getStockWatchInfo,
-  
+
   accountBalance,
   stockInfo,
   genEnterOrder,
@@ -104,6 +120,9 @@ export {
   loadWatchList,
   addStock,
   removeStock,
+  addStockToLocalStore,
+  removeStockFromLocalStore,
+  getStocksFromLocalStore,
 
   // odd lot tranding
   getOddlotEnquiry,

@@ -149,7 +149,20 @@ function getSavedLayout(savedcontent) {
 
 
 
-export function saveLayout(params, language) {
+export function saveLayout(groupId, language) {
+    let savedContent = {
+        lang: config.cache.lang,
+        theme: config.cache.theme,
+        layout:config.tabbar
+    }
+    let params = Array()
+    params['mvGroupName'] = 'User1'
+    params['mvIsDefault'] = 'Y'
+    params['mvGroupType'] = 'U'
+    params['mvGroupID'] = groupId
+    params['mvSavedContent'] =  JSON.stringify(savedContent)
+    params['mvAction'] = 'MODIFY'
+
     return (dispatch) => {
         const savedLayoutWithLanguage = (data) => { savedLayout(data, language, dispatch) }
         api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayoutWithLanguage , 

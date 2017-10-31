@@ -183,7 +183,7 @@ export function onModifySubmit(param, newPrice, newQty, authParams, language, me
         'mvAnswer': authParams.matrixValue01 + '|' + authParams.matrixValue02,
         'mvSaveAuthenticate' : authParams.savedAuthen
     }
-    console.log(me)      
+    
     var successHandler = function(response){
         if(response.returnCode != 0) {
 

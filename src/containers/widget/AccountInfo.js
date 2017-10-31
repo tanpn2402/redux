@@ -75,6 +75,100 @@ class AccountInfo extends Component {
 					cls: 'disabled',
 					id: 3
 				}
+			],
+
+			cashBank : [
+				{
+					header: this.props.language.cash.header.buyingPower + " (ACB-123)",
+					value: 0
+				}, {
+					header: this.props.language.cash.header.cashBanlance,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.dueBuy,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.buyingOrderAmt,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.dueSell,
+					value: 0
+				}
+			],
+
+			cash : [
+				{
+					header: this.props.language.cash.header.buyingPower,
+					value: 0,
+				}, {
+					header: this.props.language.cash.header.cashBanlance,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.withDrawable,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.cashAdvanceable,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.temporaryHoldCash,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.dueBuy,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.buyingOrderAmt,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.widthdrawPendingForApproval,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.outStandingLoan,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.marginCallByOption,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.cashDeposit,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.sellStockInMarPort,
+					value: 0
+				}, {
+					header: this.props.language.cash.header.sellStockNotInMarPort,
+					value: 0
+				}
+			],
+
+			overdueDebt : [
+				{
+					header: this.props.language.overdueDebt.header.overdueDebt,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.processedDebt,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.cashReserve,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.advanceRequest,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.cashSupplement,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.sellStockRequest,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.forceSell,
+					value: 0
+				}, {
+					header: this.props.language.overdueDebt.header.forceSellDays,
+					value: 0
+				}
+			],
+
+			upcomingDebt : [
+				
 			]
 		}
 
@@ -111,106 +205,10 @@ class AccountInfo extends Component {
 
 		this.lang = config.cache.lang
 
-
-		// data
-		this.cashBank = [
-			{
-				header: this.props.language.cash.header.buyingPower + " (ACB-123)",
-				value: 0
-			}, {
-				header: this.props.language.cash.header.cashBanlance,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.dueBuy,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.buyingOrderAmt,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.dueSell,
-				value: 0
-			}
-		]
-
-		this.cash = [
-			{
-				header: this.props.language.cash.header.buyingPower,
-				value: 0,
-			}, {
-				header: this.props.language.cash.header.cashBanlance,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.withDrawable,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.cashAdvanceable,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.temporaryHoldCash,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.dueBuy,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.buyingOrderAmt,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.widthdrawPendingForApproval,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.outStandingLoan,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.marginCallByOption,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.cashDeposit,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.sellStockInMarPort,
-				value: 0
-			}, {
-				header: this.props.language.cash.header.sellStockNotInMarPort,
-				value: 0
-			}
-		]
-
-		this.overdueDebt = [
-			{
-				header: this.props.language.overdueDebt.header.overdueDebt,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.processedDebt,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.cashReserve,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.advanceRequest,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.cashSupplement,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.sellStockRequest,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.forceSell,
-				value: 0
-			}, {
-				header: this.props.language.overdueDebt.header.forceSellDays,
-				value: 0
-			}
-		]
-
-		this.upcomingDebt = [
-
-		]
-
 		this.stock = []
 	}
 
-	updateCash(response) {
+	updateCash(response, language) {
 		if (!response.mvList || response.mvList.length <= 0) return;
 		var data = response.mvList[0];
 		if (data.length != 0) {
@@ -256,98 +254,100 @@ class AccountInfo extends Component {
 				availableAdvance = 0
 			}
 
-			this.cash = [
-				{
-					header: this.props.language.cash.header.buyingPower,
-					value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.cashBanlance,
-					value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.withDrawable,
-					value: Utils.currencyShowFormatter(withdrawable, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.cashAdvanceable,
-					value: Utils.currencyShowFormatter(availableAdvance, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.temporaryHoldCash,
-					value: Utils.currencyShowFormatter(mvTemporaryHoldCash, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.dueBuy,
-					value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.buyingOrderAmt,
-					value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.widthdrawPendingForApproval,
-					value: Utils.currencyShowFormatter(data.mvPendingWithdraw, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.outStandingLoan,
-					value: Utils.currencyShowFormatter(outStandingLoan, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.marginCallByOption,
-					value: Utils.currencyShowFormatter(0, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.cashDeposit,
-					value: Utils.currencyShowFormatter(cashDeposit, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.sellStockInMarPort,
-					value: Utils.currencyShowFormatter(sellStockInMar, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.sellStockNotInMarPort,
-					value: Utils.currencyShowFormatter(sellStockNotInMar, ",", this.lang)
-				}
-			]
+			this.setState({
+				cash : [
+					{
+						header: language.cash.header.buyingPower,
+						value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
+					}, {
+						header: language.cash.header.cashBanlance,
+						value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
+					}, {
+						header: language.cash.header.withDrawable,
+						value: Utils.currencyShowFormatter(withdrawable, ",", this.lang)
+					}, {
+						header: language.cash.header.cashAdvanceable,
+						value: Utils.currencyShowFormatter(availableAdvance, ",", this.lang)
+					}, {
+						header: language.cash.header.temporaryHoldCash,
+						value: Utils.currencyShowFormatter(mvTemporaryHoldCash, ",", this.lang)
+					}, {
+						header: language.cash.header.dueBuy,
+						value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
+					}, {
+						header: language.cash.header.buyingOrderAmt,
+						value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
+					}, {
+						header: language.cash.header.widthdrawPendingForApproval,
+						value: Utils.currencyShowFormatter(data.mvPendingWithdraw, ",", this.lang)
+					}, {
+						header: language.cash.header.outStandingLoan,
+						value: Utils.currencyShowFormatter(outStandingLoan, ",", this.lang)
+					}, {
+						header: language.cash.header.marginCallByOption,
+						value: Utils.currencyShowFormatter(0, ",", this.lang)
+					}, {
+						header: language.cash.header.cashDeposit,
+						value: Utils.currencyShowFormatter(cashDeposit, ",", this.lang)
+					}, {
+						header: language.cash.header.sellStockInMarPort,
+						value: Utils.currencyShowFormatter(sellStockInMar, ",", this.lang)
+					}, {
+						header: language.cash.header.sellStockNotInMarPort,
+						value: Utils.currencyShowFormatter(sellStockNotInMar, ",", this.lang)
+					}
+				]
+			})
 		}
 	}
 
-	updateOverdueDebt(response) {
+	updateOverdueDebt(response, language) {
 		if (!response.overdueDebt) {
 			return;
 		}
 		var data = response.overdueDebt
 		if (data.length !== 0) {
-			console.log(data)
 			if (parseFloat(data.overdueDebt) === 0 && parseFloat(data.processedDebt) === 0) {
 				this.disableOverDueDebtTab = true
 			} else {
 				this.disableOverDueDebtTab = false
 				this.state.tabList[2].cls = 'normal'
 
-				var forceSellDays = data.forceSellDays + " " + this.props.language.overdueDebt.days
-				this.overdueDebt = [
-					{
-						header: this.props.language.overdueDebt.header.overdueDebt,
-						value: Utils.currencyShowFormatter(data.overdueDebt, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.processedDebt,
-						value: Utils.currencyShowFormatter(data.processedDebt, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.cashReserve,
-						value: Utils.currencyShowFormatter(data.cashReserve, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.advanceRequest,
-						value: Utils.currencyShowFormatter(data.advanceRequest, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.cashSupplement,
-						value: Utils.currencyShowFormatter(data.cashSupplement, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.sellStockRequest,
-						value: Utils.currencyShowFormatter(data.sellStockRequest, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.forceSell,
-						value: Utils.currencyShowFormatter(data.forceSell, ",", this.lang)
-					}, {
-						header: this.props.language.overdueDebt.header.forceSellDays,
-						value: forceSellDays
-					}
-				]
-
+				var forceSellDays = data.forceSellDays + " " + language.overdueDebt.days
+				this.setState({
+					overdueDebt : [
+						{
+							header: language.overdueDebt.header.overdueDebt,
+							value: Utils.currencyShowFormatter(data.overdueDebt, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.processedDebt,
+							value: Utils.currencyShowFormatter(data.processedDebt, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.cashReserve,
+							value: Utils.currencyShowFormatter(data.cashReserve, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.advanceRequest,
+							value: Utils.currencyShowFormatter(data.advanceRequest, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.cashSupplement,
+							value: Utils.currencyShowFormatter(data.cashSupplement, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.sellStockRequest,
+							value: Utils.currencyShowFormatter(data.sellStockRequest, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.forceSell,
+							value: Utils.currencyShowFormatter(data.forceSell, ",", this.lang)
+						}, {
+							header: language.overdueDebt.header.forceSellDays,
+							value: forceSellDays
+						}
+					]
+				})
 			}
 		}
 	}
 
-	updateCashBank(response) {
+	updateCashBank(response, language) {
 
 		if (!response.mvList || response.mvList.length <= 0 || response.mvList[0] == null) {
 			this.hasBank = false
@@ -355,36 +355,38 @@ class AccountInfo extends Component {
 		}
 
 		this.hasBank = true
-		this.state.tabList[0].title = this.props.language.accountinfo.title.cashBank
+		this.state.tabList[0].title = language.accountinfo.title.cashBank
 
 		var data = response.mvList[0]
 		if (data.length != 0) {
 			var cashBalance = data.mvBuyingPowerd
 			var buyingPowerd = data.mvBuyingPowerd
 
-			this.cashBank = [
-				{
-					header: this.props.language.cash.header.buyingPower + " (" + data.mvBankId + "-" + data.mvBankAcId + ")",
-					value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.cashBanlance,
-					value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.dueBuy,
-					value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.buyingOrderAmt,
-					value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
-				}, {
-					header: this.props.language.cash.header.dueSell,
-					value: Utils.currencyShowFormatter(data.mvDueSell, ",", this.lang)
-				}
-			]
+			this.setState({
+				cashBank : [
+					{
+						header: language.cash.header.buyingPower + " (" + data.mvBankId + "-" + data.mvBankAcId + ")",
+						value: Utils.currencyShowFormatter(buyingPowerd, ",", this.lang)
+					}, {
+						header: language.cash.header.cashBanlance,
+						value: Utils.currencyShowFormatter(cashBalance, ",", this.lang)
+					}, {
+						header: language.cash.header.dueBuy,
+						value: Utils.currencyShowFormatter(data.mvPendingSettled, ",", this.lang)
+					}, {
+						header: language.cash.header.buyingOrderAmt,
+						value: Utils.currencyShowFormatter(data.mvBuyHoldAmount, ",", this.lang)
+					}, {
+						header: language.cash.header.dueSell,
+						value: Utils.currencyShowFormatter(data.mvDueSell, ",", this.lang)
+					}
+				]
+			})
 		}
 
 	}
 
-	updateUpcomingDueDebt(response) {
+	updateUpcomingDueDebt(response, language) {
 		var haveDebt = false
 		this.disableupcomingDueDebtTab = true
 		if (response.upcomingDebt && response.upcomingDebt.length > 0) {
@@ -403,13 +405,78 @@ class AccountInfo extends Component {
 
 	}
 
+	updateTabList(language) {
+		this.setState({
+			tabList: [
+				{
+					title: language.accountinfo.title.cash,
+					cls: 'actived',
+					id: 0
+				},
+				{
+					title: language.accountinfo.title.stock,
+					cls: 'normal',
+					id: 1
+				},
+				{
+					title: language.accountinfo.title.overduedebt,
+					cls: 'disabled',
+					id: 2
+				},
+				{
+					title: language.accountinfo.title.upcomingduedebt,
+					cls: 'disabled',
+					id: 3
+				}
+			]
+		})
+	}
+
+	updateStockTable(language) {
+		this.setState({
+			columns: [
+				{
+					id: 'mvStockCode',
+					Header: language.accountinfo.header.stock,
+					accessor: 'mvStockCode',
+					width: 90,
+					skip: false,
+					show: true,
+				},
+				{
+					id: 'mvTotalValue',
+					Header: language.accountinfo.header.vol,
+					accessor: 'mvTotalValue',
+					width: 70,
+					skip: false,
+					show: true,
+				},
+				{
+					Header: language.accountinfo.header.tradeinday,
+					headerClassName: language.accountinfo.header.tradeinday,
+					columns: [{
+						Header: language.accountinfo.header.bought,
+						width: 150,
+						accessor: 'mvTTodayBuy',
+					}, {
+						Header: language.accountinfo.header.sold,
+						width: 150,
+						accessor: 'mvTTodaySell'
+					}]
+				}
+			]
+		})
+	}
+
 
 
 	componentWillReceiveProps(nextProps) {
-		this.updateCash(nextProps.accountBalance)
-		this.updateCashBank(nextProps.accountBalanceBank)
-		this.updateOverdueDebt(nextProps.overdueDebt)
-		this.updateUpcomingDueDebt(nextProps.upcomingDebt)
+		this.updateCash(nextProps.accountBalance, nextProps.language)
+		this.updateCashBank(nextProps.accountBalanceBank, nextProps.language)
+		this.updateOverdueDebt(nextProps.overdueDebt, nextProps.language)
+		this.updateUpcomingDueDebt(nextProps.upcomingDebt, nextProps.language)
+		this.updateTabList(nextProps.language)
+		this.updateStockTable(nextProps.language)
 	}
 
 
@@ -444,7 +511,7 @@ class AccountInfo extends Component {
 													<table className="table">
 														<tbody >
 															{
-																this.cashBank.map((d, i) => {
+																this.state.cashBank.map((d, i) => {
 																	if (i % 2 != 0) {
 																		return (
 																			<tr style={{ backgroundColor: rowodd, color: font2 }} >
@@ -477,7 +544,7 @@ class AccountInfo extends Component {
 													<table className="table">
 														<tbody >
 															{
-																this.cash.map((d, i) => {
+																this.state.cash.map((d, i) => {
 																	if (i % 2 != 0) {
 																		return (
 																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
@@ -538,7 +605,7 @@ class AccountInfo extends Component {
 													<table className="table">
 														<tbody >
 															{
-																this.overdueDebt.map((d, i) => {
+																this.state.overdueDebt.map((d, i) => {
 																	if (i % 2 != 0) {
 																		return (
 																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
@@ -570,7 +637,7 @@ class AccountInfo extends Component {
 														<table className="table">
 															<tbody >
 																{
-																	this.upcomingDebt.map((d, i) => {
+																	this.state.upcomingDebt.map((d, i) => {
 																		if (i % 2 != 0) {
 																			return (
 																				<tr style={{ backgroundColor: rowodd, color: font2 }}>
@@ -610,9 +677,6 @@ class AccountInfo extends Component {
 	}
 
 	onTabClick(tab, e) {
-		console.log(e, tab)
-
-
 		if (tab === 1) {
 			this.props.getStockInfo(this.stockParams)
 		}

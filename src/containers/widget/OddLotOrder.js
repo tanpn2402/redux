@@ -31,7 +31,8 @@ class OddLotOrder extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    filterable: false
                 },
                 {
                     id: 'stockID',
@@ -98,7 +99,8 @@ class OddLotOrder extends Component {
                         )
                     },
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    filterable: false
                 },
                 {
                     id: 'stockID',
@@ -174,7 +176,7 @@ class OddLotOrder extends Component {
                             data={oddLotOrder.oddLotList.slice(
                                 (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
                                 this.state.oddLotOrderPageIndex * this.defaultPageSize)}
-                            handleOnRowSelected={(param) => this.onRowSelected(param)} />
+                            onRowSelected={(param) => this.onRowSelected(param)} />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -266,6 +268,7 @@ class OddLotOrder extends Component {
 
     registerOddLotOrder(e) {
         e.preventDefault();
+        //console.log(this.props.language, this.rowSelected)
         if (this.rowSelected.length > 0) {
             this.props.beforeRegisterOddLot({
                 language: this.props.language,

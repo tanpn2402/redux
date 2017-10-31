@@ -4,8 +4,10 @@ import { Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
+import DataTable from '../commons/DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
+import Select from '../commons/Select'
+
 
 class OddLotSubmit extends Component {
     constructor(props) {
@@ -51,7 +53,6 @@ class OddLotSubmit extends Component {
                 Header: this.props.language.oddlottrading.header.oddlotquantity,
                 accessor: 'oddLotQty',
                 Cell: props => {
-                    console.log(props)
                     return (
                         <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
                             min="0" max={props.original.oddLotQty} />
@@ -89,7 +90,6 @@ class OddLotSubmit extends Component {
                     Header: nextProps.language.oddlottrading.header.oddlotquantity,
                     accessor: 'oddLotQty',
                     Cell: props => {
-                        console.log(props)
                         return (
                             <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
                                 min="0" max={props.original.oddLotQty} />
@@ -136,7 +136,6 @@ class OddLotSubmit extends Component {
                 }
             }
 
-            console.log(this.authParams)
             this.props.submitOddLot({
                 oddLotData: data,
                 annoucementId: this.props.data.annoucementId,
@@ -154,12 +153,12 @@ class OddLotSubmit extends Component {
 
     }
 
-    handleChange(e) {
-        var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
+    handleChange({ option }) {
+        var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === option.mvSettlementAccountDisplayName)
         if (bank.length > 0) {
             this.mvInterfaceSeq = bank[0].mvInterfaceSeq
         }
-        else if (e.target.value === "MAS") {
+        else if (option.mvSettlementAccountDisplayName === "MAS") {
             this.mvInterfaceSeq = -1
         }
     }
@@ -174,21 +173,18 @@ class OddLotSubmit extends Component {
 
     render() {
         var bankinfo = this.props.bankinfo
+        console.log(bankinfo.mvBankInfoList)
         return (
             <div style={{ textAlign: 'center' }}>
                 <Modal.Body>
                     <div className="oddlotdropdownlist">
                         <span>
                             <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
-                            <select onChange={this.handleChange.bind(this)}>
-                                {
-                                    bankinfo.mvBankInfoList.map(e => {
-                                        return (
-                                            <option value={e.mvSettlementAccountDisplayName}>{e.mvSettlementAccountDisplayName}</option>
-                                        )
-                                    })
-                                }
-                            </select>
+                            <Select
+                                options={['a', 'b', 'c', 'd', 'e']}
+                                onChange={this.handleChange.bind(this)}
+                                optionLabelPath={'mvSettlementAccountDisplayName'}
+                            />
                         </span>
                     </div>
                     <DataTable
