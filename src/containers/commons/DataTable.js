@@ -6,7 +6,8 @@ export default class DataTable extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			columns: []
+			columns: [],
+			sorted: []
 		}
 
 		this.colA = {
@@ -42,7 +43,8 @@ export default class DataTable extends React.Component {
 		if (!this.props.id.includes('-table')) {
 			newColumns = this.state.columns.map((column) => {
 				return Object.assign({}, column, {
-					Header: headerRenderer(this, column.id, column, column.Header)
+					Header: headerRenderer(this, column.id, column, column.Header),
+					headerStyle: { boxShadow: 'none' }
 				})
 			})
 		}
@@ -50,6 +52,7 @@ export default class DataTable extends React.Component {
 			<div className="hks-table" id={this.props.id}>
 				<ReactTable
 					filterable={this.props.filterable != undefined ? this.props.filterable : false}
+					onSortedChange={(sorted) => this.setState({ sorted: sorted })}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -214,10 +217,16 @@ function expand(data) {
 }
 
 function headerRenderer(component, id, column, text) {
+	let col = component.state.sorted.filter(col => col.id == id)
+	let classSort = ''
+	if (col.length) {
+		classSort = col[0].desc ? 'glyphicon glyphicon-sort-by-attributes-alt'
+			: 'glyphicon glyphicon-sort-by-attributes'
+	}
 	switch (id) {
 		case 'cb':
 			return (
-				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox" 
+				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox"
 					onChange={() => component.props.onRowSelected('ALL')} />
 			)
 		default:
@@ -227,7 +236,7 @@ function headerRenderer(component, id, column, text) {
 					onMouseEnter={e => component.handleOnMouseEnter(e)}
 					onMouseDown={e => component.handleOnMouseDown(e)}
 					onMouseUp={(e) => component.handleOnMouseUp(e)}
-				>{text}</div>
+				>{text} <span className={classSort}></span></div>
 			)
 	}
 }

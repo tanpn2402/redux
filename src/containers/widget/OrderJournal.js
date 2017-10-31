@@ -8,6 +8,7 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
+import Select from '../commons/Select'
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -176,9 +177,9 @@ class OrderJournal extends Component {
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title id={this.id}
-                    theme={this.props.theme} 
+                    theme={this.props.theme}
                     language={this.props.language}
-                    columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)} 
+                    columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -346,15 +347,32 @@ class OrderJournal extends Component {
                         }
                     },
                     Filter: ({ filter, onChange }) => {
-                        return (<select
-                            onChange={event => onChange(event.target.value)}
-                            style={{ width: '100%' }}
-                            value={filter ? filter.value : 'all'}
-                        >
-                            <option value='all'>Show All</option>
-                            <option value='B'>{nextProps.language.searchbar.buy}</option>
-                            <option value='S'>{nextProps.language.searchbar.sell}</option>
-                        </select>)
+                        let arr = [
+                            {
+                                value: 'all',
+                                name: 'Show All'
+                            },
+                            {
+                                value: 'B',
+                                name: nextProps.language.searchbar.buy
+                            },
+                            {
+                                value: 'S',
+                                name: nextProps.language.searchbar.sell
+                            }
+                        ]
+                        return (
+                            <Select
+                                options={arr}
+                                optionLabelPath={'name'}
+                                selected={filter ? filter.value == 'B' ?
+                                    nextProps.language.searchbar.buy : filter.value == 'all' ? 'Show All' : nextProps.language.searchbar.sell
+                                    : 'Show All'}
+                                onChange={e => onChange(e.option.value)}
+                                showClear={false}
+                                searchEnabled={false}
+                            />
+                        )
                     }
                 },
                 {

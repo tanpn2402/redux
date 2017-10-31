@@ -14,6 +14,7 @@ import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
+import Select from '../commons/Select'
 
 class FundTransPanel extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class FundTransPanel extends Component {
         this.state = {
             isExternalFilter: true,
             receivers: [],
+            destClientID: ''
         }
 
         this.handleInputChange = this
@@ -109,13 +111,13 @@ class FundTransPanel extends Component {
                                                 onClick={(e => {
                                                     this.setState({
                                                         isExternalFilter: true,
-                                                        receivers: this.listReceiverExternal
+                                                        receivers: this.listReceiverExternal,
+                                                        destClientID: ''
                                                     })
 
                                                     this.beneficiaryfullname.disabled = false
                                                     this.bankName.disabled = false
                                                     this.bankBranch.disabled = false
-                                                    this.destClientID.value = ""
                                                     this.beneficiaryfullname.value = ""
                                                     this.bankName.value = ""
                                                     this.bankBranch.value = ""
@@ -131,12 +133,12 @@ class FundTransPanel extends Component {
                                                 onClick={(e => {
                                                     this.setState({
                                                         isExternalFilter: false,
-                                                        receivers: this.listReceiverInternal
+                                                        receivers: this.listReceiverInternal,
+                                                        destClientID: ''
                                                     })
                                                     this.beneficiaryfullname.disabled = true
                                                     this.bankName.disabled = true
                                                     this.bankBranch.disabled = true
-                                                    this.destClientID.selectedIndex = -1
                                                     this.beneficiaryfullname.value = ""
                                                     this.bankName.value = ""
                                                     this.bankBranch.value = ""
@@ -150,21 +152,14 @@ class FundTransPanel extends Component {
                                     <tr style={{ backgroundColor: roweven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
-                                            <select
-                                                className="hks-select"
-                                                required
-                                                ref={e => this.destClientID = e}
-                                                name="destClientID"
-                                                onChange={(e) => this.handleInputChange(e)}
-                                                style={{
-                                                    width: "100%",
-                                                    "border-radius": "2px"
-                                                }}>
-                                                <option style={{ display: "none" }}></option>
-                                                {(this.state.receivers == undefined)
-                                                    ? []
-                                                    : this.state.receivers.map((reciever => <option key={reciever.receiverAccID} value={reciever.receiverAccID}>{reciever.receiverAccID}</option>))};
-                                            </select>
+
+                                            <Select
+                                                options={this.state.receivers}
+                                                searchEnabled={false}
+                                                selected={this.state.destClientID}
+                                                optionLabelPath={'receiverAccID'}
+                                                onChange={e => this.handleInputChange(e.option)}
+                                            />
                                         </td>
                                     </tr>
                                     <tr style={{ backgroundColor: rowodd, color: font2 }} >
@@ -244,23 +239,28 @@ class FundTransPanel extends Component {
     //
     //Update paramsfund on user's input change
     handleInputChange(e) {
-        if (e.target.value == "")
-            return;
-        var curReciever = this
-            .state
-            .receivers
-            .find((reciever) => {
-                return e.target.value == reciever.receiverAccID
+        if (e) {
+            console.log(this.destClientID)
+            if (e.receiverAccID == "")
+                return;
+            var curReciever = this.state.receivers.find((reciever) => {
+                return e.receiverAccID == reciever.receiverAccID
             })
-        this.bankName.value = curReciever.receiverBankName
-        this.beneficiaryfullname.value = curReciever.receiverName
+            this.bankName.value = curReciever.receiverBankName
+            this.beneficiaryfullname.value = curReciever.receiverName
+            this.setState({ destClientID: e.receiverAccID })
+        } else {
+            this.setState({ destClientID: '' })
+            this.beneficiaryfullname.value = ''
+            this.bankName.value = ''
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault()
         var params = {
             mvBankId: 'VDSC',
-            mvDestClientID: this.destClientID.value,
+            mvDestClientID: this.state.destClientID,
             mvDestBankID: '',
             inputBankName: this.bankName.value,
             inputBankBranch: this.bankBranch.value,
