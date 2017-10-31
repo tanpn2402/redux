@@ -371,7 +371,6 @@ export default class DataTable extends React.Component {
 	}
 
 	handleMouseMove(e) {
-		
 		if (this.dragLabel==null || this.dragLabel==undefined) {
 			return;
 		}
@@ -381,6 +380,8 @@ export default class DataTable extends React.Component {
 		var curCompRect = this.curComp.getBoundingClientRect()
 		var x = e.pageX - curCompRect.left
 		var y = e.pageY - curCompRect.top
+
+
 
 		this.dragLabel.style.left = x + "px"
 		this.dragLabel.style.top = y + "px"
@@ -396,6 +397,9 @@ export default class DataTable extends React.Component {
 		} else {
 			return;
 		}
+
+		this.dragHighlight.style.height = curCompRect.height + "px"
+		
 		if (!curCol.reorderable || !this.colsWidth[this.fromColIndex].reorderable || (this.isDoubleHeaderTable && (curCol.parent==null || this.colsWidth[this.fromColIndex].parent == null))) {
 			this.dragHighlight.style.border = "3px solid rgba(220, 220, 220, .5)"
 		}else {
@@ -403,7 +407,7 @@ export default class DataTable extends React.Component {
 		}
 		this.dragHighlight.style.left = curCol.s + "px"
 		this.dragHighlight.style.width = curCol.w + "px"
-		
+
 
 	}
 			
