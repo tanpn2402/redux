@@ -15,7 +15,9 @@ export const ActionTypes = {
   // menu_selected
   MENU_SELECTED: 'MENU_SELECTED',
   TABCLICKEVENT: 'TABCLICKEVENT',
-
+  OPENSIDEMENU: 'OPENSIDEMENU',
+  OPENSEARCH: 'OPENSEARCH',
+  
   // cash transaction history
   CASHTRANSHISTORY: 'CASHTRANSHISTORY',
 

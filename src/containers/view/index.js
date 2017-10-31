@@ -7,6 +7,7 @@ import Management from './Management'
 import Customization from './Customization'
 import TransHistory from './TransHistory'
 import OrderJournalTab from './OrderJournalX'
+import Mobile from './Mobile'
 
 export default function (menuid, props){
 	switch(menuid){
@@ -35,6 +36,10 @@ export default function (menuid, props){
 	case 'customization':
 		return(
 			<Customization language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		)
+	case 'mobile':
+		return(
+			<Mobile language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
 		)
 	default: return
 	}

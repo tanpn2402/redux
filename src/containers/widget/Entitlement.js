@@ -9,9 +9,9 @@ class Entitlement extends Component {
         super(props)
 
         this.widget = [
+            'entitlementPanel',
             'actionRightList',
             'additionSharesInfo',
-            'entitlementPanel',
             'entitlementHistory',
         ]
 

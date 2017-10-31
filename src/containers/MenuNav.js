@@ -12,6 +12,7 @@ class MenuNav extends Component {
         super(props)
 
         this.tabbar = config.tabbar
+        console.log(this.tabbar)
     }
 
     render() {
@@ -34,21 +35,25 @@ class MenuNav extends Component {
                         <nav className='vertical-align-middle'>
                             {
                                 this.tabbar.map(tab => {
-                                    return (
-                                        <span key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
-                                            onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
+                                    console.log(tab)
+                                    if(tab.enabled) {
+                                        return (
+                                            <span key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
+                                                onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
 
-                                            {language.tab[tab.title]}
-                                            {/* <button
-                                                className="hks-btn btn-tab-reload"
-                                                type="button"
-                                                onClick={e => this.onReloadPage(tab.id)}
-                                            >
-                                                <span className="glyphicon glyphicon-repeat"></span>
-                                            </button> */}
+                                                {language.tab[tab.title]}
+                                                {/* <button
+                                                    className="hks-btn btn-tab-reload"
+                                                    type="button"
+                                                    onClick={e => this.onReloadPage(tab.id)}
+                                                >
+                                                    <span className="glyphicon glyphicon-repeat"></span>
+                                                </button> */}
 
-                                        </span>
-                                    )
+                                            </span>
+                                        )
+                                    }
+                                    
                                 })
                             }
 

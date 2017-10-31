@@ -10,7 +10,8 @@ export default
             "orderjournal": "Order Journal",
             "transhistory": "Trans History",
             "management": "Management",
-            "customization": "Customization"
+            "customization": "Customization",
+            "mobile": "mobile"
         },
         "setting": {
             "language": {
