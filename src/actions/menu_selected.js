@@ -93,6 +93,7 @@ export function onPageClicked(pageid, tabList) {
 };
 
 export function onTabClick(tabID, subTabID){
+    console.log(tabID, subTabID)
     //Save tabID into localstorage
     if (tabID != null) {
         localStorage.setItem('lastTabID',tabID)
@@ -187,4 +188,32 @@ function savedLayout(data, language, dispatch) {
     return {
         type: ActionTypes.SAVELAYOUT,
     }
+}
+
+export function openSideMenu(open) {
+    return {
+        type: ActionTypes.OPENSIDEMENU,
+        open: open
+    }
+}
+
+export function openSearch(open) {
+    return {
+        type: ActionTypes.OPENSEARCH,
+        open: open
+    }
+}
+
+export function onMobileMenuSelect(id) {
+    var curWidgets = config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget
+    var newWidget = config.widgetMobile.filter(el => el.i === id)
+    console.log(newWidget)
+    if (newWidget.length > 0) {
+        var widget = newWidget[0]
+        config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget = [...curWidgets, widget]
+
+        console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget)
+    }
+
+    return dispatch => dispatch(onTabClick('mobile', id))
 }

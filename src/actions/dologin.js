@@ -78,13 +78,15 @@ export function checkAuth(){
                     return (dispatch) => {
                         api.get(ACTION.UICFGMANAGEMENT, {mvAction: 'QUERYDEFAULT'}, dispatch, function(responseForGetUserData){
                             // get user saved data SUCCESS
-                            
+                            console.log('asdads', config.tabbar)
                             // save to config
                             if (responseForGetUserData && responseForGetUserData.mvCfgList.length > 0) {
                                 try {
                                     var savedContent = $.parseJSON(responseForGetUserData.mvCfgList[0].SAVEDCONTENT)
                                     if(savedContent.layout) {
-                                        config.tabbar = savedContent.layout
+                                        // config.tabbar = Object.assign(config.tabbar, savedContent.layout)
+                                        // // config.tabbar = savedContent.layout
+                                        // console.log(config.tabbar)
                                     }
                                     if(savedContent.lang) {
                                         // if saved content has language element

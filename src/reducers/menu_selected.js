@@ -7,6 +7,10 @@ const initialState = {
     subTabID: localStorage.getItem('lastSubTabID')!=null?localStorage.getItem('lastSubTabID'):'enterorder',
     widgetList: [],
     load: false,
+
+    openSearch: false,
+    openMenu: false,
+    
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +50,16 @@ export default function (state = initialState, action) {
             return Object.assign({}, state, {
                 savedcontent: action.savedcontent
             })
+
+        case ActionTypes.OPENSIDEMENU:
+            return Object.assign({}, state, {
+                openMenu: action.open !== undefined ? action.open : !state.openMenu
+            });
+
+        case ActionTypes.OPENSEARCH:
+            return Object.assign({}, state, {
+                openSearch: action.open !== undefined ? action.open : !state.openSearch
+            });
 
         default:
             break;

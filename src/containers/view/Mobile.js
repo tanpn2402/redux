@@ -5,14 +5,14 @@ import GridLayout from '../main/CustomizationGridLayout.js'
 import config from '../../core/config'
 
 
-class Customization extends Component {
+class Mobile extends Component {
     constructor(props) {
         super(props)
-        this.customConfig = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")]
+        this.customConfig = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="mobile")]
         this.state = {
             layout : this.customConfig.widget.length>0?this.customConfig.widget:[]
         }
-
+        //console.log(this.state.layout)
         this.reloadWidget = this.reloadLayout.bind(this)
     }
 
@@ -26,12 +26,18 @@ class Customization extends Component {
         }
     }
 
+    
+
+    
+
     reloadLayout(){
-        var widgets = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")].widget
+        var widgets = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="mobile")].widget
 
         this.setState({
             layout : widgets.length > 0 ? [...widgets] : []
         })
+
+        //console.log(this.state.layout)
     }
 
 
@@ -58,4 +64,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Customization)
+export default connect(mapStateToProps, mapDispatchToProps)(Mobile)

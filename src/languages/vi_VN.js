@@ -10,7 +10,8 @@ export default
             "orderjournal": "Tra cứu lệnh giao dịch",
             "transhistory": "Tra cứu lịch sử giao dịch",
             "management": "Dịch vụ khác",
-            "customization": "Tùy chỉnh"
+            "customization": "Tùy chỉnh",
+            "mobile": "mobile"
         },
         "setting": {
             "language": {
