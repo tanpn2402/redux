@@ -3,15 +3,14 @@ import ReactTable from "react-table"
 import "react-table/react-table.css"
 import ReactDOM from 'react-dom'
 import Config from '../../core/config'
-import { log } from '../../ttl/utils/TTLUtils'
 
 export default class DataTable extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			mouseDownCol: null,
-			columns: this.props.columns,
-			resized: []
+			resized: [],
+			language: this.props.language,
 		}
 
 		this.colA = {
@@ -23,6 +22,7 @@ export default class DataTable extends React.Component {
 			object: {}
 		}
 
+		this.isHeaderRendered = false
 		this.isDoubleHeaderTable = false
 		this.scrollLeft = 0
 		this.mousePos = {x: 0, y:0}
@@ -37,105 +37,39 @@ export default class DataTable extends React.Component {
 		this.handleOnMouseUp = this.handleOnMouseUp.bind(this)
 		this.handleMouseMove = this.handleMouseMove.bind(this)
 		this.handleOnMouseDown = this.handleOnMouseDown.bind(this)
-		log("===========will mount ",this.props.id, this.curComp)
-		
+
 	}
-
-	// getCurColsOrder(columns) {	
-	// 	log(this.isDoubleHeader)	
-	// 	var result = []
-	// 	for (let col of columns){
-	// 		log(col)
-	// 		if (this.isDoubleHeader){
-	// 			result = result.concat(col.columns.map(subCol=>({
-	// 				id: subCol.id,
-	// 				parent: col.id,
-	// 			})))
-	// 		}else{
-	// 			result.push({id: col.id})
-	// 		}
-	// 	}
-	// 	return result
-	// }
-
-
+	
 	// COMPONENT LIFE CYCLE
 	componentWillMount() {
-		log("===========will mount ",this.props.id, this.curComp)
+		this.loadHeaderLanguage(this.props.language)
 	}
 
 	componentDidMount() {
-		log("===========did mount ",this.props.id, this.curComp)
+		this.curComp.style.overflow = "hidden"
 	}
 	
 	componentWillUnmount() {
 		// Make sure to remove the DOM listener when the component is unmounted.
-		log("===========will unmount ",this.props.id)		
 		
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.columns) {document.getElementsByClassName("customCol")
-			//Get columns model
-			var colsOrderInConfig = Config.tableColReorder.find(tbl=>tbl.id==this.props.id)
-			var colsWidthInConfig = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
-
-			if (colsOrderInConfig!=undefined){
-				this.colsOrder = colsOrderInConfig.colsOrder
-			}
-
-			if (colsWidthInConfig!=undefined){
-				this.setState({resized: colsWidthInConfig.colsWidth})
-			}
-			var newColumns = nextProps.columns
-			if (this.colsOrder != null) {
-				newColumns = this.colsOrder(curColInfo => {
-					var curCol = nextProps.columns.find(col => col.id == curColInfo.id)
-					if (curCol.columns != null) {
-						var newSubCol = curColInfo.columns.map(subCol => (curCol.columns.find(col => 
-																			col.id == subCol.id)))
-						curCol.columns = newSubCol
-					}
-					return curCol
-				})
-			}
-			// if (this.colsOrder!=null){
-			// 	var curParent = null
-			// 	var newIndex = 0				
-			// 	this.colsOrder.map(colInConf=>{
-			// 		if (colInConf.parent!=null){
-			// 			if (curParent==null || colInConf.parent != curParent.id){
-			// 				newIndex = 0
-			// 				curParent = nextProps.columns.find(col=>(
-			// 					col.id == colInConf.parent
-			// 				))
-			// 			}
-			// 			var curColIndex = curParent.columns.findIndex(col=>col.id==colInConf.id)
-			// 			var temp = curParent.columns[newIndex]
-			// 			curParent.columns[newIndex] = curParent.columns[curColIndex]
-			// 			curParent.columns[curColIndex] = temp
-			// 			newIndex++
-			// 		} else {
-			// 			var curColIndex = nextProps.columns.findIndex(col=>col.id==colInConf.id)
-			// 			var temp = nextProps.columns[newIndex]
-			// 			nextProps.columns[newIndex] = nextProps.columns[curColIndex]
-			// 			nextProps.columns[curColIndex] = temp
-			// 			newIndex++
-			// 		}
-			// 	})
-			// }
+		
+		if (this.state.language != nextProps.language) {
 			this.setState({
-				columns: newColumns
+				language: nextProps.language
 			})
-			log("Will receive props ", newColumns, this.colsOrder)
+			this.loadHeaderLanguage(nextProps.language)		
 		}
+		
 	}
 
 	
 
 	
 	render() {
-		log("Render",this.props.id)
+		
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
 		let filterrow = this.props.theme.table.filterrow
@@ -151,10 +85,11 @@ export default class DataTable extends React.Component {
 
 		let notPopupTable = !this.props.id.includes('-table')
 
-		if (notPopupTable) { //Then render div in header
+		
+
+		if (notPopupTable && !this.isHeaderRendered) { //Then render div in header
 			newStateColumns = this.state.columns.map((column) => {
-				let tableHasSubColumns = column.columns!=null
-				
+				let tableHasSubColumns = column.columns != null
 				if (tableHasSubColumns) {
 					if (!this.isDoubleHeaderTable){
 						this.isDoubleHeaderTable = true
@@ -163,21 +98,20 @@ export default class DataTable extends React.Component {
 					var newSubColumns = column.columns.map(subColumn=>{
 						//Render header
 						return Object.assign({}, subColumn, {
-							Header: headerRenderer(this, subColumn.id, subColumn.reorderable, subColumn.Header, subColumn.parent)
+							Header: this.headerRenderer(this, subColumn.id, subColumn.reorderable, subColumn.Header, subColumn.parent)
 						})
 					})
 					return Object.assign({}, column, {"columns": newSubColumns})
 				}else{
 					//Render div header in columns header
 					return Object.assign({}, column, {
-						Header: headerRenderer(this, column.id, column.reorderable, column.Header)
+						Header: this.headerRenderer(this, column.id, column.reorderable, column.Header)
 					})
 				}
 			})
 
 			this.state.columns = newStateColumns
 		}
-		log(Config.tableColReorder)
 		return (
 			<div ref={e=>{this.curComp = e}} className="hks-table" id={this.props.id} onScroll={e=>this.handleOnScroll(e)}>
 				<ReactTable
@@ -211,7 +145,6 @@ export default class DataTable extends React.Component {
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
-						console.log(state, rowInfo, column, instance)
 						return {
 							style: {
 								color: font3,
@@ -268,7 +201,7 @@ export default class DataTable extends React.Component {
 			"e": "",
 			"w": "",
 			"reorderable": "",
-			"parent": ""
+			"parent": null
 		}
 
 		//Check double header
@@ -281,7 +214,7 @@ export default class DataTable extends React.Component {
 		
 		//Check reorderable props
 		let reorderable = (colNode.className.indexOf("reorderable")===-1?false:true)
-		let width = this.getComponentExactWidth(colNode.parentNode) + BORDER_WIDTH
+		let width = getComponentExactWidth(colNode.parentNode) + BORDER_WIDTH
 		let end = start + width
 
 		return Object.assign( {}, DEF_COL_SIZE,
@@ -307,14 +240,13 @@ export default class DataTable extends React.Component {
 		var curColsWidthInConf = Config.tableColWidth.find(tbl=>tbl.id==this.props.id)
 		if (curColsWidthInConf == undefined){
 			curColsWidthInConf = resized
-			Config.tableColWidth = [...Config.tableColWidth, {id:this.props.id,colsWidth:curColsWidthInConf}]
+			Config.tableColWidth = [...Config.tableColWidth, {id:this.props.id,colsResized:curColsWidthInConf}]
 		}
-		curColsWidthInConf.colsWidth = resized
+		curColsWidthInConf.colsResized = resized
 	}
 
 	// DYNAMIC RENDERERS
 	mountColLabelCursor (newLabel,newLabelID) {
-		log("mount portal ",this.props.id, this.curComp)
 		if (this.dragLabel!=null){
 			this.unmountColLabelCursor()
 		}
@@ -327,7 +259,7 @@ export default class DataTable extends React.Component {
 		
 		this.curComp.appendChild(this.dragLabel)
 
-		this.getColsSizeArray()
+		this.getColsSizeArray(this.curComp)
 
 		//which col is being selected
 		this.toColIndex = this.colsWidth.findIndex(col=>(col.id==newLabelID))
@@ -340,13 +272,12 @@ export default class DataTable extends React.Component {
 		this.dragHighlight.style.width = curCol.w + "px"
 		var parentTable = document.getElementsByClassName('datatable -striped')[0]
 		this.dragHighlight.style.top = window.getComputedStyle(this.curComp.parentNode).getPropertyValue("padding-top")
-		this.dragHighlight.style.height = this.getComponentExactHeight(parentTable) + "px"
+		this.dragHighlight.style.height = getComponentExactHeight(parentTable) + "px"
 		this.curComp.appendChild(this.dragHighlight)
 		
 	}
 
 	unmountColLabelCursor() {
-		log("unmount portal ",this.props.id)
 		
 		if (this.dragLabel == null) {
 			return
@@ -366,6 +297,70 @@ export default class DataTable extends React.Component {
 		this.fromColIndex = -1
 	}
 
+	loadHeaderOrder(config) {
+		this.isHeaderRendered = false		
+		
+		//Get columns model
+		var colsOrderInConfig = config.tableColReorder.find(tbl=>tbl.id==this.props.id)
+		var colsWidthInConfig = config.tableColWidth.find(tbl=>tbl.id==this.props.id)
+
+		if (colsOrderInConfig!=undefined){
+			this.colsOrder = colsOrderInConfig.colsOrder
+		}else{
+			this.colsOrder = getColsOrder(JSON.parse(JSON.stringify(this.props.columns)))
+		}
+
+		if (colsWidthInConfig!=undefined){
+			this.setState({resized: colsWidthInConfig.colsResized})
+		}
+
+		var newColumns = JSON.parse(JSON.stringify(this.props.columns))
+		
+		if (this.colsOrder != null) {
+			newColumns = this.colsOrder.map(curColInfo => {
+				var curCol = this.props.columns.find(col => col.id == curColInfo.id)
+				if (curCol.columns != null) {
+					var newSubCol = curColInfo.columns.map(subCol => (curCol.columns.find(col => 
+																		col.id == subCol.id)))
+					curCol.columns = newSubCol
+				}
+			return Object.assign({}, curCol)
+			})
+		}
+		return newColumns
+		
+	}
+
+	loadHeaderLanguage(language) {
+		this.isHeaderRendered = false
+		
+		var translatedHeaders = this.loadHeaderOrder(Config)
+		for (var col of translatedHeaders) {
+			if (col.Header == undefined){
+				if (language[col.id] != undefined){
+					col.Header = language[col.id]
+				}else {
+					col.Header = col.id
+				}
+			}
+
+			if (col.columns != undefined) {
+				col.columns = col.columns.map(subCol => {
+					if (language[subCol.id]!=undefined){
+						subCol.Header =language[subCol.id]
+					}else {
+						subCol.Header = subCol.id
+					}
+
+					return subCol
+				})
+			}
+			
+		}
+		this.setState({
+			columns: translatedHeaders
+		})
+	}
 
 	// EVENT HANDLERS
 	handleOnScroll(e) {
@@ -380,7 +375,6 @@ export default class DataTable extends React.Component {
 		if (this.dragLabel==null || this.dragLabel==undefined) {
 			return;
 		}
-		log("mouse move ",this.props.id)
 		
 		if (this.curComp == null) return
 		
@@ -409,33 +403,30 @@ export default class DataTable extends React.Component {
 		}
 		this.dragHighlight.style.left = curCol.s + "px"
 		this.dragHighlight.style.width = curCol.w + "px"
+		
 
 	}
 			
 
 	handleOnMouseDown(e) { // begin dragging	
-		log("mouse down ",this.props.id, this.curComp, this)
 
-		this.colA.object = e.target
-		if (this.colA.object.id == undefined) return
-		let idA = this.colA.object.id
-		let result = this.state.columns.findIndex((column) => {
-			return column.id == idA
-		})
-		this.colA.index = result != -1 ? result : 0
+		// this.colA.object = e.target
+		// if (this.colA.object.id == undefined) return
+		// let idA = this.colA.object.id
+		// let result = this.state.columns.findIndex((column) => {
+		// 	return column.id == idA
+		// })
+		// this.colA.index = result != -1 ? result : 0
 
 		this.mountColLabelCursor(e.target.innerHTML, e.target.id)
 		this.handleMouseMove(e)
-		log("eventlistener will be added",this.curComp)
 		window.addEventListener('mousemove', this.handleMouseMove)
 		window.addEventListener('mouseup', this.handleOnMouseUp)
 	}
 
 	handleOnMouseUp(e) { // end dragging
-		log("mouse up ",this.props.id)
 		var toColumn = this.colsWidth[this.toColIndex]
 		var fromColumn = this.colsWidth[this.fromColIndex]
-		
 		if (this.toColIndex != this.fromColIndex
 		&& toColumn.reorderable
 		&& fromColumn.reorderable){
@@ -445,29 +436,27 @@ export default class DataTable extends React.Component {
 			var colIndexInArray = 0
 
 
-			const FROMCOLUMN_HAS_PARENT = this.colsWidth[this.toColIndex].parent==null
-			const TOCOLUMN_HAS_PARENT = this.colsWidth[this.fromColIndex].parent==null
-			const FROMCOLUMN_TOCOLUMN_SAMEPARENT = this.colsWidth[this.fromColIndex].parent!=this.colsWidth[this.toColIndex].parent
+			const FROMCOLUMN_HAS_PARENT = this.colsWidth[this.toColIndex].parent != null
+			const TOCOLUMN_HAS_PARENT = this.colsWidth[this.fromColIndex].parent != null
+			const FROMCOLUMN_TOCOLUMN_SAMEPARENT = this.colsWidth[this.fromColIndex].parent != this.colsWidth[this.toColIndex].parent
 			
 			if (this.isDoubleHeaderTable){
-				if (FROMCOLUMN_HAS_PARENT || TOCOLUMN_HAS_PARENT || FROMCOLUMN_TOCOLUMN_SAMEPARENT){
+				if (!FROMCOLUMN_HAS_PARENT || !TOCOLUMN_HAS_PARENT || FROMCOLUMN_TOCOLUMN_SAMEPARENT){
 						this.unmountColLabelCursor()
 						return
 				}
-				curColsArray = curColsArray.find(el=>(el.id==this.colsWidth[this.toColIndex].parent)).columns				
+				curColsArray = curColsArray.find(el=>(el.id == this.colsWidth[this.toColIndex].parent)).columns				
 				colIndexInArray = this.colsWidth.find(col=>col.id == curColsArray[0].id).i
-			}
-			log(curColsArray)
+				curColsArray = swap(curColsArray,this.fromColIndex-colIndexInArray, this.toColIndex - colIndexInArray)
+				
+			}else {
+				curColsArray = swap(curColsArray,this.fromColIndex-colIndexInArray, this.toColIndex - colIndexInArray)
 			
-			// Swap two column in Columns State
-			swap(curColsArray[this.fromColIndex-colIndexInArray], curColsArray[this.toColIndex - colIndexInArray])
-			// Swap two column in Columns Order Array
-			swap(curColsOrderArray[this.fromColIndex],curColsOrderArray[this.toColIndex])
+			}
 
 
 			//save for next props update
 			// this.colsOrder = this.getCurColsOrder([...this.state.columns])
-			// log(this.colsOrder)
 			var colsOrderInConfig = Config.tableColReorder.find(tbl=>tbl.id == this.props.id)
 			if (colsOrderInConfig == undefined){
 				colsOrderInConfig = { id: this.props.id, colsOrder: [] }
@@ -475,8 +464,9 @@ export default class DataTable extends React.Component {
 			}
 
 			this.colsOrder = getColsOrder(this.state.columns)
-			colsOrderInConfig = this.colsOrder
+			colsOrderInConfig.colsOrder = this.colsOrder
 
+			
 			this.setState({
 				columns: [...this.state.columns]
 			})
@@ -490,62 +480,33 @@ export default class DataTable extends React.Component {
 			// 	object: {}
 			// }
 		}
+
 		
 		this.unmountColLabelCursor()
-		log("eventlistener will be removed",this.curComp)
 		
 		window.removeEventListener('mousemove', this.handleMouseMove)
 		window.removeEventListener('mouseup', this.handleOnMouseUp)
 	}
 
-	onRowSelected(param) {
-		let rowSelected = []
-		if (param === 'ALL') {
-			var current = document.getElementById(this.props.id + '-cb-all').checked
-			var checkboxes = document.getElementsByClassName(this.props.id + '-row-checkbox')
-			for (var i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].checked = current;
-			}
-			if (current) {
-				switch (this.props.id) {
-					case 'orderjournal':
-						rowSelected = this.props.data !== undefined ?
-							this.props.data.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
-						break;
-					default:
-						rowSelected = this.props.data
-				}
-			} else {
-				rowSelected = []
-			}
-		} else {
-			switch (this.props.id) {
-				case 'matchOrderBankList':
-					var tmp = rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
-
-					if (tmp.length > 0) {
-						// exist in row selected
-						rowSelected = rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
-					} else {
-						rowSelected.push(param)
-					}
-					break;
-				default:
-					var index = this.rowSelected.indexOf(param)
-					if (index === -1) {
-						this.rowSelected.push(param)
-					}
-					else {
-						this.rowSelected.splice(index, 1)
-					}
-			}
-
-			if (document.getElementsByClassName(this.props.id + '-row-checkbox').length === rowSelected.length)
-				document.getElementById(this.props.id + "-cb-all").checked = true
-			else
-				document.getElementById(this.props.id + "-cb-all").checked = false
+	headerRenderer(component, id, reorderable, text, parent) {
+		this.isHeaderRendered = true
+		switch (id) {
+			case 'cb':
+				return (
+					<input id={component.props.id + "-cb-all" + (parent!=undefined?" parent-"+parent:"")} 
+						onMouseDown={e => component.handleOnMouseDown(e)} 
+						type='checkbox'
+						className={"row-checkbox customCol" + (reorderable==false?"":" reorderable")}
+						onChange={() => component.props.onRowSelected('ALL')} />
+				)
+			default:
+				return (
+					<div id={id} className={"customCol " + (reorderable==false?"":" reorderable") + (parent!=undefined?" parent-"+parent:"")}
+						onMouseDown={e => component.handleOnMouseDown(e)}>{text}</div>
+				)
 		}
-		this.props.handleOnRowSelected({ rowSelected: rowSelected })
+		
+	
 	}
 }
 
@@ -558,26 +519,6 @@ function expand(data) {
 	return rows;
 }
 
-function headerRenderer(component, id, reorderable, text, parent) {
-	log("header ran")
-	switch (id) {
-		case 'cb':
-			return (
-				<input id={component.props.id + "-cb-all" + (parent!=undefined?" parent-"+parent:"")} 
-					onMouseDown={e => component.handleOnMouseDown(e)} 
-					type='checkbox'
-					className={"row-checkbox customCol" + (reorderable==false?"":" reorderable")}
-					onChange={() => component.props.onRowSelected('ALL')} />
-			)
-		default:
-			return (
-				<div id={id} className={"customCol " + (reorderable==false?"":" reorderable") + (parent!=undefined?" parent-"+parent:"")}
-					onMouseDown={e => component.handleOnMouseDown(e)}>{text}</div>
-			)
-	}
-	
-
-}
 
 function getComponentExactWidth(e) {
 	let rect = e.getBoundingClientRect()
@@ -601,10 +542,11 @@ function getComponentExactHeight(e) {
 	}
 }
 
-function swap (objA, objB) {
-	let temp = objA
-	objA = objB
-	objB = temp
+function swap (arr, a, b) {
+	let temp = arr[a]
+	arr[a] = arr[b]
+	arr[b] = temp
+	return arr
 }
 
 function getColsOrder(columnsObject) {

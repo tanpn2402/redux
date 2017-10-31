@@ -21,7 +21,7 @@ class OddLotOrder extends Component {
                 {
                     // Create a select-all checkbox
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
@@ -35,40 +35,35 @@ class OddLotOrder extends Component {
                     filterable: false
                 },
                 {
-                    id: 'stockID',
-                    Header: this.props.language.oddlottrading.header.stockid,
+                    id: 'stockid',
                     accessor: 'stockCode',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'TradingQty',
-                    Header: this.props.language.oddlottrading.header.tradingquantity,
+                    id: 'tradingquantity',
                     accessor: 'settledBal',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'OddLotQty',
-                    Header: this.props.language.oddlottrading.header.oddlotquantity,
+                    id: 'oddlotquantity',
                     accessor: 'oddLotQty',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'Curprice',
-                    Header: this.props.language.oddlottrading.header.currentprice,
+                    id: 'currentprice',
                     accessor: 'nominalPrice',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'ExePrice',
-                    Header: this.props.language.oddlottrading.header.exeprice,
+                    id: 'exeprice',
                     accessor: 'collectionPrice',
                     width: 120,
                     skip: false,
@@ -85,64 +80,7 @@ class OddLotOrder extends Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    // Create a select-all checkbox
-                    id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
-                    maxWidth: 50,
-                    width: 40,
-                    Cell: props => {
-                        return (
-                            <input type='checkbox' className={this.id + "-row-checkbox"}
-                                onChange={() => { this.onRowSelected(props.original) }} />
-                        )
-                    },
-                    sortable: false,
-                    skip: true,
-                    filterable: false
-                },
-                {
-                    id: 'stockID',
-                    Header: nextProps.language.oddlottrading.header.stockid,
-                    accessor: 'stockCode',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'TradingQty',
-                    Header: nextProps.language.oddlottrading.header.tradingquantity,
-                    accessor: 'settledBal',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'OddLotQty',
-                    Header: nextProps.language.oddlottrading.header.oddlotquantity,
-                    accessor: 'oddLotQty',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'Curprice',
-                    Header: nextProps.language.oddlottrading.header.currentprice,
-                    accessor: 'nominalPrice',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'ExePrice',
-                    Header: nextProps.language.oddlottrading.header.exeprice,
-                    accessor: 'collectionPrice',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-            ],
+            
         })
     }
 
@@ -176,7 +114,8 @@ class OddLotOrder extends Component {
                             data={oddLotOrder.oddLotList.slice(
                                 (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
                                 this.state.oddLotOrderPageIndex * this.defaultPageSize)}
-                            onRowSelected={(param) => this.onRowSelected(param)} />
+                            onRowSelected={(param) => this.onRowSelected(param)} 
+                            language={this.props.language.oddlottrading.header}/>
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -268,7 +207,6 @@ class OddLotOrder extends Component {
 
     registerOddLotOrder(e) {
         e.preventDefault();
-        //console.log(this.props.language, this.rowSelected)
         if (this.rowSelected.length > 0) {
             this.props.beforeRegisterOddLot({
                 language: this.props.language,

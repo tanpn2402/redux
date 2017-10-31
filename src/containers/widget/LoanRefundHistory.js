@@ -40,54 +40,47 @@ class LoanTrans extends Component {
             loanRefundHistoryPageIndex: 1,
             columns: [
                 {
-                    id: 'loanID1',
-                    Header: this.props.language.loanrefund.header.loanID,
+                    id: 'loanID',
                     accessor: this.accessor[0],
                     width: 80,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'tradeDate1',
-                    Header: this.props.language.loanrefund.header.trandate,
+                    id: 'trandate',
                     accessor: this.accessor[1],
                     width: 100,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'refundAmt1',
-                    Header: this.props.language.loanrefund.header.refundamount,
+                    id: 'refundamount',
                     accessor: this.accessor[2],
                     Cell: props => Utils.currencyShowFormatter(props.original.refundAmt, ",", this.lang),
                     width: 100,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'type1',
-                    Header: this.props.language.loanrefund.header.type,
+                    id: 'type',
                     accessor: this.accessor[3],
                     Cell: props => this.getType(props.original.type, this.props.language.loanrefund.status),
                     width: 130,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'status1',
-                    Header: this.props.language.loanrefund.header.status,
+                    id: 'status',
                     accessor: this.accessor[4],
                     width: 100,
                     Cell: props => this.getStatus(props.original.status, this.props.language.loanrefund.status),
                     show: true,
                     skip: false,
                 }, {
-                    id: 'remark1',
-                    Header: this.props.language.loanrefund.header.remark,
+                    id: 'remark',
                     accessor: this.accessor[5],
                     Cell: props => this.getRemark(props.original.remark, this.props.language.loanrefund.remark),
                     width: 250,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'lastupdate1',
-                    Header: this.props.language.loanrefund.header.lastupdate,
+                    id: 'lastupdate',
                     accessor: this.accessor[6],
                     Cell: props => Utils.formatDate(props.original.lastupdate, 'ddmmyyyy'),
                     width: 150,
@@ -101,64 +94,7 @@ class LoanTrans extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'loanID1',
-                    Header: nextProps.language.loanrefund.header.loanID,
-                    accessor: this.accessor[0],
-                    width: 80,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'tradeDate1',
-                    Header: nextProps.language.loanrefund.header.trandate,
-                    accessor: this.accessor[1],
-                    width: 100,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'refundAmt1',
-                    Header: nextProps.language.loanrefund.header.refundamount,
-                    accessor: this.accessor[2],
-                    Cell: props => Utils.currencyShowFormatter(props.original.refundAmt, ",", this.lang),
-                    width: 100,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'type1',
-                    Header: nextProps.language.loanrefund.header.type,
-                    accessor: this.accessor[3],
-                    Cell: props => this.getType(props.original.type, nextProps.language.loanrefund.status),
-                    width: 130,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'status1',
-                    Header: nextProps.language.loanrefund.header.status,
-                    accessor: this.accessor[4],
-                    width: 100,
-                    Cell: props => this.getStatus(props.original.status, nextProps.language.loanrefund.status),
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'remark1',
-                    Header: nextProps.language.loanrefund.header.remark,
-                    accessor: this.accessor[5],
-                    Cell: props => this.getRemark(props.original.remark, nextProps.language.loanrefund.remark),
-                    width: 250,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'lastupdate1',
-                    Header: nextProps.language.loanrefund.header.lastupdate,
-                    accessor: this.accessor[6],
-                    Cell: props => Utils.formatDate(props.original.lastupdate, 'ddmmyyyy'),
-                    width: 150,
-                    show: true,
-                    skip: false,
-                },
 
-            ]
         })
     }
 
@@ -209,7 +145,8 @@ class LoanTrans extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={loanRefundHistory.loanrefundhistoryList} />
+                            data={loanRefundHistory.loanrefundhistoryList} 
+                            language={this.props.language.loanrefund.header}/>
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar

@@ -3293,7 +3293,6 @@ label {
 #draghighlight {
     display: block;
     position: absolute;
-    z-index: 999;
 }
 
 .ReactTable .rt-tr>.rt-resizable-header {

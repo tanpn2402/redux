@@ -17,104 +17,91 @@ class OrderHistory extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvOrderGroupID',
-                    Header: this.props.language.ordershistory.header.ordergroupid,
+                    id: 'ordergroupid',
                     accessor: 'mvOrderGroupID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvmatchedDate',
-                    Header: this.props.language.ordershistory.header.matcheddate,
+                    id: 'matcheddate',
                     accessor: 'matchedDate',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStockID',
-                    Header: this.props.language.ordershistory.header.stockid,
+                    id: 'stockid',
                     accessor: 'mvStockID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvMarketID',
-                    Header: this.props.language.ordershistory.header.marketid,
+                    id: 'marketid',
                     accessor: 'mvMarketID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvBS',
-                    Header: this.props.language.ordershistory.header.buysell,
+                    id: 'buysell',
                     accessor: 'mvBS',
                     width: 50,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPrice',
-                    Header: this.props.language.ordershistory.header.price,
+                    id: 'price',
                     accessor: 'mvPrice',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvdQty',
-                    Header: this.props.language.ordershistory.header.quantity,
+                    id: 'quantity',
                     accessor: 'mvQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvFilledPrice',
-                    Header: this.props.language.ordershistory.header.filledprice,
+                    id: 'filledprice',
                     accessor: 'mvFilledPrice',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvFilledQty',
-                    Header: this.props.language.ordershistory.header.filledquantity,
+                    id: 'filledquantity',
                     accessor: 'mvFilledQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvAvgPriceValue',
-                    Header: this.props.language.ordershistory.header.matchedvalue,
+                    id: 'matchedvalue',
                     accessor: 'mvAvgPriceValue',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvOrderTypeValue',
-                    Header: this.props.language.ordershistory.header.tradingtype,
+                    id: 'tradingtype',
                     accessor: 'mvOrderTypeValue',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.ordershistory.header.matchedorderstatus,
+                    id: 'matchedorderstatus',
                     accessor: 'mvStatus',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvInputTime',
-                    Header: this.props.language.ordershistory.header.matcheddate,
+                    id: 'tradetime',
                     accessor: 'mvInputTime',
                     width: 80,
                     skip: false,
@@ -155,115 +142,7 @@ class OrderHistory extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns:
-            [
-                {
-                    id: 'mvOrderGroupID',
-                    Header: nextProps.language.ordershistory.header.ordergroupid,
-                    accessor: 'mvOrderGroupID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvmatchedDate',
-                    Header: nextProps.language.ordershistory.header.matcheddate,
-                    accessor: 'matchedDate',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStockID',
-                    Header: nextProps.language.ordershistory.header.stockid,
-                    accessor: 'mvStockID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvMarketID',
-                    Header: nextProps.language.ordershistory.header.marketid,
-                    accessor: 'mvMarketID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvBS',
-                    Header: nextProps.language.ordershistory.header.buysell,
-                    accessor: 'mvBS',
-                    width: 50,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvPrice',
-                    Header: nextProps.language.ordershistory.header.price,
-                    accessor: 'mvPrice',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvdQty',
-                    Header: nextProps.language.ordershistory.header.quantity,
-                    accessor: 'mvQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvFilledPrice',
-                    Header: nextProps.language.ordershistory.header.filledprice,
-                    accessor: 'mvFilledPrice',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvFilledQty',
-                    Header: nextProps.language.ordershistory.header.filledquantity,
-                    accessor: 'mvFilledQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvAvgPriceValue',
-                    Header: nextProps.language.ordershistory.header.matchedvalue,
-                    accessor: 'mvAvgPriceValue',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvOrderTypeValue',
-                    Header: nextProps.language.ordershistory.header.tradingtype,
-                    accessor: 'mvOrderTypeValue',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.ordershistory.header.matchedorderstatus,
-                    accessor: 'mvStatus',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvInputTime',
-                    Header: nextProps.language.ordershistory.header.matcheddate,
-                    accessor: 'mvInputTime',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-
-
-            ]
+            
         });
     }
 
@@ -289,6 +168,7 @@ class OrderHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data}
+                            language = {this.props.language.ordershistory.header}
                         />
                     </div>
 

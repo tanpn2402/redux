@@ -51,6 +51,6 @@ TTLUtils.currencyFormatter = function(original, hasSpace, dp, dSeparator, tSepar
     
 }
 
-export function log(msg){
+export function TTLlog(msg) {
     console.log(msg)
 }
