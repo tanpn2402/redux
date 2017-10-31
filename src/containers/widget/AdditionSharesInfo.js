@@ -17,23 +17,21 @@ class AdditionSharesInfo extends Component {
             filterable: false,
             columns: [
                 {
-                    id: 'stockId',
-                    Header: this.props.language.entitlement.header.stock,
+                    id: 'stock',
                     accessor: 'stockId',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'bookCloseDate',
-                    Header: this.props.language.entitlement.header.recorddate,
+                    id: 'recorddate',
                     accessor: 'bookCloseDate',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'totalBonusRight',
+                    id: 'owningvolume',
                     Header: this.props.language.entitlement.header.owningvolume,
                     accessor: 'totalBonusRight',
                     width: 100,
@@ -41,32 +39,28 @@ class AdditionSharesInfo extends Component {
                     show: true,
                 },
                 {
-                    id: 'rightRate',
-                    Header: this.props.language.entitlement.header.rightrate,
+                    id: 'rightrate',
                     accessor: 'rightRate',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'actionRate',
-                    Header: this.props.language.entitlement.header.actionrate,
+                    id: 'actionrate',
                     accessor: 'actionRate',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'maxQtyCanBuy',
-                    Header: this.props.language.entitlement.header.availableqty,
+                    id: 'availableqty',
                     accessor: 'maxQtyCanBuy',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'price',
-                    Header: this.props.language.entitlement.header.actionprice,
+                    id: 'actionprice',
                     accessor: 'price',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
@@ -76,24 +70,21 @@ class AdditionSharesInfo extends Component {
                     show: true,
                 },
                 {
-                    id: 'startDate',
-                    Header: this.props.language.entitlement.header.startdate,
+                    id: 'startdate',
                     accessor: 'startDate',
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'bookCloseDate1',
-                    Header: this.props.language.entitlement.header.transferdeadline,
+                    id: 'transferdeadline',
                     accessor: 'bookCloseDate',
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'transenddate',
-                    Header: this.props.language.entitlement.header.registerdeadline,
+                    id: 'registerdeadline',
                     accessor: 'transenddate',
                     width: 200,
                     skip: false,
@@ -131,7 +122,9 @@ class AdditionSharesInfo extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={additionIssueShareInfo.additionList} />
+                            data={additionIssueShareInfo.additionList}
+                            table={this.props.language.entitlement.header} 
+                            language={this.props.language.entitlement.header}/>
                     </div>
                     <div className="table-footer" style={tablefooter}>
                         <Pagination theme={this.props.theme}
@@ -163,91 +156,7 @@ class AdditionSharesInfo extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        id: 'stockId',
-                        Header: nextProps.language.entitlement.header.stock,
-                        accessor: 'stockId',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'bookCloseDate',
-                        Header: nextProps.language.entitlement.header.recorddate,
-                        accessor: 'bookCloseDate',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'totalBonusRight',
-                        Header: nextProps.language.entitlement.header.owningvolume,
-                        accessor: 'totalBonusRight',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'rightRate',
-                        Header: nextProps.language.entitlement.header.rightrate,
-                        accessor: 'rightRate',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'actionRate',
-                        Header: nextProps.language.entitlement.header.actionrate,
-                        accessor: 'actionRate',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'maxQtyCanBuy',
-                        Header: nextProps.language.entitlement.header.availableqty,
-                        accessor: 'maxQtyCanBuy',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'price',
-                        Header: nextProps.language.entitlement.header.actionprice,
-                        accessor: 'price',
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
-                        },
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'startDate',
-                        Header: nextProps.language.entitlement.header.startdate,
-                        accessor: 'startDate',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'bookCloseDate1',
-                        Header: nextProps.language.entitlement.header.transferdeadline,
-                        accessor: 'bookCloseDate',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'transenddate',
-                        Header: nextProps.language.entitlement.header.registerdeadline,
-                        accessor: 'transenddate',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    }
-                ]
+                
             })
         }
     }

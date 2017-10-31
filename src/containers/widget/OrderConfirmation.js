@@ -22,7 +22,7 @@ class OrderConfirmation extends Component {
             columns: [
                 {
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
@@ -35,8 +35,7 @@ class OrderConfirmation extends Component {
                     skip: true
                 },
                 {
-                    id: 'mvTradeTime',
-                    Header: this.props.language.orderconfirmation.header.tradetime,
+                    id: 'tradetime',
                     accessor: 'mvTradeTime',
                     Cell: props => Utils.formatDate(props.original.mvTradeTime, 'ddmmyyyy'),
                     width: 140,
@@ -44,56 +43,49 @@ class OrderConfirmation extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvMarketID',
-                    Header: this.props.language.orderconfirmation.header.marketid,
+                    id: 'marketid',
                     accessor: 'mvMarketID',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStockID',
-                    Header: this.props.language.orderconfirmation.header.stockid,
+                    id: 'stockid',
                     accessor: 'mvStockID',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvBS',
-                    Header: this.props.language.orderconfirmation.header.buysell,
+                    id: 'buysell',
                     accessor: 'mvBS',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvOrderType',
-                    Header: this.props.language.orderconfirmation.header.ordertype,
+                    id: 'ordertype',
                     accessor: 'mvOrderType',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvQty',
-                    Header: this.props.language.orderconfirmation.header.quantity,
+                    id: 'quantity',
                     accessor: 'mvQty',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPrice',
-                    Header: this.props.language.orderconfirmation.header.price,
+                    id: 'price',
                     accessor: 'mvPrice',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.orderconfirmation.header.status,
+                    id: 'status',
                     accessor: 'mvStatus',
                     Cell: props => this.getStatus(props.original.mvStatus, this.props.language.orderconfirmation.status),
                     width: 120,
@@ -101,24 +93,21 @@ class OrderConfirmation extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvFilledQty',
-                    Header: this.props.language.orderconfirmation.header.filledquantity,
+                    id: 'filledquantity',
                     accessor: 'mvFilledQty',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvFilledPrice',
-                    Header: this.props.language.orderconfirmation.header.filledprice,
+                    id: 'filledprice',
                     accessor: 'mvFilledPrice',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvCancelQty',
-                    Header: this.props.language.orderconfirmation.header.cancelquantity,
+                    id: 'cancelquantity',
                     accessor: 'mvCancelQty',
                     width: 120,
                     skip: false,
@@ -151,112 +140,7 @@ class OrderConfirmation extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
-                    maxWidth: 50,
-                    width: 40,
-                    Cell: props => {
-                        return (
-                            <input type='checkbox' className={this.id + "-row-checkbox"}
-                                onChange={() => { this.onRowSelected(props.original) }} />
-                        )
-                    },
-                    sortable: false,
-                    skip: true
-                },
-                {
-                    id: 'mvTradeTime',
-                    Header: nextProps.language.orderconfirmation.header.tradetime,
-                    accessor: 'mvTradeTime',
-                    Cell: props => Utils.formatDate(props.original.mvTradeTime, 'ddmmyyyy'),
-                    width: 140,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvMarketID',
-                    Header: nextProps.language.orderconfirmation.header.marketid,
-                    accessor: 'mvMarketID',
-                    width: 100,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStockID',
-                    Header: nextProps.language.orderconfirmation.header.stockid,
-                    accessor: 'mvStockID',
-                    width: 100,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvBS',
-                    Header: nextProps.language.orderconfirmation.header.buysell,
-                    accessor: 'mvBS',
-                    width: 100,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvOrderType',
-                    Header: nextProps.language.orderconfirmation.header.ordertype,
-                    accessor: 'mvOrderType',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvQty',
-                    Header: nextProps.language.orderconfirmation.header.quantity,
-                    accessor: 'mvQty',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvPrice',
-                    Header: nextProps.language.orderconfirmation.header.price,
-                    accessor: 'mvPrice',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.orderconfirmation.header.status,
-                    accessor: 'mvStatus',
-                    Cell: props => this.getStatus(props.original.mvStatus, nextProps.language.orderconfirmation.status),
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvFilledQty',
-                    Header: nextProps.language.orderconfirmation.header.filledquantity,
-                    accessor: 'mvFilledQty',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvFilledPrice',
-                    Header: nextProps.language.orderconfirmation.header.filledprice,
-                    accessor: 'mvFilledPrice',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvCancelQty',
-                    Header: nextProps.language.orderconfirmation.header.cancelquantity,
-                    accessor: 'mvCancelQty',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         })
     }
 
@@ -299,6 +183,7 @@ class OrderConfirmation extends Component {
                             filterable={this.state.filterable}
                             data={data.mvOrderBeanList}
                             handleOnRowSelected={(param) => this.onRowSelected(param)}
+                            language={this.props.language.orderconfirmation.header}
                         />
                     </div>
 

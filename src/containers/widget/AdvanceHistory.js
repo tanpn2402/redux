@@ -36,7 +36,6 @@ class AdvanceHistory extends Component {
         this.state = {
             columns: [
                 {
-                    Header: this.props.language.cashadvance.header.date,
                     accessor: this.accessor[0],
                     id: 'date',
                     show: true,
@@ -44,7 +43,6 @@ class AdvanceHistory extends Component {
                     width: 120,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.advanceamount,
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.totalLendingAmt, ",", this.lang)
                     },
@@ -55,7 +53,6 @@ class AdvanceHistory extends Component {
 
                 },
                 {
-                    Header: this.props.language.cashadvance.header.advancefee,
                     id: 'advancefee',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
@@ -65,7 +62,6 @@ class AdvanceHistory extends Component {
                     width: 120,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.processingstatus,
                     id: 'processingstatus',
                     Cell: props => {
                         return this.getStatus(props.original.status)
@@ -75,7 +71,6 @@ class AdvanceHistory extends Component {
                     width: 120,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.lastupdate,
                     accessor: this.accessor[6],
                     id: 'lastupdate',
                     show: true,
@@ -83,7 +78,6 @@ class AdvanceHistory extends Component {
                     width: 120,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.note,
                     accessor: 'remark',
                     id: 'note',
                     Cell: props => {
@@ -150,6 +144,7 @@ class AdvanceHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data}
+                            language={this.props.language.cashadvance.header}
                         />
                     </div>
 
@@ -183,66 +178,7 @@ class AdvanceHistory extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        Header: nextProps.language.cashadvance.header.date,
-                        accessor: this.accessor[0],
-                        id: 'date',
-                        show: true,
-                        skip: false,
-                        width: 120,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.advanceamount,
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.totalLendingAmt, ",", this.lang)
-                        },
-                        id: 'advanceamount',
-                        show: true,
-                        skip: false,
-                        width: 120,
-
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.advancefee,
-                        id: 'advancefee',
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.interestAccured, ",", this.lang)
-                        },
-                        show: true,
-                        skip: false,
-                        width: 120,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.processingstatus,
-                        id: 'processingstatus',
-                        Cell: props => {
-                            return this.getStatus(props.original.status)
-                        },
-                        show: true,
-                        skip: false,
-                        width: 120,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.lastupdate,
-                        accessor: this.accessor[6],
-                        id: 'lastupdate',
-                        show: true,
-                        skip: false,
-                        width: 120,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.note,
-                        accessor: 'remark',
-                        id: 'note',
-                        Cell: props => {
-                            return this.getNotes(props.original.note)
-                        },
-                        show: true,
-                        skip: false,
-                        width: 300,
-                    }
-                ]
+                
             })
         }
     }

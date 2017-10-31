@@ -9,6 +9,7 @@ import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
 
+
 class OrderJournal extends Component {
     constructor(props) {
         super(props)
@@ -16,119 +17,105 @@ class OrderJournal extends Component {
             columns: [
                 {
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    reorderable: false,
                 },
                 {
-                    id: 'can',
-                    Header: this.props.language.orderjournal.header.cancelmodify,
+                    id: 'cancelmodify',
                     maxWidth: 80,
                     sortable: false,
                     skip: true
                 },
                 {
-                    id: 'mvStockID',
-                    Header: this.props.language.orderjournal.header.stockid,
+                    id: 'stockid',
                     accessor: 'mvStockID',
                     width: 80,
                     skip: false,
                     show: true,
-                    reorderable: false,
+                    reorderable: false,                    
                 },
                 {
-                    id: 'mvBS',
-                    Header: this.props.language.orderjournal.header.buysell,
+                    id: 'buysell',
                     accessor: 'mvBS',
                     width: 50,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPrice',
-                    Header: this.props.language.orderjournal.header.price,
+                    id: 'price',
                     accessor: 'mvPrice',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvQty',
-                    Header: this.props.language.orderjournal.header.quantity,
+                    id: 'quantity',
                     accessor: 'mvQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPendingQty',
-                    Header: this.props.language.orderjournal.header.pendingQty,
+                    id: 'pendingQty',
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvExecutedQty',
-                    Header: this.props.language.orderjournal.header.executedQty,
+                    id: 'executedQty',
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvAvgPrice',
-                    Header: this.props.language.orderjournal.header.avgprice,
+                    id: 'avgprice',
                     accessor: 'mvAvgPriceValue',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.orderjournal.header.status,
+                    id: 'status',
                     accessor: 'mvStatus',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvOrderType',
-                    Header: this.props.language.orderjournal.header.ordertype,
+                    id: 'ordertype',
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvFeeTax',
-                    Header: this.props.language.orderjournal.header.feetax,
+                    id: 'feetax',
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvBankID',
-                    Header: this.props.language.orderjournal.header.bankid,
+                    id: 'bankid',
                     accessor: 'mvBankID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvExpiryDate',
-                    Header: this.props.language.orderjournal.header.expirydate,
+                    id: 'expirydate',
                     accessor: 'mvDateTime',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvRejectReason',
-                    Header: this.props.language.orderjournal.header.rejectreason,
+                    id: 'rejectreason',
                     accessor: 'mvRejectReason',
                     width: 80,
                     skip: false,
@@ -166,6 +153,7 @@ class OrderJournal extends Component {
 
 
     render() {
+        console.log("Render",this.props.id, this.props.language)
         let data = this.props.data.mvOrderBeanList
         this.buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
@@ -193,6 +181,7 @@ class OrderJournal extends Component {
                             data={data}
                             onRowSelected={(param) => this.onRowSelected(param)}
                             filterable={this.state.filterable}
+                            language = {this.props.language.orderjournal.header}
                         />
                     </div>
 
@@ -230,291 +219,7 @@ class OrderJournal extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
-                    maxWidth: 50,
-                    width: 40,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                    return (
-                                        <input type='checkbox' className={this.id + "-row-checkbox"}
-                                            onChange={() => { this.onRowSelected(props.original) }} />
-                                    )
-                                }
-                            }
-                        }
-                    },
-                    filterable: false,
-                    Aggregated: '',
-                    sortable: false,
-                    skip: true
-                },
-                {
-                    id: 'can',
-                    Header: nextProps.language.orderjournal.header.cancelmodify,
-                    maxWidth: 80,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            var child = []
-                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                    child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                            onClick={() => this.handleCancelOrder(props.original)}>
-                                            <span className="glyphicon glyphicon-remove"></span>
-                                        </Button>
-                                    )
-                                }
-                            }
-
-                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
-                                    child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                            onClick={() => this.handleModifyOrder(props.original)}>
-                                            <span className="glyphicon glyphicon-edit"></span>
-                                        </Button>
-                                    )
-                                }
-                            }
-
-                            return (
-                                <span>
-                                    {
-                                        child
-                                    }
-                                </span>)
-                        }
-                    },
-                    filterable: false,
-                    sortable: false,
-                    skip: true
-                },
-                {
-                    id: 'mvStockID',
-                    Header: nextProps.language.orderjournal.header.stockid,
-                    accessor: 'mvStockID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Pivot: cellInfo => {
-                        return <span> {cellInfo.row._pivotVal} </span>
-                    }
-                },
-                {
-                    id: 'mvBS',
-                    Header: nextProps.language.orderjournal.header.buysell,
-                    accessor: 'mvBS',
-                    width: 100,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
-                                return (
-                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
-                                        {nextProps.language.searchbar.buy}
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
-                                        {nextProps.language.searchbar.sell}
-                                    </div>
-                                )
-                            }
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row) => {
-                        if (filter.value == 'all') {
-                            return true
-                        } else {
-                            return filter.value === row._original.mvBSValue
-                        }
-                    },
-                    Filter: ({ filter, onChange }) => {
-                        return (<select
-                            onChange={event => onChange(event.target.value)}
-                            style={{ width: '100%' }}
-                            value={filter ? filter.value : 'all'}
-                        >
-                            <option value='all'>Show All</option>
-                            <option value='B'>{nextProps.language.searchbar.buy}</option>
-                            <option value='S'>{nextProps.language.searchbar.sell}</option>
-                        </select>)
-                    }
-                },
-                {
-                    id: 'mvPrice',
-                    Header: nextProps.language.orderjournal.header.price,
-                    accessor: d => parseFloat(d.mvPrice),
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    },
-                },
-                {
-                    id: 'mvQty',
-                    Header: nextProps.language.orderjournal.header.quantity,
-                    accessor: 'mvQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvPendingQty',
-                    Header: nextProps.language.orderjournal.header.pendingQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvExecutedQty',
-                    Header: nextProps.language.orderjournal.header.executedQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvAvgPrice',
-                    Header: nextProps.language.orderjournal.header.avgprice,
-                    accessor: 'mvAvgPriceValue',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.orderjournal.header.status,
-                    accessor: 'mvStatus',
-                    width: 110,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            let text = nextProps.language.global.status[props.original.mvStatus]
-                            return (
-                                Utils.statusRenderer(text, props.original.mvStatus)
-                            )
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row, column) => {
-                        let status = nextProps.language.global.status[row._original.mvStatus]
-                        return status.includes(filter.value)
-                    }
-                },
-                {
-                    id: 'mvOrderType',
-                    Header: nextProps.language.orderjournal.header.ordertype,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            return (
-                                nextProps.language.global.ordertype[props.original.mvOrderTypeValue]
-                            )
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row) => {
-                        let type = nextProps.language.global.ordertype[row._original.mvOrderTypeValue]
-                        return type.includes(filter.value)
-                    }
-                },
-                {
-                    id: 'mvFeeTax',
-                    Header: nextProps.language.orderjournal.header.feetax,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            return feeTaxParser(Utils, props.original.mvBSValue, props.original.mvNetAmtValue, props.original.mvGrossAmt)
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvBankID',
-                    Header: nextProps.language.orderjournal.header.bankid,
-                    accessor: 'mvBankID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvExpiryDate',
-                    Header: nextProps.language.orderjournal.header.expirydate,
-                    accessor: 'mvDateTime',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvRejectReason',
-                    Header: nextProps.language.orderjournal.header.rejectreason,
-                    accessor: 'mvRejectReason',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterable: false
-                },
-
-            ]
+            
         })
     }
 

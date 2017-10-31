@@ -3278,5 +3278,23 @@ label {
     display: none;
 }
 
+/* Table-dragNdrop */
+#draglabel {
+    border: 1px solid rgba(0,0,0,.05);
+    position: absolute;
+    z-index: 1000;
+    padding: 5px 10px;
+    background: white;
+    min-width: 70px;
+    text-align: center;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .8);
+}
 
+#draghighlight {
+    display: block;
+    position: absolute;
+}
 
+.ReactTable .rt-tr>.rt-resizable-header {
+    padding: 5px 0;
+}
