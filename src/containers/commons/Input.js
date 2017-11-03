@@ -27,7 +27,7 @@ class Input extends React.Component {
                         style={{ }}
                         required />
                     <span className='input-group-btn' style={{ zIndex: '0' }}  >
-                        <Button onClick={() => this.changeInputVal(step)} >&#10133;</Button>
+                        <Button onClick={() => this.changeInputVal(step)} style={{color: '#555'}}>&#10133;</Button>
                     </span>
                 </div>
             )

@@ -81,7 +81,7 @@ export default
             "orderjournal": "Order Journal",
             "accountinfo": "Account Info",
             "account": "Account",
-            "ordershistory": "Matching Orders History",
+            "ordershistory": "Transaction History",
             "cashtransactionhistory": "Cash Transaction History",
             "cashstatement": "Cash Statement",
             "stockstatement": "Stock Statement",
@@ -204,7 +204,8 @@ export default
                 "rejectreason": "Reject Reason",
                 "time": "Time",
                 "stockid": "Stock ID",
-                "buysell": "Buy/Sell"
+                "buysell": "B/S",
+                "orderID": "Order ID"
             },
             "popup": {
                 "title": {
@@ -291,7 +292,7 @@ export default
                 "status": "Status",
                 "ordertype": "Order Type",
                 "stockid": "StockID",
-                "buysell": "Buy/Sell"
+                "buysell": "B/S"
             }
         },
         "oddlottrading": {
@@ -1126,8 +1127,8 @@ export default
             "yes": "Yes",
             "no": "No",
             "buy": "Buy",
-            "sell": "Reset",
-            "reset": "Reset"
+            "sell": "Sell",
+            "reset": "RESET"
         },
         "login": {
             "username": "Account No",

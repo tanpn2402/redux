@@ -25,7 +25,7 @@ class App extends React.Component {
             }
             else {
                 return (
-                    <HomeDesktop/>
+                    <div>Maintainning</div>
                 )
             }
             

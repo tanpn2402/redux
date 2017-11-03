@@ -13,6 +13,9 @@ import 'react-power-select/dist/react-power-select.css'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
+import {TabControl, TabItem} from "../commons/TabControl"
+import Select from "../commons/Select"
+import Input from "../commons/Input"
 const { Contants } = require('../../core/constants')
 var DatePicker = require("react-bootstrap-date-picker")
 
@@ -24,7 +27,7 @@ const StockViewOption = ({ option }) =>
     </div>
 
 
-class EnterOrder extends Component {
+class EnterOrderForma extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
@@ -1035,6 +1038,202 @@ class EnterOrder extends Component {
                 )
             }
 
+    }
+}
+
+
+class EnterOrderForm extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.id = "enterorder-a"
+        this.state = {
+            mvBS: "BUY",
+            mvMarketID: "HO",
+            mvOrderType: "LO",
+            mvStockSelected: {
+                stockCode: 'ACB'
+            }
+        }
+    }
+
+    handleBSChange(options) {
+        this.setState({ mvBS: options })
+    }
+
+    handleMarketChange(options) {
+        this.setState({ mvMarketID: options })
+    }
+
+    handleStockChange(options) {
+        if(options) {
+            this.refStockName.value = options.stockName
+            this.setState({ mvStockSelected: options })
+        }
+    }
+    render() {
+        this.stockList = config.cache.stockList
+        return (
+            <div style={{ width: "100%", height: "100%" }} id={this.id} className={"enterorder-a " + this.state.mvBS.toLowerCase()}>
+                <div className="enterorder-form buy">
+                    <div>
+                        <Col xs={3}>
+                            <Select
+                                options={["HA", "HO", "UPCOM"]}
+                                selected={this.state.mvMarketID}
+                                handleChange={this.handleMarketChange.bind(this)}
+                            />
+                        </Col>
+                        <Col xs={6}>
+                            <Select
+                                options={["Developing"]}
+                            />
+                        </Col>
+                        <Col xs={3}>
+                            <Select
+                                options={["BUY", "SELL"]}
+                                selected={this.state.mvBS}
+                                handleChange={this.handleBSChange.bind(this)}
+                            />
+
+                        </Col>
+                    </div>
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Stock Code
+                        </div>
+                        <div className="col-xs-8">
+                            <Col xs={5}>
+                                <Select
+                                options={this.stockList}
+                                selected={this.state.mvStockSelected}
+                                optionLabelPath={'stockCode'}
+                                handleChange={this.handleStockChange.bind(this)}
+                                searchEnabled={true}
+                            />
+
+                            </Col>
+                            <Col xs={7}>
+                                <Input type="text" setRef={ref => this.refStockName =  ref}/>
+                            </Col>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Quantity
+                        </div>
+                        <div className="col-xs-8">
+                            
+                            <Input type="number" setRef={ref => this.ref =  ref}/>
+                            
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Price
+                        </div>
+                        <div className="col-xs-8">
+                        
+                            <Input type="number" setRef={ref => this.ref =  ref}/>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style={{ padding: "10px 10px", backgroundColor: "#f1f1f1", fontSize: "16px" }} >
+                    <div style={{ display: "inline" }}>
+                        Consult sum of money
+                    </div>
+
+                    <div style={{ float: "right", paddingRight: "3px" }}>
+                        $00.0
+                    </div>
+                </div>
+
+
+                <div style={{ padding: "6px 10px", marginTop: "10px"}} >
+                    <div style={{ display: "inline" }}>
+                        Maximum quantity
+                    </div>
+
+                    <div style={{ color: "#ca3435", display: "inline", marginLeft: "5px" }}>
+                        200
+                    </div>
+                </div>
+
+                <div className="group-btn-action form-submit-action">
+                    <span>
+                        <button type="reset" className="hks-btn btn-cancel"
+                            onClick={this.handleResetForm.bind(this)}>
+                            {this.props.language.button.reset}
+                        </button>
+                        <button type="submit" className="hks-btn btn-submit"
+                            onClick={this.handleSubmit.bind(this)}>
+                            {this.state.mvBS}
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+
+            
+        )
+    }
+
+    handleSubmit() {
+
+    }
+
+    handleResetForm() {
+
+    }
+}
+
+
+class EnterOrder extends React.Component {
+    constructor(props) {
+        super(props)
+        this.id = "enterorder"
+        this.state = {
+            activeKey: 1,
+        }
+    }
+    render() {
+        console.log(this.props)
+        return (
+            <div style={{ height: "100%", position: "relative" }} id={this.id}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
+                    {this.props.language.menu[this.id]}
+                </Title>
+                <Body theme={this.props.theme}>
+                    <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+                        <TabItem eventKey={1} title="Normal" >
+                            <EnterOrderForm language={this.props.language}/>
+                        </TabItem>
+
+                        <TabItem eventKey={2} title="Auction">
+                            Developing...
+                        </TabItem>
+                        <TabItem eventKey={3} title="Special" disabled>
+                            Developing...
+                        </TabItem>
+                    </TabControl>
+                </Body>
+            </div>
+
+
+            
+        )
+    }
+
+    onTabChange(key) {
+        this.setState({activeKey: key})
     }
 }
 

@@ -15,15 +15,18 @@ class Select extends React.Component {
     }
     
     handleValueChange = ({ option }) => {
-
+        if(this.props.handleChange) {
+            this.props.handleChange(option)
+        }
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="select-control">   
                 <PowerSelect
                     options={this.props.options}
-                    selected={this.state.value}
+                    selected={this.props.selected}
                     onChange={this.handleValueChange.bind(this)}
                     optionLabelPath={this.props.optionLabelPath}
                     showClear={false}
@@ -37,7 +40,8 @@ class Select extends React.Component {
 }
 Select.defaultProps = {
     options: [],
-    optionLabelPath: "",
+    selected: null,
+    optionLabelPath: null,
     optionComponent: null,
     searchEnabled: false,
 }

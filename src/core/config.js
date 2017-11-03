@@ -53,8 +53,8 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'ordershistory',
-					text: 'ordershistory',
+					id: 'orderHistory',
+					text: 'orderHistory',
 					link: ''
 				},
 				{
@@ -356,7 +356,8 @@ const config = {
 			title: 'mobile',
 			enabled: false,
 			widget: [
-				// { i: 'loanrefund',  x:0, y:0, w: 30, h: 10, isDraggable: false, isResizable: false},
+				{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 			]
 		}
 	],
