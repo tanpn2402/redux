@@ -267,7 +267,7 @@ const config = {
 
 	],
 	widgetMobile: [
-		{ i: 'enterorder', 				w: 8, h: 6, isDraggable: false, isResizable: false },
+		{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'cashTransHistory', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'orderconfirmation', 		w: 8, h: 9, isDraggable: false, isResizable: false },
@@ -285,7 +285,7 @@ const config = {
 		{ i: 'accountinfo', 			w: 8, h: 6, isDraggable: false, isResizable: false },
 		{ i: 'loanrefund', 				w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'entitlement', 			w: 8, h: 21, isDraggable: false, isResizable: false },
-		{ i: 'techanalysis', 			w: 8, h: 11, isDraggable: false, isResizable: false },
+		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 
 	],

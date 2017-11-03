@@ -1124,7 +1124,10 @@ export default
             "saveLayout": "Save Layout",
             "login": "Login",
             "yes": "Yes",
-            "no": "No"
+            "no": "No",
+            "buy": "Buy",
+            "sell": "Reset",
+            "reset": "Reset"
         },
         "login": {
             "username": "Account No",
