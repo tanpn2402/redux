@@ -17,7 +17,6 @@ export default class ListView extends React.Component {
     }
 
     onClick(id) {
-        // console.log(id)
         document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)
     }
 
@@ -25,47 +24,114 @@ export default class ListView extends React.Component {
         let remainWid = this.state.compoWid - 45
         let i = 0
         let col = []
+        
         while (remainWid > 0) {
-            if (columns[i].width && remainWid > columns[i].width * 0.7) {
-                if (remainWid > columns[i].width) {
-                    col.push({
-                        id: columns[i].id,
-                        accessor: columns[i].accessor,
-                        width: columns[i].width,
-                        style: columns[i].style
-                    })
-                }
-                else {
-                    col.push({
-                        id: columns[i].id,
-                        accessor: columns[i].accessor,
-                        width: remainWid,
-                        style: columns[i].style
-                    })
-                }
+            let column = columns[i]
+            if( column.mobile !== false ) {
+                if(column.columns === undefined) {
+                    if (column.width && remainWid > column.width * 0.7) {
+                        if (remainWid > column.width) {
+                            col.push({
+                                id: column.id,
+                                accessor: column.accessor,
+                                width: column.width,
+                                style: column.style
+                            })
+                        }
+                        else {
+                            col.push({
+                                id: column.id,
+                                accessor: column.accessor,
+                                width: remainWid,
+                                style: column.style
+                            })
+                        }
+        
+                        remainWid -= column.width
+                        i += 1
+                    } else {
+                        col[col.length - 1].width += remainWid
+                        remainWid = -1
+                    }
 
-                remainWid -= columns[i].width
-                i += 1
-            } else {
-                col[i - 1].width += remainWid
-                remainWid = -1
-            }
+                } else {
+                    let tmp = this.whenHasChildCol(column.columns, remainWid, col)
+                    remainWid =  tmp.remainWid
+                    col = (tmp.columns)
+                    i++;
+                }
+            } else i++
         }
 
         return col
+    }
+
+    whenHasChildCol(columns, remainWid, col) {
+        let i = 0
+        
+        while (remainWid > 0 && i < columns.length) {
+            let column = columns[i]
+            if( column.mobile !== false ) {
+                if (column.width && remainWid > column.width * 0.7) {
+                    if (remainWid > column.width) {
+                        col.push({
+                            id: column.id,
+                            accessor: column.accessor,
+                            width: column.width,
+                            style: column.style
+                        })
+                    }
+                    else {
+                        col.push({
+                            id: column.id,
+                            accessor: column.accessor,
+                            width: remainWid,
+                            style: column.style
+                        })
+                    }
+    
+                    remainWid -= column.width
+                    i += 1
+                } else {
+                    col[col.length - 1].width += remainWid
+                    remainWid = -1
+                }
+            } else i++
+        }
+
+        return {
+            columns: col,
+            remainWid: remainWid
+        }
     }
 
     getMaxWid(columns, col) {
         let max = 0
         let addCol = []
         for (let i = 0; i < columns.length; i++) {
-            let t = col.filter(f => f.id === columns[i].id)
-            if (t.length > 0) {
-                continue
-            } else {
-                addCol.push(columns[i])
-                if (columns[i].width > max) {
-                    max = columns[i].width
+            if(columns[i].columns !== undefined) {
+                let subCol = columns[i].columns
+                for(let j = 0; j < subCol.length; j++) {
+                    let t = col.filter(f => f.id === subCol[j].id)
+                    if (t.length > 0) {
+                        continue
+                    } else if(subCol[j].mobile !== false) {
+                        addCol.push(subCol[j])
+                        if (subCol[j].width > max) {
+                            max = subCol[j].width
+                        }
+                    }
+                }
+            }
+            else {
+                let t = col.filter(f => f.id === columns[i].id)
+                if (t.length > 0) {
+                    continue
+                } else if(columns[i].mobile !== false) {
+                    addCol.push(columns[i])
+                    if (columns[i].width > max) {
+                        max = columns[i].width
+                    }
                 }
             }
         }
@@ -76,8 +142,8 @@ export default class ListView extends React.Component {
     }
 
     render() {
+       
         console.log(this.props)
-        //console.log(this.state)
         let language = this.props.language[this.props.id]
         let data = this.props.tableData
         let columns = this.props.columns
@@ -94,9 +160,42 @@ export default class ListView extends React.Component {
         // console.log(col)
         let rowStamp = (new Date()).getTime()
         let row = 1
+
+        // actions
+        let actions = columns.filter(e => e.id === "mobileaction")
+        let action = null
+        if(actions.length > 0) {
+            action = actions[0]
+        } else action = null
+
+
+        // pivot
+        let pivotEnabled = false
+        let pivotLabel = ""
+        let pivotContrainst = ""
+        let pivotFlag = true
+
+        if(this.props.pivot !== undefined && this.props.pivot.length > 0 ) {
+            let pivot = this.props.pivot
+            pivotEnabled = true
+            data.sort((a, b) => {
+                var nameA = a[pivot[0]].toUpperCase()
+                var nameB = b[pivot[0]].toUpperCase()
+                if (nameA < nameB) {
+                    return -1
+                  }
+                  if (nameA > nameB) {
+                    return 1
+                  }
+                  return 0
+            })
+            pivotContrainst = pivot[0]
+            // console.log(data)
+        }
+        
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-                {console.log(this.state.toRender)}
+
                 {
                     !this.state.toRender ? "" :
                         (
@@ -120,8 +219,24 @@ export default class ListView extends React.Component {
                                         {
                                             data.map(d => {
                                                 let rowId = "r-" + rowStamp + "-" + (row++)
+                                                if(pivotEnabled && d[pivotContrainst] != pivotLabel) {
+                                                    pivotLabel = d[pivotContrainst]
+                                                    pivotFlag = false
+                                                } else {
+                                                    pivotFlag = true
+                                                }   
+                                                    
+                                                
                                                 return (
-
+                                                <div>
+                                                    {
+                                                        !pivotEnabled ? null : pivotFlag ? null :
+                                                        (
+                                                            <div className="lv-pivot-group">
+                                                                { pivotLabel }
+                                                            </div>
+                                                        )
+                                                    }
                                                     <div className="lv-tr-group">
                                                         <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.onClick(rowId)}>
                                                             <div className="lv-td icon" style={{ width: "30px" }}>
@@ -157,9 +272,14 @@ export default class ListView extends React.Component {
                                                                     })
                                                                 }
                                                             </div>
+
+                                                            {/* List view actions */}
+                                                            <div className="lv-action">
+                                                                {action !== null ? action.Cell(d) : null}
+                                                            </div>
                                                         </div>
                                                     </div>
-
+                                                    </div>               
 
                                                 )
                                             }

@@ -33,7 +33,17 @@ class Portfolio extends Component {
                             accessor: 'mvStockID',
                             skip: false,
                             show: true,
-                            maxWidth: 60,
+                            width: 70,
+                            Aggregated: () => {
+                                return null
+                            }
+                        },
+                        {
+                            id: 'mvStockName',
+                            accessor: 'mvStockName',
+                            skip: false,
+                            show: true,
+                            width: 170,
                             Aggregated: () => {
                                 return null
                             }
@@ -50,10 +60,11 @@ class Portfolio extends Component {
                             accessor: 'mvMarketID',
                             skip: false,
                             show: true,
-                            maxWidth: 60,
+                            width: 60,
                             Pivot: (cellInfo) => {
                                 return <span> {cellInfo.row._pivotVal} </span>
-                            }
+                            },
+                            mobile: false,
                         }
                     ]
                 },
@@ -68,15 +79,18 @@ class Portfolio extends Component {
                         accessor: 'mvTradableQty',
                         skip: false,
                         show: true,
+                        width: 100,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        style: {textAlign: "right"}
                     }, {
                         id: 'mvTSettled',
                         parent: 'mvVolume',
                         accessor: 'mvTSettled',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
                         }
@@ -86,51 +100,62 @@ class Portfolio extends Component {
                         accessor: 'mvHoldingAmt', //not sure
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvQueuingBuy',
                         parent: 'mvVolume',
                         accessor: 'mvQueuingBuy', //not sure
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTT1UnsettleBuy',
                         parent: 'mvVolume',
                         accessor: 'mvTT1UnsettleBuy', // not sure
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTDueBuy',
                         parent: 'mvVolume',
                         accessor: 'mvTDueBuy',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTMortgageQty',
                         parent: 'mvVolume',
                         accessor: 'mvTMortgageQty',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTManualHold',
                         parent: 'mvVolume',
                         accessor: 'mvTManualHold',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
                         }
@@ -140,36 +165,44 @@ class Portfolio extends Component {
                         accessor: 'mvTEntitlementQty',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTAwaitingTraceCert',
                         parent: 'mvVolume',
                         accessor: 'mvTAwaitingTraceCert',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTAwaitingDepositCert',
                         parent: 'mvVolume',
                         accessor: 'mvTAwaitingDepositCert',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvTAwaitingWithdrawalCert',
                         parent: 'mvVolume',
                         accessor: 'mvTAwaitingWithdrawalCert',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }]
                 },
                 {
@@ -183,6 +216,7 @@ class Portfolio extends Component {
                         accessor: 'mvAvgPrice',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
                         }
@@ -192,6 +226,7 @@ class Portfolio extends Component {
                         accessor: 'mvMarketPrice',
                         skip: false,
                         show: true,
+                        width: 90,
                         Aggregated: () => {
                             return null
                         }
@@ -207,36 +242,44 @@ class Portfolio extends Component {
                         accessor: 'mvWAC',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvMarketValue',
                         parent: 'PortfolioAssessment',
                         accessor: 'mvMarketValue',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvPL',
                         parent: 'PortfolioAssessment',
                         accessor: 'mvPL',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvPLPercent',
                         parent: 'PortfolioAssessment',
                         accessor: 'mvPLPercent',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }]
                 },
                 {
@@ -250,40 +293,81 @@ class Portfolio extends Component {
                         accessor: 'mvMarginPercentage',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'mvMartginValue',
                         parent: 'mvMargin',
                         accessor: 'mvMartginValue',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'maintenancePercentage',
                         parent: 'mvMargin',
                         accessor: 'maintenancePercentage',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }, {
                         id: 'maintenanceValue',
                         parent: 'mvMargin',
                         accessor: 'maintenanceValue',
                         skip: false,
                         show: true,
+                        width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        mobile: false,
                     }]
-                }],
+                },
+
+                {
+                    id: 'mobileaction',
+                    mobile: false,
+                    skip: true,
+                    show: false,
+                    Cell: props => {
+                        return (
+                            <div>
+                                <button className="hks-btn btn-buy" onClick={e => this.onBuyClick(props)}>
+                                    
+                                    BUY
+                                </button>
+                                <button className="hks-btn btn-sell" onClick={e => this.onSellClick(props)}>
+                                    
+                                    SELL
+                                </button>
+                            </div>
+                        )
+                    }
+                }
+            ],
+
+
+                
             filterable: true
         }
+    }
+
+    onBuyClick(props) {
+
+    }
+
+    onSellClick(props) {
+        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -294,7 +378,6 @@ class Portfolio extends Component {
     }
 
     render() {
-        console.log("PORT RE-RENDER ",this.state.columns, this.props.language)
         var data = this.props.data.mvPortfolioBeanList
         let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
@@ -308,28 +391,28 @@ class Portfolio extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }}>
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data.slice((this.state.pageIndex - 1) * this.defaultPageSize, this.state.pageIndex * this.defaultPageSize)}
-                            pivot={['mvMarketID']}
-                            language={this.props.language.portfolio.header}
-                        />
-                    </div>
+                    <Table 
+                        theme={this.props.theme}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(data.length / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                        />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
+                        pivot={['mvMarketID']}
+
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(data.length / this.defaultPageSize)}
+
+                        searchParams={[]}
+                        searchActions={[]}
+                        searchData={{}}
+                        onSearch={() => {}}
+                        searchEnable={false}
+
+                    />
 
                 </Body>
             </div>

@@ -375,6 +375,7 @@ export default
         },
         "portfolio": {
             "header": {
+                "mvStockName": "Stock Name",
                 "mvMarketID": "Market",
                 "sumary": "Sumary",
                 "valuevnd": "Value (VND)",

@@ -37,7 +37,8 @@ class DesktopTable extends React.Component {
 		
 		return (
 			<div className="destop-table" style={{ width: "100%", height: "100%" }}>
-				<div className="table-main">
+			
+				<div className={"table-main " + (this.props.searchEnable ? "" : "no-header")} style={tableheader}>
 					<DataTable 
 						theme={this.props.theme}
 						key={this.props.id}
@@ -45,21 +46,28 @@ class DesktopTable extends React.Component {
 						defaultPageSize={this.props.pageSize}
 						columns={this.props.columns}
 						filterable={this.props.filterable}
+						pivot={this.props.pivot}
 						data={this.props.tableData}
 						language = {this.props.language[this.props.id].header}
+						onRowSelected = {this.onRowSelected.bind(this)}
 					/>
 				</div>
-
-				<div className="table-header" style={tableheader}>
-					<SearchBar
-						id={this.props.id}
-						onSearch={this.onSearch.bind(this)}
-						buttonAction={this.props.searchActions}
-						language={this.props.language.searchbar}
-						theme={this.props.theme}
-						data={this.props.searchData}
-						param={this.props.searchParams} />
-				</div>
+				
+				{
+					!this.props.searchEnable ? null :
+					(
+						<div className="table-header">
+							<SearchBar
+								id={this.props.id}
+								onSearch={this.onSearch.bind(this)}
+								buttonAction={this.props.searchActions}
+								language={this.props.language.searchbar}
+								theme={this.props.theme}
+								data={this.props.searchData}
+								param={this.props.searchParams} />
+						</div>
+					)
+				}
 
 				<div className="table-footer" style={tablefooter}>
 					<Pagination 
@@ -92,6 +100,12 @@ class DesktopTable extends React.Component {
 			this.props.onSearch(params)
 		}
 	}
+
+	onRowSelected(rows) {
+		if(this.props.onRowSelected) {
+			this.props.onRowSelected(rows)
+		}
+	}
 }
 
 DesktopTable.defaultProps = {
@@ -112,6 +126,9 @@ DesktopTable.defaultProps = {
 	columns: [],
 	filterable: false,
 	tableData: [],
+	searchEnable: true,
+	pivot: "",
+		// onRowSelected: -> fn
 
 	// mutual props
 	id: "",

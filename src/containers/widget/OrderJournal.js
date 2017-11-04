@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
-
+import moment from "moment"
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -22,12 +20,14 @@ class OrderJournal extends Component {
                     sortable: false,
                     skip: true,
                     reorderable: false,
+                    mobile: false
                 },
                 {
                     id: 'cancelmodify',
                     maxWidth: 80,
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    mobile: false
                 },
                 {
                     id: 'stockid',
@@ -40,7 +40,7 @@ class OrderJournal extends Component {
                 {
                     id: 'buysell',
                     accessor: 'mvBS',
-                    width: 50,
+                    width: 40,
                     skip: false,
                     show: true,
                 },
@@ -50,6 +50,7 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    style: {textAlign: "right"}
                 },
                 {
                     id: 'quantity',
@@ -96,7 +97,7 @@ class OrderJournal extends Component {
                 {
                     id: 'feetax',
                     accessor: 'mvOrderType',
-                    width: 80,
+                    width: 90,
                     skip: false,
                     show: true,
                 },
@@ -120,7 +121,28 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    mobile: false
                 },
+                {
+                    id: 'mobileaction',
+                    mobile: false,
+                    skip: true,
+                    show: false,
+                    Cell: props => {
+                        return (
+                            <div>
+                                <button className="hks-btn btn-cancel" onClick={e => this.onCancelOrder(props)}>
+                                    <span className="glyphicon glyphicon-remove"></span>
+                                    CANCEL
+                                </button>
+                                <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
+                                    <span className="glyphicon glyphicon-pencil"></span>
+                                    MODIFY
+                                </button>
+                            </div>
+                        )
+                    }
+                }
 
             ],
             pageIndex: 1,
@@ -148,19 +170,26 @@ class OrderJournal extends Component {
             page: 1,
             start: 0,
             limit: this.defaultPageSize,
+            mvStartTime: "01/01/2001",
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
         }
+    }
+
+    onCancelOrder(order) {
+        console.log(order)
+    }
+
+    onModifyOrder(order) {
+        console.log(order)
     }
 
 
     render() {
-        console.log("Render",this.props.id, this.props.language)
-        let data = this.props.data.mvOrderBeanList
-        this.buttonAction = [
+        let buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
         ]
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title id={this.id}
@@ -171,41 +200,26 @@ class OrderJournal extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            data={data}
-                            onRowSelected={(param) => this.onRowSelected(param)}
-                            filterable={this.state.filterable}
-                            language = {this.props.language.orderjournal.header}
-                        />
-                    </div>
+                    <Table 
+                        theme={this.props.theme}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={this.buttonAction}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: this.props.stockList }}
-                            param={['mvStatus', 'mvOrderType', 'mvBuysell']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={this.props.data.mvOrderBeanList}
 
-                    <div className="table-footer" style={tablefooter} style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+
+                        searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
+                        searchActions={buttonAction}
+                        searchData={{ stockList: this.props.stockList }}
+                        onSearch={this.onSearch.bind(this)}
+
+                    />
                 </Body>
             </div>
         )

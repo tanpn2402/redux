@@ -42,6 +42,7 @@ body {
     color: #fff;
     outline: none;
     padding: 5px 6px;
+    margin: 0 5px;
 }
 .hks-btn:hover {
     border: none;
@@ -58,12 +59,38 @@ body {
     background-color: #003f6e;
 }
 .hks-btn.btn-cancel {
-    background-color: rgb(255, 102, 0);
+    /* background-color: rgb(255, 102, 0); */
+    background-color: #a6003e;
     color: white;
-    width: 30%;
+    width: auto;
+    padding: 5px 16px;
+    width: 120px;
 }
 .hks-btn.btn-cancel:hover {
-    background-color: rgb(221, 88, 0);
+    /* background-color: rgb(221, 88, 0); */
+}
+.hks-btn.btn-modify {
+    background-color: #a6003e;
+    color: white;
+    width: auto;
+    padding: 5px 16px;
+    width: 120px;
+}
+
+.hks-btn.btn-buy {
+    /* background-color: rgb(255, 102, 0); */
+    background-color: #4990e2;
+    color: white;
+    width: auto;
+    padding: 5px 20px;
+    width: 120px;
+}
+.hks-btn.btn-sell {
+    background-color: #f67522;
+    color: white;
+    width: auto;
+    padding: 5px 20px;
+    width: 120px;
 }
 .hks-tab {
     color: #fff;
@@ -3589,38 +3616,43 @@ label {
     vertical-align: middle;
     word-break: break-word;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group > .lv-tr > .lv-td {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group > .lv-tr > .lv-td {
     display: table-cell;
     vertical-align: middle;
     position: relative;
     word-break: break-word;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group > .lv-tr > .lv-td.icon {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group > .lv-tr > .lv-td.icon {
     text-align: center;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group {
     display: table;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-hd,
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-hd,
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
     display: table-cell;
     vertical-align: middle;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-hd {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-hd {
     text-align: left;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
     text-align: right;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add {
     float: right;
     margin-bottom: 10px;
 
 }
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-action {
+    clear: both;
+    text-align: center;
+    padding: 10px 0px;
+}
 .listview-control > .rt-lv > .lv-thead > .lv-tr > .lv-th,
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group > .lv-tr > .lv-td,
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-hd,
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group > .lv-tr > .lv-td,
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-hd,
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group .lv-tr-add > .lv-group > .lv-vl {
     padding: 0 6px;
 }
 .listview-control > .rt-lv > .lv-thead {
@@ -3628,7 +3660,7 @@ label {
     color: #fff;
     padding: 4px 0px;
 }
-.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b > .lv-tr-group {
+.listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group {
     background-color: #fff;
     /* padding-bottom: 10px; */
     border-bottom: 2px dotted #d8d8d8;
@@ -3662,5 +3694,15 @@ label {
 }
 .widget-body > .listview-control {
     padding-top: 23px;
+}
+
+.lv-action span {
+    margin-right: 5px;
+}
+.lv-pivot-group {
+    width: 100%;
+    padding: 4px 0px;
+    padding-left: 36px;
+    background-color: #ccc;
 }
 /* END Listview-control */

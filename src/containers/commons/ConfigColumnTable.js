@@ -59,7 +59,7 @@ export default class ConfigColumnTable extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div className="dropdown-container" id={this.props.id + "-columns"}>
                 <div className="dropdown-display" onClick={this.toggleDropdown.bind(this)}>

@@ -21,8 +21,8 @@ const config = {
 					link: ''
 				},
 				{
-					id: 'transactionhistory',
-					text: 'transactionhistory',
+					id: 'orderjournal',
+					text: 'orderjournal',
 					link: ''
 				},
 				{
@@ -45,41 +45,9 @@ const config = {
 					text: "orderconfirmation",
 					link: ''
 				},
-			]
-		},
-		{
-			id: 'account',
-			text: 'account',
-			link: '',
-			subitems: [
 				{
-					id: 'orderHistory',
-					text: 'orderHistory',
-					link: ''
-				},
-				{
-					id: 'cashtransactionhistory',
-					text: 'cashtransactionhistory',
-					link: ''
-				},
-				{
-					id: 'cashstatement',
-					text: 'cashstatement',
-					link: ''
-				},
-				{
-					id: 'stockstatement',
-					text: 'stockstatement',
-					link: ''
-				},
-				{
-					id: 'marginloan',
-					text: 'marginloan',
-					link: ''
-				},
-				{
-					id: 'personalprofile',
-					text: 'personalprofile',
+					id: 'transactionhistory',
+					text: 'transactionhistory',
 					link: ''
 				}
 			]
@@ -117,18 +85,6 @@ const config = {
 				{
 					id: 'loanrefund',
 					text: 'loanrefund',
-					link: ''
-				}
-			]
-		},
-		{
-			id: 'help',
-			text: 'help',
-			link: '',
-			subitems: [
-				{
-					id: 'available',
-					text: 'available',
 					link: ''
 				}
 			]
