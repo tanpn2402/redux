@@ -10,11 +10,11 @@ const config = {
 					text: 'enterorder',
 					link: ''
 				},
-				{
-					id: 'stockmarketinform',
-					text: 'stockmarketinform',
-					link: ''
-				},
+				// {
+				// 	id: 'stockmarketinform',
+				// 	text: 'stockmarketinform',
+				// 	link: ''
+				// },
 				{
 					id: 'watchlist',
 					text: 'watchlist',
@@ -25,11 +25,11 @@ const config = {
 					text: 'orderjournal',
 					link: ''
 				},
-				{
-					id: 'accountinfo',
-					text: 'accountinfo',
-					link: ''
-				},
+				// {
+				// 	id: 'accountinfo',
+				// 	text: 'accountinfo',
+				// 	link: ''
+				// },
 				{
 					id: 'portfolio',
 					text: 'portfolio',
@@ -40,11 +40,11 @@ const config = {
 					text: "techanalysis",
 					link: ''
 				},
-				{
-					id: "orderconfirmation",
-					text: "orderconfirmation",
-					link: ''
-				},
+				// {
+				// 	id: "orderconfirmation",
+				// 	text: "orderconfirmation",
+				// 	link: ''
+				// },
 				{
 					id: 'transactionhistory',
 					text: 'transactionhistory',
@@ -67,11 +67,11 @@ const config = {
 					text: 'cashadvance',
 					link: ''
 				},
-				{
-					id: 'cashadvancebank',
-					text: 'cashadvancebank',
-					link: ''
-				},
+				// {
+				// 	id: 'cashadvancebank',
+				// 	text: 'cashadvancebank',
+				// 	link: ''
+				// },
 				{
 					id: 'oddLot',
 					text: 'oddLot',

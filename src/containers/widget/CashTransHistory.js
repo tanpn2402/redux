@@ -122,41 +122,27 @@ class CashTransHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data}
-                            language={this.props.language.cashtransaction.header}
-                        />
-                    </div>
+                    <Table 
+                        theme={this.props.theme}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{}}
-                            param={['mvTrade', 'mvStartDate', 'mvEndDate']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                            onExportExcel={this.onExportExcel.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
+                        onExportExcel={this.onExportExcel.bind(this)}
 
+                        searchParams={['mvTrade', 'mvStartDate', 'mvEndDate']}
+                        searchActions={[]}
+                        searchData={[]}
+                        onSearch={this.onSearch.bind(this)}
+
+                    />
                 </Body>
             </div>
         )
@@ -209,28 +195,6 @@ class CashTransHistory extends Component {
             this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
             this.props.onSearch(this.params, !this.props.reload)
         }
-    }
-
-    onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
-    }
-
-    onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
-    }
-
-    onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param) {
