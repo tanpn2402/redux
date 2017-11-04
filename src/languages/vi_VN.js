@@ -372,7 +372,7 @@ export default
         },
         "portfolio": {
             "header": {
-                "mvMaketID": "Sàn",
+                "mvMarketID": "Sàn",
                 "sumary": "Tổng quan",
                 "valuevnd": "Giá trị(VND)",
                 "value": "Giá trị",

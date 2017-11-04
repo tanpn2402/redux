@@ -39,61 +39,54 @@ class StockStatement extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvOrder',
-                    Header: this.props.language.stockstatement.header.order,
+                    id: 'order',
                     accessor: 'refId',
                     width: 60,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvTransactionDate',
-                    Header: this.props.language.stockstatement.header.transactiondate,
+                    id: 'transactiondate',
                     accessor: 'tradeDate',
                     width: 150,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStockCode',
-                    Header: this.props.language.stockstatement.header.stockcode,
+                    id: 'stockcode',
                     accessor: 'stockCode',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvAction',
-                    Header: this.props.language.stockstatement.header.action,
+                    id: 'action',
                     accessor: 'action',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    Header: this.props.language.stockstatement.header.credit,
+                    id: 'credit',
                     skip: false,
                     show: true,
                     columns: [
                         {
-                            id: 'mvCreditQty',
-                            Header: this.props.language.stockstatement.header.quantity,
+                            id: 'quantity',
                             accessor: 'buyQty',
                             width: 80,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvCreditAvgPrice',
-                            Header: this.props.language.stockstatement.header.avgprice,
+                            id: 'avgprice',
                             accessor: 'buyPrice',
                             width: 80,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvCreditAmt',
-                            Header: this.props.language.stockstatement.header.amt,
+                            id: 'amt',
                             accessor: 'buyAmount',
                             width: 100,
                             skip: false,
@@ -102,29 +95,26 @@ class StockStatement extends Component {
                     ]
                 },
                 {
-                    Header: this.props.language.stockstatement.header.debit,
+                    id : 'debit',
                     skip: false,
                     show: true,
                     columns: [
                         {
-                            id: 'mvDebitQty',
-                            Header: this.props.language.stockstatement.header.quantity,
+                            id: 'quantity',
                             accessor: 'sellQty',
                             width: 80,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvDebitAvgPrice',
-                            Header: this.props.language.stockstatement.header.avgprice,
+                            id: 'avgprice',
                             accessor: 'sellPrice',
                             width: 80,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvDebitAmt',
-                            Header: this.props.language.stockstatement.header.amt,
+                            id: 'amt',
                             accessor: 'sellAmount',
                             width: 100,
                             skip: false,
@@ -133,21 +123,19 @@ class StockStatement extends Component {
                     ]
                 },
                 {
-                    Header: this.props.language.stockstatement.header.feetax,
+                    id: 'feetax',
                     skip: false,
                     show: true,
                     columns: [
                         {
-                            id: 'mvValue',
-                            Header: this.props.language.stockstatement.header.value,
+                            id: 'value',
                             accessor: 'fee',
                             width: 80,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvPercentage',
-                            Header: this.props.language.stockstatement.header.percentage,
+                            id: 'percentage',
                             accessor: 'feePercent',
                             width: 60,
                             skip: false,
@@ -156,8 +144,7 @@ class StockStatement extends Component {
                     ]
                 },
                 {
-                    id: 'mvDescription',
-                    Header: this.props.language.stockstatement.header.description,
+                    id: 'description',
                     accessor: 'desc',
                     width: 200,
                     skip: false,
@@ -173,133 +160,7 @@ class StockStatement extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'mvOrder',
-                    Header: nextProps.language.stockstatement.header.order,
-                    accessor: 'refId',
-                    width: 60,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvTransactionDate',
-                    Header: nextProps.language.stockstatement.header.transactiondate,
-                    accessor: 'tradeDate',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStockCode',
-                    Header: nextProps.language.stockstatement.header.stockcode,
-                    accessor: 'stockCode',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvAction',
-                    Header: nextProps.language.stockstatement.header.action,
-                    accessor: 'action',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    Header: nextProps.language.stockstatement.header.credit,
-                    skip: false,
-                    show: true,
-                    columns: [
-                        {
-                            id: 'mvCreditQty',
-                            Header: nextProps.language.stockstatement.header.quantity,
-                            accessor: 'buyQty',
-                            width: 80,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvCreditAvgPrice',
-                            Header: nextProps.language.stockstatement.header.avgprice,
-                            accessor: 'buyPrice',
-                            width: 80,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvCreditAmt',
-                            Header: nextProps.language.stockstatement.header.amt,
-                            accessor: 'buyAmount',
-                            width: 100,
-                            skip: false,
-                            show: true,
-                        },
-                    ]
-                },
-                {
-                    Header: nextProps.language.stockstatement.header.debit,
-                    skip: false,
-                    show: true,
-                    columns: [
-                        {
-                            id: 'mvDebitQty',
-                            Header: nextProps.language.stockstatement.header.quantity,
-                            accessor: 'sellQty',
-                            width: 80,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvDebitAvgPrice',
-                            Header: nextProps.language.stockstatement.header.avgprice,
-                            accessor: 'sellPrice',
-                            width: 80,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvDebitAmt',
-                            Header: nextProps.language.stockstatement.header.amt,
-                            accessor: 'sellAmount',
-                            width: 100,
-                            skip: false,
-                            show: true,
-                        },
-                    ]
-                },
-                {
-                    Header: nextProps.language.stockstatement.header.feetax,
-                    skip: false,
-                    show: true,
-                    columns: [
-                        {
-                            id: 'mvValue',
-                            Header: nextProps.language.stockstatement.header.value,
-                            accessor: 'fee',
-                            width: 80,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvPercentage',
-                            Header: nextProps.language.stockstatement.header.percentage,
-                            accessor: 'feePercent',
-                            width: 60,
-                            skip: false,
-                            show: true,
-                        },
-                    ]
-                },
-                {
-                    id: 'mvDescription',
-                    Header: nextProps.language.stockstatement.header.description,
-                    accessor: 'desc',
-                    width: 200,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         })
     }
 
@@ -326,6 +187,7 @@ class StockStatement extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data.list}
+                            language={this.props.language.stockstatement.header}
                         />
                     </div>
 

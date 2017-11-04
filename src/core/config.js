@@ -456,9 +456,11 @@ const config = {
 	,
 	cache: {
 		stockList: [],
-		lang: '',
-		theme: ''
-	}
+		lang: 'vi_VN',
+		theme: 'light'
+	},
+	tableColReorder: [],
+	tableColWidth: [],
 }
 
 export default config

@@ -21,48 +21,42 @@ class EntitlementHistory extends Component {
             filterable: false,
             columns: [
                 {
-                    id: 'createTime',
-                    Header: this.props.language.entitlement.header.registerdate,
+                    id: 'registerdate',
                     accessor: 'createTime',
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'tradeStockCode',
-                    Header: this.props.language.entitlement.header.stock,
+                    id: 'stock',
                     accessor: 'tradeStockCode',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'resultQty',
-                    Header: this.props.language.entitlement.header.volume,
+                    id: 'volume',
                     accessor: 'resultQty',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'price',
-                    Header: this.props.language.entitlement.header.actionprice,
+                    id: 'actionprice',
                     accessor: 'price',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'appliedAmt',
-                    Header: this.props.language.entitlement.header.amount,
+                    id: 'amount',
                     accessor: 'appliedAmt',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'comfirmedDate',
-                    Header: this.props.language.entitlement.header.paiddate,
+                    id: 'paiddate',
                     width: 100,
                     accessor: 'comfirmedDate',
                     skip: false,
@@ -70,7 +64,6 @@ class EntitlementHistory extends Component {
                 },
                 {
                     id: 'status',
-                    Header: this.props.language.entitlement.header.status,
                     Cell: props => { return this.getEntitlementStatus(this.props.language, props.original.status) },
                     width: 200,
                     skip: false,
@@ -117,7 +110,8 @@ class EntitlementHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={entitlementHistory.historyList} />
+                            data={entitlementHistory.historyList}
+                            language={this.props.language.entitlement.header}/>
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -160,64 +154,7 @@ class EntitlementHistory extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        id: 'createTime',
-                        Header: nextProps.language.entitlement.header.registerdate,
-                        accessor: 'createTime',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'tradeStockCode',
-                        Header: nextProps.language.entitlement.header.stock,
-                        accessor: 'tradeStockCode',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'resultQty',
-                        Header: nextProps.language.entitlement.header.volume,
-                        accessor: 'resultQty',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'price',
-                        Header: nextProps.language.entitlement.header.actionprice,
-                        accessor: 'price',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'appliedAmt',
-                        Header: nextProps.language.entitlement.header.amount,
-                        accessor: 'appliedAmt',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'comfirmedDate',
-                        Header: nextProps.language.entitlement.header.paiddate,
-                        width: 100,
-                        accessor: 'comfirmedDate',
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'status',
-                        Header: nextProps.language.entitlement.header.status,
-                        Cell: props => { return this.getEntitlementStatus(nextProps.language, props.original.status) },
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    }
-                ]
+                
             })
         }
     }

@@ -372,7 +372,7 @@ export default
         },
         "portfolio": {
             "header": {
-                "mvMaketID": "Market",
+                "mvMarketID": "Market",
                 "sumary": "Sumary",
                 "valuevnd": "Value (VND)",
                 "value": "Value",

@@ -35,24 +35,21 @@ class CashTransHistory extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvTransId',
-                    Header: this.props.language.cashtransaction.header.transid,
+                    id: 'transid',
                     accessor: 'tranID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvDateTrans',
-                    Header: this.props.language.cashtransaction.header.datetrans,
+                    id: 'datetrans',
                     accessor: 'trandate',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvTransType',
-                    Header: this.props.language.cashtransaction.header.transtype,
+                    id: 'transtype',
 
 
                     width: 150,
@@ -66,8 +63,7 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvAmount',
-                    Header: this.props.language.cashtransaction.header.amount,
+                    id: 'amount',
                     accessor: 'totalLendingAmt',
                     width: 150,
                     skip: false,
@@ -75,8 +71,7 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.cashtransaction.header.status,
+                    id: 'status',
                     width: 70,
                     maxWidth: 80,
                     Cell: props => {
@@ -89,16 +84,14 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvNotes',
-                    Header: this.props.language.cashtransaction.header.notes,
+                    id: 'notes',
                     accessor: 'remark',
                     width: 150,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvLastUpdate',
-                    Header: this.props.language.cashtransaction.header.lastupdate,
+                    id: 'lastupdate',
                     accessor: 'lastApprovaltime',
                     width: 150,
                     skip: false,
@@ -112,80 +105,7 @@ class CashTransHistory extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            columns: [
-                {
-                    id: 'mvTransId',
-                    Header: nextProps.language.cashtransaction.header.transid,
-                    accessor: 'tranID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvDateTrans',
-                    Header: nextProps.language.cashtransaction.header.datetrans,
-                    accessor: 'trandate',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvTransType',
-                    Header: nextProps.language.cashtransaction.header.transtype,
-
-
-                    width: 150,
-                    Cell: props => {
-                        return (
-                            <span>{nextProps.language.searchbar[props.original.transType]}</span>
-                        )
-                    },
-                    sortable: false,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvAmount',
-                    Header: nextProps.language.cashtransaction.header.amount,
-                    accessor: 'totalLendingAmt',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.cashtransaction.header.status,
-                    width: 70,
-                    maxWidth: 80,
-                    Cell: props => {
-                        return (
-                            <span>{nextProps.language.cashtransaction.status[props.original.status]}</span>
-                        )
-                    },
-                    sortable: false,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvNotes',
-                    Header: nextProps.language.cashtransaction.header.notes,
-                    accessor: 'remark',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvLastUpdate',
-                    Header: nextProps.language.cashtransaction.header.lastupdate,
-                    accessor: 'lastApprovaltime',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                }
-            ]
-        });
-
+    
     }
 
 
@@ -210,6 +130,7 @@ class CashTransHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data}
+                            language={this.props.language.cashtransaction.header}
                         />
                     </div>
 

@@ -19,40 +19,35 @@ class OddLotHistory extends Component {
             oddLotTransPageIndex: 1,
             columns: [
                 {
-                    id: 'createTime',
-                    Header: this.props.language.oddlottrading.header.transdate,
+                    id: 'transdate',
                     accessor: 'createTime',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'valueDate',
-                    Header: this.props.language.oddlottrading.header.approvedate,
+                    id: 'approvedate',
                     accessor: 'valueDate',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'instrumentId',
-                    Header: this.props.language.oddlottrading.header.stockid,
+                    id: 'stockid',
                     accessor: 'instrumentId',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'appliedQty',
-                    Header: this.props.language.oddlottrading.header.oddlotquantityH,
+                    id: 'oddlotquantityH',
                     accessor: 'appliedQty',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'price',
-                    Header: this.props.language.oddlottrading.header.exepriceH,
+                    id: 'exepriceH',
                     accessor: 'price',
                     width: 120,
                     skip: false,
@@ -68,8 +63,7 @@ class OddLotHistory extends Component {
                 },
 
                 {
-                    id: 'settleAmt',
-                    Header: this.props.language.oddlottrading.header.value,
+                    id: 'value',
                     accessor: 'settleAmt',
                     width: 120,
                     skip: false,
@@ -77,7 +71,6 @@ class OddLotHistory extends Component {
                 },
                 {
                     id: 'status',
-                    Header: this.props.language.oddlottrading.header.status,
                     accessor: 'status',
                     width: 120,
                     skip: false,
@@ -99,95 +92,7 @@ class OddLotHistory extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'TransDate',
-                    Header: nextProps.language.oddlottrading.header.transdate,
-                    accessor: 'createTime',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'valueDate',
-                    Header: nextProps.language.oddlottrading.header.approvedate,
-                    accessor: 'valueDate',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'StockIDH',
-                    Header: nextProps.language.oddlottrading.header.stockid,
-                    accessor: 'instrumentId',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'oddlotquantityH',
-                    Header: nextProps.language.oddlottrading.header.oddlotquantityH,
-                    accessor: 'appliedQty',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'exepriceH',
-                    Header: nextProps.language.oddlottrading.header.exepriceH,
-                    Cell: props => {
-                        if (props.original.price === '0E-9')
-                            return 0
-                        else
-                            return Utils.currencyShowFormatter(props.original.price, ",", "vi-VN")
-                    },
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'tax',
-                    Header: nextProps.language.oddlottrading.header.tax,
-                    accessor: 'fee',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'fee',
-                    Header: nextProps.language.oddlottrading.header.fee,
-                    //accessor: 'fee',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'value',
-                    Header: nextProps.language.oddlottrading.header.value,
-                    Cell: props => {
-                        return Utils.currencyShowFormatter(props.original.settleAmt, ",", "vi-VN")
-                    },
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'status',
-                    Header: nextProps.language.oddlottrading.header.status,
-                    Cell: props => {
-                        if (props.original.status === 'H')
-                            return nextProps.language.oddlottrading.status.waiting;
-                        if (props.original.status === 'D')
-                            return nextProps.language.oddlottrading.status.approve;
-                        else
-                            return props.original.status
-
-                    },
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         })
     }
 
@@ -211,7 +116,8 @@ class OddLotHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={oddlothistory.historyList} />
+                            data={oddlothistory.historyList} 
+                            language={this.props.language.oddlottrading.header}/>
                     </div>
                     <div className="table-footer" style={tablefooter}>
                         <Pagination theme={this.props.theme}

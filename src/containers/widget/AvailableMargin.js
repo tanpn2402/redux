@@ -20,40 +20,35 @@ class AvaibleMarginList extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvRowNum',
-                    Header: this.props.language.avaiblemarginlist.header.No,
+                    id: 'No',
                     accessor: 'mvRowNum',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvInstrumentID',
-                    Header: this.props.language.avaiblemarginlist.header.Stockcode,
+                    id: 'Stockcode',
                     accessor: 'mvInstrumentID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvInstrumentName',
-                    Header: this.props.language.avaiblemarginlist.header.Fullname,
+                    id: 'Fullname',
                     accessor: 'mvInstrumentName',
                     width: 230,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvMarketID',
-                    Header: this.props.language.avaiblemarginlist.header.Exchange,
+                    id: 'Exchange',
                     accessor: 'mvMarketID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvLendPercent',
-                    Header: this.props.language.avaiblemarginlist.header.psentlending,
+                    id: 'psentlending',
                     accessor: 'mvLendPercent',
                     width: 80,
                     skip: false,
@@ -77,48 +72,7 @@ class AvaibleMarginList extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'mvRowNum',
-                    Header: nextProps.language.avaiblemarginlist.header.No,
-                    accessor: 'mvRowNum',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvInstrumentID',
-                    Header: nextProps.language.avaiblemarginlist.header.Stockcode,
-                    accessor: 'mvInstrumentID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvInstrumentName',
-                    Header: nextProps.language.avaiblemarginlist.header.Fullname,
-                    accessor: 'mvInstrumentName',
-                    width: 230,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvMarketID',
-                    Header: nextProps.language.avaiblemarginlist.header.Exchange,
-                    accessor: 'mvMarketID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvLendPercent',
-                    Header: nextProps.language.avaiblemarginlist.header.psentlending,
-                    accessor: 'mvLendPercent',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         });
 
     }
@@ -146,6 +100,7 @@ class AvaibleMarginList extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data.list}
+                            language={this.props.language.avaiblemarginlist.header}
                         />
                     </div>
 

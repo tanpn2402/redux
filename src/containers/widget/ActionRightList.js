@@ -22,23 +22,21 @@ class ActionRightList extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'stockId',
-                    Header: this.props.language.entitlement.header.stock,
+                    id: 'stock',
                     accessor: 'stockId',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'issueType',
-                    Header: this.props.language.entitlement.header.actiontype,
+                    id: 'actiontype',
                     Cell: props => { return this.getRightType(this.props.language, props.original.issueType) },
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'bookCloseDate',
+                    id: 'recorddate',
                     Header: this.props.language.entitlement.header.recorddate,
                     accessor: 'bookCloseDate',
                     width: 100,
@@ -46,8 +44,7 @@ class ActionRightList extends Component {
                     show: true,
                 },
                 {
-                    id: 'totalBonusRight',
-                    Header: this.props.language.entitlement.header.owningvolume,
+                    id: 'owningvolume',
                     accessor: 'totalBonusRight',
                     width: 100,
                     skip: false,
@@ -55,7 +52,6 @@ class ActionRightList extends Component {
                 },
                 {
                     id: 'ratecash',
-                    Header: this.props.language.entitlement.header.ratecash,
                     Cell: props => {
                         return this.redererToCash(props.original)
                     },
@@ -64,16 +60,14 @@ class ActionRightList extends Component {
                     show: true,
                 },
                 {
-                    id: 'stockRate',
-                    Header: this.props.language.entitlement.header.rate,
+                    id: 'rate',
                     accessor: 'stockRate',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'price',
-                    Header: this.props.language.entitlement.header.pervalue,
+                    id: 'pervalue',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
                     },
@@ -82,8 +76,7 @@ class ActionRightList extends Component {
                     show: true,
                 },
                 {   // SL CK
-                    id: 'totalScript',
-                    Header: this.props.language.entitlement.header.recievecash,
+                    id: 'recievecash',
                     accessor: 'totalScript',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.totalScript, ",", this.lang)
@@ -93,8 +86,7 @@ class ActionRightList extends Component {
                     show: true,
                 },
                 {
-                    id: 'totalIssue',
-                    Header: this.props.language.entitlement.header.receivedstock,
+                    id: 'receivedstock',
                     accessor: 'totalIssue',
                     width: 100,
                     skip: false,
@@ -102,23 +94,20 @@ class ActionRightList extends Component {
                 },
                 {
                     id: 'status',
-                    Header: this.props.language.entitlement.header.status,
                     Cell: props => { return this.getRightStatus(this.props.language, props.original.status) },
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'payableDate',
-                    Header: this.props.language.entitlement.header.payabledate,
+                    id: 'payabledate',
                     accessor: 'payableDate',
                     width: 200,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'paidDate',
-                    Header: this.props.language.entitlement.header.paiddate,
+                    id: 'paiddate',
                     accessor: 'paidDate',
                     width: 200,
                     skip: false,
@@ -192,7 +181,8 @@ class ActionRightList extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={allRightList.rightList} />
+                            data={allRightList.rightList}
+                            language={this.props.language.entitlement.header} />
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar
@@ -235,111 +225,7 @@ class ActionRightList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        id: 'stockId',
-                        Header: nextProps.language.entitlement.header.stock,
-                        accessor: 'stockId',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'issueType',
-                        Header: nextProps.language.entitlement.header.actiontype,
-                        Cell: props => { return this.getRightType(nextProps.language, props.original.issueType) },
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'bookCloseDate',
-                        Header: nextProps.language.entitlement.header.recorddate,
-                        accessor: 'bookCloseDate',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'totalBonusRight',
-                        Header: nextProps.language.entitlement.header.owningvolume,
-                        accessor: 'totalBonusRight',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'ratecash',
-                        Header: nextProps.language.entitlement.header.ratecash,
-                        Cell: props => {
-                            return this.redererToCash(props.original)
-                        },
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'stockRate',
-                        Header: nextProps.language.entitlement.header.rate,
-                        accessor: 'stockRate',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'price',
-                        Header: nextProps.language.entitlement.header.pervalue,
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.price, ",", this.lang)
-                        },
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {   // SL CK
-                        id: 'totalScript',
-                        Header: nextProps.language.entitlement.header.recievecash,
-                        accessor: 'totalScript',
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.totalScript, ",", this.lang)
-                        },
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'totalIssue',
-                        Header: nextProps.language.entitlement.header.receivedstock,
-                        accessor: 'totalIssue',
-                        width: 100,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'status',
-                        Header: nextProps.language.entitlement.header.status,
-                        Cell: props => { return this.getRightStatus(nextProps.language, props.original.status) },
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'payableDate',
-                        Header: nextProps.language.entitlement.header.payabledate,
-                        accessor: 'payableDate',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'paidDate',
-                        Header: nextProps.language.entitlement.header.paiddate,
-                        accessor: 'paidDate',
-                        width: 200,
-                        skip: false,
-                        show: true,
-                    }
-                ]
+                
             })
         }
     }

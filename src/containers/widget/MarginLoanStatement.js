@@ -39,53 +39,47 @@ class MarginLoanStatement extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvRowNum',
-                    Header: this.props.language.marginloan.header.rownum,
+                    id: 'rownum',
                     accessor: 'rowNum',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvTransactionDate',
-                    Header: this.props.language.marginloan.header.transactiondate,
+                    id: 'transactiondate',
                     accessor: 'tranDate',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvDescription',
-                    Header: this.props.language.marginloan.header.description,
+                    id: 'description',
                     accessor: 'desc',
                     width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    Header: this.props.language.marginloan.header.marginusage,
+                    id: 'marginusage',
                     skip: false,
                     show: true,
                     columns: [
                         {
-                            id: 'mvDebt',
-                            Header: this.props.language.marginloan.header.debt,
+                            id: 'debt',
                             accessor: 'out',
                             width: 100,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvPayment',
-                            Header: this.props.language.marginloan.header.payment,
+                            id: 'payment',
                             accessor: 'in',
                             width: 100,
                             skip: false,
                             show: true,
                         },
                         {
-                            id: 'mvFinalDebt',
-                            Header: this.props.language.marginloan.header.finaldept,
+                            id: 'finaldept',
                             accessor: 'balance',
                             width: 100,
                             skip: false,
@@ -94,16 +88,14 @@ class MarginLoanStatement extends Component {
                     ]
                 },
                 {
-                    id: 'mvMarginCall',
-                    Header: this.props.language.marginloan.header.margincall,
+                    id: 'margincall',
                     accessor: 'marginCallF',
                     width: 250,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvForceSell',
-                    Header: this.props.language.marginloan.header.forcesell,
+                    id: 'forcesell',
                     accessor: 'sellAmount',
                     width: 250,
                     skip: false,
@@ -119,79 +111,7 @@ class MarginLoanStatement extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.state = {
-            columns: [
-                {
-                    id: 'mvRowNum',
-                    Header: nextProps.language.marginloan.header.rownum,
-                    accessor: 'rowNum',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvTransactionDate',
-                    Header: nextProps.language.marginloan.header.transactiondate,
-                    accessor: 'tranDate',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvDescription',
-                    Header: nextProps.language.marginloan.header.description,
-                    accessor: 'desc',
-                    width: 250,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    Header: nextProps.language.marginloan.header.marginusage,
-                    skip: false,
-                    show: true,
-                    columns: [
-                        {
-                            id: 'mvDebt',
-                            Header: nextProps.language.marginloan.header.debt,
-                            accessor: 'out',
-                            width: 100,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvPayment',
-                            Header: nextProps.language.marginloan.header.payment,
-                            accessor: 'in',
-                            width: 100,
-                            skip: false,
-                            show: true,
-                        },
-                        {
-                            id: 'mvFinalDebt',
-                            Header: nextProps.language.marginloan.header.finaldept,
-                            accessor: 'balance',
-                            width: 100,
-                            skip: false,
-                            show: true,
-                        },
-                    ]
-                },
-                {
-                    id: 'mvMarginCall',
-                    Header: nextProps.language.marginloan.header.margincall,
-                    accessor: 'marginCallF',
-                    width: 250,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvForceSell',
-                    Header: nextProps.language.marginloan.header.forcesell,
-                    accessor: 'sellAmount',
-                    width: 250,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         }
     }
 
@@ -218,6 +138,7 @@ class MarginLoanStatement extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data.list}
+                            language={this.props.language.marginloan.header}
                         />
                     </div>
 
