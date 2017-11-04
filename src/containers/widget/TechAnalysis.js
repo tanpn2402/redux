@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from "react-bootstrap";
 import SearchBar from "../commons/SearchBar"
 import { connect } from "react-redux"
@@ -8,89 +8,479 @@ import Pagination from "../commons/Pagination"
 import Title from "../commons/WidgetTitle"
 import Body from "../commons/WidgetBody"
 
-import Chart from "../commons/chart"
-class TechAnalysis extends Component {
+import Chart from "../commons/chart/index"
+
+import {TabControl, TabItem} from "../commons/TabControl"
+import Select from "../commons/Select"
+import Input from "../commons/Input"
+
+class EnterOrder extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.id = "enterorder-a"
+        this.state = {
+        }
+    }
+
+    render() {
+        return (
+
+
+            <div style={{ width: "100%", height: "100%" }} id={this.id} className="enterorder-a buy">
+                <div className="enterorder-form buy">
+                    <div>
+                        <Col xs={3}>
+                            <Select
+                                options={["11111", "22222", "33333"]}
+
+                            />
+                        </Col>
+                        <Col xs={6}>
+                            <Select
+                                options={["11111", "22222", "33333"]}
+
+                            />
+                        </Col>
+                        <Col xs={3}>
+                            <Select
+                                options={["11111", "22222", "33333"]}
+
+                            />
+
+                        </Col>
+                    </div>
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Stock Code
+                        </div>
+                        <div className="col-xs-8">
+                            <Col xs={5}>
+                                <Select
+                                    options={["11111", "22222", "33333"]}
+                                />
+
+                            </Col>
+                        <Col xs={7}>
+                                <Input type="text" setRef={ref => this.ref =  ref}/>
+                        </Col>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Quantity
+                        </div>
+                        <div className="col-xs-8">
+                            
+                            <Input type="number" setRef={ref => this.ref =  ref}/>
+                            
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="col-xs-4" style={{ lineHeight: "2.2" }}>
+                            Price
+                        </div>
+                        <div className="col-xs-8">
+                        
+                            <Input type="number" setRef={ref => this.ref =  ref}/>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style={{ padding: "10px 10px", backgroundColor: "#f1f1f1", fontSize: "16px" }} >
+                    <div style={{ display: "inline" }}>
+                        Consult sum of money
+                    </div>
+
+                    <div style={{ float: "right", paddingRight: "3px" }}>
+                        $00.0
+                    </div>
+                </div>
+
+
+                <div style={{ padding: "6px 10px", marginTop: "10px"}} >
+                    <div style={{ display: "inline" }}>
+                        Maximum quantity
+                    </div>
+
+                    <div style={{ color: "#ca3435", display: "inline", marginLeft: "5px" }}>
+                        200
+                    </div>
+                </div>
+
+                <div className="group-btn-action form-submit-action">
+                    <span>
+                        <button type="reset" className="hks-btn btn-cancel"
+                            onClick={this.handleResetForm.bind(this)}>
+                            {this.props.language.button.reset}
+                        </button>
+                        <button type="submit" className="hks-btn btn-submit"
+                            onClick={this.handleSubmit.bind(this)}>
+                            {this.props.language.button.buy}
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+
+            
+        )
+    }
+
+    handleSubmit() {
+
+    }
+
+    handleResetForm() {
+
+    }
+}
+
+
+
+class ListView extends React.Component {
+    constructor(props) {
+        super(props)
+
+        
+
+        this.onClick = this.onClick.bind(this)
+        this.state = {
+            toRender: false,
+            compoWid : 0
+        }
+    }
+
+    toggleIconExpand(icon) {
+        if(icon == "+") {
+            return "-"
+        } else return "+"
+    }
+
+    onClick(id) {
+        console.log(id)
+        document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)
+    }
+
+    createColumns(columns) {
+        let remainWid = this.state.compoWid - 40
+        let i = 0
+        let col = []
+        while (remainWid > 0 ) {
+            if( columns[i].width && remainWid > columns[i].width*0.7 ) {
+                if( remainWid > columns[i].width ) {
+                    col.push({
+                        id: columns[i].id,
+                        accessor: columns[i].accessor,
+                        width: columns[i].width,
+                        style: columns[i].style
+                    })
+                }
+                else {
+                    col.push({
+                        id: columns[i].id,
+                        accessor: columns[i].accessor,
+                        width: remainWid,
+                        style: columns[i].style
+                    })
+                }
+
+                remainWid -= columns[i].width
+                i += 1
+            } else {
+                col[i - 1].width += remainWid
+                remainWid = -1
+            }
+        }
+
+        return col
+    }
+
+    getMaxWid(columns, col) {
+        let max = 0
+        let addCol = []
+        for(let i = 0; i < columns.length; i++) {
+            let t = col.filter(f => f.id === columns[i].id)
+            if( t.length > 0 ) {
+                continue
+            } else {
+                addCol.push(columns[i])
+                if(columns[i].width > max) {
+                    max = columns[i].width
+                }
+            }
+        }
+        return {
+            maxWid: max,
+            addCol: addCol
+        }
+    }
+
+    render() {
+        let language = this.props.language
+        let data = this.props.data
+        let columns = this.props.columns
+
+        console.log(this.props.columns)
+        let width = window.innerWidth
+
+
+        
+        let col = this.createColumns(columns)
+        let maxWid = this.getMaxWid(columns, col).maxWid
+        let addCol = this.getMaxWid(columns, col).addCol
+        
+        console.log(col)
+        let rowStamp = (new Date()).getTime()
+        let row = 1
+        return (
+            <div className="listview-control" ref={node => this.lv = node}>
+
+                {
+                    !this.state.toRender ? null : 
+                    
+                    (
+                        <div className="rt-lv" style={{ height: "100%" }}>
+                            <div className="lv-thead">
+                                <div className="lv-tr">
+                                    <div className="lv-th" style={{ width: "30px" }}></div>
+                                    {
+                                        col.map(hd => {
+                                            return (
+                                                <div className="lv-th" style={Object.assign({ width: hd.width }, hd.style)}>
+                                                    {language.header[hd.id]}
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="lv-tbody">
+                                <div className="lv-tbody-b">
+                                {
+                                    data.map( d => {
+                                        let rowId = "r-" + rowStamp + "-" + (row++) 
+                                        return (
+                                        
+                                            <div className="lv-tr-group">
+                                                <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.onClick(rowId)}>
+                                                    <div className="lv-td icon" style={{ width: "30px" }}>
+                                                        <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
+                                                    </div>
+
+                                                    {
+                                                        col.map(hd => {
+                                                            return (
+                                                                <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
+                                                                    {d[hd.accessor]}
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+
+                                                </div>
+
+                                                <div id={rowId} className="collapse">
+                                                    <div className="lv-tr-add">
+                                                        {
+                                                            addCol.map( col => {
+                                                                return (
+                                                                    <div className="lv-group">
+                                                                        <div className="lv-hd" style={{ width: maxWid }}>
+                                                                            { language.header[col.id] }
+                                                                        </div>
+                                                                        <div className="lv-vl" style={{ width: maxWid }}>
+                                                                            { d[col.accessor] }
+                                                                        </div>
+                                                                    </div> 
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                       
+                                        )}
+                                    )
+                                }
+                                </div>
+                            </div>
+
+                            <div className="lv-tfooter">
+                                <div style={{ float: "left", paddingLeft: '10px' }}>
+                                   {"< Prev"}
+                                </div>
+                                <div style={{ textAlign: "center", position: "absolute", width: '100%' }}>
+                                    Page 1 of 5
+                                </div>
+                                <div style={{ float: "right", paddingRight: '10px' }}>
+                                    {" Next >"}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+        
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        this.setState({
+            compoWid: this.lv.offsetWidth,
+            toRender: true
+        })
+    }
+}
+
+class TechAnalysis extends React.Component {
 
     constructor(props) {
         super(props)
 
         this.id = "techanalysis"
+
+        this.param = {
+            mvStatus: "ALL",
+            mvOrderType: "ALL",
+            mvOrderBS: "ALL",
+            page: 1,
+            start: 0,
+            limit: 5,
+        }
+
+        this.state = {
+            activeKey: 1,
+            columns: [
+                {
+                    id: "orderID",
+                    accessor: "mvOrderGroupID",
+                    width: 100, 
+                },
+                {
+                    id: "stockid",
+                    accessor: "mvStockID",
+                    width: 90,   
+                    style: {textAlign:  "center"}                  
+                },
+                {
+                    id: "price",
+                    accessor: "mvPrice",
+                    width: 130,
+                    style: {textAlign:  "right"}    
+                },
+                {
+                    id: "buysell",
+                    accessor: "mvBS",
+                    width: 50,
+                    style: {textAlign:  "center"}    
+                },
+                {
+                    id: "quantity",
+                    accessor: "mvQty",
+                    width: 80,
+                },
+                {
+                    id: "pendingQty",
+                    accessor: "mvPendingQty",
+                    width: 80,
+                },
+                {
+                    id: "executedQty",
+                    accessor: "mvPendingQty",
+                    width: 80,
+                },
+                {
+                    id: "avgprice",
+                    accessor: "mvAvgPriceValue",
+                    width: 100,
+                },
+                {
+                    id: "status",
+                    accessor: "mvStatus",
+                    width: 80,
+                },
+                {
+                    id: "ordertype",
+                    accessor: "mvOrderType",
+                    width: 80,
+                },
+                {
+                    id: "feetax",
+                    accessor: "mvOrderType",
+                    width: 80,
+                }
+            ]
+        }
     }
 
     render() {
-        let theme = this.props.theme.techanalysis.chartConfig
-        var test = [["2016-09-16 00:00:00", 114.92, 116.13, 114.04, 115.12, 79763890], ["2016-09-19 00:00:00", 113.58, 116.18, 113.25, 115.19, 46937190], ["2016-09-20 00:00:00", 113.57, 114.12, 112.51, 113.05, 34494150], ["2016-09-21 00:00:00", 113.55, 113.989, 112.441, 113.85, 35951900], ["2016-09-22 00:00:00", 114.62, 114.94, 114, 114.35, 31048170], ["2016-09-23 00:00:00", 112.71, 114.79, 111.55, 114.42, 52411070], ["2016-09-26 00:00:00", 112.88, 113.39, 111.55, 111.64, 29800240], ["2016-09-27 00:00:00", 113.09, 113.18, 112.34, 113, 24587490], ["2016-09-28 00:00:00", 113.95, 114.64, 113.43, 113.69, 29608390], ["2016-09-29 00:00:00", 112.18, 113.8, 111.8, 113.16, 35850010], ["2016-09-30 00:00:00", 113.05, 113.37, 111.8, 112.46, 36340670], ["2016-10-03 00:00:00", 112.52, 113.05, 112.28, 112.71, 21634520], ["2016-10-04 00:00:00", 113, 114.31, 112.63, 113.06, 29707270], ["2016-10-05 00:00:00", 113.05, 113.66, 112.69, 113.4, 21400410], ["2016-10-06 00:00:00", 113.89, 114.34, 113.13, 113.7, 28508710], ["2016-10-07 00:00:00", 114.06, 114.56, 113.51, 114.31, 24336440], ["2016-10-10 00:00:00", 116.05, 116.75, 114.72, 115.02, 36087910], ["2016-10-11 00:00:00", 116.3, 118.69, 116.2, 117.7, 63963010], ["2016-10-12 00:00:00", 117.34, 117.98, 116.75, 117.35, 37512930], ["2016-10-13 00:00:00", 116.98, 117.44, 115.72, 116.79, 35041820], ["2016-10-14 00:00:00", 117.63, 118.17, 117.13, 117.88, 35626020], ["2016-10-17 00:00:00", 117.55, 117.84, 116.78, 117.33, 23583810], ["2016-10-18 00:00:00", 117.47, 118.21, 117.45, 118.18, 24308210], ["2016-10-19 00:00:00", 117.12, 117.76, 113.8, 117.25, 19977160], ["2016-10-20 00:00:00", 117.06, 117.38, 116.33, 116.86, 24100150], ["2016-10-21 00:00:00", 116.6, 116.91, 116.28, 116.81, 22527690], ["2016-10-24 00:00:00", 117.65, 117.74, 117, 117.1, 23492650], ["2016-10-25 00:00:00", 118.25, 118.36, 117.31, 117.95, 46820600], ["2016-10-26 00:00:00", 115.59, 115.7, 113.31, 114.31, 66028640], ["2016-10-27 00:00:00", 114.48, 115.86, 114.1, 115.39, 31396130], ["2016-10-28 00:00:00", 113.72, 115.21, 113.45, 113.87, 36792100], ["2016-10-31 00:00:00", 113.54, 114.23, 113.2, 113.65, 26378910], ["2016-11-01 00:00:00", 111.49, 113.77, 110.53, 113.46, 43403760], ["2016-11-02 00:00:00", 111.59, 112.35, 111.23, 111.4, 28174980], ["2016-11-03 00:00:00", 109.83, 111.46, 109.55, 110.98, 26538700], ["2016-11-04 00:00:00", 108.84, 110.25, 108.11, 108.53, 30790930], ["2016-11-07 00:00:00", 110.41, 110.51, 109.46, 110.08, 32361930], ["2016-11-08 00:00:00", 111.06, 111.72, 109.7, 110.31, 24129630], ["2016-11-09 00:00:00", 110.88, 111.32, 108.05, 109.88, 59118740], ["2016-11-10 00:00:00", 107.79, 111.09, 105.83, 111.09, 57097740], ["2016-11-11 00:00:00", 108.43, 108.87, 106.55, 107.12, 34117030], ["2016-11-14 00:00:00", 105.71, 107.809, 104.08, 107.71, 50901380], ["2016-11-15 00:00:00", 107.11, 107.68, 106.1593, 106.57, 32230590], ["2016-11-16 00:00:00", 109.99, 110.23, 106.6, 106.7, 58724080], ["2016-11-17 00:00:00", 109.95, 110.35, 108.83, 109.81, 27623150], ["2016-11-18 00:00:00", 110.06, 110.54, 109.66, 109.72, 28310840], ["2016-11-21 00:00:00", 111.73, 111.99, 110.01, 110.12, 29164190], ["2016-11-22 00:00:00", 111.8, 112.42, 111.4, 111.95, 25931710], ["2016-11-23 00:00:00", 111.23, 111.51, 110.33, 111.36, 27420550], ["2016-11-25 00:00:00", 111.79, 111.87, 110.95, 111.13, 11475920], ["2016-11-28 00:00:00", 111.57, 112.465, 111.39, 111.43, 27054320], ["2016-11-29 00:00:00", 111.46, 112.03, 110.07, 110.78, 28507780], ["2016-11-30 00:00:00", 110.52, 112.2, 110.27, 111.6, 36151450], ["2016-12-01 00:00:00", 109.49, 110.94, 109.03, 110.365, 37034520], ["2016-12-02 00:00:00", 109.9, 110.09, 108.85, 109.17, 26481320], ["2016-12-05 00:00:00", 109.11, 110.03, 108.25, 110, 34113880], ["2016-12-06 00:00:00", 109.95, 110.36, 109.19, 109.5, 26160560], ["2016-12-07 00:00:00", 111.03, 111.19, 109.16, 109.26, 29976030], ["2016-12-08 00:00:00", 112.12, 112.43, 110.6, 110.86, 27049830], ["2016-12-09 00:00:00", 113.95, 114.7, 112.31, 112.31, 34324350], ["2016-12-12 00:00:00", 113.3, 115, 112.49, 113.29, 26176690], ["2016-12-13 00:00:00", 115.19, 115.92, 113.75, 113.84, 43293350], ["2016-12-14 00:00:00", 115.19, 116.2, 114.98, 115.04, 33962370], ["2016-12-15 00:00:00", 115.82, 116.73, 115.23, 115.38, 46286150], ["2016-12-16 00:00:00", 115.97, 116.5, 115.645, 116.47, 44284660]];
-        let config = {
-            chart: {
-                type: "Line",
-                appearance: {
-                    strokeDasharray: "Solid",
-                    strokeWidth: 1,
-                    strokeNormal: theme.chart.appearance.strokeNormal,
-                    strokeUp: theme.chart.appearance.strokeUp,
-                    strokeDown: theme.chart.appearance.strokeDown,
-                    fill: theme.chart.appearance.fill,
-                    opacity: theme.chart.appearance.opacity,
-                    wickStroke: theme.chart.appearance.wickStroke, // for Candlestick Chart
-                    background: theme.chart.appearance.background,
-                    theme: theme.chart.appearance.theme
-                },
-            },
-
-            axis: {
-                xAxis: true,
-                yAxis: true,
-
-                showGrid: false,
-                tickStrokeDasharray: "Solid",
-                tickStrokeOpacity: 0.2,
-                tickStrokeWidth: 1,
-
-                showTicks: true,
-                stroke: theme.axis.stroke,
-                tickStroke: theme.axis.tickStroke
-
-            },
-
-            tooltip: {
-                fontSize: "12px",
-            },
-
-            option: {
-                timeline: true,
-                control: true,
-                editor: true,
-            },
-
-            control: theme.control
-        }
-
+        //console.log(this.props.data)
         return (
+            
+
             <div style={{ height: "100%", position: "relative" }} id={this.id}>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={"techanalysis"}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <Chart height={470} rawData={test} config={config} />
+                    <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+                        <TabItem eventKey={1} title="Normal" >
+                            <EnterOrder language={this.props.language}/>
+                            
+                        </TabItem>
+                        <TabItem eventKey={2} title="Auction">
+                            <div style={{ padding: "0px", height: "100%" }}>
+                                <ListView language={this.props.language.orderjournal} 
+                                    columns={this.state.columns} 
+                                    data={this.props.data.mvOrderBeanList}/>
+                            </div>
+                            
+                            
+                        </TabItem>
+                        <TabItem eventKey={3} title="Special" disabled>
+                            
+                            
+                        </TabItem>
+                    </TabControl>
                 </Body>
             </div>
+
+
+            
         )
-
-    }
-
-    componentWillMount() {
-
     }
 
     componentDidMount() {
+        this.props.onSearch(this.param)
+
+    }
+
+    onTabChange(key) {
+        //console.log(key)
+
+        this.setState({activeKey: key})
     }
 
 }
 const mapStateToProps = (state) => {
-
+    return {
+        data: state.orderjournal.enquiryorder
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+    onSearch: (param, reload) => {
+        dispatch(actions.getEnquiry(param, reload))
+    },
 
 })
 

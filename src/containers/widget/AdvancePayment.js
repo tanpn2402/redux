@@ -9,9 +9,10 @@ class AdvancePayment extends Component {
         super(props)
 
         this.widget = [
+            'advancePanel',
             'matchOrderList',
-            'advanceHistory',
-            'advancePanel'
+            'advanceHistory'
+            
         ]
 
         this.layout = [

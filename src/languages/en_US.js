@@ -10,7 +10,8 @@ export default
             "orderjournal": "Order Journal",
             "transhistory": "Trans History",
             "management": "Management",
-            "customization": "Customization"
+            "customization": "Customization",
+            "mobile": "mobile"
         },
         "setting": {
             "language": {
@@ -80,7 +81,7 @@ export default
             "orderjournal": "Order Journal",
             "accountinfo": "Account Info",
             "account": "Account",
-            "ordershistory": "Matching Orders History",
+            "ordershistory": "Transaction History",
             "cashtransactionhistory": "Cash Transaction History",
             "cashstatement": "Cash Statement",
             "stockstatement": "Stock Statement",
@@ -203,7 +204,8 @@ export default
                 "rejectreason": "Reject Reason",
                 "time": "Time",
                 "stockid": "Stock ID",
-                "buysell": "Buy/Sell"
+                "buysell": "B/S",
+                "orderID": "Order ID"
             },
             "popup": {
                 "title": {
@@ -290,7 +292,7 @@ export default
                 "status": "Status",
                 "ordertype": "Order Type",
                 "stockid": "StockID",
-                "buysell": "Buy/Sell"
+                "buysell": "B/S"
             }
         },
         "oddlottrading": {
@@ -1123,7 +1125,10 @@ export default
             "saveLayout": "Save Layout",
             "login": "Login",
             "yes": "Yes",
-            "no": "No"
+            "no": "No",
+            "buy": "Buy",
+            "sell": "Sell",
+            "reset": "RESET"
         },
         "login": {
             "username": "Account No",

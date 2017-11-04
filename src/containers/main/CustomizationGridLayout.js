@@ -29,8 +29,8 @@ class CustomGridLayout extends React.Component {
         layout['x'] = layout['x'] === undefined ? 0 : layout['x']
         layout['y'] = layout['y'] === undefined ? 0 : layout['y']
 
-        layout['w'] =  layout[this.screenSize + 'W']
-        layout['h'] =  layout[this.screenSize + 'H']
+        layout['w'] =  layout[this.screenSize + 'W'] === undefined ? layout['w'] : layout[this.screenSize + 'W']
+        layout['h'] =  layout[this.screenSize + 'H'] === undefined ? layout['h'] : layout[this.screenSize + 'H']
 
         return (
             <div key={menuid}
@@ -103,7 +103,7 @@ class CustomGridLayout extends React.Component {
             config.tabbar[index].widget.push(this.state.layout[this.state.list[i]])
         }
 
-         console.log(config.tabbar)
+        //console.log(config.tabbar)
     }
 
     render() {

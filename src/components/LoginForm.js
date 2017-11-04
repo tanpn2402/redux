@@ -92,7 +92,7 @@ class LoginForm extends Component {
 
                 
 
-                <div className="login-form-footer">                 
+                {/* <div className="login-form-footer">                 
                     <Col sm={4}>
                         <h5> Hong Kong Head Office:</h5>
                         <p>21/F, Guangdong Finance Building, 88 Connaught Road West, Sheung Wan, Hong Kong
@@ -106,7 +106,7 @@ class LoginForm extends Component {
                     <Col sm={4}>
                         <p>©2017 TTL</p>
                     </Col>
-                </div>
+                </div> */}
                 
                 
                 
