@@ -53,11 +53,11 @@ import StockStatement from './StockStatement'
 import CashStatement from './CashStatement'
 import MarginLoanStatement from './MarginLoanStatement'
 import AvailableMargin from './AvailableMargin'
+import TransactionHistory from './TransactionHistory'
 
 export default function (menuid, props){
+	console.log(menuid)
 	switch(menuid){
-
-
 		case 'management':
 			return(
 				<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
@@ -252,7 +252,10 @@ export default function (menuid, props){
 				<AvailableMargin stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
-
+		case 'transactionhistory':
+			return (
+				<TransactionHistory stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
 
     }
 }

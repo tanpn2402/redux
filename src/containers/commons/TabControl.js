@@ -27,13 +27,13 @@ class TabControl extends React.Component {
         return (
 
             <div className="tab-component">
-                <div className="tab-chooser">
+                <div className="tab-chooser" ref={ ref => this.refChooser = ref }>
                     <ul className="tab-control">
                         {children}
                     </ul>
                 </div>
 
-                <div className="tab-wrapper">
+                <div className="tab-wrapper" ref={ ref => this.refWrapper = ref }>
                     <div className="tab-inner">
                         {activedTab.length > 0 ? activedTab[0].props.children : null}
                     </div>
@@ -44,6 +44,16 @@ class TabControl extends React.Component {
         )
         
 
+    }
+
+    componentDidMount() {
+        this.componentDidUpdate()
+    }
+
+    componentDidUpdate() {
+        if(this.refChooser && this.refWrapper) {
+            this.refWrapper.style.paddingTop = this.refChooser.offsetHeight + "px"
+        }
     }
 }
 

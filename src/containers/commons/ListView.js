@@ -17,7 +17,7 @@ export default class ListView extends React.Component {
     }
 
     onClick(id) {
-        console.log(id)
+        // console.log(id)
         document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)
     }
 
@@ -76,11 +76,13 @@ export default class ListView extends React.Component {
     }
 
     render() {
-        let language = this.props.language
-        let data = this.props.data
+        console.log(this.props)
+        //console.log(this.state)
+        let language = this.props.language[this.props.id]
+        let data = this.props.tableData
         let columns = this.props.columns
 
-        console.log(this.props.columns)
+        // console.log(this.props.columns)
         let width = window.innerWidth
 
 
@@ -89,15 +91,14 @@ export default class ListView extends React.Component {
         let maxWid = this.getMaxWid(columns, col).maxWid
         let addCol = this.getMaxWid(columns, col).addCol
 
-        console.log(col)
+        // console.log(col)
         let rowStamp = (new Date()).getTime()
         let row = 1
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-
+                {console.log(this.state.toRender)}
                 {
-                    !this.state.toRender ? null :
-
+                    !this.state.toRender ? "" :
                         (
                             <div className="rt-lv" style={{ height: "100%" }}>
                                 <div className="lv-thead" ref={ref => this.refTHead = ref}>
@@ -168,14 +169,18 @@ export default class ListView extends React.Component {
                                 </div>
 
                                 <div className="lv-tfooter">
-                                    <div onClick={() => this.test(-1)} style={{ position: 'relative', zIndex: 1, float: "left", paddingLeft: '10px' }}>
-                                        {"< Prev"}
+                                    <div onClick={() => this.onPageChange(-1)} style={{ position: 'relative', zIndex: 1, float: "left", paddingLeft: '10px' }}>
+                                        <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
+                                            {"< Prev"}
+                                        </button>
                                     </div>
                                     <div style={{ textAlign: "center", position: "absolute", width: '100%' }}>
                                         {"Page " + this.props.pageIndex +  " of " + (this.props.totalPage)}
-                                </div>
-                                    <div onClick={() => this.test(1)} style={{ position: 'relative', zIndex: 1, float: "right", paddingRight: '10px' }}>
-                                        {" Next >"}
+                                    </div>
+                                    <div onClick={() => this.onPageChange(1)} style={{ position: 'relative', zIndex: 1, float: "right", paddingRight: '10px' }}>
+                                        <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
+                                            {" Next >"}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -186,9 +191,10 @@ export default class ListView extends React.Component {
         )
     }
 
-    test(n) {
-        if(this.props.pageIndex + n > 0 && this.props.pageIndex + n <= this.props.totalPage) {
-            this.props.handlePageChange(this.props.pageIndex + n)
+    onPageChange(n) {
+        if(this.props.pageIndex + n > 0 && this.props.pageIndex + n <= this.props.totalPage 
+            && this.props.onPageChange) {
+            this.props.onPageChange(this.props.pageIndex + n)
         }
         
     }
@@ -199,9 +205,9 @@ export default class ListView extends React.Component {
             toRender: true
         })
 
-        if(this.refTBody && this.refTHead) {
-            this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
-        }
+        // if(this.refTBody && this.refTHead) {
+        //     this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
+        // }
     }
 
     componentDidUpdate() {

@@ -12,7 +12,7 @@ export default class Pagination extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			page: nextProps.pageIndex,
+			page: nextProps.totalPage > 0 ? nextProps.pageIndex : 0,
 		});
 	}
 
@@ -34,12 +34,18 @@ export default class Pagination extends React.Component {
 					onClick={this.onPrevPage.bind(this)}>
 					<span className="glyphicon glyphicon-triangle-left" />
 				</button>
+
 				<span style={{ color: font2 }} >Page</span>
-				<input type="number" value={this.state.page} id="pageinput" className="hks-input page-input"
+
+				<input type="number" value={this.state.page} 
+					id="pageinput" className="hks-input page-input"
 					onKeyDown={e => this.onPageChange(e)}
 					onChange={e => e.target.value > 0 ? this.setState({ page: e.target.value }) : 0}
-					style={{ textAlign: "center" }} />
-				<span style={{ color: font2 }}> of {this.props.totalRecord}  </span>
+					style={{ textAlign: "center" }} 
+				/>
+
+				<span style={{ color: font2 }}> of {this.props.totalPage}  </span>
+				
 				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
 					onClick={this.onNextPage.bind(this)}>
 					<span className="glyphicon glyphicon-triangle-right" />
@@ -59,7 +65,7 @@ export default class Pagination extends React.Component {
 					this.props.onReloadPage === undefined ? '' :
 						(
 							<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
-								onClick={this.props.onReloadPage.bind(this)}>
+								onClick={this.onReloadPage.bind(this)}>
 								<span className="glyphicon glyphicon-refresh"></span>
 							</button>
 						)
@@ -80,26 +86,32 @@ export default class Pagination extends React.Component {
 	}
 
 	onNextPage() {
-		if (this.state.page < this.props.totalRecord) {
-			this.props.onNextPage()
+		if (this.state.page < this.props.totalPage && this.props.onPageChange) {
+			this.props.onPageChange(this.state.page + 1)
 		}
 	}
 
 	onPrevPage() {
-		if (this.state.page > 1) {
-			this.props.onPrevPage()
+		if (this.state.page > 1 && this.props.onPageChange) {
+			this.props.onPageChange(this.state.page - 1)
 		}
 	}
 
 	onFirstPage() {
-		if (this.state.page > 1) {
-			this.props.onFirstPage()
+		if (this.state.page > 1 && this.props.totalPage > 1 && this.props.onPageChange) {
+			this.props.onPageChange(1)
 		}
 	}
 
 	onLastPage() {
-		if (this.state.page > 1) {
-			this.props.onLastPage()
+		if (this.props.totalPage > 1 && this.state.page != this.props.totalPage && this.props.onPageChange) {
+			this.props.onPageChange(this.props.totalPage)
+		}
+	}
+
+	onReloadPage() {
+		if (this.props.onPageChange) {
+			this.props.onPageChange(this.state.page)
 		}
 	}
 
@@ -107,7 +119,7 @@ export default class Pagination extends React.Component {
 		if (e.keyCode === 13) {
 			e.preventDefault()
 			let pageSelected = e.target.value
-			if (pageSelected > 0 && pageSelected <= this.props.totalRecord) {
+			if (pageSelected > 0 && pageSelected <= this.props.totalPage && this.props.onPageChange) {
 				this.props.onPageChange(e.target.value)
 			}
 		}

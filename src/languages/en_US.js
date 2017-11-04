@@ -124,7 +124,8 @@ export default
             "stockmarketinfo": "Stock Market Data Realtime",
             "loanRefundPanel": "Loan Refund Panel",
             "loanRefundHistory": "Loan Refund Transaction History",
-            "loanRefundStatus": "Loan Refund Transaction Status"
+            "loanRefundStatus": "Loan Refund Transaction Status",
+            "transactionhistory": "Transaction History"
         },
         "searchbar": {
             "search": "Search",

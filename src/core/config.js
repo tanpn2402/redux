@@ -21,8 +21,8 @@ const config = {
 					link: ''
 				},
 				{
-					id: 'orderjournal',
-					text: 'orderjournal',
+					id: 'transactionhistory',
+					text: 'transactionhistory',
 					link: ''
 				},
 				{
@@ -288,6 +288,8 @@ const config = {
 		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 
+		{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+
 	],
 
 	tabbar: [
@@ -356,8 +358,8 @@ const config = {
 			title: 'mobile',
 			enabled: false,
 			widget: [
-				{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+				// { i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
+				// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 			]
 		}
 	],
