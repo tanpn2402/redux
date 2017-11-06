@@ -314,7 +314,7 @@ const config = {
 			title: 'mobile',
 			enabled: false,
 			widget: [
-				// { i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
 				// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 			]
 		}
