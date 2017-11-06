@@ -1,5 +1,10 @@
 import React from 'react'
 import { ReactDOM } from 'react-dom'
+import moment from 'moment'
+import config from '../../core/config'
+import Calendar from './CalendarPicker'
+
+const { Contants } = require("../../core/constants")
 export default class ListView extends React.Component {
     constructor(props) {
         super(props)
@@ -17,7 +22,7 @@ export default class ListView extends React.Component {
     }
 
     onClick(id) {
-        document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)
+        document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)  
     }
 
     createColumns(columns) {
@@ -141,6 +146,11 @@ export default class ListView extends React.Component {
         }
     }
 
+    onSearchChange(values) {
+        // console.log(values)
+        this.props.onSearch(values)
+    }
+
     render() {
        
         console.log(this.props)
@@ -195,11 +205,13 @@ export default class ListView extends React.Component {
         
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-
+                <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar} 
+                    searchParams={this.props.searchMobileParams} searchDefaultValues={this.props.searchDefaultValues}
+                    onChange={this.onSearchChange.bind(this)}/>
                 {
                     !this.state.toRender ? "" :
                         (
-                            <div className="rt-lv" style={{ height: "100%" }}>
+                            <div className="rt-lv" ref={ref => this.refListView = ref} style={{ height: "100%" }}>
                                 <div className="lv-thead" ref={ref => this.refTHead = ref}>
                                     <div className="lv-tr">
                                         <div className="lv-th" style={{ width: "30px" }}></div>
@@ -328,11 +340,227 @@ export default class ListView extends React.Component {
         // if(this.refTBody && this.refTHead) {
         //     this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
         // }
+
+        // this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"
     }
 
     componentDidUpdate() {
         if(this.refTBody && this.refTHead) {
             this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
         }
+        if(this.refListView) {
+            this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"            
+        }
+    }
+}
+
+
+
+class SearchListView extends React.Component {
+    constructor(props) {
+        super(props)
+        this.values = {}
+        this.ref = {}
+
+        this.onChange = this.onChange.bind(this)
+    }
+
+    render() {
+        let language = this.props.language
+        return (
+            <div className="lv-search" ref={ r => this.refLvSearch = r }>
+                
+                {
+                    this.props.searchParams.map(e => {
+                        return this.renderElement(e, language)
+                    })
+                }
+            </div>
+        )
+    }
+
+    renderElement(id, language) {
+        switch(id) {
+            case Contants.searchElement.STARTDATE: 
+            case Contants.searchElement.ENDDATE: 
+                return (
+                    <SearchDate id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange} 
+                        default={this.props.searchDefaultValues[id]}/>
+                )
+                break
+            case Contants.searchElement.TRADETYPE: 
+                return (
+                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} data={config.transtype}/>
+                )
+                break
+            case Contants.searchElement.STATUS: 
+                return (
+                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} data={config.orderstatus}/>
+                )
+                break
+        }
+    }
+
+    getHeight() {
+        if(this.refLvSearch) {
+            return this.refLvSearch.offsetHeight
+        }
+        else return 0
+    }
+
+    getValues() {
+        let values = {}
+        this.props.searchParams.map(e => {
+            values[e] = this.ref[e].getValue()
+        })
+        return values
+    }
+
+    onChange(value) {
+        let values = Object.assign(this.getValues(), value)
+        this.props.onChange(values)
+    }
+}
+
+class TransType extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: ""
+        }
+    }
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let defaultValue = this.props.default !== undefined ? this.props.default : ""
+        
+        return (
+            <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
+                <div className="col-xs-5" style={{textAlign: "left"}}>
+                    <label>{this.props.language[this.props.id]}</label>
+                </div>
+                <div className="col-xs-7">
+                    
+                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref} 
+                        onChange={e => this.onChange(e.target.value)}>
+                        {
+                            config.transtype.map(e => {
+                                return (
+                                    <option value={e}>{this.props.language[e]}</option>
+                                )
+                            })
+                        }
+                    </select>
+                </div>
+            </div>
+        )
+    }
+
+    getValue() {
+        return this.transtype.value
+    }
+
+    onChange(value) {
+        this.setState({value: value})
+        let tmp = {}
+        tmp[this.props.id] = this.getValue()
+        this.props.onChange(tmp)
+    }
+
+}
+
+class Selector extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: ""
+        }
+    }
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let defaultValue = this.props.default !== undefined ? this.props.default : ""
+        let data = this.props.data
+        return (
+            <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
+                <div className="col-xs-5" style={{textAlign: "left"}}>
+                    <label>{this.props.language[this.props.id]}</label>
+                </div>
+                <div className="col-xs-7">
+                    
+                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref} 
+                        onChange={e => this.onChange(e.target.value)}>
+                        {
+                            data.map(e => {
+                                return (
+                                    <option value={e}>{this.props.language[e]}</option>
+                                )
+                            })
+                        }
+                    </select>
+                </div>
+            </div>
+        )
+    }
+
+    getValue() {
+        return this.transtype.value
+    }
+
+    onChange(value) {
+        this.setState({value: value})
+        let tmp = {}
+        tmp[this.props.id] = this.getValue()
+        this.props.onChange(tmp)
+    }
+
+}
+
+class SearchDate extends React.Component {
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            date: moment(this.props.default, 'DD/MM/YYYY')
+        }
+    }
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let defaultValue = this.props.default != undefined ? moment(this.props.default, 'DD/MM/YYYY') : moment()
+        return (
+            <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
+                <div className="col-xs-5" style={{textAlign: "left"}}>
+                    <label>{this.props.language[this.props.id]}</label>
+                </div>
+                <div className="col-xs-7">
+                    <Calendar selected={defaultValue} onChange={this.handleDateChange.bind(this)} id={id} 
+                        onBlur={this.handleCalendarBlur.bind(this)}/> 
+                </div>
+            </div>
+        )
+    }
+
+    getValue() {
+        return this.state.date.format("DD/MM/YYYY")
+    }
+
+    handleCalendarBlur(_date) {
+        console.log(_date)
+        this.setState({
+            date: _date
+        });
+        let tmp = {}
+        tmp[this.props.id] = _date.format("DD/MM/YYYY")
+        this.props.onChange(tmp)
+    }
+
+    handleDateChange(_date) {
+        console.log(_date)
+        this.setState({
+            date: _date
+        });
+        let tmp = {}
+        tmp[this.props.id] = _date.format("DD/MM/YYYY")
+        this.props.onChange(tmp)
     }
 }

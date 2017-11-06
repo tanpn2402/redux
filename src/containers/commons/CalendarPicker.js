@@ -109,7 +109,6 @@ class Portal extends React.Component {
 class CalendarPicker extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             showPicker: false,
             selectedDate: this.props.selected,
@@ -122,18 +121,24 @@ class CalendarPicker extends React.Component {
         this.handleInputFocus = this.handleInputFocus.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleInputKeyUp = this.handleInputKeyUp.bind(this)
+        this.onInputBlur = this.onInputBlur.bind(this)
+        this.handleIconCalendarClick = this.handleIconCalendarClick.bind(this)
     }
 
     removeAllCalendarPicker() {
         var x = document.getElementById('calendar-picker')
-        console.log(x)
+        // console.log(x)
         if (x) {
             document.body.removeChild(x)
-
         }
     }
 
     handleInputFocus(e) {
+        this.setState({ showPicker: !this.state.showPicker })
+        document.body.addEventListener("click", this.onInputBlur, false)
+    }
+
+    handleIconCalendarClick(e) {
         this.setState({ showPicker: !this.state.showPicker })
     }
 
@@ -144,26 +149,30 @@ class CalendarPicker extends React.Component {
             selectedDate: Object.assign(this.state.selectedDate, myDate)
         })
 
-        this.props.onChange(myDate)
+        // for mobile, if focus out side input -> call onBlur event
+        if(this.props.onBlur === undefined) 
+            this.props.onChange(myDate)
+    }
+
+    onInputBlur(e) {
+        
+
+        var target = e.target.className
+        if (target.includes('react-datepicker__current-month') || target.includes('react-datepicker__navigation') ||
+            target.includes('react-datepicker__day-name') || target.includes('react-datepicker__month-container') ||
+            target.includes('react-datepicker__week') || e.target.id === this.props.id ||
+            target.includes('react-datepicker__today-button') || target.includes('react-datepicker__day') ||
+            target.includes('calendar-picker-input') || target.includes("glyphicon") ) {
+
+        } else {
+            if(this.props.onBlur)
+                this.props.onBlur(this.state.selectedDate)
+            document.body.removeEventListener("click", this.onInputBlur, false)
+        }
     }
 
     handleInputKeyUp(e) {
         if (!e.ctrlKey && !e.metaKey && e.keyCode > 46 && e.target.value.length < 10) {
-            // var format = 'dd/mm/yyyy';
-
-            // var match = new RegExp(format
-            //     .replace(/(\w+)\W(\w+)\W(\w+)/, "^\\s*($1)\\W*($2)?\\W*($3)?([0-9]*).*")
-            //     .replace(/m|d|y/g, "\\d"));
-
-            // var replace = "$1/$2/$3$4"
-            //     .replace(/\//g, format.match(/\W/));
-
-
-            // document.getElementById(this.id).value = document.getElementById(this.id).value
-            //     .replace(/(^|\W)(?=\d\W)/g, "$10")   // padding
-            //     .replace(match, replace)             // fields
-            //     .replace(/(\W)+/g, "$1");            // remove repeats
-
         }
         else if (e.keyCode == 8 || e.keyCode == 37 || e.keyCode == 39) {
 
@@ -194,16 +203,22 @@ class CalendarPicker extends React.Component {
     render() {
 
         return (
-            <div style={{ display: 'inline-block' }}>
-                <input id={this.id} className="calendar-picker-input"
-                    onClick={this.handleInputFocus}
-                    onChange={this.handleInputChange}
-                    onKeyDown={this.handleInputKeyUp}
-                    defaultValue={this.state.selectedDate.format(Contants.dateFormat)}
-                    placeholder={Contants.dateFormat}
-                    type="text"
-                    disabled={this.props.disabled}
-                />
+            <div className="calendar-picker--trigger">
+                <div className="calendar-picker--group">
+                    <input id={this.id} className="calendar-picker-input"
+                        onClick={this.handleInputFocus}
+                        onChange={this.handleInputChange}
+                        onKeyDown={this.handleInputKeyUp}
+                        defaultValue={this.state.selectedDate.format(Contants.dateFormat)}
+                        placeholder={Contants.dateFormat}
+                        type="text"
+                        disabled={this.props.disabled}
+                        style={{ border: "none"}}
+                    />
+                    <span className="glyphicon glyphicon-calendar" 
+                        onClick={this.handleIconCalendarClick}></span>
+                </div>
+                
                 {
                     this.state.showPicker ?
                         <Portal key={this.id} id={this.id}
@@ -215,6 +230,10 @@ class CalendarPicker extends React.Component {
                 }
             </div>
         )
+    }
+
+    componentWillUnmount() {
+        document.body.removeEventListener("click", this.onInputBlur, false)
     }
 }
 

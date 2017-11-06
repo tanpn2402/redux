@@ -139,7 +139,7 @@ export default class SearchBar extends React.Component {
                     {
                         config.orderstatus.map(e => {
                             return (
-                                <option value={e}>{language[e.toLowerCase()]}</option>
+                                <option value={e}>{language[e]}</option>
                             )
                         })
                     }
