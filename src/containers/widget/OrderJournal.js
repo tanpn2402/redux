@@ -215,8 +215,10 @@ class OrderJournal extends Component {
                         totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
 
                         searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
+                        searchMobileParams={["mvStatus"]}
                         searchActions={buttonAction}
                         searchData={{ stockList: this.props.stockList }}
+                        searchDefaultValues={{mvStatus: this.param.mvStatus}}
                         onSearch={this.onSearch.bind(this)}
 
                     />
@@ -364,28 +366,15 @@ class OrderJournal extends Component {
         this.props.onSearch(this.param, !this.props.reload)
     }
 
-    onNextPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        this.param['page'] = this.state.pageIndex
-        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.props.onSearch(this.param, !this.props.reload)
-    }
-
-    onPrevPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-        this.param['page'] = this.state.pageIndex
-        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.props.onSearch(this.param, !this.props.reload)
-    }
-
-    onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
-    }
-
     onSearch(param) {
         this.param['mvStatus'] = param.mvStatus
-        this.param['mvOrderType'] = param.mvOrderType
-        this.param['mvOrderBS'] = param.mvBuysell
+        if(param.mvOrderType) {
+            this.param['mvOrderType'] = param.mvOrderType
+        }
+        if(param.mvBuysell) {
+            this.param['mvOrderBS'] = param.mvBuysell
+        }
+        
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 

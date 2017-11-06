@@ -407,8 +407,10 @@ class Portfolio extends Component {
                         totalPage={Math.ceil(data.length / this.defaultPageSize)}
 
                         searchParams={[]}
+                        searchMobileParams={[]}
                         searchActions={[]}
                         searchData={{}}
+                        searchDefaultValues={[]}
                         onSearch={() => {}}
                         searchEnable={false}
 

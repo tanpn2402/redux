@@ -147,4 +147,10 @@ export const ActionTypes = {
 
 export const Contants = {
   dateFormat: 'DD/MM/YYYY',
+  searchElement: {
+    STARTDATE: 'mvStartDate',
+    ENDDATE: 'mvEndDate',
+    TRADETYPE: 'tradeType',
+    STATUS: 'mvStatus'
+  }
 }
