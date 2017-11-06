@@ -312,7 +312,6 @@ class WatchList extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            
         })
     }
 
@@ -321,43 +320,72 @@ class WatchList extends Component {
         this.getDataParams['key'] = time
         this.props.onRefresh(this.getDataParams)
     }
-    onAddStock(stockID) {
-        this.props.stockList.map(stock => {
-            if (stockID === stock.stockCode) {
-                this.addRemoveParams['mvAddOrRemove'] = 'Add'
-                this.addRemoveParams['mvStockCode'] = stockID
-                this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-            }
-        })
-        if (!this.alreadyInList(stockID)) {
-            this.props.onAddStock(this.addRemoveParams);
-            this.onRefresh()
-        } else {
-            //show Alert
-        }
 
+    onAddStock(stockID) {
+        let stock = this.state.listStock.find(stock => {
+            return stock.mvStockCode == stockID
+        })
+        if (stock === undefined) {
+            this.props.stockList.map(stock => {
+                if (stockID === stock.stockCode) {
+                    // this.addRemoveParams['mvAddOrRemove'] = 'Add'
+                    // this.addRemoveParams['mvStockCode'] = stockID
+                    // this.addRemoveParams['mvMarketID'] = stock.mvMarketID
+                    let newStock = {
+                        mvStockCode: stockID,
+                        mvMarketID: stock.mvMarketID
+                    }
+                    this.props.addStockToLocalStore(newStock)
+                }
+            })
+        }
+        // if (!this.alreadyInList(stockID)) {
+        //     this.props.onAddStock(this.addRemoveParams);
+        //     this.onRefresh()
+        // } else {
+        //     //show Alert
+        //     console.log("alert")
+        // }
     }
+
     onRemoveStock(removeList) {
-        this.addRemoveParams['mvAddOrRemove'] = 'Remove'
-        removeList.map(stock => {
-            this.addRemoveParams['mvStockCode'] = stock.mvSymbol
-            this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-            this.props.onRemoveStock(this.addRemoveParams)
+        removeList.forEach(stock => {
+            let removeStock = {
+                mvStockCode: stock.mvStockCode,
+                mvMarketID: stock.mvMarketID
+            }
+            this.props.removeStockFromLocalStore(removeStock)
         })
         this.rowSelected = []
+        document.getElementById("watchlist-cb-all").checked = false
+        let checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false
+        }
+        // this.addRemoveParams['mvAddOrRemove'] = 'Remove'
+        // removeList.map(stock => {
+        //     this.addRemoveParams['mvStockCode'] = stock.mvStockCode
+        //     this.addRemoveParams['mvMarketID'] = stock.mvMarketID
+        //     this.props.onRemoveStock(this.addRemoveParams)
+        // })
+        // this.rowSelected = []
 
-        this.onRefresh()
+        // this.onRefresh()
     }
+
     onChange(e) {
+        console.log(e.target.value)
+
         this.inputValue = e.target.value
     }
+
     alreadyInList(stockID) {
-        var i = 0;
-        this.props.watchListData.mvMarketData.map(stock => {
-            if (stockID === stock.mvStockId)
-                i++
-        })
-        return i === 0 ? false : true
+        // var i = 0;
+        // this.props.watchListData.mvMarketData.map(stock => {
+        //     if (stockID === stock.mvStockId)
+        //         i++
+        // })
+        // return i === 0 ? false : true
     }
 
     onPageChange(pageIndex) {
@@ -421,7 +449,7 @@ class WatchList extends Component {
                             theme={this.props.theme}
                             id="watchlist-table"
                             columns={this.state.columns}
-                            data={[]}
+                            data={this.state.listStock}
                             handleOnRowSelected={(param) => this.onRowSelected(param)}
                             language={this.props.language.watchlist.header}
                         />
@@ -460,6 +488,7 @@ class WatchList extends Component {
 const mapStateToProps = (state) => {
     return {
         watchListData: state.watchlist.watchListData,
+        watchListLocalStockList: state.watchlist.watchListLocalStockList
     }
 }
 
@@ -472,6 +501,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onRemoveStock: (param) => {
         dispatch(actions.removeStock(param))
+    },
+    addStockToLocalStore: (param) => {
+        dispatch(actions.addStockToLocalStore(param))
+    },
+    removeStockFromLocalStore: (param) => {
+        dispatch(actions.removeStockFromLocalStore(param))
     },
 })
 

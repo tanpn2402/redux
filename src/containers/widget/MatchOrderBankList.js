@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import config from '../../core/config'
 /*
 Khi tick vào 1 record thì dựa vài giá trị ở bên AdvanceBankPanel để tính phí
@@ -18,6 +16,7 @@ class MatchOrderBankList extends Component {
     constructor(props) {
         super(props)
         this.id = 'matchOrderBankList'
+        this.idParent = 'cashadvancebank'
         this.defaultPageSize = 15
         this.lang = config.cache.lang
 
@@ -110,9 +109,10 @@ class MatchOrderBankList extends Component {
 
 
     render() {
-        var queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
+        let data = queryAdvancePaymentInfo.mvChildBeanList.slice((this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
+            this.state.matchOrderBankListPageIndex * this.defaultPageSize)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -122,33 +122,25 @@ class MatchOrderBankList extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={queryAdvancePaymentInfo.mvChildBeanList.slice(
-                                (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
-                                this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
-                            handleOnRowSelected={(param) => this.onRowSelected(param)}
-                            language={this.props.language.cashadvancebank.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.matchOrderBankListPageIndex}
-                            totalRecord={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
+                        handleOnRowSelected={(param) => this.onRowSelected(param)}
 
+                        pageIndex={this.state.matchOrderBankListPageIndex}
+                        totalPage={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        searchEnable={data.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -168,7 +160,7 @@ class MatchOrderBankList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
 
@@ -181,18 +173,6 @@ class MatchOrderBankList extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-
-    onNextPage() {
-        this.setState({ matchOrderBankListPageIndex: parseInt(this.state.matchOrderBankListPageIndex) + 1 });
-    }
-
-    onPrevPage() {
-        this.setState({ matchOrderBankListPageIndex: parseInt(this.state.matchOrderBankListPageIndex) - 1 });
-
-    }
-
-    onReloadPage() {
     }
 
     onPageChange(pageIndex) {

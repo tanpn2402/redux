@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import moment from 'moment'
 import config from '../../core/config'
 
@@ -15,6 +13,7 @@ class LoanTrans extends Component {
     constructor(props) {
         super(props)
         this.id = 'loanRefundHistory'
+        this.idParent = 'loanrefund'
         this.defaultPageSize = 15
 
         this.loanRefundHistoryParams = {
@@ -125,9 +124,8 @@ class LoanTrans extends Component {
 
 
     render() {
-        var loanRefundHistory = this.props.loanRefundHistory
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let loanRefundHistory = this.props.loanRefundHistory
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -137,39 +135,30 @@ class LoanTrans extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={loanRefundHistory.loanrefundhistoryList} 
-                            language={this.props.language.loanrefund.header}/>
-                    </div>
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            key={this.id + '-search'}
-                            id={this.id + '-search'}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: [] }}
-                            param={['mvStartDate', 'mvEndDate']} />
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.loanRefundHistoryPageIndex}
-                            totalRecord={Math.ceil(loanRefundHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={loanRefundHistory.loanrefundhistoryList}
+
+                        pageIndex={this.state.loanRefundHistoryPageIndex}
+                        totalPage={Math.ceil(loanRefundHistory.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        onSearch={this.onSearch.bind(this)}
+                        searchActions={[]}
+                        searchData={{ stockList: [] }}
+                        searchParams={['mvStartDate', 'mvEndDate']}
+                        searchEnable={loanRefundHistory.loanrefundhistoryList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+                    />
                 </Body>
             </div>
         )
@@ -203,27 +192,6 @@ class LoanTrans extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-
-    onNextPage() {
-        this.state.loanRefundHistoryPageIndex = parseInt(this.state.loanRefundHistoryPageIndex) + 1
-        this.loanRefundHistoryParams['start'] = (this.state.loanRefundHistoryPageIndex - 1) * this.loanRefundHistoryParams['limit']
-        this.loanRefundHistoryParams['key'] = (new Date()).getTime()
-        this.loanRefundHistoryParams['page'] = this.state.loanRefundHistoryPageIndex
-        this.props.getLoanRefundHistory(this.loanRefundHistoryParams)
-    }
-
-    onPrevPage() {
-        this.state.loanRefundHistoryPageIndex = parseInt(this.state.loanRefundHistoryPageIndex) - 1
-        this.loanRefundHistoryParams['start'] = (this.state.loanRefundHistoryPageIndex - 1) * this.loanRefundHistoryParams['limit']
-        this.loanRefundHistoryParams['key'] = (new Date()).getTime()
-        this.loanRefundHistoryParams['page'] = this.state.loanRefundHistoryPageIndex
-        this.props.getLoanRefundHistory(this.loanRefundHistoryParams)
-    }
-
-    onReloadPage() {
-        this.loanRefundHistoryParams['key'] = (new Date()).getTime()
-        this.props.getLoanRefundHistory(this.loanRefundHistoryParams)
     }
 
     onPageChange(pageIndex) {

@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
 import config from '../../core/config'
 import moment from 'moment'
@@ -154,15 +152,12 @@ class OrderConfirmation extends Component {
 
     render() {
 
-        var data = this.props.data
+        let data = this.props.data
 
         let buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.execute()}>{this.props.language.button.execute}</button>,
         ]
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -173,45 +168,28 @@ class OrderConfirmation extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data.mvOrderBeanList}
-                            handleOnRowSelected={(param) => this.onRowSelected(param)}
-                            language={this.props.language.orderconfirmation.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader} >
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={buttonAction}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: this.stockList }}
-                            param={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data.mvOrderBeanList}
+                        handleOnRowSelected={(param) => this.onRowSelected(param)}
 
-                    <div className="table-footer" style={tablefooter} >
-                        <Pagination
-                            theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                            onExportExcel={this.onExportExcel.bind(this)}
-                        // onFirstPage={this.onFirstPage.bind(this)}
-                        // onLastPage={this.onLastPage.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        onSearch={this.onSearch.bind(this)}
+                        searchActions={buttonAction}
+                        searchData={{ stockList: this.stockList }}
+                        searchParams={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']}
+                        searchEnable={data.mvOrderBeanList.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -292,34 +270,6 @@ class OrderConfirmation extends Component {
         this.props.onSearch(this.param)
     }
 
-    onFirstPage() {
-
-    }
-
-    onLastPage() {
-
-    }
-
-    onNextPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.param['key'] = (new Date()).getTime()
-        this.param['page'] = this.state.pageIndex
-        this.props.onSearch(this.param)
-    }
-
-    onPrevPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-        this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.param['key'] = (new Date()).getTime()
-        this.param['page'] = this.state.pageIndex
-        this.props.onSearch(this.param)
-    }
-
-    onReloadPage() {
-        this.param['key'] = (new Date()).getTime()
-        this.props.onSearch(this.param)
-    }
     onSearch(param) {
         if (param.mvStockId === "")
             param.mvStockId = "ALL"

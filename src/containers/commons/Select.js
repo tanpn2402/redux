@@ -1,19 +1,19 @@
 import React from 'react'
-import {PowerSelect} from 'react-power-select'
+import { PowerSelect } from 'react-power-select'
 
 class Select extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            value:  ""
+            value: ""
         }
     }
 
     onClick(key) {
         this.props.onTabChange(key)
     }
-    
+
     handleValueChange = ({ option }) => {
         if(this.props.handleChange && option) {
             this.props.handleChange(option)
@@ -36,7 +36,7 @@ class Select extends React.Component {
                 />
             </div>
         )
-        
+
 
     }
 

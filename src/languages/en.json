@@ -806,23 +806,23 @@
                     "STATUS_D": "Đã phân bổ"
                 },
                 "issueType": {
-                    "ISSUE_1" : "Cash Dividend",
-                    "ISSUE_2" : "Cash Dividend",
-                    "ISSUE_3" : "Cash Dividend",
-                    "ISSUE_4" : "Cash Dividend",
-                    "ISSUE_5" : "Cash Dividend",
-                    "ISSUE_6" : "Interim Dividend",
-                    "ISSUE_7" : "Final Dividend",
-                    "ISSUE_8" : "Special Dividend",
-                    "ISSUE_9" : "Special Interim Dividend",
-                    "ISSUE_A" : "Scrip Option",
-                    "ISSUE_B" : "Bonus Share",
-                    "ISSUE_C" : "Bonus Warrant",
-                    "ISSUE_D" : "Additional Issuance",
-                    "ISSUE_E" : "Bonus Others",
-                    "ISSUE_G" : "Cash Offer",
-                    "ISSUE_H" : "Stock Offer",
-                    "ISSUE_I" : "Stock Dividend"
+                    "ISSUE_1": "Cash Dividend",
+                    "ISSUE_2": "Cash Dividend",
+                    "ISSUE_3": "Cash Dividend",
+                    "ISSUE_4": "Cash Dividend",
+                    "ISSUE_5": "Cash Dividend",
+                    "ISSUE_6": "Interim Dividend",
+                    "ISSUE_7": "Final Dividend",
+                    "ISSUE_8": "Special Dividend",
+                    "ISSUE_9": "Special Interim Dividend",
+                    "ISSUE_A": "Scrip Option",
+                    "ISSUE_B": "Bonus Share",
+                    "ISSUE_C": "Bonus Warrant",
+                    "ISSUE_D": "Additional Issuance",
+                    "ISSUE_E": "Bonus Others",
+                    "ISSUE_G": "Cash Offer",
+                    "ISSUE_H": "Stock Offer",
+                    "ISSUE_I": "Stock Dividend"
                 },
                 "exercise": {
                     "STATUS_O": "Mở",
@@ -1127,7 +1127,7 @@
                 "password": "Password",
                 "securityCode": "Security Code",
                 "message": {
-                    "wrongAccountNo" : "Wrong Account Number or Password. Please try again.",
+                    "wrongAccountNo": "Wrong Account Number or Password. Please try again.",
                     "changePasswordRequest": "Please, change your password for the first login"
                 }
             }

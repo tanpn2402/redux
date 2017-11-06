@@ -1,8 +1,10 @@
 import React from 'react'
-import { OverlayTrigger, Popover, Table } from 'react-bootstrap'
-import { ComposedChart, ReferenceLine, Line, Area, Legend, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { connect } from "react-redux"
+import * as actions from "../actions"
+import { ComposedChart } from '../containers/commons/ComposedChart'
+import MarqueeItem from './MarqueeItem'
 
-export default class MarqueeBar extends React.Component {
+class MarqueeBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,109 +12,8 @@ export default class MarqueeBar extends React.Component {
             onHover: false,
             stack1: [],
             stack2: [],
-            currentSlider: [],
         }
-
-        //HoverFocus event
-        let popoverHoverFocus = (d) => {
-            // let popoverchartBackground = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.backgroundColor
-            // let popoverchartColor = this.props.theme.chart == undefined ? undefined : this.props.theme.chart.popoverchart.color
-            var config = {
-                chart: {
-                    height: '200',
-                    type: 'line',
-                    // backgroundColor: popoverchartBackground
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    // labels: {
-                    //     style: {
-                    //         color: popoverchartColor
-                    //     }
-                    // }
-                    // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: '',
-                    // labels: {
-                    //     style: {
-                    //         color: popoverchartColor
-                    //     }
-                    // }
-                },
-                navigator: {
-                    enabled: false
-                },
-                scrollbar: {
-                    enabled: false
-                },
-                series: [
-                    {
-                        name: 'A',
-                        data: [71.4, 80.1, 66.9, 99.9, 58.4, 96.5, 85.4, 51.9, 50.0, 29.9, 19.7, 57.2],
-                        type: 'line',
-                    },
-                    // {
-                    //     name: 'B',
-                    //     data: [98.74, 43.82, 29.55, 25.7, 57.02, 24.99, 55.75, 80.87, 21.51, 7.34, 46.29, 45.75],
-                    //     type: 'area',
-                    // },
-                    // {
-                    //     name: 'C',
-                    //     data: [31.8, 8.95, 86.39, 96.33, 78.82, 44.43, 75.36, 59.04, 45.61, 42.93, 94.02, 49.78],
-
-                    // }
-                ]
-            }
-            const data = [
-                { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
-                { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
-                { name: '13:00', index: 109.5084, volume: 1336.1 }, { name: '14:00', index: 110.7820, volume: 1067.9 },
-            ]
-            const data2 = [
-                { name: '09:00', index: 110.9808, volume: 1595.6 }, { name: '10:00', index: 109.5505, volume: 1796.6 },
-                { name: '11:00', index: 109.0000, volume: 1748.5 }, { name: '12:00', index: 110.1041, volume: 1131.1 },
-                { name: '13:00', index: 110.4313, volume: 1336.1 }, { name: '14:00', index: 109.8071, volume: 1067.9 },
-            ]
-            const data3 = [
-                { name: '09:00', index: 109.1825, volume: 1595.6 }, { name: '10:00', index: 109.3075, volume: 1796.6 },
-                { name: '11:00', index: 110.8301, volume: 1748.5 }, { name: '12:00', index: 110.1019, volume: 1131.1 },
-                { name: '13:00', index: 109.2077, volume: 1336.1 }, { name: '14:00', index: 109.5897, volume: 1067.9 },
-            ]
-            const colorBreakPoint = 110 //threshold
-            const { min, max } = data2.reduce((result, dataPoint) => ({
-                min: (dataPoint.index < result.min || result.min === 0) ? dataPoint.index : result.min,
-                max: (dataPoint.index > result.max || result.max === 0) ? dataPoint.index : result.max,
-            }), { min: 0, max: 0 });
-            const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
-            return (
-                <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
-                    <ComposedChart
-                        data={data2}
-                        width={500}
-                        height={250}>
-                        <defs>
-                            <linearGradient x1='0%' x2='0%' y1='0%' y2='100%' id='aaa'>
-                                <stop offset='0%' stopColor='#00ff1d' />
-                                <stop offset={colorBreakPointPercentage} stopColor='#00ff1d' />
-                                <stop offset={colorBreakPointPercentage} stopColor='red' />
-                                <stop offset='100%' stopColor='red' />
-                            </linearGradient>
-                        </defs>
-                        <XAxis dataKey="name" stroke='white' />
-                        <YAxis yAxisId="left" stroke='white' domain={['dataMin', 'dataMax']} orientation="left" ticks={[109, 110, 111]} />
-                        <YAxis type="number" stroke='white' ticks={[1000, 4000, 8000]} domain={['0', 'dataMax + 7000']} yAxisId="right" orientation="right" />
-                        <CartesianGrid stroke='black' fill='black' />
-                        <ReferenceLine strokeWidth='2' yAxisId="left" stroke='yellow' strokeDasharray="9 9" y={colorBreakPoint} /*the 'y' props is the breakpoint (threshold)*/ />
-                        <Line yAxisId="left" type="linear" dot={false} dataKey="index" strokeWidth='2' stroke='url(#aaa)' />
-                        <Area yAxisId="right" type="monotone" dataKey='volume' fill="#8884d8" stroke="#7bdff2" />
-                    </ComposedChart>
-                </Popover>
-            )
-        }
-
+        this.organizedData = {}
         //Default props
         this.curSliderObj = null
         this.liWidth = 200  //width of every <li>
@@ -129,40 +30,12 @@ export default class MarqueeBar extends React.Component {
             id: 0,
             title: "",
             status: "",
+            market: '',
             netchange: 0,
             changeper: 0,
         }
 
         //Hard-coded generated data
-        for (let i = 0; i < 200; i++) {
-
-            var newDataE = Object.assign({}, this.defaultData)
-            newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
-            newDataE.title = this.randomStockCode()
-            newDataE.status = this.randomSym()
-            newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
-            newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
-            newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
-            newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
-            newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
-            newDataE.statusValue = '-'
-            newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
-
-
-            this.data.push(newDataE)
-        }
-
-        this.text = this.data.map(dataE => (
-            <OverlayTrigger key={dataE.key} trigger={['hover', 'focus']} placement="top" overlay={popoverHoverFocus(dataE)} onEnter={this.onPause.bind(this)} onExit={this.onResume.bind(this)}>
-                <li>
-                    <strong className="title">{dataE.title}</strong>
-                    <span className={dataE.status}>&nbsp;{dataE.id}</span>
-                    <span className="percent">
-                        <span className="netchange">&nbsp;{dataE.netchange}</span>&nbsp;(<span className="changepercentage">{dataE.changeper}</span>%)
-                    </span>
-                </li>
-            </OverlayTrigger>
-        ))
     }
 
     //For testing
@@ -185,14 +58,116 @@ export default class MarqueeBar extends React.Component {
     render() {
         return (
             <div ref={e => this.marqueeWrapper = e} className="stockMarquee" >
-                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap" }}>{this.state.stack1}</div>
-                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", "display": "none" }}>{this.state.stack2}</div>
+                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", height: '30px' }}>{this.state.stack1}</div>
+                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", "display": "none", height: '30px' }}>{this.state.stack2}</div>
             </div>
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        let stockList = nextProps.watchListLocalStockList
+        this.data.forEach(stock => {
+            let isRemoved = !stockList.find(s => s.mvStockCode == stock.title && s.mvMarketID == stock.market)
+            if (isRemoved) {
+                let newData = [...this.data]
+                newData.splice(newData.indexOf(stock), 1)
+                this.data = newData
+            }
+        })
+        stockList.forEach(stock => {
+            let isExist = this.data.find(obj => (obj.title == stock.mvStockCode && obj.market == stock.mvMarketID))
+            let newDataE = Object.assign({}, this.defaultData)
+            if (!isExist) {
+                newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
+                newDataE.title = stock.mvStockCode
+                newDataE.market = stock.mvMarketID
+                newDataE.status = this.randomSym()
+                newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
+                newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
+                newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
+                newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
+                newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
+                newDataE.statusValue = '-'
+                newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
+                this.data.push(newDataE)
+                let hasProp = this.organizedData.hasOwnProperty(stock.mvMarketID)
+                this.organizedData[stock.mvMarketID] = hasProp ? this.organizedData[stock.mvMarketID].concat(newDataE) : [].concat(newDataE)
+            }
+        })
+        this.text = this.data.map(dataE => (
+            <MarqueeItem data={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+        ))
+
+        // if (this.state.currentSliderInterval.length > 1) {
+        if (this.text.length > this.capacity) {
+            //Check whether slider or slider2 to add data
+            let currentStackIndex = (this.curSliderObj == this.slider && this.curSliderObj != null) ? "1" : "2";
+            let nextStackIndex = currentStackIndex == "1" ? "2" : "1"
+
+            //Compare the number of data's element and slider capacity 
+            let nextHead = (this.curHead + this.capacity) % this.text.length
+            let nextNextHead = (nextHead + this.capacity) % this.text.length
+            this.setState({
+                ["stack" + currentStackIndex]: this.getStack(this.curHead, nextHead),
+                ["stack" + nextStackIndex]: this.getStack(nextHead, nextNextHead)
+            })
+            this.curHead = nextNextHead
+            // else {
+            //     var nextHead = (this.curHead + this.capacity) % this.text.length
+            //     var newArray = this.text.slice()
+            //     while (this.capacity - newArray.length >= this.text.length) {
+            //         newArray = newArray.concat(this.text)
+            //     }
+            //     this.setState({
+            //         ["stack" + nextStackIndex]: newArray.concat(this.getStack(0, nextHead))
+            //     })
+            // }
+        } else {
+            let HA = {
+                id: 0,
+                title: 'HA',
+                market: 'HA',
+                status: 'decrease',
+                netchange: 0,
+                changeper: 0
+            }
+            let HO = {
+                id: 1,
+                title: 'HO',
+                market: 'H0',
+                status: 'nocrease',
+                netchange: 0,
+                changeper: 0
+            }
+            let OTC = {
+                id: 2,
+                title: 'OTC',
+                market: 'OTC',
+                status: 'increase',
+                netchange: 0,
+                changeper: 0
+            }
+            let markets = [
+                <MarqueeItem data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+            ]
+            this.setState({
+                stack1: markets,
+                stack2: markets
+            })
+        }
+        // } else {
+        //     let slicedWidth = (this.marqueeWrapper.offsetWidth - (this.curSliderObj.style.left.replace('px', '')))
+        //     this.curSliderObj.style.width = ((Math.ceil(slicedWidth / 200)) * 200) + 'px'
+        // }
+
+    }
+
     // Generate first loop
     componentDidMount() {
+        this.props.getLocalStockList()
+
 
         window.addEventListener('wheel', this.handleScroll.bind(this))
 
@@ -213,27 +188,51 @@ export default class MarqueeBar extends React.Component {
 
     // Import data into marquee
     loop() {
-        //Check whether slider or slider2 to add data
-        var nextStackIndex = (this.curSliderObj == this.slider && this.curSliderObj != null) ? "2" : "1";
-
-        //Compare the number of data's element and slider capacity 
         if (this.text.length > this.capacity) {
+            //Check whether slider or slider2 to add data
+            var nextStackIndex = (this.curSliderObj == this.slider && this.curSliderObj != null) ? "2" : "1";
+
+            //Compare the number of data's element and slider capacity 
             var nextHead = (this.curHead + this.capacity) % this.text.length
             this.setState({
                 ["stack" + nextStackIndex]: this.getStack(this.curHead, nextHead)
             })
             this.curHead = nextHead
         } else {
-            var nextHead = (this.curHead + this.capacity) % this.text.length
-            var newArray = this.text.slice()
-            while (this.capacity - newArray.length >= this.text.length) {
-                newArray = newArray.concat(this.text)
+            let HA = {
+                id: 0,
+                title: 'HA',
+                market: 'HA',
+                status: 'decrease',
+                netchange: 0,
+                changeper: 0
             }
+            let HO = {
+                id: 1,
+                title: 'HO',
+                market: 'H0',
+                status: 'nocrease',
+                netchange: 0,
+                changeper: 0
+            }
+            let OTC = {
+                id: 2,
+                title: 'OTC',
+                market: 'OTC',
+                status: 'increase',
+                netchange: 0,
+                changeper: 0
+            }
+            let markets = [
+                <MarqueeItem data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+            ]
             this.setState({
-                ["stack" + nextStackIndex]: newArray.concat(this.getStack(0, nextHead))
+                stack1: markets,
+                stack2: markets
             })
         }
-
 
     }
 
@@ -255,9 +254,6 @@ export default class MarqueeBar extends React.Component {
 
         //Check whenether count or tempCount
         var count = (sliderObj == this.curSliderObj) ? this.count : this.countTemp
-
-        if (count % this.liWidth == 0) {
-        }
 
         //Slide left effect
         count += this.step
@@ -321,6 +317,7 @@ export default class MarqueeBar extends React.Component {
         this.setState({
             onHover: true
         })
+        console.log('a')
     }
 
     onResume() {
@@ -328,6 +325,7 @@ export default class MarqueeBar extends React.Component {
         this.setState({
             onHover: false
         })
+        console.log('b')
     }
 
     handleScroll(e) {
@@ -358,3 +356,17 @@ export default class MarqueeBar extends React.Component {
         })
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        watchListLocalStockList: state.watchlist.watchListLocalStockList
+    }
+}
+
+const mapDispatchToProps = (dispatch, state) => ({
+    getLocalStockList: () => {
+        dispatch(actions.getStocksFromLocalStore())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MarqueeBar)

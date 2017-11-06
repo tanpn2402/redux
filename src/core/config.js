@@ -15,11 +15,11 @@ const config = {
 				// 	text: 'stockmarketinform',
 				// 	link: ''
 				// },
-				{
-					id: 'watchlist',
-					text: 'watchlist',
-					link: ''
-				},
+				// {
+				// 	id: 'watchlist',
+				// 	text: 'watchlist',
+				// 	link: ''
+				// },
 				{
 					id: 'orderjournal',
 					text: 'orderjournal',
@@ -58,12 +58,12 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'cashtransfer',
+					id: 'fundTransfer',
 					text: 'cashtransfer',
 					link: ''
 				},
 				{
-					id: 'cashadvance',
+					id: 'advancePayment',
 					text: 'cashadvance',
 					link: ''
 				},
@@ -225,25 +225,24 @@ const config = {
 	widgetMobile: [
 		{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'cashTransHistory', 		w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'cashTransHistory', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'orderconfirmation', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'portfolio', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'stockstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'cashstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'watchlist', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'stockmarketinform', 		w: 8, h: 6, isDraggable: false, isResizable: false },
+		// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'stockstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'cashstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'watchlist', 				w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'stockmarketinform', 		w: 8, h: 6, isDraggable: false, isResizable: false },
 		{ i: 'oddLot', 					w: 8, h: 11, isDraggable: false, isResizable: false },
 		{ i: 'fundTransfer', 			w: 8, h: 19, isDraggable: false, isResizable: false },
 		{ i: 'advancePayment', 			w: 8, h: 16, isDraggable: false, isResizable: false },
-		{ i: 'marginloan', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'available', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'accountinfo', 			w: 8, h: 6, isDraggable: false, isResizable: false },
-		{ i: 'loanrefund', 				w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'marginloan', 				w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'available', 				w: 8, h: 9, isDraggable: false, isResizable: false },
+		// { i: 'accountinfo', 			w: 8, h: 6, isDraggable: false, isResizable: false },
+		{ i: 'loanrefund', 				w: 8, h: 15, isDraggable: false, isResizable: false },
 		{ i: 'entitlement', 			w: 8, h: 21, isDraggable: false, isResizable: false },
 		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
-		{ i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
-
+		// { i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 
 	],
@@ -315,7 +314,9 @@ const config = {
 			enabled: false,
 			widget: [
 				{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
-				// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'portfolio', 				w: 8, h: 9, isDraggable: false, isResizable: false },
 			]
 		}
 	],

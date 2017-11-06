@@ -73,7 +73,7 @@ export default class ConfigColumnTable extends React.Component {
                     <div id='filter' className='dropdown-item'>
                         <div className='checkbox'>
                             <label style={{ width: '100%' }} className='dropdown-item-column'>
-                                <input type='checkbox' id='filter' readOnly='false' 
+                                <input type='checkbox' id='filter' readOnly='false'
                                     defaultChecked='true' onChange={this.props.onToggleFilter} />
                                 <span className='dropdown-item-column' >
                                     {this.props.language.global.filter.toggle}

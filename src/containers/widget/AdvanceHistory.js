@@ -3,16 +3,15 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import config from '../../core/config'
 
 class AdvanceHistory extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceHistory'
+        this.idParent = 'cashadvance'
         this.lang = config.cache.lang
         this.defaultPageSize = 15
         this.cashAdHisPageIndex = 1
@@ -122,11 +121,9 @@ class AdvanceHistory extends Component {
 
 
     render() {
-        var cashAdvanceHistory = this.props.cashAdvanceHistory
-        var data = cashAdvanceHistory.list
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-        
+        let cashAdvanceHistory = this.props.cashAdvanceHistory
+        let data = cashAdvanceHistory.list
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -136,29 +133,26 @@ class AdvanceHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data}
-                            language={this.props.language.cashadvance.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.cashAdHisPageIndex}
-                            totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onCashAdTransPageChange.bind(this)}
-                            onNextPage={this.onCashAdTransNextPage.bind(this)}
-                            onPrevPage={this.onCashAdTransPrevPage.bind(this)}
-                            onReloadPage={this.onCashAdTransReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
 
+                        pageIndex={this.cashAdHisPageIndex}
+                        totalPage={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onCashAdTransPageChange.bind(this)}
+
+                        searchEnable={data.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+                    />
                 </Body>
             </div>
         )
@@ -178,7 +172,7 @@ class AdvanceHistory extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
     }

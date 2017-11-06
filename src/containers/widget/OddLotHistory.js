@@ -4,34 +4,19 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 
 class OddLotHistory extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'oddlotHistory'
-
+        this.idParent = 'oddlottrading'
         this.state = {
             oddLotTransPageIndex: 1,
             columns: [
-                {
-                    id: 'transdate',
-                    accessor: 'createTime',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'approvedate',
-                    accessor: 'valueDate',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
+                
                 {
                     id: 'stockid',
                     accessor: 'instrumentId',
@@ -76,6 +61,20 @@ class OddLotHistory extends Component {
                     skip: false,
                     show: true,
                 },
+                {
+                    id: 'transdate',
+                    accessor: 'createTime',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'approvedate',
+                    accessor: 'valueDate',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
             ],
             filterable: true
         }
@@ -92,14 +91,13 @@ class OddLotHistory extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            
+
         })
     }
 
     render() {
         let oddlothistory = this.props.oddlothistory
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -109,27 +107,27 @@ class OddLotHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }}>
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={oddlothistory.historyList} 
-                            language={this.props.language.oddlottrading.header}/>
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.oddLotTransPageIndex}
-                            totalRecord={Math.ceil(oddlothistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onOddLotTransPageChange.bind(this)}
-                            onNextPage={this.onOddLotTransNextPage.bind(this)}
-                            onPrevPage={this.onOddLotTransPrevPage.bind(this)}
-                            onReloadPage={this.onOddLotTransReloadPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={oddlothistory.historyList}
+
+                        pageIndex={this.state.oddLotTransPageIndex}
+                        totalPage={Math.ceil(oddlothistory.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onOddLotTransPageChange.bind(this)}
+
+                        searchEnable={oddlothistory.historyList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+
+                    />
                 </Body>
             </div>
         )
@@ -151,27 +149,6 @@ class OddLotHistory extends Component {
         this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
         this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
         this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
-        this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
-    }
-
-    onOddLotTransNextPage() {
-        this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) + 1
-        this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
-        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
-        this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
-        this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
-    }
-
-    onOddLotTransPrevPage() {
-        this.state.oddLotTransPageIndex = parseInt(this.state.oddLotTransPageIndex) - 1
-        this.paramsOddLotHisEnquiry['start'] = (this.state.oddLotTransPageIndex - 1) * this.paramsOddLotHisEnquiry['limit']
-        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
-        this.paramsOddLotHisEnquiry['page'] = this.state.oddLotTransPageIndex
-        this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
-    }
-
-    onOddLotTransReloadPage() {
-        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
         this.props.oddLotHisEnquiry(this.paramsOddLotHisEnquiry)
     }
 

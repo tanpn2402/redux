@@ -141,7 +141,7 @@ class CashTransHistory extends Component {
                         searchActions={[]}
                         searchData={[]}
                         onSearch={this.onSearch.bind(this)}
-
+                        
                     />
                 </Body>
             </div>

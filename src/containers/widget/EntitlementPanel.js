@@ -24,7 +24,7 @@ class EntitlementPanel extends Component {
 
     render() {
         var bankInfoList = this.props.bankInfo.mvBankInfoList
-        if(bankInfoList && bankInfoList.length > 0 && bankInfoList[0].mvSettlementAccountDisplayName !== 'MAS'){
+        if (bankInfoList && bankInfoList.length > 0 && bankInfoList[0].mvSettlementAccountDisplayName !== 'MAS') {
             bankInfoList.unshift({
                 'mvBankID': "",
                 'mvBankACID': "",
@@ -206,22 +206,22 @@ class EntitlementPanel extends Component {
             language: this.props.language
         })
     }
-    getAccountBalance(bankInfo){
-        if(bankInfo) {
+    getAccountBalance(bankInfo) {
+        if (bankInfo) {
             this.props.entitlementGetAccountBalance({
                 me: this,
                 bankInfo: bankInfo
             })
         }
     }
-    onStockChange = ({option}) => {
+    onStockChange = ({ option }) => {
         this.setState({ mvStockSelected: option })
         var record = {}
         this.getEntitlementData(record)
     }
 
-    onSettlementAccountChange = ({option}) => {
-        if(option){
+    onSettlementAccountChange = ({ option }) => {
+        if (option) {
             this.setState({ mvSettlementAccount: option })
             this.getAccountBalance(option)
         }

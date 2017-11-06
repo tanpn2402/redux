@@ -4,16 +4,15 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 
 class OddLotOrder extends Component {
     constructor(props) {
         super(props)
 
         this.id = 'oddLotOrder'
+        this.idParent = 'oddlottrading'
         this.rowSelected = []
         this.state = {
             oddLotOrderPageIndex: 1,
@@ -32,7 +31,8 @@ class OddLotOrder extends Component {
                     },
                     sortable: false,
                     skip: true,
-                    filterable: false
+                    filterable: false,
+                    mobile: false,
                 },
                 {
                     id: 'stockid',
@@ -80,7 +80,7 @@ class OddLotOrder extends Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            
+
         })
     }
 
@@ -93,8 +93,9 @@ class OddLotOrder extends Component {
                 {this.props.language.oddlottrading.header.register}
             </button>
         ]
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let data = oddLotOrder.oddLotList.slice((this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
+            this.state.oddLotOrderPageIndex * this.defaultPageSize)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -104,39 +105,33 @@ class OddLotOrder extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={oddLotOrder.oddLotList.slice(
-                                (this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
-                                this.state.oddLotOrderPageIndex * this.defaultPageSize)}
-                            onRowSelected={(param) => this.onRowSelected(param)} 
-                            language={this.props.language.oddlottrading.header}/>
-                    </div>
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            key={this.id + '-search'}
-                            id={this.id + '-search'}
-                            buttonAction={buttonActionOddLotOrder}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: [] }}
-                            param={['dropdown']} />
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.oddLotOrderPageIndex}
-                            totalRecord={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}
-                            onPageChange={this.onOddLotOrderPageChange.bind(this)}
-                            onNextPage={this.onOddLotOrderNextPage.bind(this)}
-                            onPrevPage={this.onOddLotOrderPrevPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={data}
+                        onRowSelected={(param) => this.onRowSelected(param)}
+
+                        pageIndex={this.state.oddLotOrderPageIndex}
+                        totalPage={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}
+                        onPageChange={this.onOddLotOrderPageChange.bind(this)}
+
+                        searchParams={['dropdown']}
+                        searchActions={buttonActionOddLotOrder}
+                        searchData={{ stockList: [] }}
+
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+
+                        // onSearch={() => {}}
+                        searchEnable={data.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -151,14 +146,6 @@ class OddLotOrder extends Component {
 
     componentDidMount() {
         this.props.oddLotEnquiry(this.paramsEnquiryOddLot, !this.props.reload);
-    }
-
-    onOddLotOrderNextPage() {
-        this.setState({ oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) + 1 })
-    }
-
-    onOddLotOrderPrevPage() {
-        this.setState({ oddLotOrderPageIndex: parseInt(this.state.oddLotOrderPageIndex) - 1 })
     }
 
     onOddLotOrderPageChange(pageIndex) {

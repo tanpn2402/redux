@@ -13,7 +13,7 @@ import 'react-power-select/dist/react-power-select.css'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
-import {TabControl, TabItem} from "../commons/TabControl"
+import { TabControl, TabItem } from "../commons/TabControl"
 import Select from "../commons/Select"
 import Input from "../commons/Input"
 const { Contants } = require('../../core/constants')
@@ -214,6 +214,7 @@ class EnterOrderForm extends React.Component {
     render() {
         this.stockList = config.cache.stockList.filter(e => e.mvMarketID == this.state.mvMarketID)
         console.log(this.state.mvOrderTypeList)
+
         return (
             <div style={{ width: "100%", height: "100%" }} id={this.id} className={"enterorder-a " + this.state.mvBS.toLowerCase()}>
                 <div className="enterorder-form buy">
@@ -253,12 +254,12 @@ class EnterOrderForm extends React.Component {
                         <div className="col-xs-8">
                             <Col xs={5}>
                                 <Select
-                                options={this.stockList}
-                                selected={this.state.mvStockSelected}
-                                optionLabelPath={'stockCode'}
-                                handleChange={this.handleStockChange.bind(this)}
-                                searchEnabled={true}
-                            />
+                                    options={this.stockList}
+                                    selected={this.state.mvStockSelected}
+                                    optionLabelPath={'stockCode'}
+                                    handleChange={this.handleStockChange.bind(this)}
+                                    searchEnabled={true}
+                                />
 
                             </Col>
                             <Col xs={7}>
@@ -274,10 +275,8 @@ class EnterOrderForm extends React.Component {
                             Quantity
                         </div>
                         <div className="col-xs-8">
-                            
                             <Input type="number" setRef={ref => this.mvVol =  ref} step={100}
                                 onChange={this.onQtyChange.bind(this)}/>
-                            
                         </div>
                     </div>
 
@@ -286,10 +285,8 @@ class EnterOrderForm extends React.Component {
                             Price
                         </div>
                         <div className="col-xs-8">
-                        
                             <Input type="number" setRef={ref => this.mvPrice =  ref} step={100}
                                 onChange={this.onPriceChange.bind(this)}/>
-                            
                         </div>
                     </div>
                 </div>
@@ -333,7 +330,7 @@ class EnterOrderForm extends React.Component {
             </div>
 
 
-            
+
         )
     }
 
@@ -418,12 +415,12 @@ class EnterOrder extends React.Component {
             </div>
 
 
-            
+
         )
     }
 
     onTabChange(key) {
-        this.setState({activeKey: key})
+        this.setState({ activeKey: key })
     }
 
     componentDidMount() {
