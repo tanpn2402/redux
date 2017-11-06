@@ -121,9 +121,16 @@ body {
 }
 select {
     /*for firefox*/
-    -moz-appearance: none;
+    /* -moz-appearance: none; */
     /*for chrome*/
-    -webkit-appearance:none;
+    /* -webkit-appearance:none; */
+    outline: none;
+    height: 22px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-right: 15px;
+    max-width: 120px;
 }
 .group-btn-action {
     text-align: center;
@@ -408,9 +415,8 @@ label {
 .search-bar .form-group select,
 .search-bar .form-group input {
     padding: 1px 4px;
-    border-radius: 2px;
     font-size: 12px;
-    height: 20px;
+    height: 22px;
     /* width: auto; */
 }
 .form-inline.search-bar{
@@ -1646,6 +1652,7 @@ label {
     position: relative;
     z-index: 2;
     border-radius: 2px;
+    margin-left: 0;
 }
 .hks-btn.btn-tab-next {
     margin: 0;
@@ -1656,6 +1663,7 @@ label {
     position: relative;
     z-index: 1;
     border-radius: 2px;
+    top: -1px;
 }
 .hks-btn.btn-tab-next span{
     line-height: inherit;
@@ -3141,8 +3149,31 @@ label {
     border: 1px solid #555;
     font-weight: normal;
 }
+.calendar-picker--trigger {
+    display: inline-block;
+    padding: 0px 2px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+}
+.calendar-picker--group {
+    position: relative;
+}
+.calendar-picker--group span {
+    width: 30px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    line-height: 1.5;
+    height: 100%;
+    text-align: center;
+    color: rgb(0, 90, 160);
+}
 .calendar-picker-input {
-    width: 80px;
+    width: 100%;
+    border: none;
+    padding-left: 10px;
+    padding-right: 35px;
+    outline: none;
 }
 
 
@@ -3705,4 +3736,45 @@ label {
     padding-left: 36px;
     background-color: #ccc;
 }
+.lv-search {
+    text-align: center;
+    padding: 0px 15px;
+    width: 100%;
+    position: absolute;
+    padding-top: 7px;
+}
+.lv-search label {
+    font-weight: 500;
+    margin: 0 10px;
+}
+.lv-search select {
+    width: 100%;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    max-width: unset;
+}
 /* END Listview-control */
+
+
+
+
+
+.search-bar .PowerSelect {
+    max-width: 100px;
+    height: 22px;
+}
+.search-bar .PowerSelect__Trigger,
+.search-bar .PowerSelect__Clear, 
+.search-bar .PowerSelect__TriggerInputContainer, 
+.search-bar .PowerSelect__TriggerLabel, 
+.search-bar .PowerSelect__TriggerStatus, 
+.search-bar .PowerSelectMultiple__OptionsContainer {
+    height: 22px;
+    padding-top: unset;
+    padding-bottom: unset;
+}
+.search-bar .calendar-picker--trigger {
+    width: 110px;
+}

@@ -183,13 +183,13 @@ class TransactionHistory extends Component {
             mvInstrumentID: "ALL",
             mvStatus: "ALL",
             mvSorting: "InputTime desc",
-            mvStartTime: "01/01/2001",
+            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
             mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
         }
 
         this.cashHisParams = {
             tradeType: 'ALL',
-            mvStartDate: "01/01/2001",
+            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
             limit: this.defaultPageSize,
@@ -209,48 +209,65 @@ class TransactionHistory extends Component {
                 <Body theme={this.props.theme}>
                     <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
                         <TabItem eventKey={1} title="Order History" >
-                            <Table 
-                                theme={this.props.theme}
-                                id={"ordershistory"}
-                                language={this.props.language}
+                            {
+                                this.state.activeKey == 1 ? 
+                                (
+                                    <Table 
+                                        theme={this.props.theme}
+                                        id={"ordershistory"}
+                                        language={this.props.language}
+                                        key={"ordershistory"}
 
-                                pageSize={this.defaultPageSize}
-                                columns={this.state.orderHisColumns}
-                                tableData={this.props.orderHistory.mvOrderBeanList}
+                                        pageSize={this.defaultPageSize}
+                                        columns={this.state.orderHisColumns}
+                                        tableData={this.props.orderHistory.mvOrderBeanList}
 
-                                pageIndex={this.state.orderHisPageIndex}
-                                onPageChange={this.onOrderHisPageChange.bind(this)}
-                                totalPage={Math.ceil(this.props.orderHistory.mvTotalOrders / this.defaultPageSize)}
-                                onExportExcel={this.onExportExcel.bind(this)}
+                                        pageIndex={this.state.orderHisPageIndex}
+                                        onPageChange={this.onOrderHisPageChange.bind(this)}
+                                        totalPage={Math.ceil(this.props.orderHistory.mvTotalOrders / this.defaultPageSize)}
+                                        onExportExcel={this.onExportExcel.bind(this)}
 
-                                searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
-                                searchActions={[]}
-                                searchData={{ stockList: this.stockList }}
-                                onSearch={this.onOrderHisSearch.bind(this)}
+                                        searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
+                                        searchMobileParams={["mvStartDate", "mvEndDate"]}
+                                        searchActions={[]}
+                                        searchData={{ stockList: this.stockList }}
+                                        searchDefaultValues={{mvStartDate: this.orderHisParams.mvStartTime, 
+                                                mvEndDate: this.orderHisParams.mvEndTime}}
+                                        onSearch={this.onOrderHisSearch.bind(this)}
 
-                            />
+                                    />
+                                ) : null
+                            }
                         </TabItem>
                         <TabItem eventKey={2} title="Cash Transation History">
-                            <Table 
-                                theme={this.props.theme}
-                                id={"cashtransaction"}
-                                language={this.props.language}
-
-                                pageSize={this.defaultPageSize}
-                                columns={this.state.cashHisColumns}
-                                tableData={this.props.cashTransHistory.list}
-
-                                pageIndex={this.state.cashHisPageIndex}
-                                onPageChange={this.onCashHisPageChange.bind(this)}
-                                totalPage={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
-                                onExportExcel={this.onExportExcel.bind(this)}
-
-                                searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
-                                searchActions={[]}
-                                searchData={{ stockList: this.stockList }}
-                                onSearch={this.onCashHisSearch.bind(this)}
-
-                            />
+                            {
+                                this.state.activeKey == 2 ? 
+                                (
+                                    <Table 
+                                        theme={this.props.theme}
+                                        id={"cashtransaction"}
+                                        language={this.props.language}
+                                        key={"cashtransaction"}
+                                        pageSize={this.defaultPageSize}
+                                        columns={this.state.cashHisColumns}
+                                        tableData={this.props.cashTransHistory.list}
+        
+                                        pageIndex={this.state.cashHisPageIndex}
+                                        onPageChange={this.onCashHisPageChange.bind(this)}
+                                        totalPage={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
+                                        onExportExcel={this.onExportExcel.bind(this)}
+        
+                                        searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
+                                        searchMobileParams={["mvStartDate", "mvEndDate", "tradeType"]}
+                                        searchActions={[]}
+                                        searchData={{ stockList: this.stockList }}
+                                        searchDefaultValues={{mvEndDate: this.cashHisParams.mvEndDate, 
+                                                mvStartDate: this.cashHisParams.mvStartDate, tradeType: this.cashHisParams.tradeType }}
+                                        onSearch={this.onCashHisSearch.bind(this)}
+        
+                                        />
+                                ) : null
+                            }
                         </TabItem>
                     </TabControl>
                     
@@ -282,8 +299,11 @@ class TransactionHistory extends Component {
         this.orderHisParams["page"] = 1
         this.orderHisParams["start"] = 0
 
-        this.orderHisParams["mvBS"] = param["mvBuysell"]
-        this.orderHisParams["mvInstrumentID"] = param["mvStockId"]
+        if(param["mvBS"] != undefined)
+            this.orderHisParams["mvBS"] = param["mvBuysell"]
+        if(param["mvInstrumentID"] != undefined)
+            this.orderHisParams["mvInstrumentID"] = param["mvStockId"]
+
         this.orderHisParams["mvStartTime"] = param["mvStartDate"]
         this.orderHisParams["mvEndTime"] = param["mvEndDate"]
         
@@ -300,10 +320,9 @@ class TransactionHistory extends Component {
         this.cashHisParams["page"] = 1
         this.cashHisParams["start"] = 0
 
-        this.cashHisParams["mvBS"] = param["mvBuysell"]
-        this.cashHisParams["mvInstrumentID"] = param["mvStockId"]
-        this.cashHisParams["mvStartTime"] = param["mvStartDate"]
-        this.cashHisParams["mvEndTime"] = param["mvEndDate"]
+        this.cashHisParams['tradeType'] = param["tradeType"].toUpperCase()
+        this.cashHisParams["mvStartDate"] = param["mvStartDate"]
+        this.cashHisParams["mvEndDate"] = param["mvEndDate"]
         
         this.props.onCashHisSearch(this.cashHisParams)
     }

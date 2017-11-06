@@ -128,6 +128,10 @@ DesktopTable.defaultProps = {
 	pivot: "",
 	// onRowSelected: -> fn
 
+	// mobile
+	searchMobileParams: [],
+	searchDefaultValues: [],
+
 	// mutual props
 	id: "",
 	theme: [],
