@@ -16,20 +16,7 @@ class OddLotHistory extends Component {
         this.state = {
             oddLotTransPageIndex: 1,
             columns: [
-                {
-                    id: 'transdate',
-                    accessor: 'createTime',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'approvedate',
-                    accessor: 'valueDate',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
+                
                 {
                     id: 'stockid',
                     accessor: 'instrumentId',
@@ -70,6 +57,20 @@ class OddLotHistory extends Component {
                 {
                     id: 'status',
                     accessor: 'status',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'transdate',
+                    accessor: 'createTime',
+                    width: 120,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'approvedate',
+                    accessor: 'valueDate',
                     width: 120,
                     skip: false,
                     show: true,
@@ -123,7 +124,9 @@ class OddLotHistory extends Component {
                         onPageChange={this.onOddLotTransPageChange.bind(this)}
 
                         searchEnable={oddlothistory.historyList.length > 0}
-                        
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+
                     />
                 </Body>
             </div>

@@ -58,12 +58,12 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'cashtransfer',
+					id: 'fundTransfer',
 					text: 'cashtransfer',
 					link: ''
 				},
 				{
-					id: 'cashadvance',
+					id: 'advancePayment',
 					text: 'cashadvance',
 					link: ''
 				},
@@ -243,7 +243,6 @@ const config = {
 		{ i: 'entitlement', 			w: 8, h: 21, isDraggable: false, isResizable: false },
 		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
-
 		{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 
 	],

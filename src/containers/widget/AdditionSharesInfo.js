@@ -130,6 +130,8 @@ class AdditionSharesInfo extends Component {
                         onPageChange={this.onPageChange.bind(this)}
 
                         searchEnable={additionIssueShareInfo.additionList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>

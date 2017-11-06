@@ -108,11 +108,11 @@ class MarginLoanStatement extends Component {
         this.idParent = 'marginloan'
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.state = {
+    // componentWillReceiveProps(nextProps) {
+    //     this.state = {
             
-        }
-    }
+    //     }
+    // }
 
     render() {
 

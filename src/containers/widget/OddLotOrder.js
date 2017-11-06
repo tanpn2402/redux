@@ -31,7 +31,8 @@ class OddLotOrder extends Component {
                     },
                     sortable: false,
                     skip: true,
-                    filterable: false
+                    filterable: false,
+                    mobile: false,
                 },
                 {
                     id: 'stockid',
@@ -124,6 +125,10 @@ class OddLotOrder extends Component {
                         searchParams={['dropdown']}
                         searchActions={buttonActionOddLotOrder}
                         searchData={{ stockList: [] }}
+
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+
                         // onSearch={() => {}}
                         searchEnable={data.length > 0}
                     />

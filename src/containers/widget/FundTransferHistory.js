@@ -18,54 +18,63 @@ class FundTransHistory extends Component {
                 {
                     id: 'transfertype',
                     accessor: 'action',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'transferamount',
                     accessor: 'totalLendingAmt',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'beneficiaryaccount',
                     accessor: 'receiveClientID',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'beneficiaryfullname',
                     accessor: 'ownerName',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'bankname',
                     accessor: 'bankName',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'bankbranch',
                     accessor: 'bankBranch',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'status',
                     accessor: 'status',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'approvetime',
                     accessor: 'lastApprovaltime',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'date',
                     accessor: 'createTime',
+                    width: 80,
                     skip: false,
                     show: true,
                 },
@@ -81,6 +90,7 @@ class FundTransHistory extends Component {
                                 </Button>
                             )
                     },
+                    width: 80,
                     sortable: false,
                     skip: true,
                     show: true,
@@ -109,7 +119,6 @@ class FundTransHistory extends Component {
 
     render() {
         let data = this.props.data.list === undefined ? [] : this.props.data.list
-
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -136,6 +145,8 @@ class FundTransHistory extends Component {
                         onPageChange={this.onPageChange.bind(this)}
 
                         searchEnable={this.props.data.list == undefined ? false:this.props.data.list.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
                 {/* <Popup

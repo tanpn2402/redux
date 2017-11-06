@@ -150,6 +150,8 @@ class AdvanceHistory extends Component {
                         onPageChange={this.onCashAdTransPageChange.bind(this)}
 
                         searchEnable={data.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>
