@@ -2910,7 +2910,7 @@ label {
     height: 25px;
     position: absolute;
     background-color: #005AA0;
-    z-index: 1;
+    z-index: 0;
 }
 .widget-header > .widget-title {
     float: left;
@@ -3529,19 +3529,22 @@ label {
     border-radius: 4px;
 }
 .input-control > span > button {
-    width: 30px;
-    height: 30px;
     padding: 0;
+    width: 0;
+    height: 0;
     border-radius: 4px !important;
     background-color: #9b9b9b;
     color: #555;
+    font-size: 18px;
+    color: #fff;
 }
 .input-control > input {
-    height: 30px;
+    height: 100%;
     border-radius: 0;
     outline: none;
     border: none;
     background-color: transparent;
+    padding: 0;
 }
 .input-control.text {
     background-color: #e2e0e1;
@@ -3556,6 +3559,9 @@ label {
 .input-control.number > input {
     text-align: center;
 }
+.input-control {
+    height: 28px;
+}
 /* END INPUT CONTROL */
 /* SELECT CONTROL */
 .select-control {
@@ -3563,7 +3569,7 @@ label {
     background-color: #e2e0e1;
 }
 .select-control > .PowerSelect {
-    height: 30px;
+    height: 100%;
     background-color: transparent;
     border: none;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
@@ -3572,11 +3578,29 @@ label {
 .select-control > .PowerSelect > .PowerSelect__Trigger,
 .select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerLabel,
 .select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus {
-    height: 28px;
     background-color: transparent;
 }
 .select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus:before {
     border-top: 4px solid #000;
+}
+.select-control > .PowerSelect > .PowerSelect__Trigger {
+    position: relative;
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerLabel {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    padding: unset;
+    padding-left: 10px;
+    height: 100%;
+}
+.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus {
+    height: 100%;
+    width: 20px;
+    padding: 0px 10px 0px 10px;
 }
 /* END SELECT CONTROL */
 
@@ -3631,6 +3655,11 @@ label {
     border: 2px solid #FF6600;
     background-color: #fff;
     color: #FF6600;
+}
+.enterorder-form .select-control {
+    height: 28px;
+}
+.enterorder-form -title {
 }
 /* #enterorder-a > div > div {
     padding: 0 10px;
@@ -3778,3 +3807,45 @@ label {
 .search-bar .calendar-picker--trigger {
     width: 110px;
 }
+
+
+/* FOR DESKTOP */
+.maincontent-desktop .enterorder-a .select-control {
+    height: 24px;
+}
+.maincontent-desktop .enterorder-a .input-control {
+    height: 24px;
+}
+.maincontent-desktop .enterorder-a .-label {
+    font-size: 12px;
+}
+.maincontent-desktop .enterorder-a .-total {
+    padding: 5px 10px;
+    background-color: rgb(241, 241, 241);
+    font-size: 14px;
+}
+.maincontent-desktop .enterorder-a .-other {
+    padding: 6px 10px;
+    margin-top: 0;
+}
+
+/* FOR MOBILE */
+.maincontent-mobile .enterorder-a .select-control {
+    height: 30px;
+}
+.maincontent-mobile .enterorder-a .input-control {
+    height: 30px;
+}
+.maincontent-mobile .enterorder-a .-label {
+    font-size: 14px;
+}
+.maincontent-mobile .enterorder-a .-total {
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+    font-size: 16px;
+}
+.maincontent-mobile .enterorder-a .-other {
+    padding: 6px 10px;
+    margin-top: 10px;
+}
+

@@ -15,17 +15,19 @@ class Select extends React.Component {
     }
 
     handleValueChange = ({ option }) => {
-        if (this.props.handleChange) {
+        if(this.props.handleChange && option) {
             this.props.handleChange(option)
         }
     }
 
     render() {
-        // console.log(this.props)
+        let options = ["---"]
+        if(this.props.options.length > 0) 
+            options = this.props.options
         return (
-            <div className="select-control">
+            <div className="select-control" ref={ r => this.selector = r }>   
                 <PowerSelect
-                    options={this.props.options}
+                    options={options}
                     selected={this.props.selected}
                     onChange={this.handleValueChange.bind(this)}
                     optionLabelPath={this.props.optionLabelPath}
@@ -36,6 +38,14 @@ class Select extends React.Component {
         )
 
 
+    }
+
+    componentDidMount() {
+        // let elements = this.selector.getElementsByClassName("PowerSelect__TriggerStatus")
+        // if(elements.length > 0) {
+        //     let child = elements[0]
+        //     child.style.paddingTop = this.selector.offsetHeight / 2 - 2 + "px"
+        // }
     }
 }
 Select.defaultProps = {
