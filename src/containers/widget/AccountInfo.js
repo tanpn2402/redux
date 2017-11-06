@@ -13,12 +13,15 @@ import Body from '../commons/WidgetBody'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import config from '../../core/config'
+import {TabControl, TabItem} from "../commons/TabControl"
+
 
 class AccountInfo extends Component {
 	constructor(props) {
 		super(props)
 		this.defaultPageSize = 20
 		this.state = {
+			activeKey: 1,
 			columns: [
 				{
 					id: 'mvStockCode',
@@ -479,12 +482,19 @@ class AccountInfo extends Component {
 		this.updateStockTable(nextProps.language)
 	}
 
+	onTabChange(key) {
+        this.setState({activeKey: key})
+    }
+
 
 	render() {
 		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
 		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
 		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+
+		let language = this.props.language
+
 		return (
 			<div id={this.id}>
 				<Title language={this.props.language} theme={this.props.theme}>
@@ -492,177 +502,190 @@ class AccountInfo extends Component {
 				</Title>
 
 				<Body theme={this.props.theme}>
-					<div className="tab-wrapper">
-						<ScrollingTabs 
-							theme={this.props.theme} 
-							tabList={this.state.tabList} 
-							onTabClick={this.onTabClick.bind(this)} 
-							id={this.id} />
-					</div>
-
-					{
-						this.state.tabIndex === 0 ?
-							(
+					<TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+                        <TabItem eventKey={1} title={language.accountinfo.title.cash} >
+                            
+							{
 								this.hasBank ?
-									(
-										<div className="content-wrapper">
-											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
-												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-													<table className="table">
-														<tbody >
-															{
-																this.state.cashBank.map((d, i) => {
-																	if (i % 2 != 0) {
-																		return (
-																			<tr style={{ backgroundColor: rowodd, color: font2 }} >
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	} else {
-																		return (
-																			<tr style={{ backgroundColor: roweven, color: font2 }} >
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	}
-																})
-															}
-
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-
-									) :
-									(
-										<div className="content-wrapper">
-											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
-												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-													<table className="table">
-														<tbody >
-															{
-																this.state.cash.map((d, i) => {
-																	if (i % 2 != 0) {
-																		return (
-																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	} else {
-																		return (
-																			<tr style={{ backgroundColor: roweven, color: font2 }}>
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	}
-																})
-															}
-
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									)
-
-							) : this.state.tabIndex === 1 ?
 								(
-									<div>
-										<div className="table-main" style={{ paddingTop: '51px' }}>
-											<Table
-												theme={this.props.theme}
-												key={this.id}
-												id={this.id}
-												columns={this.state.columns}
-												defaultPageSize={this.defaultPageSize}
-												data={this.props.stock.mvStockBalanceInfo.slice(
-													(this.state.pageIndex - 1) * this.defaultPageSize,
-													this.state.pageIndex * this.defaultPageSize)}
-											/>
-										</div>
+									
+									<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+										<table className="table">
+											<tbody >
+												{
+													this.state.cashBank.map((d, i) => {
+														if (i % 2 != 0) {
+															return (
+																<tr style={{ backgroundColor: rowodd, color: font2 }} >
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														} else {
+															return (
+																<tr style={{ backgroundColor: roweven, color: font2 }} >
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
+													})
+												}
 
-										<div className="table-footer" style={tablefooter}>
-											<Pagination theme={this.props.theme}
-												pageIndex={this.state.pageIndex}
-												totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
-												onPageChange={this.onPageChange.bind(this)}
-												onNextPage={this.onNextPage.bind(this)}
-												onPrevPage={this.onPrevPage.bind(this)}
-											/>
-										</div>
+											</tbody>
+										</table>
 									</div>
 
-								) : this.state.tabIndex === 2 ?
-									(
-										<div className="content-wrapper">
-											<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
-												<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-													<table className="table">
-														<tbody >
-															{
-																this.state.overdueDebt.map((d, i) => {
-																	if (i % 2 != 0) {
-																		return (
-																			<tr style={{ backgroundColor: rowodd, color: font2 }}>
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	} else {
-																		return (
-																			<tr style={{ backgroundColor: roweven, color: font2 }}>
-																				<th>{d.header}</th>
-																				<td>{d.value}</td>
-																			</tr>
-																		)
-																	}
-																})
-															}
+								) :
+								(
+									
+									<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+										<table className="table">
+											<tbody >
+												{
+													this.state.cash.map((d, i) => {
+														if (i % 2 != 0) {
+															return (
+																<tr style={{ backgroundColor: rowodd, color: font2 }}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														} else {
+															return (
+																<tr style={{ backgroundColor: roweven, color: font2 }}>
+																	<th>{d.header}</th>
+																	<td>{d.value}</td>
+																</tr>
+															)
+														}
+													})
+												}
 
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									) : this.state.tabIndex === 3 ?
-										(
-											<div className="content-wrapper">
-												<div className="table-main no-header" style={{ padding: '50px 0 0 0', color: font2 }}>
-													<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-														<table className="table">
-															<tbody >
-																{
-																	this.state.upcomingDebt.map((d, i) => {
-																		if (i % 2 != 0) {
-																			return (
-																				<tr style={{ backgroundColor: rowodd, color: font2 }}>
-																					<th>{d.header}</th>
-																					<td>{d.value}</td>
-																				</tr>
-																			)
-																		} else {
-																			return (
-																				<tr style={{ backgroundColor: roweven, color: font2 }}>
-																					<th>{d.header}</th>
-																					<td>{d.value}</td>
-																				</tr>
-																			)
-																		}
-																	})
-																}
+											</tbody>
+										</table>
+									</div>
+										
+								)
+							}
+                            
+                        </TabItem>
+                        <TabItem eventKey={2} title={language.accountinfo.title.stock}>
+							<Table 
+								theme={this.props.theme}
+								id={this.id}
+								language={this.props.language}
 
-															</tbody>
-														</table>
-													</div>
-												</div>
-											</div>
-										) : ''
-					}
+								pageSize={this.defaultPageSize}
+								columns={this.state.columns}
+								tableData={this.props.stock.mvStockBalanceInfo.slice(
+											(this.state.pageIndex - 1) * this.defaultPageSize,
+											this.state.pageIndex * this.defaultPageSize)}
+
+								pageIndex={this.state.pageIndex}
+								onPageChange={this.onPageChange.bind(this)}
+								totalPage={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
+								onExportExcel={() => {}}
+
+								searchParams={[]}
+								searchActions={[]}
+								searchData={{}}
+								onSearch={() => {}}
+								searchEnable={false}
+
+							/>
+                            
+							{/* <div>
+								<div className="table-main" style={{ paddingTop: '51px' }}>
+									<Table
+										theme={this.props.theme}
+										key={this.id}
+										id={this.id}
+										columns={this.state.columns}
+										defaultPageSize={this.defaultPageSize}
+										data={this.props.stock.mvStockBalanceInfo.slice(
+											(this.state.pageIndex - 1) * this.defaultPageSize,
+											this.state.pageIndex * this.defaultPageSize)}
+									/>
+								</div>
+
+								<div className="table-footer" style={tablefooter}>
+									<Pagination theme={this.props.theme}
+										pageIndex={this.state.pageIndex}
+										totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
+										onPageChange={this.onPageChange.bind(this)}
+										onNextPage={this.onNextPage.bind(this)}
+										onPrevPage={this.onPrevPage.bind(this)}
+									/>
+								</div>
+							</div> */}
+                            
+                        </TabItem>
+                        <TabItem eventKey={3} title={language.accountinfo.title.overduedebt} disabled>
+                            
+							
+							<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+								<table className="table">
+									<tbody >
+										{
+											this.state.overdueDebt.map((d, i) => {
+												if (i % 2 != 0) {
+													return (
+														<tr style={{ backgroundColor: rowodd, color: font2 }}>
+															<th>{d.header}</th>
+															<td>{d.value}</td>
+														</tr>
+													)
+												} else {
+													return (
+														<tr style={{ backgroundColor: roweven, color: font2 }}>
+															<th>{d.header}</th>
+															<td>{d.value}</td>
+														</tr>
+													)
+												}
+											})
+										}
+
+									</tbody>
+								</table>
+							</div>
+							
+                            
+                        </TabItem>
+                        <TabItem eventKey={4} title={language.accountinfo.title.upcomingduedebt} disabled>
+                            
+				
+							<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+								<table className="table">
+									<tbody >
+										{
+											this.state.upcomingDebt.map((d, i) => {
+												if (i % 2 != 0) {
+													return (
+														<tr style={{ backgroundColor: rowodd, color: font2 }}>
+															<th>{d.header}</th>
+															<td>{d.value}</td>
+														</tr>
+													)
+												} else {
+													return (
+														<tr style={{ backgroundColor: roweven, color: font2 }}>
+															<th>{d.header}</th>
+															<td>{d.value}</td>
+														</tr>
+													)
+												}
+											})
+										}
+
+									</tbody>
+								</table>
+							</div>
+							
+                            
+                        </TabItem>
+                    </TabControl>
 				</Body>
 			</div>
 		)

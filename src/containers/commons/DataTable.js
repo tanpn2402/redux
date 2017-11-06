@@ -36,7 +36,7 @@ class DesktopTable extends React.Component {
 		let tablefooter = this.props.theme.table.tablefooter
 		
 		return (
-			<div className="destop-table" style={{ width: "100%", height: "100%" }}>
+			<div className="destop-table" style={{ width: "100%", height: "100%", position: "relative" }}>
 			
 				<div className={"table-main " + (this.props.searchEnable ? "" : "no-header")} style={tableheader}>
 					<DataTable 

@@ -317,14 +317,14 @@ class StockMarketInfo extends Component {
 
 
 							<div className="marketdatainfo-mini-table" id="match-order-table">
-								<Table theme={this.props.theme}
+								{/* <Table theme={this.props.theme}
 									key={this.id}
 									id={this.id}
 									defaultPageSize={15}
 									columns={this.state.panel2}
 									data={[]}
 									language = {this.props.language.stockmarketinform.header}
-								/>
+								/> */}
 							</div>
 
 						</div>
