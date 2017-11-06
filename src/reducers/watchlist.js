@@ -24,7 +24,9 @@ export default function (state = initialState, action) {
     case ActionTypes.REMOVESTOCKFROMLOCALSTORE:
       let newStockList = [...state.watchListLocalStockList]
       newStockList.splice(
-        newStockList.indexOf(action.stock), 1)
+        newStockList.findIndex(stock => {
+          return stock.mvStockCode == action.stock.mvStockCode && stock.mvMarketID == action.stock.mvMarketID
+        }), 1)
       return {
         watchListLocalStockList: newStockList
       }

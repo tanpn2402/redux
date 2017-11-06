@@ -651,7 +651,7 @@ class WatchList extends Component {
     }
 
     onRemoveStock(removeList) {
-        removeList.map(stock => {
+        removeList.forEach(stock => {
             let removeStock = {
                 mvStockCode: stock.mvStockCode,
                 mvMarketID: stock.mvMarketID
@@ -660,6 +660,10 @@ class WatchList extends Component {
         })
         this.rowSelected = []
         document.getElementById("watchlist-cb-all").checked = false
+        let checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false
+        }
         // this.addRemoveParams['mvAddOrRemove'] = 'Remove'
         // removeList.map(stock => {
         //     this.addRemoveParams['mvStockCode'] = stock.mvStockCode

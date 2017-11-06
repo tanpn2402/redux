@@ -305,56 +305,6 @@ export default class DataTable extends React.Component {
 	// handleOnMouseLeave(e) {
 	// 	e.target.style = ''
 	// }
-
-	onRowSelected(param) {
-		let rowSelected = []
-		if (param === 'ALL') {
-			var current = document.getElementById(this.props.id + '-cb-all').checked
-			var checkboxes = document.getElementsByClassName(this.props.id + '-row-checkbox')
-			for (var i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].checked = current;
-			}
-			if (current) {
-				switch (this.props.id) {
-					case 'orderjournal':
-						rowSelected = this.props.data !== undefined ?
-							this.props.data.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
-						break;
-					default:
-						rowSelected = this.props.data
-				}
-			} else {
-				rowSelected = []
-			}
-		} else {
-			switch (this.props.id) {
-				case 'matchOrderBankList':
-					var tmp = rowSelected.filter(el => el.mvOrderID === param.mvOrderID)
-
-					if (tmp.length > 0) {
-						// exist in row selected
-						rowSelected = rowSelected.filter(el => el.mvOrderID !== param.mvOrderID)
-					} else {
-						rowSelected.push(param)
-					}
-					break;
-				default:
-					var index = this.rowSelected.indexOf(param)
-					if (index === -1) {
-						this.rowSelected.push(param)
-					}
-					else {
-						this.rowSelected.splice(index, 1)
-					}
-			}
-
-			if (document.getElementsByClassName(this.props.id + '-row-checkbox').length === rowSelected.length)
-				document.getElementById(this.props.id + "-cb-all").checked = true
-			else
-				document.getElementById(this.props.id + "-cb-all").checked = false
-		}
-		this.props.handleOnRowSelected({ rowSelected: rowSelected })
-	}
 }
 function expand(data) {
 	let rows = []
@@ -375,7 +325,7 @@ function headerRenderer(component, id, column, text) {
 		case 'cb':
 			return (
 				<input id={component.props.id + "-cb-all"} type='checkbox' className="row-checkbox"
-					onChange={() => component.props.onRowSelected('ALL')} />
+					onChange={() => component.props.handleOnRowSelected('ALL')} />
 			)
 		default:
 			return (
