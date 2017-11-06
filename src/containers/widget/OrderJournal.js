@@ -26,6 +26,41 @@ class OrderJournal extends Component {
                     id: 'cancelmodify',
                     maxWidth: 80,
                     sortable: false,
+                    Cell: props => {
+                        if (props.aggregated) {
+                            
+                        } else {
+                            var child = []
+                            // if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                // if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                            onClick={() => this.handleCancelOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-remove"></span>
+                                        </Button>
+                                    )
+                                // }
+                            // }
+
+                            // if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                                // if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                            onClick={() => this.handleModifyOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-edit"></span>
+                                        </Button>
+                                    )
+                                // }
+                            // }
+
+                            return (
+                                <span>
+                                    {
+                                        child
+                                    }
+                                </span>)
+                        }
+                    },
                     skip: true,
                     mobile: false
                 },
@@ -41,6 +76,25 @@ class OrderJournal extends Component {
                     id: 'buysell',
                     accessor: 'mvBS',
                     width: 40,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            if (props.original.mvBSValue == this.props.language.global.buysell.B) {
+                                return (
+                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
+                                        {this.props.language.searchbar.buy}
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
+                                        {this.props.language.searchbar.sell}
+                                    </div>
+                                )
+                            }
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -84,6 +138,16 @@ class OrderJournal extends Component {
                     id: 'status',
                     accessor: 'mvStatus',
                     width: 80,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            let text = this.props.language.global.status[props.original.mvStatus]
+                            return (
+                                Utils.statusRenderer(text, props.original.mvStatus)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -233,11 +297,11 @@ class OrderJournal extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-
-        })
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         columns: 
+    //     })
+    // }
 
     handleCancelOrderChecked(e) {
 
