@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 
 class AdBankHistory extends Component {
     constructor(props) {
         super(props)
         this.id = 'advanceBankHistory'
+        this.idParent = 'cashadvancebank'
         this.defaultPageSize = 15
 
         this.getCashAdvanceHistoryParams = {
@@ -70,9 +69,9 @@ class AdBankHistory extends Component {
 
 
     render() {
-        var cashAdvanceHistory = this.props.cashAdvanceHistory
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let cashAdvanceHistory = this.props.cashAdvanceHistory
+        let data = cashAdvanceHistory.list
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -82,29 +81,24 @@ class AdBankHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={cashAdvanceHistory.list}
-                            language={this.props.language.cashadvancebank.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.cashAdvHistoryPageIndex}
-                            totalRecord={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
 
+                        pageIndex={this.state.cashAdvHistoryPageIndex}
+                        totalPage={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        searchEnable={data.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -123,7 +117,7 @@ class AdBankHistory extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
-            
+
         }
     }
 
@@ -132,29 +126,6 @@ class AdBankHistory extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-
-    onNextPage() {
-        this.state.cashAdvHistoryPageIndex = parseInt(this.state.cashAdvHistoryPageIndex) + 1
-        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdvHistoryPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
-        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdvHistoryPageIndex
-        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-
-        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
-    }
-
-    onPrevPage() {
-        this.state.cashAdvHistoryPageIndex = parseInt(this.state.cashAdvHistoryPageIndex) + 1
-        this.getCashAdvanceHistoryParams['start'] = (this.state.cashAdvHistoryPageIndex - 1) * this.getCashAdvanceHistoryParams['limit']
-        this.getCashAdvanceHistoryParams['page'] = this.state.cashAdvHistoryPageIndex
-        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-
-        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
-    }
-
-    onReloadPage() {
-        this.getCashAdvanceHistoryParams['key'] = (new Date()).getTime()
-        this.props.getCashAdvance(this.getCashAdvanceHistoryParams)
     }
 
     onPageChange(pageIndex) {

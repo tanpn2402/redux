@@ -3,16 +3,15 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import config from '../../core/config'
 
 class MatchOrderList extends Component {
     constructor(props) {
         super(props)
         this.id = 'matchOrderList'
+        this.idParent = 'cashadvance'
         this.defaultPageSize = 15
         this.lang = config.cache.lang
 
@@ -95,10 +94,10 @@ class MatchOrderList extends Component {
 
 
     render() {
-        var soldOrders = this.props.soldOrders
-        var data = soldOrders.mvChildBeanList
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let soldOrders = this.props.soldOrders
+        let data = soldOrders.mvChildBeanList.slice((this.state.orderMatchListPageIndex - 1) * this.defaultPageSize,
+            this.state.orderMatchListPageIndex * this.defaultPageSize)
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -108,31 +107,24 @@ class MatchOrderList extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data.slice(
-                                (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize,
-                                this.state.orderMatchListPageIndex * this.defaultPageSize)}
-                            language={this.props.language.cashadvance.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.orderMatchListPageIndex}
-                            totalRecord={Math.ceil(soldOrders.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onOrderMatchListPageChange.bind(this)}
-                            onNextPage={this.onOrderMatchListNextPage.bind(this)}
-                            onPrevPage={this.onOrderMatchListPrevPage.bind(this)}
-                            onReloadPage={this.onOrderMatchListReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
 
+                        pageIndex={this.state.orderMatchListPageIndex}
+                        totalPage={Math.ceil(soldOrders.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onOrderMatchListPageChange.bind(this)}
+
+                        searchEnable={data.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -153,7 +145,7 @@ class MatchOrderList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
     }

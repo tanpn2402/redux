@@ -4,15 +4,14 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 
 class FundTransHistory extends Component {
     constructor(props) {
         super(props)
         this.id = 'fundTransHistory'
+        this.idParent = 'cashtransfer'
         this.state = {
             lgShow: false,
             columns: [
@@ -103,15 +102,14 @@ class FundTransHistory extends Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            
+
         });
     }
 
 
     render() {
-        var data = this.props.data.list === undefined ? [] : this.props.data.list
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let data = this.props.data.list === undefined ? [] : this.props.data.list
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -121,28 +119,24 @@ class FundTransHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={data}
-                            language={this.props.language.cashtransfer.header} />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={this.props.data.mvTotalOrders}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={data}
 
+                        pageIndex={this.state.pageIndex}
+                        totalPage={this.props.data.mvTotalOrders}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        searchEnable={this.props.data.list == undefined ? false:this.props.data.list.length > 0}
+                    />
                 </Body>
                 {/* <Popup
                         id="canceltransfer"
@@ -171,22 +165,6 @@ class FundTransHistory extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-
-    onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        }
-    }
-
-    onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-        }
-    }
-
-    onReloadPage() {
-        this.props.gethkscashtranhis(this.paramshkscashtranhis, !this.props.reload)
     }
 
     onPageChange(pageIndex) {

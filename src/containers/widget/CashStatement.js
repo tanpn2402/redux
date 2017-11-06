@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
 import config from '../../core/config'
 import moment from 'moment'
@@ -84,6 +82,7 @@ class CashStatement extends Component {
         }
 
         this.id = 'cashstatement'
+        this.idParent = 'cashstatement'
     }
 
     componentWillReceiveProps(nextProps) {
@@ -96,8 +95,7 @@ class CashStatement extends Component {
     render() {
 
         let data = this.props.data
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} widgetID={'cashstatement'}
@@ -107,41 +105,29 @@ class CashStatement extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data.list}
-                            language={this.props.language.cashstatement.header}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: this.stockList }}
-                            param={['mvStartDate', 'mvEndDate']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data.list}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(data.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                            onExportExcel={this.onExportExcel.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        totalPage={Math.ceil(data.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+                        onExportExcel={this.onExportExcel.bind(this)}
+
+                        onSearch={this.onSearch.bind(this)}
+                        searchActions={[]}
+                        searchParams={['mvStartDate', 'mvEndDate']}
+                        searchData={{stockList: this.stockList}}
+                        searchEnable={data.list.length > 0}
+                    />
                 </Body>
             </div>
         )

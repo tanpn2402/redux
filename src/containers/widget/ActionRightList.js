@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import moment from 'moment'
 import config from '../../core/config'
 
@@ -16,6 +14,7 @@ class ActionRightList extends Component {
         super(props)
 
         this.id = 'actionRightList'
+        this.idParent = 'entitlement'
         this.stockList = config.cache.stockList
         this.defaultPageSize = 15
         this.pageIndex = 1
@@ -161,9 +160,7 @@ class ActionRightList extends Component {
 
 
     render() {
-        var allRightList = this.props.allRightList
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let allRightList = this.props.allRightList
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -174,38 +171,28 @@ class ActionRightList extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={allRightList.rightList}
-                            language={this.props.language.entitlement.header} />
-                    </div>
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            key={this.id + '-search'}
-                            id={this.id + '-search'}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: this.stockList, actionType: this.actionTypeStore }}
-                            param={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']} />
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={allRightList.rightList}
+
+                        pageIndex={this.state.pageIndex}
+                        totalPage={Math.ceil(allRightList.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        onSearch={this.onSearch.bind(this)}
+                        searchActions={[]}
+                        searchData={{ stockList: this.stockList, actionType: this.actionTypeStore }}
+                        searchParams={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}
+                        searchEnable={allRightList.rightList.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -225,7 +212,7 @@ class ActionRightList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
     }
@@ -235,29 +222,6 @@ class ActionRightList extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-    onNextPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        this.paramsright['page'] = this.state.pageIndex
-        this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
-        this.paramsright['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsright)
-    }
-
-    onPrevPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-        this.paramsright['page'] = this.state.pageIndex
-        this.paramsright['start'] = (this.state.pageIndex - 1) * this.paramsright['limit']
-        this.paramsright['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsright)
-    }
-
-    onReloadPage() {
-        this.paramsright['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsright)
     }
 
     onPageChange(pageIndex) {

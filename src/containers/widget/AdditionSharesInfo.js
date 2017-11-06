@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 
 class AdditionSharesInfo extends Component {
     constructor(props) {
         super(props)
         this.id = 'additionSharesInfo'
+        this.idParent = 'entitlement'
         this.state = {
             pageIndex: 1,
             filterable: false,
@@ -103,9 +102,8 @@ class AdditionSharesInfo extends Component {
 
 
     render() {
-        var additionIssueShareInfo = this.props.additionIssueShareInfo
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let additionIssueShareInfo = this.props.additionIssueShareInfo
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -115,28 +113,24 @@ class AdditionSharesInfo extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main no-header" style={{ color: font2 }} >
-                        <Table theme={this.props.theme}
-                            key={this.id + "-table"}
-                            id={this.id + "-table"}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={additionIssueShareInfo.additionList}
-                            table={this.props.language.entitlement.header} 
-                            language={this.props.language.entitlement.header}/>
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(additionIssueShareInfo.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id + "-table"}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={additionIssueShareInfo.additionList}
+
+                        pageIndex={this.state.pageIndex}
+                        totalPage={Math.ceil(additionIssueShareInfo.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        searchEnable={additionIssueShareInfo.additionList.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -156,7 +150,7 @@ class AdditionSharesInfo extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
     }
@@ -166,29 +160,6 @@ class AdditionSharesInfo extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-    onNextPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-        this.paramsAddition['page'] = this.state.pageIndex
-        this.paramsAddition['start'] = (this.state.pageIndex - 1) * this.paramsAddition['limit']
-        this.paramsAddition['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsAddition)
-    }
-
-    onPrevPage() {
-        this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-        this.paramsAddition['page'] = this.state.pageIndex
-        this.paramsAddition['start'] = (this.state.pageIndex - 1) * this.paramsAddition['limit']
-        this.paramsAddition['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsAddition)
-    }
-
-    onReloadPage() {
-        this.paramsAddition['key'] = (new Date()).getTime()
-
-        this.props.getRightlist(this.paramsAddition)
     }
 
     onPageChange(pageIndex) {

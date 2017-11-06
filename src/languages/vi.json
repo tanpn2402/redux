@@ -327,42 +327,6 @@
                     "wrongQty": "Vượt quá số lượng CK lô lẻ của mã KLS mà Quý khách hiện có. Vui lòng kiểm tra lại thông tin đăng ký."
                 }
             },
-            "fundTransHistory": {
-                "header": "aaa"
-            },
-            "fundTransPanel": {
-                "header": "aaa"
-            },
-            "entitlementPanel": {
-                "header": "aaa"
-            },
-            "entitlementHistory": {
-                "header": "aaa"
-            },
-            "advanceBankPanel": {
-                "header": "aaa"
-            },
-            "advanceBankHistory": {
-                "header": "aaa"
-            },
-            "advancePanel": {
-                "header": "aaa"
-            },
-            "advanceHistory": {
-                "header": "aaa"
-            },
-            "oddlotHistory": {
-                "header": "aaa"
-            },
-            "loanRefundPanel": {
-                "header": "aaa"
-            },
-            "loanRefundStatus": {
-                "header": "aaa"
-            },
-            "loanRefundHistory": {
-                "header": "aaa"
-            },
             "accountinfo": {
                 "title": {
                     "stock": "CHỨNG KHOÁN",

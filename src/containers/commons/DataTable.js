@@ -33,7 +33,6 @@ class DesktopTable extends React.Component {
 	render() {
 		let tableheader = this.props.theme.table.tableheader
 		let tablefooter = this.props.theme.table.tablefooter
-		console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa', this.props.language)
 		return (
 			<div className="destop-table" style={{ width: "100%", height: "100%", position: "relative" }}>
 
@@ -47,7 +46,7 @@ class DesktopTable extends React.Component {
 						filterable={this.props.filterable}
 						pivot={this.props.pivot}
 						data={this.props.tableData}
-						language={this.props.language[this.props.id].header}
+						language={this.props.language[this.props.idParent ? this.props.idParent : this.props.id].header}
 						onRowSelected={this.onRowSelected.bind(this)}
 					/>
 				</div>
@@ -58,7 +57,7 @@ class DesktopTable extends React.Component {
 							<div className="table-header">
 								<SearchBar
 									id={this.props.id}
-									onSearch={this.onSearch.bind(this)}
+									onSearch={this.props.onSearch ? this.onSearch.bind(this): undefined}
 									buttonAction={this.props.searchActions}
 									language={this.props.language.searchbar}
 									theme={this.props.theme}
@@ -74,7 +73,7 @@ class DesktopTable extends React.Component {
 						pageIndex={this.props.pageIndex}
 						totalPage={this.props.totalPage}
 						onPageChange={this.onPageChange.bind(this)}
-						onExportExcel={this.onExportExcel.bind(this)}
+						onExportExcel={this.props.onExportExcel ? this.onExportExcel.bind(this) : undefined}
 					/>
 				</div>
 			</div>

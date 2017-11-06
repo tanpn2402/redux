@@ -328,42 +328,6 @@
                     "waiting": "Waiting approval"
                 }
             },
-            "fundTransHistory": {
-                "header": "aaa"
-            },
-            "fundTransPanel": {
-                "header": "aaa"
-            },
-            "entitlementPanel": {
-                "header": "aaa"
-            },
-            "entitlementHistory": {
-                "header": "aaa"
-            },
-            "advanceBankPanel": {
-                "header": "aaa"
-            },
-            "advanceBankHistory": {
-                "header": "aaa"
-            },
-            "advancePanel": {
-                "header": "aaa"
-            },
-            "advanceHistory": {
-                "header": "aaa"
-            },
-            "oddlotHistory": {
-                "header": "aaa"
-            },
-            "loanRefundPanel": {
-                "header": "aaa"
-            },
-            "loanRefundStatus": {
-                "header": "aaa"
-            },
-            "loanRefundHistory": {
-                "header": "aaa"
-            },
             "accountinfo": {
                 "title": {
                     "stock": "STOCK",

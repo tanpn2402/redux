@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import moment from 'moment'
 import config from '../../core/config'
 
@@ -16,6 +14,7 @@ class EntitlementHistory extends Component {
         super(props)
 
         this.id = 'entitlementHistory'
+        this.idParent = 'entitlement'
         this.state = {
             pageIndex: 1,
             filterable: false,
@@ -90,10 +89,9 @@ class EntitlementHistory extends Component {
 
 
     render() {
-        var stockList = this.props.stockList
-        var entitlementHistory = this.props.entitlementHistory
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let stockList = this.props.stockList
+        let entitlementHistory = this.props.entitlementHistory
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -103,38 +101,28 @@ class EntitlementHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            defaultPageSize={this.defaultPageSize}
-                            data={entitlementHistory.historyList}
-                            language={this.props.language.entitlement.header}/>
-                    </div>
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            key={this.id + '-search'}
-                            id={this.id + '-search'}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: stockList }}
-                            param={['mvStockId', 'mvStartDate', 'mvEndDate']} />
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(entitlementHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        key={this.id}
+                        id={this.id}
+                        idParent={this.idParent}
+                        language={this.props.language}
 
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        pageSize={this.defaultPageSize}
+                        tableData={entitlementHistory.historyList}
+
+                        pageIndex={this.state.pageIndex}
+                        totalPage={Math.ceil(entitlementHistory.totalCount / this.defaultPageSize)}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        onSearch={this.onSearch.bind(this)}
+                        searchActions={[]}
+                        searchData={{stockList: stockList}}
+                        searchParams={['mvStockId', 'mvStartDate', 'mvEndDate']}
+                        searchEnable={entitlementHistory.historyList.length > 0}
+                    />
                 </Body>
             </div>
         )
@@ -154,7 +142,7 @@ class EntitlementHistory extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                
+
             })
         }
     }
@@ -177,30 +165,6 @@ class EntitlementHistory extends Component {
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-    }
-
-    onNextPage() {
-        this.state.pageIndex3 = parseInt(this.state.pageIndex3) + 1
-        this.paramshis['page'] = this.state.pageIndex3
-        this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
-        this.paramshis['key'] = (new Date()).getTime()
-
-        this.props.getHistorylist(this.paramshis)
-    }
-
-    onPrevPage() {
-        this.state.pageIndex3 = parseInt(this.state.pageIndex3) - 1
-        this.paramshis['page'] = this.state.pageIndex3
-        this.paramshis['start'] = (this.state.pageIndex3 - 1) * this.paramshis['limit']
-        this.paramshis['key'] = (new Date()).getTime()
-
-        this.props.getHistorylist(this.paramshis)
-    }
-
-    onReloadPage() {
-        this.paramshis['key'] = (new Date()).getTime()
-
-        this.props.getHistorylist(this.paramshis)
     }
 
     onPageChange(pageIndex) {
