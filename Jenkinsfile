@@ -16,9 +16,9 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                sh 'npm start' 
+                sh 'nohup npm start &' 
                 input message: 'Finished using the web site? (Click "Proceed" to continue)' 
-                sh 'npm stop' 
+                sh 'fuser -k 3000/tcp' 
             }
         }
     }
