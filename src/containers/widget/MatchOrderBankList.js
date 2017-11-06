@@ -38,7 +38,7 @@ class MatchOrderBankList extends Component {
             columns: [
                 {
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
+                    // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     Cell: props => {
@@ -51,56 +51,48 @@ class MatchOrderBankList extends Component {
                     skip: true
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.contractid,
                     accessor: this.accessor[0],
                     id: 'contractid',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.orderid,
                     accessor: this.accessor[1],
                     id: 'orderid',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.settlementdate,
                     accessor: this.accessor[2],
                     id: 'settlementdate',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.tradedate,
                     accessor: this.accessor[3],
                     id: 'tradedate',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.stockid,
                     accessor: this.accessor[4],
                     id: 'stockid',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.price,
                     accessor: this.accessor[5],
                     id: 'price',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.quantity,
                     accessor: this.accessor[6],
                     id: 'quantity',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.value,
                     accessor: this.accessor[7],
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
@@ -142,6 +134,7 @@ class MatchOrderBankList extends Component {
                                 (this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
                                 this.state.matchOrderBankListPageIndex * this.defaultPageSize)}
                             handleOnRowSelected={(param) => this.onRowSelected(param)}
+                            language={this.props.language.cashadvancebank.header}
                         />
                     </div>
 
@@ -175,90 +168,7 @@ class MatchOrderBankList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        id: 'cb',
-                        Header: props => {
-                            return <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
-                                onChange={() => this.onRowSelected('ALL')} />
-                        },
-                        maxWidth: 50,
-                        width: 40,
-                        Cell: props => {
-                            return (
-                                <input type='checkbox' className={this.id + "-row-checkbox"}
-                                    onChange={() => { this.onRowSelected(props.original) }} />
-                            )
-                        },
-                        sortable: false,
-                        skip: true
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.contractid,
-                        accessor: this.accessor[0],
-                        id: 'contractid',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.orderid,
-                        accessor: this.accessor[1],
-                        id: 'orderid',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.settlementdate,
-                        accessor: this.accessor[2],
-                        Cell: props => {
-                            return Utils.formatDate(props.original.cashSettleDay, "ddmmyyyy")
-                        },
-                        id: 'settlementdate',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.tradedate,
-                        accessor: this.accessor[3],
-                        Cell: props => {
-                            return Utils.formatDate(props.original.tradeDate, "ddmmyyyy")
-                        },
-                        id: 'tradedate',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.stockid,
-                        accessor: this.accessor[4],
-                        id: 'stockid',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.price,
-                        accessor: this.accessor[5],
-                        id: 'price',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.quantity,
-                        accessor: this.accessor[6],
-                        id: 'quantity',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: this.props.language.cashadvancebank.header.value,
-                        accessor: this.accessor[7],
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
-                        },
-                        id: 'value',
-                        show: true,
-                        skip: false,
-                    }
-                ]
+                
             })
         }
 

@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import Pagination from '../commons/Pagination'
 import { Button } from 'react-bootstrap'
-import Select from '../commons/Select'
+import moment from "moment"
 
 class OrderJournal extends Component {
     constructor(props) {
@@ -17,23 +15,22 @@ class OrderJournal extends Component {
             columns: [
                 {
                     id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
                     maxWidth: 50,
                     width: 40,
                     sortable: false,
                     skip: true,
                     reorderable: false,
+                    mobile: false
                 },
                 {
-                    id: 'can',
-                    Header: this.props.language.orderjournal.header.cancelmodify,
+                    id: 'cancelmodify',
                     maxWidth: 80,
                     sortable: false,
-                    skip: true
+                    skip: true,
+                    mobile: false
                 },
                 {
-                    id: 'mvStockID',
-                    Header: this.props.language.orderjournal.header.stockid,
+                    id: 'stockid',
                     accessor: 'mvStockID',
                     width: 80,
                     skip: false,
@@ -41,101 +38,111 @@ class OrderJournal extends Component {
                     reorderable: false,
                 },
                 {
-                    id: 'mvBS',
-                    Header: this.props.language.orderjournal.header.buysell,
+                    id: 'buysell',
                     accessor: 'mvBS',
-                    width: 50,
+                    width: 40,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPrice',
-                    Header: this.props.language.orderjournal.header.price,
+                    id: 'price',
                     accessor: 'mvPrice',
                     width: 100,
                     skip: false,
                     show: true,
+                    style: { textAlign: "right" }
                 },
                 {
-                    id: 'mvQty',
-                    Header: this.props.language.orderjournal.header.quantity,
+                    id: 'quantity',
                     accessor: 'mvQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvPendingQty',
-                    Header: this.props.language.orderjournal.header.pendingQty,
+                    id: 'pendingQty',
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvExecutedQty',
-                    Header: this.props.language.orderjournal.header.executedQty,
+                    id: 'executedQty',
                     accessor: 'mvPendingQty',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvAvgPrice',
-                    Header: this.props.language.orderjournal.header.avgprice,
+                    id: 'avgprice',
                     accessor: 'mvAvgPriceValue',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.orderjournal.header.status,
+                    id: 'status',
                     accessor: 'mvStatus',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvOrderType',
-                    Header: this.props.language.orderjournal.header.ordertype,
+                    id: 'ordertype',
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvFeeTax',
-                    Header: this.props.language.orderjournal.header.feetax,
+                    id: 'feetax',
                     accessor: 'mvOrderType',
-                    width: 80,
+                    width: 90,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvBankID',
-                    Header: this.props.language.orderjournal.header.bankid,
+                    id: 'bankid',
                     accessor: 'mvBankID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvExpiryDate',
-                    Header: this.props.language.orderjournal.header.expirydate,
+                    id: 'expirydate',
                     accessor: 'mvDateTime',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvRejectReason',
-                    Header: this.props.language.orderjournal.header.rejectreason,
+                    id: 'rejectreason',
                     accessor: 'mvRejectReason',
                     width: 80,
                     skip: false,
                     show: true,
+                    mobile: false
                 },
+                {
+                    id: 'mobileaction',
+                    mobile: false,
+                    skip: true,
+                    show: false,
+                    Cell: props => {
+                        return (
+                            <div>
+                                <button className="hks-btn btn-cancel" onClick={e => this.onCancelOrder(props)}>
+                                    <span className="glyphicon glyphicon-remove"></span>
+                                    CANCEL
+                                </button>
+                                <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
+                                    <span className="glyphicon glyphicon-pencil"></span>
+                                    MODIFY
+                                </button>
+                            </div>
+                        )
+                    }
+                }
 
             ],
             pageIndex: 1,
@@ -163,18 +170,26 @@ class OrderJournal extends Component {
             page: 1,
             start: 0,
             limit: this.defaultPageSize,
+            mvStartTime: "01/01/2001",
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
         }
+    }
+
+    onCancelOrder(order) {
+        console.log(order)
+    }
+
+    onModifyOrder(order) {
+        console.log(order)
     }
 
 
     render() {
-        let data = this.props.data.mvOrderBeanList
-        this.buttonAction = [
+        let buttonAction = [
             <button style={this.props.theme.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
         ]
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title id={this.id}
@@ -185,40 +200,26 @@ class OrderJournal extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table
-                            theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            data={data}
-                            onRowSelected={(param) => this.onRowSelected(param)}
-                            filterable={this.state.filterable}
-                        />
-                    </div>
+                    <Table
+                        theme={this.props.theme}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={this.buttonAction}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{ stockList: this.props.stockList }}
-                            param={['mvStatus', 'mvOrderType', 'mvBuysell']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={this.props.data.mvOrderBeanList}
 
-                    <div className="table-footer" style={tablefooter} style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+
+                        searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
+                        searchActions={buttonAction}
+                        searchData={{ stockList: this.props.stockList }}
+                        onSearch={this.onSearch.bind(this)}
+
+                    />
                 </Body>
             </div>
         )
@@ -232,310 +233,7 @@ class OrderJournal extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'cb',
-                    Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox" onChange={() => this.onRowSelected('ALL')} />,
-                    maxWidth: 50,
-                    width: 40,
-                    Cell: props => {
-                        if (props.aggregated) {
 
-                        } else {
-                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                    return (
-                                        <input type='checkbox' className={this.id + "-row-checkbox"}
-                                            onChange={() => { this.onRowSelected(props.original) }} />
-                                    )
-                                }
-                            }
-                        }
-                    },
-                    filterable: false,
-                    Aggregated: '',
-                    sortable: false,
-                    skip: true,
-                    reorderable: false,
-                },
-                {
-                    id: 'can',
-                    Header: nextProps.language.orderjournal.header.cancelmodify,
-                    maxWidth: 80,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            var child = []
-                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
-                                    child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                            onClick={() => this.handleCancelOrder(props.original)}>
-                                            <span className="glyphicon glyphicon-remove"></span>
-                                        </Button>
-                                    )
-                                }
-                            }
-
-                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
-                                    child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" type="button"
-                                            onClick={() => this.handleModifyOrder(props.original)}>
-                                            <span className="glyphicon glyphicon-edit"></span>
-                                        </Button>
-                                    )
-                                }
-                            }
-
-                            return (
-                                <span>
-                                    {
-                                        child
-                                    }
-                                </span>)
-                        }
-                    },
-                    filterable: false,
-                    sortable: false,
-                    skip: true
-                },
-                {
-                    id: 'mvStockID',
-                    Header: nextProps.language.orderjournal.header.stockid,
-                    accessor: 'mvStockID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    reorderable: false,
-                    Pivot: cellInfo => {
-                        return <span> {cellInfo.row._pivotVal} </span>
-                    }
-                },
-                {
-                    id: 'mvBS',
-                    Header: nextProps.language.orderjournal.header.buysell,
-                    accessor: 'mvBS',
-                    width: 100,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            if (props.original.mvBSValue == nextProps.language.global.buysell.B) {
-                                return (
-                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
-                                        {nextProps.language.searchbar.buy}
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
-                                        {nextProps.language.searchbar.sell}
-                                    </div>
-                                )
-                            }
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row) => {
-                        if (filter.value == 'all') {
-                            return true
-                        } else {
-                            return filter.value === row._original.mvBSValue
-                        }
-                    },
-                    Filter: ({ filter, onChange }) => {
-                        let arr = [
-                            {
-                                value: 'all',
-                                name: 'Show All'
-                            },
-                            {
-                                value: 'B',
-                                name: nextProps.language.searchbar.buy
-                            },
-                            {
-                                value: 'S',
-                                name: nextProps.language.searchbar.sell
-                            }
-                        ]
-                        return (
-                            <Select
-                                options={arr}
-                                optionLabelPath={'name'}
-                                selected={filter ? filter.value == 'B' ?
-                                    nextProps.language.searchbar.buy : filter.value == 'all' ? 'Show All' : nextProps.language.searchbar.sell
-                                    : 'Show All'}
-                                onChange={e => onChange(e.option.value)}
-                                showClear={false}
-                                searchEnabled={false}
-                            />
-                        )
-                    }
-                },
-                {
-                    id: 'mvPrice',
-                    Header: nextProps.language.orderjournal.header.price,
-                    accessor: d => parseFloat(d.mvPrice),
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    },
-                },
-                {
-                    id: 'mvQty',
-                    Header: nextProps.language.orderjournal.header.quantity,
-                    accessor: 'mvQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvPendingQty',
-                    Header: nextProps.language.orderjournal.header.pendingQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvExecutedQty',
-                    Header: nextProps.language.orderjournal.header.executedQty,
-                    accessor: 'mvPendingQty',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvAvgPrice',
-                    Header: nextProps.language.orderjournal.header.avgprice,
-                    accessor: 'mvAvgPriceValue',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.orderjournal.header.status,
-                    accessor: 'mvStatus',
-                    width: 110,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            let text = nextProps.language.global.status[props.original.mvStatus]
-                            return (
-                                Utils.statusRenderer(text, props.original.mvStatus)
-                            )
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row, column) => {
-                        let status = nextProps.language.global.status[row._original.mvStatus]
-                        return status.includes(filter.value)
-                    }
-                },
-                {
-                    id: 'mvOrderType',
-                    Header: nextProps.language.orderjournal.header.ordertype,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            return (
-                                nextProps.language.global.ordertype[props.original.mvOrderTypeValue]
-                            )
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterMethod: (filter, row) => {
-                        let type = nextProps.language.global.ordertype[row._original.mvOrderTypeValue]
-                        return type.includes(filter.value)
-                    }
-                },
-                {
-                    id: 'mvFeeTax',
-                    Header: nextProps.language.orderjournal.header.feetax,
-                    accessor: 'mvOrderType',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Cell: props => {
-                        if (props.aggregated) {
-
-                        } else {
-                            return feeTaxParser(Utils, props.original.mvBSValue, props.original.mvNetAmtValue, props.original.mvGrossAmt)
-                        }
-                    },
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvBankID',
-                    Header: nextProps.language.orderjournal.header.bankid,
-                    accessor: 'mvBankID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvExpiryDate',
-                    Header: nextProps.language.orderjournal.header.expirydate,
-                    accessor: 'mvDateTime',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    }
-                },
-                {
-                    id: 'mvRejectReason',
-                    Header: nextProps.language.orderjournal.header.rejectreason,
-                    accessor: 'mvRejectReason',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                    Aggregated: () => {
-                        return null
-                    },
-                    filterable: false
-                },
-
-            ]
         })
     }
 

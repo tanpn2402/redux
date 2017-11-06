@@ -37,8 +37,7 @@ class CashStatement extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'Date',
-                    Header: this.props.language.cashstatement.header.date,
+                    id: 'date',
                     accessor: 'TRANDATE',
                     width: 110,
                     skip: false,
@@ -46,39 +45,34 @@ class CashStatement extends Component {
                 },
                 {
                     id: 'description',
-                    Header: this.props.language.cashstatement.header.description,
                     accessor: 'REMARKS',
                     width: 210,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALBF',
-                    Header: this.props.language.cashstatement.header.beginningbalance,
+                    id: 'beginningbalance',
                     accessor: 'BALBF',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'CREDITAMT',
-                    Header: this.props.language.cashstatement.header.creditamount,
+                    id: 'creditamount',
                     accessor: 'CREDITAMT',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'DEBITAMT',
-                    Header: this.props.language.cashstatement.header.debitamount,
+                    id: 'debitamount',
                     accessor: 'DEBITAMT',
                     width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'BALCF',
-                    Header: this.props.language.cashstatement.header.endingbalance,
+                    id: 'endingbalance',
                     accessor: 'BALCF',
                     width: 120,
                     skip: false,
@@ -94,56 +88,7 @@ class CashStatement extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'Date',
-                    Header: nextProps.language.cashstatement.header.date,
-                    accessor: 'TRANDATE',
-                    width: 110,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'description',
-                    Header: nextProps.language.cashstatement.header.description,
-                    accessor: 'REMARKS',
-                    width: 210,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALBF',
-                    Header: nextProps.language.cashstatement.header.beginningbalance,
-                    accessor: 'BALBF',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'CREDITAMT',
-                    Header: nextProps.language.cashstatement.header.creditamount,
-                    accessor: 'CREDITAMT',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'DEBITAMT',
-                    Header: nextProps.language.cashstatement.header.debitamount,
-                    accessor: 'DEBITAMT',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'BALCF',
-                    Header: nextProps.language.cashstatement.header.endingbalance,
-                    accessor: 'BALCF',
-                    width: 120,
-                    skip: false,
-                    show: true,
-                },
-            ]
+            
         })
     }
 
@@ -171,6 +116,7 @@ class CashStatement extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={data.list}
+                            language={this.props.language.cashstatement.header}
                         />
                     </div>
 

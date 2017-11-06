@@ -55,8 +55,7 @@ class StockMarketInfo extends Component {
 				headerClassName: 'volume',
 				columns: [
 					{
-						id: 'stockTime',
-						Header: this.props.language.stockmarketinform.header.Time,
+						id: 'Time',
 						maxWidth: 50,
 						width: 50,
 						accessor: 'Time',
@@ -66,8 +65,7 @@ class StockMarketInfo extends Component {
 						skip: true
 					},
 					{
-						id: 'stockPrice',
-						Header: this.props.language.stockmarketinform.header.Price,
+						id: 'Price',
 						maxWidth: 50,
 						accessor: 'Price',
 						width: 50,
@@ -77,8 +75,7 @@ class StockMarketInfo extends Component {
 						skip: true
 					},
 					{
-						id: 'stockVolume',
-						Header: this.props.language.stockmarketinform.header.Volume,
+						id: 'Volume',
 						maxWidth: 50,
 						accessor: 'Volume',
 						width: 50,
@@ -88,8 +85,7 @@ class StockMarketInfo extends Component {
 						skip: true
 					},
 					{
-						id: 'stockTotal',
-						Header: this.props.language.stockmarketinform.header.Total,
+						id: 'Total',
 						maxWidth: 50,
 						accessor: 'Total',
 						width: 50,
@@ -232,56 +228,6 @@ class StockMarketInfo extends Component {
 				bidVol: 0,
 				askVol: 0,
 			},
-			panel2: [{
-				Header: nextProps.language.stockmarketinform.header.Volume,
-				headerClassName: 'volume',
-				columns: [
-					{
-						id: 'stockTime',
-						Header: nextProps.language.stockmarketinform.header.Time,
-						maxWidth: 50,
-						width: 50,
-						accessor: 'Time',
-						skip: false,
-						show: true,
-						sortable: false,
-						skip: true
-					},
-					{
-						id: 'stockPrice',
-						Header: nextProps.language.stockmarketinform.header.Price,
-						maxWidth: 50,
-						accessor: 'Price',
-						width: 50,
-						skip: false,
-						show: true,
-						sortable: false,
-						skip: true
-					},
-					{
-						id: 'stockVolume',
-						Header: nextProps.language.stockmarketinform.header.Volume,
-						maxWidth: 50,
-						accessor: 'Volume',
-						width: 50,
-						skip: false,
-						show: true,
-						sortable: false,
-						skip: true
-					},
-					{
-						id: 'stockTotal',
-						Header: nextProps.language.stockmarketinform.header.Total,
-						maxWidth: 50,
-						accessor: 'Total',
-						width: 50,
-						skip: false,
-						show: true,
-						sortable: false,
-						skip: true
-					}
-				]
-			}],
 		})
 	}
 
@@ -371,13 +317,14 @@ class StockMarketInfo extends Component {
 
 
 							<div className="marketdatainfo-mini-table" id="match-order-table">
-								<Table theme={this.props.theme}
+								{/* <Table theme={this.props.theme}
 									key={this.id}
 									id={this.id}
 									defaultPageSize={15}
 									columns={this.state.panel2}
 									data={[]}
-								/>
+									language = {this.props.language.stockmarketinform.header}
+								/> */}
 							</div>
 
 						</div>

@@ -97,7 +97,7 @@ class SideMenu extends Component {
                             <label>Setting</label>
                         </div>
 
-                        <div className="logout">
+                        <div className="logout" onClick={e => this.onLogOut()}>
                             <span className="glyphicon glyphicon-log-out"></span>
                             <label>Log out</label>
                         </div>
@@ -117,14 +117,24 @@ class SideMenu extends Component {
         this.props.onCloseMenu(false)
     }
 
-    onMenuSelected(e){
+    onMenuSelected(e) {
         var id = e.target.id
         this.props.onMobileMenuSelect(id)
         this.props.reloadCustom(this.props.load)
     }
 
-    onChange(e){
+    onChange(e) {
         
+    }
+
+    onLogOut() {
+        this.props.showDialog({
+            data: {checkSessionID: this.props.checkSessionID},
+            title: this.props.language.page.menu.savelayout,
+            language: this.props.language.page,
+            id: 'savelayout',
+            authcard: false
+        })
     }
 }
 
@@ -143,6 +153,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onCloseMenu: (open) => { 
         dispatch(actions.openSideMenu(open)) 
     },
+    showDialog: (param) => {
+        dispatch(actions.showPopup(param))
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideMenu)

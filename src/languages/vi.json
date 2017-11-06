@@ -327,6 +327,42 @@
                     "wrongQty": "Vượt quá số lượng CK lô lẻ của mã KLS mà Quý khách hiện có. Vui lòng kiểm tra lại thông tin đăng ký."
                 }
             },
+            "fundTransHistory": {
+                "header": "aaa"
+            },
+            "fundTransPanel": {
+                "header": "aaa"
+            },
+            "entitlementPanel": {
+                "header": "aaa"
+            },
+            "entitlementHistory": {
+                "header": "aaa"
+            },
+            "advanceBankPanel": {
+                "header": "aaa"
+            },
+            "advanceBankHistory": {
+                "header": "aaa"
+            },
+            "advancePanel": {
+                "header": "aaa"
+            },
+            "advanceHistory": {
+                "header": "aaa"
+            },
+            "oddlotHistory": {
+                "header": "aaa"
+            },
+            "loanRefundPanel": {
+                "header": "aaa"
+            },
+            "loanRefundStatus": {
+                "header": "aaa"
+            },
+            "loanRefundHistory": {
+                "header": "aaa"
+            },
             "accountinfo": {
                 "title": {
                     "stock": "CHỨNG KHOÁN",
@@ -371,7 +407,7 @@
             },
             "portfolio": {
                 "header": {
-                    "mvMaketID": "Sàn",
+                    "mvMarketID": "Sàn",
                     "sumary": "Tổng quan",
                     "valuevnd": "Giá trị(VND)",
                     "value": "Giá trị",
@@ -1113,7 +1149,7 @@
                 "password": "Mật khẩu",
                 "securityCode": "Mã an toàn",
                 "message": {
-                    "wrongAccountNo" : "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
+                    "wrongAccountNo": "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
                     "changePasswordRequest": "Để bảo mật, quý khách vui lòng thay đổi mật khẩu cho lần đăng nhập đầu tiên"
                 }
             }

@@ -68,7 +68,7 @@ class Search extends Component {
     }
 
     onChange(value, language) {
-        console.log(value)
+        //console.log(value)
         var widgets = config.widgetMobile
 
         var matchesFilter = new RegExp(value, "i")
@@ -77,7 +77,7 @@ class Search extends Component {
             if (matchesFilter.test(text))
                 return true
         })
-        console.log(tmp)
+        //console.log(tmp)
         if(tmp.length > 0){
             this.setState({
                 searchResult: tmp

@@ -18,70 +18,60 @@ class FundTransHistory extends Component {
             columns: [
                 {
                     id: 'transfertype',
-                    Header: this.props.language.cashtransfer.header.transfertype,
                     accessor: 'action',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'transferamount',
-                    Header: this.props.language.cashtransfer.header.transferamount,
                     accessor: 'totalLendingAmt',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'beneficiaryaccount',
-                    Header: this.props.language.cashtransfer.header.beneficiaryaccount,
                     accessor: 'receiveClientID',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'beneficiaryfullname',
-                    Header: this.props.language.cashtransfer.header.beneficiaryfullname,
                     accessor: 'ownerName',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'bankname',
-                    Header: this.props.language.cashtransfer.header.bankname,
                     accessor: 'bankName',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'bankbranch',
-                    Header: this.props.language.cashtransfer.header.bankbranch,
                     accessor: 'bankBranch',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'status',
-                    Header: this.props.language.cashtransfer.header.status,
                     accessor: 'status',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'approvetime',
-                    Header: this.props.language.cashtransfer.header.approvetime,
                     accessor: 'lastApprovaltime',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'date',
-                    Header: this.props.language.cashtransfer.header.date,
                     accessor: 'createTime',
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'cancel',
-                    Header: this.props.language.cashtransfer.header.cancel,
                     accessor: 'status',
                     Cell: props => {
                         if (props.original.status === 'P')
@@ -113,101 +103,7 @@ class FundTransHistory extends Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'transfertype',
-                    Header: nextProps.language.cashtransfer.header.transfertype,
-                    accessor: 'action',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'transferamount',
-                    Header: nextProps.language.cashtransfer.header.transferamount,
-                    accessor: 'totalLendingAmt',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'beneficiaryaccount',
-                    Header: nextProps.language.cashtransfer.header.beneficiaryaccount,
-                    accessor: 'receiveClientID',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'beneficiaryfullname',
-                    Header: nextProps.language.cashtransfer.header.beneficiaryfullname,
-                    accessor: 'ownerName',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'bankname',
-                    Header: nextProps.language.cashtransfer.header.bankname,
-                    accessor: 'bankName',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'bankbranch',
-                    Header: nextProps.language.cashtransfer.header.bankbranch,
-                    accessor: 'bankBranch',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'status',
-                    Header: nextProps.language.cashtransfer.header.status,
-                    Cell: props => {
-                        if (props.original.status === 'R')
-                            return this.props.language.cashtransfer.status.rejected
-                        else if (props.original.status === 'A')
-                            return this.props.language.cashtransfer.status.approve
-                        else if (props.original.status === 'P')
-                            return this.props.language.cashtransfer.status.pending
-                        else
-                            return props.original.status
-                    },
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'approvetime',
-                    Header: nextProps.language.cashtransfer.header.approvetime,
-                    accessor: 'lastApprovaltime',
-                },
-                {
-                    id: 'date',
-                    Header: nextProps.language.cashtransfer.header.date,
-                    accessor: 'createTime',
-
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'cancel',
-                    Header: nextProps.language.cashtransfer.header.cancel,
-                    accessor: 'status',
-                    Cell: props => {
-                        if (props.original.status === 'P')
-                            return (
-                                <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
-                                    onClick={() => this.openCanceltransfer(props.original.tranID)}>
-                                    <span className="glyphicon glyphicon-remove"></span>
-                                </Button>
-                            )
-                    },
-                    sortable: false,
-                    skip: true,
-                    show: true,
-                }]
+            
         });
     }
 
@@ -232,7 +128,8 @@ class FundTransHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={data} />
+                            data={data}
+                            language={this.props.language.cashtransfer.header} />
                     </div>
 
                     <div className="table-footer" style={tablefooter}>

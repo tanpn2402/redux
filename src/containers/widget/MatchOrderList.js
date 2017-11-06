@@ -36,7 +36,6 @@ class MatchOrderList extends Component {
             orderMatchListPageIndex: 1,
             columns: [
                 {
-                    Header: this.props.language.cashadvance.header.id,
                     accessor: this.accessor[0],
                     id: 'id',
                     show: true,
@@ -44,7 +43,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.matchingdate,
                     accessor: this.accessor[1],
                     id: 'matchingdate',
                     show: true,
@@ -52,7 +50,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.paymentdate,
                     accessor: this.accessor[2],
                     id: 'paymentdate',
                     show: true,
@@ -60,7 +57,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.stock,
                     accessor: this.accessor[3],
                     id: 'stock',
                     show: true,
@@ -68,7 +64,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.volume,
                     accessor: this.accessor[4],
                     id: 'volume',
                     show: true,
@@ -76,7 +71,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.value,
                     id: 'value',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
@@ -86,7 +80,6 @@ class MatchOrderList extends Component {
                     width: 150,
                 },
                 {
-                    Header: this.props.language.cashadvance.header.fee,
                     id: 'fee',
                     Cell: props => {
                         return Utils.currencyShowFormatter(props.original.tradingFee, ",", this.lang)
@@ -125,6 +118,7 @@ class MatchOrderList extends Component {
                             data={data.slice(
                                 (this.state.orderMatchListPageIndex - 1) * this.defaultPageSize,
                                 this.state.orderMatchListPageIndex * this.defaultPageSize)}
+                            language={this.props.language.cashadvance.header}
                         />
                     </div>
 
@@ -159,68 +153,7 @@ class MatchOrderList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
             this.setState({
-                columns: [
-                    {
-                        Header: nextProps.language.cashadvance.header.id,
-                        accessor: this.accessor[0],
-                        id: 'id',
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.matchingdate,
-                        accessor: this.accessor[1],
-                        id: 'matchingdate',
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.paymentdate,
-                        accessor: this.accessor[2],
-                        id: 'paymentdate',
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.stock,
-                        accessor: this.accessor[3],
-                        id: 'stock',
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.volume,
-                        accessor: this.accessor[4],
-                        id: 'volume',
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.value,
-                        id: 'value',
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.mvFormatedAmount, ",", this.lang)
-                        },
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    },
-                    {
-                        Header: nextProps.language.cashadvance.header.fee,
-                        id: 'fee',
-                        Cell: props => {
-                            return Utils.currencyShowFormatter(props.original.tradingFee, ",", this.lang)
-                        },
-                        show: true,
-                        skip: false,
-                        width: 150,
-                    }
-                ]
+                
             })
         }
     }

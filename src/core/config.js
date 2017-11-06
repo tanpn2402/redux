@@ -10,11 +10,11 @@ const config = {
 					text: 'enterorder',
 					link: ''
 				},
-				{
-					id: 'stockmarketinform',
-					text: 'stockmarketinform',
-					link: ''
-				},
+				// {
+				// 	id: 'stockmarketinform',
+				// 	text: 'stockmarketinform',
+				// 	link: ''
+				// },
 				{
 					id: 'watchlist',
 					text: 'watchlist',
@@ -25,11 +25,11 @@ const config = {
 					text: 'orderjournal',
 					link: ''
 				},
-				{
-					id: 'accountinfo',
-					text: 'accountinfo',
-					link: ''
-				},
+				// {
+				// 	id: 'accountinfo',
+				// 	text: 'accountinfo',
+				// 	link: ''
+				// },
 				{
 					id: 'portfolio',
 					text: 'portfolio',
@@ -40,46 +40,14 @@ const config = {
 					text: "techanalysis",
 					link: ''
 				},
+				// {
+				// 	id: "orderconfirmation",
+				// 	text: "orderconfirmation",
+				// 	link: ''
+				// },
 				{
-					id: "orderconfirmation",
-					text: "orderconfirmation",
-					link: ''
-				},
-			]
-		},
-		{
-			id: 'account',
-			text: 'account',
-			link: '',
-			subitems: [
-				{
-					id: 'ordershistory',
-					text: 'ordershistory',
-					link: ''
-				},
-				{
-					id: 'cashtransactionhistory',
-					text: 'cashtransactionhistory',
-					link: ''
-				},
-				{
-					id: 'cashstatement',
-					text: 'cashstatement',
-					link: ''
-				},
-				{
-					id: 'stockstatement',
-					text: 'stockstatement',
-					link: ''
-				},
-				{
-					id: 'marginloan',
-					text: 'marginloan',
-					link: ''
-				},
-				{
-					id: 'personalprofile',
-					text: 'personalprofile',
+					id: 'transactionhistory',
+					text: 'transactionhistory',
 					link: ''
 				}
 			]
@@ -99,11 +67,11 @@ const config = {
 					text: 'cashadvance',
 					link: ''
 				},
-				{
-					id: 'cashadvancebank',
-					text: 'cashadvancebank',
-					link: ''
-				},
+				// {
+				// 	id: 'cashadvancebank',
+				// 	text: 'cashadvancebank',
+				// 	link: ''
+				// },
 				{
 					id: 'oddLot',
 					text: 'oddLot',
@@ -117,18 +85,6 @@ const config = {
 				{
 					id: 'loanrefund',
 					text: 'loanrefund',
-					link: ''
-				}
-			]
-		},
-		{
-			id: 'help',
-			text: 'help',
-			link: '',
-			subitems: [
-				{
-					id: 'available',
-					text: 'available',
 					link: ''
 				}
 			]
@@ -267,7 +223,7 @@ const config = {
 
 	],
 	widgetMobile: [
-		{ i: 'enterorder', 				w: 8, h: 6, isDraggable: false, isResizable: false },
+		{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'cashTransHistory', 		w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'orderconfirmation', 		w: 8, h: 9, isDraggable: false, isResizable: false },
@@ -285,8 +241,10 @@ const config = {
 		{ i: 'accountinfo', 			w: 8, h: 6, isDraggable: false, isResizable: false },
 		{ i: 'loanrefund', 				w: 8, h: 9, isDraggable: false, isResizable: false },
 		{ i: 'entitlement', 			w: 8, h: 21, isDraggable: false, isResizable: false },
-		{ i: 'techanalysis', 			w: 8, h: 11, isDraggable: false, isResizable: false },
+		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
 		{ i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
+
+		{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 
 	],
 
@@ -356,7 +314,8 @@ const config = {
 			title: 'mobile',
 			enabled: false,
 			widget: [
-				// { i: 'loanrefund',  x:0, y:0, w: 30, h: 10, isDraggable: false, isResizable: false},
+				// { i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
+				// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 			]
 		}
 	],
@@ -493,9 +452,11 @@ const config = {
 	,
 	cache: {
 		stockList: [],
-		lang: '',
-		theme: ''
-	}
+		lang: 'vi_VN',
+		theme: 'light'
+	},
+	tableColReorder: [],
+	tableColWidth: [],
 }
 
 export default config

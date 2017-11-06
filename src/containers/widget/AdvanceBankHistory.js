@@ -27,14 +27,12 @@ class AdBankHistory extends Component {
         this.state = {
             columns: [
                 {
-                    Header: this.props.language.cashadvancebank.header.date,
                     accessor: 'date',
                     id: 'date',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.advanceamount,
                     accessor: 'advanceamount',
                     id: 'advanceamount',
                     show: true,
@@ -42,28 +40,24 @@ class AdBankHistory extends Component {
 
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.advancefee,
                     accessor: 'advancefee',
                     id: 'advancefee',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.processingstatus,
                     accessor: 'processingstatus',
                     id: 'processingstatus',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.lastupdate,
                     accessor: 'lastupdate',
                     id: 'lastupdate',
                     show: true,
                     skip: false,
                 },
                 {
-                    Header: this.props.language.cashadvancebank.header.note,
                     accessor: 'note',
                     id: 'note',
                     show: true,
@@ -96,6 +90,7 @@ class AdBankHistory extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             data={cashAdvanceHistory.list}
+                            language={this.props.language.cashadvancebank.header}
                         />
                     </div>
 
@@ -128,53 +123,7 @@ class AdBankHistory extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.language !== undefined) {
-            this.setState({
-                columns: [
-                    {
-                        Header: nextProps.language.cashadvancebank.header.date,
-                        accessor: 'date',
-                        id: 'date',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: nextProps.language.cashadvancebank.header.advanceamount,
-                        accessor: 'advanceamount',
-                        id: 'advanceamount',
-                        show: true,
-                        skip: false,
-
-                    },
-                    {
-                        Header: nextProps.language.cashadvancebank.header.advancefee,
-                        accessor: 'advancefee',
-                        id: 'advancefee',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: nextProps.language.cashadvancebank.header.processingstatus,
-                        accessor: 'processingstatus',
-                        id: 'processingstatus',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: nextProps.language.cashadvancebank.header.lastupdate,
-                        accessor: 'lastupdate',
-                        id: 'lastupdate',
-                        show: true,
-                        skip: false,
-                    },
-                    {
-                        Header: nextProps.language.cashadvancebank.header.note,
-                        accessor: 'note',
-                        id: 'note',
-                        show: true,
-                        skip: false,
-                    }
-                ]
-            })
+            
         }
     }
 

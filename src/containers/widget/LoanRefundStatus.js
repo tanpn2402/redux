@@ -32,28 +32,24 @@ class LoanTrans extends Component {
             columns: [
                 {
                     id: 'loanID',
-                    Header: this.props.language.loanrefund.header.loanID,
                     accessor: 'tranID',
                     width: 80,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'tradeDate',
-                    Header: this.props.language.loanrefund.header.trandate,
+                    id: 'trandate',
                     accessor: 'tradeDate',
                     width: 100,
                     show: true,
                     skip: false,
                 }, {
-                    id: 'refundAmt',
-                    Header: this.props.language.loanrefund.header.refundamount,
+                    id: 'refundamount',
                     accessor: 'refundAmt',
                     width: 100,
                     show: true,
                     skip: false,
                 }, {
                     id: 'type',
-                    Header: this.props.language.loanrefund.header.type,
                     accessor: 'type',
                     Cell: props => this.getType(props.original.type.this.props.language.loanrefund.type),
                     width: 130,
@@ -61,7 +57,6 @@ class LoanTrans extends Component {
                     skip: false,
                 }, {
                     id: 'status',
-                    Header: this.props.language.loanrefund.header.status,
                     accessor: 'status',
                     width: 100,
                     Cell: props => this.getStatus(props.original.status, this.props.language.loanrefund.status),
@@ -69,7 +64,6 @@ class LoanTrans extends Component {
                     skip: false,
                 }, {
                     id: 'remark',
-                    Header: this.props.language.loanrefund.header.remark,
                     accessor: 'remark',
                     width: 250,
                     Cell: props => this.getRemark(props.original.remark, this.props.language.loanrefund.remark),
@@ -77,7 +71,6 @@ class LoanTrans extends Component {
                     skip: false,
                 }, {
                     id: 'lastupdate',
-                    Header: this.props.language.loanrefund.header.lastupdate,
                     accessor: 'lastupdate',
                     Cell: props => Utils.formatDate(props.original.lastupdate, 'ddmmyyyy'),
                     width: 150,
@@ -91,62 +84,7 @@ class LoanTrans extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            columns: [
-                {
-                    id: 'loanID',
-                    Header: nextProps.language.loanrefund.header.loanID,
-                    accessor: 'tranID',
-                    width: 80,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'tradeDate',
-                    Header: nextProps.language.loanrefund.header.trandate,
-                    accessor: 'tradeDate',
-                    width: 100,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'refundAmt',
-                    Header: nextProps.language.loanrefund.header.refundamount,
-                    accessor: 'refundAmt',
-                    width: 100,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'type',
-                    Header: nextProps.language.loanrefund.header.type,
-                    accessor: 'type',
-                    Cell: props => this.getType(props.original.type.nextProps.language.loanrefund.type),
-                    width: 130,
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'status',
-                    Header: nextProps.language.loanrefund.header.status,
-                    accessor: 'status',
-                    width: 100,
-                    Cell: props => this.getStatus(props.original.status, nextProps.language.loanrefund.status),
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'remark',
-                    Header: nextProps.language.loanrefund.header.remark,
-                    accessor: 'remark',
-                    width: 250,
-                    Cell: props => this.getRemark(props.original.remark, nextProps.language.loanrefund.remark),
-                    show: true,
-                    skip: false,
-                }, {
-                    id: 'lastupdate',
-                    Header: nextProps.language.loanrefund.header.lastupdate,
-                    accessor: 'lastupdate',
-                    Cell: props => Utils.formatDate(props.original.lastupdate, 'ddmmyyyy'),
-                    width: 150,
-                    show: true,
-                    skip: false,
-                },
-            ],
+            
             filterable: true
         })
     }
@@ -198,7 +136,8 @@ class LoanTrans extends Component {
                             columns={this.state.columns}
                             filterable={this.state.filterable}
                             defaultPageSize={this.defaultPageSize}
-                            data={loanRefundStatus.loanrefundList} />
+                            data={loanRefundStatus.loanrefundList} 
+                            language={this.props.language.loanrefund.header}/>
                     </div>
                     <div className="table-header" style={tableheader}>
                         <SearchBar

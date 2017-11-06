@@ -373,7 +373,7 @@ export default
         },
         "portfolio": {
             "header": {
-                "mvMaketID": "Sàn",
+                "mvMarketID": "Sàn",
                 "sumary": "Tổng quan",
                 "valuevnd": "Giá trị(VND)",
                 "value": "Giá trị",
@@ -1110,7 +1110,10 @@ export default
             "saveLayout": "Lưu giao diện",
             "login": "Đăng nhập",
             "yes": "Yes",
-            "no": "No"
+            "no": "No",
+            "buy": "Mua",
+            "sell": "Bán",
+            "reset": "Reset"
         },
         "login": {
             "username": "Số tài khoản",

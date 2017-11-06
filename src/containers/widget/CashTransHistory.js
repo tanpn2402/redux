@@ -14,7 +14,7 @@ class CashTransHistory extends Component {
 
         this.pageIndex = 1
         this.rowSelected = []
-        this.id = 'cashTransHistory'
+        this.id = 'cashtransaction'
         this.defaultPageSize = 15
 
         this.params = {
@@ -35,24 +35,21 @@ class CashTransHistory extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'mvTransId',
-                    Header: this.props.language.cashtransaction.header.transid,
+                    id: 'transid',
                     accessor: 'tranID',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvDateTrans',
-                    Header: this.props.language.cashtransaction.header.datetrans,
+                    id: 'datetrans',
                     accessor: 'trandate',
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvTransType',
-                    Header: this.props.language.cashtransaction.header.transtype,
+                    id: 'transtype',
 
 
                     width: 150,
@@ -66,8 +63,7 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvAmount',
-                    Header: this.props.language.cashtransaction.header.amount,
+                    id: 'amount',
                     accessor: 'totalLendingAmt',
                     width: 150,
                     skip: false,
@@ -75,8 +71,7 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvStatus',
-                    Header: this.props.language.cashtransaction.header.status,
+                    id: 'status',
                     width: 70,
                     maxWidth: 80,
                     Cell: props => {
@@ -89,16 +84,14 @@ class CashTransHistory extends Component {
                     show: true,
                 },
                 {
-                    id: 'mvNotes',
-                    Header: this.props.language.cashtransaction.header.notes,
+                    id: 'notes',
                     accessor: 'remark',
                     width: 150,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'mvLastUpdate',
-                    Header: this.props.language.cashtransaction.header.lastupdate,
+                    id: 'lastupdate',
                     accessor: 'lastApprovaltime',
                     width: 150,
                     skip: false,
@@ -112,80 +105,7 @@ class CashTransHistory extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            columns: [
-                {
-                    id: 'mvTransId',
-                    Header: nextProps.language.cashtransaction.header.transid,
-                    accessor: 'tranID',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvDateTrans',
-                    Header: nextProps.language.cashtransaction.header.datetrans,
-                    accessor: 'trandate',
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvTransType',
-                    Header: nextProps.language.cashtransaction.header.transtype,
-
-
-                    width: 150,
-                    Cell: props => {
-                        return (
-                            <span>{nextProps.language.searchbar[props.original.transType]}</span>
-                        )
-                    },
-                    sortable: false,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvAmount',
-                    Header: nextProps.language.cashtransaction.header.amount,
-                    accessor: 'totalLendingAmt',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvStatus',
-                    Header: nextProps.language.cashtransaction.header.status,
-                    width: 70,
-                    maxWidth: 80,
-                    Cell: props => {
-                        return (
-                            <span>{nextProps.language.cashtransaction.status[props.original.status]}</span>
-                        )
-                    },
-                    sortable: false,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvNotes',
-                    Header: nextProps.language.cashtransaction.header.notes,
-                    accessor: 'remark',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'mvLastUpdate',
-                    Header: nextProps.language.cashtransaction.header.lastupdate,
-                    accessor: 'lastApprovaltime',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                }
-            ]
-        });
-
+    
     }
 
 
@@ -202,40 +122,27 @@ class CashTransHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <Table theme={this.props.theme}
-                            key={this.id}
-                            id={this.id}
-                            defaultPageSize={this.defaultPageSize}
-                            columns={this.state.columns}
-                            filterable={this.state.filterable}
-                            data={data}
-                        />
-                    </div>
+                    <Table 
+                        theme={this.props.theme}
+                        id={this.id}
+                        language={this.props.language}
 
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            onSearch={this.onSearch.bind(this)}
-                            buttonAction={[]}
-                            language={this.props.language.searchbar}
-                            theme={this.props.theme}
-                            data={{}}
-                            param={['mvTrade', 'mvStartDate', 'mvEndDate']} />
-                    </div>
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.columns}
+                        filterable={this.state.filterable}
+                        tableData={data}
 
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                            onReloadPage={this.onReloadPage.bind(this)}
-                            onExportExcel={this.onExportExcel.bind(this)}
-                        />
-                    </div>
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
+                        onExportExcel={this.onExportExcel.bind(this)}
 
+                        searchParams={['mvTrade', 'mvStartDate', 'mvEndDate']}
+                        searchActions={[]}
+                        searchData={[]}
+                        onSearch={this.onSearch.bind(this)}
+
+                    />
                 </Body>
             </div>
         )
@@ -288,28 +195,6 @@ class CashTransHistory extends Component {
             this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
             this.props.onSearch(this.params, !this.props.reload)
         }
-    }
-
-    onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) + 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
-    }
-
-    onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.state.pageIndex = parseInt(this.state.pageIndex) - 1
-            this.params['page'] = this.state.pageIndex
-            this.params['start'] = (this.state.pageIndex - 1) * this.params['limit']
-            this.props.onSearch(this.params, !this.props.reload)
-        }
-    }
-
-    onReloadPage() {
-        this.props.onSearch(this.param, !this.props.reload)
     }
 
     onSearch(param) {

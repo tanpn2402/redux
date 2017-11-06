@@ -33,7 +33,9 @@ class TransHistory extends Component {
     render(){
         return(
             <div id="transhistory">
-                <Table theme={this.props.theme} language={this.props.language} theme={this.props.theme}/>
+                <Table theme={this.props.theme}
+                language={this.props.language}
+                theme={this.props.theme}/>
                 {/* <div className="widget-header" >
                     <span className="widget-title">
                         "ASDS"
