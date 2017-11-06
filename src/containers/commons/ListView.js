@@ -153,8 +153,7 @@ export default class ListView extends React.Component {
 
     render() {
        
-        console.log(this.props)
-        let language = this.props.language[this.props.id]
+        let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
         let data = this.props.tableData
         let columns = this.props.columns
 
@@ -202,7 +201,6 @@ export default class ListView extends React.Component {
             pivotContrainst = pivot[0]
             // console.log(data)
         }
-        
         return (
             <div className="listview-control" ref={node => this.lv = node}>
                 <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar} 

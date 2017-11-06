@@ -192,6 +192,8 @@ class ActionRightList extends Component {
                         searchData={{ stockList: this.stockList, actionType: this.actionTypeStore }}
                         searchParams={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}
                         searchEnable={allRightList.rightList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>

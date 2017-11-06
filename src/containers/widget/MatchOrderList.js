@@ -124,6 +124,8 @@ class MatchOrderList extends Component {
                         onPageChange={this.onOrderMatchListPageChange.bind(this)}
 
                         searchEnable={data.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>

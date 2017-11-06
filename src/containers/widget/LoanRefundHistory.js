@@ -156,6 +156,8 @@ class LoanTrans extends Component {
                         searchData={{ stockList: [] }}
                         searchParams={['mvStartDate', 'mvEndDate']}
                         searchEnable={loanRefundHistory.loanrefundhistoryList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>

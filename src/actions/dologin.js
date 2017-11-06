@@ -83,7 +83,7 @@ export function checkAuth() {
                                 try {
                                     var savedContent = $.parseJSON(responseForGetUserData.mvCfgList[0].SAVEDCONTENT)
                                     if (savedContent.layout) {
-                                        config.tabbar = Object.assign(config.tabbar, savedContent.layout)
+                                        // config.tabbar = Object.assign(config.tabbar, savedContent.layout)
                                         // // config.tabbar = savedContent.layout
                                         // console.log(config.tabbar)
                                     }

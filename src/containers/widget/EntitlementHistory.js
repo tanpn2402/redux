@@ -122,6 +122,8 @@ class EntitlementHistory extends Component {
                         searchData={{stockList: stockList}}
                         searchParams={['mvStockId', 'mvStartDate', 'mvEndDate']}
                         searchEnable={entitlementHistory.historyList.length > 0}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
                     />
                 </Body>
             </div>
