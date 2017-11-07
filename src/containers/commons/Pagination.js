@@ -37,15 +37,15 @@ export default class Pagination extends React.Component {
 
 				<span style={{ color: font2 }} >Page</span>
 
-				<input type="number" value={this.state.page} 
+				<input type="number" value={this.state.page}
 					id="pageinput" className="hks-input page-input"
 					onKeyDown={e => this.onPageChange(e)}
 					onChange={e => e.target.value > 0 ? this.setState({ page: e.target.value }) : 0}
-					style={{ textAlign: "center" }} 
+					style={{ textAlign: "center" }}
 				/>
 
 				<span style={{ color: font2 }}> of {this.props.totalPage}  </span>
-				
+
 				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
 					onClick={this.onNextPage.bind(this)}>
 					<span className="glyphicon glyphicon-triangle-right" />
@@ -61,15 +61,10 @@ export default class Pagination extends React.Component {
 						)
 				}
 
-				{
-					this.props.onReloadPage === undefined ? '' :
-						(
-							<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
-								onClick={this.onReloadPage.bind(this)}>
-								<span className="glyphicon glyphicon-refresh"></span>
-							</button>
-						)
-				}
+				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
+					onClick={this.onReloadPage.bind(this)}>
+					<span className="glyphicon glyphicon-refresh"></span>
+				</button>
 
 				{
 					this.props.onExportExcel === undefined ? '' :

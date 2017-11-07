@@ -95,7 +95,7 @@ class OddLotOrder extends Component {
         ]
         let data = oddLotOrder.oddLotList.slice((this.state.oddLotOrderPageIndex - 1) * this.defaultPageSize,
             this.state.oddLotOrderPageIndex * this.defaultPageSize)
-        
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -130,7 +130,7 @@ class OddLotOrder extends Component {
                         searchDefaultValues={{}}
 
                         // onSearch={() => {}}
-                        searchEnable={data.length > 0}
+                        searchEnable={true}
                     />
                 </Body>
             </div>

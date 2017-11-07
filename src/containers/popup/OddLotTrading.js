@@ -153,12 +153,12 @@ class OddLotSubmit extends Component {
 
     }
 
-    handleChange({ option }) {
-        var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === option.mvSettlementAccountDisplayName)
+    handleChange(e) {
+        var bank = this.props.bankinfo.mvBankInfoList.filter(el => el.mvSettlementAccountDisplayName === e.target.value)
         if (bank.length > 0) {
             this.mvInterfaceSeq = bank[0].mvInterfaceSeq
         }
-        else if (option.mvSettlementAccountDisplayName === "MAS") {
+        else if (e.target.value === "MAS") {
             this.mvInterfaceSeq = -1
         }
     }
@@ -180,20 +180,28 @@ class OddLotSubmit extends Component {
                     <div className="oddlotdropdownlist">
                         <span>
                             <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
-                            <Select
-                                options={['a', 'b', 'c', 'd', 'e']}
-                                onChange={this.handleChange.bind(this)}
-                                optionLabelPath={'mvSettlementAccountDisplayName'}
-                            />
+                            <select onChange={this.handleChange.bind(this)}>
+                                {
+                                    bankinfo.mvBankInfoList.map(e => {
+                                        return (
+                                            <option value={e.mvSettlementAccountDisplayName}>{e.mvSettlementAccountDisplayName}</option>
+                                        )
+                                    })
+                                }
+                            </select>
                         </span>
                     </div>
                     <DataTable
                         theme={this.props.theme}
                         id={this.id + "-table"}
-                        data={this.props.data.rowSelected}
+                        language={this.props.language}
+                        tableData={this.props.data.rowSelected}
                         columns={this.columns}
                         maxRows={5}
-                        defaultPageSize={15}
+                        pageSize={15}
+                        searchEnable={false}
+                        footerEnable={false}
+
                     />
                 </Modal.Body>
                 {

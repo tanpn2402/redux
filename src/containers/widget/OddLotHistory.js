@@ -16,7 +16,7 @@ class OddLotHistory extends Component {
         this.state = {
             oddLotTransPageIndex: 1,
             columns: [
-                
+
                 {
                     id: 'stockid',
                     accessor: 'instrumentId',
@@ -97,7 +97,7 @@ class OddLotHistory extends Component {
 
     render() {
         let oddlothistory = this.props.oddlothistory
-        
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -126,6 +126,7 @@ class OddLotHistory extends Component {
                         searchEnable={oddlothistory.historyList.length > 0}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
+                        searchEnable={false}
 
                     />
                 </Body>

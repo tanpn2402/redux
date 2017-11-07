@@ -726,6 +726,7 @@ label {
 .hks-btn.btn-orderjournal {
     margin: 0px 2px;
     height: 19px;
+    width: 45px;
     background-color: rgb(51, 122, 183);
 }
 

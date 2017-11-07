@@ -33,10 +33,11 @@ class DesktopTable extends React.Component {
 	render() {
 		let tableheader = this.props.theme.table.tableheader
 		let tablefooter = this.props.theme.table.tablefooter
+		let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
 		return (
 			<div className="destop-table" style={{ width: "100%", height: "100%", position: "relative" }}>
 
-				<div className={"table-main " + (this.props.searchEnable ? "" : "no-header")} style={tableheader}>
+				<div className={"table-main"} style={tableheader} ref={e => this.rTable = e}>
 					<DataTable
 						theme={this.props.theme}
 						key={this.props.id}
@@ -46,8 +47,10 @@ class DesktopTable extends React.Component {
 						filterable={this.props.filterable}
 						pivot={this.props.pivot}
 						data={this.props.tableData}
-						language={this.props.language[this.props.idParent ? this.props.idParent : this.props.id].header}
+						language={language ? language.header : undefined}
 						onRowSelected={this.onRowSelected.bind(this)}
+						maxRows={this.props.maxRows}
+
 					/>
 				</div>
 
@@ -57,7 +60,7 @@ class DesktopTable extends React.Component {
 							<div className="table-header">
 								<SearchBar
 									id={this.props.id}
-									onSearch={this.props.onSearch ? this.onSearch.bind(this): undefined}
+									onSearch={this.props.onSearch ? this.onSearch.bind(this) : undefined}
 									buttonAction={this.props.searchActions}
 									language={this.props.language.searchbar}
 									theme={this.props.theme}
@@ -66,16 +69,22 @@ class DesktopTable extends React.Component {
 							</div>
 						)
 				}
+				{
+					!this.props.footerEnable ? null :
+						(
+							<div className="table-footer" style={tablefooter}>
+								<Pagination
+									theme={this.props.theme}
+									pageIndex={this.props.pageIndex}
+									totalPage={this.props.totalPage}
+									onPageChange={this.onPageChange.bind(this)}
+									onExportExcel={this.props.onExportExcel ? this.onExportExcel.bind(this) : undefined}
+								/>
+							</div>
+						)
+				}
 
-				<div className="table-footer" style={tablefooter}>
-					<Pagination
-						theme={this.props.theme}
-						pageIndex={this.props.pageIndex}
-						totalPage={this.props.totalPage}
-						onPageChange={this.onPageChange.bind(this)}
-						onExportExcel={this.props.onExportExcel ? this.onExportExcel.bind(this) : undefined}
-					/>
-				</div>
+
 			</div>
 		)
 	}
@@ -104,6 +113,15 @@ class DesktopTable extends React.Component {
 			this.props.onRowSelected(rows)
 		}
 	}
+
+	componentDidMount() {
+		if (!this.props.searchEnable) {
+			this.rTable.classList.add('no-header')
+		}
+		if (!this.props.footerEnable) {
+			this.rTable.classList.add('no-footer')
+		}
+	}
 }
 
 DesktopTable.defaultProps = {
@@ -125,6 +143,7 @@ DesktopTable.defaultProps = {
 	filterable: false,
 	tableData: [],
 	searchEnable: true,
+	footerEnable: true,
 	pivot: "",
 	// onRowSelected: -> fn
 
@@ -146,6 +165,7 @@ class DataTable extends React.Component {
 			mouseDownCol: null,
 			resized: [],
 			language: this.props.language,
+			sorted: []
 		}
 
 		this.colA = {
@@ -204,7 +224,6 @@ class DataTable extends React.Component {
 
 
 	render() {
-
 		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
 		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
 		let filterrow = this.props.theme.table.filterrow
@@ -233,7 +252,7 @@ class DataTable extends React.Component {
 					var newSubColumns = column.columns.map(subColumn => {
 						//Render header
 						return Object.assign({}, subColumn, {
-							Header: this.headerRenderer(this, subColumn.id, subColumn.reorderable, subColumn.Header, subColumn.parent),
+							Header: this.headerRenderer(subColumn.id, subColumn.reorderable, subColumn.Header, subColumn.parent),
 							headerStyle: { boxShadow: 'none' }
 						})
 					})
@@ -241,7 +260,7 @@ class DataTable extends React.Component {
 				} else {
 					//Render div header in columns header
 					return Object.assign({}, column, {
-						Header: this.headerRenderer(this, column.id, column.reorderable, column.Header),
+						Header: this.headerRenderer(column.id, column.reorderable, column.Header),
 						headerStyle: { boxShadow: 'none' }
 					})
 				}
@@ -559,7 +578,7 @@ class DataTable extends React.Component {
 		// 	return column.id == idA
 		// })
 		// this.colA.index = result != -1 ? result : 0
-
+		if (!e.target.id.includes('drag')) return
 		this.mountColLabelCursor(e.target.innerHTML, e.target.id)
 		this.handleMouseMove(e)
 		window.addEventListener('mousemove', this.handleMouseMove)
@@ -630,25 +649,28 @@ class DataTable extends React.Component {
 		window.removeEventListener('mouseup', this.handleOnMouseUp)
 	}
 
-	headerRenderer(component, id, reorderable, text, parent) {
+	headerRenderer(id, reorderable, text, parent) {
 		this.isHeaderRendered = true
 		switch (id) {
 			case 'cb':
 				return (
-					<input id={component.props.id + "-cb-all" + (parent != undefined ? " parent-" + parent : "")}
-						onMouseDown={e => component.handleOnMouseDown(e)}
+					// <div
+					// 	id={this.props.id + "-cb-all drag" + (parent != undefined ? " parent-" + parent : "")}
+					// 	onMouseDown={e => this.handleOnMouseDown(e)}
+					// 	className={"row-checkbox customCol" + (reorderable == false ? "" : " reorderable")}
+					// >
+					<input
+						id={this.props.id + '-cb-all' + (parent != undefined ? ' parent-' + parent : '')}
 						type='checkbox'
-						className={"row-checkbox customCol" + (reorderable == false ? "" : " reorderable")}
-						onChange={() => component.props.onRowSelected('ALL')} />
+						onChange={() => this.props.onRowSelected('ALL')} />
+					// </div>
 				)
 			default:
 				return (
-					<div id={id} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
-						onMouseDown={e => component.handleOnMouseDown(e)}>{text}</div>
+					<div id={id + ' drag'} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
+						onMouseDown={e => this.handleOnMouseDown(e)}>{text}</div>
 				)
 		}
-
-
 	}
 }
 

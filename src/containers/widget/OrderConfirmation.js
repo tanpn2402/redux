@@ -138,7 +138,7 @@ class OrderConfirmation extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            
+
         })
     }
 
@@ -178,7 +178,7 @@ class OrderConfirmation extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data.mvOrderBeanList}
-                        handleOnRowSelected={(param) => this.onRowSelected(param)}
+                        onRowSelected={(param) => this.onRowSelected(param)}
 
                         pageIndex={this.state.pageIndex}
                         totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}

@@ -54,7 +54,7 @@ class ConfirmOrder extends Component {
                 id: 'mvQty',
                 Header: this.props.language.orderconfirmation.header.quantity,
                 accessor: 'mvQty',
-                width:200,
+                width: 200,
                 skip: false,
                 show: true,
             },
@@ -100,7 +100,7 @@ class ConfirmOrder extends Component {
             // },
         ],
 
-        this.id = 'confirmorder-popup'
+            this.id = 'confirmorder-popup'
     }
 
     componentWillReceiveProps(nextProps) {
@@ -215,15 +215,16 @@ class ConfirmOrder extends Component {
                     <DataTable
                         theme={this.props.theme}
                         id={this.id + "-table"}
-                        data={this.props.data.rowSelected}
+                        language={language}
+                        tableData={this.props.data.rowSelected}
                         columns={this.columns}
                         maxRows={5}
-                        defaultPageSize={15}
+                        pageSize={15}
                     />
                 </Modal.Body>
 
-                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
-                
+                <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />
+
                 <Modal.Footer>
                     <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
                     <Button className="submit" onClick={this.onConfirmSubmit.bind(this)}> {language.button.submit}</Button>
@@ -234,7 +235,7 @@ class ConfirmOrder extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {    }
+    return {}
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
