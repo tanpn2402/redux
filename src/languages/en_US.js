@@ -484,13 +484,19 @@ export default
                 "buysell": "Buy/Sell",
                 "buysellall": "Buy all/Sell all",
                 "stock": "Stock",
+                "stockCode": "Stock Code",
+                "stockName": "Stock Name",
+                "quantity": "Quantity",
+                "type": "Type",
+                "totalCash": "Total Cash",
+                "market": "Market",
                 "bank": "Bank",
                 "lending": "% Lending",
                 "buyingpower": "Buying Power(Expected)",
                 "ordertype": "Order Type",
                 "volume": "Volume",
-                "price": "Price (x1000VND)",
-                "value": "Value (VND)",
+                "price": "Price",
+                "value": "Value",
                 "netfee": "Net Fee",
                 "expirydate": "Expiry date"
             },
@@ -1137,7 +1143,8 @@ export default
             "no": "No",
             "buy": "Buy",
             "sell": "Sell",
-            "reset": "RESET"
+            "reset": "RESET",
+            "sure": "Sure"
         },
         "login": {
             "username": "Account No",

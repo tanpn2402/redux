@@ -125,7 +125,8 @@ export default
             "stockmarketinfo": "Dữ liệu chứng khoán",
             "loanRefundPanel": "Hoàn trả vay ký quỹ",
             "loanRefundHistory": "Lịch sử giao dịch hoàn trả vay ký quỹ",
-            "loanRefundStatus": "Trạng tháI giao dịch hoàn trả vay ký quỹ"
+            "loanRefundStatus": "Trạng tháI giao dịch hoàn trả vay ký quỹ",
+            "transactionhistory": "Tra cứu lịch sử"
         },
         "searchbar": {
             "search": "Tìm kiếm",
@@ -481,6 +482,12 @@ export default
                 "buysell": "Mua/Bán",
                 "buysellall": "Mua/Bán (tất cả)",
                 "stock": "Mã CK",
+                "stockCode": "Mã CK",
+                "stockName": "Stock Name",
+                "quantity": "Khối lượng",
+                "type": "Loại",
+                "totalCash": "Total Cash",
+                "market": "Market",
                 "bank": "Ngân hàng",
                 "lending": "Tỷ lệ cho vay",
                 "buyingpower": "Sức mua dự kiến",
@@ -1120,7 +1127,8 @@ export default
             "no": "No",
             "buy": "Mua",
             "sell": "Bán",
-            "reset": "Reset"
+            "reset": "Reset",
+            "sure": "Sure"
         },
         "login": {
             "username": "Số tài khoản",
