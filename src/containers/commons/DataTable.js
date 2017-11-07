@@ -543,7 +543,8 @@ class DataTable extends React.Component {
 		this.dragLabel.style.left = x + "px"
 		this.dragLabel.style.top = y + "px"
 
-		var curCol = this.colsWidth[this.toColIndex]
+		let curCol = this.colsWidth[this.toColIndex]
+		let startingCol = this.colsWidth[this.fromColIndex]
 
 		if (x > curCol.e && this.toColIndex < this.colsWidth.length - 1) {
 			this.toColIndex += 1
@@ -557,7 +558,10 @@ class DataTable extends React.Component {
 
 		this.dragHighlight.style.height = curCompRect.height + "px"
 
-		if (!curCol.reorderable || !this.colsWidth[this.fromColIndex].reorderable || (this.isDoubleHeaderTable && (curCol.parent == null || this.colsWidth[this.fromColIndex].parent == null))) {
+		if (!curCol.reorderable || !this.colsWidth[this.fromColIndex].reorderable
+			|| (this.isDoubleHeaderTable && (curCol.parent == null || this.colsWidth[this.fromColIndex].parent == null))
+			|| curCol.parent !== startingCol.parent
+		) {
 			this.dragHighlight.style.border = "3px solid rgba(220, 220, 220, .5)"
 		} else {
 			this.dragHighlight.style.border = "3px solid rgba(236, 141, 141, .4)"
