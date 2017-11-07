@@ -14,7 +14,6 @@ export default class MarqueeItem extends React.Component {
 
     render() {
         let data = this.props.data
-        console.log(data)
         return (
             <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
                 <li>
