@@ -105,7 +105,7 @@ class CashTransHistory extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-    
+
     }
 
 
@@ -122,7 +122,7 @@ class CashTransHistory extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <Table 
+                    <Table
                         theme={this.props.theme}
                         id={this.id}
                         language={this.props.language}
@@ -131,6 +131,7 @@ class CashTransHistory extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data}
+                        onRowSelected={this.onRowSelected.bind(this)}
 
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
@@ -141,7 +142,7 @@ class CashTransHistory extends Component {
                         searchActions={[]}
                         searchData={[]}
                         onSearch={this.onSearch.bind(this)}
-                        
+
                     />
                 </Body>
             </div>
@@ -177,7 +178,7 @@ class CashTransHistory extends Component {
                 this.rowSelected.splice(index, 1)
             }
         }
-        
+
     }
 
     onChangeStateColumn(e) {

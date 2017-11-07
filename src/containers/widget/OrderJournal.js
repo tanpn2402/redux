@@ -18,14 +18,67 @@ class OrderJournal extends Component {
                     maxWidth: 50,
                     width: 40,
                     sortable: false,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                    return (
+                                        <input type='checkbox' style={{ position: 'relative', top: '6px' }}
+                                            className={this.id + "-row-checkbox"}
+                                            onChange={() => { this.onRowSelected(props.original) }} />
+                                    )
+                                }
+                            }
+                        }
+                    },
                     skip: true,
                     reorderable: false,
                     mobile: false
                 },
                 {
                     id: 'cancelmodify',
-                    maxWidth: 80,
+                    maxWidth: 200,
+                    width: 140,
                     sortable: false,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            var child = []
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                            onClick={() => this.handleCancelOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-remove"></span>
+                                        </Button>
+                                    )
+                                }
+                            }
+
+                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                                    child.push(
+                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                            onClick={() => this.handleModifyOrder(props.original)}>
+                                            <span className="glyphicon glyphicon-edit"></span>
+                                        </Button>
+                                    )
+                                }
+                            }
+
+                            return (
+                                <div style={{ display: "table", height: '100%', width: '100%' }}>
+                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
+                                        {
+                                            child
+                                        }
+                                    </div>
+                                </div>)
+                        }
+                    },
                     skip: true,
                     mobile: false
                 },
@@ -40,7 +93,26 @@ class OrderJournal extends Component {
                 {
                     id: 'buysell',
                     accessor: 'mvBS',
-                    width: 40,
+                    width: 80,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            if (props.original.mvBSValue == this.props.language.global.buysell.B) {
+                                return (
+                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
+                                        {this.props.language.searchbar.buy}
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
+                                        {this.props.language.searchbar.sell}
+                                    </div>
+                                )
+                            }
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -84,6 +156,16 @@ class OrderJournal extends Component {
                     id: 'status',
                     accessor: 'mvStatus',
                     width: 80,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            let text = this.props.language.global.status[props.original.mvStatus]
+                            return (
+                                Utils.statusRenderer(text, props.original.mvStatus)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -204,6 +286,7 @@ class OrderJournal extends Component {
                         theme={this.props.theme}
                         id={this.id}
                         language={this.props.language}
+                        onRowSelected={this.onRowSelected.bind(this)}
 
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
@@ -218,7 +301,7 @@ class OrderJournal extends Component {
                         searchMobileParams={["mvStatus"]}
                         searchActions={buttonAction}
                         searchData={{ stockList: this.props.stockList }}
-                        searchDefaultValues={{mvStatus: this.param.mvStatus}}
+                        searchDefaultValues={{ mvStatus: this.param.mvStatus }}
                         onSearch={this.onSearch.bind(this)}
 
                     />
@@ -233,11 +316,11 @@ class OrderJournal extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-
-        })
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         columns: 
+    //     })
+    // }
 
     handleCancelOrderChecked(e) {
 
@@ -368,13 +451,13 @@ class OrderJournal extends Component {
 
     onSearch(param) {
         this.param['mvStatus'] = param.mvStatus
-        if(param.mvOrderType) {
+        if (param.mvOrderType) {
             this.param['mvOrderType'] = param.mvOrderType
         }
-        if(param.mvBuysell) {
+        if (param.mvBuysell) {
             this.param['mvOrderBS'] = param.mvBuysell
         }
-        
+
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 

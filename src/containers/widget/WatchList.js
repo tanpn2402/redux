@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import SearchBar from '../commons/SearchBar'
 import DataTable from '../commons/DataTable'
-import Pagination from '../commons/Pagination'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
@@ -392,18 +390,6 @@ class WatchList extends Component {
         this.setState({ pageIndex: pageIndex });
     }
 
-    onNextPage() {
-        if (this.state.pageIndex > 0) {
-            this.setState({ pageIndex: parseInt(this.state.pageIndex) + 1 });
-        }
-    }
-
-    onPrevPage() {
-        if (this.state.pageIndex > 1) {
-            this.setState({ pageIndex: parseInt(this.state.pageIndex) - 1 });
-        }
-    }
-
     render() {
         let button = this.props.theme.button || undefined
         this.buttonAction = [
@@ -444,34 +430,24 @@ class WatchList extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <div className="table-main">
-                        <DataTable
-                            theme={this.props.theme}
-                            id="watchlist-table"
-                            columns={this.state.columns}
-                            data={this.state.listStock}
-                            handleOnRowSelected={(param) => this.onRowSelected(param)}
-                            language={this.props.language.watchlist.header}
-                        />
-                    </div>
-                    <div className="table-header" style={tableheader}>
-                        <SearchBar
-                            id={this.id}
-                            buttonAction={this.buttonAction}
-                            language={this.props.language}
-                            theme={this.props.theme}
-                            param={[]}
-                            data={{ stockList: [] }} />
-                    </div>
-                    <div className="table-footer" style={tablefooter}>
-                        <Pagination theme={this.props.theme}
-                            pageIndex={this.state.pageIndex}
-                            totalRecord={11}
-                            onPageChange={this.onPageChange.bind(this)}
-                            onNextPage={this.onNextPage.bind(this)}
-                            onPrevPage={this.onPrevPage.bind(this)}
-                        />
-                    </div>
+                    <DataTable
+                        theme={this.props.theme}
+                        id="watchlist"
+                        columns={this.state.columns}
+                        tableData={this.state.listStock}
+                        onRowSelected={(param) => this.onRowSelected(param)}
+                        language={this.props.language}
+
+                        pageIndex={this.state.pageIndex}
+                        totalPage={11}
+                        onPageChange={this.onPageChange.bind(this)}
+
+                        searchActions={this.buttonAction}
+                        searchData={{ stockList: [] }}
+                        searchParams={[]}
+                        searchMobileParams={[]}
+                        searchDefaultValues={{}}
+                    />
                 </Body>
             </div>
         )

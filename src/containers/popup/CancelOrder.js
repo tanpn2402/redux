@@ -53,10 +53,14 @@ class CancelOrder extends Component {
                     <TableData
                         theme={this.props.theme}
                         id={this.id + "-table"}
+                        language={language}
+
                         columns={this.columns}
-                        defaultPageSize={15}
+                        pageSize={15}
                         maxRows={5}
-                        data={data}
+                        tableData={data}
+                        searchEnable={false}
+                        footerEnable={false}
                     />
                 </Modal.Body>
 

@@ -112,7 +112,7 @@ class MatchOrderBankList extends Component {
         let queryAdvancePaymentInfo = this.props.queryAdvancePaymentInfo
         let data = queryAdvancePaymentInfo.mvChildBeanList.slice((this.state.matchOrderBankListPageIndex - 1) * this.defaultPageSize,
             this.state.matchOrderBankListPageIndex * this.defaultPageSize)
-        
+
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -133,7 +133,7 @@ class MatchOrderBankList extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data}
-                        handleOnRowSelected={(param) => this.onRowSelected(param)}
+                        onRowSelected={(param) => this.onRowSelected(param)}
 
                         pageIndex={this.state.matchOrderBankListPageIndex}
                         totalPage={Math.ceil(queryAdvancePaymentInfo.mvChildBeanList.length / this.defaultPageSize)}
