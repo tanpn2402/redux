@@ -578,7 +578,6 @@ class DataTable extends React.Component {
 		// 	return column.id == idA
 		// })
 		// this.colA.index = result != -1 ? result : 0
-		if (!e.target.id.includes('drag')) return
 		this.mountColLabelCursor(e.target.innerHTML, e.target.id)
 		this.handleMouseMove(e)
 		window.addEventListener('mousemove', this.handleMouseMove)
@@ -654,20 +653,17 @@ class DataTable extends React.Component {
 		switch (id) {
 			case 'cb':
 				return (
-					// <div
-					// 	id={this.props.id + "-cb-all drag" + (parent != undefined ? " parent-" + parent : "")}
-					// 	onMouseDown={e => this.handleOnMouseDown(e)}
-					// 	className={"row-checkbox customCol" + (reorderable == false ? "" : " reorderable")}
-					// >
 					<input
 						id={this.props.id + '-cb-all' + (parent != undefined ? ' parent-' + parent : '')}
 						type='checkbox'
-						onChange={() => this.props.onRowSelected('ALL')} />
-					// </div>
+						onChange={() => this.props.onRowSelected('ALL')}
+						className={"row-checkbox customCol" + (reorderable == false ? "" : " reorderable")}
+						style={{ position: 'relative', top: '2px' }}
+					/>
 				)
 			default:
 				return (
-					<div id={id + ' drag'} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
+					<div id={id} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
 						onMouseDown={e => this.handleOnMouseDown(e)}>{text}</div>
 				)
 		}
