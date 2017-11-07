@@ -56,7 +56,7 @@ import AvailableMargin from './AvailableMargin'
 import TransactionHistory from './TransactionHistory'
 
 export default function (menuid, props){
-	console.log(menuid)
+	
 	switch(menuid){
 		case 'management':
 			return(

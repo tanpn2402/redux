@@ -17,32 +17,47 @@ class Input extends React.Component {
 
         if(type === 'number') {
             return (
-                <div className={'input-control ' + type} >
+                <div className={'input-control ' + type} ref={ r => this.rInput = r }>
                     <span className='input-group-btn' style={{ zIndex: '0' }} >
-                        <Button onClick={() => this.changeInputVal((-1)*step)} >&#10134;</Button>
+                        <button type="button" className="btn btn-default" 
+                            onClick={() => this.changeInputVal((-1)*step)} ref={r => this.rButton1 = r} >-</button>
                     </span>
                     <FormControl 
                         inputRef={ref => this.props.setRef(ref)}
                         onChange={this.handleChange} value={this.state.inputValue}
-                        style={{ }}
                         required />
-                    <span className='input-group-btn' style={{ zIndex: '0' }}  >
-                        <Button onClick={() => this.changeInputVal(step)} style={{color: '#555'}}>&#10133;</Button>
+                    <span className='input-group-btn' style={{ zIndex: '0' }}>
+                        <button type="button" className="btn btn-default" 
+                            onClick={() => this.changeInputVal(step)} ref={r => this.rButton2 = r}>+</button>
                     </span>
                 </div>
             )
         } else {
+            let defaultValue = this.props.defaultValue === 0 ? "" : this.props.defaultValue
             return (
-                <div className={'input-control ' + type} >
+                <div className={'input-control ' + type} ref={ r => this.rInput = r }>
                     <FormControl 
                         inputRef={ref => this.props.setRef(ref)}
                         onChange={this.handleChange}
+                        {...this.props}
+                        defaultValue={defaultValue}
                          />
                 
                 </div>
             )
         }
         
+    }
+
+    componentDidMount() {
+        if(this.rInput && this.rButton1 && this.rButton2) {
+            console.log(this.rInput.offsetHeight)
+            this.rButton1.style.width = this.rInput.offsetHeight + "px"
+            this.rButton1.style.height = this.rInput.offsetHeight + "px"
+
+            this.rButton2.style.width = this.rInput.offsetHeight + "px"
+            this.rButton2.style.height = this.rInput.offsetHeight + "px"
+        }
     }
 
     async changeInputVal(value) {
@@ -53,7 +68,7 @@ class Input extends React.Component {
             }
         })
         if( this.props.onChange ) {
-            this.props.onChange()
+            this.props.onChange(this.state.inputValue)
         }
     }
 
@@ -62,7 +77,7 @@ class Input extends React.Component {
             inputValue: e.target.value
         })
         if( this.props.onChange ) {
-            this.props.onChange()
+            this.props.onChange(e.target.value)
         }
     }
 }
