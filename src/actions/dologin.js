@@ -88,6 +88,12 @@ export function checkAuth() {
                                         // console.log(config.tabbar)
                                     }
                                     if (savedContent.lang) {
+                                        let params = {
+                                            mvCurrentLanguage: savedContent.lang,
+                                            request_locale: savedContent.lang,
+                                            key: (new Date()).getTime()
+                                        }
+                                        api.fetch(ACTION.CHANGELANGUAGE, params, "GET", function(response) {})
                                         // if saved content has language element
                                         if (localStorage.getItem("lastLang"))
                                             // and if localStorage has lastLang (from before session, when user reload WEB) 

@@ -12,6 +12,10 @@ class Popup extends Component {
             show: false,
             lastPopup: 1,
         }
+        this.version = "desktop"
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            this.version = "mobile"
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -24,7 +28,7 @@ class Popup extends Component {
         let font = this.props.theme.font == undefined ? undefined : this.props.theme.font.color
         if (this.state.show) {
             return (
-                <Modal show={true}>
+                <Modal show={true} className={this.version}>
                     <div className="modal-header popup-main-header" style={{ backgroundColor: widgetheader, color: font }} >
                         <button type="button" className="close" onClick={ e => this.onClose() }>
                             <span aria-hidden="true">×</span>
@@ -32,7 +36,7 @@ class Popup extends Component {
                         ></button>
                         <h4 className="title modal-title">{this.props.title}</h4>
                     </div>
-                    {generatePopup(this.props, this.onClose.bind(this))}
+                    {generatePopup(this.version, this.props, this.onClose.bind(this))}
                 </Modal>
             )
         }

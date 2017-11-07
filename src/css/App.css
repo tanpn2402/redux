@@ -2860,10 +2860,12 @@ label {
     padding: 0;
     text-align: center;
     outline: none;
+    width: 100%;
 }
 .auth-matrix-value {
     text-align: center;
     text-transform: uppercase;
+    width: 100%;
 }
 .auth-content {
     font-size: 12px;
@@ -3537,6 +3539,10 @@ label {
     color: #555;
     font-size: 18px;
     color: #fff;
+    border-color: #9b9b9b;
+    /* border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important; */
+    
 }
 .input-control > input {
     height: 100%;
@@ -3558,6 +3564,19 @@ label {
 }
 .input-control.number > input {
     text-align: center;
+}
+
+.input-control.readOnly button {
+    background-color: #d0d0d0;
+    outline: none;
+    border-color: #d0d0d0;
+}
+.input-control.showOnly {
+    background-color: transparent;
+}
+.input-control.showOnly input {
+    background-color: transparent;
+    box-shadow: none;
 }
 .input-control {
     height: 28px;
@@ -3638,20 +3657,20 @@ label {
 .enterorder-a > .form-submit-action {
     margin-top: 20px;
 }
-.enterorder-a.buy > .form-submit-action  > span > .btn-submit {
+.enterorder-a.buy .btn-submit {
     background-color: #005899;
     border: 2px solid #005899;
 }
-.enterorder-a.buy > .form-submit-action  > span > .btn-cancel {
+.enterorder-a.buy .btn-cancel {
     border: 2px solid #005899;
     background-color: #fff;
     color: #005899;
 }
-.enterorder-a.sell > .form-submit-action  > span > .btn-submit {
+.enterorder-a.sell .btn-submit {
     background-color: #FF6600;
     border: 2px solid #FF6600;
 }
-.enterorder-a.sell > .form-submit-action  > span > .btn-cancel {
+.enterorder-a.sell .btn-cancel {
     border: 2px solid #FF6600;
     background-color: #fff;
     color: #FF6600;
@@ -3659,7 +3678,10 @@ label {
 .enterorder-form .select-control {
     height: 28px;
 }
-.enterorder-form -title {
+.enterorder-a .-total,
+.enterorder-a .-other {
+    display: table;
+    width: 100%;
 }
 /* #enterorder-a > div > div {
     padding: 0 10px;
@@ -3830,22 +3852,88 @@ label {
 }
 
 /* FOR MOBILE */
-.maincontent-mobile .enterorder-a .select-control {
-    height: 30px;
-}
-.maincontent-mobile .enterorder-a .input-control {
-    height: 30px;
-}
-.maincontent-mobile .enterorder-a .-label {
-    font-size: 14px;
-}
-.maincontent-mobile .enterorder-a .-total {
-    padding: 10px;
-    background-color: rgb(241, 241, 241);
-    font-size: 16px;
-}
-.maincontent-mobile .enterorder-a .-other {
-    padding: 6px 10px;
-    margin-top: 10px;
-}
+    .maincontent-mobile .enterorder-a .select-control {
+        height: 30px;
+    }
+    .maincontent-mobile .enterorder-a .input-control {
+        height: 30px;
+    }
+    .maincontent-mobile .enterorder-a .-label {
+        font-size: 14px;
+    }
+    .maincontent-mobile .enterorder-a .-total {
+        padding: 0 10px;
+        background-color: rgb(241, 241, 241);
+        display: table;
+        height: 40px;
+    }
+    .maincontent-mobile .enterorder-a .-total .-label {
+        font-size: 16px;
+        padding-top: 10px;
+    }
+    .maincontent-mobile .enterorder-a .-total .input-control {
+        padding-top: 10px;
+        font-size: 16px;
+    }
+    .maincontent-mobile .enterorder-a .-other {
+        padding: 6px 10px;
+        margin-top: 10px;
+    }
+    .maincontent-mobile .enterorder-a .-other .input-control {
+        height: 20px;
+    }
 
+
+    /* POPUP */
+    .mobile .modal-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .mobile .modal-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .mobile .modal-footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: none;
+    }
+    .mobile .modal-footer .btn-default {
+        min-width: 100px;
+        max-width: 150px;
+        border-radius: 15px;
+        font-size: 14px;
+        padding: 6px 6px;
+        border: none;
+        background-color: #999;
+        color: #fff;
+    }
+    .mobile .modal-footer .cancel {
+        background-color: #999;
+    }
+    .mobile .modal-footer .submit {
+        background-color: #bc0000;
+    }
+    .mobile .popup-table {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+    .popup-table .--tr {
+        padding: 5px 0;
+    }
+    .popup-table .--th, .popup-table .--td {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+        padding: 0 20px;
+    }
+    .popup-table .--th {
+        text-align: left;
+    }
+    .popup-table .--td {
+        text-align: right;
+    }
+    .popup-table .--tr:nth-child(odd) {background: #EEE}
+    .popup-table .--tr:nth-child(even) {background: #FFF}

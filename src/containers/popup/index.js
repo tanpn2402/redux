@@ -10,8 +10,17 @@ import CashTransfer from './CashTransfer'
 import CashAdvanceBank from './CashAdvanceBank'
 import SaveLayout from './SaveLayout'
 import EnterOrderConfirm from './EnterOrderConfirm'
+import EnterOrderConfirmMobile from './mobile/EnterOrderConfirm'
 
-export default function (props, onClose) {
+export default function (verion, props, onClose) {
+	if(verion === "mobile") {
+		return genPopupMobile(props, onClose)
+	} else {
+		return genPopupDesktop(props, onClose)
+	}
+}
+
+function genPopupDesktop(props, onClose) {
 	switch (props.id) {
 		case 'orderjournal':
 			switch (props.popupType) {
@@ -57,7 +66,6 @@ export default function (props, onClose) {
 		case 'enterorderconfirm':
 			return (<EnterOrderConfirm onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
-			break;
 
 		case 'cancelorder':
 			return (<CancelOrder theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
@@ -68,4 +76,16 @@ export default function (props, onClose) {
 			break;
 	}
 
+}
+
+function genPopupMobile(props, onClose) {
+	switch (props.id) {
+		case 'enterorderconfirm':
+			return (<EnterOrderConfirmMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			break;
+			
+		case 'savelayout':
+			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config} />)
+			break;
+	}
 }
