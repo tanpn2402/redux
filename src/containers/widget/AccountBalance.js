@@ -8,133 +8,65 @@ import * as Utils from "../../utils"
 import moment from "moment"
 import config from "../../core/config"
 
-class OrderHistory extends Component {
+class AccountBalance extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
         this.state = {
             columns: [
                 {
-                    id: "ordergroupid",
-                    accessor: "mvOrderGroupID",
-                    width: 80,
+                    id: "currency",
+                    accessor: "currency",
+                    width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "stockid",
-                    accessor: "mvStockID",
-                    width: 80,
+                    id: "ledgerbalance",
+                    accessor: "ledgerbalance",
+                    width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "price",
-                    accessor: "mvPrice",
-                    width: 100,
+                    id: "exrate",
+                    accessor: "exrate",
+                    width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "marketid",
-                    accessor: "mvMarketID",
-                    width: 50,
+                    id: "holdamount",
+                    accessor: "holdamount",
+                    width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "buysell",
-                    accessor: "mvBS",
-                    width: 50,
+                    id: "withdrawable",
+                    accessor: "withdrawable",
+                    width: 120,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "quantity",
-                    accessor: "mvQty",
-                    width: 80,
+                    id: "settledbalance",
+                    accessor: "settledbalance",
+                    width: 120,
                     skip: false,
                     show: true,
-                },
-                {
-                    id: "filledprice",
-                    accessor: "mvFilledPrice",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "filledquantity",
-                    accessor: "mvFilledQty",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matchedvalue",
-                    accessor: "mvAvgPriceValue",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "tradingtype",
-                    accessor: "mvOrderTypeValue",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matchedorderstatus",
-                    accessor: "mvStatus",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matcheddate",
-                    accessor: "matchedDate",
-                    width: 130,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "tradetime",
-                    accessor: "mvInputTime",
-                    width: 100,
-                    skip: false,
-                    show: true,
-                },
-
-
+                }
             ],
             pageIndex: 1,
             filterable: true
         }
 
-        this.id = "ordershistory"
+        this.id = "accountbalance"
         this.pageIndex = 1
         this.defaultPageSize = 15
 
         this.params = {
-            start: 0,
-            limit: 15,
-            mvBS: "A",
-            mvInstrumentID: "ALL",
-            mvStatus: "ALL",
-            mvSorting: "InputTime desc",
-            mvStartTime: "01/01/2001",
-            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
-        }
-        this.exportParams = {
-            mvLastAction: "ACCOUNT",
-            mvChildLastAction: "ORDERHISTORYENQUIRY",
-            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
-            mvBS: "",
-            mvInstrumentID: "",
-            mvStatus: "ALL",
-            mvSorting: "InputTime desc",
+            
         }
     }
 
@@ -146,8 +78,7 @@ class OrderHistory extends Component {
 
 
     render() {
-        console.log('adsdsd')
-        var data = this.props.historyOrder.mvOrderBeanList
+        var data = []
         return (
             <div style={{ height: "100%", position: "relative" }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -169,14 +100,14 @@ class OrderHistory extends Component {
 
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
-                        totalPage={Math.ceil(this.props.historyOrder.mvTotalOrders / this.defaultPageSize)}
-                        onExportExcel={this.onExportExcel.bind(this)}
+                        totalPage={0}
 
-                        searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
+                        searchParams={[]}
                         searchMobileParams={[]}
                         searchActions={[]}
-                        searchData={{ stockList: this.stockList }}
+                        searchData={{}}
                         onSearch={this.onSearch.bind(this)}
+                        searchEnable={false}
 
                     />
 
@@ -193,7 +124,7 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        this.props.onSearch(this.params)
+        //this.props.onSearch(this.params)
     }
 
     onPageChange(page) {
@@ -237,19 +168,16 @@ class OrderHistory extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        historyOrder: state.orderhistory.historyOrder,
+        
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, reload) => {
         dispatch(actions.enquiryOrderHistory(param, reload))
-    },
-    onExportExcel: (param) => {
-        dispatch(actions.exportOrderHistory(param))
-    },
+    }
 })
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountBalance)

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import MenuItem from './SideMenu/MenuItem'
-import config from '../core/config'
+import config from '../../core/config'
 import { connect } from "react-redux"
-import * as actions from "../actions"
+import * as actions from "../../actions"
 import $ from 'jquery'
-import SlideNav from './SlideNav'
 
 class MenuNav extends Component {
 
@@ -12,7 +10,6 @@ class MenuNav extends Component {
         super(props)
 
         this.tabbar = config.tabbar
-        console.log(this.tabbar)
     }
 
     render() {
@@ -23,12 +20,7 @@ class MenuNav extends Component {
 
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
-                
-                <div className="scrolling-tabs-left">
-                    <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-menu-left" ></span>
-                    </button>
-                </div>
+              
 
                 <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-menu-tabs">
@@ -42,13 +34,6 @@ class MenuNav extends Component {
                                                 onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
 
                                                 {language.tab[tab.title]}
-                                                {/* <button
-                                                    className="hks-btn btn-tab-reload"
-                                                    type="button"
-                                                    onClick={e => this.onReloadPage(tab.id)}
-                                                >
-                                                    <span className="glyphicon glyphicon-repeat"></span>
-                                                </button> */}
 
                                             </span>
                                         )
@@ -60,16 +45,7 @@ class MenuNav extends Component {
                         </nav>
                     </div>
                 </div>
-                <div className="scrolling-tabs-right">
-
-                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-menu-right" ></span>
-                    </button>
-                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-floppy-disk" ></span>
-                            {language.button.saveLayout}
-                    </button>
-                </div>
+              
             </div>
         )
     }

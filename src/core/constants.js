@@ -161,6 +161,8 @@ export const Contants = {
     STARTDATE: 'mvStartDate',
     ENDDATE: 'mvEndDate',
     TRADETYPE: 'tradeType',
-    STATUS: 'mvStatus'
+    STATUS: 'mvStatus',
+    MARKET: 'mvMarket',
+    CURRENCY: 'mvCurrency',
   }
 }

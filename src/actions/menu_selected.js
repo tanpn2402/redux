@@ -119,6 +119,23 @@ export function onTabClick(tabID, subTabID){
     }
 }
 
+export function onMobileTabClick(tabID, subTabID){
+    console.log(tabID, subTabID)
+    
+    if (subTabID==null) {
+        var curTab = config.tabbar.find((tab) => tab.id === tabID)
+        if (curTab != undefined && curTab.widget.length > 0) {
+            subTabID = curTab.widget[0].i
+        }
+    }
+
+    return {
+        type: ActionTypes.TABCLICKEVENT,
+        tabID: tabID,
+        subTabID: subTabID,
+    }
+}
+
 
 export function reloadCustom(load) {
     return {
@@ -205,15 +222,6 @@ export function openSearch(open) {
 }
 
 export function onMobileMenuSelect(id) {
-    var curWidgets = config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget
-    var newWidget = config.widgetMobile.filter(el => el.i === id)
-    console.log(newWidget)
-    if (newWidget.length > 0) {
-        var widget = newWidget[0]
-        config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget = [...curWidgets, widget]
+    var curWidgets = config.tabbar.filter(e => e.id == "mobile")[0].widget
 
-        console.log(config.tabbar[config.tabbar.findIndex(tab => tab.id == "mobile")].widget)
-    }
-
-    return dispatch => dispatch(onTabClick('mobile', id))
 }

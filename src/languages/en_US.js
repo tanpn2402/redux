@@ -8,10 +8,13 @@ export default
             "trading": "Trading",
             "portfolio": "Portfolio",
             "orderjournal": "Order Journal",
-            "transhistory": "Trans History",
+            "transhistory": "Transaction History",
             "management": "Management",
             "customization": "Customization",
-            "mobile": "mobile"
+            "mobile": "mobile",
+            "daytrade": "Day Trade",
+            "orderhistory": "Order History"
+            
         },
         "setting": {
             "language": {
@@ -74,14 +77,15 @@ export default
             }
         },
         "menu": {
-            "tradingplatform": "Trading Platform",
+            "trading": "Trading",
+            "trandate": "Day Trade",
             "enterorder": "Enter Order",
             "stockmarketinform": "Stock Market Inform",
             "watchlist": "Watch List",
             "orderjournal": "Order Journal",
             "accountinfo": "Account Info",
             "account": "Account",
-            "ordershistory": "Transaction History",
+            "ordershistory": "Order History",
             "cashtransactionhistory": "Cash Transaction History",
             "cashstatement": "Cash Statement",
             "stockstatement": "Stock Statement",
@@ -125,7 +129,8 @@ export default
             "loanRefundPanel": "Loan Refund Panel",
             "loanRefundHistory": "Loan Refund Transaction History",
             "loanRefundStatus": "Loan Refund Transaction Status",
-            "transactionhistory": "Transaction History"
+            "transactionhistory": "Transaction History",
+            "accountbalance": "Account Balance"
         },
         "searchbar": {
             "search": "Search",
@@ -187,7 +192,17 @@ export default
             "mvStartDate": "Start Date",
             "mvEndDate": "End Date",
             "tradeType": "Transaction Type",
-            "mvStatus": "Order Status"
+            "mvStatus": "Order Status",
+            "mvMarket": "Market",
+            "mvCurrency": "Currency",
+            "HKD": "HKS",
+            "CVY": "CVY", 
+            "EUR": "EUR",
+            "TWD": "TWD",
+            "USD": "USD",
+            "HO": "HO",
+            "HA": "HA",
+            "UPCOM": "UPCOM"
         },
         "marqueebar": {
             "status": "Status",
@@ -213,7 +228,19 @@ export default
                 "time": "Time",
                 "stockid": "Stock ID",
                 "buysell": "B/S",
-                "orderID": "Order ID"
+                "orderID": "Order ID",
+
+                // for popup table
+                "market": "Market",
+                "tradeId": "Trade Code",
+                "stockName": "Stock Name",
+                "buysell": "Buy/Sell",
+                "initialPrice": "Initial Price",
+                "newPrice": "New Price",
+                "initialQuantity": "Initial Quantity",
+                "matchedQuantity": "Matched Quantity",
+                "newQuantity": "New Quantity",
+                "totalCash": "Total Money"
             },
             "popup": {
                 "title": {
@@ -930,6 +957,16 @@ export default
                 "differentTradeDate": "You must select orders with have same trade date."
             }
         },
+        "accountbalance": {
+            "header": {
+                "currency": "Currency",
+                "exrate": "Ex Rate",
+                "holdamount": "Hold Amount",
+                "withdrawable": "Withdrawable",
+                "settledbalance": "Settled Balance",
+                "ledgerbalance": "Ledger Balance"
+            }
+        },
         "cash": {
             "header": {
                 "cash": "Cash",
@@ -1124,6 +1161,7 @@ export default
             "FTSubmit": "Thực hiện",
             "exportData": "Export",
             "cancel": "Cancel",
+            "modify": "Modify",
             "CTTCancel": "Cancel",
             "clear": "Clear",
             "addNew": "Add New",
@@ -1144,7 +1182,9 @@ export default
             "buy": "Buy",
             "sell": "Sell",
             "reset": "RESET",
-            "sure": "Sure"
+            "sure": "Sure",
+            "confirmModify": "Confirm Modify",
+            "confirmCancel": "Confirm Cancel"
         },
         "login": {
             "username": "Account No",

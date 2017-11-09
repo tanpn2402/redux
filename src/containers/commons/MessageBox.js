@@ -13,6 +13,10 @@ class MessageBox extends Component {
             listMessage: [],
             lastMessageID: 1,
         }
+        this.version = "desktop"
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            this.version = "mobile"
+        }
     }
 
 
@@ -32,16 +36,20 @@ class MessageBox extends Component {
                 {
                     this.state.listMessage.map(msg => {
                         return (
-                            <Modal show={true} onHide={e => this.onClose(msg.id)} className="messagebox">
-                                <Modal.Header closeButton style={widgetheader}>
-                                    <Modal.Title>{this.props.type}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    {this.props.message}
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button onClick={e => this.onClose(msg.id)}>OK</Button>
-                                </Modal.Footer>
+                            <Modal show={true} onHide={e => this.onClose(msg.id)} className={this.version + " messagebox"}>
+                                <div className="modal-wrapper">
+                                    <Modal.Header closeButton style={widgetheader}>
+                                        <Modal.Title>{this.props.type}</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <div className="msg-content">
+                                            {this.props.message}
+                                        </div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={e => this.onClose(msg.id)}>OK</Button>
+                                    </Modal.Footer>
+                                </div>
                             </Modal>
 
                         )

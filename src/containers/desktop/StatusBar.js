@@ -1,10 +1,9 @@
 import React from 'react';
 import { Row, Col, Table, Button, FormControl } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
-import config from '../core/config'
-import MenuItem from './SideMenu/MenuItem'
-import Popup from './Popup'
+import * as actions from '../../actions'
+import config from '../../core/config'
+import Popup from '../popup/Popup'
 
 class StatusBar extends React.Component {
     constructor(props) {

@@ -8,6 +8,7 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 
+const { Contants } = require("../../core/constants")
 class Portfolio extends Component {
     constructor(props) {
         super(props)
@@ -343,12 +344,10 @@ class Portfolio extends Component {
                         return (
                             <div>
                                 <button className="hks-btn btn-buy" onClick={e => this.onBuyClick(props)}>
-                                    
-                                    BUY
+                                    {this.props.language.button.buy}
                                 </button>
                                 <button className="hks-btn btn-sell" onClick={e => this.onSellClick(props)}>
-                                    
-                                    SELL
+                                    {this.props.language.button.sell}
                                 </button>
                             </div>
                         )
@@ -407,7 +406,7 @@ class Portfolio extends Component {
                         totalPage={Math.ceil(data.length / this.defaultPageSize)}
 
                         searchParams={[]}
-                        searchMobileParams={[]}
+                        searchMobileParams={[Contants.searchElement.MARKET, Contants.searchElement.CURRENCY]}
                         searchActions={[]}
                         searchData={{}}
                         searchDefaultValues={[]}

@@ -58,18 +58,22 @@ class GridLayout extends React.Component {
         return (
 
             <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={55} width={1320} 
-                margin={[3,3]} useCSSTransforms={false}
+                margin={this.props.margin} useCSSTransforms={false}
                 >
                 {x}
             </ResponsiveReactGridLayout>
         );
     }
 }
+
+GridLayout.defaultProps = {
+    margin: [3,3],
+}
+
 const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
     
 })
-
 export default connect(mapStateToProps, mapDispatchToProps)(GridLayout)

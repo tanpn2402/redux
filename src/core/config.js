@@ -199,6 +199,14 @@ const config = {
 		"UPCOM"
 	],
 
+	currency: [
+		"HKD",
+		"CVY",
+		"EUR",
+		"TWD",
+		"USD"
+	],
+
 	widget: [
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
 		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
@@ -220,30 +228,6 @@ const config = {
 		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
 		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 4, lgH: 12, minW: 4, minH: 6, maxW: 4, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minW: 6, minW: 8, maxH: 9, isDraggable: true, isResizable: true },
-
-	],
-	widgetMobile: [
-		{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
-		{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'cashTransHistory', 		w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'orderconfirmation', 		w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'portfolio', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'orderHistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'stockstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'cashstatement', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'watchlist', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'stockmarketinform', 		w: 8, h: 6, isDraggable: false, isResizable: false },
-		{ i: 'oddLot', 					w: 8, h: 11, isDraggable: false, isResizable: false },
-		{ i: 'fundTransfer', 			w: 8, h: 19, isDraggable: false, isResizable: false },
-		{ i: 'advancePayment', 			w: 8, h: 16, isDraggable: false, isResizable: false },
-		// { i: 'marginloan', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'available', 				w: 8, h: 9, isDraggable: false, isResizable: false },
-		// { i: 'accountinfo', 			w: 8, h: 6, isDraggable: false, isResizable: false },
-		{ i: 'loanrefund', 				w: 8, h: 15, isDraggable: false, isResizable: false },
-		{ i: 'entitlement', 			w: 8, h: 21, isDraggable: false, isResizable: false },
-		{ i: 'techanalysis', 			w: 8, h: 8, isDraggable: false, isResizable: false },
-		// { i: 'advancePaymentBank', 		w: 8, h: 9, isDraggable: false, isResizable: false },
-		{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
 
 	],
 
@@ -307,16 +291,52 @@ const config = {
 			widget: [
 				// { i: 'orderconfirmation', smW: 8, smH: 8, lgW: 8, lgH: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, isDraggable: true, isResizable: true }
 			]
+		}
+	],
+
+	mobileTab: [
+		{
+			id: "trading",
+			title: "trading",
+			enabled: true,
+			widget: [
+				{ i: 'enterorder', 				x: 0, y: 0, w: 8, h: 7, isDraggable: false, isResizable: false },
+				{ i: 'stockmarketinform', 		x: 0, y: 7, w: 3, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', 			x: 0, y: 15, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
+			]
 		},
 		{
-			id: 'mobile',
-			title: 'mobile',
-			enabled: false,
+			id: 'portfoliotab',
+			title: "portfolio",
+			enabled: true,
 			widget: [
-				{ i: 'enterorder', 				w: 8, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'transactionhistory', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', 			w: 8, h: 9, isDraggable: false, isResizable: false },
-				{ i: 'portfolio', 				w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'accountbalance', x: 0, y: 0, w: 8, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 9, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: false },
+				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
+			]
+		},
+		{
+			id: 'orderjournaltab',
+			title: "daytrade",
+			enabled: true,
+			widget: [
+				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
+			]
+		},
+		{
+			id: 'transhistory',
+			title: "transhistory",
+			enabled: true,
+			widget: [
+				{ i: 'transactionhistory', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
+			]
+		},
+		{
+			id: 'orderhistory',
+			title: "orderhistory",
+			enabled: true,
+			widget: [
+				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
 			]
 		}
 	],
