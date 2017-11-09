@@ -77,7 +77,7 @@ class SideMenu extends Component {
             <div className={"sidemenu " + (this.props.openMenu ? 'open' : 'hide')}>
                 <div className="sidemenu-outer" onClick={e => this.onCloseMenu()}> </div>
                 <div className="sidemenu-wrapper">
-                    <div className="sidemenu-body">
+                    {/* <div className="sidemenu-body">
                         {
                             this.state.menuitem.map(item => {
                                 return(
@@ -102,7 +102,7 @@ class SideMenu extends Component {
                             <label>Log out</label>
                         </div>
 
-                    </div>
+                    </div> */}
                 </div>
 
 

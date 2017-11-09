@@ -746,7 +746,37 @@ label {
     background-color: #002c4c;
 }
 /* override from bootstrap*/
-
+.modal {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.modal-dialog {
+    display: table;
+    height: 100%;
+    margin-top: 0;
+    /* width: 100%; */
+    /* margin-left: 0px; */
+    margin-bottom: 0px;
+}
+.modal-content {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    margin-top: 0;
+}
+.modal-wrapper {
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    top: -30px;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+}
 .modal-header {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -776,6 +806,9 @@ label {
     padding-bottom: 2px;
     height: 26px;
 }
+.modal.fade .modal-dialog {
+    transition: none;
+}
 @media (min-width: 992px) {
     .modal-lg {
         width: 700px;
@@ -803,10 +836,6 @@ label {
 /*END MAIN CONTENT */
 
 /*PAGE CONTENT*/
-
-#pagecontent {
-    
-}
 #pagecontent > div {
     width: 100%;
     height: 100%;
@@ -823,8 +852,11 @@ label {
     overflow: hidden;
 }
 .pagecontent.mobile {
-    padding-top: 0;
+    position: relative;
+    top: -34px;
+    padding-top: 34px;
     padding-bottom: 0;
+    overflow: hidden;
 }
 
 .tab-content {
@@ -1249,39 +1281,45 @@ label {
     width: auto;
     font-size: 12px;
 }
-.messagebox > .modal-dialog > .modal-content {
+.messagebox .modal-content {
     border-radius: 4px;
 
 }
-.messagebox > .modal-dialog > .modal-content > .modal-header {
+.messagebox .modal-header {
     font-size: 14px;
-    padding: 0 10px;
+    padding: 3px 10px;
     background-color: #005899;
     border-top-right-radius: 2px;
     border-top-left-radius: 2px;
     color: #fff;
 }
-.messagebox > .modal-dialog > .modal-content > .modal-header > h4 {
+.messagebox .modal-header > h4 {
     font-size: 14px;
 }
-.messagebox > .modal-dialog > .modal-content > .modal-header .close{
+.messagebox .modal-header .close{
     color: #000;
 }
-.messagebox > .modal-dialog > .modal-content > .modal-body {
+.messagebox .modal-body {
     padding-top: 5px;
     padding-bottom: 5px;
     min-height: 70px;
 }
-.messagebox > .modal-dialog > .modal-content > .modal-footer {
+.messagebox .modal-body .msg-content {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.messagebox .modal-footer {
     padding-top: 2px;
     padding-bottom: 2px;
 }
-.messagebox > .modal-dialog > .modal-content > .modal-footer .btn-default{
-    padding-top: 2px;
-    padding-bottom: 2px;
+.messagebox .modal-footer .btn-default{
+    padding-top: 3px;
+    padding-bottom: 3px;
     padding-left: 8px;
     padding-right: 8px;
     font-size: 12px;
+    border-radius: 15px;
+    min-width: 80px;
 }
 .modal-footer {
     text-align: center;
@@ -3323,7 +3361,19 @@ label {
     width: 50px;
 
 }
-
+    /* FUNCTION CHOOSER */
+    .function-choose {
+        text-align: center;
+        padding-top: 8px;
+        padding-bottom: 4px;
+        position: relative;
+        z-index: 1;
+        background-color: #fff;
+    }
+    .function-choose select {
+        border: none;
+    }
+    /* END FUNCTION CHOOSER */
     /* SIDE MENU */
     .sidemenu {
         height: 100%;
@@ -3656,7 +3706,7 @@ label {
     width: 100%;
 }
 .enterorder-a > .form-submit-action {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .enterorder-a.buy .btn-submit {
     background-color: #005899;
@@ -3886,6 +3936,10 @@ label {
 
 
     /* POPUP */
+    .mobile .modal-dialog {
+        width: 100%;
+        margin: 0;
+    }
     .mobile .modal-body {
         padding-left: 0;
         padding-right: 0;
@@ -3924,10 +3978,10 @@ label {
         padding: 5px 0;
     }
     .popup-table .--th, .popup-table .--td {
-        display: table-cell;
+        display: inline-block;
         vertical-align: middle;
         height: 100%;
-        width: 100%;
+        width: 50%;
         padding: 0 20px;
     }
     .popup-table .--th {
@@ -3938,3 +3992,6 @@ label {
     }
     .popup-table .--tr:nth-child(odd) {background: #EEE}
     .popup-table .--tr:nth-child(even) {background: #FFF}
+    .popup-table .input-control {
+        height: 28px;
+    }

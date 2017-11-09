@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 

@@ -146,6 +146,7 @@ class OrderHistory extends Component {
 
 
     render() {
+        console.log('adsdsd')
         var data = this.props.historyOrder.mvOrderBeanList
         return (
             <div style={{ height: "100%", position: "relative" }}>
@@ -172,6 +173,7 @@ class OrderHistory extends Component {
                         onExportExcel={this.onExportExcel.bind(this)}
 
                         searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
+                        searchMobileParams={[]}
                         searchActions={[]}
                         searchData={{ stockList: this.stockList }}
                         onSearch={this.onSearch.bind(this)}

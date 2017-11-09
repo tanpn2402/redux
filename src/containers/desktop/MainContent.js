@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import MenuItem from './SideMenu/MenuItem'
 import PageContent from './PageContent'
 import StatusBar from './StatusBar'
-import config from '../core/config'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
 import Notification from './Notification'
 import SettingNav from './SettingNav'
 import ProfileNav from './ProfileNav'
-import MarqueeBar from '../containers/MarqueeBar'
+import MarqueeBar from './MarqueeBar'
+import config from '../../core/config'
 export default class MainContent extends Component {
 
     constructor(props) {

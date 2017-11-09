@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import MenuItem from './SideMenu/MenuItem'
-import config from '../core/config'
+import config from '../../core/config'
 import { connect } from "react-redux"
-import * as actions from "../actions"
+import * as actions from "../../actions"
 import $ from 'jquery'
-import SlideNav from './SlideNav'
 
 class MenuNav extends Component {
 
@@ -12,7 +10,6 @@ class MenuNav extends Component {
         super(props)
 
         this.tabbar = config.tabbar
-        console.log(this.tabbar)
     }
 
     render() {
@@ -42,13 +39,6 @@ class MenuNav extends Component {
                                                 onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
 
                                                 {language.tab[tab.title]}
-                                                {/* <button
-                                                    className="hks-btn btn-tab-reload"
-                                                    type="button"
-                                                    onClick={e => this.onReloadPage(tab.id)}
-                                                >
-                                                    <span className="glyphicon glyphicon-repeat"></span>
-                                                </button> */}
 
                                             </span>
                                         )

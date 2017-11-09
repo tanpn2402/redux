@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import MenuItem from './SideMenu/MenuItem'
-import config from '../core/config'
+import config from '../../core/config'
 import { connect } from "react-redux"
-import * as actions from "../actions"
+import * as actions from "../../actions"
 import { FormControl, Button } from 'react-bootstrap'
 import * as $ from 'jquery'
 

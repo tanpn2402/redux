@@ -1,15 +1,16 @@
 import React from 'react'
 
 
-import PortfolioTab from './PortfolioX'
+import PortfolioTab from './Portfolio'
 import Trading from './Trading'
 import Management from './Management'
 import Customization from './Customization'
 import TransHistory from './TransHistory'
-import OrderJournalTab from './OrderJournalX'
-import Mobile from './Mobile'
+import OrderJournalTab from './OrderJournal'
+
 
 export default function (menuid, props){
+	menuid = menuid == "mobile" ? "trading" : menuid
 	switch(menuid){
 		case 'management':
 		return(
@@ -37,10 +38,7 @@ export default function (menuid, props){
 		return(
 			<Customization language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
 		)
-	case 'mobile':
-		return(
-			<Mobile language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-		)
+		
 	default: return
 	}
 }

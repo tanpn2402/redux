@@ -1,13 +1,8 @@
 import React from 'react';
-import BaseLayout from './BaseLayout.js';
 import { connect } from 'react-redux'
-import * as actions from '../actions'
-import SlideNav from './SlideNav'
-import SettingNav from './SettingNav'
-import FlashPopup from './commons/FlashPopup'
-import MessageBox from './commons/MessageBox'
-import Notification from './main/Notification'
-import config from '../core/config'
+import * as actions from '../../actions'
+import Notification from '../main/Notification'
+import config from '../../core/config'
 import generateWindow from './view'
 
 class PageContent extends React.Component {

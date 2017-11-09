@@ -10,7 +10,10 @@ import CashTransfer from './CashTransfer'
 import CashAdvanceBank from './CashAdvanceBank'
 import SaveLayout from './SaveLayout'
 import EnterOrderConfirm from './EnterOrderConfirm'
+// mobile
 import EnterOrderConfirmMobile from './mobile/EnterOrderConfirm'
+import ModifyOrderMobile from './mobile/ModifyOrder'
+import CancelOrderMobile from './mobile/CancelOrder'
 
 export default function (verion, props, onClose) {
 	if(verion === "mobile") {
@@ -82,6 +85,15 @@ function genPopupMobile(props, onClose) {
 	switch (props.id) {
 		case 'enterorderconfirm':
 			return (<EnterOrderConfirmMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			break;
+		
+			
+		case 'modifyorder':
+			return (<ModifyOrderMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			break;
+
+		case 'cancelorder':
+			return (<CancelOrderMobile theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
 			
 		case 'savelayout':

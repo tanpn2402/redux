@@ -4,12 +4,12 @@ import Entitlement from './Entitlement'
 import AdvancePayment from './AdvancePayment'
 import AdvancePaymentBank from './AdvancePaymentBank'
 
-import PortfolioTab from '../view/PortfolioX'
-import Trading from '../view/Trading'
-import Management from '../view/Management'
-import Customization from '../view/Customization'
-import TransHistory from '../view/TransHistory'
-import OrderJournalTab from '../view/OrderJournalX'
+// import PortfolioTab from '../view/PortfolioX'
+// import Trading from '../view/Trading'
+// import Management from '../view/Management'
+// import Customization from '../view/Customization'
+// import TransHistory from '../view/TransHistory'
+// import OrderJournalTab from '../view/OrderJournalX'
 
 import ActionRightList from './ActionRightList'
 import AdditionSharesInfo from './AdditionSharesInfo'
@@ -58,33 +58,34 @@ import TransactionHistory from './TransactionHistory'
 export default function (menuid, props){
 	
 	switch(menuid){
-		case 'management':
-			return(
-				<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
-			)
-		case 'trading':
-			return(
-				<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-			)
-		case 'portfoliotab':
-			return(
-				<PortfolioTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-			)
-		case 'orderjournaltab':
-			return(
-				<OrderJournalTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-			)
-		case 'transhistory':
-			return(
-				<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-			)
+		// case 'management':
+		// 	return(
+		// 		<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
+		// 	)
+		// case 'trading':
+		// 	return(
+		// 		<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		// 	)
+		// case 'portfoliotab':
+		// 	return(
+		// 		<PortfolioTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		// 	)
+		// case 'orderjournaltab':
+		// 	return(
+		// 		<OrderJournalTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		// 	)
+		// case 'transhistory':
+		// 	return(
+		// 		<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		// 	)
+		// case 'customization':
+		// 	return (
+		// 		<Customization language={props.language} stockList={props.stockList}/>
+		// 	)
+
 		case 'entitlement':
 			return (
 				<Entitlement language={props.language} theme={props.theme} stockList={props.stockList}/>
-			)
-		case 'customization':
-			return (
-				<Customization language={props.language} stockList={props.stockList}/>
 			)
 
 		case 'advancePayment':

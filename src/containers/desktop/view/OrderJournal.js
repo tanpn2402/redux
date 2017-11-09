@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import GridLayout from '../main/GridLayout.js'
-import config from '../../core/config'
+import * as actions from '../../../actions'
+import GridLayout from '../../main/GridLayout.js'
+import config from '../../../core/config'
 
 
 class OrderJournal extends Component {

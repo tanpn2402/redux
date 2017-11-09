@@ -343,12 +343,10 @@ class Portfolio extends Component {
                         return (
                             <div>
                                 <button className="hks-btn btn-buy" onClick={e => this.onBuyClick(props)}>
-                                    
-                                    BUY
+                                    {this.props.language.button.buy}
                                 </button>
                                 <button className="hks-btn btn-sell" onClick={e => this.onSellClick(props)}>
-                                    
-                                    SELL
+                                    {this.props.language.button.sell}
                                 </button>
                             </div>
                         )

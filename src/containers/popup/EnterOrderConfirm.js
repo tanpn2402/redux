@@ -4,7 +4,6 @@ import { Table, Button, Modal, } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from '../DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 
 class EnterOrderConfirm extends Component{

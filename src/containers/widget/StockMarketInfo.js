@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataUpperTable from '../DataUpperTable'
 import SearchBar from '../commons/SearchBar'
 import HorizontalTable from './../commons/HorizontalTable'
 import Config from '../../core/config.js'

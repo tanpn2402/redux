@@ -215,11 +215,11 @@ class OrderJournal extends Component {
                             <div>
                                 <button className="hks-btn btn-cancel" onClick={e => this.onCancelOrder(props)}>
                                     <span className="glyphicon glyphicon-remove"></span>
-                                    CANCEL
+                                    {this.props.language.button.cancel}
                                 </button>
                                 <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
                                     <span className="glyphicon glyphicon-pencil"></span>
-                                    MODIFY
+                                    {this.props.language.button.modify}
                                 </button>
                             </div>
                         )
@@ -258,10 +258,11 @@ class OrderJournal extends Component {
     }
 
     onCancelOrder(order) {
-        console.log(order)
+        this.handleCancelOrder(order)
     }
 
     onModifyOrder(order) {
+        this.handleModifyOrder(order)
         console.log(order)
     }
 

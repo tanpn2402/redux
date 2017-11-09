@@ -8,10 +8,13 @@ export default
             "trading": "Trading",
             "portfolio": "Portfolio",
             "orderjournal": "Order Journal",
-            "transhistory": "Trans History",
+            "transhistory": "Transaction History",
             "management": "Management",
             "customization": "Customization",
-            "mobile": "mobile"
+            "mobile": "mobile",
+            "daytrade": "Day Trade",
+            "orderhistory": "Order History"
+            
         },
         "setting": {
             "language": {
@@ -74,7 +77,8 @@ export default
             }
         },
         "menu": {
-            "tradingplatform": "Trading Platform",
+            "trading": "Trading",
+            "trandate": "Day Trade",
             "enterorder": "Enter Order",
             "stockmarketinform": "Stock Market Inform",
             "watchlist": "Watch List",
@@ -108,7 +112,7 @@ export default
             "advancePaymentBank": "Bank Advance Payment",
             "fundTransfer": "Fund Transfer",
             "cashTransHistory": "Cash Transaction History",
-            "orderHistory": "Order History",
+            "orderhistory": "Order History",
             "portfolio": "Portfolio",
             "sumary": "Sumary",
             "oddLotOrder": "Odd Lot Order",
@@ -213,7 +217,19 @@ export default
                 "time": "Time",
                 "stockid": "Stock ID",
                 "buysell": "B/S",
-                "orderID": "Order ID"
+                "orderID": "Order ID",
+
+                // for popup table
+                "market": "Market",
+                "tradeId": "Trade Code",
+                "stockName": "Stock Name",
+                "buysell": "Buy/Sell",
+                "initialPrice": "Initial Price",
+                "newPrice": "New Price",
+                "initialQuantity": "Initial Quantity",
+                "matchedQuantity": "Matched Quantity",
+                "newQuantity": "New Quantity",
+                "totalCash": "Total Money"
             },
             "popup": {
                 "title": {
@@ -1124,6 +1140,7 @@ export default
             "FTSubmit": "Thực hiện",
             "exportData": "Export",
             "cancel": "Cancel",
+            "modify": "Modify",
             "CTTCancel": "Cancel",
             "clear": "Clear",
             "addNew": "Add New",
@@ -1144,7 +1161,9 @@ export default
             "buy": "Buy",
             "sell": "Sell",
             "reset": "RESET",
-            "sure": "Sure"
+            "sure": "Sure",
+            "confirmModify": "Confirm Modify",
+            "confirmCancel": "Confirm Cancel"
         },
         "login": {
             "username": "Account No",

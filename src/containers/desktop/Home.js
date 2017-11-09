@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/index'
-import Header from '../Header'
-import MenuNav from '../MenuNav'
-import MainContent from '../MainContent'
+import Header from './Header'
+import MenuNav from './MenuNav'
+import MainContent from './MainContent'
 import config from '../../core/config'
 import {getLanguage, getTheme } from '../../utils'
 
