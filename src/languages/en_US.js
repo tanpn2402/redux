@@ -85,7 +85,7 @@ export default
             "orderjournal": "Order Journal",
             "accountinfo": "Account Info",
             "account": "Account",
-            "ordershistory": "Transaction History",
+            "ordershistory": "Order History",
             "cashtransactionhistory": "Cash Transaction History",
             "cashstatement": "Cash Statement",
             "stockstatement": "Stock Statement",
@@ -112,7 +112,7 @@ export default
             "advancePaymentBank": "Bank Advance Payment",
             "fundTransfer": "Fund Transfer",
             "cashTransHistory": "Cash Transaction History",
-            "orderhistory": "Order History",
+            "orderHistory": "Order History",
             "portfolio": "Portfolio",
             "sumary": "Sumary",
             "oddLotOrder": "Odd Lot Order",
@@ -129,7 +129,8 @@ export default
             "loanRefundPanel": "Loan Refund Panel",
             "loanRefundHistory": "Loan Refund Transaction History",
             "loanRefundStatus": "Loan Refund Transaction Status",
-            "transactionhistory": "Transaction History"
+            "transactionhistory": "Transaction History",
+            "accountbalance": "Account Balance"
         },
         "searchbar": {
             "search": "Search",
@@ -191,7 +192,17 @@ export default
             "mvStartDate": "Start Date",
             "mvEndDate": "End Date",
             "tradeType": "Transaction Type",
-            "mvStatus": "Order Status"
+            "mvStatus": "Order Status",
+            "mvMarket": "Market",
+            "mvCurrency": "Currency",
+            "HKD": "HKS",
+            "CVY": "CVY", 
+            "EUR": "EUR",
+            "TWD": "TWD",
+            "USD": "USD",
+            "HO": "HO",
+            "HA": "HA",
+            "UPCOM": "UPCOM"
         },
         "marqueebar": {
             "status": "Status",
@@ -944,6 +955,16 @@ export default
                 "advancePaymentSuccessful": "Advance Payment Successful.",
                 "noRegisterBank": "You don't register to trading via bank.",
                 "differentTradeDate": "You must select orders with have same trade date."
+            }
+        },
+        "accountbalance": {
+            "header": {
+                "currency": "Currency",
+                "exrate": "Ex Rate",
+                "holdamount": "Hold Amount",
+                "withdrawable": "Withdrawable",
+                "settledbalance": "Settled Balance",
+                "ledgerbalance": "Ledger Balance"
             }
         },
         "cash": {

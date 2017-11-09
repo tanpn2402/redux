@@ -11,13 +11,17 @@ export default class WidgetBody extends Component {
         if(this.props.chart!= undefined){
             return (
                 <div className="widget-body" style={{zIndex: '2', border: widgetbody}} onMouseDown={ e => e.stopPropagation() }>
-                    {this.props.children}
+                    <div className="widget-wrapper">
+                        {this.props.children}
+                    </div>
                 </div>
             )
         }else{
             return (
                 <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{border: widgetbody}} >
-                    {this.props.children}
+                    <div className="widget-wrapper">
+                        {this.props.children}
+                    </div>
                 </div>
             )
         }

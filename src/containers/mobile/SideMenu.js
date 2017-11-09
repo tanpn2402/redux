@@ -90,7 +90,7 @@ class SideMenu extends Component {
                                 )
                             })
                         }
-                    </div>
+                    </div> */}
                     <div className="sidemenu-footer">
                         <div className="setting">
                             <span className="glyphicon glyphicon-cog"></span>
@@ -102,7 +102,7 @@ class SideMenu extends Component {
                             <label>Log out</label>
                         </div>
 
-                    </div> */}
+                    </div>
                 </div>
 
 

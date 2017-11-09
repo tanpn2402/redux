@@ -45,6 +45,7 @@ import FundTransferPanel from './FundTransferPanel'
 
 import Portfolio from './Portfolio'
 import Sumary from './Sumary'
+import AccountBalance from './AccountBalance'
 
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
@@ -204,6 +205,10 @@ export default function (menuid, props){
 		case 'sumary':
 			return (
 				<Sumary stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'accountbalance':
+			return (
+				<AccountBalance stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 			
 		case 'loanrefund':

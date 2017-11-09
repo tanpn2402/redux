@@ -41,7 +41,8 @@ class Customization extends Component {
                 language={this.props.language}
                 layout={this.state.layout}
                 stockList={this.props.stockList} 
-                theme={this.props.theme}>
+                theme={this.props.theme}
+                margin={[10, 10]}>
             </GridLayout>
         )
     }

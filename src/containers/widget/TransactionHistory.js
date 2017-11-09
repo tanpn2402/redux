@@ -173,7 +173,7 @@ class TransactionHistory extends Component {
             cashHisPageIndex: 1,
         }
 
-        this.id = "ordershistory"
+        this.id = "transactionhistory"
         this.defaultPageSize = 15
 
         this.orderHisParams = {

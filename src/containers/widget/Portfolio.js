@@ -8,6 +8,7 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 
+const { Contants } = require("../../core/constants")
 class Portfolio extends Component {
     constructor(props) {
         super(props)
@@ -405,7 +406,7 @@ class Portfolio extends Component {
                         totalPage={Math.ceil(data.length / this.defaultPageSize)}
 
                         searchParams={[]}
-                        searchMobileParams={[]}
+                        searchMobileParams={[Contants.searchElement.MARKET, Contants.searchElement.CURRENCY]}
                         searchActions={[]}
                         searchData={{}}
                         searchDefaultValues={[]}

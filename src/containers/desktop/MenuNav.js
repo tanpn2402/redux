@@ -20,12 +20,7 @@ class MenuNav extends Component {
 
         return (
             <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
-                
-                <div className="scrolling-tabs-left">
-                    <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-menu-left" ></span>
-                    </button>
-                </div>
+              
 
                 <div className="scroll">
                     <div className="scrolling-tabs" id="scrolling-menu-tabs">
@@ -50,16 +45,7 @@ class MenuNav extends Component {
                         </nav>
                     </div>
                 </div>
-                <div className="scrolling-tabs-right">
-
-                    <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-menu-right" ></span>
-                    </button>
-                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={scrollBtnStyle}>
-                        <span className="glyphicon glyphicon-floppy-disk" ></span>
-                            {language.button.saveLayout}
-                    </button>
-                </div>
+              
             </div>
         )
     }

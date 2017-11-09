@@ -199,6 +199,14 @@ const config = {
 		"UPCOM"
 	],
 
+	currency: [
+		"HKD",
+		"CVY",
+		"EUR",
+		"TWD",
+		"USD"
+	],
+
 	widget: [
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
 		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
@@ -302,6 +310,7 @@ const config = {
 			title: "portfolio",
 			enabled: true,
 			widget: [
+				{ i: 'accountbalance', x: 0, y: 0, w: 8, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 9, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: false },
 				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
 			]

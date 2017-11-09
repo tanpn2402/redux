@@ -30,6 +30,7 @@ class Portfolio extends Component {
                 layout={this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
+                margin={[15, 15]}
                 >
             </GridLayout>
         )

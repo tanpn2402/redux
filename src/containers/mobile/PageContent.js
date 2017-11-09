@@ -23,6 +23,7 @@ class PageContent extends React.Component {
                         layout={ this.state.layout}
                         stockList={this.props.stockList} 
                         theme={this.props.theme}
+                        margin={[0, 10]}
                         >
                     </GridLayout>
                 </div>
@@ -31,8 +32,7 @@ class PageContent extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props.tabID)
-        var tabs = config.mobileTab.filter(el => el.id === this.props.tabID )
+        var tabs = config.mobileTab.filter(el => el.id === "trading" )
         if(tabs.length > 0){
             this.setState({
                 layout: tabs[0].widget
@@ -55,7 +55,7 @@ class PageContent extends React.Component {
         }
         else{
             this.setState({
-                layout: []
+                layout: config.mobileTab.filter(el => el.id === "trading" )
             })
         }
     }

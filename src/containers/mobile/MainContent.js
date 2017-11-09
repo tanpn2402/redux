@@ -17,6 +17,7 @@ export default class MainContent extends Component {
             <div id="maincontent" className="maincontent-mobile">
                 <SideMenu language={this.props.language}/>
                 <Search language={this.props.language}/>
+                <Notification theme={this.props.theme} language={this.props.language} />
                 <FunctionChooser language={this.props.language.page}/>
                 <PageContent theme={this.props.theme} language={this.props.language.page}   />
             </div>
