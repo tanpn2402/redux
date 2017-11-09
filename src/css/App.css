@@ -3886,6 +3886,19 @@ label {
 
 
     /* POPUP */
+    .popup{
+        width: 40vw;
+    }
+    .panel-default > .panel-heading{
+        background: white;
+    }
+    .panel-title > a{
+        display: block;
+        margin: -10px -15px;
+        padding: 10px 15px;
+        text-decoration: none;
+        cursor: pointer;
+    }
     .mobile .modal-body {
         padding-left: 0;
         padding-right: 0;

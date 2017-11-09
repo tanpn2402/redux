@@ -4,15 +4,15 @@ class TabControl extends React.Component {
     constructor(props) {
         super(props)
     }
-    
+
     onTabChange(key) {
         this.props.onTabChange(key)
     }
 
     render() {
         let activeKey = this.props.activeKey
-        let itemWidth =(1 / this.props.children.length) * 100
-        let children = this.props.children.map(function(item, i) {
+        let itemWidth = (1 / this.props.children.length) * 100
+        let children = this.props.children.map(function (item, i) {
             var isActived = item.props.eventKey === activeKey
             return React.cloneElement(item, {
                 actived: isActived,
@@ -23,17 +23,17 @@ class TabControl extends React.Component {
         }, this);
 
         let activedTab = this.props.children.filter(e => e.props.eventKey === activeKey)
-    
+
         return (
 
             <div className="tab-component">
-                <div className="tab-chooser" ref={ ref => this.refChooser = ref }>
+                <div className="tab-chooser" ref={ref => this.refChooser = ref}>
                     <ul className="tab-control">
                         {children}
                     </ul>
                 </div>
 
-                <div className="tab-wrapper" ref={ ref => this.refWrapper = ref }>
+                <div className="tab-wrapper" ref={ref => this.refWrapper = ref}>
                     <div className="tab-inner">
                         {activedTab.length > 0 ? activedTab[0].props.children : null}
                     </div>
@@ -42,7 +42,7 @@ class TabControl extends React.Component {
 
             </div>
         )
-        
+
 
     }
 
@@ -51,7 +51,7 @@ class TabControl extends React.Component {
     }
 
     componentDidUpdate() {
-        if(this.refChooser && this.refWrapper) {
+        if (this.refChooser && this.refWrapper) {
             this.refWrapper.style.paddingTop = this.refChooser.offsetHeight + "px"
         }
     }
@@ -69,14 +69,14 @@ class TabItem extends React.Component {
     render() {
         return (
 
-            <li className={"tab-item " + (this.props.actived ? "actived" : "") } style={{width: (this.props.width + "%")}}
-                onClick={e => this.onClick(this.props.eventKey)}> 
-                <div>{this.props.title}</div> 
+            <li className={"tab-item " + (this.props.actived ? "actived" : "")} style={{ width: (this.props.width + "%") }}
+                onClick={e => this.onClick(this.props.eventKey)}>
+                <div>{this.props.title}</div>
             </li>
         )
-        
+
 
     }
 }
 
-export {TabControl, TabItem}
+export { TabControl, TabItem }

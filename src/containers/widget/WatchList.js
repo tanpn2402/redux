@@ -34,7 +34,7 @@ class WatchList extends Component {
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
                         id: 'stock',
-                        accessor: 'mvSymbol',
+                        accessor: 'mvStockCode',
                         width: 60,
                         show: true,
                         skip: false
@@ -310,6 +310,7 @@ class WatchList extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
+            listStock: nextProps.watchListLocalStockList
         })
     }
 
