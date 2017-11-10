@@ -16,10 +16,10 @@ export default {
   },
   page: {
     pageheader: {
-      backgroundColor: '#FFFFFF'
+      backgroundColor: '#ffffff'
     },
     pagebackground: {
-      backgroundColor: '#FFFFFF'
+      backgroundColor: '#f2f2f2'
     },
     pagemenu: {
       backgroundColor: '#005aa0'
@@ -30,13 +30,13 @@ export default {
   },
   widget: {
     widgetbackground: {
-      backgroundColor: '#EEECEC'
+      backgroundColor: '#FFFFFF'
     },
     widgetheader: {
-      backgroundColor: '#005AA0'
+      backgroundColor: '#FFFFFF'
     },
     widgetbody: {
-      border: '1.75px solid #005AA0'
+      border: '1.75px solid #FFFFFF'
     }
   },
   // Comment to use default library theme, uncomment to customize

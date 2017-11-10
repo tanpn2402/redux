@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import VerticalTable from '../VerticalTable'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataUpperTable from '../DataUpperTable'
 import { Tabs, Tab } from 'react-bootstrap'
 import ScrollingTabs from './../commons/ScrollingTabs'
 import HorizontalTable from './../commons/HorizontalTable'

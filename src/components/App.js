@@ -5,6 +5,7 @@ import HomeMobile from '../containers/mobile/Home';
 import { browserHistory } from 'react-router';
 import config from '../core/config';
 import * as actions from '../actions/index';
+
 class App extends React.Component {
 
     componentWillReceiveProps(nextProps){
@@ -16,9 +17,7 @@ class App extends React.Component {
     render() {
         
         if( this.props.loginStatus === "SUCCESS" ){
-            // console.log(this.props.loginStatus)
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                this.props.onTabClick('mobile')
                 return (
                     <HomeMobile/>
                 )
@@ -30,8 +29,6 @@ class App extends React.Component {
             }
             
         } else {
-            config.tabbar.map(tab => tab.enabled = true)
-            config.tabbar[config.tabbar.findIndex(tab=>tab.id=="mobile")].enabled = false
             return (
                 <div className="loading">
                     <img src={require('../assets/images/loading.gif')} />
@@ -44,8 +41,8 @@ const mapStateToProps = (state) => ({
     loginStatus: state.dologin.loginStatus
 });
 const mapDispatchToProps = (dispatch, props) => ({
-    onTabClick: (tabID) => {
-        dispatch(actions.onTabClick(tabID));
-    }
+    // onTabClick: (tabID) => {
+    //     dispatch(actions.onTabClick(tabID));
+    // }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

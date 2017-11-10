@@ -3,7 +3,6 @@ import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 
 import SearchBar from "../commons/SearchBar"
 import { connect } from "react-redux"
 import * as actions from "../../actions"
-import DataUpperTable from "../DataUpperTable"
 import Pagination from "../commons/Pagination"
 import Title from "../commons/WidgetTitle"
 import Body from "../commons/WidgetBody"

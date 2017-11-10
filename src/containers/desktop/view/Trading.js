@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import GridLayout from '../main/GridLayout.js'
-import config from '../../core/config'
+import * as actions from '../../../actions'
+import GridLayout from '../../main/GridLayout.js'
+import config from '../../../core/config'
 
 
-class OrderJournal extends Component {
-	constructor(props) {
+class Trading extends Component {
+    constructor(props) {
         super(props)
 
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
@@ -17,21 +17,21 @@ class OrderJournal extends Component {
         else{
             this.layout = []
 
-        }
-        
+        }  
     }
 
     componentWillReceiveProps(nextProps){
-    }	
+    }   
 
     render(){
 
         return(
             <GridLayout 
                 language={this.props.language}
-                layout={ this.layout}
+                layout={this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
+                margin={[15, 15]}
                 >
             </GridLayout>
         )
@@ -42,11 +42,11 @@ class OrderJournal extends Component {
 }
 
 const mapStateToProps = (state) => {
-  	return {
-  	}
+    return {
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderJournal)
+export default connect(mapStateToProps, mapDispatchToProps)(Trading)

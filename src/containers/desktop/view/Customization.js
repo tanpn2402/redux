@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import GridLayout from '../main/CustomizationGridLayout.js'
-import config from '../../core/config'
+import * as actions from '../../../actions'
+import GridLayout from '../../main/CustomizationGridLayout.js'
+import config from '../../../core/config'
 
 
-class Mobile extends Component {
+class Customization extends Component {
     constructor(props) {
         super(props)
-        this.customConfig = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="mobile")]
+        this.customConfig = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")]
         this.state = {
             layout : this.customConfig.widget.length>0?this.customConfig.widget:[]
         }
-        //console.log(this.state.layout)
+
         this.reloadWidget = this.reloadLayout.bind(this)
     }
 
@@ -26,18 +26,12 @@ class Mobile extends Component {
         }
     }
 
-    
-
-    
-
     reloadLayout(){
-        var widgets = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="mobile")].widget
+        var widgets = config.tabbar[config.tabbar.findIndex(tab=>tab.id=="customization")].widget
 
         this.setState({
             layout : widgets.length > 0 ? [...widgets] : []
         })
-
-        //console.log(this.state.layout)
     }
 
 
@@ -47,7 +41,8 @@ class Mobile extends Component {
                 language={this.props.language}
                 layout={this.state.layout}
                 stockList={this.props.stockList} 
-                theme={this.props.theme}>
+                theme={this.props.theme}
+                margin={[10, 10]}>
             </GridLayout>
         )
     }
@@ -64,4 +59,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Mobile)
+export default connect(mapStateToProps, mapDispatchToProps)(Customization)

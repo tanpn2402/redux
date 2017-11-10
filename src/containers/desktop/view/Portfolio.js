@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import GridLayout from '../main/GridLayout.js'
-import config from '../../core/config'
+import * as actions from '../../../actions'
+import GridLayout from '../../main/GridLayout.js'
+import config from '../../../core/config'
 
 
-class Trading extends Component {
+class Portfolio extends Component {
     constructor(props) {
         super(props)
 
@@ -17,20 +17,20 @@ class Trading extends Component {
         else{
             this.layout = []
 
-        }  
+        }
     }
 
     componentWillReceiveProps(nextProps){
     }   
 
     render(){
-
         return(
             <GridLayout 
                 language={this.props.language}
                 layout={this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
+                margin={[15, 15]}
                 >
             </GridLayout>
         )
@@ -48,4 +48,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Trading)
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)

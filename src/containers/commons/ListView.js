@@ -398,6 +398,18 @@ class SearchListView extends React.Component {
                         default={this.props.searchDefaultValues[id]} data={config.orderstatus} />
                 )
                 break
+            case Contants.searchElement.MARKET:
+                return (
+                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} data={config.marketid} />
+                )
+                break
+            case Contants.searchElement.CURRENCY:
+                return (
+                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} data={config.currency} />
+                )
+                break
         }
     }
 
@@ -476,6 +488,7 @@ class Selector extends React.Component {
         }
     }
     render() {
+        console.log('asd')
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default !== undefined ? this.props.default : ""
         let data = this.props.data
@@ -486,7 +499,7 @@ class Selector extends React.Component {
                 </div>
                 <div className="col-xs-7">
 
-                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref}
+                    <select value={defaultValue} class="form-control" ref={ref => this.selector = ref}
                         onChange={e => this.onChange(e.target.value)}>
                         {
                             data.map(e => {
@@ -502,10 +515,11 @@ class Selector extends React.Component {
     }
 
     getValue() {
-        return this.transtype.value
+        return this.selector.value
     }
 
     onChange(value) {
+        this.selector.value = value
         this.setState({ value: value })
         let tmp = {}
         tmp[this.props.id] = this.getValue()

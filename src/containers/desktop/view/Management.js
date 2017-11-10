@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
-import TabLayout from '../main/TabLayout'
+import * as actions from '../../../actions'
+import TabLayout from '../../main/TabLayout'
 
 
-class TransHistory extends Component {
+class Management extends Component {
 	constructor(props) {
         super(props)
     }
@@ -29,4 +29,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransHistory)
+export default connect(mapStateToProps, mapDispatchToProps)(Management)
