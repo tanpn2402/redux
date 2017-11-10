@@ -41,10 +41,9 @@ export default class Collapse extends React.Component {
                     this.props.collapses.map((collapse, index) => {
                         return (
                             <CollapseItem key={collapse.id} rowId={collapse.id} header={collapse.header} body={collapse.body}
-                                isExpanded={index == expandedIndex} data={this.props.data} content1={this.props.content1}
-                                content2={this.props.content2} handleExpand={this.handleExpand.bind(this)}
+                                isExpanded={index == expandedIndex} data={this.props.data} handleExpand={this.handleExpand.bind(this)}
                                 backgroundActive={this.backgroundActive} backgroundInactive={this.backgroundInactive}
-                                setRef={(id, e) => this[id] = e} />
+                                setRef={(id, e) => this[id] = e} collapse={collapse} />
                         )
                     })
                 }
@@ -69,7 +68,7 @@ class CollapseItem extends React.Component {
                 </CollapseHeader>
 
                 <CollapseBody rowId={this.props.rowId} isExpanded={this.props.isExpanded} data={this.props.data}
-                    content1={this.props.content1} content2={this.props.content2} >
+                    collapse={this.props.collapse} >
                     {this.props.body}
                 </CollapseBody>
             </div>
@@ -90,7 +89,6 @@ class CollapseHeader extends React.Component {
                 style={{
                     background: this.props.isExpanded ?
                         this.props.backgroundActive : this.props.backgroundInactive,
-                    display: 'block'
                 }}>
                 <div style={{ width: "30px", display: 'inline-block' }}>
                     <span ref={e => this.props.setRef(id, e)} className="glyphicon glyphicon-chevron-right" />
@@ -111,7 +109,7 @@ class CollapseBody extends React.Component {
     render() {
         return (
             <div id={this.props.rowId} className={this.props.isExpanded ? 'collapse in' : 'collapse'} >
-                {this.props.children(this.props.data, this.props.content1, this.props.content2)}
+                {this.props.children(this.props.data, this.props.collapse)}
             </div>
         )
     }

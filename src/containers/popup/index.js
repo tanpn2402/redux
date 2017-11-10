@@ -15,6 +15,7 @@ import EnterOrderConfirm from './EnterOrderConfirm'
 import EnterOrderConfirmMobile from './mobile/EnterOrderConfirm'
 import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
+import Setting from './mobile/Setting'
 
 export default function (verion, props, onClose) {
 	if (verion === "mobile") {
@@ -102,6 +103,10 @@ function genPopupMobile(props, onClose) {
 
 		case 'savelayout':
 			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config} />)
+			break;
+
+		case 'setting':
+			return (<Setting onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
 			break;
 	}
 }

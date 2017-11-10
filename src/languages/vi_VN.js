@@ -7,11 +7,13 @@ export default
             "tab": {
                 "trading": "Giao dịch",
                 "portfolio": "Danh mục đầu tư",
+                "daytrade": "Tra cứu lệnh giao dịch",
                 "orderjournal": "Tra cứu lệnh giao dịch",
                 "transhistory": "Tra cứu lịch sử giao dịch",
                 "management": "Dịch vụ khác",
                 "customization": "Tùy chỉnh",
-                "mobile": "mobile"
+                "mobile": "mobile",
+                "orderhistory": "Lịch sử lệnh"
             },
             "setting": {
                 "language": {
@@ -442,6 +444,16 @@ export default
                     "cashDeposit": "Nộp tiền mặt",
                     "sellStkInMarPort": "Bán CK trong danh mục ký quỹ",
                     "sellStkNotInMarPort": "Bán CK ngoài danh mục ký quỹ"
+                }
+            },
+            "assetallocation":{
+                "header": {
+                    "creditlimit": "Giới hạn tín dụng",
+                    "buyingpower": "Sức mua",
+                    "withdrawablebalance": "Số dư rút được",
+                    "totalmarketvalue": "Tổng giá trị thị trường",
+                    "settled": "Settled",
+                    "ledgerbalance": "Số dư sổ cái"
                 }
             },
             "stockstatement": {

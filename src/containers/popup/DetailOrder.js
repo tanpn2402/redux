@@ -60,9 +60,11 @@ class DetailOrder extends Component {
         let language = this.props.language
         let collapses = [
             {
-                id: 'test_1',
+                id: 'orderinfo',
                 header: 'Order Info',
-                body: (data, content1, content2) => {
+                body: (data, subData) => {
+                    let content1 = subData.rows.slice(0,8)
+                    let content2 = subData.rows.slice(8)
                     return (<div>
                         <div>
                             <span style={{ fontWeight: 'bold' }} >Account No. # </span> <span>{data.mvClientID}</span>
@@ -104,18 +106,84 @@ class DetailOrder extends Component {
                         </div>
                     </div>)
                 },
+                rows: [
+                    {
+                        text: 'Stock Code',
+                        value: 'mvStockID'
+                    },
+                    {
+                        text: 'Stock Name',
+                        value: 'mvStockName'
+                    },
+                    {
+                        text: 'Market',
+                        value: 'mvMarketID'
+                    },
+                    {
+                        text: 'Stock Currency',
+                        value: 'mvCurrencyID'
+                    },
+                    {
+                        text: 'Order Type',
+                        value: 'mvOrderType'
+                    },
+                    {
+                        text: 'No. of Shares',
+                        value: 'mvQty'
+                    },
+                    {
+                        text: 'OS Qty',
+                        value: 'mvQty'
+                    },
+                    {
+                        text: 'Net Amount',
+                        value: 'mvNetAmt'
+                    },
+                    {
+                        text: 'Order No.',
+                        value: 'mvOrderID'
+                    },
+                    {
+                        text: 'Quantity',
+                        value: 'mvQty'
+                    },
+                    {
+                        text: 'B/S',
+                        value: 'mvBS'
+                    },
+                    {
+                        text: 'Order Price',
+                        value: 'mvPrice'
+                    },
+                    {
+                        text: 'Status',
+                        value: 'mvStatus'
+                    },
+                    {
+                        text: 'Cancel Qty',
+                        value: 'mvCancelQty'
+                    },
+                    {
+                        text: 'Good Till Date',
+                        value: 'mvGoodTillDate'
+                    },
+                    {
+                        text: 'Gross Amount',
+                        value: 'mvGrossAmt'
+                    }
+                ]
             },
             {
-                id: 'test_2',
+                id: 'executionsummary',
                 header: 'Execution Summary',
-                body: (data, content1, content2) => {
+                body: (data) => {
                     return 'bbb'
                 },
             },
             {
-                id: 'test_3',
+                id: 'orderaudit',
                 header: 'Order Audit',
-                body: (data, content1, content2) => {
+                body: (data, subData) => {
                     return (
                         <div>
                             <div style={{ backgroundColor: '#E0E0E0', fontWeight: 'bold' }} >
@@ -135,75 +203,7 @@ class DetailOrder extends Component {
                             </div>
                         </div>
                     )
-                },
-            }
-        ]
-        let content1 = [
-            {
-                text: 'Stock Code',
-                value: 'mvStockID'
-            },
-            {
-                text: 'Stock Name',
-                value: 'mvStockName'
-            },
-            {
-                text: 'Market',
-                value: 'mvMarketID'
-            },
-            {
-                text: 'Stock Currency',
-                value: 'mvCurrencyID'
-            },
-            {
-                text: 'Order Type',
-                value: 'mvOrderType'
-            },
-            {
-                text: 'No. of Shares',
-                value: 'mvQty'
-            },
-            {
-                text: 'OS Qty',
-                value: 'mvQty'
-            },
-            {
-                text: 'Net Amount',
-                value: 'mvNetAmt'
-            }
-        ]
-        let content2 = [
-            {
-                text: 'Order No.',
-                value: 'mvOrderID'
-            },
-            {
-                text: 'Quantity',
-                value: 'mvQty'
-            },
-            {
-                text: 'B/S',
-                value: 'mvBS'
-            },
-            {
-                text: 'Order Price',
-                value: 'mvPrice'
-            },
-            {
-                text: 'Status',
-                value: 'mvStatus'
-            },
-            {
-                text: 'Cancel Qty',
-                value: 'mvCancelQty'
-            },
-            {
-                text: 'Good Till Date',
-                value: 'mvGoodTillDate'
-            },
-            {
-                text: 'Gross Amount',
-                value: 'mvGrossAmt'
+                }
             }
         ]
         let data = this.props.data.data
@@ -275,15 +275,15 @@ class DetailOrder extends Component {
                         //     </Panel>
                         // </Accordion>
                     }
-                    <Collapse collapses={collapses} expandedIndex={0} data={data} content1={content1} content2={content2} />
+                    <Collapse collapses={collapses} expandedIndex={0} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />
 
                 <Modal.Footer>
-                    <Button onClick={this.props.onHide} >Close</Button>
+                    <Button onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
-            </div >
+            </div>
         )
     }
 }
