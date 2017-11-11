@@ -15,11 +15,11 @@ export default class MainContent extends Component {
     render() {
         return (
             <div id="maincontent" className="maincontent-mobile">
-                <SideMenu language={this.props.language}/>
-                <Search language={this.props.language}/>
+                <SideMenu language={this.props.language} theme={this.props.theme} />
+                <Search language={this.props.language} />
                 <Notification theme={this.props.theme} language={this.props.language} />
-                <FunctionChooser language={this.props.language.page}/>
-                <PageContent theme={this.props.theme} language={this.props.language.page}   />
+                <FunctionChooser language={this.props.language.page} />
+                <PageContent theme={this.props.theme} language={this.props.language.page} />
             </div>
         )
     }

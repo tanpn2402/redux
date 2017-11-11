@@ -14,7 +14,7 @@ class FunctionChooser extends React.Component {
         let language = this.props.language
         return (
             <div className="function-choose">
-                <select onChange={this.onChange.bind(this)} >
+                <select value={this.props.tabID} onChange={this.onChange.bind(this)} >
                     {
                         this.mobileLayout.map(e => {
                             return <option value={e.id}>{language.tab[e.title]}</option>
@@ -33,7 +33,7 @@ class FunctionChooser extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    
+    tabID: state.menuSelected.tabID,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

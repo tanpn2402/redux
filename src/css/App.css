@@ -40,7 +40,7 @@ body {
     border-radius: 15px;
     background-color: transparent;
     color: #fff;
-    outline: none;
+    /*outline: none;*/
     padding: 5px 6px;
     margin: 0 5px;
 }
@@ -91,6 +91,18 @@ body {
     width: auto;
     padding: 5px 20px;
     width: 120px;
+}
+.hks-btn.btn-side-menu {
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+    margin: 0px 0;
+    padding: 15px 0;
+    padding-left: 10px;
+    outline: all;
+    color: #000;
+    background-color: #FFF;
 }
 .hks-tab {
     color: #fff;
@@ -1042,6 +1054,11 @@ label {
 .setting-panel .st-header:hover {
     background-color: #dcdcdc;
 }
+.setting-list .st-header {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 16px;
+}
 .setting-item {
     transition: 0.1s;
     padding-left: 0px;
@@ -1052,7 +1069,7 @@ label {
     padding-left: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
-    font-size: 20px;
+    font-size: 14px;
     cursor: pointer;
 }
 .setting-item > li > a > .selected{
@@ -3381,7 +3398,7 @@ label {
         position: relative;
         z-index: 1;
         background-color: #fff;
-        border-bottom: 1px solid #cccc;
+        border-bottom: 1px solid #ccc;
     }
     .function-choose select {
         border: none;
@@ -3403,7 +3420,7 @@ label {
         position: absolute;
         height: 100%;
         padding-top: 50px;
-        padding-bottom: 80px;
+        padding-bottom: 107px;
         background-color: #fff;
         /* -webkit-box-shadow: 4px 0 4px -2px #888;
         box-shadow: 4px 0 4px -2px #888; */
@@ -3476,6 +3493,17 @@ label {
         top: 4px;
         font-size: 18px;
         color: #a5a5a5;
+    }
+    .bullet {
+        width: 10px;
+        height: 10px;
+        border-radius: 99px;
+        background: rgb(0, 0, 0);
+        display: inline-block;
+        float: right;
+        margin-right: 20px;
+        position: relative;
+        top: 5px;
     }
     /* END SIDE MENU */
 
@@ -3830,14 +3858,39 @@ label {
     overflow-y: auto;
     height: 100%;
 }
-.listview-control > .rt-lv > .lv-tfooter {
+.listview-control .lv-tfooter {
     width: 100%;
     position: absolute;
     bottom: 0;
-    padding: 8px 0px;
     border-top: 1px solid #e4e4e4;
     background: #fff;
     user-select: none;
+}
+.lv-tfooter .-btn-prev {
+    position: relative;
+    z-index: 1;
+    float: left;
+    padding-left: 10px;
+}
+.lv-tfooter .-btn-next {
+    position: relative;
+    z-index: 1;
+    float: right;
+    padding-right: 10px;
+}
+.lv-tfooter .disabled {
+    color: #ccc;
+}
+.lv-tfooter .-pager {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    padding: 8px 0px;
+}
+.lv-tfooter button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 0px;
 }
 .widget-body > .listview-control {
     padding-top: 23px;
@@ -3950,6 +4003,9 @@ label {
 
 
     /* POPUP */
+    .popup{
+        width: 40vw;
+    }
     .mobile .modal-dialog {
         width: 100%;
         margin: 0;
@@ -4009,7 +4065,12 @@ label {
     .popup-table .input-control {
         height: 28px;
     }
-
+    /* SETTING POPUP */
+    .mobile .setting-list {
+        height: 250px;
+        padding-bottom: 10px;
+        overflow-y: auto;
+    }
 
     /* WIDGET */
     .maincontent-mobile .widget-header {

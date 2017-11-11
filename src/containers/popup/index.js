@@ -2,6 +2,7 @@ import React from 'react'
 import CancelOrder from './CancelOrder'
 import ModifyOrder from './ModifyOrder'
 import ConfirmOrder from './ConfirmOrder'
+import DetailOrder from './DetailOrder'
 import OddLotTrading from './OddLotTrading'
 import CashAdvancePopup from './CashAdvance'
 import LoanRefund from './LoanRefund'
@@ -14,9 +15,10 @@ import EnterOrderConfirm from './EnterOrderConfirm'
 import EnterOrderConfirmMobile from './mobile/EnterOrderConfirm'
 import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
+import Setting from './mobile/Setting'
 
 export default function (verion, props, onClose) {
-	if(verion === "mobile") {
+	if (verion === "mobile") {
 		return genPopupMobile(props, onClose)
 	} else {
 		return genPopupDesktop(props, onClose)
@@ -77,6 +79,9 @@ function genPopupDesktop(props, onClose) {
 		case 'modifyorder':
 			return (<ModifyOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
+		case 'detailorder':
+			return (<DetailOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			break;
 	}
 
 }
@@ -86,8 +91,8 @@ function genPopupMobile(props, onClose) {
 		case 'enterorderconfirm':
 			return (<EnterOrderConfirmMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
-		
-			
+
+
 		case 'modifyorder':
 			return (<ModifyOrderMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
@@ -95,9 +100,13 @@ function genPopupMobile(props, onClose) {
 		case 'cancelorder':
 			return (<CancelOrderMobile theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
-			
+
 		case 'savelayout':
 			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config} />)
+			break;
+
+		case 'setting':
+			return (<Setting onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
 			break;
 	}
 }

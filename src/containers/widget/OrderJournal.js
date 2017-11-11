@@ -83,6 +83,36 @@ class OrderJournal extends Component {
                     mobile: false
                 },
                 {
+                    id: 'Detail',
+                    maxWidth: 200,
+                    width: 80,
+                    sortable: false,
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            var child = []
+                            child.push(
+                                <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                    onClick={() => this.handleDetailOrder(props.original)}>
+                                    <span className="glyphicon glyphicon-folder-open"></span>
+                                </Button>
+                            )
+
+                            return (
+                                <div style={{ display: "table", height: '100%', width: '100%' }}>
+                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
+                                        {
+                                            child
+                                        }
+                                    </div>
+                                </div>)
+                        }
+                    },
+                    skip: true,
+                    mobile: false
+                },
+                {
                     id: 'stockid',
                     accessor: 'mvStockID',
                     width: 80,
@@ -232,15 +262,6 @@ class OrderJournal extends Component {
             filterable: true
         }
 
-        this.colA = {
-            index: 0,
-            object: {}
-        }
-        this.colB = {
-            index: 0,
-            object: {}
-        }
-
         this.rowSelected = []
         this.id = 'orderjournal'
         this.defaultPageSize = 15
@@ -362,6 +383,16 @@ class OrderJournal extends Component {
             title: this.props.language.orderjournal.popup.title.modify,
             language: this.props.language,
             id: 'modifyorder',
+            authcard: false
+        })
+    }
+
+    handleDetailOrder(param) {
+        this.props.showPopup({
+            data: { me: this, data: param },
+            title: this.props.language.orderjournal.popup.title.detail,
+            language: this.props.language,
+            id: 'detailorder',
             authcard: false
         })
     }

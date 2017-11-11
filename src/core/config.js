@@ -300,9 +300,9 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', 				x: 0, y: 0, w: 8, h: 7, isDraggable: false, isResizable: false },
-				{ i: 'stockmarketinform', 		x: 0, y: 7, w: 3, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', 			x: 0, y: 15, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
+				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 7, isDraggable: false, isResizable: false },
+				{ i: 'stockmarketinform', x: 0, y: 7, w: 3, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 0, y: 15, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -310,6 +310,7 @@ const config = {
 			title: "portfolio",
 			enabled: true,
 			widget: [
+				{ i: 'assetallocation', x: 0, y: 0, w: 8, h: 4, isDraggable: false, isResizable: false},
 				{ i: 'accountbalance', x: 0, y: 0, w: 8, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 9, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: false },
 				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },

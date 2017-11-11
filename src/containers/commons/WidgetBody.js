@@ -18,8 +18,9 @@ export default class WidgetBody extends Component {
             )
         }else{
             return (
-                <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{border: widgetbody}} >
-                    <div className="widget-wrapper">
+                <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{border: widgetbody}} 
+                    ref={ref => this.Body = ref}>
+                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref}>
                         {this.props.children}
                     </div>
                 </div>

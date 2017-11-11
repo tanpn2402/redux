@@ -77,7 +77,7 @@ export function checkAuth() {
                     return (dispatch) => {
                         api.get(ACTION.UICFGMANAGEMENT, { mvAction: 'QUERYDEFAULT' }, dispatch, function (responseForGetUserData) {
                             // get user saved data SUCCESS
-                            console.log('asdads', config.tabbar)
+                            // console.log('asdads', config.tabbar)
                             // save to config
                             if (responseForGetUserData && responseForGetUserData.mvCfgList.length > 0) {
                                 try {
@@ -102,6 +102,21 @@ export function checkAuth() {
                                             // or if localStorage doesnt have lastLang (when user login done!)
                                             config.cache.lang = savedContent.lang
 
+                                    } else {
+                                        let defaultLang = "en_US"
+                                        let params = {
+                                            mvCurrentLanguage: defaultLang,
+                                            request_locale: defaultLang,
+                                            key: (new Date()).getTime()
+                                        }
+                                        api.fetch(ACTION.CHANGELANGUAGE, params, "GET", function(response) {})
+                                        // if saved content has language element
+                                        if (localStorage.getItem("lastLang"))
+                                            // and if localStorage has lastLang (from before session, when user reload WEB) 
+                                            config.cache.lang = localStorage.getItem("lastLang")
+                                        else
+                                            // or if localStorage doesnt have lastLang (when user login done!)
+                                            config.cache.lang = defaultLang
                                     }
                                     if (savedContent.theme) {
                                         if (localStorage.getItem("lastTheme") != undefined)
@@ -109,9 +124,17 @@ export function checkAuth() {
                                         else
                                             config.cache.theme = savedContent.theme
 
+                                    } else {
+                                        let defaultTheme = "light"
+                                        if (localStorage.getItem("lastTheme") != undefined)
+                                            config.cache.theme = localStorage.getItem("lastTheme")
+                                        else
+                                            config.cache.theme = defaultTheme
                                     }
                                 }
                                 catch (ex) { }
+
+                                // console.log(config.cache, savedContent, localStorage.getItem("lastLang"))
                             }
                             // -> get customer service
                             return (dispatch) => {

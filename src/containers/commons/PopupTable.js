@@ -5,12 +5,12 @@ export default class PopupTable extends React.Component {
         console.log(this.props)
         let language = this.props.language
         return (
-            <div className="popup-table">
+            <div className="popup-table" ref={ref => this.Table = ref}>
                 {
                     this.props.data.map(d => {
                         console.log(d)
                         return (
-                            <div className="--tr">
+                            <div className="--tr" style={d.style}>
                                 <div className="--th">
                                     {language[d.header]}
                                 </div>

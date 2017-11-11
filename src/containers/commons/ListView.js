@@ -5,6 +5,62 @@ import config from '../../core/config'
 import Calendar from './CalendarPicker'
 
 const { Contants } = require("../../core/constants")
+
+
+
+
+class LVFooter extends React.Component {
+    render() {
+        return (
+            <div className="lv-tfooter">
+                <div className="-btn-prev" onClick={() => this.onPageChange(-1)}>
+                    <button ref={r => this.refBtnPre = r}>
+                        {"< Prev"}
+                    </button>
+                </div>
+                <div className="-pager">
+                    {"Page " + this.props.pageIndex + " of " + (this.props.totalPage)}
+                </div>
+                <div className="-btn-next" onClick={() => this.onPageChange(1)}>
+                    <button ref={r => this.refBtnNex = r}>
+                        {" Next >"}
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    onPageChange(n) {
+        if (this.props.pageIndex + n > 0 && this.props.pageIndex + n <= this.props.totalPage
+            && this.props.onPageChange) {
+            this.props.onPageChange(this.props.pageIndex + n)
+        }
+
+    }
+    componentDidMount() {
+        this.refBtnNex.classList.add("disabled")
+        if(this.props.totalPage == 0 || this.props.totalPage == 1) {
+            this.refBtnPre.classList.add("disabled")
+        }
+    }
+    componentDidUpdate() {
+        this.refBtnNex.classList.remove("disabled")
+        this.refBtnPre.classList.remove("disabled")
+
+        if(this.props.totalPage == 0 || this.props.totalPage == 1) {
+            this.refBtnNex.classList.add("disabled")
+            this.refBtnPre.classList.add("disabled")
+        }
+        else if(this.props.pageIndex == 1) {
+            this.refBtnPre.classList.add("disabled")
+        }
+        else if(this.props.pageIndex == this.props.totalPage) {
+            this.refBtnNex.classList.add("disabled")
+        }
+    }
+}
+
+
 export default class ListView extends React.Component {
     constructor(props) {
         super(props)
@@ -22,18 +78,18 @@ export default class ListView extends React.Component {
     }
 
     onClick(id) {
-        document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)  
+        document.getElementById(id + "-icon").innerHTML = this.toggleIconExpand(document.getElementById(id + "-icon").innerHTML)
     }
 
     createColumns(columns) {
         let remainWid = this.state.compoWid - 45
         let i = 0
         let col = []
-        
+
         while (remainWid > 0) {
             let column = columns[i]
-            if( column.mobile !== false ) {
-                if(column.columns === undefined) {
+            if (column.mobile !== false) {
+                if (column.columns === undefined) {
                     if (column.width && remainWid > column.width * 0.7) {
                         if (remainWid > column.width) {
                             col.push({
@@ -51,7 +107,7 @@ export default class ListView extends React.Component {
                                 style: column.style
                             })
                         }
-        
+
                         remainWid -= column.width
                         i += 1
                     } else {
@@ -61,7 +117,7 @@ export default class ListView extends React.Component {
 
                 } else {
                     let tmp = this.whenHasChildCol(column.columns, remainWid, col)
-                    remainWid =  tmp.remainWid
+                    remainWid = tmp.remainWid
                     col = (tmp.columns)
                     i++;
                 }
@@ -73,10 +129,10 @@ export default class ListView extends React.Component {
 
     whenHasChildCol(columns, remainWid, col) {
         let i = 0
-        
+
         while (remainWid > 0 && i < columns.length) {
             let column = columns[i]
-            if( column.mobile !== false ) {
+            if (column.mobile !== false) {
                 if (column.width && remainWid > column.width * 0.7) {
                     if (remainWid > column.width) {
                         col.push({
@@ -94,7 +150,7 @@ export default class ListView extends React.Component {
                             style: column.style
                         })
                     }
-    
+
                     remainWid -= column.width
                     i += 1
                 } else {
@@ -114,13 +170,13 @@ export default class ListView extends React.Component {
         let max = 0
         let addCol = []
         for (let i = 0; i < columns.length; i++) {
-            if(columns[i].columns !== undefined) {
+            if (columns[i].columns !== undefined) {
                 let subCol = columns[i].columns
-                for(let j = 0; j < subCol.length; j++) {
+                for (let j = 0; j < subCol.length; j++) {
                     let t = col.filter(f => f.id === subCol[j].id)
                     if (t.length > 0) {
                         continue
-                    } else if(subCol[j].mobile !== false) {
+                    } else if (subCol[j].mobile !== false) {
                         addCol.push(subCol[j])
                         if (subCol[j].width > max) {
                             max = subCol[j].width
@@ -132,7 +188,7 @@ export default class ListView extends React.Component {
                 let t = col.filter(f => f.id === columns[i].id)
                 if (t.length > 0) {
                     continue
-                } else if(columns[i].mobile !== false) {
+                } else if (columns[i].mobile !== false) {
                     addCol.push(columns[i])
                     if (columns[i].width > max) {
                         max = columns[i].width
@@ -152,7 +208,7 @@ export default class ListView extends React.Component {
     }
 
     render() {
-       
+
         let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
         let data = this.props.tableData
         let columns = this.props.columns
@@ -173,7 +229,7 @@ export default class ListView extends React.Component {
         // actions
         let actions = columns.filter(e => e.id === "mobileaction")
         let action = null
-        if(actions.length > 0) {
+        if (actions.length > 0) {
             action = actions[0]
         } else action = null
 
@@ -184,7 +240,7 @@ export default class ListView extends React.Component {
         let pivotContrainst = ""
         let pivotFlag = true
 
-        if(this.props.pivot !== undefined && this.props.pivot.length > 0 ) {
+        if (this.props.pivot !== undefined && this.props.pivot.length > 0) {
             let pivot = this.props.pivot
             pivotEnabled = true
             data.sort((a, b) => {
@@ -192,20 +248,20 @@ export default class ListView extends React.Component {
                 var nameB = b[pivot[0]].toUpperCase()
                 if (nameA < nameB) {
                     return -1
-                  }
-                  if (nameA > nameB) {
+                }
+                if (nameA > nameB) {
                     return 1
-                  }
-                  return 0
+                }
+                return 0
             })
             pivotContrainst = pivot[0]
             // console.log(data)
         }
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-                <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar} 
+                <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar}
                     searchParams={this.props.searchMobileParams} searchDefaultValues={this.props.searchDefaultValues}
-                    onChange={this.onSearchChange.bind(this)}/>
+                    onChange={this.onSearchChange.bind(this)} />
                 {
                     !this.state.toRender ? "" :
                         (
@@ -229,67 +285,67 @@ export default class ListView extends React.Component {
                                         {
                                             data.map(d => {
                                                 let rowId = "r-" + rowStamp + "-" + (row++)
-                                                if(pivotEnabled && d[pivotContrainst] != pivotLabel) {
+                                                if (pivotEnabled && d[pivotContrainst] != pivotLabel) {
                                                     pivotLabel = d[pivotContrainst]
                                                     pivotFlag = false
                                                 } else {
                                                     pivotFlag = true
-                                                }   
-                                                    
-                                                
+                                                }
+
+
                                                 return (
-                                                <div>
-                                                    {
-                                                        !pivotEnabled ? null : pivotFlag ? null :
-                                                        (
-                                                            <div className="lv-pivot-group">
-                                                                { pivotLabel }
-                                                            </div>
-                                                        )
-                                                    }
-                                                    <div className="lv-tr-group">
-                                                        <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.onClick(rowId)}>
-                                                            <div className="lv-td icon" style={{ width: "30px" }}>
-                                                                <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
-                                                            </div>
+                                                    <div>
+                                                        {
+                                                            !pivotEnabled ? null : pivotFlag ? null :
+                                                                (
+                                                                    <div className="lv-pivot-group">
+                                                                        {pivotLabel}
+                                                                    </div>
+                                                                )
+                                                        }
+                                                        <div className="lv-tr-group">
+                                                            <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.onClick(rowId)}>
+                                                                <div className="lv-td icon" style={{ width: "30px" }}>
+                                                                    <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
+                                                                </div>
 
-                                                            {
-                                                                col.map(hd => {
-                                                                    return (
-                                                                        <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
-                                                                            {d[hd.accessor]}
-                                                                        </div>
-                                                                    )
-                                                                })
-                                                            }
-
-                                                        </div>
-
-                                                        <div id={rowId} className="collapse">
-                                                            <div className="lv-tr-add">
                                                                 {
-                                                                    addCol.map(col => {
+                                                                    col.map(hd => {
                                                                         return (
-                                                                            <div className="lv-group">
-                                                                                <div className="lv-hd" style={{ width: maxWid }}>
-                                                                                    {language.header[col.id]}
-                                                                                </div>
-                                                                                <div className="lv-vl" style={{ width: maxWid }}>
-                                                                                    {d[col.accessor]}
-                                                                                </div>
+                                                                            <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
+                                                                                {d[hd.accessor]}
                                                                             </div>
                                                                         )
                                                                     })
                                                                 }
+
                                                             </div>
 
-                                                            {/* List view actions */}
-                                                            <div className="lv-action">
-                                                                {action !== null ? action.Cell(d) : null}
+                                                            <div id={rowId} className="collapse">
+                                                                <div className="lv-tr-add">
+                                                                    {
+                                                                        addCol.map(col => {
+                                                                            return (
+                                                                                <div className="lv-group">
+                                                                                    <div className="lv-hd" style={{ width: maxWid }}>
+                                                                                        {language.header[col.id]}
+                                                                                    </div>
+                                                                                    <div className="lv-vl" style={{ width: maxWid }}>
+                                                                                        {d[col.accessor]}
+                                                                                    </div>
+                                                                                </div>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </div>
+
+                                                                {/* List view actions */}
+                                                                <div className="lv-action">
+                                                                    {action !== null ? action.Cell(d) : null}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    </div>               
 
                                                 )
                                             }
@@ -297,22 +353,7 @@ export default class ListView extends React.Component {
                                         }
                                     </div>
                                 </div>
-
-                                <div className="lv-tfooter">
-                                    <div onClick={() => this.onPageChange(-1)} style={{ position: 'relative', zIndex: 1, float: "left", paddingLeft: '10px' }}>
-                                        <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
-                                            {"< Prev"}
-                                        </button>
-                                    </div>
-                                    <div style={{ textAlign: "center", position: "absolute", width: '100%' }}>
-                                        {"Page " + this.props.pageIndex +  " of " + (this.props.totalPage)}
-                                    </div>
-                                    <div onClick={() => this.onPageChange(1)} style={{ position: 'relative', zIndex: 1, float: "right", paddingRight: '10px' }}>
-                                        <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
-                                            {" Next >"}
-                                        </button>
-                                    </div>
-                                </div>
+                                <LVFooter {...this.props} />
                             </div>
                         )
                 }
@@ -321,33 +362,19 @@ export default class ListView extends React.Component {
         )
     }
 
-    onPageChange(n) {
-        if(this.props.pageIndex + n > 0 && this.props.pageIndex + n <= this.props.totalPage 
-            && this.props.onPageChange) {
-            this.props.onPageChange(this.props.pageIndex + n)
-        }
-        
-    }
-
     componentDidMount() {
         this.setState({
             compoWid: this.lv.offsetWidth,
             toRender: true
         })
-
-        // if(this.refTBody && this.refTHead) {
-        //     this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
-        // }
-
-        // this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"
     }
 
     componentDidUpdate() {
-        if(this.refTBody && this.refTHead) {
+        if (this.refTBody && this.refTHead) {
             this.refTBody.style.paddingTop = this.refTHead.offsetHeight + "px"
         }
-        if(this.refListView) {
-            this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"            
+        if (this.refListView) {
+            this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"
         }
     }
 }
@@ -366,8 +393,8 @@ class SearchListView extends React.Component {
     render() {
         let language = this.props.language
         return (
-            <div className="lv-search" ref={ r => this.refLvSearch = r }>
-                
+            <div className="lv-search" ref={r => this.refLvSearch = r}>
+
                 {
                     this.props.searchParams.map(e => {
                         return this.renderElement(e, language)
@@ -378,43 +405,43 @@ class SearchListView extends React.Component {
     }
 
     renderElement(id, language) {
-        switch(id) {
-            case Contants.searchElement.STARTDATE: 
-            case Contants.searchElement.ENDDATE: 
+        switch (id) {
+            case Contants.searchElement.STARTDATE:
+            case Contants.searchElement.ENDDATE:
                 return (
-                    <SearchDate id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange} 
-                        default={this.props.searchDefaultValues[id]}/>
+                    <SearchDate id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} />
                 )
                 break
-            case Contants.searchElement.TRADETYPE: 
+            case Contants.searchElement.TRADETYPE:
                 return (
                     <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.transtype}/>
+                        default={this.props.searchDefaultValues[id]} data={config.transtype} />
                 )
                 break
-            case Contants.searchElement.STATUS: 
+            case Contants.searchElement.STATUS:
                 return (
                     <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.orderstatus}/>
+                        default={this.props.searchDefaultValues[id]} data={config.orderstatus} />
                 )
                 break
-            case Contants.searchElement.MARKET: 
+            case Contants.searchElement.MARKET:
                 return (
                     <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.marketid}/>
+                        default={this.props.searchDefaultValues[id]} data={config.marketid} />
                 )
                 break
-            case Contants.searchElement.CURRENCY: 
+            case Contants.searchElement.CURRENCY:
                 return (
                     <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.currency}/>
+                        default={this.props.searchDefaultValues[id]} data={config.currency} />
                 )
                 break
         }
     }
 
     getHeight() {
-        if(this.refLvSearch) {
+        if (this.refLvSearch) {
             return this.refLvSearch.offsetHeight
         }
         else return 0
@@ -444,15 +471,15 @@ class TransType extends React.Component {
     render() {
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default !== undefined ? this.props.default : ""
-        
+
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
-                <div className="col-xs-5" style={{textAlign: "left"}}>
+                <div className="col-xs-5" style={{ textAlign: "left" }}>
                     <label>{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
-                    
-                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref} 
+
+                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref}
                         onChange={e => this.onChange(e.target.value)}>
                         {
                             config.transtype.map(e => {
@@ -472,7 +499,7 @@ class TransType extends React.Component {
     }
 
     onChange(value) {
-        this.setState({value: value})
+        this.setState({ value: value })
         let tmp = {}
         tmp[this.props.id] = this.getValue()
         this.props.onChange(tmp)
@@ -494,12 +521,12 @@ class Selector extends React.Component {
         let data = this.props.data
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
-                <div className="col-xs-5" style={{textAlign: "left"}}>
+                <div className="col-xs-5" style={{ textAlign: "left" }}>
                     <label>{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
-                    
-                    <select value={defaultValue} class="form-control" ref={ref => this.selector = ref} 
+
+                    <select value={defaultValue} class="form-control" ref={ref => this.selector = ref}
                         onChange={e => this.onChange(e.target.value)}>
                         {
                             data.map(e => {
@@ -520,7 +547,7 @@ class Selector extends React.Component {
 
     onChange(value) {
         this.selector.value = value
-        this.setState({value: value})
+        this.setState({ value: value })
         let tmp = {}
         tmp[this.props.id] = this.getValue()
         this.props.onChange(tmp)
@@ -531,7 +558,7 @@ class Selector extends React.Component {
 class SearchDate extends React.Component {
     constructor(props) {
         super(props)
-        
+
         this.state = {
             date: moment(this.props.default, 'DD/MM/YYYY')
         }
@@ -541,12 +568,12 @@ class SearchDate extends React.Component {
         let defaultValue = this.props.default != undefined ? moment(this.props.default, 'DD/MM/YYYY') : moment()
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
-                <div className="col-xs-5" style={{textAlign: "left"}}>
+                <div className="col-xs-5" style={{ textAlign: "left" }}>
                     <label>{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
-                    <Calendar selected={defaultValue} onChange={this.handleDateChange.bind(this)} id={id} 
-                        onBlur={this.handleCalendarBlur.bind(this)}/> 
+                    <Calendar selected={defaultValue} onChange={this.handleDateChange.bind(this)} id={id}
+                        onBlur={this.handleCalendarBlur.bind(this)} />
                 </div>
             </div>
         )
