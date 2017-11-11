@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Col} from 'react-bootstrap'
 import * as actions from '../../actions'
 import SearchBar from '../commons/SearchBar'
-import Config from '../../core/config.js'
+import config from '../../core/config.js'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import ScrollingTabs from './../commons/ScrollingTabs'
@@ -43,7 +43,7 @@ class BalanceBar extends React.Component {
                                     <span className="glyphicon glyphicon-triangle-top"></span>
                                 </div>
                                 <div className="index-value" ref={r => this.IndexValue = r}>
-                                    <span ref={r => this.Value = r}>97.400</span>
+                                    <span ref={r => this.Value = r}>{this.props.indexValue}</span>
                                 </div>
                             </div>
                         </div>
@@ -54,20 +54,34 @@ class BalanceBar extends React.Component {
     }
     
     componentDidMount() {
-        let t = this.Outer.offsetWidth * this.props.percent
+        let t = this.Outer.offsetWidth * (this.props.percent > 1 ? 1 : this.props.percent)
         this.Inner.style.width = t + "px"
         if(this.props.hasIndex) {
-            this.IndexIcon.style.paddingLeft = t - 7 + "px"
-            this.IndexValue.style.paddingLeft = t - this.Value.offsetWidth/2 + "px"
+            if(this.Outer.offsetWidth - t < 7)
+                this.IndexIcon.style.paddingLeft = this.Outer.offsetWidth - 14 + "px"
+            else 
+                this.IndexIcon.style.paddingLeft = t - 7 + "px"
+            
+            if(this.Outer.offsetWidth - t < this.Value.offsetWidth/2)
+                this.IndexValue.style.paddingLeft = this.Outer.offsetWidth - this.Value.offsetWidth + "px"
+            else 
+                 this.IndexValue.style.paddingLeft = t - this.Value.offsetWidth/2 + "px"
         }
     }
 
     componentDidUpdate() {
-        let t = this.Outer.offsetWidth * this.props.percent
+        let t = this.Outer.offsetWidth * (this.props.percent > 1 ? 1 : this.props.percent)
         this.Inner.style.width = t + "px"
         if(this.props.hasIndex) {
-            this.IndexIcon.style.paddingLeft = t - 7 + "px"
-            this.IndexValue.style.paddingLeft = t - this.Value.offsetWidth/2 + "px"
+            if(this.Outer.offsetWidth - t < 7)
+                this.IndexIcon.style.paddingLeft = this.Outer.offsetWidth - 14 + "px"
+            else 
+                this.IndexIcon.style.paddingLeft = t - 7 + "px"
+            
+            if(this.Outer.offsetWidth - t < this.Value.offsetWidth/2)
+                this.IndexValue.style.paddingLeft = this.Outer.offsetWidth - this.Value.offsetWidth + "px"
+            else 
+                 this.IndexValue.style.paddingLeft = t - this.Value.offsetWidth/2 + "px"  
         }
     }
 }
@@ -96,7 +110,7 @@ class StockSearchBox extends React.Component {
     render() {
         return (
             <div className="stock-searchbox" style={{background: "#ddd", padding: "0 10px"}}>
-                <Col sm={6} style={{display: "table", padding: "10px 0"}}>
+                <Col sm={6} style={{display: "table", padding: "5px 0"}}>
                     
                         <label style={{display: "table-cell", whiteSpace: "nowrap"}}>Delayed Quote</label>
                     
@@ -105,7 +119,7 @@ class StockSearchBox extends React.Component {
                         </div>
                     
                 </Col>
-                <Col sm={6} style={{display: "table", padding: "10px 0"}}>
+                <Col sm={6} style={{display: "table", padding: "5px 0"}}>
                     <div style={{display: "table-cell", whiteSpace: "nowrap"}}>
                         <label style={{display: "block"}}>Real-time Quote</label>
                         <label style={{display: "block"}}>Available Times:</label>
@@ -180,25 +194,27 @@ class StockStatistis extends React.Component {
                     <Col xs={8}>
                         <p>Nominal</p>
                         <div>
-                            99.500
+                            <label style={{fontSize: "30px", color: "#48c15c"}}>99.500</label>
                         </div>
                     </Col>
                     <Col xs={4}>
                         <p>Net Change</p>
                         <div>
-                            <div>+ 120.47</div>
-                            <div>+ 20.47</div>
+                            <div style={{color: "#48c15c"}}>+ 120.47</div>
+                            <div style={{color: "#48c15c"}}>+ (0.4%)</div>
                         </div>
                     </Col>
                 </div>
 
                 <div style={{display: "table", width: "100%", background: "#666", color: "#FFF"}}>
-                    <Col xs={6} style={{padding: "10px", borderRight: "1px solid #FFF"}}>
+                    <Col xs={6} style={{padding: "6px 10px", borderRight: "1px solid #FFF"}}>
                         <span>Bid</span>
+                        {"  "}
                         <span>88.450</span>
                     </Col>
-                    <Col xs={6} style={{padding: "10px"}}>
-                        <span>Bid</span>
+                    <Col xs={6} style={{padding: "6px 10px"}}>
+                        <span>Ask</span>
+                        {"  "}
                         <span>99.563</span>
                     </Col>
                 </div>
@@ -206,8 +222,8 @@ class StockStatistis extends React.Component {
                     title="Volume" percent={0.45}/>
 
                 <BalanceBar left={{label: "Low", value: "99.500"}} right={{label: "Hight", value: "110.675"}}
-                    title="Tody" percent={ (99.500 - 97.400) / (110.675 - 97.500) }
-                    background={["#f5a621", "#d8d8d8"]} hasIndex={true}/>
+                    title="Today" percent={ (105.600 - 99.500) / (110.675 - 99.500) }
+                    background={["#f5a621", "#d8d8d8"]} indexValue={105.600} hasIndex={true}/>
 
 
                 <div style={{display: "table", width: "100%"}}>
@@ -306,7 +322,25 @@ class StockInfo extends React.Component {
     constructor(props) {
         super(props)
         this.id = "stockinfo"
+        this.myTab = []
+        let isExpended = false
+        let t1 = config.mobileTab.filter(e => e.id === "trading")
+        if(t1.length > 0) {
+            let t2 = t1[0].widget.filter(e => e.i === "stockinfo")
+            if(t2.length > 0) {
+                let t3 = t2[0]
+                this.myTab = t3
+                if(t3.h == 23) {
+                    isExpended = true
+                } else {
+                    isExpended = false
+                }
+            }
+        }
 
+        this.state = {
+            isExpended: isExpended
+        }
     }
 
     render() {
@@ -316,14 +350,39 @@ class StockInfo extends React.Component {
                     theme={this.props.theme} >
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body key={this.id + "-body-" + (new Date()).getTime()} theme={this.props.theme}>
                     <StockSearchBox {...this.props} />
                     <StockStatistis {...this.props} />
-                    <StockInfoDetail {...this.props} />
+                    
+                    {
+                        !this.state.isExpended ? null :
+                            <StockInfoDetail {...this.props} />
+                    }
+
+                    <div style={{position: "absolute", bottom: "0", width: "100%", height: "40px", textAlign: "center", background: "#bc0000"}}>
+                        <button style={{border: "none", height: "100%", width: "100%", background: "transparent", color: "#FFF"}}
+                            onClick={() => this.expandStockInfoPanel()}>
+                            {
+                                this.state.isExpended ? " - Less " : " + More "
+                            }
+                        </button>
+                    </div>
+                   
                     
                 </Body>
             </div>
         )
+    }
+
+    expandStockInfoPanel() {
+        if(this.myTab != []) {
+            if(this.myTab.h == 23) {
+                this.myTab.h = 10
+            } else {
+                this.myTab.h = 23
+            }
+        }
+        this.props.onReloadPageContent()
     }
 }
 
@@ -332,17 +391,14 @@ class StockInfo extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.stockstatement.data,
+        
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (param, reload) => {
-        dispatch(actions.enquiryStockStatement(param, reload))
-    },
-    onExportExcel: (param) => {
-        dispatch(actions.exportTransactionHistory(param))
-    },
+    onReloadPageContent: () => {
+        dispatch(actions.onReloadPageContent())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockInfo)

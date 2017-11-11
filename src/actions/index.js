@@ -1,6 +1,6 @@
 import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
-import { menuSelected, menuRemoved, onPageClicked, onTabClick, onMobileTabClick, getSavedContentLayout, 
-    saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect } from './menu_selected'
+import { onTabClick, onMobileTabClick, getSavedContentLayout, 
+    saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
@@ -53,14 +53,12 @@ export {
   checkSession,
 
   // menu selected
-  menuSelected,
-  menuRemoved,
-  onPageClicked,
   onTabClick,
   onMobileTabClick,
   openSideMenu,
   openSearch,
   onMobileMenuSelect,
+  onReloadPageContent,
   
   // configuration
   switchLanguage,

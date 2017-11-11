@@ -3396,7 +3396,7 @@ label {
         padding-top: 8px;
         padding-bottom: 4px;
         position: relative;
-        z-index: 1;
+        z-index: 4;
         background-color: #fff;
         border-bottom: 1px solid #ccc;
     }
@@ -3923,6 +3923,16 @@ label {
     border-radius: 4px;
     background-color: #fff;
     max-width: unset;
+}
+.lv-nodata {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.lv-nodata > div {
+    display: table-cell;
+    vertical-align: middle;
 }
 /* END Listview-control */
 

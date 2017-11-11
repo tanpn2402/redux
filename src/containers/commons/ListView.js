@@ -11,6 +11,9 @@ const { Contants } = require("../../core/constants")
 
 class LVFooter extends React.Component {
     render() {
+        let pageIndex = this.props.pageIndex
+        if(this.props.totalPage == 0)
+            pageIndex = 0
         return (
             <div className="lv-tfooter">
                 <div className="-btn-prev" onClick={() => this.onPageChange(-1)}>
@@ -19,7 +22,7 @@ class LVFooter extends React.Component {
                     </button>
                 </div>
                 <div className="-pager">
-                    {"Page " + this.props.pageIndex + " of " + (this.props.totalPage)}
+                    {"Page " + pageIndex + " of " + (this.props.totalPage)}
                 </div>
                 <div className="-btn-next" onClick={() => this.onPageChange(1)}>
                     <button ref={r => this.refBtnNex = r}>
@@ -208,12 +211,11 @@ export default class ListView extends React.Component {
     }
 
     render() {
-
         let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
         let data = this.props.tableData
         let columns = this.props.columns
 
-        // console.log(this.props.columns)
+        // console.log(data)
         let width = window.innerWidth
 
 
@@ -281,7 +283,7 @@ export default class ListView extends React.Component {
                                     </div>
                                 </div>
                                 <div className="lv-tbody" ref={ref => this.refTBody = ref}>
-                                    <div className="lv-tbody-b">
+                                    <div className="lv-tbody-b" ref={ref => this.refTBodyWrapper = ref}>
                                         {
                                             data.map(d => {
                                                 let rowId = "r-" + rowStamp + "-" + (row++)
@@ -367,6 +369,7 @@ export default class ListView extends React.Component {
             compoWid: this.lv.offsetWidth,
             toRender: true
         })
+
     }
 
     componentDidUpdate() {
@@ -375,6 +378,16 @@ export default class ListView extends React.Component {
         }
         if (this.refListView) {
             this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"
+        }
+
+        if(this.props.totalPage == 0) {
+            this.refTBodyWrapper.innerHTML = 
+                '<div class="lv-nodata">' + 
+                    '<div>'+ 
+                        'no data' +
+                    '</div>' +
+                '</div>'
+            
         }
     }
 }
@@ -515,7 +528,6 @@ class Selector extends React.Component {
         }
     }
     render() {
-        console.log('asd')
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default !== undefined ? this.props.default : ""
         let data = this.props.data
@@ -584,7 +596,6 @@ class SearchDate extends React.Component {
     }
 
     handleCalendarBlur(_date) {
-        console.log(_date)
         this.setState({
             date: _date
         });
@@ -594,7 +605,6 @@ class SearchDate extends React.Component {
     }
 
     handleDateChange(_date) {
-        console.log(_date)
         this.setState({
             date: _date
         });

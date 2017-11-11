@@ -201,7 +201,7 @@ export default function (menuid, props){
 			)
 		case 'stockinfo':
 			return (
-				<StockInfo stockList={props.stockList} language={props.language} theme={props.theme}/>				
+				<StockInfo key={"stockinfo" + (new Date()).getTime()} stockList={props.stockList} language={props.language} theme={props.theme}/>				
 			)
 
 		case 'portfolio':
@@ -218,7 +218,11 @@ export default function (menuid, props){
 			)
 		case 'assetallocation':
 			return (
-				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} />
+				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={false}/>
+			)
+		case 'assetallocation-lite':
+			return (
+				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={true}/>
 			)
 			
 		case 'loanrefund':

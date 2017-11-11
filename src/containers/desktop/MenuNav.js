@@ -103,12 +103,6 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSaveLayout: (params, language) => {
         dispatch(actions.saveLayout(params, language))
     },
-    onRemoveTab: (menuid, pageid, tabList, reload) => {
-        dispatch(actions.menuRemoved(menuid, pageid, tabList, reload));
-    },
-    onPageClicked: (pageid, tabList) => {
-        dispatch(actions.onPageClicked(pageid, tabList));
-    },
     onTabClick: (tabID) => {
         dispatch(actions.onTabClick(tabID));
     },

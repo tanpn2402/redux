@@ -8,7 +8,6 @@ export default class PopupTable extends React.Component {
             <div className={"popup-table " + this.props.className} ref={ref => this.Table = ref}>
                 {
                     this.props.data.map(d => {
-                        console.log(d)
                         return (
                             <div className="--tr" style={d.style}>
                                 <div className="--th">
@@ -57,4 +56,7 @@ export default class PopupTable extends React.Component {
             return d.value
         }
     }
+}
+PopupTable.defaultProps = {
+    className: ""
 }

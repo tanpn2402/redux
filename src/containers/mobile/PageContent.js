@@ -9,7 +9,8 @@ class PageContent extends React.Component {
         super(props)
 
         this.state = {
-            layout : []
+            layout : [],
+            reloadTrigger: false
         }
     }
 
@@ -17,7 +18,7 @@ class PageContent extends React.Component {
         let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
         return (
             <div style={pagebackground} id="pagecontent" className={"pagecontent mobile"}>
-                <div className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
+                <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
                     ref={r=> this.Wrapper = r}>
                     <GridLayout 
                         language={this.props.language}
@@ -47,7 +48,6 @@ class PageContent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.tabID)
         var tabs = config.mobileTab.filter(el => el.id === nextProps.tabID )
         if(tabs.length > 0){
             this.setState({
@@ -59,10 +59,10 @@ class PageContent extends React.Component {
                 layout: config.mobileTab.filter(el => el.id === "trading" )
             })
         }
-        this.Wrapper.scrollTop = 0
+        if(nextProps.reloadTrigger === this.state.reloadTrigger)
+            this.Wrapper.scrollTop = 0
+        this.state.reloadTrigger = nextProps.reloadTrigger
     }
-
-
 
     componentDidMount() {
         var param = {
@@ -80,6 +80,7 @@ class PageContent extends React.Component {
 const mapStateToProps = (state, props) => ({
     tabID: state.menuSelected.tabID,
     stockList: state.stock.stockList,
+    reloadTrigger: state.menuSelected.reloadTrigger
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
