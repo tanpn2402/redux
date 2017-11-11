@@ -36,7 +36,9 @@ class MessageBox extends Component {
                 {
                     this.state.listMessage.map(msg => {
                         return (
-                            <Modal show={true} onHide={e => this.onClose(msg.id)} className={this.version + " messagebox"}>
+                            <Modal show={true} key={msg.id}
+                                onHide={e => this.onClose(msg.id)} 
+                                className={this.version + " messagebox"}>
                                 <div className="modal-wrapper">
                                     <Modal.Header closeButton style={widgetheader}>
                                         <Modal.Title>{this.props.type}</Modal.Title>

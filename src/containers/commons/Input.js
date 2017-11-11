@@ -74,7 +74,7 @@ class Input extends React.Component {
     }
 
     value(_val) {
-        console.log(_val)
+        // console.log(_val)
         this.rInput.value = _val
     }
 

@@ -17,7 +17,8 @@ class PageContent extends React.Component {
         let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
         return (
             <div style={pagebackground} id="pagecontent" className={"pagecontent mobile"}>
-                <div style={{width: "100%", overflowY: "auto"}}>
+                <div className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
+                    ref={r=> this.Wrapper = r}>
                     <GridLayout 
                         language={this.props.language}
                         layout={ this.state.layout}
@@ -58,6 +59,7 @@ class PageContent extends React.Component {
                 layout: config.mobileTab.filter(el => el.id === "trading" )
             })
         }
+        this.Wrapper.scrollTop = 0
     }
 
 

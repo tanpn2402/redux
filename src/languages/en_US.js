@@ -1196,7 +1196,8 @@ export default
                 "reset": "RESET",
                 "sure": "Sure",
                 "confirmModify": "Confirm Modify",
-                "confirmCancel": "Confirm Cancel"
+                "confirmCancel": "Confirm Cancel",
+                "close": "Close"
             },
             "login": {
                 "username": "Account No",

@@ -3,8 +3,7 @@ import { menuSelected, menuRemoved, onPageClicked, onTabClick, onMobileTabClick,
     saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
-import { accountBalance, stockInfo, genEnterOrder, enterOrderSubmit, checkAuthentication } from './enterorder'
-import { setAuthenFail, checkAuthen, getMatrixCard, matrixCardResponse } from './authmatrix'
+import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
 import { stockSearch, getStockWatchInfo } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
 import { getPorfolio } from './porfolio'
@@ -71,13 +70,12 @@ export {
   stockSearch,
   getStockWatchInfo,
 
-  accountBalance,
-  stockInfo,
+
+  // enterorder
   genEnterOrder,
   enterOrderSubmit,
   checkAuthentication,
-  setAuthenFail,
-  checkAuthen,
+  setDefaultOrderParams, // created support for Portfolio mobile view
 
   // order confirmation
   onConfirmSubmit,
@@ -100,8 +98,7 @@ export {
 
   getClientInfo,
   changePassword,
-  getMatrixCard,
-  matrixCardResponse,
+
 
   // order journal
   getEnquiry,

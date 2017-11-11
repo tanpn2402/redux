@@ -69,7 +69,6 @@ class EnterOrderForm extends React.Component {
             mvOrderType: "",
             mvBS: "BUY",
             mvMarketID: config.marketid[0],
-            mvOrderType: "",
             mvVol: 0,
             mvFeeRate: "",
             mvLending: "",
@@ -92,6 +91,7 @@ class EnterOrderForm extends React.Component {
         this.setValue({ mvBS: options })
 
         this.calBuySellAll()
+        this.props.setDefaultOrderParams(this.value)
     }
 
     handleMarketChange(options) {
@@ -101,16 +101,17 @@ class EnterOrderForm extends React.Component {
         })
         this.setValue({
             mvMarketID: options,
+            mvStockCode: "",
+            mvStockName: "",
             mvGrossAmt: 0
         })
         this.refStockName.value("")
         this.getOrderTypeList(this.props.genEnterOrderData)
-        
+        this.props.setDefaultOrderParams(this.value)
     }
 
     handleStockChange(options) {
-        
-        var me = this
+
         var marketID = options.mvMarketID
         var stockCode = options.stockCode
         var stockName = options.stockName
@@ -128,46 +129,8 @@ class EnterOrderForm extends React.Component {
         })
         this.refStockName.value(stockName)
 
-        var showBP = true;
-        var mvEnableGetStockInfo = "N";
-        var mvActionStockInfo = "OI";   //OI = Order Info
-        if (showBP && bsValue === 'B') {
-            mvActionStockInfo += ",BP";
-        }
-        if (this.value.mvFeeRate === '') {
-            mvActionStockInfo += ",FE";
-        }
-        
-
-        var params = {
-            mvInstrument: stockCode,
-            mvMarketId: marketID,
-            mvBS: bsValue,
-            mvEnableGetStockInfo: mvEnableGetStockInfo,
-            mvAction: mvActionStockInfo,
-            key: (new Date()).getTime()
-        }
-
-        api.fetch(ACTION.STOCKINFO, params, 'POST', function (response) {
-            me.store.stockInfoBean = response.mvStockInfoBean;
-            me.store.stockBalanceInfo = response.mvStockBalanceInfo;
-
-            if (me.store.stockInfoBean.mvTemporaryFee) {
-                me.value.mvFeeRate = me.store.stockInfoBean.mvTemporaryFee;
-            } else {
-                me.store.stockInfoBean.mvTemporaryFee = Utils.numUnFormat(me.value.mvFeeRate);
-            }
-
-            // me.updateMarginPower()
-
-            me.calculateGrossAmt()
-            me.calBuySellAll()
-
-        })
-    }
-
-    handleMarketChangea(options) {
-        console.log("asds")
+        this.getStockInfo(stockCode, marketID, bsValue)
+        this.props.setDefaultOrderParams(this.value)
     }
 
     handleOrderTypeChange(options) {
@@ -176,7 +139,6 @@ class EnterOrderForm extends React.Component {
             mvOrderTypeSelected: options,
             mvOrderType: orderTypeValue
         })
-
         this.calculateGrossAmt()
         
         if (orderTypeValue == this.props.language.enterorder.value.OTLO || 
@@ -195,6 +157,7 @@ class EnterOrderForm extends React.Component {
             mvOrderTypeSelected: options,
             mvOrderType: options.value
         })
+        this.props.setDefaultOrderParams(this.value)
     }
 
     onQtyChange(value) {
@@ -268,7 +231,8 @@ class EnterOrderForm extends React.Component {
 
                             </Col>
                             <Col xs={7}>
-                                <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} readOnly defaultValue=""/>
+                                <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} readOnly 
+                                    defaultValue={this.state.mvStockSelected.stockName}/>
                             </Col>
                         </div>
 
@@ -343,17 +307,36 @@ class EnterOrderForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getOrderTypeList(nextProps.genEnterOrderData)
+        
+        let orderDefault = nextProps.orderDefault
+        if(orderDefault !== null) {
+            this.state.mvBS = orderDefault.mvBS
+            this.state.mvMarketID = orderDefault.mvMarketID
+            this.state.mvStockName = orderDefault.mvStockName
+            this.state.mvStockSelected = {
+                stockCode: orderDefault.mvStockCode,
+                stockName: orderDefault.mvStockName
+            }
+
+            this.setValue({
+                mvBS: orderDefault.mvBS,
+                mvStockCode: orderDefault.mvStockCode,
+                mvStockName: orderDefault.mvStockName,
+                mvMarketID: orderDefault.mvMarketID,
+                mvOrderType: orderDefault.mvOrderType
+            })
+            this.refStockName.value(orderDefault.mvStockName)
+            if(orderDefault.mvStockCode != "") {
+                this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
+            }
+        }
+        if(this.state.mvOrderTypeList.length === 0)
+            this.getOrderTypeList(nextProps.genEnterOrderData)
     }
 
     componentDidMount() {
         this.props.genEnterOrder()
     }
-
-    // handleSubmit() {
-    //     this.props.onShowMessageBox(this.props.language.messagebox.title.info,
-    //         "Maintainning!")
-    // }
 
     handleSubmit(e) {
         e.preventDefault()
@@ -361,9 +344,7 @@ class EnterOrderForm extends React.Component {
         var value = this.value
         var store = this.store
         var language = this.props.language
-        console.log(value)
-        console.log(state)
-        
+    
         if (value.mvStockCode == "") {
             this.props.onShowMessageBox(language.messagebox.title.error,
                 language.messagebox.message.enterStockCode)
@@ -416,23 +397,29 @@ class EnterOrderForm extends React.Component {
                 this.mvPrice.focus()
                 return
             } else {
-                
-                var floor = parseFloat(store.stockInfoBean.mvFloor);
-                var ceil = parseFloat(store.stockInfoBean.mvCeiling);
-
-                if (!value.mvExpireChecked) {
-                    if (ceil != 0 && floor != 0) {
-                        if (price > ceil || price < floor) {
-                            var errorMsg = language.messagebox.message.invaliedPriceOutRange;
-                            errorMsg = errorMsg.replace('from_value', floor).replace('to_value', ceil);
-
-                            this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-
-                            this.mvPrice.focus()
-                            return
+                if(store.stockInfoBean == null) {
+                    var errorMsg = language.messagebox.message.placeOrderFailed;
+                    this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
+                    return
+                } else {
+                    var floor = parseFloat(store.stockInfoBean.mvFloor);
+                    var ceil = parseFloat(store.stockInfoBean.mvCeiling);
+    
+                    if (!value.mvExpireChecked) {
+                        if (ceil != 0 && floor != 0) {
+                            if (price > ceil || price < floor) {
+                                var errorMsg = language.messagebox.message.invaliedPriceOutRange;
+                                errorMsg = errorMsg.replace('from_value', floor).replace('to_value', ceil);
+    
+                                this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
+    
+                                this.mvPrice.focus()
+                                return
+                            }
                         }
                     }
                 }
+                
 
                 // var result = Utils.checkStepPrice(price, me.marketIDHidden.getValue(), true, me.symbolInfo.spreadTableCode);
                 // if(result != ""){
@@ -444,7 +431,7 @@ class EnterOrderForm extends React.Component {
 
         var me = this
         // check time order
-        console.log(value.mvMarketID, value.mvOrderType, value.mvExpireChecked)
+        // console.log(value.mvMarketID, value.mvOrderType, value.mvExpireChecked)
 
         this.checkTimeOrder(value.mvMarketID, value.mvOrderType, value.mvExpireChecked,
             function () {
@@ -458,7 +445,7 @@ class EnterOrderForm extends React.Component {
                 if (value.mvFeeRate !== '') {
                     netFee = Utils.numUnFormat(value.mvFeeRate, ',');
                 }
-                console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, state.mvSettlementAccSelected)
+                // console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, state.mvSettlementAccSelected)
 
                 me.checkOrderBalanceStatus(state.mvSettlementAccSelected, bs, value.mvStockCode,
                     value.mvMarketID, priceValue, quantity, netFee,
@@ -476,7 +463,7 @@ class EnterOrderForm extends React.Component {
                             mvBankACID: value.mvBankACID,
                         }
 
-                        console.log('SUCCESS SECOND', param)
+                        // console.log('SUCCESS SECOND', param)
                         api.fetch(ACTION.VERIFYORDER, param, 'POST',
                             function (result) {//success
 
@@ -499,7 +486,7 @@ class EnterOrderForm extends React.Component {
                                         //Ext.Msg.alert(error.FAILED_TITLE, messageBox.message.disablePlaceOrderMarket +  action.result.mvResult );
                                         return;
                                     }
-                                    console.log('SUCCESS THIRD', param)
+                                    // console.log('SUCCESS THIRD', param)
                                     me.showOrderConfirm()   // end of way
                                 }
                                 catch (e) { }
@@ -541,11 +528,76 @@ class EnterOrderForm extends React.Component {
     }
 
     handleResetForm() {
-
+        this.setState({
+            mvStockSelected: "",
+        })
+        this.setValue({
+            mvStockCode: "",
+            mvStockName: "",
+            mvVol: 0,
+            mvFeeRate: "",
+            mvLending: "",
+            mvBuyPower: "",
+            mvGrossAmt: 0,
+            mvMaxQty: 0,
+            mvExpireChecked: false,
+            mvExpireDate: null,
+            mvBankACID: null,
+            mvBankID: null
+        })
+        this.refStockName.value("")
+        this.mvGrossAmt.value("0")
+        this.mvMaxQty.value("0")
+        this.mvVol.value("0")
+        if(!this.mvPrice.readonly()) {
+            this.mvPrice.value("0")
+        }
+        this.props.setDefaultOrderParams(this.value)
     }
 
 
     //--------------------------------------
+
+    getStockInfo(stockCode, marketID, bsValue) {
+        var me = this
+        var showBP = true;
+        var mvEnableGetStockInfo = "N";
+        var mvActionStockInfo = "OI";   //OI = Order Info
+        if (showBP && bsValue === 'B') {
+            mvActionStockInfo += ",BP";
+        }
+        if (this.value.mvFeeRate === '') {
+            mvActionStockInfo += ",FE";
+        }
+        
+
+        var params = {
+            mvInstrument: stockCode,
+            mvMarketId: marketID,
+            mvBS: bsValue,
+            mvEnableGetStockInfo: mvEnableGetStockInfo,
+            mvAction: mvActionStockInfo,
+            key: (new Date()).getTime()
+        }
+
+        api.fetch(ACTION.STOCKINFO, params, 'POST', function (response) {
+            me.store.stockInfoBean = response.mvStockInfoBean;
+            me.store.stockBalanceInfo = response.mvStockBalanceInfo;
+
+            if (me.store.stockInfoBean.mvTemporaryFee) {
+                me.value.mvFeeRate = me.store.stockInfoBean.mvTemporaryFee;
+            } else {
+                me.store.stockInfoBean.mvTemporaryFee = Utils.numUnFormat(me.value.mvFeeRate);
+            }
+
+            // me.updateMarginPower()
+
+            me.calculateGrossAmt()
+            me.calBuySellAll()
+
+        })
+    }
+
     calculateGrossAmt() {
         // get mvPrice from Form     
         var stockInfoBean = this.store.stockInfoBean
@@ -555,7 +607,7 @@ class EnterOrderForm extends React.Component {
         var price = this.mvPrice.getValue()
         var orderType = this.value.mvOrderType
         var bsValue = this.value.mvBS.slice(0, 1)
-        console.log(orderType, bsValue, this.mvVol.getValue(), price)
+        //console.log(orderType, bsValue, this.mvVol.getValue(), price)
         if (orderType == "O" || orderType == "C" || orderType == "M" ||
             orderType == "B" || orderType == "Z" || orderType == "R") 
         {
@@ -588,7 +640,7 @@ class EnterOrderForm extends React.Component {
     getOrderTypeList(genEnterOrderData) {
         var mvOrderTypeArray = new Array();
         var marketID = this.value.mvMarketID
-        console.log(marketID, genEnterOrderData)
+        // console.log(marketID, genEnterOrderData)
         var mvEnableOrderTypeArray = genEnterOrderData.mvEnableOrderType;
         
         var ruleList = {
@@ -613,22 +665,28 @@ class EnterOrderForm extends React.Component {
                 );
             }
         }
-        console.log(mvOrderTypeArray)
+        // console.log(mvOrderTypeArray)
         if (mvOrderTypeArray.length > 0) {
             // update order type
+            // checkif have default ordertype value
+            let defaultOrderTypeSelected = mvOrderTypeArray[0]
+            let tmp = mvOrderTypeArray.filter(e => e.value == this.value.mvOrderType)
+            if(tmp.length > 0) {
+                defaultOrderTypeSelected = tmp[0]
+            }
             this.setState({
                 mvOrderTypeList: mvOrderTypeArray,
-                mvOrderType: mvOrderTypeArray[0].value,
-                mvOrderTypeSelected: mvOrderTypeArray[0]
+                mvOrderType: defaultOrderTypeSelected.value,
+                mvOrderTypeSelected: defaultOrderTypeSelected
             });
             this.setValue({
                 mvOrderTypeList: mvOrderTypeArray,
-                mvOrderType: mvOrderTypeArray[0].value,
-                mvOrderTypeSelected: mvOrderTypeArray[0]
+                mvOrderType: defaultOrderTypeSelected.value,
+                mvOrderTypeSelected: defaultOrderTypeSelected
             })
 
-            if (mvOrderTypeArray[0].value == this.props.language.enterorder.value.OTLO || 
-                mvOrderTypeArray[0].value == this.props.language.enterorder.value.OTLOddLot) 
+            if (defaultOrderTypeSelected.value == this.props.language.enterorder.value.OTLO || 
+                defaultOrderTypeSelected.value == this.props.language.enterorder.value.OTLOddLot) 
             {
                 this.mvPrice.value("0")
                 this.mvPrice.readonly(false)
@@ -660,7 +718,7 @@ class EnterOrderForm extends React.Component {
         var price = this.mvPrice.getValue()
         var orderType = this.value.mvOrderType
         var buysell = this.value.mvBS.slice(0, 1)
-        console.log("CAL BS", marketID, price, orderType, buysell)
+        // console.log("CAL BS", marketID, price, orderType, buysell)
         if (orderType === "O" || orderType === "C" || orderType === "M" ||
             orderType === "B" || orderType === "Z" || orderType === "R") {
             if (buysell.slice(0, 1) === 'B') {
@@ -958,7 +1016,6 @@ class EnterOrder extends React.Component {
         }
     }
     render() {
-        console.log("ENTER ORDER", this.props)
         return (
             <div style={{ height: "100%", position: "relative" }} id={this.id}>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
@@ -991,12 +1048,8 @@ class EnterOrder extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        account: state.enterOrder.account,
-        mvStockInfo: state.enterOrder.stockInfo,
-        mvStockBalance: state.enterOrder.stockBalance,
-        isError: state.enterOrder.isError,
-
-        genEnterOrderData: state.enterOrder.genEnterOrder
+        genEnterOrderData: state.enterOrder.genEnterOrder,
+        orderDefault: state.enterOrder.orderDefaultParams
     }
 }
 
@@ -1009,7 +1062,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     showOrderConfirm: (param) => {
         dispatch(actions.showPopup(param))
-    }
+    },
+    setDefaultOrderParams: (params) => {
+        dispatch(actions.setDefaultOrderParams(params))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder)
