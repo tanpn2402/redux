@@ -132,7 +132,8 @@ export default
                 "transactionhistory": "Transaction History",
                 "accountbalance": "Account Balance",
                 "setting": "Setting",
-                "assetallocation": 'Asset Allocation'
+                "assetallocation": 'Asset Allocation',
+                "stockinfo": "Stock Info"
             },
             "searchbar": {
                 "search": "Search",
@@ -1038,6 +1039,11 @@ export default
                     "days": "days",
                     "months": "months",
                     "upcomingDebt": "Upcoming due debt"
+                }
+            },
+            "stockinfo": {
+                "header": {
+
                 }
             },
             "messagebox": {

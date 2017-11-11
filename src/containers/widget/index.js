@@ -38,6 +38,7 @@ import EnterOrder from './EnterOrder'
 import OrderJournal from './OrderJournal'
 import StockMarketInfo from './StockMarketInfo'
 import AccountInfo from './AccountInfo'
+import StockInfo from './StockInfo'
 
 import FundTransfer from './FundTransfer'
 import FundTransferHistory from './FundTransferHistory'
@@ -197,6 +198,10 @@ export default function (menuid, props){
 		case 'stockmarketinform':
 			return (
 				<StockMarketInfo stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'stockinfo':
+			return (
+				<StockInfo stockList={props.stockList} language={props.language} theme={props.theme}/>				
 			)
 
 		case 'portfolio':
