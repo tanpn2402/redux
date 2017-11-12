@@ -979,7 +979,7 @@ label {
 #pageheader {
     position: absolute;
     width: 100%;
-    z-index: 4;
+    z-index: 6;
 }
 #pageheader .logo {
     padding: 10px 0px 10px 10px;
@@ -3410,7 +3410,7 @@ label {
         height: 100%;
         width: 0;
         position: absolute;
-        z-index: 3;
+        z-index: 5;
         background-color: transparent;
         overflow: hidden;
         top: 0px;
