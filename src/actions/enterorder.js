@@ -1,39 +1,10 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
-import * as matrix from './authmatrix.js'
 import config from '../core/config'
 import {showMessageBox, showFlashPopup} from './notification'
 
 const { ActionTypes } = require('../core/constants');
 
-let stockInfoSell = {}
-let stockInfo = {}
-
-export function getstockInfo(param) {
-    return function (dispatch) {
-        (api.post(ACTION.STOCKINFO, param, dispatch, getStockB))
-    }
-}
-
-function getStockB(response) {
-
-    if (response) {
-        if (response.mvStockBalanceInfo !== null)
-            stockInfoSell = response
-        else
-            stockInfo = response
-        if (stockInfo.mvStockInfoBean.mvMarginPercentage==="null")
-            stockInfo.mvStockInfoBean.mvMarginPercentage = "0"
-    }
-    return {
-        type: ActionTypes.STOCKINFO,
-        stockInfo: response
-    }
-}
-
-
-
-/////////////////
 export function genEnterOrder(){
     var callback = function(response){
         return {
@@ -157,5 +128,12 @@ export function checkAuthentication(authParams, successEvent, failEvent){
 
     return function (dispatch) {
         api.post(ACTION.AUTHCARD, authParams, dispatch, authCardSuccess, authCardFail)
+    }
+}
+
+export function setDefaultOrderParams(params) {
+    return {
+        type: ActionTypes.GOTOORDERPLACE,
+        params: params
     }
 }

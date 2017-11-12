@@ -10,17 +10,12 @@ const initialState = {
 
     openSearch: false,
     openMenu: false,
+    reloadTrigger: false
     
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ActionTypes.MENU_SELECTED:
-            return Object.assign({}, state, {
-                tabList: action.tabList,
-                page: action.page,
-                reload: action.reload,
-            });
         case ActionTypes.TABCLICKEVENT:
             return Object.assign({}, state, {
                 tabID: action.tabID,
@@ -30,17 +25,6 @@ export default function (state = initialState, action) {
         case ActionTypes.RELOADCUSTOM:
             return Object.assign({},state,{
               load: action.load,
-            });
-
-        case ActionTypes.REMOVEWIDGET:
-            return Object.assign({}, state, {
-                load: action.load
-            });
-
-        case ActionTypes.ADDWIDGET:
-            return Object.assign({}, state, {
-                load: action.load,
-                widgetList: state.widgetList.concat(action.widgetList)
             });
 
         case ActionTypes.SAVELAYOUT:
@@ -61,6 +45,10 @@ export default function (state = initialState, action) {
                 openSearch: action.open !== undefined ? action.open : !state.openSearch
             });
 
+        case ActionTypes.RELOADPAGECONTENT:
+            return Object.assign({}, state, {
+                reloadTrigger: !state.reloadTrigger
+            });
         default:
             break;
 

@@ -17,16 +17,17 @@ class AccountBalance extends Component {
                 {
                     id: "currency",
                     accessor: "currency",
-                    width: 120,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
                 {
                     id: "ledgerbalance",
                     accessor: "ledgerbalance",
-                    width: 120,
+                    width: 200,
                     skip: false,
                     show: true,
+                    style: {textAlign: "right"}
                 },
                 {
                     id: "exrate",
@@ -78,7 +79,14 @@ class AccountBalance extends Component {
 
 
     render() {
-        var data = []
+        var data = [
+            {currency: "CVY", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+            {currency: "EUR", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+            {currency: "HKD", ledgerbalance: "20,250,156.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+            {currency: "TWD", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+            {currency: "USD", ledgerbalance: "12,523,150.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"}
+        ]
+        
         return (
             <div style={{ height: "100%", position: "relative" }}>
                 <Title language={this.props.language} theme={this.props.theme}
@@ -100,7 +108,7 @@ class AccountBalance extends Component {
 
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
-                        totalPage={0}
+                        totalPage={1}
 
                         searchParams={[]}
                         searchMobileParams={[]}

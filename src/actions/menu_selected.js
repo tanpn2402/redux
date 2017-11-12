@@ -4,96 +4,8 @@ import * as ACTION from '../api/action_name';
 import config from '../core/config';
 import { showMessageBox } from '../actions/notification'
 
-export function menuSelected(menuid, pageid, tabList, reload) {
-    pageid = pageid === undefined ? '1' : pageid
-
-    if (tabList === undefined || tabList === []) {
-        tabList = { 1: [], 2: [], 3: [], 4: [] }
-
-        tabList[1].push(menuid)
-        return {
-            type: ActionTypes.MENU_SELECTED,
-            tabList: tabList,
-            page: '1',
-            reload: !reload
-
-        }
-    }
-    else if (tabList[pageid] === undefined || tabList[pageid] === []) {
-        tabList[pageid] = []
-        tabList[pageid].push(menuid)
-        return {
-            type: ActionTypes.MENU_SELECTED,
-            tabList: tabList,
-            page: pageid,
-            reload: !reload
-
-        }
-
-    }
-    else if (tabList[pageid].length >= 4) {
-        for (var i = parseInt(pageid) + 1; i <= 4; i++) {
-            if (tabList[i] !== undefined && tabList[i].length < 4) {
-
-                tabList[i].push(menuid)
-                return {
-                    type: ActionTypes.MENU_SELECTED,
-                    tabList: tabList,
-                    page: i.toString(),
-                    reload: !reload
-
-                }
-            }
-            else if (tabList[i] === undefined || tabList[i] === []) {
-                tabList[i] = []
-                tabList[i].push(menuid)
-
-                return {
-                    type: ActionTypes.MENU_SELECTED,
-                    tabList: tabList,
-                    page: i.toString(),
-                    reload: !reload
-
-                }
-            }
-        }
-    }
-    else {
-        tabList[pageid].push(menuid)
-
-        return {
-            type: ActionTypes.MENU_SELECTED,
-            tabList: tabList,
-            page: pageid,
-            reload: !reload
-
-        }
-    }
-};
-
-export function menuRemoved(menuid, pageid, tabList, reload) {
-    tabList[pageid] = tabList[pageid].filter(el => el !== menuid)
-    return {
-        type: ActionTypes.MENU_SELECTED,
-        tabList: tabList,
-        page: pageid,
-        reload: !reload
-
-    }
-
-};
-
-export function onPageClicked(pageid, tabList) {
-    return {
-        type: ActionTypes.MENU_SELECTED,
-        tabList: tabList,
-        page: pageid
-    }
-
-};
-
 export function onTabClick(tabID, subTabID){
-    console.log(tabID, subTabID)
+    // console.log(tabID, subTabID)
     //Save tabID into localstorage
     if (tabID != null) {
         localStorage.setItem('lastTabID',tabID)
@@ -120,7 +32,7 @@ export function onTabClick(tabID, subTabID){
 }
 
 export function onMobileTabClick(tabID, subTabID){
-    console.log(tabID, subTabID)
+    // console.log(tabID, subTabID)
     
     if (subTabID==null) {
         var curTab = config.tabbar.find((tab) => tab.id === tabID)
@@ -133,6 +45,12 @@ export function onMobileTabClick(tabID, subTabID){
         type: ActionTypes.TABCLICKEVENT,
         tabID: tabID,
         subTabID: subTabID,
+    }
+}
+
+export function onReloadPageContent() {
+    return {
+        type: ActionTypes.RELOADPAGECONTENT
     }
 }
 

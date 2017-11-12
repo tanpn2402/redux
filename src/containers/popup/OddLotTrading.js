@@ -220,7 +220,6 @@ const mapStateToProps = (state) => {
     return {
         returnCode: state.orderjournal.returnCode,
         message: state.orderjournal.message,
-        isAuthenFail: state.checkAuthen.isAuthenFail,
         bankinfo: state.oddlottrading.bankinfo,
     }
 }
@@ -228,9 +227,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     submitOddLot: (params) => {
         dispatch(actions.submitOddLot(params))
-    },
-    checkAuthen: (code1, code2, input1, input2, language) => {
-        dispatch(actions.checkAuthen(code1, code2, input1, input2, language))
     },
     getBankInfo: (params) => {
         dispatch(actions.getBankInfo(params))

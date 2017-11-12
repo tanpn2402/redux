@@ -2,17 +2,18 @@ import React from 'react';
 
 export default class PopupTable extends React.Component {
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         let language = this.props.language
         return (
-            <div className="popup-table" ref={ref => this.Table = ref}>
+            <div className={"popup-table " + this.props.className} ref={ref => this.Table = ref}>
                 {
                     this.props.data.map(d => {
-                        console.log(d)
                         return (
                             <div className="--tr" style={d.style}>
                                 <div className="--th">
-                                    {language[d.header]}
+                                    {
+                                        this.renderTHead(d, language)
+                                    }
                                 </div>
                                 <div className="--td">
                                     {
@@ -28,6 +29,19 @@ export default class PopupTable extends React.Component {
         )
     }
 
+    renderTHead(d, language) {
+        if(d.Header === undefined) {
+            if(d.header === undefined) {
+                return null
+            }
+            else {
+                return language[d.header]
+            }
+        }
+        else {
+            return d.Header(d)
+        }
+    }
 
     renderTData(d) {
         if(d.value === undefined) {
@@ -42,4 +56,7 @@ export default class PopupTable extends React.Component {
             return d.value
         }
     }
+}
+PopupTable.defaultProps = {
+    className: ""
 }

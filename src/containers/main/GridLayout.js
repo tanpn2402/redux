@@ -26,7 +26,7 @@ class GridLayout extends React.Component {
         const layout = this.state.layout[menuid]
         //console.log(layout)
         return (
-            <div key={menuid} 
+            <div key={menuid + (new Date()).getTime()} 
                 data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 
                     h: layout['h'], minW: layout['minW'], minH: layout['minH'], 
                     maxW: layout['maxW'], maxH: layout['maxH'], isDraggable: layout['isDraggable'],

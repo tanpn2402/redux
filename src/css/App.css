@@ -979,7 +979,7 @@ label {
 #pageheader {
     position: absolute;
     width: 100%;
-    z-index: 4;
+    z-index: 6;
 }
 #pageheader .logo {
     padding: 10px 0px 10px 10px;
@@ -3396,7 +3396,7 @@ label {
         padding-top: 8px;
         padding-bottom: 4px;
         position: relative;
-        z-index: 1;
+        z-index: 4;
         background-color: #fff;
         border-bottom: 1px solid #ccc;
     }
@@ -3410,7 +3410,7 @@ label {
         height: 100%;
         width: 0;
         position: absolute;
-        z-index: 3;
+        z-index: 5;
         background-color: transparent;
         overflow: hidden;
         top: 0px;
@@ -3924,6 +3924,16 @@ label {
     background-color: #fff;
     max-width: unset;
 }
+.lv-nodata {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.lv-nodata > div {
+    display: table-cell;
+    vertical-align: middle;
+}
 /* END Listview-control */
 
 
@@ -3947,6 +3957,58 @@ label {
 .search-bar .calendar-picker--trigger {
     width: 110px;
 }
+
+/* BALANCE BAR */
+.balance-bar {
+    /* height: 80px; */
+}
+.balance-outer {
+    height: 15px;
+}
+.bar-inner {
+    height: inherit;
+}
+.balance-index {
+    height: inherit;
+}
+.balance-title {
+    position: relative;
+    height: 35px;
+}
+.balance-title .-left {
+    position: absolute;
+    left: 0;
+    padding: 10px 0;
+}
+.balance-title .-middle {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+.balance-title .-right {
+    position: absolute;
+    right: 0;
+    padding: 10px 0;
+}
+
+.stock-statistis {
+    padding: 10px;
+}
+.stock-statistis .-title {
+    font-size: 20px;
+}
+.stock-statistis .-title label {
+    display: block;
+}
+
+.stockinfo-detail {
+    padding: 10px;
+}
+.stockinfo-chart label, .stockinfo-chart select {
+    display: none;
+}
+/* END BALANCE BAR */
 
 
 /* FOR DESKTOP */
@@ -4065,6 +4127,16 @@ label {
     .popup-table .input-control {
         height: 28px;
     }
+    .popup-table.border-line .--tr:nth-child(odd) {background: #FFF}
+    .popup-table.border-line .--tr:nth-child(even) {background: #FFF}
+    .popup-table.border-line .--tr {
+        border-bottom: 1px solid #ccc;
+    }
+    .popup-table.border-line .--th, 
+    .popup-table.border-line .--td {
+        padding: 0;
+    }
+
     /* SETTING POPUP */
     .mobile .setting-list {
         height: 250px;

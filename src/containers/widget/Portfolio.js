@@ -362,11 +362,29 @@ class Portfolio extends Component {
     }
 
     onBuyClick(props) {
-
+        // go to EnterOrder function with params:
+        // - mvBS: B
+        // - mvStockCode = props.mvStockID
+        // - mvStockName = props.mvStockName
+        // - mvMarketID = props.mvMarketID
+        console.log(props)
+        this.props.setDefaultOrderParams({
+            mvBS: "BUY",
+            mvStockCode: props.mvStockID,
+            mvStockName: props.mvStockName,
+            mvMarketID: props.mvMarketID
+        })
+        this.props.onMobileTabClick("trading")
     }
 
     onSellClick(props) {
-        
+        this.props.setDefaultOrderParams({
+            mvBS: "SELL",
+            mvStockCode: props.mvStockID,
+            mvStockName: props.mvStockName,
+            mvMarketID: props.mvMarketID
+        })
+        this.props.onMobileTabClick("trading")
     }
 
     componentWillReceiveProps(nextProps) {
@@ -480,6 +498,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     getPorfolio: (params) => {
         dispatch(actions.getPorfolio(params))
+    },
+    setDefaultOrderParams: (params) => {
+        dispatch(actions.setDefaultOrderParams(params))
+    },
+    onMobileTabClick: (id) => {
+        dispatch(actions.onMobileTabClick(id));
     },
 })
 

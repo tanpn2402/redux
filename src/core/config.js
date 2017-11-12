@@ -301,8 +301,9 @@ const config = {
 			enabled: true,
 			widget: [
 				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 7, isDraggable: false, isResizable: false },
-				{ i: 'stockmarketinform', x: 0, y: 7, w: 3, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 0, y: 15, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
+				{ i: 'assetallocation-lite', x: 0, y: 0, w: 8, h: 3, isDraggable: false, isResizable: false},
+				{ i: 'stockinfo', x: 0, y: 10, w: 8, h: 10, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 0, y: 30, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
 			]
 		},
 		{

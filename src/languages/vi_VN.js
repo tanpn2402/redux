@@ -1141,7 +1141,10 @@ export default
                 "buy": "Mua",
                 "sell": "Bán",
                 "reset": "Reset",
-                "sure": "Sure"
+                "sure": "Sure",
+                "confirmModify": "Đồng ý sửa",
+                "confirmCancel": "Đồng ý hủy",
+                "close": "Đóng"
             },
             "login": {
                 "username": "Số tài khoản",

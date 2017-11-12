@@ -3,7 +3,7 @@ import config from '../../../core/config'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions'
 import {getLanguage, getTheme } from '../../../utils'
-
+import {Button, Modal} from 'react-bootstrap';
 class Setting extends React.Component {
     constructor(props) {
         super(props)
@@ -30,39 +30,48 @@ class Setting extends React.Component {
             language: config.cache.lang
         }
         return (
-            <div className="setting-list">
-                {
-                    this.list.map(e => {
-                        return (
-                            <div>
-                                <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
-                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} className="st-icon">
-                                        <i className="material-icons md-24" style={{position: "relative", top: "2px"}}>{e.icon}</i>
+            <div>
+                <Modal.Body>
+                    <div className="setting-list">
+                        {
+                            this.list.map(e => {
+                                return (
+                                    <div>
+                                        <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
+                                            <div style={{ display: 'table-cell', verticalAlign: 'middle' }} className="st-icon">
+                                                <i className="material-icons md-24" style={{position: "relative", top: "2px"}}>{e.icon}</i>
+                                            </div>
+                                            <label style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '10px' }} aria-expanded="true">
+                                                {language.setting[e.id].title}
+                                            </label>
+                                        </div>
+                                        <ul id={e.id} className="nav nav-list tree setting-item collapse" aria-expanded="true">
+                                            {
+                                                e.value.map(v => {
+                                                    return (
+                                                        <li  ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
+                                                            {language.setting[e.id][v]}
+                                                            {
+                                                                v !== actived[e.id] ? null :
+                                                                <div className="bullet" style={{background: "#337ab7"}}></div>
+                                                            }
+                                                        </a></li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
                                     </div>
-                                    <label style={{ display: 'table-cell', verticalAlign: 'middle', paddingLeft: '10px' }} aria-expanded="true">
-                                        {language.setting[e.id].title}
-                                    </label>
-                                </div>
-                                <ul id={e.id} className="nav nav-list tree setting-item collapse" aria-expanded="true">
-                                    {
-                                        e.value.map(v => {
-                                            return (
-                                                <li  ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
-                                                    {language.setting[e.id][v]}
-                                                    {
-                                                        v !== actived[e.id] ? null :
-                                                        <div className="bullet" style={{background: "#337ab7"}}></div>
-                                                    }
-                                                </a></li>
-                                            )
-                                        })
-                                    }
-                                </ul>
-                            </div>
-                        )
-                    })
-                }
+                                )
+                            })
+                        }
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="cancel" onClick={this.props.onHide}>{language.button.close}</Button>
+                </Modal.Footer>
             </div>
+
+            
         )
     }
 }

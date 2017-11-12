@@ -61,7 +61,7 @@ class Portal extends React.Component {
         ReactDOM.unmountComponentAtNode(this.target);
         document.body.removeChild(this.target);
         document.body.removeEventListener("click", this.handleBaseBlur, false)
-        document.getElementById('pagecontent').removeEventListener('scroll', this.handleScroll, false);
+        document.getElementById('page-wrapper').removeEventListener('scroll', this.handleScroll, false);
     }
 
     componentDidMount() {
@@ -98,7 +98,7 @@ class Portal extends React.Component {
             this.target
         )
 
-        document.getElementById('pagecontent').addEventListener('scroll', this.handleScroll, false);
+        document.getElementById('page-wrapper').addEventListener('scroll', this.handleScroll, false);
     }
 
     render() {
