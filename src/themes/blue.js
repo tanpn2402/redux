@@ -63,9 +63,15 @@ export default {
     backgroundColor: '#C5D9F2',
     color: 'black'
   },
-  savelayoutbutton: {
-    backgroundColor: '#286CAE',
-    color: '#FFFFFF'
+  buttons: {
+    confirm: {
+      backgroundColor: '#c40909',
+      color: '#FFFFFF'
+    },
+    cancel: {
+      backgroundColor: '#999',
+      color: '#FFFFFF'
+    }
   },
   setting: {
     settingtitle: {
