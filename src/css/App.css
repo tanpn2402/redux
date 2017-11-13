@@ -43,6 +43,8 @@ body {
     /*outline: none;*/
     padding: 5px 6px;
     margin: 0 5px;
+    min-width: 100px;
+    max-width: 200px;
 }
 .hks-btn:hover {
     border: none;
@@ -64,7 +66,7 @@ body {
     color: white;
     width: auto;
     padding: 5px 16px;
-    width: 120px;
+    width: 30%;
 }
 .hks-btn.btn-cancel:hover {
     /* background-color: rgb(221, 88, 0); */
@@ -745,6 +747,7 @@ label {
     height: 19px;
     width: 45px;
     background-color: rgb(51, 122, 183);
+    min-width: unset;
 }
 
 /*POPUP*/
@@ -1714,6 +1717,7 @@ label {
     z-index: 2;
     border-radius: 2px;
     margin-left: 0;
+    min-width: unset;
 }
 .hks-btn.btn-tab-next {
     margin: 0;
@@ -1725,6 +1729,7 @@ label {
     z-index: 1;
     border-radius: 2px;
     top: -1px;
+    min-width: unset;
 }
 .hks-btn.btn-tab-next span{
     line-height: inherit;
@@ -2021,6 +2026,7 @@ label {
     margin-right: 1px;
     width: 22px;
     border-radius: 2px;
+    min-width: unset;
 }
 .hks-btn.btn-pagination-top > span {
     top: 2px;
@@ -4037,6 +4043,7 @@ label {
     }
     .maincontent-mobile .enterorder-a .input-control {
         height: 30px;
+        width: 100%;
     }
     .maincontent-mobile .enterorder-a .-label {
         font-size: 14px;
