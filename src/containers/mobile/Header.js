@@ -18,7 +18,7 @@ class Header extends React.Component {
 			<div id="pageheader" style={pageheader} className="header-mobi">
             
                 <div className="header-logo">
-                    TTL
+                    GSL
                 </div>
 				<div className="header-menu">
                     <span className={this.props.openMenu ? this.closeIcon : this.menuIcon} onClick={e => this.onOpenMenu()}></span>

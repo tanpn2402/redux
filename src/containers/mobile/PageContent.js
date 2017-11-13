@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import GridLayout from '../main/GridLayout.js'
 import config from '../../core/config'
+import Footer from './Footer'
 
 class PageContent extends React.Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class PageContent extends React.Component {
                         margin={[0, 10]}
                         >
                     </GridLayout>
+
+                    <Footer language={this.props.language} theme={this.props.theme}  />
                 </div>
             </div>
         )
