@@ -396,8 +396,7 @@ class Portfolio extends Component {
 
     render() {
         var data = this.props.data.mvPortfolioBeanList
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let tableFooter = this.props.theme.table.tableFooter
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>

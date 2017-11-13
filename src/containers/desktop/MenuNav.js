@@ -15,11 +15,11 @@ class MenuNav extends Component {
     render() {
         var activeTab = this.props.tabID
         var language = this.props.language.page
-        let pagemenu = this.props.theme.page.pagemenu
+        let pageMenuNav = this.props.theme.page.pageMenuNav
         let scrollBtnStyle = this.props.theme.scrolling.button
 
         return (
-            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pagemenu}>
+            <div className="scrolling-tabs-main tab-bar" id="pagemenu" style={pageMenuNav}>
               
 
                 <div className="scroll">
@@ -31,7 +31,7 @@ class MenuNav extends Component {
                                     if(tab.enabled) {
                                         return (
                                             <span key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}
-                                                onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tabactived : this.props.theme.tabnormal}>
+                                                onClick={e => this.onTabClick(tab.id)} style={tab.id === activeTab ? this.props.theme.tab.active : this.props.theme.tab.normal}>
 
                                                 {language.tab[tab.title]}
 

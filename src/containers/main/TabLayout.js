@@ -52,11 +52,11 @@ class TabLayout extends Component {
         let activeTab = this.state.activeTab
         let layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
 
-        let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
+        let background = this.props.theme.page.background
         let scrollBtnStyle = this.props.theme.scrolling.button
         return (
             <div>
-                <div className="scrolling-tabs-main tab-layout" style={pagebackground}>
+                <div className="scrolling-tabs-main tab-layout" style={background}>
                     <div className="scrolling-tabs-left">
                         <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
                             <span className="glyphicon glyphicon-menu-left"></span>

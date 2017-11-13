@@ -37,8 +37,8 @@ class SaveLayout extends Component {
     }
 
     render() {
-        let buttonConfirm = this.props.theme.buttons.confirm
-        let buttonCancel = this.props.theme.buttons.cancel
+        let buttonConfirm = this.props.theme.button.confirm
+        let buttonCancel = this.props.theme.button.cancel
         return (
             <div>
                 <Modal.Body style={{ textAlign: 'center' }}>

@@ -13,9 +13,9 @@ class Header extends React.Component {
 	}
 
 	render() {
-		let pageheader = this.props.theme.page == undefined ? undefined : this.props.theme.page.pageheader
+		let pageHeader = this.props.theme.page.pageHeader
 		return (
-			<div id="pageheader" style={pageheader} className="header-mobi">
+			<div id="pageheader" style={pageHeader} className="header-mobi">
             
                 <div className="header-logo">
                     TTL

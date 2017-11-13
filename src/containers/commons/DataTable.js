@@ -31,13 +31,13 @@ class DesktopTable extends React.Component {
 	}
 
 	render() {
-		let tableheader = this.props.theme.table.tableheader
-		let tablefooter = this.props.theme.table.tablefooter
+		let tableHeader = this.props.theme.table.tableHeader
+		let tableFooter = this.props.theme.table.tableFooter
 		let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
 		return (
 			<div className="destop-table" style={{ width: "100%", height: "100%", position: "relative" }}>
 
-				<div className={"table-main"} style={tableheader} ref={e => this.rTable = e}>
+				<div className={"table-main"} style={tableHeader} ref={e => this.rTable = e}>
 					<DataTable
 						theme={this.props.theme}
 						key={this.props.id}
@@ -72,7 +72,7 @@ class DesktopTable extends React.Component {
 				{
 					!this.props.footerEnable ? null :
 						(
-							<div className="table-footer" style={tablefooter}>
+							<div className="table-footer" style={tableFooter}>
 								<Pagination
 									theme={this.props.theme}
 									pageIndex={this.props.pageIndex}
@@ -224,16 +224,16 @@ class DataTable extends React.Component {
 
 
 	render() {
-		let rowodd = this.props.theme.table == undefined ? '#F0F0F0' : this.props.theme.table.rowodd.backgroundColor
-		let roweven = this.props.theme.table == undefined ? 'white' : this.props.theme.table.roweven.backgroundColor
-		let filterrow = this.props.theme.table.filterrow
-		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-		let font3 = this.props.theme.font3 == undefined ? 'black' : this.props.theme.font3.color
-		let font = this.props.theme.font == undefined ? 'black' : this.props.theme.font.color
-		let tableheaderbackground = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader.backgroundColor
-		let nodatadisplay = this.props.theme.table == undefined ? undefined : this.props.theme.table.nodatadisplay
+		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+		let rowEven = this.props.theme.table.rowEven.backgroundColor
+		let filterRow = this.props.theme.table.filterRow
+		let font2 = this.props.theme.font.sub1.color
+		let font3 = this.props.theme.font.sub2.color
+		let font = this.props.theme.font.main.color
+		let tableHeaderBackground = this.props.theme.table.tableHeader.backgroundColor
+		let noDataDisplay = this.props.theme.table.noDataDisplay
 		let height = this.props.maxRows * 24 + 27 + 'px'
-		let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader.backgroundColor
+		let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
 
 		let newStateColumns = this.state.columns
 
@@ -278,14 +278,14 @@ class DataTable extends React.Component {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
 								style: {
-									background: rowInfo.index % 2 == 0 ? roweven : rowodd,
+									background: rowInfo.index % 2 == 0 ? rowEven : rowOdd,
 									color: font2
 								}
 							}
 						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
 							return {
 								style: {
-									background: widgetheader,
+									background: '#0644a8',
 									color: font
 								}
 							}
@@ -296,8 +296,8 @@ class DataTable extends React.Component {
 					getTheadFilterProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
-								background: filterrow.backgroundColor,
-								color: filterrow.color
+								background: filterRow.backgroundColor,
+								color: filterRow.color
 							}
 						}
 					}}
@@ -305,7 +305,7 @@ class DataTable extends React.Component {
 						return {
 							style: {
 								color: font3,
-								background: tableheaderbackground
+								background: tableHeaderBackground
 							}
 						}
 					}}
@@ -313,13 +313,13 @@ class DataTable extends React.Component {
 						return {
 							style: {
 								color: font3,
-								background: tableheaderbackground
+								background: tableHeaderBackground
 							}
 						}
 					}}
 					getNoDataProps={(state, rowInfo, column, instance) => {
 						return {
-							style: nodatadisplay
+							style: noDataDisplay
 						}
 					}}
 					expanded={expand(this.props.data)}

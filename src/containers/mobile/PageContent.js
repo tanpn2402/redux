@@ -15,9 +15,9 @@ class PageContent extends React.Component {
     }
 
     render() {
-        let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
+        let background = this.props.theme.page.background
         return (
-            <div style={pagebackground} id="pagecontent" className={"pagecontent mobile"}>
+            <div style={background} id="pagecontent" className={"pagecontent mobile"}>
                 <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
                     ref={r=> this.Wrapper = r}>
                     <GridLayout 

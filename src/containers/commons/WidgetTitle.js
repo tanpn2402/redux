@@ -26,9 +26,9 @@ class WidgetTitle extends Component {
 
 
     render() {
-        let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
+        let widgetHeader = this.props.theme.widget.widgetHeader
         return (
-            <div className="widget-header" style={widgetheader}>
+            <div className="widget-header" style={widgetHeader}>
                 <div className="widget-title">
                     <span>
                         {this.props.children}
