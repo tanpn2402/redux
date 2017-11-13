@@ -65,7 +65,7 @@ function genPopupDesktop(props, onClose) {
 			return (<CashTransfer onHide={onClose} data={props.data} rowSelected={props.rowSelected} language={props.language} />)
 
 		case 'savelayout':
-			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config} />)
+			return (<SaveLayout language={props.language} theme={props.theme} checkSessionID={props.checkSessionID} config={props.config} />)
 			break;
 
 		case 'enterorderconfirm':
@@ -102,7 +102,7 @@ function genPopupMobile(props, onClose) {
 			break;
 
 		case 'savelayout':
-			return (<SaveLayout language={props.language} checkSessionID={props.checkSessionID} config={props.config} />)
+			return (<SaveLayout language={props.language} theme={props.theme} checkSessionID={props.checkSessionID} config={props.config} />)
 			break;
 
 		case 'setting':

@@ -37,14 +37,16 @@ class SaveLayout extends Component {
     }
 
     render() {
+        let buttonConfirm = this.props.theme.buttons.confirm
+        let buttonCancel = this.props.theme.buttons.cancel
         return (
             <div>
                 <Modal.Body style={{ textAlign: 'center' }}>
                     {this.props.language.messagebox.message.saveLayoutConfirm}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.logout}>{this.props.language.button.no}</Button>
-                    <Button onClick={this.logoutAndSave}>{this.props.language.button.yes}</Button>
+                    <Button style={buttonCancel} onClick={this.logout}>{this.props.language.button.no}</Button>
+                    <Button style={buttonConfirm} onClick={this.logoutAndSave}>{this.props.language.button.yes}</Button>
                 </Modal.Footer>
             </div>
         )
