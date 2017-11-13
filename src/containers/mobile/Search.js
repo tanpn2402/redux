@@ -47,7 +47,7 @@ class Search extends Component {
                             this.state.searchResult.map(item => {
                                 return (
                                     <li id={item.i} key={item.i} onClick={e => this.onMenuSelected(item.i)}>
-                                        {language[item.i]}
+                                        {language[item.i.split("-")[0]]}
                                     </li>
                                 )
                             })
@@ -64,23 +64,29 @@ class Search extends Component {
 
     onMenuSelected(id){
         this.props.onMobileMenuSelect(id)
-        this.props.reloadCustom(this.props.load)
+        this.props.onCloseSearch(false)
     }
 
     onChange(value, language) {
         //console.log(value)
-        var widgets = config.widgetMobile
-
+        var result = []
         var matchesFilter = new RegExp(value, "i")
-        var tmp = widgets.filter(el => {
-            var text = language[el.i]
-            if (matchesFilter.test(text))
-                return true
+        var tabs = config.mobileTab
+        tabs.map(tab => {
+            var widgets = tab.widget
+
+            widgets.map(wid => {
+                var text = language[wid.i.split("-")[0]]
+                if (matchesFilter.test(text)) {
+                    result.push(wid)
+                }
+            })
         })
-        //console.log(tmp)
-        if(tmp.length > 0){
+        
+        // console.log(result)
+        if(result.length > 0){
             this.setState({
-                searchResult: tmp
+                searchResult: result
             })
         }
     }

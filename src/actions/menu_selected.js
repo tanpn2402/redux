@@ -140,6 +140,23 @@ export function openSearch(open) {
 }
 
 export function onMobileMenuSelect(id) {
-    var curWidgets = config.tabbar.filter(e => e.id == "mobile")[0].widget
-
+    var tabID = ""
+    var mobileTabs = config.mobileTab
+    for(let i = 0; i < mobileTabs.length; i++) {
+        let tab = mobileTabs[i]
+        let t = tab.widget.filter(wid => wid.i == id)
+        if(t.length > 0) {
+            tabID = tab.id
+            break;
+        }
+    }
+    if(tabID != "") {
+        return (dispatch) => {
+            dispatch(onMobileTabClick(tabID, id))
+        }
+    } else {
+        return {
+            type: 0
+        }
+    }
 }
