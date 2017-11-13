@@ -105,6 +105,8 @@ body {
     outline: all;
     color: #000;
     background-color: #FFF;
+    max-width: unset;
+    min-width: unset;
 }
 .hks-tab {
     color: #fff;
@@ -685,8 +687,14 @@ label {
     background-color: #575757;
     cursor: not-allowed;
 }
-/* .inline {
-    float: right;
+@media(max-width: 400px) {
+    .login-form-body {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .login-form {
+        width: 100%;
+    }
 }
  */
 .form-group {
@@ -856,16 +864,15 @@ label {
 /*END MAIN CONTENT */
 
 /*PAGE CONTENT*/
-#pagecontent > div {
-    width: 100%;
-    height: 100%;
-    padding: 2px;
-}
 .pagecontent {
     overflow-y: scroll;
     height: 100%;
     /* padding-bottom: 60px; */
     padding-top: 50px;
+}
+.pagecontent-wrapper {
+    width: 100%;
+    height: 100%;
 }
 .pagecontent.management,
 .pagecontent.transhistory {
@@ -2955,23 +2962,47 @@ label {
 
 /*END AUTH CARD MATRIX POPUP*/
 
-
+/* MATERIAL ICONS */
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url('../assets/fonts/material-icon/MaterialIcons-Regular.eot'); /* For IE6-8 */
   src: local('Material Icons'),
     local('MaterialIcons-Regular'),
-    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+    url('../assets/fonts/material-icon/MaterialIcons-Regular.woff2') format('woff2'),
+    url('../assets/fonts/material-icon/MaterialIcons-Regular.woff') format('woff'),
+    url('../assets/fonts/material-icon/MaterialIcons-Regular.ttf') format('truetype');
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
-
+/* END MATERIAL ICONS */
 
 
 /* -------------------------------- */
@@ -3369,9 +3400,9 @@ label {
     text-align: center;
 }
 .header-menu {
-    font-size: 25px;
+    font-size: 24px;
     padding-top: 10px;
-    color: rgb(0, 90, 160);
+    color: #bc0000;
     float: left;
     height: 50px;
     width: 50px;
@@ -3379,18 +3410,19 @@ label {
 }
 .header-logo {
     position: absolute;
+    background: #FFF;
     width: 100%;
     padding-top: 3px;
-    font-size: 33px;
-    color: rgb(0, 90, 160);
+    font-size: 30px;
+    color: #bc0000;
     font-weight: 600;
     letter-spacing: 4px;
 
 }
 .header-search {
-    font-size: 25px;
+    font-size: 24px;
     padding-top: 10px;
-    color: rgb(0, 90, 160);
+    color: #666;
     float: right;
     height: 50px;
     width: 50px;
@@ -3399,7 +3431,8 @@ label {
     /* FUNCTION CHOOSER */
     .function-choose {
         text-align: center;
-        padding-top: 8px;
+        height: 45px;
+        padding-top: 12px;
         padding-bottom: 4px;
         position: relative;
         z-index: 4;
@@ -4015,6 +4048,71 @@ label {
     display: none;
 }
 /* END BALANCE BAR */
+
+/* FOOTER */
+.footer {
+    margin-top: 70px;
+    background: #FFF;
+    position: relative;
+}
+.footer-links {
+    display: table;
+    padding: 40px 10px;
+    width: 100%;
+}
+.footer-links ul {
+    list-style: none;
+}
+.footer-links li {
+    margin: 10px 0;
+}
+.footer-links a {
+    color: #bc0000;
+}
+.footer-info {
+    text-align: center;
+    background: #bc0000;
+    padding: 50px 10px 10px;
+    color: #FFF;
+}
+.footer-info a {
+    color: #FFF;
+}
+.footer-info ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-info li {
+    display: inline;
+    margin: 5px;
+}
+.footer-actions {
+    position: absolute;
+    right: 10px;
+    top: 85px;
+}
+.footer-actions button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 99px;
+    display: block;
+    margin: 10px 0;
+    font-size: 24px;
+    box-shadow: 0 2px 0px rgba(0,0,0,0.19), 0 3px 5px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 2px 0px rgba(0,0,0,0.19), 0 3px 5px rgba(0,0,0,0.23);
+    -ms-box-shadow: 0 2px 0px rgba(0,0,0,0.19), 0 3px 5px rgba(0,0,0,0.23);
+    -o-box-shadow: 0 2px 0px rgba(0,0,0,0.19), 0 3px 5px rgba(0,0,0,0.23);
+}
+.chat-head {
+    background-color: #bc0000;
+    color: #FFF;
+}
+.to-top {
+    background: #FFF;
+    color: #989898;
+}
+/* END FOOTER */
 
 
 /* FOR DESKTOP */
