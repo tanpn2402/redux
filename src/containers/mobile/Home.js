@@ -13,7 +13,7 @@ class Home extends Component {
     }
 
     render() {
-        let theme = getTheme('red')
+        let theme = getTheme(config.cache.theme)
         let lang = getLanguage(config.cache.lang)
 
         return (
