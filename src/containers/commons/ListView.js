@@ -89,7 +89,7 @@ export default class ListView extends React.Component {
         let i = 0
         let col = []
 
-        while (remainWid > 0) {
+        while (remainWid > 0 && i < columns.length) {
             let column = columns[i]
             if (column.mobile !== false) {
                 if (column.columns === undefined) {
