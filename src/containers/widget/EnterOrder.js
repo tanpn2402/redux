@@ -232,7 +232,7 @@ class EnterOrderForm extends React.Component {
                             </Col>
                             <Col xs={7}>
                                 <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} readOnly 
-                                    defaultValue={this.state.mvStockSelected.stockName}/>
+                                    defaultValue={""}/>
                             </Col>
                         </div>
 
