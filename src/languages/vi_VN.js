@@ -128,7 +128,11 @@ export default
                 "loanRefundPanel": "Hoàn trả vay ký quỹ",
                 "loanRefundHistory": "Lịch sử giao dịch hoàn trả vay ký quỹ",
                 "loanRefundStatus": "Trạng tháI giao dịch hoàn trả vay ký quỹ",
-                "transactionhistory": "Tra cứu lịch sử"
+                "transactionhistory": "Tra cứu lịch sử",
+                "accountbalance": "Số dư tài khoản",
+                "setting": "Thiết lập",
+                "assetallocation": 'Phân bổ tài sản',
+                "stockinfo": "Thông tin chứng khoán"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -140,7 +144,6 @@ export default
                 "cancel": "Huỷ GD",
                 "status": "Trạng thái",
                 "type": "Loại lệnh",
-                "actionType": "Loại",
                 "buysell": "Mua/Bán",
                 "exchange": "Thị trường",
                 "stock": "Mã CK",
@@ -191,7 +194,17 @@ export default
                 "mvStartDate": "Từ ngày",
                 "mvEndDate": "Đến ngày",
                 "tradeType": "Loại GD",
-                "mvStatus": "Trạng thái lệnh"
+                "mvStatus": "Trạng thái lệnh",
+                "mvMarket": "Sàn",
+                "mvCurrency": "Đơn vị tiền tệ",
+                "HKD": "HKS",
+                "CVY": "CVY",
+                "EUR": "EUR",
+                "TWD": "TWD",
+                "USD": "USD",
+                "HO": "HO",
+                "HA": "HA",
+                "UPCOM": "UPCOM"
             },
             "marqueebar": {
                 "status": "Trạng thái",
@@ -216,17 +229,35 @@ export default
                     "rejectreason": "Từ chối",
                     "time": "Thời gian",
                     "stockid": "Mã CK",
-                    "buysell": "Mua/Bán"
+                    "buysell": "Mua/Bán",
+                    "orderID": "Order ID",
+
+                    // for popup table
+                    "market": "Sàn",
+                    "tradeId": "Mã trao đổi",
+                    "stockName": "Tên chứng khoán",
+                    "buysell": "Mua/Bán",
+                    "initialPrice": "Giá khởi điểm",
+                    "newPrice": "Giá mới",
+                    "initialQuantity": "Số lượng khởi điểm",
+                    "matchedQuantity": "Số lượng khớp",
+                    "newQuantity": "Số lượng mới",
+                    "totalCash": "Tổng tiền"
                 },
                 "popup": {
                     "title": {
                         "modify": "Sửa lệnh",
                         "cancel": "Hủy lệnh",
-                        "detail": "Thông tin lệnh"
                     }
                 },
                 "action": {
                     "cancelorder": "Hủy lệnh"
+                },
+                "message": {
+                    "modifySucces": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
+                    "modifyFailed": "Chỉnh sửa thất bại. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
+                    "cancelSuccess": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
+                    "cancelFailed": "Hủy lệnh thất bại. Vui lòng liên hệ bộ phận hỗ trợ."
                 }
             },
             "cashstatement": {
@@ -335,9 +366,6 @@ export default
                 "status": {
                     "approve": "Đã xác nhận",
                     "waiting": "Chưa xác nhận"
-                },
-                "message": {
-                    "wrongQty": "Vượt quá số lượng CK lô lẻ của mã KLS mà Quý khách hiện có. Vui lòng kiểm tra lại thông tin đăng ký."
                 }
             },
             "accountinfo": {
@@ -353,25 +381,24 @@ export default
                     "stock": "Chứng khoán",
                     "buyingpower": "Mức mua tối đa(ABC-125137309)",
                     "cashblance": "Số dư tiền mặt (được rút)",
+                    "availableadvance": "Khả năng ứng trước",
+                    "tempholdcash": "Tiền tạm giữ",
                     "holdexecute": "Tiền mau CK đã khớp",
                     "holdpending": "Tiền mua CK chờ khớp",
+                    "pendingapproval": "Tiền(rút, chuyển khoảng) chờ duyệt",
                     "duesell": "Tiền bán CK chở về",
+                    "withdrawable": "Số dư được rút (bao gồm ứng trước)",
+                    "outstandingloan": "Dư nợ ký quỹ",
+                    "margincall": "Gọi bổ sung ký quỹ(tùy chọn)",
+                    "cashdeposit": "Nộp tiền mặt",
+                    "sellstkinmarport": "Bán CK trong danh mục ký quỹ",
                     "vol": "Số dư GD",
                     "tradeinday": "Giao dịch trong ngày",
                     "bought": "Đã mua",
                     "sold": "Đã bán",
                     "cash": "Tiền",
+                    "totalassetmaintenance": "Tổng tài sản bảo trì",
                     "overduedebt": "Nợ đến hạn",
-                    "upcomingdebt": "Nợ sắp đáo hạn",
-                    "availableadvance": "Khả năng ứng trước",
-                    "tempholdcash": "Tiền tạm giữ",
-                    "pendingapproval": "Tiền(rút, chuyển khoảng) chờ duyệt",
-                    "outstandingloan": "Dư nợ ký quỹ",
-                    "margincall": "Gọi bổ sung ký quỹ(tùy chọn)",
-                    "cashdeposit": "Nộp tiền mặt",
-                    "sellstkinmarport": "Bán CK trong danh mục ký quỹ",
-                    "withdrawable": "Số dư được rút (bao gồm ứng trước)",
-                    "totalassetmaintenance": "Total asset maintenance",
                     "processeddebt": "Nợ phải sử lý",
                     "cashreserve": "Tiền mặt",
                     "advancerequest": "Tiền phải ứng",
@@ -379,11 +406,12 @@ export default
                     "sellstockrequest": "Yêu cầu bán chứng khoán",
                     "forcesell": "Bán giải gấp",
                     "forceselldays": "thời hạn bán giải gấp",
-                    "upcomingduedebt": "Nợ sắp đáo hạn "
+                    "upcomingduedebt": "Nợ sắp đáo hạn ",
                 }
             },
             "portfolio": {
                 "header": {
+                    "mvStockName": "Tên chứng khoán",
                     "mvMarketID": "Sàn",
                     "sumary": "Tổng quan",
                     "valuevnd": "Giá trị(VND)",
@@ -613,6 +641,15 @@ export default
                     "Total": "Tổng"
                 }
             },
+            "avaiblemarginlist": {
+                "header":{
+                    "No": "No.",
+                    "Stockcode": "Mã CK",
+                    "Fullname": "Tên đầy đủ",
+                    "Exchange": "Thị trường",
+                    "psentlending": "% Cho vay"
+                }
+            },
             "cashtransfer": {
                 "header": {
                     "cashbalance": "Số dư tiền mặt",
@@ -635,6 +672,12 @@ export default
                     "localaccount": "Tài khoản nội bộ",
                     "bankaccount": "Tài khoản ngân hàng"
                 },
+                "error": {
+                    "transtype": "Chọn loại gửi",
+                    "beneficiary": "Số tài khoản thụ hưởng không hợp lệ",
+                    "bank": "Không tìm thấy ngân hàng",
+                    "branch": "Không tìm thấy nhánh của ngân hàng"
+                },
                 "status": {
                     "pending": "Đang chờ",
                     "approve": "Duyệt",
@@ -652,15 +695,6 @@ export default
                     "message": "Bạn có chắc muốn thực hiện ?",
                     "ok": "OK",
                     "cancel": "Cancel"
-                }
-            },
-            "avaiblemarginlist": {
-                "header": {
-                    "No": "STT",
-                    "Stockcode": "Mã CK",
-                    "Fullname": "Tên đầy đủ",
-                    "Exchange": "Thị trường",
-                    "psentlending": "% Cho vay"
                 }
             },
             "cashadvance": {
@@ -688,8 +722,6 @@ export default
                 "popup": {
                     "title": "Ứng trước tiền chứng khoán",
                     "message": "Ban co chac chan muon thuc hien ?",
-                    "ok": "OK",
-                    "cancel": "Bo qua"
                 },
                 "status": {
                     "authorized": "Xác nhận",
@@ -926,14 +958,25 @@ export default
                 "popup": {
                     "title": "Ứng trước tiền chứng khoán ( Ngân hàng)",
                     "message": "Bạn có chắc chắn muốn thực hiện ?",
-                    "ok": "OK",
-                    "cancel": "Bỏ qua"
                 },
                 "message": {
                     "insufficientfund": "Số tiền Quý khách muốn ứng vượt quá mức giới hạn tối đa của Quý khách. Xin quý khách vui lòng kiểm tra lại.",
+                    "noAmount": "Số lượng không được để trống.",
                     "wrongAmount": "Số tiền Quý khách muốn ứng không hợp lệ.",
                     "advancePaymentFailed": "Đã có lỗi xảy ra. Xin lòng thực hiện lại",
-                    "advancePaymentSuccessful": "Thành công"
+                    "advancePaymentSuccessful": "Thành công",
+                    "noRegisterBank": "You don't register to trading via bank.",
+                    "differentTradeDate": "You must select orders with have same trade date."
+                }
+            },
+            "accountbalance": {
+                "header": {
+                    "currency": "Đơn vị tiền tệ",
+                    "exrate": "Tỉ giá cũ",
+                    "holdamount": "Hold Amount",
+                    "withdrawable": "Withdrawable",
+                    "settledbalance": "Settled Balance",
+                    "ledgerbalance": "Ledger Balance"
                 }
             },
             "cash": {
@@ -971,13 +1014,13 @@ export default
                     "hoding": "Tạm khóa",
                     "freezing": "Phong tỏa",
                     "securities": "TK Chứng khoán",
-                    "feeTax": "Phí + Thuế",
                     "sellDay": "Ngày bán CK",
                     "buyWaiting": "Chờ mua",
-                    "buyPrice": "Giá mua",
+                    "feeTax": "Phí + Thuế",
+                    "sellWaiting": "Chờ bán",
                     "buyValue": "GT mua",
                     "currentValue": "GT hiện tại",
-                    "sellWaiting": "Chờ bán"
+                    "buyPrice": "Giá mua"
                 }
             },
             "overdueDebt": {
@@ -997,17 +1040,29 @@ export default
                     "upcomingDebt": "Upcoming due debt"
                 }
             },
+            "stockinfo": {
+                "header": {
+
+                }
+            },
             "messagebox": {
                 "title": {
-                    "warning": "Cảnh báo",
+                    "confirm": "Xác nhận",
+                    "newGroupName": "Tên nhóm mới",
+                    "warningConfiguration": "Warning Configuration",
+                    "note": "Lưu ý",
+                    "info": "Thông tin",
                     "error": "Lỗi",
                     "failed": "Thất bại",
                     "success": "Thành công",
-                    "note": "Ghi chú",
-                    "info": "Thông tin"
+                    "orderInformation": "Thông tin lệnh",
+                    "confirmCancel": "Xác nhận hủy",
+                    "rejectReason": "Lí do từ chối",
+                    "modifiedOrder": "Order Information"
                 },
                 "message": {
                     "systemMaintain": "Hệ thống đang bảo trì",
+                    "maxWindows": "Bạn chỉ được có |NoW| cửa sổ!",
                     "oneWindow": "Bạn chỉ mở được 1 cửa sổ giống vậy",
                     "saveLayoutConfirm": "Bạn có muốn lưu lại công việc hiện tại không?",
                     "saveLayoutSuccess": "Lưu thành công!",
@@ -1065,6 +1120,7 @@ export default
                     "marketClose": "Ngoài giờ đặt lệnh.",
                     "marketClose_HNX": "Ngoài giờ đặt lệnh trên sàn HNX.",
                     "marketClose_UPCOM": "Ngoài giờ đặt lệnh trên sàn UPCOM.",
+                    "notsupport_UPCOM": "Hệ thống không hỗ trợ đặt lệnh của sàn UPCOM",
                     "invalidTime_ATO": "Chỉ có thể đặt lệnh ATO trong đợt giao dịch định kỳ xác định giá mở cửa.",
                     "invalidTime_ATC": "Chỉ có thể đặt lệnh ATC trong đợt giao dịch định kỳ xác định giá đóng cửa.",
                     "invalidTime_MP": "Chỉ có thể đặt lệnh MP trong đợt giao dịch định kỳ xác định giá đóng cửa.",
@@ -1098,6 +1154,7 @@ export default
                     "noAmount": "Xin vui lòng nhập số tiền.",
                     "overTransfer": "Số tiền cần chuyển lớn hơn số tiền bạn có.",
                     "transferSuccessful": "Chuyển tiền thành công. Vui lòng chờ xác nhận.",
+                    "orderNotSelectToSend": "Vui lòng chọn ít nhất 1 lệnh để gửi",
                     "notAnnouncement": "Hiện tại Chúng tôi không đăng ký mua cổ phiếu lô lẻ.",
                     "notChoosenStock": "Quý khách vui lòng chọn một chứng khoán để đặt lệnh.",
                     "enterAnswer": "Vui lòng nhập mã số xác nhận!",
@@ -1121,6 +1178,7 @@ export default
                 "FTSubmit": "Thực hiện",
                 "exportData": "Xuất file",
                 "cancel": "Hủy",
+                "modify": "Sửa",
                 "CTTCancel": "Hủy GD",
                 "clear": "Xóa",
                 "addNew": "Thêm mới",

@@ -7,14 +7,13 @@ export default
             "tab": {
                 "trading": "Trading",
                 "portfolio": "Portfolio",
+                "daytrade": "Day Trade",
                 "orderjournal": "Order Journal",
                 "transhistory": "Transaction History",
                 "management": "Management",
                 "customization": "Customization",
                 "mobile": "mobile",
-                "daytrade": "Day Trade",
                 "orderhistory": "Order History"
-
             },
             "setting": {
                 "language": {
