@@ -418,7 +418,7 @@ class Portfolio extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data}
-                        pivot={['mvStockID']}
+                        pivot={['mvMarketID']}
                         getPivotRowProps={(propName) => {
                             return(
                                 <div className='lv-pivot-group' >

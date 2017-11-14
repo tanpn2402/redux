@@ -157,7 +157,9 @@ class LVBody extends React.Component {
         let { data, rowStamp, row, col, addCol, action, maxWid, language, isPivot } = this.props.dataObject
         return (
             <div className="lv-tbody" ref={ref => this.props.setRefBody(ref)}>
-                <div className="lv-tbody-b" ref={ref => this.props.setRefBodyWrapper(ref)}>
+                <div className="lv-tbody-b">
+                    <div style={{height: "100%"}} ref={ref => this.props.setRefBodyWrapper(ref)}>
+                    </div>
                     {
                         data.map(d => {
                             if(isPivot){
@@ -445,7 +447,9 @@ export default class ListView extends React.Component {
                 'no data' +
                 '</div>' +
                 '</div>'
-
+            this.refTBodyWrapper.style.display = "block"
+        }else{
+            this.refTBodyWrapper.style.display = "none"
         }
     }
 }
