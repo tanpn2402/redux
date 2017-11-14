@@ -1798,11 +1798,11 @@ label {
 }
     /* scrolling in tabbar */
     .scrolling-tabs-main.tab-bar {  /*for tabbar*/
-        height: 40px;
+        height: 35px;
         margin: 0;
     }
     .scrolling-tabs-main.tab-bar .vertical-align-middle {
-        /* padding-top: 2px; */
+        padding-top: 2px;
         /* padding-bottom: 2px; */
         /* padding-left: 5px; */
     }
@@ -1828,7 +1828,6 @@ label {
     .scrolling-tabs-main.tab-bar .tabs-item.actived{  /*for tabbar*/
         background-color: #fff;
         color: #555;
-        border-radius: 3px;
     }
     .scrolling-tabs-main.tab-bar .tabs-item.disabled{  /*for tabbar*/
         background-color: #eee1e2;
@@ -3261,6 +3260,7 @@ label {
     padding: 0px 2px;
     border: 1px solid rgb(204, 204, 204);
     border-radius: 4px;
+    background-color: #FFF;
 }
 .calendar-picker--group {
     position: relative;
@@ -3359,7 +3359,7 @@ label {
     font-size: 16px;
     top: -1px;border: none;
     background: transparent;
-    color: #fff;
+    color: #2159a0;
 }
 #ChartControlDropdown {
     padding: 0px 5px;
@@ -3367,7 +3367,7 @@ label {
     font-size: 16px;
     top: -1px;border: none;
     background: transparent;
-    color: #fff;
+    color: #2159a0;
 }
 #ChartControlDropdown:hover {
     color: #999;
@@ -3389,6 +3389,9 @@ label {
 #techanalysis select {
     display: none;
 }
+#techanalysis .widget-wrapper {
+    padding-top: 0;
+} 
 /* END TECHNICAL ANALYSIS */
 
 /* MOBILE VERSION */
@@ -4116,6 +4119,9 @@ label {
 
 
 /* FOR DESKTOP */
+.maincontent-desktop .pagecontent {
+    padding-top: 35px;
+}
 .maincontent-desktop .enterorder-a .select-control {
     height: 24px;
 }

@@ -69,7 +69,8 @@ class TTLChart extends React.Component
         if (isMob)
         {
             this.chartLayout = {
-                chartCanvas_margin_right: 80,
+                chartCanvas_margin_left: 50,
+                chartCanvas_margin_right: 10,
                 axis_fontSize: 22,
                 tooltip_fontSize: 16,
                 subchart_topPadding: 30,
@@ -80,12 +81,13 @@ class TTLChart extends React.Component
         else
         {
             this.chartLayout = {
-                chartCanvas_margin_right: 65,
-                axis_fontSize: 12,
+                chartCanvas_margin_left: 50,
+                chartCanvas_margin_right: 10,
+                axis_fontSize: 11,
                 tooltip_fontSize: 11,
                 subchart_topPadding: 10,
                 tooltip_width: 65,
-                tooltip_startx: -36,
+                tooltip_startx: -30,
             };
         }
     }
@@ -98,6 +100,22 @@ class TTLChart extends React.Component
     componentDidMount()
     {
         this.resetXExtents();
+
+        this.subChartVarArray = this.props.config.subCharts;
+        this.inChartVarArray = this.props.config.inCharts;
+        this.handleSetSubCharts(this.props.config.inCharts, this.props.config.subCharts, this.props.config)
+    }
+
+    componentDidUpdate() {
+        // var h = this.props.height + 30
+        // this.subChartVarArray.forEach(e => {
+        //     let height = e[2]
+        //     if(height) {
+        //         h += height
+        //     }
+        // })
+
+        // this.TTLStockChart.style.height = h + "px"
     }
 
     componentWillUnmount() {
@@ -106,15 +124,20 @@ class TTLChart extends React.Component
 	render() {
 		var { width, height, ratio, config } = this.props;
         var { refreshState } = this.state;
-        
-        // console.log(config)
+
+        let padding = {top: "25px", bottom: "100px"}
+        if(config.option.control == false && config.option.editor == false) 
+            padding.top = 0 + "px"
+        if(config.option.timeline == false)
+            padding.bottom = 0 + "px"
+            
 		return (
-            <div className={"TTLStockChart " + config.chart.appearance.theme} 
+            <div className={"TTLStockChart " + config.chart.appearance.theme} ref={ref => this.TTLStockChart = ref}
                 style={{backgroundColor: config.chart.appearance.background}}>
                 
                 <div id="TTLStockChart_C_Main" className="TTLStockChart_C_Main">
-                    <div className="TTLMainChart">
-                        <div style={{ width: '100%', height: '100%', overflowY: 'scroll', overflowX: 'hidden' }}>
+                    <div className="TTLMainChart" style={{paddingTop: padding.top, paddingBottom: padding.bottom}}>
+                        <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
                             <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
                                 chartLayout={this.chartLayout}
                                 data={this.state.data}
@@ -134,28 +157,39 @@ class TTLChart extends React.Component
                         </div>
                     </div>
                     <div className="TTLTimeLineChart">
-                        <TTLTimeLineChart width={width} height={70} ratio={ratio} 
-                            ref={node => {this.timeLine=node;}} baseref={this}
-                            chartLayout={this.chartLayout}
-                            data={this.state.data}
-                            config={config}
-                            />
+                        {
+                            !this.props.config.option.timeline ? null :
+                                <TTLTimeLineChart width={width} height={70} ratio={ratio} 
+                                    ref={node => {this.timeLine=node;}} baseref={this}
+                                    chartLayout={this.chartLayout}
+                                    data={this.state.data}
+                                    config={config}
+                                    />
+                        }
                     </div>
                    
                 </div>
                 <div id="TTLStockChart_C_Ctl" className="TTLStockChart_C_Ctl" >
-                    <TTLChartControl 
-                        mainChartSeries={config.chart.type} 
-                        handleSeriesChange={(series) => this.handleCreateMainChartSeries(series, config)} 
-                        handleSetSubCharts={(inChartVarArray, subChartVarArray) => {
-                                    this.subChartVarArray = subChartVarArray;
-                                    this.inChartVarArray = inChartVarArray;
-                                    this.handleSetSubCharts(inChartVarArray, subChartVarArray, config)
-                                }
-                            }/>
+                    {
+                        !this.props.config.option.control ? null : 
+                            <TTLChartControl 
+                                inCharts={config.inCharts}
+                                subCharts={config.subCharts}
+                                mainChartSeries={config.chart.type} 
+                                handleSeriesChange={(series) => this.handleCreateMainChartSeries(series, config)} 
+                                handleSetSubCharts={(inChartVarArray, subChartVarArray) => {
+                                            this.subChartVarArray = subChartVarArray;
+                                            this.inChartVarArray = inChartVarArray;
+                                            this.handleSetSubCharts(inChartVarArray, subChartVarArray, config)
+                                        }
+                                    }/>
+                    }
                 </div>
                 <div id="TTLStockChart_C_EditCtl" className="TTLStockChart_C_EditCtl">
-                    <TTLChartEditControl startInteract={(id) => this.handleStartInteract(id)}/>
+                    {
+                        !this.props.config.option.editor ? null : 
+                            <TTLChartEditControl startInteract={(id) => this.handleStartInteract(id)}/>
+                    }
                 </div>
             </div>
 		);
@@ -172,6 +206,7 @@ class TTLChart extends React.Component
                 drawingSwitch: !prevState.drawingSwitch
             }));
         }
+        
     }
     
     handleStartInteract(id)
@@ -207,7 +242,9 @@ class TTLChart extends React.Component
     
     handleMainChartEvents(newXScaleDomain)
     {
+        if(this.props.config.option.timeline) {
             this.timeLine.refreshMovingWindow(newXScaleDomain);
+        }
     }
     
     refresh()
@@ -250,9 +287,12 @@ class TTLChart extends React.Component
         this.mainChart.setState({
             data: this.state.data
         }, callBack);
+
+        if(this.props.config.option.timeline) {
             this.timeLine.setState({
                 data: this.state.data
             }, callBack);
+        }
     }
     
     resetXExtents()
@@ -290,7 +330,10 @@ class TTLChart extends React.Component
         this.setState({mainChartSeries: pSeries})
         this.prevChartType = pSeriesName;
     }
-
+    /*
+        - pInChartVarArray: ds cac chart trong main chart
+        - pSubChartVarArray: ds sub chart
+    */
     handleSetSubCharts(pInChartVarArray, pSubChartVarArray, pConfig)
     {
         console.log(pInChartVarArray, pSubChartVarArray)
@@ -352,6 +395,11 @@ const stoAppearance = {
 
 
 // CREATE SUB CHART
+// define subchart
+/*
+pChartName, pPara, pHeight
+pChartName= InChartVol|Vol|RSI|MACD|STO
+*/
 function createInChartVol(props)
 {
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
@@ -394,12 +442,12 @@ function createVol(props)
             padding={{ top: topPadding, bottom: 0 }}>
             
             <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
-            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
+            <YAxis axisAt="left" orient="left" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
                 tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
-                at="right"
-                orient="right"
+                at="left"
+                orient="left"
                 displayFormat={format(".4s")} />
         
             <BarSeries yAccessor={d => d.volume} />
@@ -921,7 +969,11 @@ TTLChart.defaultProps = {
             timeline: true,
             control: true,
             editor: true,
-        }
+        },
+
+        subCharts: [],
+        inCharts: []
+
     }
 };
 

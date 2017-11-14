@@ -21,7 +21,7 @@
 
 .TTLStockChart_C_Ctl_Disp {
     float: right;
-    position: relative;
+    position: absolute;;
     /* position: absolute; bottom:0px; right:30px; padding: 0px; margin: 0px; */
     width: 300px;
     z-index: 1000;

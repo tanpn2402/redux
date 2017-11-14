@@ -45,13 +45,20 @@ class MenuNav extends Component {
                         </nav>
                     </div>
                 </div>
+
+                <div className="scrolling-tabs-right">
+                    <button className="hks-btn btn-save-layout" onClick={e => this.saveLayout()} style={scrollBtnStyle}>
+                        <span className="glyphicon glyphicon-floppy-disk" ></span>
+                            {language.button.saveLayout}
+                    </button>
+                </div>
               
             </div>
         )
     }
 
     componentDidMount() {
-        window.addEventListener("keydown", this.myEventHandler, false)
+        // window.addEventListener("keydown", this.myEventHandler, false)
     }
 
     componentWillReceiveProps(nextProps) {

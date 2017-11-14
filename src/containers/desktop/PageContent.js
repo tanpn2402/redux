@@ -17,10 +17,17 @@ class PageContent extends React.Component {
         let pagebackground = this.props.theme.page == undefined ? undefined : this.props.theme.page.pagebackground
         return (
             <div style={pagebackground} id="pagecontent" className={"pagecontent " + this.props.tabID}>
-                <Notification theme={this.props.theme} language={this.props.language} />
-                {
-                    generateWindow(this.props.tabID, this.props)
-                }
+                <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
+                    ref={r=> this.Wrapper = r}>
+                    <Notification theme={this.props.theme} language={this.props.language} />
+                    {
+                        generateWindow(this.props.tabID, this.props)
+                    }
+
+                    {/* Footer here */}
+                </div>
+                
+                
             </div>
         )
     }

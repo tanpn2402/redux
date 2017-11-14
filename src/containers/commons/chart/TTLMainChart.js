@@ -63,7 +63,7 @@ class TTLMainChart extends React.Component {
         var subChartList = this.props.subChartList;
         var inChartList = this.props.inChartList;
 		var { data: initialData, chartType, drawingSwitch } = this.state;
-        const margin = {left: 70, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 5}; // margin.top will bug the graph, do not set. margin.bottom will affect cursor line
+        const margin = {left: chartLayout.chartCanvas_margin_left, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 5}; // margin.top will bug the graph, do not set. margin.bottom will affect cursor line
         
         var mainChartHeight = height + margin.bottom;
         var needBottomPadForXAxis = true;
@@ -192,7 +192,7 @@ class TTLMainChart extends React.Component {
         }
         
 		return (
-            <ChartCanvas ref={node => {this.canvas=node;}} width={width} height={mainChartHeight} pointsPerPxThreshold={2}
+            <ChartCanvas ref={node => {this.canvas=node;}} width={width} height={mainChartHeight + 3} pointsPerPxThreshold={2}
                 ratio={ratio}
                 margin={margin}
                 seriesName="Stock"
@@ -206,7 +206,7 @@ class TTLMainChart extends React.Component {
                     yExtents={yExtents}>
                     <XAxis axisAt="bottom" orient="bottom" ticks={5} {...yGrid} fontSize={chartLayout.axis_fontSize} 
                         tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={false}/>
-                    <YAxis axisAt="right" orient="right" ticks={5} {...xGrid} fontSize={chartLayout.axis_fontSize} 
+                    <YAxis axisAt="left" orient="left" ticks={5} {...xGrid} fontSize={chartLayout.axis_fontSize} 
                         tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={false}/>
     
                     <MouseCoordinateX
@@ -215,11 +215,13 @@ class TTLMainChart extends React.Component {
                         orient="bottom"
                         displayFormat={MouseCoordinateX_displayFormat} />
                     <MouseCoordinateY
-                        at="right"
-                        orient="right"
+                        at="left"
+                        orient="left"
                         displayFormat={format(".2f")} />
                     {this.props.mainSeries}
-                    <OHLCTooltip xDisplayFormat={MouseCoordinateX_displayFormat} fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, 5]}/>
+                
+                    <OHLCTooltip margin={{left: 100}} xDisplayFormat={MouseCoordinateX_displayFormat} fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, 5]}/>
+                    
                     {inChartList}
                     
                     <TrendLine
