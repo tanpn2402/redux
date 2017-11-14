@@ -276,7 +276,7 @@ const config = {
 			widget: [
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 12, isDraggable: false, isResizable: false },
+				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 8, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
 				{ i: 'oddLot', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
@@ -372,7 +372,7 @@ const config = {
 		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
 
 		fundTransfer: { i: 'fundTransfer', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 8, isDraggable: false, isResizable: false },
+		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 10, isDraggable: false, isResizable: false },
 		fundTransHistory: { i: 'fundTransHistory', x: 2, y: 0, w: 6, h: 10, isDraggable: false, isResizable: false },
 
 		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6, h: 5, isDraggable: false, isResizable: false },

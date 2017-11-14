@@ -212,7 +212,7 @@ label {
 /*END COMMONS*/
 /* GRID */
 .react-grid-item {
-    background-color: #fff;
+    background-color: transparent;
 }
 /* END GRID */
 /*LAYOUT*/
@@ -402,6 +402,9 @@ label {
 .table-footer {
     padding-left: 5px;
     width: 100%;
+}
+.table-footer .form-group {
+    margin: 0;
 }
 .table-footer>.pagination {
     margin-top: 2px;
@@ -1321,8 +1324,8 @@ label {
     font-size: 14px;
     padding: 3px 10px;
     background-color: #005899;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
     color: #fff;
 }
 .messagebox .modal-header > h4 {
@@ -1798,11 +1801,11 @@ label {
 }
     /* scrolling in tabbar */
     .scrolling-tabs-main.tab-bar {  /*for tabbar*/
-        height: 40px;
+        height: 35px;
         margin: 0;
     }
     .scrolling-tabs-main.tab-bar .vertical-align-middle {
-        /* padding-top: 2px; */
+        padding-top: 2px;
         /* padding-bottom: 2px; */
         /* padding-left: 5px; */
     }
@@ -1828,7 +1831,6 @@ label {
     .scrolling-tabs-main.tab-bar .tabs-item.actived{  /*for tabbar*/
         background-color: #fff;
         color: #555;
-        border-radius: 3px;
     }
     .scrolling-tabs-main.tab-bar .tabs-item.disabled{  /*for tabbar*/
         background-color: #eee1e2;
@@ -3010,8 +3012,8 @@ label {
 .widget-header {
     width: 100%;
     position: absolute;
-    background-color: #005AA0;
-    z-index: 0;
+    background-color: rgb(214, 214, 214);
+    z-index: 1;
 }
 .widget-header > .widget-title {
     float: left;
@@ -3069,7 +3071,8 @@ label {
     width: 100%;
     height: 100%;
 
-    border: 1px solid rgb(0, 90, 160);
+    /* border: 1px solid rgb(0, 90, 160); */
+    padding: 1px;
 }
 .widget-body .table-header {
     padding-top: 0;
@@ -3092,7 +3095,7 @@ label {
     padding-top: 0;
 }
 .widget-body  .table-main.no-header.no-footer {
-    padding-top: 25px;
+    /* padding-top: 25px; */
     padding-bottom: 0px;
 }
 .widget-body  .table-footer {
@@ -3261,6 +3264,7 @@ label {
     padding: 0px 2px;
     border: 1px solid rgb(204, 204, 204);
     border-radius: 4px;
+    background-color: #FFF;
 }
 .calendar-picker--group {
     position: relative;
@@ -3359,7 +3363,7 @@ label {
     font-size: 16px;
     top: -1px;border: none;
     background: transparent;
-    color: #fff;
+    color: #2159a0;
 }
 #ChartControlDropdown {
     padding: 0px 5px;
@@ -3367,7 +3371,7 @@ label {
     font-size: 16px;
     top: -1px;border: none;
     background: transparent;
-    color: #fff;
+    color: #2159a0;
 }
 #ChartControlDropdown:hover {
     color: #999;
@@ -3389,6 +3393,9 @@ label {
 #techanalysis select {
     display: none;
 }
+#techanalysis .widget-wrapper {
+    padding-top: 0;
+} 
 /* END TECHNICAL ANALYSIS */
 
 /* MOBILE VERSION */
@@ -3747,6 +3754,7 @@ label {
     padding: unset;
     padding-left: 10px;
     height: 100%;
+    color: #000;
 }
 .select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus {
     height: 100%;
@@ -4116,6 +4124,10 @@ label {
 
 
 /* FOR DESKTOP */
+.maincontent-desktop .pagecontent {
+    padding-top: 35px;
+    padding-bottom: 60px;
+}
 .maincontent-desktop .enterorder-a .select-control {
     height: 24px;
 }
@@ -4134,7 +4146,12 @@ label {
     padding: 6px 10px;
     margin-top: 0;
 }
-
+.maincontent-desktop .select-control {
+    height: 30px;
+}
+.maincontent-desktop .widget-header {
+    height: 25px;
+}
 /* FOR MOBILE */
     .maincontent-mobile .enterorder-a .select-control {
         height: 30px;

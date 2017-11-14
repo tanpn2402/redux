@@ -14,9 +14,7 @@ export default class Chart extends Component {
             <TypeChooser>
                 {type => <TTLChart 
                             type={type} 
-                            rawData={this.props.rawData} 
-                            height={this.props.height} 
-                            config={this.props.config}
+                            {...this.props}
                             />
                 }
             </TypeChooser>
