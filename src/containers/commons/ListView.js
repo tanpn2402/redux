@@ -8,11 +8,66 @@ const { Contants } = require("../../core/constants")
 
 
 
+class LVRow extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        let { col, addCol, language, action, maxWid } = this.props.dataObject
+        let rowId = this.props.rowId
+        let d = this.props.d
+        return (
+            <div className="lv-tr-group">
+                <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.props.onClick(rowId)}>
+                    <div className="lv-td icon" style={{ width: "30px" }}>
+                        <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
+                    </div>
+
+                    {
+                        col.map(hd => {
+                            return (
+                                <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
+                                    {d[hd.accessor]}
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
+
+                <div id={rowId} className="collapse">
+                    <div className="lv-tr-add">
+                        {
+                            addCol.map(col => {
+                                return (
+                                    <div className="lv-group">
+                                        <div className="lv-hd" style={{ width: maxWid }}>
+                                            {language.header[col.id]}
+                                        </div>
+                                        <div className="lv-vl" style={{ width: maxWid }}>
+                                            {d[col.accessor]}
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
+                    {/* List view actions */}
+                    <div className="lv-action">
+                        {action !== null ? action.Cell(d) : null}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
 
 class LVFooter extends React.Component {
     render() {
         let pageIndex = this.props.pageIndex
-        if(this.props.totalPage == 0)
+        if (this.props.totalPage == 0)
             pageIndex = 0
         return (
             <div className="lv-tfooter">
@@ -42,7 +97,7 @@ class LVFooter extends React.Component {
     }
     componentDidMount() {
         this.refBtnNex.classList.add("disabled")
-        if(this.props.totalPage == 0 || this.props.totalPage == 1) {
+        if (this.props.totalPage == 0 || this.props.totalPage == 1) {
             this.refBtnPre.classList.add("disabled")
         }
     }
@@ -50,18 +105,93 @@ class LVFooter extends React.Component {
         this.refBtnNex.classList.remove("disabled")
         this.refBtnPre.classList.remove("disabled")
 
-        if(this.props.totalPage == 0 || this.props.totalPage == 1) {
+        if (this.props.totalPage == 0 || this.props.totalPage == 1) {
             this.refBtnNex.classList.add("disabled")
             this.refBtnPre.classList.add("disabled")
         }
-        else if(this.props.pageIndex == 1) {
+        else if (this.props.pageIndex == 1) {
             this.refBtnPre.classList.add("disabled")
         }
-        else if(this.props.pageIndex == this.props.totalPage) {
+        else if (this.props.pageIndex == this.props.totalPage) {
             this.refBtnNex.classList.add("disabled")
         }
     }
 }
+
+class LVHeader extends React.Component {
+    constructor(props) {
+        super(props)
+
+    }
+
+    render() {
+        let language = this.props.language
+        let col = this.props.col
+        return (
+            <div className="lv-thead" ref={ref => this.props.setRefHeader(ref)}>
+                <div className="lv-tr">
+                    <div className="lv-th" style={{ width: "30px" }}></div>
+                    {
+                        col.map(hd => {
+                            return (
+                                <div className="lv-th" style={Object.assign({ width: hd.width }, hd.style)}>
+                                    {language.header[hd.id]}
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        )
+    }
+}
+
+class LVBody extends React.Component {
+    constructor(props) {
+        super(props)
+
+    }
+
+    render() {
+        let { data, rowStamp, row, pivotEnabled,
+            pivotContrainst, pivotLabel, pivotFlag,
+            col, addCol, action, maxWid, language } = this.props.dataObject
+        return (
+            <div className="lv-tbody" ref={ref => this.props.setRefBody(ref)}>
+                <div className="lv-tbody-b" ref={ref => this.props.setRefBodyWrapper(ref)}>
+                    {
+                        data.map(d => {
+                            let rowId = "r-" + rowStamp + "-" + (row++)
+                            if (pivotEnabled && d[pivotContrainst] != pivotLabel) {
+                                pivotLabel = d[pivotContrainst]
+                                pivotFlag = false
+                            } else {
+                                pivotFlag = true
+                            }
+
+
+                            return (
+                                <div>
+                                    {
+                                        !pivotEnabled ? null : pivotFlag ? null :
+                                            (
+                                                <div className="lv-pivot-group">
+                                                    {pivotLabel}
+                                                </div>
+                                            )
+                                    }
+                                    <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                </div>
+                            )
+                        }
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
+}
+
 
 
 export default class ListView extends React.Component {
@@ -72,6 +202,9 @@ export default class ListView extends React.Component {
             toRender: false,
             compoWid: 0
         }
+        this.refTHead = undefined
+        this.refTBody = undefined
+        this.refTBodyWrapper = undefined
     }
 
     toggleIconExpand(icon) {
@@ -242,6 +375,21 @@ export default class ListView extends React.Component {
         let pivotContrainst = ""
         let pivotFlag = true
 
+        let dataObject = {
+            data: data,
+            language: language,
+            col: col,
+            maxWid: maxWid,
+            addCol: addCol,
+            rowStamp: rowStamp,
+            row: row,
+            action: action,
+            pivotEnabled: pivotEnabled,
+            pivotLabel: pivotLabel,
+            pivotContrainst: pivotContrainst,
+            pivotFlag: pivotFlag
+        }
+
         if (this.props.pivot !== undefined && this.props.pivot.length > 0) {
             let pivot = this.props.pivot
             pivotEnabled = true
@@ -268,93 +416,9 @@ export default class ListView extends React.Component {
                     !this.state.toRender ? "" :
                         (
                             <div className="rt-lv" ref={ref => this.refListView = ref} style={{ height: "100%" }}>
-                                <div className="lv-thead" ref={ref => this.refTHead = ref}>
-                                    <div className="lv-tr">
-                                        <div className="lv-th" style={{ width: "30px" }}></div>
-                                        {
-                                            col.map(hd => {
-                                                return (
-                                                    <div className="lv-th" style={Object.assign({ width: hd.width }, hd.style)}>
-                                                        {language.header[hd.id]}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                                <div className="lv-tbody" ref={ref => this.refTBody = ref}>
-                                    <div className="lv-tbody-b" ref={ref => this.refTBodyWrapper = ref}>
-                                        {
-                                            data.map(d => {
-                                                let rowId = "r-" + rowStamp + "-" + (row++)
-                                                if (pivotEnabled && d[pivotContrainst] != pivotLabel) {
-                                                    pivotLabel = d[pivotContrainst]
-                                                    pivotFlag = false
-                                                } else {
-                                                    pivotFlag = true
-                                                }
-
-
-                                                return (
-                                                    <div>
-                                                        {
-                                                            !pivotEnabled ? null : pivotFlag ? null :
-                                                                (
-                                                                    <div className="lv-pivot-group">
-                                                                        {pivotLabel}
-                                                                    </div>
-                                                                )
-                                                        }
-                                                        <div className="lv-tr-group">
-                                                            <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.onClick(rowId)}>
-                                                                <div className="lv-td icon" style={{ width: "30px" }}>
-                                                                    <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
-                                                                </div>
-
-                                                                {
-                                                                    col.map(hd => {
-                                                                        return (
-                                                                            <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
-                                                                                {d[hd.accessor]}
-                                                                            </div>
-                                                                        )
-                                                                    })
-                                                                }
-
-                                                            </div>
-
-                                                            <div id={rowId} className="collapse">
-                                                                <div className="lv-tr-add">
-                                                                    {
-                                                                        addCol.map(col => {
-                                                                            return (
-                                                                                <div className="lv-group">
-                                                                                    <div className="lv-hd" style={{ width: maxWid }}>
-                                                                                        {language.header[col.id]}
-                                                                                    </div>
-                                                                                    <div className="lv-vl" style={{ width: maxWid }}>
-                                                                                        {d[col.accessor]}
-                                                                                    </div>
-                                                                                </div>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </div>
-
-                                                                {/* List view actions */}
-                                                                <div className="lv-action">
-                                                                    {action !== null ? action.Cell(d) : null}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                )
-                                            }
-                                            )
-                                        }
-                                    </div>
-                                </div>
+                                <LVHeader setRefHeader={ref => this.refTHead = ref} language={language} col={col} />
+                                <LVBody dataObject={dataObject} setRefBody={ref => this.refTBody = ref}
+                                    setRefBodyWrapper={ref => this.refTBodyWrapper = ref} onClick={rowId => this.onClick(rowId)} />
                                 <LVFooter {...this.props} />
                             </div>
                         )
@@ -380,14 +444,14 @@ export default class ListView extends React.Component {
             this.refListView.style.paddingTop = this.lvSearch.getHeight() + "px"
         }
 
-        if(this.props.totalPage == 0) {
-            this.refTBodyWrapper.innerHTML = 
-                '<div class="lv-nodata">' + 
-                    '<div>'+ 
-                        'no data' +
-                    '</div>' +
+        if (this.props.totalPage == 0) {
+            this.refTBodyWrapper.innerHTML =
+                '<div class="lv-nodata">' +
+                '<div>' +
+                'no data' +
+                '</div>' +
                 '</div>'
-            
+
         }
     }
 }
