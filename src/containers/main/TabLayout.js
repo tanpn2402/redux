@@ -55,7 +55,7 @@ class TabLayout extends Component {
         let background = this.props.theme.page.background
         let scrollBtnStyle = this.props.theme.scrolling.button
         return (
-            <div>
+            <div style={{height: "100%"}}>
                 <div className="scrolling-tabs-main tab-layout" style={background}>
                     <div className="scrolling-tabs-left">
                         <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
@@ -94,7 +94,7 @@ class TabLayout extends Component {
                         layout={layout}
                         stockList={this.props.stockList} 
                         theme={this.props.theme}
-                        margin={[15, 15]}
+                        margin={[3,3]}
                         >
                     </GridLayout>
 

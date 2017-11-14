@@ -36,7 +36,7 @@ class TTLTimeLineChart extends React.Component {
 		var { width, height, ratio, chartLayout, config } = this.props;
 		var { data: initialData } = this.state;
 
-        var margin = {left: 70, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 25} // 25 is XAxis height (20 with grid)
+        var margin = {left: chartLayout.chartCanvas_margin_left, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 25} // 25 is XAxis height (20 with grid)
         
         var mainChartHeight = height + margin.bottom;
         

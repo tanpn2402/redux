@@ -26,7 +26,8 @@ class Popup extends Component {
 
     render() {
         let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
-        let font = this.props.theme.font.main.color
+        let font = this.props.theme.font.sub1.color
+        console.log(font)
         if (this.state.show) {
             return (
                 <Modal show={true} className={this.version} dialogClassName='popup' >

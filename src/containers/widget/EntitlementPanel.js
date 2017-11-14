@@ -5,6 +5,7 @@ import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
+import SelectControl from '../commons/Select'
 import { PowerSelect } from 'react-power-select'
 
 class EntitlementPanel extends Component {
@@ -50,7 +51,7 @@ class EntitlementPanel extends Component {
                                     <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
                                         <td>
-                                            <PowerSelect
+                                            <SelectControl
                                                 options={bankInfoList}
                                                 selected={this.state.mvSettlementAccount}
                                                 onChange={this.onSettlementAccountChange.bind(this)}
@@ -93,7 +94,7 @@ class EntitlementPanel extends Component {
                                     <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
-                                            <PowerSelect
+                                            <SelectControl
                                                 options={entitlementStockList.stockCmbList}
                                                 selected={this.state.mvStockSelected}
                                                 onChange={this.onStockChange.bind(this)}

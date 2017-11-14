@@ -47,7 +47,7 @@ class TTLChartControl extends React.Component
 		this.createIndicatorPanel = this.createIndicatorPanel.bind(this);
 		this.createInchartInputForm = this.createInchartInputForm.bind(this);
         
-        const { chartMethod } = this.props;
+        const { chartMethod, inCharts, subCharts } = this.props;
         this.chartMethodGlobal = chartMethod;
         
         
@@ -62,6 +62,10 @@ class TTLChartControl extends React.Component
         this.indicatorRefMap={};
         this.errorState = {};
         this.indicatorRowID = 0;
+
+
+        // init inCharts
+        console.log(inCharts, subCharts)
     }
     
     refresh()
@@ -71,12 +75,15 @@ class TTLChartControl extends React.Component
         });
     }
     
-    // componentDidMount()
-    // {
-    //     if (!this.mainChartSeries) // Borrow flag
-    //         this.changeMainChartSeries("Area");
-    //         // this.importState(["Candle", [["InChartVol"],["InChartSMA",[60]],["InChartBB"]], [["RSI", [11], 100], ["MACD", [13,5,3], 125]]]);
-    // }
+    componentDidMount()
+    {
+        if (!this.mainChartSeries) // Borrow flag
+            // this.importState(["Area"])
+            // this.changeMainChartSeries("Area");
+
+            // hien tai thi import state chi dung voi subCharts
+            this.importState(["Candle", this.props.inCharts , this.props.subCharts ]);
+    }
     
     render()
     {
@@ -126,8 +133,14 @@ class TTLChartControl extends React.Component
         if (paraType == 'null')
         {
             this.getSetMap[id] = {
-                setOnOff: (value) => this.refMap[id+'_C'].value(value),
-                getOnOff: () => this.refMap[id+'_C'].value(),
+                setOnOff: (value) => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value(value)
+                },
+                getOnOff: () => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value()
+                },
                 setPara: (value) => {},
                 getPara: () => {},
                 isValid: (value) => true,
@@ -136,21 +149,69 @@ class TTLChartControl extends React.Component
         else if (paraType == 'int')
         {
             this.getSetMap[id] = {
-                setOnOff: (value) => this.refMap[id+'_C'].value(value),
-                getOnOff: () => this.refMap[id+'_C'].value(),
-                setPara: (value) => this.refMap[id+'_P'].value = value.toString(),
-                getPara: () => this.refMap[id+'_P'].value.split(",").map(pStr=>parseInt(pStr)),
-                isValid: (value) => {if (!value) value = this.refMap[id+'_P'].value; const patt = /^[0-9]+$/; var result = true; value.split(",").forEach((str)=> {if(!patt.test(str)) result = false;}); return result;},
+                setOnOff: (value) => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value(value)
+                },
+                getOnOff: () => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value()
+                },
+                setPara: (value) => {
+                    if(this.refMap[id+'_P'])
+                        this.refMap[id+'_P'].value = value.toString()
+                },
+                getPara: () => {
+                    if(this.refMap[id+'_P'])
+                        this.refMap[id+'_P'].value.split(",").map(pStr=>parseInt(pStr))
+                },
+                isValid: (value) => {
+                    if(this.refMap[id+'_P']) {
+                        if (!value) 
+                            value = this.refMap[id+'_P'].value; 
+                        const patt = /^[0-9]+$/; var result = true; 
+                        value.split(",").forEach((str) => {
+                            if(!patt.test(str)) 
+                                result = false;
+                        }); 
+                        return result;
+                    }
+                    return false;
+                },
             }
         }
         else if (paraType == 'float')
         {
             this.getSetMap[id] = {
-                setOnOff: (value) => this.refMap[id+'_C'].value(value),
-                getOnOff: () => this.refMap[id+'_C'].value(),
-                setPara: (value) => this.refMap[id+'_P'].value = value.toString(),
-                getPara: () => this.refMap[id+'_P'].value.split(",").map(pStr=>parseFloat(pStr)),
-                isValid: (value) => {if (!value) value = this.refMap[id+'_P'].value; const patt = /^[0-9]+(\.[0-9]+)?$/; var result = true; value.split(",").forEach((str)=> {if(!patt.test(str)) result = false;}); return result;},
+                setOnOff: (value) => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value(value)
+                },
+                getOnOff: () => {
+                    if(this.refMap[id+'_C'])
+                        this.refMap[id+'_C'].value()
+                },
+                setPara: (value) => {
+                    if(this.refMap[id+'_P'])
+                        this.refMap[id+'_P'].value = value.toString()
+                },
+                getPara: () => {
+                    if(this.refMap[id+'_P'])
+                        this.refMap[id+'_P'].value.split(",").map(pStr=>parseFloat(pStr))
+                },
+                isValid: (value) => {
+                    if(this.refMap[id+'_P']) {
+                        if (!value) 
+                            value = this.refMap[id+'_P'].value; 
+                        const patt = /^[0-9]+(\.[0-9]+)?$/; 
+                        var result = true; value.split(",").forEach((str)=> {
+                            if(!patt.test(str)) 
+                                result = false;
+                        }); 
+                        return result;
+                    }
+                    return false;
+                },
             }
         }
         
@@ -186,6 +247,13 @@ class TTLChartControl extends React.Component
     
     importState(pState)
     {
+        /*
+        set Chart:
+            - MainChart type -> pState[0]
+            - InCharts List
+            - SubCharts List
+
+         */
         if (pState[0])
         {
             this.changeMainChartSeries(pState[0])
@@ -218,6 +286,12 @@ class TTLChartControl extends React.Component
     
     exportState()
     {
+        /*
+        return:
+            - MainChart type: Line|...
+            - InCharts List
+            - SubCharts List
+        */
         const lvInChartList = [];
         const lvSubChartList = [];
         const setMap = this.getSetMap;
@@ -356,16 +430,20 @@ class TTLChartControl extends React.Component
         
         var indicators = this.state.indicators;
         for (var i=0;i<indicators.length;i++)
-            lvSubChartListPara.push(this.indicatorRefMap[indicators[i].key].getValue())
+            {
+                if(this.indicatorRefMap[indicators[i].key]) {
+                    lvSubChartListPara.push(this.indicatorRefMap[indicators[i].key].getValue())
+                }
+            }
         return lvSubChartListPara;
     }
     
-    // changeMainChartSeries(pSeries)
-    // {
-    //     this.mainChartSeries = pSeries;
-    //     if (this.chartMethodGlobal)
-    //         this.chartMethodGlobal.chartObj.setMainChartSeries(pSeries);
-    // }
+    changeMainChartSeries(pSeries)
+    {
+        this.mainChartSeries = pSeries;
+        if (this.chartMethodGlobal)
+            this.chartMethodGlobal.chartObj.setMainChartSeries(pSeries);
+    }
 
     changeInSubChart()
     {
