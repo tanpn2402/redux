@@ -8,6 +8,8 @@ import * as Utils from "../../utils"
 import moment from "moment"
 import config from "../../core/config"
 
+const images = Utils.importAll(require.context('../../assets/images/flags', false, /\.(png|jpe?g|svg)$/))
+
 class AccountBalance extends Component {
     constructor(props) {
         super(props)
@@ -20,6 +22,31 @@ class AccountBalance extends Component {
                     width: 150,
                     skip: false,
                     show: true,
+                    Cell: d => {
+                        let currency = d.currency
+                        switch (currency) {
+                            case 'CVY':
+                                return (
+                                    <img src={images['flag_china.jpg']} style={{ position: 'relative', top: '-1px', marginLeft: '15px' }} />
+                                )
+                            case 'EUR':
+                                return (
+                                    <img src={images['flag_Australia.png']} style={{ position: 'relative', top: '-1px', marginLeft: '15px' }} />
+                                )
+                            case 'HKD':
+                                return (
+                                    <img src={images['flag_hk.jpg']} style={{ position: 'relative', top: '-1px', marginLeft: '15px' }} />
+                                )
+                            case 'TWD':
+                                return (
+                                    <img src={images['flag_Malaysia.png']} style={{ position: 'relative', top: '-1px', marginLeft: '15px' }} />
+                                )
+                            case 'USD':
+                                return (
+                                    <img src={images['flag_us.jpg']} style={{ position: 'relative', top: '-1px', marginLeft: '15px' }} />
+                                )
+                        }
+                    }
                 },
                 {
                     id: "ledgerbalance",
@@ -71,11 +98,11 @@ class AccountBalance extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
             
-        });
-    }
+    //     });
+    // }
 
 
     render() {

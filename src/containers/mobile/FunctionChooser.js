@@ -17,7 +17,7 @@ class FunctionChooser extends React.Component {
                 <select value={this.props.tabID} onChange={this.onChange.bind(this)} >
                     {
                         this.mobileLayout.map(e => {
-                            return <option value={e.id}>{language.tab[e.title]}</option>
+                            return <option key={e.id} value={e.id}>{language.tab[e.title]}</option>
                         })
                     }
                 </select>
