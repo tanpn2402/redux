@@ -486,10 +486,10 @@ class AccountInfo extends Component {
 
 
 	render() {
-		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
+		let font2 = this.props.theme.font.sub1.color
+		let tableFooter = this.props.theme.table.tableFooter
+		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+		let rowEven = this.props.theme.table.rowEven.backgroundColor
 
 		let language = this.props.language
 
@@ -514,14 +514,14 @@ class AccountInfo extends Component {
 													this.state.cashBank.map((d, i) => {
 														if (i % 2 != 0) {
 															return (
-																<tr style={{ backgroundColor: rowodd, color: font2 }} >
+																<tr style={{ backgroundColor: rowOdd, color: font2 }} >
 																	<th>{d.header}</th>
 																	<td>{d.value}</td>
 																</tr>
 															)
 														} else {
 															return (
-																<tr style={{ backgroundColor: roweven, color: font2 }} >
+																<tr style={{ backgroundColor: rowEven, color: font2 }} >
 																	<th>{d.header}</th>
 																	<td>{d.value}</td>
 																</tr>
@@ -544,14 +544,14 @@ class AccountInfo extends Component {
 													this.state.cash.map((d, i) => {
 														if (i % 2 != 0) {
 															return (
-																<tr style={{ backgroundColor: rowodd, color: font2 }}>
+																<tr style={{ backgroundColor: rowOdd, color: font2 }}>
 																	<th>{d.header}</th>
 																	<td>{d.value}</td>
 																</tr>
 															)
 														} else {
 															return (
-																<tr style={{ backgroundColor: roweven, color: font2 }}>
+																<tr style={{ backgroundColor: rowEven, color: font2 }}>
 																	<th>{d.header}</th>
 																	<td>{d.value}</td>
 																</tr>
@@ -607,7 +607,7 @@ class AccountInfo extends Component {
 									/>
 								</div>
 
-								<div className="table-footer" style={tablefooter}>
+								<div className="table-footer" style={tableFooter}>
 									<Pagination theme={this.props.theme}
 										pageIndex={this.state.pageIndex}
 										totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
@@ -629,14 +629,14 @@ class AccountInfo extends Component {
 											this.state.overdueDebt.map((d, i) => {
 												if (i % 2 != 0) {
 													return (
-														<tr style={{ backgroundColor: rowodd, color: font2 }}>
+														<tr style={{ backgroundColor: rowOdd, color: font2 }}>
 															<th>{d.header}</th>
 															<td>{d.value}</td>
 														</tr>
 													)
 												} else {
 													return (
-														<tr style={{ backgroundColor: roweven, color: font2 }}>
+														<tr style={{ backgroundColor: rowEven, color: font2 }}>
 															<th>{d.header}</th>
 															<td>{d.value}</td>
 														</tr>
@@ -661,14 +661,14 @@ class AccountInfo extends Component {
 											this.state.upcomingDebt.map((d, i) => {
 												if (i % 2 != 0) {
 													return (
-														<tr style={{ backgroundColor: rowodd, color: font2 }}>
+														<tr style={{ backgroundColor: rowOdd, color: font2 }}>
 															<th>{d.header}</th>
 															<td>{d.value}</td>
 														</tr>
 													)
 												} else {
 													return (
-														<tr style={{ backgroundColor: roweven, color: font2 }}>
+														<tr style={{ backgroundColor: rowEven, color: font2 }}>
 															<th>{d.header}</th>
 															<td>{d.value}</td>
 														</tr>

@@ -30,9 +30,9 @@ class AdBankPanel extends Component {
             }
         }
         var calculateInterestAmt = this.props.calculateInterestAmt
-        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+        let rowEven = this.props.theme.table.rowEven.backgroundColor
+        let font2 = this.props.theme.font.sub1.color
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme}>
@@ -43,7 +43,7 @@ class AdBankPanel extends Component {
                         <FormGroup>
                             <Table responsive>
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
                                             <PowerSelect
@@ -56,7 +56,7 @@ class AdBankPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>
                                             <input
@@ -67,7 +67,7 @@ class AdBankPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
@@ -78,7 +78,7 @@ class AdBankPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
                                             <FormGroup>

@@ -1,105 +1,141 @@
 export default {
     title: 'red',
     button: {
-        backgroundColor: "#337AB7",
-        color: "#FFFAFA",
-        borderColor: "#2E6DA4"
+        confirm: {
+            backgroundColor: '#c40909',
+            color: '#FFFFFF'
+        },
+        cancel: {
+            backgroundColor: '#999',
+            color: '#FFFFFF'
+        }
     },
-    font: {
-        color: '#000'
-    },
-    font2: {
-        color: '#d6d4d4'
-    },
-    font3: {
-        color: '#000000'
+    font:{
+        //+++++++++++++++++++++++++++++++++++++++++++++++
+        //                      MAIN                    +
+        //  used in DataTable.js     (aggregated rows)  +
+        //  used in Popup.js         (modal title)      +
+        //                                              +
+        //+++++++++++++++++++++++++++++++++++++++++++++++
+        main: {
+            color: '#fff'
+        },
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //                      SUB1                          +
+        //  used in DataTable.js            (normal rows)     +
+        //  used in Pagination.js           ("Page x of xx")  +
+        //  used in AccountInfo.js          (normal rows)     +
+        //  used in AdvanceBankPanel.js     (normal rows)     +
+        //  used in AdvancePanel.js         (normal rows)     +
+        //  used in EntitlementPanel.js     (normal rows)     +
+        //  used in FundTransferPanel.js    (normal rows)     +
+        //  used in LoanRefundPanel.js      (normal rows)     +
+        //  used in StockMarketInfo.js      (normal rows)     +
+        //  used in Sumary.js               (normal rows)     +
+        //                                                    +
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+        sub1:{
+            color: '#000'
+        },
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //                       SUB2                                        +
+        //  used in DataTable.js     (header and group header)               +
+        //  used in SearchBar.js     (label of each component in searchbar)  +
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        sub2:{
+            color: '#000'
+        }
     },
     page: {
-        pageheader: {
+        pageHeader: {
             backgroundColor: '#ffffff'
         },
-        pagebackground: {
+        background: {
             backgroundColor: '#f2f2f2'
         },
-        pagemenu: {
+        pageMenuNav: {
             backgroundColor: '#005aa0'
+        },
+        pageMainContent:{
+            
+        }
+    },
+    searchbar: {
+        default: {
+            button:{
+                backgroundColor: "#337AB7",
+                color: "#FFFAFA",
+                borderColor: "#2E6DA4"
+            }
         }
     },
     statusbar: {
         backgroundColor: '#005aa0'
     },
     widget: {
-        widgetbackground: {
+        widgetBackground: {
             backgroundColor: '#FFFFFF'
         },
-        widgetheader: {
+        widgetHeader: {
             backgroundColor: '#FFFFFF'
         },
-        widgetbody: {
+        widgetBody: {
             border: '1.75px solid #FFFFFF'
         }
     },
     // Comment to use default library theme, uncomment to customize
     table: {
-        tableheader: {
+        tableHeader: {
             //     backgroundColor: '#262626'
         },
-        tablefooter: {
+        tableFooter: {
             //     backgroundColor: '#262626'
         },
-        rowodd: {
+        rowOdd: {
             //     backgroundColor: '#3F3E3E'
         },
-        roweven: {
+        rowEven: {
             //     backgroundColor: '#474747'
         },
-        filterrow: {
+        filterRow: {
             backgroundColor: 'rgb(222, 222, 222)',
             color: '#000000'
         },
-        nodatadisplay: {
+        noDataDisplay: {
             backgroundColor: 'transparent',
             color: '#000000'
         }
     },
-    tabnormal: {
-        //backgroundColor: '#286CAE'
-    },
-    tabactived: {
-        //backgroundColor: '#fff',
-        //color: '#555'
-    },
-    buttons: {
-        confirm:{
-            backgroundColor: '#c40909',
-            color: '#FFFFFF'
+    tab:{
+        normal:{
+            // backgroundColor: '#286CAE'
         },
-        cancel:{
-            backgroundColor: '#999',
-            color: '#FFFFFF'
+        active:{
+            // backgroundColor: '#fff',
+            // color: '#555'
         }
     },
     setting: {
-        settingtitle: {
+        settingTitle: {
             //backgroundColor: '#02407D'
         },
-        settingpanel: {
+        settingPanel: {
             //backgroundColor: '#F0F0F0'
         }
     },
     profile: {
-        profiletitle: {
+        profileTitle: {
             //backgroundColor: '#02407D'
         },
-        profilepanel: {
+        profilePanel: {
             //backgroundColor: '#F0F0F0'
         }
     },
     chart: {
-        piechart: {
+        pieChart: {
             //   backgroundColor: '#EEECEC'
         },
-        popoverchart: {
+        popoverChart: {
             backgroundColor: '#FFF',
             color: '#000'
         }

@@ -30,16 +30,16 @@ class ProfileNav extends Component {
     }
 
     render() {
-        let personalprofile = this.props.language.personalprofile
-        let profiletitle = this.props.theme.profile.profiletitle
-        let profilepanel = this.props.theme.profile.profilepanel
+        let personalProfile = this.props.language.personalprofile
+        let profileTitle = this.props.theme.profile.profileTitle
+        let profilePanel = this.props.theme.profile.profilePanel
 
         this.doResponseMapping()
         return (
             <div id="profilenav" className="profilenav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="profile-panel" style={profilepanel} >
-                    <div className="title" style={profiletitle} >
+                <div className="profile-panel" style={profilePanel} >
+                    <div className="title" style={profileTitle} >
                         Profile
                     </div>
                     <div className="profile-list">
@@ -49,7 +49,7 @@ class ProfileNav extends Component {
                                     <div>
                                         <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
                                             <div className="st-icon"><i className="material-icons md-36">{e.icon}</i></div>
-                                            <label aria-expanded="true" className="main-menu-header">{personalprofile[e.id].title}</label>
+                                            <label aria-expanded="true" className="main-menu-header">{personalProfile[e.id].title}</label>
                                         </div>
                                         <ul id={e.id} className="nav nav-list tree profile-item" aria-expanded="true">
                                             {
@@ -58,13 +58,13 @@ class ProfileNav extends Component {
                                                         return (
                                                             <Button bsStyle='primary' className='profile-buttonsave' 
                                                                 onClick={() => this.onChangePassword()}>
-                                                                {personalprofile[e.id][v]}
+                                                                {personalProfile[e.id][v]}
                                                             </Button>
                                                         )
                                                     } else {
                                                         return (
-                                                            <li id={e.id + '_' + v} style={this.props.theme.font2} >
-                                                                {personalprofile[e.id][v]}
+                                                            <li id={e.id + '_' + v} style={this.props.theme.font.sub1} >
+                                                                {personalProfile[e.id][v]}
                                                                 <input type={e.id === 'changepassword' ? 'password' : 'text'} 
                                                                     value={this.responseMap[e.id + '_' + v]} id={v} 
                                                                     className='form-control' readOnly={e.id !== 'changepassword'} 
@@ -113,13 +113,13 @@ class ProfileNav extends Component {
 
     onChangePassword() {
         if (this.params['oldPassword'] === '') {
-            this.props.onShowMessageBox(this.state.language.page.personalprofile.message.error, this.state.language.page.personalprofile.message.emptypass)
+            this.props.onShowMessageBox(this.state.language.page.personalProfile.message.error, this.state.language.page.personalProfile.message.emptypass)
         }
         else if (this.params['password'].length < 6 || this.params['password'].length > 30) {
-            this.props.onShowMessageBox(this.state.language.page.personalprofile.message.error, this.state.language.page.personalprofile.message.newpassunaccepted)
+            this.props.onShowMessageBox(this.state.language.page.personalProfile.message.error, this.state.language.page.personalProfile.message.newpassunaccepted)
         }
         else if (this.retypePass !== this.params['password']) {
-            this.props.onShowMessageBox(this.state.language.page.personalprofile.message.error, this.state.language.page.personalprofile.message.notmatched)
+            this.props.onShowMessageBox(this.state.language.page.personalProfile.message.error, this.state.language.page.personalProfile.message.notmatched)
         }
         else {
             this.props.changePassword(this.params)
@@ -146,11 +146,11 @@ class ProfileNav extends Component {
             let result = nextProps.changePasswordResult.changePasswordBean
             this.props.onShowMessageBox(
                 result.PData === 'fail_to_change' ?
-                    this.state.language.page.personalprofile.message.error
-                    : this.state.language.page.personalprofile.message.notification,
+                    this.state.language.page.personalProfile.message.error
+                    : this.state.language.page.personalProfile.message.notification,
                 result.PData === 'fail_to_change' ?
-                    this.state.language.page.personalprofile.message.changefailed
-                    : this.state.language.page.personalprofile.message.changesuccess
+                    this.state.language.page.personalProfile.message.changefailed
+                    : this.state.language.page.personalProfile.message.changesuccess
             )
         }
     }

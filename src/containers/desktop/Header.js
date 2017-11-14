@@ -9,13 +9,13 @@ import Popup from '../popup/Popup'
 class Header extends React.Component {
 	constructor() {
 		super()
-		this.id = 'pageheader'
+		this.id = 'pageHeader'
 	}
 
 	render() {
-		let pageheader = this.props.theme.page == undefined ? undefined : this.props.theme.page.pageheader
+		let pageHeader = this.props.theme.page.pageHeader
 		return (
-			<div id="pageheader" style={pageheader} >
+			<div id="pageheader" style={pageHeader} >
 				<div className="logo">
 					<img src={require('../../assets/images/logo_main_ttl.png')} />
 				</div>

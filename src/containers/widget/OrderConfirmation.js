@@ -155,7 +155,7 @@ class OrderConfirmation extends Component {
         let data = this.props.data
 
         let buttonAction = [
-            <button style={this.props.theme.button} type="button" className="hks-btn"
+            <button style={this.props.theme.searchbar.default.button} type="button" className="hks-btn"
                 onClick={() => this.execute()}>{this.props.language.button.execute}</button>,
         ]
 

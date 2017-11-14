@@ -242,11 +242,11 @@ class StockMarketInfo extends Component {
 	}
 
 	render() {
-		let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-		let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
-		let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-		let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
-		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+		let tableHeader = this.props.theme.table.tableHeader
+		let tableFooter = this.props.theme.table.tableFooter
+		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+		let rowEven = this.props.theme.table.rowEven.backgroundColor
+		let font2 = this.props.theme.font.sub1.color
 		return (
 			<div id={this.id}>
 				<Title language={this.props.language} theme={this.props.theme}>
@@ -262,14 +262,14 @@ class StockMarketInfo extends Component {
 										this.state.panel1.map((d, i) => {
 											if (i % 2 != 0) {
 												return (
-													<tr style={{ backgroundColor: rowodd, color: font2 }}>
+													<tr style={{ backgroundColor: rowOdd, color: font2 }}>
 														<th>{d.header}</th>
 														<td>{d.value}</td>
 													</tr>
 												)
 											} else {
 												return (
-													<tr style={{ backgroundColor: roweven, color: font2 }}>
+													<tr style={{ backgroundColor: rowEven, color: font2 }}>
 														<th>{d.header}</th>
 														<td>{d.value}</td>
 													</tr>
@@ -291,14 +291,14 @@ class StockMarketInfo extends Component {
 									</tr>
 									{this.state.panel3.data.map((row, i) => {
 										if (i % 2 != 0) {
-											return (<tr style={{ backgroundColor: 'rowodd', color: font2 }}>
+											return (<tr style={{ backgroundColor: 'rowOdd', color: font2 }}>
 												<td>{row.BestBid.price}</td>
 												<td>{row.BestBid.volume}</td>
 												<td>{row.BestAsk.price}</td>
 												<td>{row.BestAsk.volume}</td>
 											</tr>)
 										} else {
-											return (<tr style={{ backgroundColor: roweven, color: font2 }}>
+											return (<tr style={{ backgroundColor: rowEven, color: font2 }}>
 												<td>{row.BestBid.price}</td>
 												<td>{row.BestBid.volume}</td>
 												<td>{row.BestAsk.price}</td>
@@ -328,7 +328,7 @@ class StockMarketInfo extends Component {
 						</div>
 					</div>
 
-					<div className="table-header" style={tableheader}>
+					<div className="table-header" style={tableHeader}>
 						<SearchBar
 							ref={e => this.mvStockId = e}
 							id={this.id}

@@ -7,10 +7,10 @@ export default class WidgetBody extends Component {
 
 
     render() {
-        let widgetbody = this.props.theme.widget == undefined? undefined:this.props.theme.widget.widgetbody.border
+        let widgetBody = this.props.theme.widget.widgetBody.border
         if(this.props.chart!= undefined){
             return (
-                <div className="widget-body" style={{zIndex: '2', border: widgetbody}} onMouseDown={ e => e.stopPropagation() }>
+                <div className="widget-body" style={{zIndex: '2', border: widgetBody}} onMouseDown={ e => e.stopPropagation() }>
                     <div className="widget-wrapper">
                         {this.props.children}
                     </div>
@@ -18,7 +18,7 @@ export default class WidgetBody extends Component {
             )
         }else{
             return (
-                <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{border: widgetbody}} 
+                <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{border: widgetBody}} 
                     ref={ref => this.Body = ref}>
                     <div className="widget-wrapper" ref={ref => this.Wrapper = ref}>
                         {this.props.children}

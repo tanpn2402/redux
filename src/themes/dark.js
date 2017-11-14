@@ -1,74 +1,6 @@
 export default {
   title: 'dark',
   button: {
-    backgroundColor: "#FF8000",
-    color: "#FFFFFF",
-    borderColor: 'transparent'
-  },
-  font: {
-    color: '#FFFFFF'
-  },
-  font2: {
-    color: '#FFFFFF'
-  },
-  font3: {
-    color: '#FFFFFF'
-  },
-  page: {
-    pageheader: {
-      backgroundColor: '#F0F0F0'
-    },
-    pagebackground: {
-      backgroundColor: '#474747',
-    },
-    pagemenu: {
-      backgroundColor: '#1D1C1C'
-    },
-  },
-  statusbar: {
-    backgroundColor: '#000000'
-  },
-  widget: {
-    widgetbackground: {
-      backgroundColor: '#EEECEC'
-    },
-    widgetheader: {
-      backgroundColor: '#FF8000'
-    },
-    widgetbody: {
-      border: '1.75px solid #FF8000'
-    }
-  },
-  table: {
-    tableheader: {
-      backgroundColor: '#262626'
-    },
-    tablefooter: {
-      backgroundColor: '#262626'
-    },
-    rowodd: {
-      backgroundColor: '#3F3E3E'
-    },
-    roweven: {
-      backgroundColor: '#474747'
-    },
-    filterrow: {
-      backgroundColor: 'rgb(121, 121, 121)',
-      color: '#FFF'
-    },
-    nodatadisplay: {
-      backgroundColor: 'transparent',
-      color: '#FFFFFF'
-    }
-  },
-  tabnormal: {
-    backgroundColor: '#545353'
-  },
-  tabactived: {
-    backgroundColor: '#343434',
-    color: 'white'
-  },
-  buttons: {
     confirm: {
       backgroundColor: '#c40909',
       color: '#FFFFFF'
@@ -78,29 +10,108 @@ export default {
       color: '#FFFFFF'
     }
   },
+  font:{
+    main: {
+      color: '#fff'
+    },
+    sub1:{
+      color: '#fff'
+    },
+    sub2:{
+      color: '#fff'
+    }
+  },
+  page: {
+    pageHeader: {
+      backgroundColor: '#F0F0F0'
+    },
+    background: {
+      backgroundColor: '#474747',
+    },
+    pageMenuNav: {
+      backgroundColor: '#1D1C1C'
+    },
+    pageMainContent:{
+      
+    }
+  },
+  searchbar: {
+    default: {
+      button:{
+        backgroundColor: "#FF8000",
+        color: "#FFFFFF",
+        borderColor: 'transparent'
+      }
+    }
+  },
+  statusbar: {
+    backgroundColor: '#000000'
+  },
+  widget: {
+    widgetBackground: {
+      backgroundColor: '#EEECEC'
+    },
+    widgetHeader: {
+      backgroundColor: '#FF8000'
+    },
+    widgetBody: {
+      border: '1.75px solid #FF8000'
+    }
+  },
+  table: {
+    tableHeader: {
+      backgroundColor: '#262626'
+    },
+    tableFooter: {
+      backgroundColor: '#262626'
+    },
+    rowOdd: {
+      backgroundColor: '#3F3E3E'
+    },
+    rowEven: {
+      backgroundColor: '#474747'
+    },
+    filterRow: {
+      backgroundColor: 'rgb(121, 121, 121)',
+      color: '#FFF'
+    },
+    noDataDisplay: {
+      backgroundColor: 'transparent',
+      color: '#FFFFFF'
+    }
+  },
+  tab:{
+    normal:{
+      backgroundColor: '#545353'
+    },
+    active:{
+      backgroundColor: '#343434',
+      color: 'white'
+    }
+  },
   setting: {
-    settingtitle: {
+    settingTitle: {
       backgroundColor: '#1B1D1C'
     },
-    settingpanel: {
+    settingPanel: {
       backgroundColor: '#383637',
       color: 'white'
     },
   },
   profile: {
-    profiletitle: {
+    profileTitle: {
       backgroundColor: '#1B1D1C'
     },
-    profilepanel: {
+    profilePanel: {
       backgroundColor: '#383637',
       color: 'white'
     }
   },
   chart: {
-    piechart: {
+    pieChart: {
       backgroundColor: '#474747'
     },
-    popoverchart: {
+    popoverChart: {
       backgroundColor: '#273043',
       color: '#FFF'
     }

@@ -290,7 +290,7 @@ class OrderJournal extends Component {
 
     render() {
         let buttonAction = [
-            <button style={this.props.theme.button} type="button" className="hks-btn"
+            <button style={this.props.theme.searchbar.default.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
         ]
 

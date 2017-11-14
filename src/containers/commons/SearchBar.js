@@ -105,7 +105,7 @@ export default class SearchBar extends React.Component {
     genActionTypeComponent(props) {
         let language = props.language
         var data = props.data.actionType
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         if (data === undefined)
             return
 
@@ -128,7 +128,7 @@ export default class SearchBar extends React.Component {
 
     genStatusComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         // var data = data.actionType
         // if(data === undefined)
         //     return
@@ -151,7 +151,7 @@ export default class SearchBar extends React.Component {
 
     genOrderTypeComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup controlId="mvOrderType" >
                 <ControlLabel style={{ color: font3 }}>{language.ordertype}</ControlLabel>
@@ -173,7 +173,7 @@ export default class SearchBar extends React.Component {
 
     genBSComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup controlId="mvBuysell" >
                 <ControlLabel style={{ color: font3 }}>{language.buysell}</ControlLabel>
@@ -189,7 +189,7 @@ export default class SearchBar extends React.Component {
 
     genPerLengthComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup controlId="mvLending" >
                 <ControlLabel style={{ color: font3 }}>{language.persentlength}</ControlLabel>
@@ -201,7 +201,7 @@ export default class SearchBar extends React.Component {
 
     genMarketComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup controlId="mvMarket" >
                 <ControlLabel style={{ color: font3 }}>{language.market}</ControlLabel>
@@ -222,7 +222,7 @@ export default class SearchBar extends React.Component {
 
     genTradeComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup controlId="mvTrade" >
                 <ControlLabel style={{ color: font3 }}>{language.transtype}</ControlLabel>
@@ -277,7 +277,7 @@ export default class SearchBar extends React.Component {
 
     genStartDateComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font3 }}>{language.startdate}</ControlLabel>
@@ -289,7 +289,7 @@ export default class SearchBar extends React.Component {
 
     genEndDateComponent(props) {
         let language = props.language
-        let font3 = props.theme.font3 == undefined ? 'black' : props.theme.font3.color
+        let font3 = props.theme.font.sub2.color
         return (
             <FormGroup bsClass="form-group datepicker" >
                 <ControlLabel style={{ color: font3 }}>{language.enddate}</ControlLabel>
@@ -349,7 +349,7 @@ export default class SearchBar extends React.Component {
                                     this.props.onSearch === undefined ? '' :
                                         (
                                             <span className='tabs-item'>
-                                                <button style={this.props.theme.button} className="hks-btn" type="button"
+                                                <button style={this.props.theme.searchbar.default.button} className="hks-btn" type="button"
                                                     onClick={this.onSearch.bind(this)}>{this.props.language.search}
                                                 </button>
                                             </span>

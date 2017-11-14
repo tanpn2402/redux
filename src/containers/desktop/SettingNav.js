@@ -11,8 +11,8 @@ class SettingNav extends Component {
     }
 
     render() {
-        let settingtitle = this.props.theme.setting.settingtitle
-        let settingpanel = this.props.theme.setting.settingpanel
+        let settingTitle = this.props.theme.setting.settingTitle
+        let settingPanel = this.props.theme.setting.settingPanel
 
         let actived = {
             appearance: this.props.theme.title,
@@ -22,8 +22,8 @@ class SettingNav extends Component {
         return (
             <div id="settingnav" className="settingnav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
-                <div className="setting-panel" style={settingpanel} >
-                    <div className="title" style={settingtitle} >
+                <div className="setting-panel" style={settingPanel} >
+                    <div className="title" style={settingTitle} >
                         Settings
                     </div>
                     <div className="setting-list">

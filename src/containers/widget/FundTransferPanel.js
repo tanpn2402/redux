@@ -72,9 +72,9 @@ class FundTransPanel extends Component {
     }
 
     render() {
-        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+        let rowEven = this.props.theme.table.rowEven.backgroundColor
+        let font2 = this.props.theme.font.sub1.color
         return (
             <div
                 style={{
@@ -89,19 +89,19 @@ class FundTransPanel extends Component {
                         <FormGroup>
                             <Table responsive>
                                 <tbody>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashtransfer.header.cashbalance}</th>
                                         <td>
                                             {this.props.datagenfund.mvBalance}
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                         <th>{this.props.language.cashtransfer.header.cashwithdrawable}</th>
                                         <td ref={e => this.withdrawAmt = e}>
                                             {this.props.datagenfund.mvAvailable}
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashtransfer.header.transfertype}</th>
                                         <td>
                                             <Radio
@@ -149,7 +149,7 @@ class FundTransPanel extends Component {
                                             </Radio>
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven }} >
+                                    <tr style={{ backgroundColor: rowEven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.beneficiaryaccountnumber}</th>
                                         <td>
 
@@ -162,13 +162,13 @@ class FundTransPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashtransfer.header.accounttype}</th>
                                         <td>
                                             {this.state.isExternalFilter ? this.props.language.cashtransfer.header.bankaccount : this.props.language.cashtransfer.header.localaccount}
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven }} >
+                                    <tr style={{ backgroundColor: rowEven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.beneficiaryfullname}</th>
                                         <td>
                                             <input
@@ -177,7 +177,7 @@ class FundTransPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd }} >
+                                    <tr style={{ backgroundColor: rowOdd }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.bankname}</th>
                                         <td>
                                             <input
@@ -186,7 +186,7 @@ class FundTransPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven }} >
+                                    <tr style={{ backgroundColor: rowEven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.bankbranch}</th>
                                         <td>
                                             <input
@@ -196,7 +196,7 @@ class FundTransPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd }} >
+                                    <tr style={{ backgroundColor: rowOdd }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.transferamount}</th>
                                         <td>
                                             <input
@@ -206,7 +206,7 @@ class FundTransPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven }} >
+                                    <tr style={{ backgroundColor: rowEven }} >
                                         <th style={{ color: font2 }}>{this.props.language.cashtransfer.header.remark}</th>
                                         <td>
                                             <textarea ref={e => this.remark = e} className="hks-input border"
