@@ -392,7 +392,7 @@ class WatchList extends Component {
     }
 
     render() {
-        let button = this.props.theme.button || undefined
+        let button = this.props.theme.searchbar.default.button || undefined
         this.buttonAction = [
             <Button bsStyle="default" type="button" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
@@ -423,8 +423,8 @@ class WatchList extends Component {
                 {this.props.language.watchlist.toolbar.removestock}
             </Button>
         ]
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let tableHeader = this.props.theme.table.tableHeader
+        let tableFooter = this.props.theme.table.tableFooter
         return (
             <div style={{ height: '100%' }}>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>

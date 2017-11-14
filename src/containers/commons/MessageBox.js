@@ -30,7 +30,8 @@ class MessageBox extends Component {
     }
 
     render() {
-        let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
+        let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
+        let font = this.props.theme.font.sub1.color
         return (
             <div>
                 {
@@ -40,7 +41,7 @@ class MessageBox extends Component {
                                 onHide={e => this.onClose(msg.id)} 
                                 className={this.version + " messagebox"}>
                                 <div className="modal-wrapper">
-                                    <Modal.Header closeButton style={widgetheader}>
+                                    <Modal.Header closeButton style={{ backgroundColor: widgetHeader, color: font }}>
                                         <Modal.Title>{this.props.type}</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>

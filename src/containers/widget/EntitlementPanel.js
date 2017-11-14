@@ -5,6 +5,7 @@ import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import InputSearch from '../commons/InputSearch'
+import SelectControl from '../commons/Select'
 import { PowerSelect } from 'react-power-select'
 
 class EntitlementPanel extends Component {
@@ -34,9 +35,9 @@ class EntitlementPanel extends Component {
             })
         }
         var entitlementStockList = this.props.entitlementStockList
-        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+        let rowEven = this.props.theme.table.rowEven.backgroundColor
+        let font2 = this.props.theme.font.sub1.color
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}>
@@ -47,10 +48,10 @@ class EntitlementPanel extends Component {
                         <FormGroup>
                             <Table responsive >
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
                                         <td>
-                                            <PowerSelect
+                                            <SelectControl
                                                 options={bankInfoList}
                                                 selected={this.state.mvSettlementAccount}
                                                 onChange={this.onSettlementAccountChange.bind(this)}
@@ -60,7 +61,7 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashbalance}</th>
                                         <td>
                                             <input
@@ -70,7 +71,7 @@ class EntitlementPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashavailable}</th>
                                         <td>
                                             <input
@@ -80,7 +81,7 @@ class EntitlementPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.buyingpower}</th>
                                         <td>
                                             <input
@@ -90,10 +91,10 @@ class EntitlementPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
-                                            <PowerSelect
+                                            <SelectControl
                                                 options={entitlementStockList.stockCmbList}
                                                 selected={this.state.mvStockSelected}
                                                 onChange={this.onStockChange.bind(this)}
@@ -102,7 +103,7 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.availableqty}</th>
                                         <td>
                                             <input
@@ -113,7 +114,7 @@ class EntitlementPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.registerqty}</th>
                                         <td style={{ color: 'black' }}>
                                             <input
@@ -125,7 +126,7 @@ class EntitlementPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.actionprice}</th>
                                         <td>
                                             <input
@@ -135,7 +136,7 @@ class EntitlementPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }}>
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.entitlement.header.amountVND}</th>
                                         <td>
                                             <input

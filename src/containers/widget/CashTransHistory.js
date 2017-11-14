@@ -111,8 +111,8 @@ class CashTransHistory extends Component {
 
     render() {
         var data = this.props.cashTransHistory.list
-        let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
-        let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        let tableHeader = this.props.theme.table.tableHeader
+        let tableFooter = this.props.theme.table.tableFooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}

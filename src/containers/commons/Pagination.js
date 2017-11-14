@@ -17,8 +17,8 @@ export default class Pagination extends React.Component {
 	}
 
 	render() {
-		let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
-		let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader
+		let font2 = this.props.theme.font.sub1.color
+		let background = this.props.theme.searchbar.default.button
 		return (
 			<div className="form-inline form-group pagination-top">
 				{
@@ -30,7 +30,7 @@ export default class Pagination extends React.Component {
 							</button>
 						)
 				}
-				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
+				<button type="button" className="hks-btn btn-pagination-top" style={background}
 					onClick={this.onPrevPage.bind(this)}>
 					<span className="glyphicon glyphicon-triangle-left" />
 				</button>
@@ -46,7 +46,7 @@ export default class Pagination extends React.Component {
 
 				<span style={{ color: font2 }}> of {this.props.totalPage}  </span>
 
-				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
+				<button type="button" className="hks-btn btn-pagination-top" style={background}
 					onClick={this.onNextPage.bind(this)}>
 					<span className="glyphicon glyphicon-triangle-right" />
 				</button>
@@ -54,14 +54,14 @@ export default class Pagination extends React.Component {
 				{
 					this.props.onLastPage === undefined ? '' :
 						(
-							<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
+							<button type="button" className="hks-btn btn-pagination-top" style={background}
 								onClick={this.onFirstPage.bind(this)}>
 								<span className="glyphicon glyphicon-step-forward" />
 							</button>
 						)
 				}
 
-				<button type="button" className="hks-btn btn-pagination-top" style={widgetheader}
+				<button type="button" className="hks-btn btn-pagination-top" style={background}
 					onClick={this.onReloadPage.bind(this)}>
 					<span className="glyphicon glyphicon-refresh"></span>
 				</button>
@@ -69,7 +69,7 @@ export default class Pagination extends React.Component {
 				{
 					this.props.onExportExcel === undefined ? '' :
 						(
-							<button type="button" className="hks-btn btn-pagination-top btn-export" style={widgetheader}
+							<button type="button" className="hks-btn btn-pagination-top btn-export" style={background}
 								onClick={this.props.onExportExcel.bind(this)}>
 								Export Report
 		        		</button>

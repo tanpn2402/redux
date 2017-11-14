@@ -25,13 +25,14 @@ class Popup extends Component {
     }
 
     render() {
-        let widgetheader = this.props.theme.widget == undefined ? undefined : this.props.theme.widget.widgetheader.backgroundColor
-        let font = this.props.theme.font == undefined ? undefined : this.props.theme.font.color
+        let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
+        let font = this.props.theme.font.sub1.color
+        console.log(font)
         if (this.state.show) {
             return (
                 <Modal show={true} className={this.version} dialogClassName='popup' >
                     <div className="modal-wrapper">
-                        <div className="modal-header popup-main-header" style={{ backgroundColor: widgetheader, color: font }} >
+                        <div className="modal-header popup-main-header" style={{ backgroundColor: widgetHeader, color: font }} >
                             <button type="button" className="close" onClick={e => this.onClose()}>
                                 <span aria-hidden="true">×</span>
                                 <span className="sr-only">Close</span>

@@ -28,9 +28,9 @@ class AdvancePanel extends Component {
     render() {
         var localAdvance = this.props.localAdCreation.mvAdvanceBean
         let advAvailable = Utils.numUnFormat(localAdvance.advAvailable) - Utils.numUnFormat(localAdvance.advPending)
-        let rowodd = this.props.theme.table == undefined ? undefined : this.props.theme.table.rowodd.backgroundColor
-        let roweven = this.props.theme.table == undefined ? undefined : this.props.theme.table.roweven.backgroundColor
-        let font2 = this.props.theme.font2 == undefined ? 'black' : this.props.theme.font2.color
+        let rowOdd = this.props.theme.table.rowOdd.backgroundColor
+        let rowEven = this.props.theme.table.rowEven.backgroundColor
+        let font2 = this.props.theme.font.sub1.color
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
@@ -41,11 +41,11 @@ class AdvancePanel extends Component {
                         <FormGroup>
                             <Table theme={this.props.theme} responsive>
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>{Utils.currencyShowFormatter(advAvailable, ",", this.lang)}</td>
                                     </tr>
-                                    <tr style={{ backgroundColor: roweven, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
@@ -56,7 +56,7 @@ class AdvancePanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowodd, color: font2 }} >
+                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
                                             <FormGroup>

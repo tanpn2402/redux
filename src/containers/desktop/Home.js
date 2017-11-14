@@ -23,7 +23,6 @@ class Home extends Component {
         // we use state to reload this component
         let theme = getTheme(config.cache.theme)
         let lang = getLanguage(config.cache.lang)
-
         return (
             <div>
                 <Header 
