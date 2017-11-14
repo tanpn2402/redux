@@ -23,12 +23,13 @@ class LVRow extends React.Component {
                     <div className="lv-td icon" style={{ width: "30px" }}>
                         <span className="lv-expand-icon" id={rowId + "-icon"}>+</span>
                     </div>
-
+                    
                     {
                         col.map(hd => {
                             return (
-                                <div className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
+                                <div key={hd.id} className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
                                     {d[hd.accessor]}
+                                    {hd.Cell !== undefined ? hd.Cell(d):null}
                                 </div>
                             )
                         })
@@ -39,9 +40,9 @@ class LVRow extends React.Component {
                 <div id={rowId} className="collapse">
                     <div className="lv-tr-add">
                         {
-                            addCol.map(col => {
+                            addCol.map((col, index) => {
                                 return (
-                                    <div className="lv-group">
+                                    <div key={col.id+'_'+index} className="lv-group">
                                         <div className="lv-hd" style={{ width: maxWid }}>
                                             {language.header[col.id]}
                                         </div>
@@ -134,7 +135,7 @@ class LVHeader extends React.Component {
                     {
                         col.map(hd => {
                             return (
-                                <div className="lv-th" style={Object.assign({ width: hd.width }, hd.style)}>
+                                <div key={hd.id} className="lv-th" style={Object.assign({ width: hd.width }, hd.style)}>
                                     {language.header[hd.id]}
                                 </div>
                             )
@@ -158,32 +159,32 @@ class LVBody extends React.Component {
             <div className="lv-tbody" ref={ref => this.props.setRefBody(ref)}>
                 <div className="lv-tbody-b" ref={ref => this.props.setRefBodyWrapper(ref)}>
                     {
-                        isPivot ? 
-                        Object.keys(data).map(propertyName => {
-                            return (Array.isArray(data[propertyName]) ?
-                                data[propertyName].map((d, i) => {
+                        data.map(d => {
+                            if(isPivot){
+                                return (d.list.map((stock, i) => {
                                     let rowId = "r-" + rowStamp + "-" + (row++)
                                     return (
-                                        <div>
+                                        <div key={rowId}>
                                             {
-                                                i == 0 ?
-                                                    (<div className="lv-pivot-group">
-                                                        {propertyName}
-                                                    </div>) : null
+                                                i!=0? null:
+                                                (
+                                                    this.props.getPivotRowProps !== undefined ?
+                                                    this.props.getPivotRowProps(d.pivotID)
+                                                    :<div className='lv-pivot-group'><strong>{d.pivotID}</strong></div>
+                                                )
                                             }
-                                            <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                            <LVRow d={stock} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
                                         </div>
                                     )
-                                }) : null)
-                        })
-                        :
-                        data.map(d => {
+                                }))
+                            }else{
                                 let rowId = "r-" + rowStamp + "-" + (row++)
-                            return(
-                                <div>
-                                    <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
-                                </div>
-                            )
+                                return (
+                                    <div key={rowId}>
+                                        <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                    </div>
+                                )
+                            }
                         })
                     }
                 </div>
@@ -232,7 +233,8 @@ export default class ListView extends React.Component {
                                 id: column.id,
                                 accessor: column.accessor,
                                 width: column.width,
-                                style: column.style
+                                style: column.style,
+                                Cell: column.Cell
                             })
                         }
                         else {
@@ -240,7 +242,8 @@ export default class ListView extends React.Component {
                                 id: column.id,
                                 accessor: column.accessor,
                                 width: remainWid,
-                                style: column.style
+                                style: column.style,
+                                Cell: column.Cell
                             })
                         }
 
@@ -367,18 +370,24 @@ export default class ListView extends React.Component {
         if (actions.length > 0) {
             action = actions[0]
         } else action = null
-        
-        let isPivot = false
 
+        let isPivot = false
         if (this.props.pivot !== undefined && this.props.pivot.length > 0) {
             let pivot = this.props.pivot
             isPivot = true
             data = data.reduce((pivotArr, d, i, data) => {
-                let marketID = d[pivot[0]].toUpperCase()
-                pivotArr.hasOwnProperty(marketID) ? pivotArr[marketID] = pivotArr[marketID].concat(d)
-                    : pivotArr[marketID] = [].concat(d)
+                let pivotID = d[pivot[0]].toUpperCase()
+                let marketObject = pivotArr.find(object => object.pivotID == pivotID)
+                if (marketObject){
+                    marketObject.list = marketObject.list.concat(d)
+                }else{
+                    pivotArr = pivotArr.concat({
+                        pivotID: pivotID,
+                        list: [].concat(d)
+                    })
+                }
                 return pivotArr
-            }, {})
+            }, [])
         }
         let dataObject = {
             data: data,
@@ -402,7 +411,8 @@ export default class ListView extends React.Component {
                             <div className="rt-lv" ref={ref => this.refListView = ref} style={{ height: "100%" }}>
                                 <LVHeader setRefHeader={ref => this.refTHead = ref} language={language} col={col} />
                                 <LVBody dataObject={dataObject} setRefBody={ref => this.refTBody = ref}
-                                    setRefBodyWrapper={ref => this.refTBodyWrapper = ref} onClick={rowId => this.onClick(rowId)} />
+                                    setRefBodyWrapper={ref => this.refTBodyWrapper = ref} onClick={rowId => this.onClick(rowId)}
+                                    getPivotRowProps={this.props.getPivotRowProps}/>
                                 <LVFooter {...this.props} />
                             </div>
                         )
@@ -470,31 +480,31 @@ class SearchListView extends React.Component {
             case Contants.searchElement.STARTDATE:
             case Contants.searchElement.ENDDATE:
                 return (
-                    <SearchDate id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <SearchDate key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} />
                 )
                 break
             case Contants.searchElement.TRADETYPE:
                 return (
-                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.transtype} />
                 )
                 break
             case Contants.searchElement.STATUS:
                 return (
-                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.orderstatus} />
                 )
                 break
             case Contants.searchElement.MARKET:
                 return (
-                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.marketid} />
                 )
                 break
             case Contants.searchElement.CURRENCY:
                 return (
-                    <Selector id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.currency} />
                 )
                 break
@@ -586,12 +596,12 @@ class Selector extends React.Component {
                 </div>
                 <div className="col-xs-7">
 
-                    <select value={defaultValue} class="form-control" ref={ref => this.selector = ref}
+                    <select value={defaultValue} className="form-control" ref={ref => this.selector = ref}
                         onChange={e => this.onChange(e.target.value)}>
                         {
                             data.map(e => {
                                 return (
-                                    <option value={e}>{this.props.language[e]}</option>
+                                    <option key={e} value={e}>{this.props.language[e]}</option>
                                 )
                             })
                         }

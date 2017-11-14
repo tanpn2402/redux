@@ -7,9 +7,9 @@ export default class PopupTable extends React.Component {
         return (
             <div className={"popup-table " + this.props.className} ref={ref => this.Table = ref}>
                 {
-                    this.props.data.map(d => {
+                    this.props.data.map((d, index) => {
                         return (
-                            <div className="--tr" style={d.style}>
+                            <div key={index} className="--tr" style={d.style}>
                                 <div className="--th">
                                     {
                                         this.renderTHead(d, language)

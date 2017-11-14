@@ -8,6 +8,8 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
 
+const images = Utils.importAll(require.context('../../assets/images/flags', false, /\.(png|jpe?g|svg)$/))
+
 const { Contants } = require("../../core/constants")
 class Portfolio extends Component {
     constructor(props) {
@@ -411,12 +413,23 @@ class Portfolio extends Component {
                         theme={this.props.theme}
                         id={this.id}
                         language={this.props.language}
-
+            
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data}
-                        pivot={['mvMarketID']}
+                        pivot={['mvStockID']}
+                        getPivotRowProps={(propName) => {
+                            return(
+                                <div className='lv-pivot-group' >
+                                    <img src={propName == 'HA' ? images['flag_viet.jpg']
+                                        :propName=='HO'?images['flag_us.jpg']
+                                        :images['flag_hk.jpg']} style={{position: 'relative',
+                                        top: '-1px', marginRight: '15px'}} />
+                                    <strong>{propName}</strong>
+                                </div>
+                            )
+                        }}
 
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
