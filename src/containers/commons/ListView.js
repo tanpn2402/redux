@@ -153,38 +153,38 @@ class LVBody extends React.Component {
     }
 
     render() {
-        let { data, rowStamp, row, pivotEnabled,
-            pivotContrainst, pivotLabel, pivotFlag,
-            col, addCol, action, maxWid, language } = this.props.dataObject
+        let { data, rowStamp, row, col, addCol, action, maxWid, language, isPivot } = this.props.dataObject
         return (
             <div className="lv-tbody" ref={ref => this.props.setRefBody(ref)}>
                 <div className="lv-tbody-b" ref={ref => this.props.setRefBodyWrapper(ref)}>
                     {
+                        isPivot ? 
+                        Object.keys(data).map(propertyName => {
+                            return (Array.isArray(data[propertyName]) ?
+                                data[propertyName].map((d, i) => {
+                                    let rowId = "r-" + rowStamp + "-" + (row++)
+                                    return (
+                                        <div>
+                                            {
+                                                i == 0 ?
+                                                    (<div className="lv-pivot-group">
+                                                        {propertyName}
+                                                    </div>) : null
+                                            }
+                                            <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                        </div>
+                                    )
+                                }) : null)
+                        })
+                        :
                         data.map(d => {
-                            let rowId = "r-" + rowStamp + "-" + (row++)
-                            if (pivotEnabled && d[pivotContrainst] != pivotLabel) {
-                                pivotLabel = d[pivotContrainst]
-                                pivotFlag = false
-                            } else {
-                                pivotFlag = true
-                            }
-
-
-                            return (
+                                let rowId = "r-" + rowStamp + "-" + (row++)
+                            return(
                                 <div>
-                                    {
-                                        !pivotEnabled ? null : pivotFlag ? null :
-                                            (
-                                                <div className="lv-pivot-group">
-                                                    {pivotLabel}
-                                                </div>
-                                            )
-                                    }
                                     <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
                                 </div>
                             )
-                        }
-                        )
+                        })
                     }
                 </div>
             </div>
@@ -367,14 +367,19 @@ export default class ListView extends React.Component {
         if (actions.length > 0) {
             action = actions[0]
         } else action = null
+        
+        let isPivot = false
 
-
-        // pivot
-        let pivotEnabled = false
-        let pivotLabel = ""
-        let pivotContrainst = ""
-        let pivotFlag = true
-
+        if (this.props.pivot !== undefined && this.props.pivot.length > 0) {
+            let pivot = this.props.pivot
+            isPivot = true
+            data = data.reduce((pivotArr, d, i, data) => {
+                let marketID = d[pivot[0]].toUpperCase()
+                pivotArr.hasOwnProperty(marketID) ? pivotArr[marketID] = pivotArr[marketID].concat(d)
+                    : pivotArr[marketID] = [].concat(d)
+                return pivotArr
+            }, {})
+        }
         let dataObject = {
             data: data,
             language: language,
@@ -384,28 +389,7 @@ export default class ListView extends React.Component {
             rowStamp: rowStamp,
             row: row,
             action: action,
-            pivotEnabled: pivotEnabled,
-            pivotLabel: pivotLabel,
-            pivotContrainst: pivotContrainst,
-            pivotFlag: pivotFlag
-        }
-
-        if (this.props.pivot !== undefined && this.props.pivot.length > 0) {
-            let pivot = this.props.pivot
-            pivotEnabled = true
-            data.sort((a, b) => {
-                var nameA = a[pivot[0]].toUpperCase()
-                var nameB = b[pivot[0]].toUpperCase()
-                if (nameA < nameB) {
-                    return -1
-                }
-                if (nameA > nameB) {
-                    return 1
-                }
-                return 0
-            })
-            pivotContrainst = pivot[0]
-            // console.log(data)
+            isPivot: isPivot
         }
         return (
             <div className="listview-control" ref={node => this.lv = node}>
