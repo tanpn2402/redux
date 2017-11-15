@@ -1,5 +1,5 @@
 export default {
-    title: 'red',
+    title: 'light',
     button: {
         confirm: {
             backgroundColor: '#c40909',
@@ -136,8 +136,17 @@ export default {
             //   backgroundColor: '#EEECEC'
         },
         popoverChart: {
-            backgroundColor: '#FFF',
-            color: '#000'
+            backgroundColor: '#F2F2F2',
+            color: '#000',
+            referenceLine:{
+                color: '#26547C'
+            },
+            increaseLine:{
+                color: '#00E513'
+            },
+            decreaseLine:{
+                color: '#E50000'
+            }
         }
     },
     techanalysis: {

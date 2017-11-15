@@ -167,16 +167,7 @@ class DataTable extends React.Component {
 			language: this.props.language,
 			sorted: []
 		}
-
-		this.colA = {
-			index: 0,
-			object: {}
-		}
-		this.colB = {
-			index: 0,
-			object: {}
-		}
-
+		
 		this.isHeaderRendered = false
 		this.isDoubleHeaderTable = false
 		this.scrollLeft = 0
@@ -273,7 +264,10 @@ class DataTable extends React.Component {
 				<ReactTable
 					ref={e => this.mainTable = e}
 					filterable={this.props.filterable != undefined ? this.props.filterable : false}
-					onSortedChange={(sorted) => this.setState({ sorted: sorted })}
+					onSortedChange={(sorted) => {
+						this.loadHeaderLanguage(this.props.language)
+						this.setState({ sorted: sorted })
+					}}
 					getTrProps={(state, rowInfo, column, instance) => {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
@@ -573,7 +567,7 @@ class DataTable extends React.Component {
 	}
 
 
-	handleOnMouseDown(e) { // begin dragging	
+	handleOnMouseDown(e) { // begin dragging
 
 		// this.colA.object = e.target
 		// if (this.colA.object.id == undefined) return
@@ -634,15 +628,6 @@ class DataTable extends React.Component {
 			this.setState({
 				columns: [...this.state.columns]
 			})
-
-			// this.colA = {
-			// 	index: 0,
-			// 	object: {}
-			// }
-			// this.colB = {
-			// 	index: 0,
-			// 	object: {}
-			// }
 		}
 
 
@@ -654,6 +639,7 @@ class DataTable extends React.Component {
 
 	headerRenderer(id, reorderable, text, parent) {
 		this.isHeaderRendered = true
+		let sortedCol = this.state.sorted.find(sortedCol => sortedCol.id == id)
 		switch (id) {
 			case 'cb':
 				return (
@@ -667,8 +653,15 @@ class DataTable extends React.Component {
 				)
 			default:
 				return (
-					<div id={id} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
-						onMouseDown={e => this.handleOnMouseDown(e)}>{text}</div>
+					<div>
+						<span id={id} className={"customCol " + (reorderable == false ? "" : " reorderable") + (parent != undefined ? " parent-" + parent : "")}
+							onMouseDown={e => this.handleOnMouseDown(e)}>{text}</span>
+						{
+							!sortedCol ? null
+								: <span className={!sortedCol.desc ? 'glyphicon glyphicon-sort-by-attributes' : 
+									'glyphicon glyphicon-sort-by-attributes-alt'} style={{marginLeft: '5px'}} />
+						}	
+					</div>
 				)
 		}
 	}

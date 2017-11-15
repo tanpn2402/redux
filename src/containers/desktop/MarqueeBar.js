@@ -40,6 +40,7 @@ class MarqueeItem extends React.Component {
     }
 
     genPopover(d) {
+        let background = this.props.theme.chart.popoverChart.backgroundColor
         const data = [
             { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
             { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
@@ -62,11 +63,15 @@ class MarqueeItem extends React.Component {
         }), { min: 0, max: 0 });
         const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
         return (
-            <Popover id="popover-trigger-hover-focus" style={{ width: '550px', maxWidth: 'none', backgroundColor: '#000', color: '#FFF' }}>
+            <Popover id="popover-trigger-hover-focus" style={{
+                width: '550px', maxWidth: 'none', backgroundColor: background,
+                border: '2px solid #6790fc'
+            }}>
                 <ComposedChart data={data2} width={500} height={250}
                     threshHoldPercentage={colorBreakPointPercentage} timeDataKey='name'
                     leftTicks={[109, 110, 111]} rightTicks={[1000, 4000, 8000]}
-                    threshHold={colorBreakPoint} indexDataKey='index' volumeDataKey='volume' />
+                    threshHold={colorBreakPoint} indexDataKey='index' volumeDataKey='volume'
+                    theme={this.props.theme} />
             </Popover>
         )
     }
@@ -164,7 +169,8 @@ class MarqueeBar extends React.Component {
             }
         })
         this.text = this.data.map(dataE => (
-            <MarqueeItem data={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+            <MarqueeItem data={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)}
+                theme={nextProps.theme} />
         ))
 
         // if (this.state.currentSliderInterval.length > 1) {
@@ -217,9 +223,9 @@ class MarqueeBar extends React.Component {
                 changeper: 0
             }
             let markets = [
-                <MarqueeItem data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+                <MarqueeItem theme={nextProps.theme} data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={nextProps.theme} data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={nextProps.theme} data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
             ]
             this.setState({
                 stack1: markets,
@@ -232,6 +238,7 @@ class MarqueeBar extends React.Component {
         // }
 
     }
+
 
     // Generate first loop
     componentDidMount() {
@@ -293,9 +300,9 @@ class MarqueeBar extends React.Component {
                 changeper: 0
             }
             let markets = [
-                <MarqueeItem data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+                <MarqueeItem theme={this.props.theme} data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={this.props.theme} data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={this.props.theme} data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
             ]
             this.setState({
                 stack1: markets,
@@ -386,7 +393,6 @@ class MarqueeBar extends React.Component {
         this.setState({
             onHover: true
         })
-        console.log('a')
     }
 
     onResume() {
@@ -394,7 +400,6 @@ class MarqueeBar extends React.Component {
         this.setState({
             onHover: false
         })
-        console.log('b')
     }
 
     handleScroll(e) {

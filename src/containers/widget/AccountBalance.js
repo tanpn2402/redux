@@ -22,7 +22,7 @@ class AccountBalance extends Component {
                     width: 150,
                     skip: false,
                     show: true,
-                    Cell: d => {
+                    cell: d => {
                         let currency = d.currency
                         switch (currency) {
                             case 'CVY':
