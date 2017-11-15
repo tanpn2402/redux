@@ -5,6 +5,10 @@ import DataTable from '../commons/DataTable'
 import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootstrap'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
+import * as atmosphereAPI from '../../api/atmosphereAPI'
+
+
+import Config from '../../core/config'
 
 class WatchList extends Component {
     constructor(props) {
@@ -34,13 +38,13 @@ class WatchList extends Component {
                     Header: this.props.language.watchlist.header.name,
                     columns: [{
                         id: 'stock',
-                        accessor: 'mvSymbol',
+                        accessor: 'mvStockCode',
                         width: 60,
                         show: true,
                         skip: false
                     }, {
                         id: 'market',
-                        accessor: 'mvMarketID',
+                        accessor: 'mvMarket',
                         width: 60,
                         show: true,
                         skip: false
@@ -53,19 +57,19 @@ class WatchList extends Component {
                     Header: this.props.language.watchlist.header.reference,
                     columns: [{
                         id: 'ce',
-                        accessor: 'mvCeilingPrice',
+                        accessor: 'mvCeiling',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'fl',
-                        accessor: 'mvFloorPrice',
+                        accessor: 'mvFloor',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'ref',
-                        accessor: 'mvReferencePrice',
+                        accessor: 'mvReferences',
                         width: 60,
                         skip: false,
                         show: true,
@@ -77,38 +81,38 @@ class WatchList extends Component {
                     id: 'bestbid',
                     columns: [{
                         id: 'pri3',
-                        accessor: 'mvBestBid3Price',
+                        accessor: 'mvBidPrice3',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol3',
-                        accessor: 'mvBestBid3Volume',
+                        accessor: 'mvBidVol3',
                         width: 60,
                         skip: false,
                         show: true,
                     },
                     {
                         id: 'pri2',
-                        accessor: 'mvBestBid2Price',
+                        accessor: 'mvBidPrice2',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol2',
-                        accessor: 'mvBestBid2Volume',
+                        accessor: 'mvBidVol2',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'pri1',
-                        accessor: 'mvBestBid1Price',
+                        accessor: 'mvBidPrice1',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol1',
-                        accessor: 'mvBestBid1Volume',
+                        accessor: 'mvBidVol1',
                         width: 60,
                         skip: false,
                         show: true,
@@ -121,7 +125,7 @@ class WatchList extends Component {
                     id: 'matching',
                     columns: [{
                         id: 'price',
-                        accessor: 'mvNominalPrice',
+                        accessor: 'mvNominal',
                         width: 60,
                         skip: false,
                         show: true,
@@ -134,12 +138,12 @@ class WatchList extends Component {
                     }, {
                         id: 'mvTotalTradingQty',
                         Header: '+/-',
-                        accessor: 'mvTotalTradingQty',
+                        accessor: 'mvMatchUpDown',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
-                        id: 'ce',
+                        id: 'ce1',
                         Header: '%',
                         width: 60,
                         skip: false,
@@ -158,38 +162,38 @@ class WatchList extends Component {
                     Header: this.props.language.watchlist.header.bestask,
                     columns: [{
                         id: 'pri1',
-                        accessor: 'mvBestOffer1Price',
+                        accessor: 'mvOfferPrice1',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol1',
-                        accessor: 'mvBestOffer1Volume',
+                        accessor: 'mvOfferVol1',
                         width: 60,
                         skip: false,
                         show: true,
                     },
                     {
                         id: 'pri2',
-                        accessor: 'mvBestOffer2Price',
+                        accessor: 'mvOfferPrice2',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol2',
-                        accessor: 'mvBestOffer2Volume',
+                        accessor: 'mvOfferVol2',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'pri3',
-                        accessor: 'mvBestOffer3Price',
+                        accessor: 'mvOfferPrice3',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol3',
-                        accessor: 'mvBestOffer3Volume',
+                        accessor: 'mvOfferVol3',
                         width: 60,
                         skip: false,
                         show: true,
@@ -203,25 +207,25 @@ class WatchList extends Component {
                     Header: this.props.language.watchlist.header.pricehistory,
                     columns: [{
                         id: 'open',
-                        accessor: 'mvOpenPrice',
+                        accessor: 'mvOpen',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'high',
-                        accessor: 'mvHighPrice',
+                        accessor: 'mvHigh',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'low',
-                        accessor: 'mvLowPrice',
+                        accessor: 'mvLow',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'avg',
-                        accessor: 'avgPrice',
+                        // accessor: 'avgPrice',
                         width: 60,
                         skip: false,
                         show: true,
@@ -233,16 +237,19 @@ class WatchList extends Component {
                     id: 'foreigninvestment',
                     columns: [{
                         id: 'forbuy',
+                        accessor: 'mvForeignForBuy',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'forsell',
+                        accessor: 'mvForeignForSell',
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'room',
+                        accessor: 'mvForeignForRoom',
                         width: 60,
                         skip: false,
                         show: true,
@@ -254,7 +261,7 @@ class WatchList extends Component {
             showAlert: false,
             pageIndex: 1,
             disableRemove: true,
-            listStock: []
+            watchStockList: []
         }
         this.rowSelected = []
         this.id = 'watchlist'
@@ -269,7 +276,7 @@ class WatchList extends Component {
         this.getDataParams = {
             key: '',
             mvCategory: '1'
-        }
+        }        
     }
 
     onRowSelected(param) {
@@ -305,38 +312,43 @@ class WatchList extends Component {
     }
 
     componentDidMount() {
-        this.onRefresh()
+        this.onSubscribeToServer()
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
+            watchStockList: nextProps.watchListData
         })
     }
 
-    onRefresh() {
-        var time = (new Date()).getTime()
-        this.getDataParams['key'] = time
-        this.props.onRefresh(this.getDataParams)
-    }
+    // onRefresh(newParams) {
+    //     // var time = (new Date()).getTime()
+    //     // this.getDataParams['key'] = time
+    //     // this.props.onRefresh(this.getDataParams)
+    //     let stock = this.state.watchStockList.find(stock => {
+    //         return stock.mvStockCode == newParams.mvStockCode
+    //     })
 
-    onAddStock(stockID) {
-        let stock = this.state.listStock.find(stock => {
-            return stock.mvStockCode == stockID
+    // }
+
+    onAddStock(willBeAddedStockCode) {
+        let stock = this.state.watchStockList.find(stock => {
+            return willBeAddedStockCode == stock.mvStockCode
         })
         if (stock === undefined) {
-            this.props.stockList.map(stock => {
-                if (stockID === stock.stockCode) {
-                    // this.addRemoveParams['mvAddOrRemove'] = 'Add'
-                    // this.addRemoveParams['mvStockCode'] = stockID
-                    // this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-                    let newStock = {
-                        mvStockCode: stockID,
-                        mvMarketID: stock.mvMarketID
-                    }
-                    this.props.addStockToLocalStore(newStock)
-                }
-            })
+            let willBeAddedStock = this.props.stockList.find(stockInStockList => stockInStockList.stockCode == willBeAddedStockCode)
+            if (willBeAddedStock!=null) {
+                this.addRemoveParams['mvAddOrRemove'] = 'Add'
+                this.addRemoveParams['mvStockCode'] = willBeAddedStock.stockCode
+                this.addRemoveParams['mvMarketID'] = willBeAddedStock.mvMarketID
+                this.props.onAddStock(this.addRemoveParams)
+                
+            } else {
+            console.log("Stock not found")
+            } 
         }
+        
+        // console.log(this.props.watchListData)
         // if (!this.alreadyInList(stockID)) {
         //     this.props.onAddStock(this.addRemoveParams);
         //     this.onRefresh()
@@ -347,44 +359,49 @@ class WatchList extends Component {
     }
 
     onRemoveStock(removeList) {
-        removeList.forEach(stock => {
-            let removeStock = {
-                mvStockCode: stock.mvStockCode,
-                mvMarketID: stock.mvMarketID
-            }
-            this.props.removeStockFromLocalStore(removeStock)
-        })
+
+
+        // removeList.forEach(stock => {
+        //     let removeStock = {
+        //         mvStockCode: stock.mvStockCode,
+        //         mvMarketID: stock.mvMarketID
+        //     }
+        //     this.props.removeStockFromLocalStore(removeStock)
+        // })
+        
+        //Get selected stockID
         this.rowSelected = []
         document.getElementById("watchlist-cb-all").checked = false
         let checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = false
         }
-        // this.addRemoveParams['mvAddOrRemove'] = 'Remove'
-        // removeList.map(stock => {
-        //     this.addRemoveParams['mvStockCode'] = stock.mvStockCode
-        //     this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-        //     this.props.onRemoveStock(this.addRemoveParams)
-        // })
-        // this.rowSelected = []
+
+        //Add or remove stock from list
+        this.addRemoveParams['mvAddOrRemove'] = 'Remove'
+        removeList.map(stock => {
+            this.addRemoveParams['mvStockCode'] = stock.mvStockCode
+            this.addRemoveParams['mvMarketID'] = stock.mvMarketID
+            this.props.onRemoveStock(this.addRemoveParams)
+        })
+        this.rowSelected = []
 
         // this.onRefresh()
     }
 
-    onChange(e) {
-        console.log(e.target.value)
 
+    onChange(e) {
         this.inputValue = e.target.value
     }
 
-    alreadyInList(stockID) {
-        // var i = 0;
-        // this.props.watchListData.mvMarketData.map(stock => {
-        //     if (stockID === stock.mvStockId)
-        //         i++
-        // })
-        // return i === 0 ? false : true
-    }
+    // alreadyInList(stockID) {
+    //     var i = 0;
+    //     this.props.watchListLocalStockList.map(stock => {
+    //         if (stockID === stock.mvStockId)
+    //             i++
+    //     })
+    //     return i === 0 ? false : true
+    // }
 
     onPageChange(pageIndex) {
         this.setState({ pageIndex: pageIndex });
@@ -424,6 +441,7 @@ class WatchList extends Component {
         ]
         let tableheader = this.props.theme.table == undefined ? undefined : this.props.theme.table.tableheader
         let tablefooter = this.props.theme.table == undefined ? undefined : this.props.theme.table.tablefooter
+        
         return (
             <div style={{ height: '100%' }}>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
@@ -434,7 +452,7 @@ class WatchList extends Component {
                         theme={this.props.theme}
                         id="watchlist"
                         columns={this.state.columns}
-                        tableData={this.state.listStock}
+                        tableData={this.state.watchStockList}
                         onRowSelected={(param) => this.onRowSelected(param)}
                         language={this.props.language}
 
@@ -457,9 +475,39 @@ class WatchList extends Component {
 
     }
 
+    componentWillUnmount() {
+        console.log("Socket will be unsubscribed")
+        atmosphereAPI.unsubscribe()
+    }
+
+    onSubscribeToServer() {
+        let socketID = localStorage.getItem("socketID")
+        if (socketID == null) {
+            console.log("No WebSocketID")
+        } else {
+            atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+                if (stockJsonResponse!=null) {
+                    this.props.updateStockInfo(stockJsonResponse)
+                }
+            }).bind(this))
+        //New request to notify server sending data by WSprotocol
+        window.fetch(document.location.href + 'ITradePushServer/StockInfo/' + socketID, {
+            method: 'GET',
+            headers: {
+                'Host': 'HOST',
+                'Accept': 'ACCEPT',
+                'Accept-language': 'ACCEPT_LANGUAGE',
+                'Content-Type': 'CONTENT_TYPE'
+            },
+            credentials: 'include',
+        })
+            
+        }
+    }
 
 
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -484,6 +532,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     removeStockFromLocalStore: (param) => {
         dispatch(actions.removeStockFromLocalStore(param))
     },
+    updateStockInfo: (param) => {
+        dispatch(actions.updateStockInfo(param))
+    }
+    // getStockFromServer: (param) => {
+    //     dispatch(actions.getStocksFromServer(param))
+    // }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)

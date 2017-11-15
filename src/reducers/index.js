@@ -60,5 +60,5 @@ export default combineReducers({
   cashadvancebank,
   flashpopup,
   popup,
-  
+
 });

@@ -54,3 +54,12 @@ TTLUtils.currencyFormatter = function(original, hasSpace, dp, dSeparator, tSepar
 export function TTLlog(msg) {
     console.log(msg)
 }
+
+export function mergeObjectOmitNull(objA, objB) {
+    Object.keys(objB).foreach((key)=>{
+        if (objB[key] != null) {
+            objA.key = objB.key
+        }
+    })
+    return objA
+}

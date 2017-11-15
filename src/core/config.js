@@ -458,6 +458,7 @@ const config = {
 	},
 	tableColReorder: [],
 	tableColWidth: [],
+	websockID: null,
 }
 
 export default config
