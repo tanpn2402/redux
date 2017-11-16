@@ -62,7 +62,7 @@ class PageContent extends React.Component {
                 layout: config.mobileTab.filter(el => el.id === "trading" )
             })
         }
-        if(nextProps.reloadTrigger === this.state.reloadTrigger)
+        if(nextProps.reloadTrigger === this.state.reloadTrigger && this.Wrapper !== null)
             this.Wrapper.scrollTop = 0
         this.state.reloadTrigger = nextProps.reloadTrigger
     }

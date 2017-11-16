@@ -29,7 +29,7 @@ class LVRow extends React.Component {
                             return (
                                 <div key={hd.id} className="lv-td" style={Object.assign({ width: hd.width }, hd.style)}>
                                     {d[hd.accessor]}
-                                    {hd.Cell !== undefined ? hd.Cell(d):null}
+                                    {hd.cell !== undefined ? hd.cell(d):null}
                                 </div>
                             )
                         })
@@ -236,7 +236,7 @@ export default class ListView extends React.Component {
                                 accessor: column.accessor,
                                 width: column.width,
                                 style: column.style,
-                                Cell: column.Cell
+                                cell: column.cell
                             })
                         }
                         else {
@@ -245,7 +245,7 @@ export default class ListView extends React.Component {
                                 accessor: column.accessor,
                                 width: remainWid,
                                 style: column.style,
-                                Cell: column.Cell
+                                cell: column.cell
                             })
                         }
 
@@ -280,7 +280,8 @@ export default class ListView extends React.Component {
                             id: column.id,
                             accessor: column.accessor,
                             width: column.width,
-                            style: column.style
+                            style: column.style,
+                            cell: column.cell
                         })
                     }
                     else {
@@ -288,7 +289,8 @@ export default class ListView extends React.Component {
                             id: column.id,
                             accessor: column.accessor,
                             width: remainWid,
-                            style: column.style
+                            style: column.style,
+                            cell: column.cell
                         })
                     }
 
