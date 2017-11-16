@@ -158,7 +158,6 @@ const config = {
 	],
 
 	transtype: [
-		'all',
 		'SCAXW',
 		'SCAC',
 		'CCPCW',

@@ -337,7 +337,8 @@ class StockMarketInfo extends Component {
 							language={this.props.language.searchbar}
 							theme={this.props.theme}
 							data={{ stockList: this.props.stockList }}
-							param={['mvStockId']} />
+							param={['mvStockId']}
+							allStockEnabled={false} />
 					</div>
 				</Body>
 			</div>

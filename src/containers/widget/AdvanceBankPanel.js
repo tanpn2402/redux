@@ -8,7 +8,7 @@ import * as Utils from '../../utils'
 import config from '../../core/config'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
-import { PowerSelect } from 'react-power-select'
+import Select from '../commons/Select'
 
 class AdBankPanel extends Component {
     constructor(props) {
@@ -45,7 +45,7 @@ class AdBankPanel extends Component {
                                     <tr style={{ backgroundColor: rowOdd, color: font2 }}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
-                                            <PowerSelect
+                                            <Select
                                                 options={queryBankInfo.mvBankInfoList}
                                                 selected={this.state.mvSettlementAccount}
                                                 onChange={this.getAdvanceOrderData.bind(this)}
@@ -80,16 +80,14 @@ class AdBankPanel extends Component {
                                     <tr style={{ backgroundColor: rowEven, color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
-                                            <FormGroup>
-                                                <input
-                                                    className="hks-input border"
-                                                    type="number" name="volume" min="0"
-                                                    disabled={this.props.data.cTovalValue == '0'}
-                                                    onBlur={e => this.doCalculateInterest()}
-                                                    id="advancePayment"
-                                                    ref={e => this.txtAdvancePayment = e}
-                                                    required />
-                                            </FormGroup>
+                                            <input
+                                                className="hks-input border"
+                                                type="number" name="volume" min="0"
+                                                disabled={this.props.data.cTovalValue == '0'}
+                                                onBlur={e => this.doCalculateInterest()}
+                                                id="advancePayment"
+                                                ref={e => this.txtAdvancePayment = e}
+                                                required />
                                         </td>
                                     </tr>
                                 </tbody>

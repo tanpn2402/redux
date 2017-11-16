@@ -139,7 +139,7 @@ body {
     width: 100%;
 }
 .hks-input.border{
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: #fff;
     border: 1px solid #dcdcdc;
     padding: 3px 6px;
@@ -316,50 +316,43 @@ label {
 .search-bar label {
     font-weight: normal;
     font-size: 13px;
+    display: inline-block;
+    position: relative;
+    top: -8px;
+}
+.search-bar .select-control {
+    display: inline-block !important;
+    max-width: 110px;
 }
 .search-bar button {
     padding: 2px 15px;
     font-size: 12px;
-    /* border-radius: 4px; */
+    height: 24px;
 }
 .search-bar .form-group {
     margin: 0px 5px;
 }
-.search-bar .form-group select,
-.search-bar .form-group input {
-    padding: 1px 4px;
-    font-size: 12px;
-    height: 22px;
-    /* width: auto; */
+.form-group.datepicker label {
+    top: 0px;
 }
-.form-inline.search-bar{
-    height: 25px;
+.form-group.datepicker .calendar-picker--trigger {
+    height: 24px;
+    max-width: 130px;
 }
-.form-inline.search-bar  .form-group,
-.form-inline.search-bar  .form-control {
+.form-inline.search-bar {
+    height: 28px;
+}
+.form-inline.search-bar .form-group,
+.form-inline.search-bar .form-control {
     display: inline-block;
+}
+.form-inline.search-bar .form-group {
+    height: 24px;
 }
 .form-inline.search-bar span {
     background-color: transparent;
 }
-.search-bar .stockSearch {
-    width: 80px;
-}
-.datepicker > div {
-    display: inline-block;
-}
-.datepicker > div input {
-    width: 80px;
-    padding: 2px 4px;
-    border-radius: 2px;
-    font-size: 12px;
-    height: 24px;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-}
+
 .dropdowncheckbox {
     float: right;
     padding-top: 1px;
@@ -1495,12 +1488,12 @@ label {
     .hks-btn.btn-tab-prev.search-bar {
         float: left;
         margin: 0;
-        height: 23px;
+        height: 28px;
     }
     .hks-btn.btn-tab-next.search-bar {
         float: right;
         margin-right: 3px;
-        height: 23px;
+        height: 28px;
     }
     /* end for search bar */
 
@@ -1719,7 +1712,7 @@ label {
 /*AUTH CARD MATRIX POPUP*/
 .auth-cardmatrix {
     width: 100%;
-    padding: 5px 15px;
+    padding: 5px;
 }
 .auth-matrix-key {
     border: none;
@@ -1868,7 +1861,7 @@ label {
     position: absolute;
 }
 .widget-body .table-main {
-    padding-top: 25px;
+    padding-top: 28px;
     padding-bottom: 27px;
     height: 100%;
     width: 100%;
@@ -1918,7 +1911,7 @@ label {
 .widget-form .table > tbody > tr {
     border: 1px solid #dcdcdc;
 }
-.widget-body .table > tbody > tr:nth-child(even) {background: #F0F0F0}
+.widget-body .table > tbody > tr:nth-child(even) {background: #f7f7f7}
 .widget-body .table > tbody > tr:nth-child(odd) {background: #FFF}
 /* END WIDGET HEADER */
 /* MANAGEMENT WIDGET */
@@ -2029,6 +2022,7 @@ label {
 }
 .calendar-picker--group {
     position: relative;
+    height: 100%;
 }
 .calendar-picker--group span {
     width: 30px;
@@ -2042,6 +2036,7 @@ label {
 }
 .calendar-picker-input {
     width: 100%;
+    height: 100%;
     border: none;
     padding-left: 10px;
     padding-right: 35px;
@@ -2430,6 +2425,9 @@ label {
     display: table;
     border-collapse: separate;
     border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    background-color: #e2e0e1;
 }
 .input-control > span > button {
     padding: 0;
@@ -2452,16 +2450,16 @@ label {
     border: none;
     background-color: transparent;
     padding: 0;
+    box-shadow: unset;
 }
 .input-control.text {
-    background-color: #e2e0e1;
 }
 .input-control.text > input {
     border-radius: 4px;
     text-align: right;
+    background-color: transparent;
 }
 .input-control.number {
-    background-color: #e2e0e1;
 }
 .input-control.number > input {
     text-align: center;
@@ -2473,7 +2471,9 @@ label {
     border-color: #d0d0d0;
 }
 .input-control.showOnly {
-    background-color: transparent;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 .input-control.showOnly input {
     background-color: transparent;
@@ -2487,29 +2487,30 @@ label {
 .select-control {
     border-radius: 4px;
     background-color: #e2e0e1;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
 .select-control > .PowerSelect {
     height: 100%;
     background-color: transparent;
     border: none;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: unset;
 }
-.select-control > .PowerSelect > .PowerSelect__Trigger,
-.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerLabel,
-.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus {
+.select-control .PowerSelect__Trigger,
+.select-control .PowerSelect__TriggerLabel,
+.select-control .PowerSelect__TriggerStatus {
     background-color: transparent;
 }
-.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus:before {
+.select-control .PowerSelect__TriggerStatus:before {
     border-top: 4px solid #000;
 }
-.select-control > .PowerSelect > .PowerSelect__Trigger {
+.select-control .PowerSelect__Trigger {
     position: relative;
     display: table;
     height: 100%;
     width: 100%;
 }
-.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerLabel {
+.select-control .PowerSelect__TriggerLabel {
     position: relative;
     display: table-cell;
     vertical-align: middle;
@@ -2518,10 +2519,29 @@ label {
     height: 100%;
     color: #000;
 }
-.select-control > .PowerSelect > .PowerSelect__Trigger > .PowerSelect__TriggerStatus {
+.select-control .PowerSelect__TriggerStatus {
     height: 100%;
     width: 20px;
     padding: 0px 10px 0px 10px;
+}
+.PowerSelect__Options {
+    max-height: 200px;
+}
+.PowerSelect__Option {
+    font-size: 12px;
+    padding: 4px 10px;
+}
+.PowerSelect__Option:hover {
+    background: #ccc !important;
+}
+.PowerSelect__SearchInput {
+    height: 26px;
+}
+.PowerSelect__TriggerLabel > span {
+    display:block;
+    width:50px;
+    word-break:break-all;
+    user-select: none;
 }
 /* END SELECT CONTROL */
 
@@ -2727,11 +2747,18 @@ label {
 }
 .lv-search select {
     width: 100%;
+    height: 30px;
     padding: 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
     max-width: unset;
+}
+.lv-search .calendar-picker--trigger {
+    height: 30px;
+}
+.lv-search .calendar-picker--group span {
+    top: 4px;
 }
 .lv-nodata {
     display: table;
@@ -2744,28 +2771,6 @@ label {
     vertical-align: middle;
 }
 /* END Listview-control */
-
-
-
-
-
-.search-bar .PowerSelect {
-    max-width: 100px;
-    height: 22px;
-}
-.search-bar .PowerSelect__Trigger,
-.search-bar .PowerSelect__Clear, 
-.search-bar .PowerSelect__TriggerInputContainer, 
-.search-bar .PowerSelect__TriggerLabel, 
-.search-bar .PowerSelect__TriggerStatus, 
-.search-bar .PowerSelectMultiple__OptionsContainer {
-    height: 22px;
-    padding-top: unset;
-    padding-bottom: unset;
-}
-.search-bar .calendar-picker--trigger {
-    width: 110px;
-}
 
 /* BALANCE BAR */
 .balance-bar {
@@ -2909,7 +2914,14 @@ label {
     margin-top: 0;
 }
 .maincontent-desktop .select-control {
-    height: 30px;
+    height: 24px;
+    background: #FFF;
+    box-shadow: unser;
+    border: 1px solid #dcdcdc;
+}
+.maincontent-desktop .input-control {
+    background: #FFF;
+    border: 1px solid #dcdcdc;
 }
 .maincontent-desktop .widget-header {
     height: 35px !important;
