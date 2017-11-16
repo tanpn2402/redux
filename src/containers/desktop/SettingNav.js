@@ -32,7 +32,7 @@ class SettingNav extends Component {
                                 return (
                                     <div>
                                         <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
-                                            <div className="st-icon"><i className="material-icons md-36">{e.icon}</i></div>
+                                            <div className="st-icon"><i className="material-icons md-24">{e.icon}</i></div>
                                             <label aria-expanded="true" className="main-menu-header">
                                                 {this.props.language.page.setting[e.id].title}
                                             </label>

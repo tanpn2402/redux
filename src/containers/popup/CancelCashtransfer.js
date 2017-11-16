@@ -3,7 +3,7 @@ import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 
 class CancelCashtransfer extends Component{
 
@@ -33,20 +33,20 @@ class CancelCashtransfer extends Component{
     }
 
     render(){
-        console.log(this.props)
+        let language = this.props.language
         return(
             <div>
                 <Modal.Body>
                     <div>
-                        {this.props.language.cashtransfer.popup.message}
+                        {language.cashtransfer.popup.message}
                     </div>
                 </Modal.Body>
                 <div style={{textAlign:'center',marginLeft:'15px'}}>
                 <CheckAuthenticationModal language={this.props.language}/>
                 </div>
                 <Modal.Footer>
-                    <Button  className="cance;" onClick={this.props.onHide}>Cancel</Button>
-                    <Button  className="submit" onClick={this.submitCancelCashTransfer.bind(this)}>Confirm</Button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.submitCancelCashTransfer.bind(this)}>{language.button.confirmCancel}</button>
                 </Modal.Footer>
             </div>
         )

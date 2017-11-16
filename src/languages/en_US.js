@@ -85,7 +85,7 @@ export default
                 "accountinfo": "Account Info",
                 "account": "Account",
                 "ordershistory": "Order History",
-                "cashtransactionhistory": "Cash Transaction History",
+                "cashtransaction": "Cash Transaction History",
                 "cashstatement": "Cash Statement",
                 "stockstatement": "Stock Statement",
                 "marginloan": "Margin Loan Statement",
@@ -160,7 +160,7 @@ export default
                 "mtl": "MTL",
                 "buy": "Buy",
                 "sell": "Sell",
-                "ALL": "All",
+                "ALL": "ALL",
                 "FULLYFILLED": "Fully Filled",
                 "QUEUE": "Queue",
                 "PARTIALLYFILL": "Partially Fill",
@@ -190,7 +190,13 @@ export default
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting",
 
-
+                "mvStatus": "Status",
+                "mvBuysell": "B/S",
+                "mvTrade": "Trans Type",
+                "mvOrderType": "Order Type",
+                "mvStockId": "Stock ID",
+                "mvLending": "% Lending",
+                "mvActionType": "Action Type",
                 "mvStartDate": "Start Date",
                 "mvEndDate": "End Date",
                 "tradeType": "Transaction Type",
@@ -204,7 +210,27 @@ export default
                 "USD": "USD",
                 "HO": "HO",
                 "HA": "HA",
-                "UPCOM": "UPCOM"
+                "UPCOM": "UPCOM",
+
+                "MARKET_ALL": "ALL",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_UPCOM": "UPCOM",
+
+                "BS_ALL": "ALL",
+                "BS_B": "BUY",
+                "BS_S": "SELL",
+                
+
+                "ORDERTYPE_ALL": "ALL",
+                "ORDERTYPE_L": "Normal",
+                "ORDERTYPE_O": "ATO",
+                "ORDERTYPE_C": "ATC",
+                "ORDERTYPE_P": "Put through",
+                "ORDERTYPE_M": "MP",
+                "ORDERTYPE_B": "MOK",
+                "ORDERTYPE_Z": "MAK",
+                "ORDERTYPE_R": "MTL",
             },
             "marqueebar": {
                 "status": "Status",

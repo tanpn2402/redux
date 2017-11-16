@@ -85,7 +85,7 @@ export default
                 "porfolio": "Danh mục đầu tư",
                 "account": "Tài khoản",
                 "ordershistory": "Tra cứu lịch sử giao dịch",
-                "cashtransactionhistory": "Tra cứu lịch sử giao dịch tiền",
+                "cashtransaction": "Tra cứu lịch sử giao dịch tiền",
                 "cashstatement": "Sao kê tài khoản tiền",
                 "stockstatement": "Sao kê tài khoản chứng khoán",
                 "marginloan": "Sao kê nợ GDKQ",
@@ -160,7 +160,7 @@ export default
                 "mtl": "MTL",
                 "buy": "Mua",
                 "sell": "Bán",
-                "ALL": "All",
+                "ALL": "Tất cả",
                 "FULLYFILLED": "Khớp toàn bộ",
                 "QUEUE": "Chờ khớp",
                 "PARTIALLYFILL": "Khớp một phần",
@@ -190,7 +190,13 @@ export default
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting",
 
-
+                "mvStatus": "Trạng thái",
+                "mvBuysell": "M/B",
+                "mvTrade": "Loại GD",
+                "mvOrderType": "Loại lệnh",
+                "mvStockId": "Mã CK",
+                "mvLending": "% cho vay",
+                "mvActionType": "Action Type",
                 "mvStartDate": "Từ ngày",
                 "mvEndDate": "Đến ngày",
                 "tradeType": "Loại GD",
@@ -204,7 +210,27 @@ export default
                 "USD": "USD",
                 "HO": "HO",
                 "HA": "HA",
-                "UPCOM": "UPCOM"
+                "UPCOM": "UPCOM",
+                
+                "MARKET_ALL": "Tất cả",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_UPCOM": "UPCOM",
+
+                "BS_ALL": "Tất cả",
+                "BS_B": "Mua",
+                "BS_S": "Bán",
+                
+
+                "ORDERTYPE_ALL": "Tất cả",
+                "ORDERTYPE_L": "Thường",
+                "ORDERTYPE_O": "ATO",
+                "ORDERTYPE_C": "ATC",
+                "ORDERTYPE_P": "Thỏa thuận",
+                "ORDERTYPE_M": "Thị trường",
+                "ORDERTYPE_B": "MOK",
+                "ORDERTYPE_Z": "MAK",
+                "ORDERTYPE_R": "MTL",
             },
             "marqueebar": {
                 "status": "Trạng thái",

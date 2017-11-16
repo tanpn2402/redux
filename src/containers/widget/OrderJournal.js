@@ -5,7 +5,7 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
-import { Button } from 'react-bootstrap'
+import { button } from 'react-bootstrap'
 import moment from "moment"
 
 class OrderJournal extends Component {
@@ -47,31 +47,31 @@ class OrderJournal extends Component {
 
                         } else {
                             var child = []
-                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                            //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                //if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
                                     child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                        <button className="hks-btn sm btn-cancel-order" type="button"
                                             onClick={() => this.handleCancelOrder(props.original)}>
                                             <span className="glyphicon glyphicon-remove"></span>
-                                        </Button>
+                                        </button>
                                     )
-                                }
-                            }
+                                //}
+                            //}
 
-                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                            //if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                                //if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
                                     child.push(
-                                        <Button bsClass="hks-btn btn-orderjournal" type="button"
+                                        <button className="hks-btn sm btn-modify" type="button"
                                             onClick={() => this.handleModifyOrder(props.original)}>
                                             <span className="glyphicon glyphicon-edit"></span>
-                                        </Button>
+                                        </button>
                                     )
-                                }
-                            }
+                                //}
+                            //}
 
                             return (
                                 <div style={{ display: "table", height: '100%', width: '100%' }}>
-                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
+                                    <div style={{ display: 'table-cell', verticalAlign: 'text-top' }} >
                                         {
                                             child
                                         }
@@ -82,36 +82,36 @@ class OrderJournal extends Component {
                     skip: true,
                     mobile: false
                 },
-                {
-                    id: 'Detail',
-                    maxWidth: 200,
-                    width: 80,
-                    sortable: false,
-                    Cell: props => {
-                        if (props.aggregated) {
+                // {
+                //     id: 'Detail',
+                //     maxWidth: 200,
+                //     width: 80,
+                //     sortable: false,
+                //     Cell: props => {
+                //         if (props.aggregated) {
 
-                        } else {
-                            var child = []
-                            child.push(
-                                <Button bsClass="hks-btn btn-orderjournal" type="button"
-                                    onClick={() => this.handleDetailOrder(props.original)}>
-                                    <span className="glyphicon glyphicon-folder-open"></span>
-                                </Button>
-                            )
+                //         } else {
+                //             var child = []
+                //             child.push(
+                //                 <button className="hks-btn sm btn-detail" type="button"
+                //                     onClick={() => this.handleDetailOrder(props.original)}>
+                //                     <span className="glyphicon glyphicon-folder-open"></span>
+                //                 </button>
+                //             )
 
-                            return (
-                                <div style={{ display: "table", height: '100%', width: '100%' }}>
-                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
-                                        {
-                                            child
-                                        }
-                                    </div>
-                                </div>)
-                        }
-                    },
-                    skip: true,
-                    mobile: false
-                },
+                //             return (
+                //                 <div style={{ display: "table", height: '100%', width: '100%' }}>
+                //                     <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
+                //                         {
+                //                             child
+                //                         }
+                //                     </div>
+                //                 </div>)
+                //         }
+                //     },
+                //     skip: true,
+                //     mobile: false
+                // },
                 {
                     id: 'stockid',
                     accessor: 'mvStockID',
@@ -243,7 +243,7 @@ class OrderJournal extends Component {
                     Cell: props => {
                         return (
                             <div>
-                                <button className="hks-btn btn-cancel" onClick={e => this.onCancelOrder(props)}>
+                                <button className="hks-btn btn-cancel-order" onClick={e => this.onCancelOrder(props)}>
                                     <span className="glyphicon glyphicon-remove"></span>
                                     {this.props.language.button.cancel}
                                 </button>

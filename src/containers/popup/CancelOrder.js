@@ -67,8 +67,8 @@ class CancelOrder extends Component {
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />
 
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
-                    <Button className="submit" onClick={this.onCancelSubmit.bind(this)}> {language.button.submit}</Button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.onCancelSubmit.bind(this)}> {language.button.confirmCancel}</button>
                 </Modal.Footer>
 
             </div>

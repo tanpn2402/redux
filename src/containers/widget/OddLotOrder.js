@@ -122,7 +122,7 @@ class OddLotOrder extends Component {
                         totalPage={Math.ceil(oddLotOrder.oddLotList.length / this.defaultPageSize)}
                         onPageChange={this.onOddLotOrderPageChange.bind(this)}
 
-                        searchParams={['dropdown']}
+                        searchParams={[]}
                         searchActions={buttonActionOddLotOrder}
                         searchData={{ stockList: [] }}
 
