@@ -71,7 +71,7 @@ class OrderJournal extends Component {
 
                             return (
                                 <div style={{ display: "table", height: '100%', width: '100%' }}>
-                                    <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
+                                    <div style={{ display: 'table-cell', verticalAlign: 'text-top' }} >
                                         {
                                             child
                                         }

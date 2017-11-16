@@ -900,7 +900,7 @@ label {
 .setting-panel > .title {
     padding-top: 15px;
     padding-bottom: 15px;
-    font-size: 30px;
+    font-size: 25px;
     background-color: #005AA0;
     color: #fff;
     font-weight: 500;
@@ -933,7 +933,6 @@ label {
     cursor: pointer;
 }
 .setting-item > li > a > .selected{
-    padding-top: 6px;
     float: right;
 }
 .setting-item > li > a:hover {
@@ -941,7 +940,7 @@ label {
 }
 .setting-panel label {
     user-select: none;
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 500;
     display: inline;
     border: none;
@@ -984,7 +983,7 @@ label {
     width: 100%;
 }
 .profilenav.open > .profile-panel {
-    width: 550px;
+    width: 450px;
 }
 .profilenav.open > .overlay {
     display: block;
@@ -992,7 +991,7 @@ label {
 .profile-panel > .title {
     padding-top: 15px;
     padding-bottom: 15px;
-    font-size: 30px;
+    font-size: 25px;
     background-color: #005AA0;
     color: #fff;
     font-weight: 500;
@@ -1008,7 +1007,7 @@ label {
 }
 .profile-panel label {
     user-select: none;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     display: inline;
     border: none;
@@ -1033,19 +1032,26 @@ label {
     padding-left: 40px;
     padding-top: 5px;
     padding-bottom: 10px;
-    font-size: 16px;
+    padding-right: 10px;
+    font-size: 14px;
     color: #005899;
+}
+.profile-item input {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    height: 26px;
+    font-size: 13px;
 }
 .profile-item > li > .selected{
     padding-top: 6px;
     float: right;
 }
-.profile-buttonsave{
+/* .profile-buttonsave{
     margin-left: 50%;
     margin-top: 20px;
     margin-bottom: 20px;
     transform: translateX(-50%);
-}
+} */
 .profile-input{
     position: absolute;
     right: 10px;

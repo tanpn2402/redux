@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import config from '../../core/config'
 import { connect } from "react-redux"
 import * as actions from "../../actions"
-import { FormControl, Button } from 'react-bootstrap'
+import { FormControl, FormGroup, ControlLabel, Button, Col } from 'react-bootstrap'
 import * as $ from 'jquery'
 
 class ProfileNav extends Component {
@@ -48,7 +48,7 @@ class ProfileNav extends Component {
                                 return (
                                     <div>
                                         <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
-                                            <div className="st-icon"><i className="material-icons md-36">{e.icon}</i></div>
+                                            <div className="st-icon"><i className="material-icons md-24">{e.icon}</i></div>
                                             <label aria-expanded="true" className="main-menu-header">{personalProfile[e.id].title}</label>
                                         </div>
                                         <ul id={e.id} className="nav nav-list tree profile-item" aria-expanded="true">
@@ -56,19 +56,27 @@ class ProfileNav extends Component {
                                                 e.value.map(v => {
                                                     if (e.id === 'changepassword' && v === 'save') {
                                                         return (
-                                                            <Button bsStyle='primary' className='profile-buttonsave' 
-                                                                onClick={() => this.onChangePassword()}>
-                                                                {personalProfile[e.id][v]}
-                                                            </Button>
+                                                            <div style={{textAlign: "center"}} >
+                                                                <button className='hks-btn btn-submit'
+                                                                    onClick={() => this.onChangePassword()}>
+                                                                    {personalProfile[e.id][v]}
+                                                                </button>
+                                                            </div>
                                                         )
                                                     } else {
                                                         return (
                                                             <li id={e.id + '_' + v} style={this.props.theme.font.sub1} >
-                                                                {personalProfile[e.id][v]}
-                                                                <input type={e.id === 'changepassword' ? 'password' : 'text'} 
-                                                                    value={this.responseMap[e.id + '_' + v]} id={v} 
-                                                                    className='form-control' readOnly={e.id !== 'changepassword'} 
-                                                                    onChange={(e) => this.onChangeValue(e)} />
+                                                                <div style={{display: "table", width: "100%"}}>
+                                                                    <Col xs={4}>
+                                                                        {personalProfile[e.id][v]}
+                                                                    </Col>
+                                                                    <Col xs={8}>
+                                                                        <input type={e.id === 'changepassword' ? 'password' : 'text'} 
+                                                                            value={this.responseMap[e.id + '_' + v]} id={v} 
+                                                                            className='form-control' readOnly={e.id !== 'changepassword'} 
+                                                                            onChange={(e) => this.onChangeValue(e)} />
+                                                                    </Col>
+                                                                </div>
                                                             </li>
                                                         )
                                                     }
