@@ -50,10 +50,6 @@ class WidgetTitle extends Component {
                                 )
                         }
 
-                        <li className="btn-close" >
-                            <span className="glyphicon glyphicon-repeat"></span>
-                        </li>
-
                         {
                             this.props.tabID !== 'customization' ? '' :
                                 (

@@ -46,9 +46,16 @@ body {
     min-width: 100px;
     max-width: 200px;
     cursor: pointer;
+    outline: none;
 }
 .hks-btn:hover {
     opacity: 0.7;
+}
+.hks-btn:active {
+    /* font-weight: 600; */
+    opacity: 1;
+    /* border: 1px solid rgba(0,0,0,.3) !important; */
+    box-shadow: inset 0px 0px 30px rgba(0,0,0,.4) !important;
 }
 .hks-btn.sm {
     width: 50px !important;
@@ -1830,7 +1837,7 @@ label {
     cursor: pointer;
     user-select: none;
     margin: 0 2px;
-    color: #fff;
+    color: #111;
     border-radius: 2px;
 }
 .widget-action > ul > li:hover {
@@ -1841,7 +1848,7 @@ label {
     padding: 0;
     background-color: transparent;
     height: 23px;
-    color: #fff;
+    color: #111;
     border-radius: 2px;
 }
 .widget-action > ul > li .dropdown-display:hover{
@@ -3069,4 +3076,7 @@ label {
     }.maincontent-mobile .hks-btn.btn-cancel-order {
         background-color: #a6003e !important;
         border: none !important;
+    }
+    .maincontent-mobile .dropdown-display {
+        display: none;
     }
