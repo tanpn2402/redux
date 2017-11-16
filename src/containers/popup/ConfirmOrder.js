@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, } from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -226,8 +226,8 @@ class ConfirmOrder extends Component {
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />
 
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
-                    <Button className="submit" onClick={this.onConfirmSubmit.bind(this)}> {language.button.submit}</Button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.onConfirmSubmit.bind(this)}> {language.button.submit}</button>
                 </Modal.Footer>
             </div>
         )

@@ -257,7 +257,7 @@ const config = {
 			title: "orderjournal",
 			enabled: true,
 			widget: [
-				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
+				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -265,8 +265,8 @@ const config = {
 			title: "transhistory",
 			enabled: true,
 			widget: [
-				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false }
+				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false }
 			]
 		},
 		{

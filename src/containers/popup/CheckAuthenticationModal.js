@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 
 
 class CheckAuthenticationModal extends Component {

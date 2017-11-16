@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Table, Modal,Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import '../../css/App.css';
 import CheckAuthenticationModal from './CheckAuthenticationModal';
 import { connect } from 'react-redux';
@@ -23,8 +23,8 @@ class CashAdvanceBank extends Component {
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
 
                 <Modal.Footer>
-                <Button className="cancel" onClick={this.props.onHide}>{language.button.cancel}</Button>
-                <Button className="submit" onClick={this.submit.bind(this)}> {language.button.submit}</Button>
+                <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
+                <button className="hks-btn btn-submit" onClick={this.submit.bind(this)}> {language.button.submit}</button>
             </Modal.Footer>
             </div>
         );

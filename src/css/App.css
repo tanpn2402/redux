@@ -45,34 +45,55 @@ body {
     margin: 0 5px;
     min-width: 100px;
     max-width: 200px;
+    cursor: pointer;
 }
 .hks-btn:hover {
-    border: none;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #fff;
-    cursor: pointer;
+    opacity: 0.7;
+}
+.hks-btn.sm {
+    width: 50px !important;
+    min-width: unset !important;
+    padding: 2px !important;
+    height: 20px !important;
 }
 .hks-btn.btn-submit {
     background-color: #005899;
+    border: 2px solid #005899;
     color: white;
     width: 30%;
 }
-.hks-btn.btn-submit:hover {
+/* .hks-btn.btn-submit:hover {
     background-color: #003f6e;
-}
+} */
 .hks-btn.btn-cancel {
-    /* background-color: rgb(255, 102, 0); */
-    background-color: #a6003e;
+    background-color: #FFF;
+    border: 2px solid #005899;
+    color: #005899;
+    padding: 5px 16px;
+    width: 30%;
+}
+/* .hks-btn.btn-cancel:hover {
+    background-color: rgb(221, 88, 0);
+} */
+.hks-btn.btn-cancel-order {
+    background-color: #FF6600;
     color: white;
     width: auto;
     padding: 5px 16px;
     width: 30%;
 }
-.hks-btn.btn-cancel:hover {
-    /* background-color: rgb(221, 88, 0); */
+.hks-btn.btn-detail {
+    background-color: #005899;
+    color: white;
+    width: auto;
+    padding: 5px 16px;
+    width: 30%;
+}
+.hks-btn.btn-detail:hover {
+    opacity: 0.8;
 }
 .hks-btn.btn-modify {
-    background-color: #a6003e;
+    background-color: #005899;
     color: white;
     width: auto;
     padding: 5px 16px;
@@ -167,12 +188,6 @@ select {
 .table-odd-even > tbody > tr > td {
     text-align: right;
 }
-/*.table-odd-even > tbody > tr:nth-child(even){
-    background: #e8e8e8;
-}
-.table-odd-even > tbody > tr:nth-child(odd){
-    background: #FFF;
-}*/
 .table-odd-even > tbody > tr > td {
     width: 70%;
 }
@@ -215,134 +230,14 @@ label {
     background-color: transparent;
 }
 /* END GRID */
-/*LAYOUT*/
 
-.component-wrapper {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border: 1px solid #c4c4c4;
-}
-.component-main {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding-top: 50px;
-    padding-bottom: 1px;
-}
-.component-header {
-    background-color: #005899;
-    width: 100%;
-    height: 25px;
-    position: absolute;
-    top: 0;
-    padding-left: 10px;
-    padding-top: 3px;
-    z-index: 3;
-}
-.content-block-head {
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-}
-.child-grid-footer {
-    background-color: #efefef;
-    width: 100%;
-    height: 40px;
-    bottom: 0;
-    position: absolute;
-    border-radius: 0px 0px 10px 10px;
-}
-.react-resizable-handle {
-    right: 5px;
-}
-.component-body {
-    margin-top: 25px;
-}
-.closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-.btn-action {
-    list-style-type: none;
-    display: inline-block;
-    float: right;
-    margin: 1px 2px 0 0;
-    color: #fff;
-}
-.btn-action > li {
-    display: inline-table;
-    padding: 0px;
-    background-color: transparent;
-    margin: 0px 2px;
-}
-.btn-action > li > a {
-    padding: 0px 5px;
-    color: #fff;
-    font-weight: normal;
-    text-decoration: none;
-}
-.btn-action > .btn-close:hover {
-    cursor: pointer;
-}
-/*END LAYOUT*/
-/*MAIN MENU NAV BAR*/
-
-.tab-list .close {
-    margin-left: 7px;
-}
-.tab-list {
-    margin-bottom: 0px;
-    margin-top: 2px;
-}
-.row.tabbar {
-    margin-right: 0px;
-    margin-left: 0px;
-    background-color: #f8f8f8;
-}
-.tab-list>li>a {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 0px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    font-size: 14px;
-}
-.tab-list>li>a:hover {
-    background-color: #efefef;
-}
-.main-menu {
-    float: left;
-    margin: 0px 0px 1px 0px;
-    margin-right: 10px;
-}
-.hks-btn.btn-main-menu {
-    padding-left: 15px;
-    padding-right: 15px;
-    height: 100%;
-}
-.hks-btn.btn-page {
-    padding-left: 10px;
-    padding-right: 10px;
-    border-left: 1px solid #dcdcdc;
-}
+/*PAGE MENU*/
 #pagemenu {
     background-color: #005aa0;
     top: 60px;
     z-index: 3;
 }
-.btn-group-sm.btn-group-page {
-    vertical-align: unset;
-}
-.btn-group-sm.btn-group-page > button {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    border-radius: 0px;
-}
-/*END MAIN MENU NAV BAR*/
+/*END PAGE MENU*/
 /*DATATABLE*/
 .hks-table {
     height: 100%;
@@ -368,16 +263,6 @@ label {
     padding-top: 2px;
     padding-bottom: 2px;
     line-height: 1.8;
-}
-.header-market {
-    border: 0px;
-}
-.header-market .rt-tbody .rt-td,
-.header-market .rt-thead.-header,
-.header-market .rt-thead .rt-th {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    height: 18px;
 }
 .ReactTable input, .ReactTable select {
     padding: 2px 4px;
@@ -428,13 +313,17 @@ label {
     font-size: 12px;
     font-weight: normal;
 }
+.search-bar label {
+    font-weight: normal;
+    font-size: 13px;
+}
 .search-bar button {
     padding: 2px 15px;
     font-size: 12px;
-    border-radius: 4px;
+    /* border-radius: 4px; */
 }
 .search-bar .form-group {
-    margin: 0px 4px;
+    margin: 0px 5px;
 }
 .search-bar .form-group select,
 .search-bar .form-group input {
@@ -474,9 +363,6 @@ label {
 .dropdowncheckbox {
     float: right;
     padding-top: 1px;
-}
-.search-bar .vertical-align-middle {
-    /* position: absolute; */
 }
 .search-bar .popover-content {
     font-size: 11px;
@@ -707,59 +593,6 @@ label {
 
 /*END LOGIN*/
 
-/*ENTER ORDER*/
-.Radiobox {
-    padding-top: 3px;
-}
-#form-enterorder {
-    font-size: 12px;
-}
-#form-enterorder > .form-group > .table-responsive > .table {
-    margin: 0;
-}
-#form-enterorder > .form-group > .table-responsive {
-    margin-bottom: 5px;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th {
-    background-color: #286cae;
-    color: #fff;
-    width: 60%;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
-    background-color: #fff;
-    padding-right: 1px;
-    padding-left: 6px;
-}
-#form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > th {
-    background-color: #f88100;
-    color: #fff;
-}
-#form-enterorder > .form-group.sell > .table-responsive > .table >tbody > tr > td {
-    background-color: #fff;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > th,
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td {
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
-#form-enterorder > .form-group > .table-responsive > .table >tbody > tr > td > input {
-    padding: 0;
-    padding-left: 5px;
-    width: 100%;
-}
-#form-enterorder .popover-content {
-    font-size: 11px;
-}
-/*END ENTER ORDER*/
-/*ORDER JOURNALL*/
-
-.hks-btn.btn-orderjournal {
-    margin: 0px 2px;
-    height: 19px;
-    width: 45px;
-    background-color: rgb(51, 122, 183);
-    min-width: unset;
-}
 
 /*POPUP*/
 
@@ -814,9 +647,18 @@ label {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
+.modal-title {
+    font-size: 16px;
+}
+.modal-body {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
 .modal-footer {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
 }
 .modal-footer .btn-default {
     padding: 4px 15px;
@@ -839,6 +681,11 @@ label {
 }
 .modal.fade .modal-dialog {
     transition: none;
+}
+.modal-wrapper .hks-btn {
+    max-width: 120px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 @media (min-width: 992px) {
     .modal-lg {
@@ -1027,7 +874,7 @@ label {
     height: 100%;
     position: absolute;
     top: 0;
-    z-index: 5;
+    z-index: 6;
 }
 .settingnav > .setting-panel {
     height: 100%;
@@ -1119,7 +966,7 @@ label {
     height: 100%;
     position: absolute;
     top: 0;
-    z-index: 5;
+    z-index: 6;
 }
 .profilenav > .profile-panel {
     height: 100%;
@@ -1356,9 +1203,6 @@ label {
     border-radius: 15px;
     min-width: 80px;
 }
-.modal-footer {
-    text-align: center;
-}
 
 @media (min-width: 768px){
     .messagebox > .modal-dialog {
@@ -1374,338 +1218,6 @@ label {
     }*/
 }
 /*END MESSAGE BOX*/
-/*CASH TRANSFER*/
-
-.form-cashtransfer tbody > tr,
-.form-cashtransfer tbody > tr > th,
-.form-cashtransfer tbody > tr > td {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-.form-cashtransfer tbody {
-    border: 1px solid #dcdcdc;
-}
-.form-cashtransfer tbody > tr > th {
-    background-color: #efefef;
-}
-.cashtransfer-action {
-    margin-top: -10px;
-}
-.cashtransfer-action button {
-    margin: 0 10px 0 10px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0;
-    border: 0;
-}
-/*END CASH TRANSFER*/
-/*ODD LOT TRANDING*/
-
-.oddlottrading-form-action > button {
-    padding-top: 2px;
-    padding-bottom: 2px;
-    border-radius: 0px;
-    border: 0;
-    margin: 1px;
-}
-.component-main.oddlottrading {
-    padding: 0px;
-}
-.component-main.oddlottrading > .oddlotorder{
-    z-index: 1;
-    clear: both;
-}
-.component-main.oddlottrading > .oddlothistory{
-    clear: both;
-}
-@media (min-width: 768px){
-    .component-main.oddlottrading > .oddlotorder{
-        width: 100%;
-        height: 300px;
-        position: absolute;
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
-        float: left;
-        width: 75%;
-        position: relative;
-        height: 100%;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
-        position: relative;
-        padding-top: 25px;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
-        position: absolute;
-        padding-top: 70px;
-        width: 100%;
-        height: 100%;
-        padding-right: 1px;
-        padding-left: 1px;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
-        float: left;
-        width: 25%;
-        position: relative;
-        padding-top: 25px;
-        padding-right: 1px;
-        padding-left: 1px;
-
-    }
-    .component-main.oddlottrading > .oddlothistory{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-    .component-main.oddlottrading > .oddlothistory > .table-main{
-        width: 100%;
-        position: absolute;
-        padding-top: 346px;
-        height: 100%;
-    }
-    .component-main.oddlottrading > .oddlothistory > .table-header{
-        width: 100%;
-        position: relative;
-        padding-top: 301px;
-    }
-}
-@media(max-width: 768px){
-    .component-main.oddlottrading > .oddlotorder{
-        width: 100%;
-        height: 400px;
-        position: absolute;
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table{
-        float: left;
-        width: 100%;
-        position: relative;
-        height: 250px;
-        z-index: 1;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-header{
-        position: relative;
-        padding-top: 25px;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-table > .table-main{
-        position: absolute;
-        padding-top: 70px;
-        width: 100%;
-        height: 100%;
-        padding-right: 1px;
-        padding-left: 1px;
-
-    }
-    .component-main.oddlottrading > .oddlotorder > .oddlotorder-note{
-        float: left;
-        width: 100%;
-        position: absolute;
-        padding-top: 250px;
-        padding-right: 1px;
-        padding-left: 1px;
-        height: 150px;
-
-    }
-    .component-main.oddlottrading > .oddlothistory{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-    .component-main.oddlottrading > .oddlothistory > .table-main{
-        width: 100%;
-        position: absolute;
-        padding-top: 446px;
-        height: 100%;
-    }
-    .component-main.oddlottrading > .oddlothistory > .table-header{
-        width: 100%;
-        position: relative;
-        padding-top: 401px;
-    }
-}
-
-    /* POPOP ODD LOT */
-    .oddlotdropdownlist {
-        padding-bottom: 10px;
-    }
-    .oddlotdropdownlist > span > div {
-        display: inline;
-        padding: 0 5px;
-    }
-    .oddlotdropdownlist > span > select {
-        background-color: transparent;
-        padding: 2px 4px;
-        border-color: #dcdcdc;
-    }
-/*END ODD LOT*/
-/*ENTITLEMENT*/
-
-.form-entitlement tbody > tr,
-.form-entitlement tbody > tr > th,
-.form-entitlement tbody > tr > td {
-    padding-top: 2px;
-    padding-bottom: 2px;
-    color: #000;
-    font-weight: normal;
-}
-.form-entitlement tbody {
-    border: 1px solid #dcdcdc;
-}
-.form-entitlement tbody > tr > th {
-    background-color: #efefef;
-}
-.component-main.entitlement {
-    padding-top: 0px;
-}
-@media(min-width: 768px){
-   .component-main.entitlement > .entitlement-form{
-        width: 25%;
-        float: left;
-        position: relative;
-        padding-right: 1px;
-        padding-left: 1px;
-        height: 100%;
-        padding-top: 25px;
-
-    } 
-    .component-main.entitlement > .entitlement-table{
-        width: 75%;
-        float: left;
-        position: relative;
-        padding-right: 1px;
-        padding-left: 1px;
-        height: 100%;
-
-    } 
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 {
-        position: absolute;
-        width: 100%;
-        height: 250px;
-        z-index: 2;
-
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 70px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 25px;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 {
-        position: absolute;
-        width: 100%;
-        height: 500px;
-        z-index: 1;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 295px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 251px;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 545px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 501px;
-    }
-
-}
-@media(max-width: 768px){
-   .component-main.entitlement > .entitlement-form{
-        width: 100%;
-        position: absolute;
-        padding-right: 1px;
-        padding-left: 1px;
-        height: 305px;
-        padding-top: 25px;
-
-    } 
-    .component-main.entitlement > .entitlement-table{
-        width: 100%;
-        position: absolute;
-        padding-right: 1px;
-        padding-left: 1px;
-        height: 100%;
-
-    } 
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 {
-        position: absolute;
-        width: 100%;
-        height: 500px;
-        z-index: 2;
-
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 350px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable1 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 306px;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 {
-        position: absolute;
-        width: 100%;
-        height: 720px;
-        z-index: 1;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 551px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable3 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 501px;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-main{
-        position: absolute;
-        width: 100%;
-        padding-top: 764px;
-        height: 100%;
-    }
-    .component-main.entitlement > .entitlement-table #entitlement-xtable2 > .table-header {
-        position: relative;
-        width: 100%;
-        padding-top: 720px;
-    }
-
-}
-/*END ENTITLEMENT*/
 /*SCROLLING TABS*/
 
 .scrolling-tabs-main {
@@ -2030,12 +1542,13 @@ label {
 
 .hks-btn.btn-pagination-top {
     background-color: rgb(51, 122, 183);
-    padding: 1px 2px;
+    padding: 2px 2px;
     margin-left: 1px;
     margin-right: 1px;
     width: 22px;
     border-radius: 2px;
     min-width: unset;
+    font-size: 12px;
 }
 .hks-btn.btn-pagination-top > span {
     top: 2px;
@@ -2056,198 +1569,6 @@ label {
     width: 45px;
 }
 /*END PAGINATION*/
-/*CASH ADVANCE*/
-
-.form-cashadvance tbody > tr,
-.form-cashadvance tbody > tr > th,
-.form-cashadvance tbody > tr > td {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-.form-cashadvance tbody {
-    border: 1px solid #dcdcdc;
-}
-.form-cashadvance tbody > tr > th {
-    background-color: #efefef;
-}
-.cashadvance-action {
-    margin-top: -10px;
-}
-.cashadvance-action button {
-    margin: 0 10px 0 10px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0;
-    border: 0;
-}
-.component-main.cashadvance {
-    padding-top: 0px;
-}
-.component-main.cashadvance > .cashadvance-history{
-    z-index: 1;
-}
-@media(min-width: 768px){
-    .component-main.cashadvance > .cashadvance-history{
-        height: 260px;
-        position: absolute;
-        width: 100%;
-        z-index: 1;
-    }
-    .component-main.cashadvance > .cashadvance-order-matching{
-        height: 100%;
-        position: absolute;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
-        height: 100%;
-        float: left;
-        width: 50%;
-        padding-top: 25px;
-        position: relative;
-        /*position: absolute;*/
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
-        height: 100%;
-        float: left;
-        width: 50%;
-        position: relative;
-        /*position: absolute;*/
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
-        height: 100%;
-        position: absolute;
-        width: 100%;
-        padding-top: 70px;
-        padding-right: 5px;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
-        position: relative;
-        padding-top: 25px;
-    }
-
-    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
-        height: 100%;
-        position: absolute;
-        padding-top: 307px;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
-        position: relative;
-        padding-top: 262px;
-        width: 100%;
-    }
-}
-@media(min-width: 992px){
-    .component-main.cashadvance > .cashadvance-history{
-        
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
-        float: left;
-        width: 33.33333333%;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
-        float: left;
-        width: 66.66666667%;
-    }
-}
-@media(max-width: 768px){
-    .component-main.cashadvance > .cashadvance-history{
-        height: 370px;
-        position: absolute;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-order-matching{
-        height: 100%;
-        position: absolute;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-form{
-        height: 160px;
-        padding-top: 25px;
-        position: absolute;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table{
-        width: 100%;
-        height: 100%;
-
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-main{
-        height: 100%;
-        position: absolute;
-        width: 100%;
-        padding-top: 205px;
-    }
-    .component-main.cashadvance > .cashadvance-history > .cashadvance-his-table > .table-header{
-        position: relative;
-        padding-top: 160px;
-    }
-    .component-main.cashadvance > .cashadvance-order-matching > .table-main{
-        height: 100%;
-        position: absolute;
-        padding-top: 417px;
-        width: 100%;
-    }
-    .component-main.cashadvance > .cashadvance-order-matching > .table-header{
-        position: relative;
-        padding-top: 372px;
-        width: 100%;
-    }
-}
-/*END CASH ADVANCE*/
-
-/*HORIZONTAL TABLE*/
-.horizontal-table {
-    font-size: 12px;
-    border: 1px solid #dcdcdc;
-    height: 100%;
-    overflow: auto;
-}
-.horizontal-table > .ht-body {
-    height: 100%;
-}
-.horizontal-table > .ht-body > .ht-tr,
-.horizontal-table > .ht-header > .ht-tr {
-    min-height: 21px;
-    line-height: 1.9;
-}
-.horizontal-table > .ht-body > .ht-tr:not(:first-child) {
-    border-top: 1px solid #efefef;
-}
-.horizontal-table > .ht-body > .ht-tr > .ht-td,
-.horizontal-table > .ht-header > .ht-tr > .ht-th {
-    display: inline-block;
-}
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-title,
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title {
-    width: 50%;
-    padding-left: 5px;
-    background-color: #dcdcdc;
-    height: 100%;
-}
-.horizontal-table > .ht-body > .ht-tr > .ht-td.ht-value,
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
-    width: 50%;
-    max-width: 120px;
-    min-width: 50px;
-    text-align: center;
-}
-.horizontal-table > .ht-header {
-
-}
-.horizontal-table > .ht-header > .ht-tr,
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value{
-    color: #fff;
-    background-color: #005899;
-}
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-title,
-.horizontal-table > .ht-header > .ht-tr > .ht-th.ht-value {
-    text-align: center;
-}
-/*END HORIZONTAL TABLE*/
-
 /*PORTFOLIO*/
 .component-main.portfolio {
     padding-top: 0px;
@@ -2388,545 +1709,6 @@ label {
 }
 /*END STOCKMARET INFOR*/
 
-/*ACCOUNT INFO*/
-#accountinfo > .widget-body > .tab-wrapper > .scrolling-tabbar {
-    padding-top: 25px;
-}
-#accountinfo  > .widget-body > .tab-wrapper > .scrolling-tabbar > .scroll{
-    z-index: 1;
-    box-shadow: 0 2px 2px -2px #cecece;    
-}
-#accountinfo  > .widget-body > .content-wrapper{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-#accountinfo  > .widget-body > .content-wrapper > .table-main,
-#accountinfo  > .widget-body > .content-wrapper > .table-main > .table-responsive {
-    height: 100%;
-} 
-
-/*END ACCOUNT INFO*/
-
-
-/*CASH TRANSFER*/
-.component-main.cashtransfer {
-    padding-top: 0px;
-}
-.component-main.cashtransfer > .cashtransfer-form {
-    z-index: 1;
-    float: left;
-    position: relative;
-    height: 100%;
-    padding-left: 1px;
-    padding-right: 1px;
-}
-.component-main.cashtransfer > .cashtransfer-form form{
-    position: absolute;
-    padding-top: 45px;
-    height: 100%;
-    overflow: auto;
-    width: 100%;
-    padding-right: 1px;
-    padding-left: 1px;
-}
-.component-main.cashtransfer > .cashtransfer-form .title{
-    padding-top: 24px;
-    z-index: 2;
-    position: relative;
-}
-/* .component-main.cashtransfer > .cashtransfer-form > .form-group{
-    padding-bottom: 
-} */
-.component-main.cashtransfer > .cashtransfer-history {
-    /*position: absolute;*/
-    float: left;
-    position: relative;
-    height: 100%;
-    padding-left: 1px;
-    padding-right: 1px;
-}
-.component-main.cashtransfer > .cashtransfer-history > .table-main {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding-top: 70px;
-    padding-right: 2px;
-}
-.component-main.cashtransfer > .cashtransfer-history > .table-header {
-    position: relative;
-    width: 100%;
-    padding-top: 24px;
-}
-@media (min-width: 768px) {
-    .component-main.cashtransfer > .cashtransfer-form {
-        width: 50%;
-    }
-    .component-main.cashtransfer > .cashtransfer-history {
-        width: 50%;
-    }
-}
-@media (min-width: 992px){
-    .component-main.cashtransfer > .cashtransfer-form {
-        width: 33.33333333%;
-    }
-    .component-main.cashtransfer > .cashtransfer-history {
-        width: 66.66666667%;
-    }
-}
-@media (max-width: 768px) {
-    .component-main.cashtransfer > .cashtransfer-form {
-        width: 100%;
-        height: 365px;
-    }
-    .component-main.cashtransfer > .cashtransfer-history {
-        width: 100%;
-        position: absolute;
-    }
-    .component-main.cashtransfer > .cashtransfer-history > .table-main {
-        padding-top: 435px;
-    }
-    .component-main.cashtransfer > .cashtransfer-history > .table-header {
-        padding-top: 390px;
-    }
-}
-/*END CASH TRANSFER*/
-
-/*LOAN REFUND*/
-.component-main.loanrefund {
-    padding-top: 0px;
-}
-#form-enterorder1 tr th, 
-#form-enterorder1 tr td,
-#form-enterorder2 tr td,
-#form-enterorder2 tr th{
-    padding-top: 2px;
-    padding-bottom: 2px;
-    height: 21px;
-}
-#form-enterorder1 tr th,
-#form-enterorder2 tr th{
-    background-color: #efefef;
-    min-width: 140px;
-}
-#form-enterorder1 tr td,
-#form-enterorder2 tr td{
-    min-width: 160px;
-}
-#form-enterorder1 .table,
-#form-enterorder2 .table{
-    margin-bottom: 0;
-}
-#form-enterorder1, #form-enterorder2 {
-    padding-bottom: 2px;
-}
-.loanrefund-action button {
-    margin: 0 10px 0 10px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0;
-    border: 0;
-}
-@media(min-width: 768px){
-    .component-main.loanrefund > .loanrefund-form {
-        position: relative;
-        float: left;
-        width: 25%;
-        padding-left: 2px;
-        padding-right: 2px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
-        height: 330px;
-        position: absolute;
-        width: 100%;
-        padding-top: 25px;
-    }
-
-    .component-main.loanrefund > .loanrefund-table {
-        position: relative;
-        float: left;
-        width: 75%;
-        padding-left: 2px;
-        padding-right: 2px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
-        position: absolute;
-        height: 300px;
-        width: 100%;
-        z-index: 1;
-        padding-left: 2px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
-        position: relative;
-        padding-top: 25px;
-        padding-right: 3px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
-        position: absolute;
-        width: 100%;
-        padding-top: 70px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        padding-left: 2px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
-        position: relative;
-        padding-top: 300px;
-        padding-right: 3px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
-        position: absolute;
-        width: 100%;
-        padding-top: 345px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
-        clear: both;
-        overflow-x: auto;
-        overflow-y: hidden;
-        width: 100%;
-        height: 100%;
-        padding-top: 330px;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
-        overflow: auto;
-        height: 100%;
-        width: 100%;
-        font-size: 12px;
-    }
-}
-@media(max-width: 768px){
-    .component-main.loanrefund > .loanrefund-form {
-        position: absolute;
-        float: left;
-        width: 100%;
-        padding-left: 2px;
-        padding-right: 2px;
-        height: 430px;
-        z-index: 2;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-form-group {
-        height: 330px;
-        position: absolute;
-        width: 100%;
-        padding-top: 25px;
-    }
-
-    .component-main.loanrefund > .loanrefund-table {
-        position: relative;
-        float: left;
-        width: 100%;
-        padding-left: 2px;
-        padding-right: 2px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 {
-        position: absolute;
-        height: 730px;
-        width: 100%;
-        z-index: 1;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-header{
-        position: relative;
-        padding-top: 430px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable1 > .table-main {
-        position: absolute;
-        width: 100%;
-        padding-top: 475px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-header{
-        position: relative;
-        padding-top: 730px;
-    }
-    .component-main.loanrefund > .loanrefund-table > #loanrefund-xtable2 > .table-main {
-        position: absolute;
-        width: 100%;
-        padding-top: 775px;
-        height: 100%;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-note {
-        clear: both;
-        overflow-x: auto;
-        overflow-y: hidden;
-        width: 100%;
-        height: 100%;
-        padding-top: 330px;
-    }
-    .component-main.loanrefund > .loanrefund-form > .loanrefund-note > .note-content {
-        overflow: auto;
-        height: 100%;
-        width: 100%;
-    }
-}
-/*END LOAN REFUND*/
-
-/*AVAILABLE MARGIN*/
-.component-main.avaiblemarginlist {
-    padding-top: 0px;
-}
-.component-main.avaiblemarginlist > .table-main{
-    position: absolute;
-    padding-top: 49px;
-    width: 100%;
-    height: 100%;
-}
-.component-main.avaiblemarginlist > .table-header{
-    position: relative;
-    padding-top: 25px;
-    width: 100%;
-}
-/*END AVAILABLE MARGIN*/
-
-/*CASH ADVANCE BANK*/
-.component-main.cashadvancebank {
-    padding-top: 0;
-}
-#form-cashadvance tr {
-    border-right: 1px solid #dcdcdc;
-}
-#form-cashadvance tr th, #form-cashadvance tr td {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-#form-cashadvance tr th {
-    background-color: #efefef;
-    color: #000;
-    font-weight: normal;
-}
-.cashadvancebank-action {
-    margin-top: -10px;
-}
-.cashadvancebank-action button {
-    margin: 0 10px 0 10px;
-    font-size: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 0;
-    border: 0;
-}
-@media(min-width: 768px){
-    .component-main.cashadvancebank > .cashadvancebank-form {
-           
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list {
-        height: 270px;
-        position: absolute;
-        width: 100%;
-        z-index: 1;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 {
-        position: relative;
-        width: 50%;
-        height: 100%;
-        float: left;
-
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1  > .table-main {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding-top: 70px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 > .table-header {
-        position: relative;
-        padding-top: 24px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form {
-        position: relative;
-        width: 50%;
-        height:  100%;
-        float: left;
-        padding-left: 2px;
-        padding-right: 2px;
-        padding-top: 24px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > .title {
-        width: 100%;
-        z-index: 1;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > #form-cashadvance{
-        width: 100%;
-        overflow: auto;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-header{
-        position: absolute;
-        width: 100%;
-        padding-top: 270px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-main{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding-top: 315px;
-
-    }
-}
-@media(min-width: 992px){
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1{
-        width: 66.66666667%;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form {
-        width: 33.33333333%;
-    }
-}
-@media(max-width: 768px){
-    .component-main.cashadvancebank > .cashadvancebank-order-list {
-        height: 500px;
-        position: absolute;
-        width: 100%;
-        z-index: 1;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1  > .table-main {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding-top: 250px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-table1 > .table-header {
-        position: relative;
-        padding-top: 200px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form {
-        position: absolute;
-        width: 100%;
-        height: 200px;
-        z-index: 2;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > .title {
-        position: absolute;
-        width: 100%;
-        padding-top: 25px;
-        z-index: 1;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-order-list > .cashadvancebank-form > #form-cashadvance{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        padding-top: 44px;
-
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-header{
-        position: absolute;
-        width: 100%;
-        padding-top: 500px;
-    }
-    .component-main.cashadvancebank > .cashadvancebank-table2 > .table-main{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding-top: 550px;
-
-    }
-}
-/*END CASH ADVANCE BANK*/
-
-/*INPUT SEARCH SUGGESTION*/
-.input-search-group {
-}
-.input-search-group .input-group-addon {
-    background: white !important;
-}
-.input-search-group .form-control {
-    border-right: 0;
-    box-shadow: 0 0 0;
-    border-color: #ccc;
-}
-.input-search-group button {
-    border: 0;
-    background: transparent;
-    width: 100%;
-    height: 100%;
-    padding: 0 5px 0 8px;
-    outline: none;
-}
-.input-search-group button:before {
-    content: "\25BC";
-    font-size: 10px;
-}
-.input-search-group button:active {
-    outline: none;
-}
-.input-search-group > span {
-    padding: 0;
-}
-.input-search-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.input-search {
-    position: relative;
-    display: inline-block;
-}
-
-.input-suggestion-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    width: 100%;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 3;
-    max-height: 200px;
-}
-
-.input-suggestion-content ul {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-}
-.input-suggestion-content ul li {
-    border-color: #B5B5B5;
-    border-width: 1px;
-    border-style: dotted;
-    cursor: pointer;
-    padding: 2px;
-    -webkit-user-select: none;    
-    font-size: 12px;
-}
-.input-suggestion-content ul li:hover {
-    background-color: #C8C8C8;
-}
-
-.input-search a:hover {background-color: #f1f1f1}
-/*END INPUT SEARCH */
 
 /*AUTH CARD MATRIX POPUP*/
 .auth-cardmatrix {
@@ -3104,6 +1886,7 @@ label {
     position: absolute;
     background-color: #dcdcdc;
     padding: 2px 0;
+    font-size: 12px;
 }
 .widget-body > .widget-form {
     padding-top: 25px;
@@ -3112,14 +1895,18 @@ label {
     overflow-y: auto;
     overflow-x: auto;
 }
-.widget-form .table > tbody > tr > th {
-    width: 50%;
-    font-weight: normal;
+.widget-form {
+    font-size: 12px;
 }
-.widget-body .table > tbody > tr > th,
-.widget-body .table > tbody > tr > td {
-    padding-top: 5px;
-    padding-bottom: 5px;   
+.widget-form th {
+    width: 50%;
+    font-weight: normal !important;
+}
+.widget-body th,
+.widget-body td {
+    font-weight: normal !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;   
     border-top: 1px solid rgba(221, 221, 221, 0.5); 
 }
 .widget-form .table > tbody > tr {
@@ -3210,38 +1997,6 @@ label {
     top: 3px;
     position: relative;
 }
-
-
-/* POPOVER */
-/*.popover {
-    padding: 0;
-    color: #fff;
-}
-.popover-title {
-    padding: 4px 14px;
-    background-color: #005899;
-    /*border: 1px solid #fff;
-    border-bottom: none;
-    text-align: center;
-    font-size: 16px;
-    border-radius: 4px 4px 0 0;
-}
-.popover-content {
-    padding: 4px 8px;
-    background-color: #0060a7;
-    border-radius: 0 0 4px 4px;
-    /*border: 1px solid #fff;
-    border-top: none;
-}
-.popover.top>.arrow:after {
-    border-top-color: #0060a7;
-
-}
-.popover-content > table > tbody > tr > th,
-.popover-content > table > tbody > tr > td {
-    padding: 4px 8px;
-}*/
-
 
 /* CALENDAER PICKER */
 .calendar-picker .react-datepicker__day-names {
@@ -3628,6 +2383,7 @@ label {
     position: absolute;
     width: 100%;
     padding: 10px 0;
+    user-select: none;
 }
 .tab-wrapper {
     height: 100%;
@@ -3659,7 +2415,7 @@ label {
     color: #000;
 }
 .tab-control > .tab-item.actived > div{
-    border-bottom: 4px solid #ce0e00;
+    border-bottom: 4px solid #055899;
 }
 /* END TABCONTROL */
 /* INPUT CONTROL */
@@ -4150,7 +2906,18 @@ label {
     height: 30px;
 }
 .maincontent-desktop .widget-header {
-    height: 25px;
+    height: 35px !important;
+}
+.maincontent-desktop .widget-title {
+    font-size: 18px !important;
+}
+.maincontent-desktop .widget-wrapper {
+    padding-top: 35px !important;
+}
+.maincontent-desktop .btn-submit,
+.maincontent-desktop .btn-cancel  {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 /* FOR MOBILE */
     .maincontent-mobile .enterorder-a .select-control {
@@ -4277,4 +3044,11 @@ label {
     }
     .maincontent-mobile .widget-body .widget-wrapper {
         padding-top: 40px;
+    }
+    .maincontent-mobile .hks-btn.btn-modify {
+        background-color: #a6003e !important;
+        border: none !important;
+    }.maincontent-mobile .hks-btn.btn-cancel-order {
+        background-color: #a6003e !important;
+        border: none !important;
     }
