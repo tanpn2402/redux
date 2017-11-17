@@ -273,14 +273,15 @@ class DataTable extends React.Component {
 							return {
 								style: {
 									background: rowInfo.index % 2 == 0 ? rowEven : rowOdd,
-									color: font2
+									color: font2,
 								}
 							}
 						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
 							return {
 								style: {
 									background: '#0644a8',
-									color: font
+									color: font,
+									fontWeight: 'bold'
 								}
 							}
 						} else {
@@ -308,6 +309,15 @@ class DataTable extends React.Component {
 							style: {
 								color: font3,
 								background: tableHeaderBackground
+							}
+						}
+					}}
+					getTdProps={(state, rowInfo, column, instance) => {
+						return {
+							style: {
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center'
 							}
 						}
 					}}

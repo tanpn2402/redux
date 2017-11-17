@@ -126,15 +126,15 @@ class Sumary extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
-                        <div className="col-sm-3" style={{ height: '100%' }}>
-                            <div className="col-sm-4" style={{ height: '100%' }}>
+                            <div className="col-sm-2" style={{height: '100%',
+                                marginTop: '-35px', paddingTop: '35px'}}>
                                 <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} />
                             </div>
-                            <div className="col-sm-8" style={{ height: '100%' }}>
+                            <div className="col-sm-3" style={{height: '100%',
+                                marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030' }}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                    <table className="table">
-                                        <tbody >
-
+                                    <table className="table">   
+                                        <tbody>
                                             {
                                                 this.data.map((d, i) => {
                                                     if (i % 2 != 0) {
@@ -159,9 +159,9 @@ class Sumary extends Component {
                                     </table>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="col-sm-3" style={{ height: '100%' }}>
+                        <div className="col-sm-2" style={{ height: '100%',
+                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
@@ -192,7 +192,8 @@ class Sumary extends Component {
 
                         </div>
 
-                        <div className="col-sm-3" style={{ height: '100%' }}>
+                        <div className="col-sm-3" style={{ height: '100%',
+                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
@@ -224,7 +225,8 @@ class Sumary extends Component {
                         </div>
 
 
-                        <div className="col-sm-3" style={{ height: '100%' }}>
+                        <div className="col-sm-2" style={{ height: '100%',
+                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">

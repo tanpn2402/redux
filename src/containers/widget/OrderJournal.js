@@ -70,13 +70,12 @@ class OrderJournal extends Component {
                             //}
 
                             return (
-                                <div style={{ display: "table", height: '100%', width: '100%' }}>
-                                    <div style={{ display: 'table-cell', verticalAlign: 'text-top' }} >
+                                    <div>
                                         {
                                             child
                                         }
                                     </div>
-                                </div>)
+                            )
                         }
                     },
                     skip: true,
@@ -126,17 +125,17 @@ class OrderJournal extends Component {
                     width: 80,
                     Cell: props => {
                         if (props.aggregated) {
-
+                            
                         } else {
                             if (props.original.mvBSValue == this.props.language.global.buysell.B) {
                                 return (
-                                    <div style={{ backgroundColor: '#39b567', color: '#fff' }}>
+                                    <div style={{ backgroundColor: '#39b567', color: '#fff', width: '100%' }}>
                                         {this.props.language.searchbar.buy}
                                     </div>
                                 )
                             } else {
                                 return (
-                                    <div style={{ backgroundColor: '#b5383e', color: '#fff' }}>
+                                    <div style={{ backgroundColor: '#b5383e', color: '#fff', width: '100%' }}>
                                         {this.props.language.searchbar.sell}
                                     </div>
                                 )

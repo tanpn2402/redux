@@ -169,7 +169,7 @@ export default class PieChart extends React.Component {
                         })
                     }
                 </Pie>
-                <Tooltip />
+                <Tooltip isAnimationActive={false} />
             </PChart>
         </ResponsiveContainer>
         )
