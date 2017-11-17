@@ -48,10 +48,10 @@ class AssetAllocation extends React.Component{
                 },
                 {
                     header: 'ledgerbalance',
-                    cell: props => {
+                    Cell: props => {
                         return (
-                            <div style={{display: "table", width: "100%"}} ref={ref => this.ledBalance = ref}>
-                                <div style={{display: "table-cell", verticalAlign: "middle", width: "100%"}}>0.0</div>
+                            <div style={{display: 'table', width: '100%'}} ref={ref => this.ledBalance = ref} >
+                                <div style={{display: 'table-cell', verticalAlign: 'middle'}}>0.0</div>
                             </div>
                         )
                     },
@@ -90,7 +90,7 @@ class AssetAllocation extends React.Component{
     componentDidMount() {
         if(!this.props.lite) {
             let t = this.widgetBody.Wrapper.offsetHeight - this.popupTable.Table.offsetHeight
-            this.ledBalance.style.height = this.ledBalance.style.height + t + "px"
+            this.ledBalance.style.height = this.ledBalance.style.height + t - 15 + "px"
         } else {
             this.popupTable.Table.style.height = "auto"
         }

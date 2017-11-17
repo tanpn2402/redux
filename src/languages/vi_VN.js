@@ -132,6 +132,7 @@ export default
                 "accountbalance": "Số dư tài khoản",
                 "setting": "Thiết lập",
                 "assetallocation": 'Phân bổ tài sản',
+                "assetallocationchart": 'Đồ thị phân bổ tài sản',
                 "stockinfo": "Thông tin chứng khoán"
             },
             "searchbar": {
