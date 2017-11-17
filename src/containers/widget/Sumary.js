@@ -23,97 +23,97 @@ class Sumary extends Component {
         this.data = [
             {
                 name: this.props.language.portfolio.header.totalAsset,
-                y: d.totalAsset
+                value: d.totalAsset
             }, {
                 name: this.props.language.portfolio.header.equity,
-                y: d.equity
+                value: d.equity
             }, {
                 name: this.props.language.portfolio.header.stockValue,
-                y: d.stockValue
+                value: d.stockValue
             }, {
                 name: this.props.language.portfolio.header.profitLoss,
-                y: d.profitLoss
+                value: d.profitLoss
             }, {
                 name: this.props.language.portfolio.header.PLPercent,
-                y: d.PLPercent
+                value: d.PLPercent
             }
         ]
         var data2 = [
             {
                 name: this.props.language.portfolio.header.cashBalance,
-                y: d.cashBalance
+                value: d.cashBalance
             }, {
                 name: this.props.language.portfolio.header.mvAvailAdvanceMoney,
-                y: d.mvAvailAdvanceMoney
+                value: d.mvAvailAdvanceMoney
             }, {
                 name: this.props.language.portfolio.header.mvBuyHoldAmount,
-                y: d.mvBuyHoldAmount
+                value: d.mvBuyHoldAmount
             }, {
                 name: this.props.language.portfolio.header.mvHoldAmount,
-                y: d.mvHoldAmount
+                value: d.mvHoldAmount
             }, {
                 name: this.props.language.portfolio.header.CPendingWithdrawal,
-                y: d.CPendingWithdrawal
+                value: d.CPendingWithdrawal
             }, {
                 name: this.props.language.portfolio.header.soldT0,
-                y: d.soldT0
+                value: d.soldT0
             }, {
                 name: this.props.language.portfolio.header.soldT1,
-                y: d.soldT1
+                value: d.soldT1
             }, {
                 name: this.props.language.portfolio.header.soldT2,
-                y: d.soldT2
+                value: d.soldT2
             }
         ]
         var data3 = [
             {
                 name: this.props.language.portfolio.header.equityMar,
-                y: d.equityMar
+                value: d.equityMar
             }, {
                 name: this.props.language.portfolio.header.totalAssetMaintenance,
-                y: d.totalAssetMaintenance
+                value: d.totalAssetMaintenance
             }, {
                 name: this.props.language.portfolio.header.stockMaintenance,
-                y: d.stockMaintenance
+                value: d.stockMaintenance
             }, {
                 name: this.props.language.portfolio.header.cashMaintenance,
-                y: d.cashMaintenance
+                value: d.cashMaintenance
             }, {
                 name: this.props.language.portfolio.header.mvOutstandingLoan,
-                y: d.mvOutstandingLoan
+                value: d.mvOutstandingLoan
             }, {
                 name: this.props.language.portfolio.header.debtIncByPurchase,
-                y: d.debtIncByPurchase
+                value: d.debtIncByPurchase
             }, {
                 name: this.props.language.portfolio.header.debitAccruedInterest,
-                y: d.debitAccruedInterest
+                value: d.debitAccruedInterest
             }, {
                 name: this.props.language.portfolio.header.mvCreditLimit,
-                y: d.mvCreditLimit
+                value: d.mvCreditLimit
             }
         ]
         var data4 = [
             {
                 name: this.props.language.portfolio.header.lendableValue,
-                y: d.lendableValue
+                value: d.lendableValue
             }, {
                 name: this.props.language.portfolio.header.minMarginReq,
-                y: d.minMarginReq
+                value: d.minMarginReq
             }, {
                 name: this.props.language.portfolio.header.curLiqMargin,
-                y: d.curLiqMargin
+                value: d.curLiqMargin
             }, {
                 name: this.props.language.portfolio.header.marginableBalf,
-                y: d.marginableBalf
+                value: d.marginableBalf
             }, {
                 name: this.props.language.portfolio.header.cashDeposit,
-                y: d.cashDeposit
+                value: d.cashDeposit
             }, {
                 name: this.props.language.portfolio.header.sellStkInMarPort,
-                y: d.sellStkInMarPort
+                value: d.sellStkInMarPort
             }, {
                 name: this.props.language.portfolio.header.sellStkNotInMarPort,
-                y: d.sellStkNotInMarPort
+                value: d.sellStkNotInMarPort
             }
         ]
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
@@ -128,7 +128,7 @@ class Sumary extends Component {
                     <div className="table-main no-header no-footer">
                             <div className="col-sm-2" style={{height: '100%',
                                 marginTop: '-35px', paddingTop: '35px'}}>
-                                <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} />
+                                <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} /> 
                             </div>
                             <div className="col-sm-3" style={{height: '100%',
                                 marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030' }}> 
@@ -141,14 +141,14 @@ class Sumary extends Component {
                                                         return (
                                                             <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                                                 <th>{d.name}</th>
-                                                                <td>{d.y}</td>
+                                                                <td>{d.value}</td>
                                                             </tr>
                                                         )
                                                     } else {
                                                         return (
                                                             <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                                                 <th>{d.name}</th>
-                                                                <td>{d.y}</td>
+                                                                <td>{d.value}</td>
                                                             </tr>
                                                         )
                                                     }
@@ -172,14 +172,14 @@ class Sumary extends Component {
                                                     return (
                                                         <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 } else {
                                                     return (
                                                         <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 }
@@ -204,14 +204,14 @@ class Sumary extends Component {
                                                     return (
                                                         <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 } else {
                                                     return (
                                                         <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 }
@@ -237,14 +237,14 @@ class Sumary extends Component {
                                                     return (
                                                         <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 } else {
                                                     return (
                                                         <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                                             <th>{d.name}</th>
-                                                            <td>{d.y}</td>
+                                                            <td>{d.value}</td>
                                                         </tr>
                                                     )
                                                 }

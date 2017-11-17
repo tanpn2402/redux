@@ -28,35 +28,35 @@ class AssetAllocation extends React.Component{
             data = [
                 {
                     header: 'creditlimit',
-                    value: 0.00
+                    value: 84.95
                 },
                 {
                     header: 'buyingpower',
-                    value: 0.00
+                    value: 41.82
                 },
                 {
                     header: 'withdrawablebalance',
-                    value: 0.00
+                    value: 85.25
                 },
                 {
                     header: 'totalmarketvalue',
-                    value: 0.00
+                    value: 31.76
                 },
                 {
                     header: 'settled',
-                    value: 0.00
+                    value: 53.26
                 },
                 {
                     header: 'ledgerbalance',
                     Cell: props => {
                         return (
-                            <div style={{display: 'table', width: '100%'}} ref={ref => this.ledBalance = ref} >
-                                <div style={{display: 'table-cell', verticalAlign: 'middle'}}>0.0</div>
+                            <div style={{ display: 'table', width: '100%' }} ref={ref => this.ledBalance = ref} >
+                                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>92.18</div>
                             </div>
                         )
                     },
                     style: {
-                        backgroundColor: '#d11f1f', 
+                        backgroundColor: '#d11f1f',
                         color: '#fff'
                     }
                 }
