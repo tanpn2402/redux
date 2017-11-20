@@ -562,9 +562,15 @@ export default
                     "ordertype": "Loại lệnh",
                     "volume": "Khối lượng",
                     "price": "Giá (x1000VND)",
+                    "triggerPrice": "Trigger Price",
                     "value": "Giá trị GD",
                     "netfee": "Phí tạm tính",
-                    "expirydate": "Lệnh đến hạn"
+                    "expirydate": "Lệnh đến hạn",
+                    "goodTill": "Good Till",
+                    "grossAmt": "Gross Amt",
+                    "netAmt": "Net Amt",
+                    "availQty": "Avail Qty",
+                    "commissionFees": "Commission Fees"
                 },
                 "data": {
                     "Buy": "Buy",

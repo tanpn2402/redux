@@ -558,13 +558,19 @@ export default
                     "market": "Market",
                     "bank": "Bank",
                     "lending": "% Lending",
-                    "buyingpower": "Buying Power(Expected)",
+                    "buyingpower": "Buying Power",
                     "ordertype": "Order Type",
                     "volume": "Volume",
                     "price": "Price",
+                    "triggerPrice": "Trigger Price",
                     "value": "Value",
                     "netfee": "Net Fee",
-                    "expirydate": "Expiry date"
+                    "expirydate": "Expiry date",
+                    "goodTill": "Good Till",
+                    "grossAmt": "Gross Amt",
+                    "netAmt": "Net Amt",
+                    "availQty": "Avail Qty",
+                    "commissionFees": "Commission Fees"
                 },
                 "data": {
                     "Buy": "Buy",
