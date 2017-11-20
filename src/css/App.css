@@ -176,6 +176,9 @@ select {
     padding-right: 15px;
     max-width: 120px;
 }
+.table {
+    margin-bottom: 0;
+}
 .group-btn-action {
     text-align: center;
 }
@@ -335,6 +338,8 @@ label {
     padding: 2px 15px;
     font-size: 12px;
     height: 24px;
+    position: relative;
+    top: 1px;
 }
 .search-bar .form-group {
     margin: 0px 5px;
@@ -1246,6 +1251,7 @@ label {
     border-radius: 2px;
     margin-left: 0;
     min-width: unset;
+    top: 0 !important;
 }
 .hks-btn.btn-tab-next {
     margin: 0;
@@ -1256,7 +1262,7 @@ label {
     position: relative;
     z-index: 1;
     border-radius: 2px;
-    top: -1px;
+    top: 0 !important;
     min-width: unset;
 }
 .hks-btn.btn-tab-next span{
@@ -1396,7 +1402,7 @@ label {
         position: absolute;
         width: 100%;
         padding-right: 130px;
-        padding-left: 22px;
+        padding-left: 27px;
         height: 100%;
     }
 
@@ -2452,6 +2458,8 @@ label {
 }
 .input-control > input {
     height: 100%;
+    width: 100%;
+    min-width: unset;
     border-radius: 0;
     outline: none;
     border: none;
@@ -2459,7 +2467,9 @@ label {
     padding: 0;
     box-shadow: unset;
 }
-.input-control.text {
+.input-control.text input{
+    padding-left: 10px;
+    padding-right: 6px;
 }
 .input-control.text > input {
     border-radius: 4px;
@@ -2471,7 +2481,9 @@ label {
 .input-control.number > input {
     text-align: center;
 }
-
+.input-control.readOnly {
+    background: #ccc !important;
+}
 .input-control.readOnly button {
     background-color: #d0d0d0;
     outline: none;
@@ -2583,39 +2595,42 @@ label {
     display: table;
     width: 100%;
 }
-.enterorder-a > .form-submit-action {
+.enterorder-form > .form-submit-action {
     margin-top: 10px;
 }
-.enterorder-a.buy .btn-submit {
+.enterorder-form.buy .btn-submit {
     background-color: #005899;
     border: 2px solid #005899;
 }
-.enterorder-a.buy .btn-cancel {
+.enterorder-form.buy .btn-cancel {
     border: 2px solid #005899;
     background-color: #fff;
     color: #005899;
 }
-.enterorder-a.sell .btn-submit {
+.enterorder-form.sell .btn-submit {
     background-color: #FF6600;
     border: 2px solid #FF6600;
 }
-.enterorder-a.sell .btn-cancel {
+.enterorder-form.sell .btn-cancel {
     border: 2px solid #FF6600;
     background-color: #fff;
     color: #FF6600;
 }
-.enterorder-form .select-control {
+.enterorder-form .select-control,
+.enterorder-form .input-control {
     height: 28px;
-}
-.enterorder-a .-total,
-.enterorder-a .-other {
-    display: table;
     width: 100%;
 }
-/* #enterorder-a > div > div {
-    padding: 0 10px;
-} */
-
+.enterorder-form input[type=radio] {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 3px;
+    right: 3px;
+}
+.enterorder-form .input-control.showOnly input {
+    text-align: left;
+}
 
 /* Listview-control */
 .listview-control {
@@ -2902,31 +2917,14 @@ label {
     padding-top: 35px;
     padding-bottom: 60px;
 }
-.maincontent-desktop .enterorder-a .select-control {
-    height: 24px;
-}
-.maincontent-desktop .enterorder-a .input-control {
-    height: 24px;
-}
-.maincontent-desktop .enterorder-a .-label {
-    font-size: 12px;
-}
-.maincontent-desktop .enterorder-a .-total {
-    padding: 5px 10px;
-    background-color: rgb(241, 241, 241);
-    font-size: 14px;
-}
-.maincontent-desktop .enterorder-a .-other {
-    padding: 6px 10px;
-    margin-top: 0;
-}
 .maincontent-desktop .select-control {
-    height: 24px;
+    height: 26px;
     background: #FFF;
     box-shadow: unser;
     border: 1px solid #dcdcdc;
 }
 .maincontent-desktop .input-control {
+    height: 26px !important;
     background: #FFF;
     border: 1px solid #dcdcdc;
 }
@@ -2945,38 +2943,17 @@ label {
     padding-bottom: 3px;
 }
 /* FOR MOBILE */
-    .maincontent-mobile .enterorder-a .select-control {
-        height: 30px;
-    }
-    .maincontent-mobile .enterorder-a .input-control {
-        height: 30px;
-        width: 100%;
-    }
-    .maincontent-mobile .enterorder-a .-label {
-        font-size: 14px;
-    }
-    .maincontent-mobile .enterorder-a .-total {
-        padding: 0 10px;
-        background-color: rgb(241, 241, 241);
-        display: table;
-        height: 40px;
-    }
-    .maincontent-mobile .enterorder-a .-total .-label {
-        font-size: 16px;
-        padding-top: 10px;
-    }
-    .maincontent-mobile .enterorder-a .-total .input-control {
-        padding-top: 10px;
-        font-size: 16px;
-    }
-    .maincontent-mobile .enterorder-a .-other {
-        padding: 6px 10px;
-        margin-top: 10px;
-    }
-    .maincontent-mobile .enterorder-a .-other .input-control {
-        height: 20px;
-    }
 
+    .maincontent-mobile .select-control {
+        background: #FFF;
+        box-shadow: unset;
+        border: 1px solid #dcdcdc;
+    }
+    .maincontent-mobile .input-control {
+        background: #FFF;
+        box-shadow: unset;
+        border: 1px solid #dcdcdc;
+    }
 
     /* POPUP */
     .popup{
