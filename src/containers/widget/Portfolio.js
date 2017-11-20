@@ -389,20 +389,12 @@ class Portfolio extends Component {
         this.props.onMobileTabClick("trading")
     }
 
-    componentWillReceiveProps(nextProps) {
-        
-        this.setState({
-            
-        })
-    }
-
     render() {
         var data = this.props.data.mvPortfolioBeanList
         let tableFooter = this.props.theme.table.tableFooter
-
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme}
+                <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     onToggleFilter={e => this.onToggleFilter(e)} >
@@ -492,7 +484,6 @@ class Portfolio extends Component {
 
     onNextPage() {
         this.setState({ pageIndex: parseInt(this.state.pageIndex) + 1 });
-
     }
 
     onPrevPage() {

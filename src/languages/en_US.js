@@ -314,6 +314,19 @@ export default
                     "D": "Deleted"
                 }
             },
+            "fundTransHistory": {
+                "header": {
+                    "transfertype": "Trans type",
+                    "transferamount": "Amount (VND)",
+                    "beneficiaryaccount": "Beneficiary Account",
+                    "beneficiaryfullname": "Beneficiary Fullname",
+                    "bankname":"Bank Name",
+                    "bankbranch":"Bank Branch",
+                    "status": "Status",
+                    "approvetime": "Approve Time",
+                    "date": "Date"
+                }
+            },
             "orderconfirmation": {
                 "header": {
                     "tradetime": "Trade Time",
@@ -911,6 +924,133 @@ export default
                 "exercise": {
                     "STATUS_O": "Mở",
                     "STATUS_C": "Hết hạn"
+                }
+            },
+            "actionRightList":{
+                "header":{
+                    "stock": "Stock",
+                    "actiontype": "Action Type",
+                    "recorddate": "Record Date",
+                    "owningvolume": "Owning Volume",
+                    "ratecash": "Rate Cash",
+                    "rate": "Rate",
+                    "pervalue": "Per Value",
+                    "receivecash": "Received Cash",
+                    "receivedStock": "Received Stock",
+                    "status": "Status",
+                    "payabledate": "Payable Date",
+                    "paiddate": "Paid Date"
+                }
+            },
+            "additionSharesInfo": {
+                "header":{
+                    "stock": "Stock",
+                    "recorddate": "Record Date",
+                    "owningvolume": "Owning Value",
+                    "rightrate": "Right Rate",
+                    "actionrate": "Action Rate",
+                    "availableqty": "Available Qty",
+                    "actionprice": "Action Price",
+                    "startdate": "Start Date",
+                    "transferdeadline": "Transfer Deadline",
+                    "registerdeadline": "Register Deadline",
+                }
+            },
+            "entitlementHistory":{
+                "header":{
+                    "registerdate": "Register Date",
+                    "stock": "Stock",
+                    "volume": "Volume",
+                    "actionprice": "Action Price",
+                    "amount": "Amount",
+                    "paiddate": "Paid Date",
+                    "status": "Status"
+                }
+            },
+            "matchOrderBankList":{
+                "header":{
+                    "contractid": "Contract ID",
+                    "orderid": "Order ID",
+                    "settlementdate": "Settlement Date",
+                    "tradedate": "Trade Date",
+                    "stockid": "Stock ID",
+                    "price": "Price",
+                    "quantity": "Quantity",
+                    "value": "Value"
+                }
+            },
+            "advanceBankHistory":{
+                "header":{
+                    "date": "Date",
+                    "advanceamount": "Advance Amount",
+                    "advancefee": "Advance Fee",
+                    "processingstatus": "Processing Status",
+                    "lastupdate": "Last Update",
+                    "note": "Note"
+                }
+            },
+            "matchOrderList":{
+                "header":{
+                    "id": "ID",
+                    "matchingdate": "Matching Date",
+                    "paymentdate": "Payment Date",
+                    "stock": "Stock",
+                    "volume": "Volume",
+                    "value": "Value",
+                    "fee": "Fee+Tax"
+                }
+            },
+            "advanceHistory":{
+                "header":{
+                    "date": "Date",
+                    "advanceamount": "Advance Amount",
+                    "advancefee": "Advance Fee",
+                    "processingstatus": "Processing Status",
+                    "lastupdate": "Last Update",
+                    "note": "Remark"
+                }
+            },
+            "oddLotOrder":{
+                "header":{
+                    "stockid": "Stock",
+                    "tradingquantity": "Trading Qty",
+                    "oddlotquantity": "Oddlot Qty",
+                    "currentprice": "Current Price",
+                    "exeprice": "Exe Price"
+                }
+            },
+            "oddlotHistory":{
+                "header":{
+                    "stockid": "Stock",
+                    "oddlotquantityH": "Oddlot Qty",
+                    "exepriceH": "Exe Price",
+                    "fee": "Tax",
+                    "value": "Value",
+                    "status": "Status",
+                    "transdate": "Trans Date",
+                    "approvedate": "Approve Date"
+                }
+            },
+            "loanRefundHistory":{
+                "header":{
+                    "loanID": "ID",
+                    "trandate": "Trading Date",
+                    "refundamount": "Loan Refund Amount",
+                    "type": "Type",
+                    "status": "Processing Status",
+                    "remark": "Remark",
+                    "lastupdate": "Last Update"
+                }
+            },
+            "loanRefundStatus":{
+                "header": {
+                    "loanID": "ID",
+                    "trandate": "Trading Date",
+                    "refundamount": "Loan Refund Amount",
+                    "type": "Type",
+                    "status": "Processing Status",
+                    "remark": "Remark",
+                    "lastupdate": "Last Update"
                 }
             },
             "loanrefund": {

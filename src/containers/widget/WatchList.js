@@ -427,7 +427,7 @@ class WatchList extends Component {
         let tableFooter = this.props.theme.table.tableFooter
         return (
             <div style={{ height: '100%' }}>
-                <Title language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
+                <Title id={this.id} language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>

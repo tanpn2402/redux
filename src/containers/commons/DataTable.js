@@ -167,7 +167,7 @@ class DataTable extends React.Component {
 			language: this.props.language,
 			sorted: []
 		}
-		
+
 		this.isHeaderRendered = false
 		this.isDoubleHeaderTable = false
 		this.scrollLeft = 0
@@ -188,7 +188,7 @@ class DataTable extends React.Component {
 
 	// COMPONENT LIFE CYCLE
 	componentWillMount() {
-		this.loadHeaderLanguage(this.props.language)
+		this.loadHeaderLanguage(this.props)
 	}
 
 	componentDidMount() {
@@ -202,12 +202,10 @@ class DataTable extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 
-		if (this.state.language != nextProps.language) {
-			this.setState({
-				language: nextProps.language
-			})
-			this.loadHeaderLanguage(nextProps.language)
-		}
+		this.setState({
+			language: nextProps.language
+		})
+		this.loadHeaderLanguage(nextProps)
 
 	}
 
@@ -265,7 +263,7 @@ class DataTable extends React.Component {
 					ref={e => this.mainTable = e}
 					filterable={this.props.filterable != undefined ? this.props.filterable : false}
 					onSortedChange={(sorted) => {
-						this.loadHeaderLanguage(this.props.language)
+						this.loadHeaderLanguage(this.props)
 						this.setState({ sorted: sorted })
 					}}
 					getTrProps={(state, rowInfo, column, instance) => {
@@ -458,28 +456,28 @@ class DataTable extends React.Component {
 		this.fromColIndex = -1
 	}
 
-	loadHeaderOrder(config) {
+	loadHeaderOrder(nextProps) {
 		this.isHeaderRendered = false
 
 		//Get columns model
-		var colsOrderInConfig = config.tableColReorder.find(tbl => tbl.id == this.props.id)
-		var colsWidthInConfig = config.tableColWidth.find(tbl => tbl.id == this.props.id)
+		var colsOrderInConfig = Config.tableColReorder.find(tbl => tbl.id == nextProps.id)
+		var colsWidthInConfig = Config.tableColWidth.find(tbl => tbl.id == nextProps.id)
 
 		if (colsOrderInConfig != undefined) {
 			this.colsOrder = colsOrderInConfig.colsOrder
 		} else {
-			this.colsOrder = getColsOrder(JSON.parse(JSON.stringify(this.props.columns)))
+			this.colsOrder = getColsOrder(nextProps.columns)
 		}
 
 		if (colsWidthInConfig != undefined) {
 			this.setState({ resized: colsWidthInConfig.colsResized })
 		}
 
-		var newColumns = JSON.parse(JSON.stringify(this.props.columns))
+		let newColumns
 
 		if (this.colsOrder != null) {
 			newColumns = this.colsOrder.map(curColInfo => {
-				var curCol = this.props.columns.find(col => col.id == curColInfo.id)
+				var curCol = nextProps.columns.find(col => col.id == curColInfo.id)
 				if (curCol.columns != null) {
 					var newSubCol = curColInfo.columns.map(subCol => (curCol.columns.find(col =>
 						col.id == subCol.id)))
@@ -492,18 +490,11 @@ class DataTable extends React.Component {
 
 	}
 
-	loadHeaderLanguage(language) {
+	loadHeaderLanguage(nextProps) {
 		this.isHeaderRendered = false
-
-		var translatedHeaders = this.loadHeaderOrder(Config)
+		let language = nextProps.language
+		let translatedHeaders = this.loadHeaderOrder(nextProps)
 		for (var col of translatedHeaders) {
-			if (col.Header == undefined) {
-				if (language[col.id] != undefined) {
-					col.Header = language[col.id]
-				} else {
-					col.Header = col.id
-				}
-			}
 
 			if (col.columns != undefined) {
 				col.columns = col.columns.map(subCol => {
@@ -516,7 +507,19 @@ class DataTable extends React.Component {
 					return subCol
 				})
 			}
-
+			
+			if (col.Header == undefined) {
+				col = translatedHeaders.map(column => {
+					if(column.id == col.id){
+						if (language[column.id] != undefined) {
+							column.Header = language[column.id]
+						} else {
+							column.Header = column.id
+						}
+						return column
+					}
+				})
+			}
 		}
 		this.setState({
 			columns: translatedHeaders
@@ -668,9 +671,9 @@ class DataTable extends React.Component {
 							onMouseDown={e => this.handleOnMouseDown(e)}>{text}</span>
 						{
 							!sortedCol ? null
-								: <span className={!sortedCol.desc ? 'glyphicon glyphicon-sort-by-attributes' : 
-									'glyphicon glyphicon-sort-by-attributes-alt'} style={{marginLeft: '5px'}} />
-						}	
+								: <span className={!sortedCol.desc ? 'glyphicon glyphicon-sort-by-attributes' :
+									'glyphicon glyphicon-sort-by-attributes-alt'} style={{ marginLeft: '5px' }} />
+						}
 					</div>
 				)
 		}
