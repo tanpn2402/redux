@@ -13,7 +13,7 @@ import { enquiryStockStatement, exportTransactionHistory } from './stockstatemen
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
 import {
   loadWatchList, addStock, removeStock, addStockToLocalStore, removeStockFromLocalStore,
-  getStocksFromLocalStore
+  getStocksFromLocalStore, updateStockInfo
 } from './watchlist'
 import { getClientInfo, changePassword } from './profile'
 import { getOddlotEnquiry, getOddlotHistory, submitOddLot, getBankInfo, beforeRegisterOddLot } from './oddlottrading'
@@ -122,6 +122,7 @@ export {
   addStockToLocalStore,
   removeStockFromLocalStore,
   getStocksFromLocalStore,
+  updateStockInfo,
 
   // odd lot tranding
   getOddlotEnquiry,

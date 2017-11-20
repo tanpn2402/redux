@@ -3,6 +3,7 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
+export const WEBSOCKET = 'WEBSOCKET'
 const SERVER = 'http://192.168.150.193:'
 const PORT = '8080/iTradeMAS/'
 
@@ -145,6 +146,5 @@ export async function FetchAPI(id, JsonData, method) {
         url += '?' + formData
         window.location.href = url
     }
-
 
 }

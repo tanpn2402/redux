@@ -1,12 +1,8 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
-const { ActionTypes } = require('../core/constants');
+const {ActionTypes} = require('../core/constants');
 
-const watchlist = [{ "mvStockId": "SHB", "mvStockName": "1" }, { "mvStockId": "ACB", "mvStockName": "2" },
-{ "mvStockId": "ACC", "mvStockName": "3" }, { "mvStockId": "SHA", "mvStockName": "4" },
-{ "mvStockId": "AAC", "mvStockName": "5" }, { "mvStockId": "AHC", "mvStockName": "6" },
-{ "mvStockId": "ABB", "mvStockName": "7" }, { "mvStockId": "AHH", "mvStockName": "8" },
-{ "mvStockId": "CCC", "mvStockName": "9" }, { "mvStockId": "HHH", "mvStockName": "10" }]
+const watchlist = []
 
 export function loadWatchList(params) {
   return (dispatch) => {
@@ -14,11 +10,7 @@ export function loadWatchList(params) {
   }
 }
 function responseGetMarketData(response) {
-  console.log("watchListData ", response)
-  return {
-    type: ActionTypes.LOADWATCHLIST,
-    watchListData: response,
-  }
+  return {type: ActionTypes.LOADWATCHLIST, watchListData: response}
 }
 
 export function addStock(params) {
@@ -28,47 +20,31 @@ export function addStock(params) {
 }
 
 function responseAddStock(response) {
-  console.log("watchListData ", response)
-  return {
-    type: ActionTypes.ADDSTOCK,
-    watchListData: response,
-  }
+  return {type: ActionTypes.ADDSTOCK, watchListData: response}
 }
 
-
 export function removeStock(params) {
-  console.log("param dcgoila: ", params)
   return (dispatch) => {
     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, responseRemoveStock)
   }
 }
 function responseRemoveStock(response) {
-  console.log("watchListData ", response)
-  return {
-    type: ActionTypes.REMOVESTOCK,
-    watchListData: response,
-  }
+  return {type: ActionTypes.REMOVESTOCK, watchListData: response}
 }
 
 export function addStockToLocalStore(stock) {
-  console.log('add stock to local store', stock)
-  return {
-    type: ActionTypes.ADDSTOCKTOLOCALSTORE,
-    stock: stock
-  }
+  return {type: ActionTypes.ADDSTOCKTOLOCALSTORE, stock: stock}
 }
 
 export function removeStockFromLocalStore(stock) {
-  console.log('remove stock to local store', stock)
-  return {
-    type: ActionTypes.REMOVESTOCKFROMLOCALSTORE,
-    stock: stock
-  }
+  return {type: ActionTypes.REMOVESTOCKFROMLOCALSTORE, stock: stock}
 }
 
 export function getStocksFromLocalStore() {
-  console.log('get stocks from local store')
-  return {
-    type: ActionTypes.GETSTOCKSFROMLOCALSTORE
-  }
+  return {type: ActionTypes.GETSTOCKSFROMLOCALSTORE}
+}
+
+export function updateStockInfo(stockJson) {
+  console.log(stockJson)
+  return {type: ActionTypes.UPDATESTOCKINFO, stockJson: stockJson}
 }
