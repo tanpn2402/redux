@@ -4278,3 +4278,37 @@ label {
     .maincontent-mobile .widget-body .widget-wrapper {
         padding-top: 40px;
     }
+
+    /* Cell status change */
+    .value-change .value-unchange {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    .value-change {
+        animation: status-changed ease-in 1s;
+    }
+    .value-null {
+        background: rgb(220, 220, 220,.5);
+        color: grey;
+    }
+    .value-up {
+        background: rgb(0, 128, 0, .3);
+        color: white;
+    }
+    .value-down {
+        background: rgb(255, 0, 0, .3);
+        color: white;
+    }
+
+    @keyframes status-changed {
+        from {
+            top: 5px;
+            opacity: 0;
+        }
+        to {
+            top: 0px;
+            opacity: 1;
+            font-weight: bold;
+        }
+    }

@@ -14,7 +14,6 @@ var request = {
     url: window.location.href + "ITradePushServer/StockInfo/",
     contentType: "application/json",
     trackMessageLength: true,
-    shared: true,
     transport: transport,
     fallbackTransport: 'long-polling',
     reconnectInterval: 5000
@@ -60,6 +59,17 @@ export function subscribe(clientID, callback) {
     }
 
     subSocket = socket.subscribe(request)
+    //New request to notify server sending data by WSprotocol
+        window.fetch(document.location.href + 'ITradePushServer/StockInfo/' + clientID, {
+            method: 'GET',
+            headers: {
+                'Host': 'HOST',
+                'Accept': 'ACCEPT',
+                'Accept-language': 'ACCEPT_LANGUAGE',
+                'Content-Type': 'CONTENT_TYPE'
+            },
+            credentials: 'include',
+        })
 }
 
 export function unsubscribe() {
