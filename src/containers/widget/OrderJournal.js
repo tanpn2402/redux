@@ -295,7 +295,7 @@ class OrderJournal extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title id={this.id}
+                <Title filterable={this.state.filterable} id={this.id}
                     theme={this.props.theme}
                     language={this.props.language}
                     columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)}

@@ -314,6 +314,19 @@ export default
                     "D": "Xóa"
                 }
             },
+            "fundTransHistory": {
+                "header": {
+                    "transfertype": "Loại hình chuyển khoản",
+                    "transferamount": "Số tiền chuyển khoản",
+                    "beneficiaryaccount": "Tài khoản thụ hưởng",
+                    "beneficiaryfullname": "Người thụ hưởng",
+                    "bankname": "Tên ngân hàng",
+                    "bankbranch": "Chi nhánh",
+                    "status": "Trạng thái",
+                    "approvetime": "Thời gian xác nhận",
+                    "date": "Ngày GD"
+                }
+            },
             "orderconfirmation": {
                 "header": {
                     "tradetime": "Thời gian GD",
@@ -911,6 +924,133 @@ export default
                 "exercise": {
                     "STATUS_O": "Mở",
                     "STATUS_C": "Hết hạn"
+                }
+            },
+            "actionRightList": {
+                "header": {
+                    "stock": "Mã CK",
+                    "actiontype": "Loại",
+                    "recorddate": "Ngày chốt quyền",
+                    "owningvolume": "Số lượng CK sở hữu",
+                    "ratecash": "TỈ lệ tiền",
+                    "rate": "Tỉ lệ CK",
+                    "pervalue": "Giá",
+                    "receivecash": "Số tiền",
+                    "receivedStock": "Số lượng CK",
+                    "status": "Trạng thaí",
+                    "payabledate": "Ngày phân bố dự kiến",
+                    "paiddate": "Ngày phân bố"
+                }
+            },
+            "additionSharesInfo": {
+                "header": {
+                    "stock": "Mã CK",
+                    "recorddate": "Ngày chốt quyền",
+                    "owningvolume": "Số lượng CK sở hữu",
+                    "rightrate": "Tỉ lệ quyền",
+                    "actionrate": "Tỉ lệ thực hiện",
+                    "availableqty": "SL được phép mua",
+                    "actionprice": "Giá thực hiện",
+                    "startdate": "Ngày bắt đầu DK/CK",
+                    "transferdeadline": "Ngày hết hạn chuyển nhượng",
+                    "registerdeadline": "Ngày hết hạn",
+                }
+            },
+            "entitlementHistory": {
+                "header": {
+                    "registerdate": "Ngày đăng kí mua",
+                    "stock": "Mã CK",
+                    "volume": "Số lượng CK mua",
+                    "actionprice": "Giá thực hiện",
+                    "amount": "Số tiền",
+                    "paiddate": "Ngày phân bổ",
+                    "status": "Trạng thái"
+                }
+            },
+            "matchOrderBankList": {
+                "header": {
+                    "contractid": "Mã hợp đồng",
+                    "orderid": "Mã lệnh",
+                    "settlementdate": "Ngày giải quyết",
+                    "tradedate": "Ngày bán",
+                    "stockid": "Mã chứng khoán",
+                    "price": "Giá",
+                    "quantity": "Số lượng",
+                    "value": "Giá trị"
+                }
+            },
+            "advanceBankHistory": {
+                "header": {
+                    "date": "Ngày giao dịch",
+                    "advanceamount": "Số tiền ứng",
+                    "advancefee": "Phí ứng trước",
+                    "processingstatus": "Trạng thái xử lí",
+                    "lastupdate": "Thời gian cập nhật",
+                    "note": "Lưu ý"
+                }
+            },
+            "matchOrderList": {
+                "header": {
+                    "id": "Mã giao dịch",
+                    "matchingdate": "Ngày khớp",
+                    "paymentdate": "Ngày thanh toán",
+                    "stock": "Mã CK",
+                    "volume": "Khối lượng",
+                    "value": "Giá trị",
+                    "fee": "Phí+Thuế"
+                }
+            },
+            "advanceHistory": {
+                "header": {
+                    "date": "Ngày giao dịch",
+                    "advanceamount": "Số tiền ứng",
+                    "advancefee": "Phí ứng trước",
+                    "processingstatus": "Trạng thái xử lí",
+                    "lastupdate": "Thời gian cập nhật",
+                    "note": "Lưu ý"
+                }
+            },
+            "oddLotOrder": {
+                "header": {
+                    "stockid": "Mã CK",
+                    "tradingquantity": "Số dư GD",
+                    "oddlotquantity": "SL lô lẻ",
+                    "currentprice": "Giá hiện tại",
+                    "exeprice": "Giá GD lô lẻ"
+                }
+            },
+            "oddlotHistory": {
+                "header": {
+                    "stockid": "Mã CK",
+                    "oddlotquantityH": "SL lô lẻ",
+                    "exepriceH": "Giá thực hiện",
+                    "fee": "Thuế",
+                    "value": "Giá trị",
+                    "status": "Trạng thái",
+                    "transdate": "Ngày GD",
+                    "approvedate": "Ngày xác nhận"
+                }
+            },
+            "loanRefundHistory": {
+                "header": {
+                    "loanID": "STT",
+                    "trandate": "Ngày giao dịch",
+                    "refundamount": "Số tiền hoàn trả",
+                    "type": "Loại GD",
+                    "status": "Trạng thái xử lí",
+                    "remark": "Ghi chú",
+                    "lastupdate": "Ngày cập nhật cuối"
+                }
+            },
+            "loanRefundStatus": {
+                "header": {
+                    "loanID": "STT",
+                    "trandate": "Ngày giao dịch",
+                    "refundamount": "Số tiền hoàn trả",
+                    "type": "Loại GD",
+                    "status": "Trạng thái xử lí",
+                    "remark": "Ghi chú",
+                    "lastupdate": "Ngày cập nhật cuối"
                 }
             },
             "loanrefund": {

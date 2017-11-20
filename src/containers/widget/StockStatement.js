@@ -168,7 +168,7 @@ class StockStatement extends Component {
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} widgetID={'stockstatement'}
+                <Title filterable={this.state.filterable} id={this.id} language={this.props.language} widgetID={'stockstatement'}
                     theme={this.props.theme} columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     onToggleFilter={e => this.onToggleFilter(e)} >

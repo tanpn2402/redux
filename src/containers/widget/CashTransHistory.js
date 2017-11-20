@@ -115,7 +115,7 @@ class CashTransHistory extends Component {
         let tableFooter = this.props.theme.table.tableFooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme}
+                <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     onToggleFilter={e => this.onToggleFilter(e)} >
