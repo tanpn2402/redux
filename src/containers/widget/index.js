@@ -48,6 +48,7 @@ import Portfolio from './Portfolio'
 import Sumary from './Sumary'
 import AccountBalance from './AccountBalance'
 import AssetAllocation from './AssetAllocation'
+import AssetAllocationChart from './AssetAllocationChart'
 
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
@@ -219,6 +220,10 @@ export default function (menuid, props){
 		case 'assetallocation':
 			return (
 				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={false}/>
+			)
+		case 'assetallocationchart':
+			return (
+				<AssetAllocationChart stockList={props.stockList} language={props.language} theme={props.theme} lite={false} />
 			)
 		case 'assetallocation-lite':
 			return (

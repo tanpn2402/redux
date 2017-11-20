@@ -55,7 +55,7 @@ export default {
       backgroundColor: '#FF8000'
     },
     widgetBody: {
-      border: '1.75px solid #FF8000'
+      
     }
   },
   table: {

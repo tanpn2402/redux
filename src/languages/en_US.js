@@ -132,6 +132,7 @@ export default
                 "accountbalance": "Account Balance",
                 "setting": "Setting",
                 "assetallocation": 'Asset Allocation',
+                "assetallocationchart": 'Asset Allocation Chart',
                 "stockinfo": "Stock Info"
             },
             "searchbar": {
