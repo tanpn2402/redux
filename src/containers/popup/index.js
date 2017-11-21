@@ -13,6 +13,7 @@ import SaveLayout from './SaveLayout'
 import EnterOrderConfirm from './EnterOrderConfirm'
 // mobile
 import EnterOrderConfirmMobile from './mobile/EnterOrderConfirm'
+import EnterOrderSuccessMobile from './mobile/EnterOrderSuccess'
 import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
 import Setting from './mobile/Setting'
@@ -82,6 +83,10 @@ function genPopupDesktop(props, onClose) {
 		case 'detailorder':
 			return (<DetailOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
+
+		case 'enterordersuccess':
+			return (<EnterOrderSuccessMobile onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
+			break;
 	}
 
 }
@@ -107,6 +112,10 @@ function genPopupMobile(props, onClose) {
 
 		case 'setting':
 			return (<Setting onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
+			break;
+
+		case 'enterordersuccess':
+			return (<EnterOrderSuccessMobile onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
 			break;
 	}
 }
