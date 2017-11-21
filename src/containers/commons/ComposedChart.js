@@ -4,7 +4,6 @@ import { ComposedChart as ComposedChartRC, Tooltip, ReferenceLine, Line, Area, L
 export class ComposedChart extends React.Component {
     constructor(props) {
         super(props)
-
     }
 
     render() {
@@ -29,7 +28,7 @@ export class ComposedChart extends React.Component {
                     </linearGradient>
                 </defs>
                 <Tooltip />
-                <XAxis dataKey={'hour'} stroke={font} scale={'point'} ticks={[900, 1000, 1100, 1200, 1300, 1400]} />
+                <XAxis stroke={font} scale={'point'} ticks={['']} />
                 <YAxis yAxisId="left" stroke={font} domain={[minIndex, maxIndex]} orientation="left"
                     ticks={leftTicks}/>
                 <YAxis yAxisId="right" stroke={font} ticks={rightTicks}

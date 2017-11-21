@@ -4,7 +4,6 @@ import * as actions from "../../actions"
 import { OverlayTrigger, Popover } from 'react-bootstrap'
 import { ComposedChart } from '../commons/ComposedChart'
 
-
 class MarqueeItem extends React.Component {
     constructor(props) {
         super(props)
@@ -37,7 +36,7 @@ class MarqueeItem extends React.Component {
     render() {
         let data = this.props.data
         return (
-            <OverlayTrigger trigger={['click', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
                 <li>
                     <strong className="title">{data.title}</strong>
                     <span className={data.status}>&nbsp;{data.id}</span>
@@ -62,12 +61,12 @@ class MarqueeItem extends React.Component {
             let randomValue2 = Math.random() > 0.5 ? Math.random() * Math.pow(3, 5) : Math.random() * Math.pow(-3, 5)
             let randomValue3 = Math.random() * 20
             let newData = this.state.data.concat({
-                hour: (this.state.data.slice(-1)[0].hour + randomValue3).toFixed(0),
+                hour: this.state.data.slice(-1)[0].hour + randomValue3,
                 index: this.state.data.slice(-1)[0].index + randomValue,
                 volume: this.state.data.slice(-1)[0].volume + randomValue2
             })
             this.setState({data: newData})
-        }, 500)
+        }, 2000)
     }
 
     genPopover(d) {
