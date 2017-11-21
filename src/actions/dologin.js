@@ -87,6 +87,7 @@ export function checkAuth() {
                             if (responseForGetUserData && responseForGetUserData.mvCfgList.length > 0) {
                                 try {
                                     var savedContent = $.parseJSON(responseForGetUserData.mvCfgList[0].SAVEDCONTENT)
+                                    
                                     if (savedContent.layout) {
                                         config.tabbar = Object.assign(config.tabbar, savedContent.layout)
                                         // // config.tabbar = savedContent.layout
@@ -135,6 +136,12 @@ export function checkAuth() {
                                             config.cache.theme = localStorage.getItem("lastTheme")
                                         else
                                             config.cache.theme = defaultTheme
+                                    }
+                                    if (savedContent.tableColWidth) {
+                                        config.tableColWidth = savedContent.tableColWidth
+                                    }
+                                    if (savedContent.tableColReorder) {
+                                        config.tableColReorder = savedContent.tableColReorder
                                     }
                                 }
                                 catch (ex) { }

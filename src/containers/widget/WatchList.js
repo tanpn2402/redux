@@ -59,7 +59,7 @@ class WatchList extends Component {
                         id: 'ce',
                         accessor: 'mvCeiling',
                         Cell: row => {  
-                            return this.onRowStatusChange(row)    
+                            return this.onRowStatusChange(row, "mvCeiling")    
                             },
                         width: 60,
                         skip: false,
@@ -485,26 +485,37 @@ class WatchList extends Component {
         atmosphereAPI.unsubscribe()
     }
 
-    onRowStatusChange(row) {
+    onRowStatusChange(row, rowName) {
         let index = row.index
-        console.log("Value = ",row.value, this.oldWatchStockList[index])
+        console.log("Value = ",row, this.oldWatchStockList[index])
+        if (rowName == "mvCeiling") {
+            console.log("Hahaha")
+            return <span className="value-ceil">{row.value}</span>
+        }
+        if (rowName == "mvFloor") {
+            return <span className="value-floor">{row.value}</span>
+        }
+        if (rowName == "mvReferences") {
+            return <span className="value-ref">{row.value}</span>            
+        }
+
         if (row.value == null) {
             return ( 
                 <span className="value-change value-null">-</span>
             )
-        } else if (this.oldWatchStockList[index] == null) {
+        } else if (row.original == null || row.original.mvReferences == null) {
             return (
                 <span className="value-change">{row.value}</span>
             )
-        } else if (this.oldWatchStockList[index] > row.value) {
+        } else if (row.original.mvReferences > row.value) {
             return (
                 <span className="value-change value-down">{row.value}</span>
             )
-        } else if (this.oldWatchStockList[index] < row.value) {
+        } else if (row.original.mvReferences < row.value) {
             return (
                 <span className="value-change value-up">{row.value}</span>
             )
-        } else if (this.oldWatchStockList[index] == row.value) {
+        } else if (row.original.mvReferences == row.value) {
             return (
                 <span className="value-unchange">{row.value}</span>
             )
@@ -512,7 +523,7 @@ class WatchList extends Component {
     }
 
     onSubscribeToServer() {
-        localStorage.setItem("socketID","C080001")
+        // localStorage.setItem("socketID","C080001")
         
         let socketID = localStorage.getItem("socketID")
         if (socketID == null) {
