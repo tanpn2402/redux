@@ -7,29 +7,19 @@ import Body from '../commons/WidgetBody'
 import * as Utils from '../../utils'
 import moment from 'moment'
 import config from '../../core/config'
-import { PowerSelect } from 'react-power-select'
-import 'react-power-select/dist/react-power-select.css'
+// import 'react-power-select/dist/react-power-select.css'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
-import { TabControl, TabItem } from "../commons/TabControl"
 import Select from "../commons/Select"
 import Input from "../commons/Input"
 const { Contants } = require('../../core/constants')
-var DatePicker = require("react-bootstrap-date-picker")
 
-
-const StockViewOption = ({ option }) =>
-    <div style={{ maxWidth: '100%' }}>
-        <span>{option.stockCode}</span>
-        <small style={{ paddingLeft: '5px' }}> - {option.stockName}</small>
-    </div>
-
-class EnterOrderForm extends React.Component {
+class EnterOrder extends React.Component {
     constructor(props) {
         super(props)
         this.lang = "vi_VN"
-        this.id = "enterorder-a"
+        this.id = "enterorder"
         this.state = {
             // enterorder params
             mvBS: "BUY",
@@ -38,19 +28,17 @@ class EnterOrderForm extends React.Component {
             mvFeeRate: "",
             mvGrossAmt: 0,
 
-            
+            mvTriggerSelected: "UP",
             mvStockSelected: {
                 stockCode: ''
             },
-            mvOrderTypeSelected: {
-                label: ""
-            },
+            mvOrderTypeSelected: config.ordertype[config.marketid[0]][0],
             
 
 
             // other paras support for view
             stockList: this.props.stockList,
-            mvOrderTypeList: [],
+            mvOrderTypeList: config.ordertype[config.marketid[0]],
             mvBSList: ["BUY", "SELL"],
 
             // bank account
@@ -96,7 +84,9 @@ class EnterOrderForm extends React.Component {
     handleMarketChange(options) {
         this.setState({ 
             mvMarketID: options,
-            mvStockSelected: {}
+            mvStockSelected: {},
+            mvOrderTypeList: config.ordertype[options],
+            mvOrderTypeSelected: config.ordertype[options][0]
         })
         this.setValue({
             mvMarketID: options,
@@ -104,9 +94,6 @@ class EnterOrderForm extends React.Component {
             mvStockName: "",
             mvGrossAmt: 0
         })
-        this.refStockName.value("")
-        this.getOrderTypeList(this.props.genEnterOrderData)
-        this.props.setDefaultOrderParams(this.value)
     }
 
     handleStockChange(options) {
@@ -134,29 +121,15 @@ class EnterOrderForm extends React.Component {
 
     handleOrderTypeChange(options) {
         var orderTypeValue = options.value
-        this.setValue({ 
-            mvOrderTypeSelected: options,
-            mvOrderType: orderTypeValue
-        })
-        this.calculateGrossAmt()
-        
-        if (orderTypeValue == this.props.language.enterorder.value.OTLO || 
-            orderTypeValue == this.props.language.enterorder.value.OTLOddLot) 
-        {
-            if(this.mvPrice.getValue() == "")
-                this.mvPrice.value("0")
-            this.mvPrice.readonly(false)
+        if(orderTypeValue == "TRIGGER") {
+            this.rTriggerForm.style.display = "table"
         }
         else {
-            this.mvPrice.value("")
-            this.mvPrice.readonly(true)
+            this.rTriggerForm.style.display = "none"
         }
-
-        this.setState({ 
-            mvOrderTypeSelected: options,
-            mvOrderType: options.value
+        this.setState({
+            mvOrderTypeSelected: options
         })
-        this.props.setDefaultOrderParams(this.value)
     }
 
     onQtyChange(value) {
@@ -170,16 +143,42 @@ class EnterOrderForm extends React.Component {
         
     }
 
+    handleTriggerPriceChange(options) {
+        this.setState({mvTriggerSelected: options})
+    }
+    
     render() {
+        let header = this.props.language.enterorder.header
         this.stockList = config.cache.stockList.filter(e => e.mvMarketID == this.state.mvMarketID)
-        // console.log(this.state.mvOrderTypeList)
-
         return (
-            <div style={{ width: "100%", height: "100%" }} id={this.id} className={"enterorder-a " + this.state.mvBS.toLowerCase()}>
-                <div className="enterorder-form buy">
-                    <div>
-                        {/* MARKET */}
-                        <Col xs={3}>
+            <div style={{ height: "100%", position: "relative" }} id={this.id}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
+                    {this.props.language.menu[this.id]}
+                </Title>
+                <Body theme={this.props.theme}>
+                <div className={"enterorder-form " + this.state.mvBS.toLowerCase()}>
+
+                    {/* BUY/SELL */}
+                    <div style={{textAlign: "center"}}>
+                        <FormGroup>
+                            <Radio name="radioGroup" inline checked={this.state.mvBS === "BUY"} style={{margin: "0 20px"}}
+                                onChange={() => this.handleBSChange("BUY") }>
+                                Buy
+                            </Radio>
+                            
+                            <Radio name="radioGroup" inline checked={this.state.mvBS === "SELL"} style={{margin: "0 20px"}}
+                                onChange={() => this.handleBSChange("SELL") }>
+                                Sell
+                            </Radio>
+                        </FormGroup>
+                    </div>
+
+                    {/* MARKET */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.market}
+                        </Col>
+                        <Col xs={7}>
                             <Select
                                 ket="rMarketSelector"
                                 ref={r => this.rMarketSelector = r}
@@ -188,8 +187,89 @@ class EnterOrderForm extends React.Component {
                                 handleChange={this.handleMarketChange.bind(this)}
                             />
                         </Col>
-                        {/* ORDER TYPE */}
-                        <Col xs={6}> 
+                    </div>
+
+                    {/* STOCK CODE */}
+                    <div style={{display: "table", width: "100%"}}>
+                        
+                        <Col xs={5}>
+                            {header.stockCode}
+                        </Col>
+                        <Col xs={7}>
+                            <Select
+                                ket="rStockSelector"
+                                ref={r => this.rStockSelector = r}
+                                options={this.stockList}
+                                selected={this.state.mvStockSelected}
+                                optionLabelPath={'stockCode'}
+                                handleChange={this.handleStockChange.bind(this)}
+                                searchEnabled={true}
+                            />
+                        </Col>
+                    </div>
+
+                    {/* STOCK NAME */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.stockName}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
+                                className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                        </Col>
+                    </div>
+
+                    {/* PRICE */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.price}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={100}
+                                onChange={this.onPriceChange.bind(this)}/>
+                        </Col>
+                    </div>
+
+                    {/* TRIGGER PRICE */}
+                    <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
+                        <Col xs={5}>
+                            {header.triggerPrice}
+                        </Col>
+                        <Col xs={7}>
+                            <Col xs={5}>
+                                <Select
+                                    ket="rTriggerPriceSelector"
+                                    ref={r => this.rTriggerPriceSelector = r}
+                                    options={["UP", "DOWN"]}
+                                    selected={this.state.mvTriggerSelected}
+                                    optionLabelPath={'stockCode'}
+                                    handleChange={this.handleTriggerPriceChange.bind(this)}
+                                />
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
+                                    defaultValue={""} style={{textAlign: "left"}}/>
+                            </Col>
+                        </Col>
+                    </div>
+
+                    {/* QUANTITY */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.quantity}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvVol" type="number" ref={ref => this.mvVol =  ref} step={100}
+                                onChange={this.onQtyChange.bind(this)}/>
+                        </Col>
+                    </div>
+
+                    {/* ORDER TYPE */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.type}
+                        </Col>
+                        <Col xs={7}>
                             <Select
                                 ket="rOrderTypeSelector"
                                 ref={r => this.rOrderTypeSelector = r}
@@ -199,109 +279,95 @@ class EnterOrderForm extends React.Component {
                                 handleChange={this.handleOrderTypeChange.bind(this)}
                             />
                         </Col>
-                        {/* B/S */}
-                        <Col xs={3}>
-                            <Select
-                                ket="rBSSelector"
-                                ref={r => this.rBSSelector = r}
-                                options={this.state.mvBSList}
-                                selected={this.state.mvBS}
-                                handleChange={this.handleBSChange.bind(this)}
-                            />
-
-                        </Col>
                     </div>
 
-                    <div>
-                        <div className="-label col-xs-4" style={{ lineHeight: "2.2" }}>
-                            Stock Code
-                        </div>
-                        <div className="col-xs-8">
-                            <Col xs={5}>
+                    {/* GOOD TILL */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.goodTill}
+                        </Col>
+                        <Col xs={7}>
                                 <Select
-                                    ket="rStockSelector"
+                                    ket="rGoodTillSelector"
                                     ref={r => this.rStockSelector = r}
                                     options={this.stockList}
                                     selected={this.state.mvStockSelected}
                                     optionLabelPath={'stockCode'}
                                     handleChange={this.handleStockChange.bind(this)}
-                                    searchEnabled={true}
                                 />
-
-                            </Col>
-                            <Col xs={7}>
-                                <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} readOnly 
-                                    defaultValue={""}/>
-                            </Col>
-                        </div>
-
+                        </Col>
                     </div>
 
-
-                    <div>
-                        <div className="-label col-xs-4" style={{ lineHeight: "2.2" }}>
-                            Quantity
-                        </div>
-                        <div className="col-xs-8">
-                            <Input key="mvVol" type="number" ref={ref => this.mvVol =  ref} step={100}
-                                onChange={this.onQtyChange.bind(this)}/>
-                        </div>
+                    {/* BUYING POWER */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.buyingpower}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}/>
+                        </Col>
                     </div>
 
-                    <div>
-                        <div className="-label col-xs-4" style={{ lineHeight: "2.2" }}>
-                            Price
-                        </div>
-                        <div className="col-xs-8">
-                            <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={100}
-                                onChange={this.onPriceChange.bind(this)}/>
-                        </div>
+                    {/* GROSS AMT */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.grossAmt}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt}/>
+                        </Col>
+                    </div>
+
+                    {/* COMMISSION FEE */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.commissionFees}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvCommissionFees" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvCommissionFees}/>
+                        </Col>
+                    </div>
+
+                    {/* NET AMT */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.netAmt}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvNetAmt" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvNetAmt}/>
+                        </Col>
+                    </div>
+
+                    {/* AVAIL QUANTITY */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5}>
+                            {header.availQty}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvAvailQty" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty}/>
+                        </Col>
+                    </div>
+
+                    <div className="group-btn-action form-submit-action">
+                        <span>
+                            <button type="submit" className="hks-btn btn-submit"
+                                onClick={this.handleSubmit.bind(this)}>
+                                {this.state.mvBS}
+                            </button>
+                            <button type="reset" className="hks-btn btn-cancel"
+                                onClick={this.handleResetForm.bind(this)}>
+                                {this.props.language.button.reset}
+                            </button>
+                        </span>
                     </div>
                 </div>
-
-
-                <div className="-total" >
-                    <div className="-label col-xs-7">
-                        Projected Amount
-                    </div>
-
-                    <div className="col-xs-5" style={{ paddingRight: "3px" }}>
-
-                        <Input key="mvGrossAmt" className="showOnly"
-                            ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt}/>
-                    </div>
-                </div>
-
-
-                <div className="-other" >
-                    <div className="-label col-xs-7">
-                        Maximum quantity
-                    </div>
-
-                    <div className="col-xs-5" style={{ color: "#ca3435", paddingRight: "3px" }}>
-
-                        <Input key="mvMaxQty" className="showOnly" 
-                            ref={ref => this.mvMaxQty = ref} readOnly value={this.value.mvMaxQty}/>
-
-                    </div>
-                </div>
-
-                <div className="group-btn-action form-submit-action">
-                    <span>
-                        <button type="reset" className="hks-btn btn-cancel"
-                            onClick={this.handleResetForm.bind(this)}>
-                            {this.props.language.button.reset}
-                        </button>
-                        <button type="submit" className="hks-btn btn-submit"
-                            onClick={this.handleSubmit.bind(this)}>
-                            {this.state.mvBS}
-                        </button>
-                    </span>
-                </div>
+                </Body>
             </div>
-
-
-
         )
     }
 
@@ -336,6 +402,9 @@ class EnterOrderForm extends React.Component {
     componentDidMount() {
         this.props.genEnterOrder()
     }
+
+
+    //---------------------------------------
 
     handleSubmit(e) {
         e.preventDefault()
@@ -545,13 +614,11 @@ class EnterOrderForm extends React.Component {
             mvBankID: null
         })
         this.refStockName.value("")
-        this.mvGrossAmt.value("0")
-        this.mvMaxQty.value("0")
-        this.mvVol.value("0")
-        if(!this.mvPrice.readonly()) {
-            this.mvPrice.value("0")
-        }
-        this.props.setDefaultOrderParams(this.value)
+        this.mvGrossAmt.value("---")
+        this.mvBuyingPower.value("---")
+        this.mvCommissionFees.value("---")
+        this.mvNetAmt.value("---")
+        this.mvAvailQty.value("---")
     }
 
 
@@ -704,6 +771,7 @@ class EnterOrderForm extends React.Component {
         /*
             - calculate max quanty
         */
+        return;
         var stockInfoBean = this.store.stockInfoBean
         if (!stockInfoBean)
             return;
@@ -1003,46 +1071,7 @@ class EnterOrderForm extends React.Component {
             authcard: true
         })
     }
-}
 
-
-class EnterOrder extends React.Component {
-    constructor(props) {
-        super(props)
-        this.id = "enterorder"
-        this.state = {
-            activeKey: 1,
-        }
-    }
-    render() {
-        return (
-            <div style={{ height: "100%", position: "relative" }} id={this.id}>
-                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
-                    {this.props.language.menu[this.id]}
-                </Title>
-                <Body theme={this.props.theme}>
-                    <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
-                        <TabItem eventKey={1} title="Normal" >
-                            
-                            <EnterOrderForm {...this.props} />
-                            
-                        </TabItem>
-
-                        <TabItem eventKey={2} title="Auction">
-                            Developing...
-                        </TabItem>
-                        <TabItem eventKey={3} title="Special" disabled>
-                            Developing...
-                        </TabItem>
-                    </TabControl>
-                </Body>
-            </div>
-        )
-    }
-
-    onTabChange(key) {
-        this.setState({ activeKey: key })
-    }
 }
 
 const mapStateToProps = (state) => {

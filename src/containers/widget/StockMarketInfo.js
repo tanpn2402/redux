@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import SearchBar from '../commons/SearchBar'
-import HorizontalTable from './../commons/HorizontalTable'
 import Config from '../../core/config.js'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
@@ -337,7 +336,8 @@ class StockMarketInfo extends Component {
 							language={this.props.language.searchbar}
 							theme={this.props.theme}
 							data={{ stockList: this.props.stockList }}
-							param={['mvStockId']} />
+							param={['mvStockId']}
+							allStockEnabled={false} />
 					</div>
 				</Body>
 			</div>

@@ -28,35 +28,35 @@ class AssetAllocation extends React.Component{
             data = [
                 {
                     header: 'creditlimit',
-                    value: 0.00
+                    value: 84.95
                 },
                 {
                     header: 'buyingpower',
-                    value: 0.00
+                    value: 41.82
                 },
                 {
                     header: 'withdrawablebalance',
-                    value: 0.00
+                    value: 85.25
                 },
                 {
                     header: 'totalmarketvalue',
-                    value: 0.00
+                    value: 31.76
                 },
                 {
                     header: 'settled',
-                    value: 0.00
+                    value: 53.26
                 },
                 {
                     header: 'ledgerbalance',
-                    cell: props => {
+                    Cell: props => {
                         return (
-                            <div style={{display: "table", width: "100%"}} ref={ref => this.ledBalance = ref}>
-                                <div style={{display: "table-cell", verticalAlign: "middle", width: "100%"}}>0.0</div>
+                            <div style={{ display: 'table', width: '100%' }} ref={ref => this.ledBalance = ref} >
+                                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>92.18</div>
                             </div>
                         )
                     },
                     style: {
-                        backgroundColor: '#d11f1f', 
+                        backgroundColor: '#d11f1f',
                         color: '#fff'
                     }
                 }
@@ -90,7 +90,7 @@ class AssetAllocation extends React.Component{
     componentDidMount() {
         if(!this.props.lite) {
             let t = this.widgetBody.Wrapper.offsetHeight - this.popupTable.Table.offsetHeight
-            this.ledBalance.style.height = this.ledBalance.style.height + t + "px"
+            this.ledBalance.style.height = this.ledBalance.style.height + t - 15 + "px"
         } else {
             this.popupTable.Table.style.height = "auto"
         }

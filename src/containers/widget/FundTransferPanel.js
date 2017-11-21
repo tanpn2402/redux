@@ -13,7 +13,6 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import InputSearch from '../commons/InputSearch'
 import Select from '../commons/Select'
 
 class FundTransPanel extends Component {

@@ -55,7 +55,7 @@ export default {
       backgroundColor: '#FF8000'
     },
     widgetBody: {
-      border: '1.75px solid #FF8000'
+      
     }
   },
   table: {
@@ -112,8 +112,17 @@ export default {
       backgroundColor: '#474747'
     },
     popoverChart: {
-      backgroundColor: '#273043',
-      color: '#FFF'
+      backgroundColor: '#0e1119',
+      color: '#FFF',
+      referenceLine:{
+        color: 'FFB200'
+      },
+      increaseLine:{
+        color: '#00FF15'
+      },
+      decreaseLine:{
+        color: '#FF0000'
+      }
     }
   },
   techanalysis: {

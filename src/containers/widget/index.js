@@ -34,7 +34,7 @@ import MatchOrderList from './MatchOrderList'
 import AdvanceHistory from './AdvanceHistory'
 import CashTransHistory from './CashTransHistory'
 import OrderHistory from './OrderHistory'
-import EnterOrder from './EnterOrder'
+import EnterOrder from './EnterOrder_v2'
 import OrderJournal from './OrderJournal'
 import StockMarketInfo from './StockMarketInfo'
 import AccountInfo from './AccountInfo'
@@ -48,6 +48,7 @@ import Portfolio from './Portfolio'
 import Sumary from './Sumary'
 import AccountBalance from './AccountBalance'
 import AssetAllocation from './AssetAllocation'
+import AssetAllocationChart from './AssetAllocationChart'
 
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
@@ -219,6 +220,10 @@ export default function (menuid, props){
 		case 'assetallocation':
 			return (
 				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={false}/>
+			)
+		case 'assetallocationchart':
+			return (
+				<AssetAllocationChart stockList={props.stockList} language={props.language} theme={props.theme} lite={false} />
 			)
 		case 'assetallocation-lite':
 			return (

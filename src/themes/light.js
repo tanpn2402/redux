@@ -1,13 +1,15 @@
 export default {
-    title: 'red',
+    title: 'light',
     button: {
         confirm: {
             backgroundColor: '#c40909',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            border: '2px solid #c40909'
         },
         cancel: {
             backgroundColor: '#999',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            border: '2px solid #999'
         }
     },
     font:{
@@ -136,8 +138,17 @@ export default {
             //   backgroundColor: '#EEECEC'
         },
         popoverChart: {
-            backgroundColor: '#FFF',
-            color: '#000'
+            backgroundColor: '#F2F2F2',
+            color: '#000',
+            referenceLine:{
+                color: '#26547C'
+            },
+            increaseLine:{
+                color: '#00E513'
+            },
+            decreaseLine:{
+                color: '#E50000'
+            }
         }
     },
     techanalysis: {

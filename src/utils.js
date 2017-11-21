@@ -138,97 +138,97 @@ export function statusRenderer(text, status) {
     switch (status) {
         case 'NEW':
             return (
-                <div style={{ backgroundColor: '#30d6b4', color: '#000' }}>
+                <div style={{ backgroundColor: '#30d6b4', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CAN':
             return (
-                <div style={{ backgroundColor: '#881600', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#881600', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'REJ':
             return (
-                <div style={{ backgroundColor: '#001011', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#001011', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FEX':
             return (
-                <div style={{ backgroundColor: '#1b5041', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#1b5041', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PEX':
             return (
-                <div style={{ backgroundColor: '#49dcb1', color: '#000' }}>
+                <div style={{ backgroundColor: '#49dcb1', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FLL':
             return (
-                <div style={{ backgroundColor: '#36a181', color: '#000' }}>
+                <div style={{ backgroundColor: '#36a181', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WA':
             return (
-                <div style={{ backgroundColor: '#e6e8e6', color: '#000' }}>
+                <div style={{ backgroundColor: '#e6e8e6', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'Q':
             return (
-                <div style={{ backgroundColor: '#e6e8e6', color: '#000' }}>
+                <div style={{ backgroundColor: '#e6e8e6', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WC':
             return (
-                <div style={{ backgroundColor: '#eac435', color: '#000' }}>
+                <div style={{ backgroundColor: '#eac435', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WM':
             return (
-                <div style={{ backgroundColor: '#6b5a19', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#6b5a19', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'IAT':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'SND':
             return (
-                <div style={{ backgroundColor: '#aafac8', color: '#000' }}>
+                <div style={{ backgroundColor: '#aafac8', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'EXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'TRIG':
             return (
-                <div style={{ backgroundColor: '#95c623', color: '#000' }}>
+                <div style={{ backgroundColor: '#95c623', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CPD':
             return (
-                <div style={{ backgroundColor: '#6320ee', color: '#FFF' }}>
+                <div style={{ backgroundColor: '#6320ee', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )

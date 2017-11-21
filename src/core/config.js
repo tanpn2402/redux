@@ -158,7 +158,6 @@ const config = {
 	],
 
 	transtype: [
-		'all',
 		'SCAXW',
 		'SCAC',
 		'CCPCW',
@@ -177,26 +176,42 @@ const config = {
 	],
 
 	ordertype: {
-		'HO': [
-			'L',
-			'O',
-			'C',
-			'M'
+		'HKEX': [
+			{
+                label: "At Auction Limit",
+                value: "AAL"
+            },
+            {
+                label: "Enhanced Limit",
+                value: "EL"
+            },
+            {
+                label: "Odd Lot",
+                value: "LOT"
+            },
+            {
+                label: "Trigger",
+                value: "TRIGGER"
+            }
 		],
-		'HA': [
-			'L',
-			'B',
-			'Z',
-			'R',
-			'C',
-			'LO'
+		'MAMK': [
+            {
+                label: "Limit",
+                value: "Limit"
+            }
+		],
+		'SZMK': [
+            {
+                label: "Limit",
+                value: "Limit"
+            }
 		]
 	},
 
 	marketid: [
-		"HA",
-		"HO",
-		"UPCOM"
+		"HKEX",
+		"MAMK",
+		"SZMK"
 	],
 
 	currency: [
@@ -237,10 +252,10 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', x: 0, y: 0, w: 2, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'enterorder', x: 0, y: 0, w: 2, h: 10, isDraggable: false, isResizable: false },
 				{ i: 'stockmarketinform', x: 5, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'accountinfo', x: 2, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 0, y: 6, w: 8, h: 4, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: true }
+				{ i: 'orderjournal', x: 2, y: 6, w: 6, h: 4, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: true }
 			]
 		},
 		{
@@ -249,7 +264,9 @@ const config = {
 			enabled: true,
 			widget: [
 				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 5, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
-				{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'accountbalance', x: 4, y: 0, w: 4, h: 4, isDraggable: false, isResizable: false },
+				{ i: 'assetallocation', x: 0, y: 0, w: 2, h: 4, isDraggable: false, isResizable: false },
+				{ i: 'assetallocationchart', x: 2, y:0, w: 2, h: 4, isDraggable: false, isResizable: false}
 			]
 		},
 		{
@@ -257,7 +274,7 @@ const config = {
 			title: "orderjournal",
 			enabled: true,
 			widget: [
-				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
+				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -265,8 +282,8 @@ const config = {
 			title: "transhistory",
 			enabled: true,
 			widget: [
-				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false }
+				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 9, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -300,9 +317,9 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 7, isDraggable: false, isResizable: false },
-				{ i: 'assetallocation-lite', x: 0, y: 0, w: 8, h: 3, isDraggable: false, isResizable: false},
-				{ i: 'stockinfo', x: 0, y: 10, w: 8, h: 10, isDraggable: false, isResizable: false },
+				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
+				{ i: 'assetallocation-lite', x: 0, y: 10, w: 8, h: 3, isDraggable: false, isResizable: false},
+				{ i: 'stockinfo', x: 0, y: 13, w: 8, h: 10, isDraggable: false, isResizable: false },
 				{ i: 'orderjournal', x: 0, y: 30, w: 8, h: 8, minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: false }
 			]
 		},

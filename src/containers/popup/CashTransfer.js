@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Table, Modal,Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import '../../css/App.css';
 import CheckAuthenticationModal from './CheckAuthenticationModal';
 import { connect } from 'react-redux';
@@ -32,8 +32,8 @@ class CashTransferPopup extends Component {
                 </Modal.Body>
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={this.props.language} />
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.cashtransfer.popup.cancel}</Button>
-                    <Button className="submit" onClick={this.submit.bind(this)}> {this.props.language.cashtransfer.popup.ok}</Button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{this.props.language.cashtransfer.popup.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.submit.bind(this)}> {this.props.language.cashtransfer.popup.ok}</button>
                 </Modal.Footer>
             </div>
         );

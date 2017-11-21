@@ -85,7 +85,7 @@ export default
                 "accountinfo": "Account Info",
                 "account": "Account",
                 "ordershistory": "Order History",
-                "cashtransactionhistory": "Cash Transaction History",
+                "cashtransaction": "Cash Transaction History",
                 "cashstatement": "Cash Statement",
                 "stockstatement": "Stock Statement",
                 "marginloan": "Margin Loan Statement",
@@ -132,6 +132,7 @@ export default
                 "accountbalance": "Account Balance",
                 "setting": "Setting",
                 "assetallocation": 'Asset Allocation',
+                "assetallocationchart": 'Asset Allocation Chart',
                 "stockinfo": "Stock Info"
             },
             "searchbar": {
@@ -160,7 +161,7 @@ export default
                 "mtl": "MTL",
                 "buy": "Buy",
                 "sell": "Sell",
-                "ALL": "All",
+                "ALL": "ALL",
                 "FULLYFILLED": "Fully Filled",
                 "QUEUE": "Queue",
                 "PARTIALLYFILL": "Partially Fill",
@@ -190,7 +191,13 @@ export default
                 "CCFP": "Custodian fee posting",
                 "CSFP": "SMS fee posting",
 
-
+                "mvStatus": "Status",
+                "mvBuysell": "B/S",
+                "mvTrade": "Trans Type",
+                "mvOrderType": "Order Type",
+                "mvStockId": "Stock ID",
+                "mvLending": "% Lending",
+                "mvActionType": "Action Type",
                 "mvStartDate": "Start Date",
                 "mvEndDate": "End Date",
                 "tradeType": "Transaction Type",
@@ -204,7 +211,27 @@ export default
                 "USD": "USD",
                 "HO": "HO",
                 "HA": "HA",
-                "UPCOM": "UPCOM"
+                "UPCOM": "UPCOM",
+
+                "MARKET_ALL": "ALL",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_UPCOM": "UPCOM",
+
+                "BS_ALL": "ALL",
+                "BS_B": "BUY",
+                "BS_S": "SELL",
+                
+
+                "ORDERTYPE_ALL": "ALL",
+                "ORDERTYPE_L": "Normal",
+                "ORDERTYPE_O": "ATO",
+                "ORDERTYPE_C": "ATC",
+                "ORDERTYPE_P": "Put through",
+                "ORDERTYPE_M": "MP",
+                "ORDERTYPE_B": "MOK",
+                "ORDERTYPE_Z": "MAK",
+                "ORDERTYPE_R": "MTL",
             },
             "marqueebar": {
                 "status": "Status",
@@ -285,6 +312,19 @@ export default
                     "A": "Approved",
                     "R": "Rejected",
                     "D": "Deleted"
+                }
+            },
+            "fundTransHistory": {
+                "header": {
+                    "transfertype": "Trans type",
+                    "transferamount": "Amount (VND)",
+                    "beneficiaryaccount": "Beneficiary Account",
+                    "beneficiaryfullname": "Beneficiary Fullname",
+                    "bankname":"Bank Name",
+                    "bankbranch":"Bank Branch",
+                    "status": "Status",
+                    "approvetime": "Approve Time",
+                    "date": "Date"
                 }
             },
             "orderconfirmation": {
@@ -531,13 +571,19 @@ export default
                     "market": "Market",
                     "bank": "Bank",
                     "lending": "% Lending",
-                    "buyingpower": "Buying Power(Expected)",
+                    "buyingpower": "Buying Power",
                     "ordertype": "Order Type",
                     "volume": "Volume",
                     "price": "Price",
+                    "triggerPrice": "Trigger Price",
                     "value": "Value",
                     "netfee": "Net Fee",
-                    "expirydate": "Expiry date"
+                    "expirydate": "Expiry date",
+                    "goodTill": "Good Till",
+                    "grossAmt": "Gross Amt",
+                    "netAmt": "Net Amt",
+                    "availQty": "Avail Qty",
+                    "commissionFees": "Commission Fees"
                 },
                 "data": {
                     "Buy": "Buy",
@@ -578,13 +624,14 @@ export default
                     "OTMTL": "R"
                 },
                 "popup": {
-                    "title": "Order: {0}",
+                    "title": "Place Order - {0}",
                     "stockname": "Name",
                     "expirydate": "Expiry date",
                     "checknum": "Matrix card number",
                     "verifiednum": "Verified matrix card number",
                     "saveauthentication": "Save Authentication",
-                    "comfirm": "Comfirm"
+                    "comfirm": "Comfirm",
+                    "successOrder": "Successfully"
                 },
                 "error": {
                     "volumeNegative": "Quantity must be greater than 0.",
@@ -884,6 +931,133 @@ export default
                 "exercise": {
                     "STATUS_O": "Mở",
                     "STATUS_C": "Hết hạn"
+                }
+            },
+            "actionRightList":{
+                "header":{
+                    "stock": "Stock",
+                    "actiontype": "Action Type",
+                    "recorddate": "Record Date",
+                    "owningvolume": "Owning Volume",
+                    "ratecash": "Rate Cash",
+                    "rate": "Rate",
+                    "pervalue": "Per Value",
+                    "receivecash": "Received Cash",
+                    "receivedStock": "Received Stock",
+                    "status": "Status",
+                    "payabledate": "Payable Date",
+                    "paiddate": "Paid Date"
+                }
+            },
+            "additionSharesInfo": {
+                "header":{
+                    "stock": "Stock",
+                    "recorddate": "Record Date",
+                    "owningvolume": "Owning Value",
+                    "rightrate": "Right Rate",
+                    "actionrate": "Action Rate",
+                    "availableqty": "Available Qty",
+                    "actionprice": "Action Price",
+                    "startdate": "Start Date",
+                    "transferdeadline": "Transfer Deadline",
+                    "registerdeadline": "Register Deadline",
+                }
+            },
+            "entitlementHistory":{
+                "header":{
+                    "registerdate": "Register Date",
+                    "stock": "Stock",
+                    "volume": "Volume",
+                    "actionprice": "Action Price",
+                    "amount": "Amount",
+                    "paiddate": "Paid Date",
+                    "status": "Status"
+                }
+            },
+            "matchOrderBankList":{
+                "header":{
+                    "contractid": "Contract ID",
+                    "orderid": "Order ID",
+                    "settlementdate": "Settlement Date",
+                    "tradedate": "Trade Date",
+                    "stockid": "Stock ID",
+                    "price": "Price",
+                    "quantity": "Quantity",
+                    "value": "Value"
+                }
+            },
+            "advanceBankHistory":{
+                "header":{
+                    "date": "Date",
+                    "advanceamount": "Advance Amount",
+                    "advancefee": "Advance Fee",
+                    "processingstatus": "Processing Status",
+                    "lastupdate": "Last Update",
+                    "note": "Note"
+                }
+            },
+            "matchOrderList":{
+                "header":{
+                    "id": "ID",
+                    "matchingdate": "Matching Date",
+                    "paymentdate": "Payment Date",
+                    "stock": "Stock",
+                    "volume": "Volume",
+                    "value": "Value",
+                    "fee": "Fee+Tax"
+                }
+            },
+            "advanceHistory":{
+                "header":{
+                    "date": "Date",
+                    "advanceamount": "Advance Amount",
+                    "advancefee": "Advance Fee",
+                    "processingstatus": "Processing Status",
+                    "lastupdate": "Last Update",
+                    "note": "Remark"
+                }
+            },
+            "oddLotOrder":{
+                "header":{
+                    "stockid": "Stock",
+                    "tradingquantity": "Trading Qty",
+                    "oddlotquantity": "Oddlot Qty",
+                    "currentprice": "Current Price",
+                    "exeprice": "Exe Price"
+                }
+            },
+            "oddlotHistory":{
+                "header":{
+                    "stockid": "Stock",
+                    "oddlotquantityH": "Oddlot Qty",
+                    "exepriceH": "Exe Price",
+                    "fee": "Tax",
+                    "value": "Value",
+                    "status": "Status",
+                    "transdate": "Trans Date",
+                    "approvedate": "Approve Date"
+                }
+            },
+            "loanRefundHistory":{
+                "header":{
+                    "loanID": "ID",
+                    "trandate": "Trading Date",
+                    "refundamount": "Loan Refund Amount",
+                    "type": "Type",
+                    "status": "Processing Status",
+                    "remark": "Remark",
+                    "lastupdate": "Last Update"
+                }
+            },
+            "loanRefundStatus":{
+                "header": {
+                    "loanID": "ID",
+                    "trandate": "Trading Date",
+                    "refundamount": "Loan Refund Amount",
+                    "type": "Type",
+                    "status": "Processing Status",
+                    "remark": "Remark",
+                    "lastupdate": "Last Update"
                 }
             },
             "loanrefund": {
@@ -1202,7 +1376,8 @@ export default
                 "sure": "Sure",
                 "confirmModify": "Confirm Modify",
                 "confirmCancel": "Confirm Cancel",
-                "close": "Close"
+                "close": "Close",
+                "complete": "Complete"
             },
             "login": {
                 "username": "Account No",

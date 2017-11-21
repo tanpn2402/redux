@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import InputSearch from '../commons/InputSearch'
 import * as Utils from '../../utils'
 import config from '../../core/config'
 
@@ -43,7 +42,14 @@ class AdvancePanel extends Component {
                                 <tbody >
                                     <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
-                                        <td>{Utils.currencyShowFormatter(advAvailable, ",", this.lang)}</td>
+                                        <td>
+                                            <input
+                                                className="hks-input read-only"
+                                                id="advanceFee"
+                                                ref={e => this.txtAdFee = e}
+                                                value={Utils.currencyShowFormatter(advAvailable, ",", this.lang)}
+                                                readOnly />
+                                        </td>
                                     </tr>
                                     <tr style={{ backgroundColor: rowEven, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
@@ -59,13 +65,11 @@ class AdvancePanel extends Component {
                                     <tr style={{ backgroundColor: rowOdd, color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
-                                            <FormGroup>
-                                                <input
-                                                    className="hks-input border"
-                                                    type="number" name="volume" min="0"
-                                                    onChange={this.onAdvancePaymentChange.bind(this)}
-                                                    id="txtAdvancePayment" required />
-                                            </FormGroup>
+                                            <input
+                                                className="hks-input border"
+                                                type="number" name="volume" min="0"
+                                                onChange={this.onAdvancePaymentChange.bind(this)}
+                                                id="txtAdvancePayment" required />
                                         </td>
                                     </tr>
 

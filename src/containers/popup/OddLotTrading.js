@@ -1,6 +1,6 @@
 //render modal body + footer
 import React, { Component } from 'react';
-import { Button, Modal, } from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -209,8 +209,8 @@ class OddLotSubmit extends Component {
                 }
 
                 <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</Button>
-                    <Button className="submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</Button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</button>
                 </Modal.Footer>
             </div>
         )

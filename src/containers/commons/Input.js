@@ -33,12 +33,13 @@ class Input extends React.Component {
             let defaultValue = this.props.defaultValue === 0 ? "" : this.props.defaultValue
             return (
                 <div className={'input-control ' + type + " " + this.props.className} ref={ r => this.rInputControl = r }>
-                    <FormControl 
-                        inputRef={ref => this.rInput = ref}
+                    <input className={"form-control " + this.props.className}
+                        ref={ref => this.rInput = ref}
                         onChange={this.handleChange}
                         defaultValue={defaultValue}
-                        {...this.props}
-                         />
+                        readOnly={this.props.readOnly}
+                        style={this.props.style}
+                    />
                 
                 </div>
             )
@@ -48,11 +49,11 @@ class Input extends React.Component {
 
     componentDidMount() {
         if(this.rInputControl && this.rButton1 && this.rButton2) {
-            this.rButton1.style.width = this.rInputControl.offsetHeight + "px"
-            this.rButton1.style.height = this.rInputControl.offsetHeight + "px"
+            this.rButton1.style.width = this.rInputControl.offsetHeight - 2 + "px"
+            this.rButton1.style.height = this.rInputControl.offsetHeight - 2 + "px"
 
-            this.rButton2.style.width = this.rInputControl.offsetHeight + "px"
-            this.rButton2.style.height = this.rInputControl.offsetHeight + "px"
+            this.rButton2.style.width = this.rInputControl.offsetHeight - 2 + "px"
+            this.rButton2.style.height = this.rInputControl.offsetHeight - 2 + "px"
         }
     }
 

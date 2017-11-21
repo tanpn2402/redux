@@ -89,7 +89,9 @@ export function saveLayout(groupId, language) {
     let savedContent = {
         lang: config.cache.lang,
         theme: config.cache.theme,
-        layout:config.tabbar
+        layout:config.tabbar,
+        tableColWidth: config.tableColWidth,
+        tableColReorder: config.tableColReorder,
     }
     let params = Array()
     params['mvGroupName'] = 'User1'

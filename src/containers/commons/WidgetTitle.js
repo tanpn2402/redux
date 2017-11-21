@@ -43,16 +43,13 @@ class WidgetTitle extends Component {
                                         <ConfigColumnTable
                                             id={this.props.id}
                                             columns={this.props.columns}
+                                            filterable={this.props.filterable}
                                             language={this.props.language}
                                             onChangeStateColumn={this.props.onChangeStateColumn}
                                             onToggleFilter={(e) => { this.props.onToggleFilter(e) }} />
                                     </li>
                                 )
                         }
-
-                        <li className="btn-close" >
-                            <span className="glyphicon glyphicon-repeat"></span>
-                        </li>
 
                         {
                             this.props.tabID !== 'customization' ? '' :

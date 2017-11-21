@@ -1,6 +1,6 @@
 //render modal body + footer 
 import React, { Component } from 'react';
-import { Button, Modal, } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -45,8 +45,8 @@ class SaveLayout extends Component {
                     {this.props.language.messagebox.message.saveLayoutConfirm}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={buttonCancel} onClick={this.logout}>{this.props.language.button.no}</Button>
-                    <Button style={buttonConfirm} onClick={this.logoutAndSave}>{this.props.language.button.yes}</Button>
+                    <button className="hks-btn btn-cancel" style={buttonCancel} onClick={this.logout}>{this.props.language.button.no}</button>
+                    <button className="hks-btn btn-submit" style={buttonConfirm} onClick={this.logoutAndSave}>{this.props.language.button.yes}</button>
                 </Modal.Footer>
             </div>
         )
