@@ -480,10 +480,10 @@ class WatchList extends Component {
 
     }
 
-    // componentWillUnmount() {
-    //     console.log("Socket will be unsubscribed")
-    //     atmosphereAPI.unsubscribe()
-    // }
+    componentWillUnmount() {
+        console.log("Socket will be unsubscribed")
+        atmosphereAPI.unsubscribe()
+    }
 
     onRowStatusChange(row) {
         let index = row.index

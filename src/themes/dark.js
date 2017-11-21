@@ -115,7 +115,7 @@ export default {
       backgroundColor: '#0e1119',
       color: '#FFF',
       referenceLine:{
-        color: 'FFB200'
+        color: '#FFB200'
       },
       increaseLine:{
         color: '#00FF15'

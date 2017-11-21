@@ -10,14 +10,34 @@ class MarqueeItem extends React.Component {
         super(props)
         this.genPopover = this.genPopover.bind(this)
         this.state = {
-            threshHold: 110
+            threshHold: 110,
+            data: [
+                { hour: 915, index: 110.9808, volume: 1595.6 }, { hour: 1012, index: 109.5505, volume: 1796.6 },
+                { hour: 1125, index: 109.0000, volume: 1748.5 }, { hour: 1230, index: 110.1041, volume: 1131.1 },
+                { hour: 1305, index: 110.4313, volume: 1336.1 }, { hour: 1442, index: 109.8071, volume: 1067.9 },
+            ]
         }
+        this.data = [
+            { hour: 9, index: 109.0000, volume: 1595.6 }, { hour: 10, index: 110.4802, volume: 1796.6 },
+            { hour: 11, index: 110.3331, volume: 1748.5 }, { hour: 12, index: 110.1637, volume: 1131.1 },
+            { hour: 13, index: 109.5084, volume: 1336.1 }, { hour: 14, index: 110.7820, volume: 1067.9 },
+        ]
+        this.data2 = [
+            { hour: 900, index: 110.9808, volume: 1595.6 }, { hour: 1000, index: 109.5505, volume: 1796.6 },
+            { hour: 1100, index: 109.0000, volume: 1748.5 }, { hour: 1200, index: 110.1041, volume: 1131.1 },
+            { hour: 1300, index: 110.4313, volume: 1336.1 }, { hour: 1400, index: 109.8071, volume: 1067.9 },
+        ]
+        this.data3 = [
+            { hour: 9, index: 109.1825, volume: 1595.6 }, { hour: 10, index: 109.3075, volume: 1796.6 },
+            { hour: 11, index: 110.8301, volume: 1748.5 }, { hour: 12, index: 110.1019, volume: 1131.1 },
+            { hour: 13, index: 109.2077, volume: 1336.1 }, { hour: 14, index: 109.5897, volume: 1067.9 },
+        ]
     }
 
     render() {
         let data = this.props.data
         return (
-            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
+            <OverlayTrigger trigger={['click', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
                 <li>
                     <strong className="title">{data.title}</strong>
                     <span className={data.status}>&nbsp;{data.id}</span>
@@ -33,45 +53,58 @@ class MarqueeItem extends React.Component {
         // setInterval(() => {
         //     this.setState((prevState) => {
         //         return {
-        //             threshHold: prevState.threshHold + 0.01
+        //             threshHold: prevState.threshHold + 0.05
         //         }
         //     })
         // }, 1000)
+        setInterval(() => {
+            let randomValue = Math.random() > 0.5 ? Math.random() : Math.random() * -1.5
+            let randomValue2 = Math.random() > 0.5 ? Math.random() * Math.pow(3, 5) : Math.random() * Math.pow(-3, 5)
+            let randomValue3 = Math.random() * 20
+            let newData = this.state.data.concat({
+                hour: (this.state.data.slice(-1)[0].hour + randomValue3).toFixed(0),
+                index: this.state.data.slice(-1)[0].index + randomValue,
+                volume: this.state.data.slice(-1)[0].volume + randomValue2
+            })
+            this.setState({data: newData})
+        }, 500)
     }
 
     genPopover(d) {
         let background = this.props.theme.chart.popoverChart.backgroundColor
-        const data = [
-            { name: '09:00', index: 109.0000, volume: 1595.6 }, { name: '10:00', index: 110.4802, volume: 1796.6 },
-            { name: '11:00', index: 110.3331, volume: 1748.5 }, { name: '12:00', index: 110.1637, volume: 1131.1 },
-            { name: '13:00', index: 109.5084, volume: 1336.1 }, { name: '14:00', index: 110.7820, volume: 1067.9 },
-        ]
-        const data2 = [
-            { name: '09:00', index: 110.9808, volume: 1595.6 }, { name: '10:00', index: 109.5505, volume: 1796.6 },
-            { name: '11:00', index: 109.0000, volume: 1748.5 }, { name: '12:00', index: 110.1041, volume: 1131.1 },
-            { name: '13:00', index: 110.4313, volume: 1336.1 }, { name: '14:00', index: 109.8071, volume: 1067.9 },
-        ]
-        const data3 = [
-            { name: '09:00', index: 109.1825, volume: 1595.6 }, { name: '10:00', index: 109.3075, volume: 1796.6 },
-            { name: '11:00', index: 110.8301, volume: 1748.5 }, { name: '12:00', index: 110.1019, volume: 1131.1 },
-            { name: '13:00', index: 109.2077, volume: 1336.1 }, { name: '14:00', index: 109.5897, volume: 1067.9 },
-        ]
+
         const colorBreakPoint = this.state.threshHold //threshold
-        const { min, max } = data2.reduce((result, dataPoint) => ({
-            min: (dataPoint.index < result.min || result.min === 0) ? dataPoint.index : result.min,
-            max: (dataPoint.index > result.max || result.max === 0) ? dataPoint.index : result.max,
-        }), { min: 0, max: 0 });
-        const colorBreakPointPercentage = (1 - ((colorBreakPoint - min) / (max - min)))
+        const { minIndex, maxIndex } = this.state.data.reduce((result, dataPoint) => ({
+            minIndex: (dataPoint.index < result.minIndex || result.minIndex === 0) ? dataPoint.index : result.minIndex,
+            maxIndex: (dataPoint.index > result.maxIndex || result.maxIndex === 0) ? dataPoint.index : result.maxIndex,
+        }), { minIndex: 0, maxIndex: 0 });
+        const { minVolume, maxVolume } = this.state.data.reduce((result, dataPoint) => ({
+            minVolume: (dataPoint.index < result.minVolume || result.minVolume === 0) ? dataPoint.index : result.minVolume,
+            maxVolume: (dataPoint.index > result.maxVolume || result.maxVolume === 0) ? dataPoint.index : result.maxVolume,
+        }), { minVolume: 0, maxVolume: 0 });
+        const colorBreakPointPercentage = (1 - ((colorBreakPoint - minIndex) / (maxIndex - minIndex)))
+        const dataObject = {
+            data: this.state.data,
+            width: 500,
+            height: 250,
+            threshHoldPercentage: colorBreakPointPercentage,
+            leftTicks: [109, 110, 111],
+            rightTicks: [1000, 4000, 8000],
+            threshHold: colorBreakPoint,
+            indexDataKey: 'index',
+            volumeDataKey: 'volume',
+            theme: this.props.theme.chart.popoverChart,
+            minIndex: minIndex,
+            maxIndex: maxIndex,
+            minVolume: minVolume,
+            maxVolume: maxVolume
+        }
         return (
             <Popover id="popover-trigger-hover-focus" style={{
                 width: '550px', maxWidth: 'none', backgroundColor: background,
                 border: '2px solid #6790fc'
             }}>
-                <ComposedChart data={data2} width={500} height={250}
-                    threshHoldPercentage={colorBreakPointPercentage} timeDataKey='name'
-                    leftTicks={[109, 110, 111]} rightTicks={[1000, 4000, 8000]}
-                    threshHold={colorBreakPoint} indexDataKey='index' volumeDataKey='volume'
-                    theme={this.props.theme} />
+                <ComposedChart dataObject={dataObject}/>
             </Popover>
         )
     }
