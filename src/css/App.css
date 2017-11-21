@@ -79,9 +79,6 @@ body {
     padding: 5px 16px;
     width: 30%;
 }
-/* .hks-btn.btn-cancel:hover {
-    background-color: rgb(221, 88, 0);
-} */
 .hks-btn.btn-cancel-order {
     background-color: #FF6600;
     color: white;
@@ -136,6 +133,10 @@ body {
     max-width: unset;
     min-width: unset;
 }
+.hks-btn.btn-complete {
+    background: #6ad07c;
+    border-color: #6ad07c;
+}
 .hks-tab {
     color: #fff;
     background-color: #337ab7;
@@ -181,6 +182,7 @@ select {
 }
 .group-btn-action {
     text-align: center;
+    margin-top: 20px;
 }
 .form-submit-action button {
     margin: 0 10px 0 10px;
@@ -2547,8 +2549,8 @@ label {
     max-height: 200px;
 }
 .PowerSelect__Option {
-    font-size: 12px;
-    padding: 4px 10px;
+    font-size: 13px;
+    padding: 8px 10px;
 }
 .PowerSelect__Option:hover {
     background: #ccc !important;
@@ -2627,6 +2629,7 @@ label {
     position: relative;
     top: 3px;
     right: 3px;
+    cursor: pointer;
 }
 .enterorder-form .input-control.showOnly input {
     text-align: left;
@@ -3054,6 +3057,6 @@ label {
         background-color: #a6003e !important;
         border: none !important;
     }
-    .maincontent-mobile .dropdown-display {
+    .maincontent-mobile .dropdown-display, .maincontent-mobile .btn-close {
         display: none;
     }

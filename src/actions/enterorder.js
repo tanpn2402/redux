@@ -2,7 +2,7 @@ import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
 import config from '../core/config'
 import {showMessageBox, showFlashPopup} from './notification'
-
+import {showPopup} from './popup'
 const { ActionTypes } = require('../core/constants');
 
 export function genEnterOrder(){
@@ -49,6 +49,15 @@ export function enterOrderSubmit(language, params, authParams){
                 return function (dispatch) {
                     dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
                 }
+                // return function (dispatch) {
+                //     dispatch(showPopup({
+                //         data: response,
+                //         title: this.props.language.enterorder.popup.successOrder,
+                //         language: this.props.language,
+                //         id: 'enterordersuccess',
+                //         authcard: false
+                //     }))
+                // }
             }
         }
 

@@ -28,7 +28,7 @@ class EnterOrder extends React.Component {
             mvFeeRate: "",
             mvGrossAmt: 0,
 
-            
+            mvTriggerSelected: "UP",
             mvStockSelected: {
                 stockCode: ''
             },
@@ -142,6 +142,10 @@ class EnterOrder extends React.Component {
         this.calculateGrossAmt()
         
     }
+
+    handleTriggerPriceChange(options) {
+        this.setState({mvTriggerSelected: options})
+    }
     
     render() {
         let header = this.props.language.enterorder.header
@@ -211,7 +215,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
-                                className="readOnly" readOnly defaultValue={""}/>
+                                className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
                         </Col>
                     </div>
 
@@ -235,16 +239,15 @@ class EnterOrder extends React.Component {
                             <Col xs={5}>
                                 <Select
                                     ket="rTriggerPriceSelector"
-                                    ref={r => this.rStockSelector = r}
-                                    options={this.stockList}
-                                    selected={this.state.mvStockSelected}
+                                    ref={r => this.rTriggerPriceSelector = r}
+                                    options={["UP", "DOWN"]}
+                                    selected={this.state.mvTriggerSelected}
                                     optionLabelPath={'stockCode'}
-                                    handleChange={this.handleStockChange.bind(this)}
-                                    searchEnabled={true}
+                                    handleChange={this.handleTriggerPriceChange.bind(this)}
                                 />
                             </Col>
                             <Col xs={7}>
-                                <Input key="rTriggerPriceName" type="text" ref={ref => this.refStockName =  ref} 
+                                <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
                                     defaultValue={""} style={{textAlign: "left"}}/>
                             </Col>
                         </Col>
@@ -291,7 +294,6 @@ class EnterOrder extends React.Component {
                                     selected={this.state.mvStockSelected}
                                     optionLabelPath={'stockCode'}
                                     handleChange={this.handleStockChange.bind(this)}
-                                    searchEnabled={true}
                                 />
                         </Col>
                     </div>
@@ -303,7 +305,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvMaxQty}/>
+                                ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}/>
                         </Col>
                     </div>
 
@@ -314,7 +316,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvMaxQty}/>
+                                ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt}/>
                         </Col>
                     </div>
 
@@ -325,7 +327,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvCommissionFees" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvMaxQty}/>
+                                ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvCommissionFees}/>
                         </Col>
                     </div>
 
@@ -336,7 +338,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvNetAmt" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvMaxQty}/>
+                                ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvNetAmt}/>
                         </Col>
                     </div>
 
@@ -347,7 +349,7 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvAvailQty" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvMaxQty}/>
+                                ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty}/>
                         </Col>
                     </div>
 
@@ -368,6 +370,41 @@ class EnterOrder extends React.Component {
             </div>
         )
     }
+
+    componentWillReceiveProps(nextProps) {
+        
+        let orderDefault = nextProps.orderDefault
+        if(orderDefault !== null) {
+            this.state.mvBS = orderDefault.mvBS
+            this.state.mvMarketID = orderDefault.mvMarketID
+            this.state.mvStockName = orderDefault.mvStockName
+            this.state.mvStockSelected = {
+                stockCode: orderDefault.mvStockCode,
+                stockName: orderDefault.mvStockName
+            }
+
+            this.setValue({
+                mvBS: orderDefault.mvBS,
+                mvStockCode: orderDefault.mvStockCode,
+                mvStockName: orderDefault.mvStockName,
+                mvMarketID: orderDefault.mvMarketID,
+                mvOrderType: orderDefault.mvOrderType
+            })
+            this.refStockName.value(orderDefault.mvStockName)
+            if(orderDefault.mvStockCode != "") {
+                this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
+            }
+        }
+        if(this.state.mvOrderTypeList.length === 0)
+            this.getOrderTypeList(nextProps.genEnterOrderData)
+    }
+
+    componentDidMount() {
+        this.props.genEnterOrder()
+    }
+
+
+    //---------------------------------------
 
     handleSubmit(e) {
         e.preventDefault()
@@ -734,6 +771,7 @@ class EnterOrder extends React.Component {
         /*
             - calculate max quanty
         */
+        return;
         var stockInfoBean = this.store.stockInfoBean
         if (!stockInfoBean)
             return;

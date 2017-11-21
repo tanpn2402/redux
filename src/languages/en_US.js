@@ -624,13 +624,14 @@ export default
                     "OTMTL": "R"
                 },
                 "popup": {
-                    "title": "Order: {0}",
+                    "title": "Place Order - {0}",
                     "stockname": "Name",
                     "expirydate": "Expiry date",
                     "checknum": "Matrix card number",
                     "verifiednum": "Verified matrix card number",
                     "saveauthentication": "Save Authentication",
-                    "comfirm": "Comfirm"
+                    "comfirm": "Comfirm",
+                    "successOrder": "Successfully"
                 },
                 "error": {
                     "volumeNegative": "Quantity must be greater than 0.",
@@ -1375,7 +1376,8 @@ export default
                 "sure": "Sure",
                 "confirmModify": "Confirm Modify",
                 "confirmCancel": "Confirm Cancel",
-                "close": "Close"
+                "close": "Close",
+                "complete": "Complete"
             },
             "login": {
                 "username": "Account No",
