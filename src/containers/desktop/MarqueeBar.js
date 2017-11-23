@@ -56,17 +56,17 @@ class MarqueeItem extends React.Component {
         //         }
         //     })
         // }, 1000)
-        setInterval(() => {
-            let randomValue = Math.random() > 0.5 ? Math.random() : Math.random() * -1.5
-            let randomValue2 = Math.random() > 0.5 ? Math.random() * Math.pow(3, 5) : Math.random() * Math.pow(-3, 5)
-            let randomValue3 = Math.random() * 20
-            let newData = this.state.data.concat({
-                hour: this.state.data.slice(-1)[0].hour + randomValue3,
-                index: this.state.data.slice(-1)[0].index + randomValue,
-                volume: this.state.data.slice(-1)[0].volume + randomValue2
-            })
-            this.setState({data: newData})
-        }, 2000)
+        // setInterval(() => {
+        //     let randomValue = Math.random() > 0.5 ? Math.random() : Math.random() * -1.5
+        //     let randomValue2 = Math.random() > 0.5 ? Math.random() * Math.pow(3, 5) : Math.random() * Math.pow(-3, 5)
+        //     let randomValue3 = Math.random() * 20
+        //     let newData = this.state.data.concat({
+        //         hour: this.state.data.slice(-1)[0].hour + randomValue3,
+        //         index: this.state.data.slice(-1)[0].index + randomValue,
+        //         volume: this.state.data.slice(-1)[0].volume + randomValue2
+        //     })
+        //     this.setState({data: newData})
+        // }, 2000)
     }
 
     genPopover(d) {
@@ -230,6 +230,7 @@ class MarqueeBar extends React.Component {
             //     })
             // }
         } else {
+            console.log(nextProps.watchListData)
             let HA = {
                 id: 0,
                 title: 'HA',
@@ -465,7 +466,7 @@ class MarqueeBar extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        watchListLocalStockList: state.watchlist.watchListLocalStockList
+        watchListLocalStockList: state.watchlist.watchListLocalStockList,
     }
 }
 

@@ -3051,37 +3051,45 @@ label {
         padding-top: 40px;
     }
 
-    /* Cell status change */
-    .value-change .value-unchange {
+    /*watchlsit cell format*/
+    .value{
         width: 100%;
-        height: 100%;
-        box-sizing: border-box;
     }
+
+    .value-ceil{
+        color: #ff4cf0;
+    }
+
+    .value-floor{
+        color: #4cf3ff;
+    }
+
+    .value-ref{
+        color: #f6fc4e;
+    }
+
+    /* Cell status change */
     .value-change {
-        animation: status-changed ease-in 1s;
+        background: #c6c6c6;
+        animation: status-changed ease-out 0.75s;
+        animation-fill-mode: forwards;
     }
-    .value-null {
-        background: rgb(220, 220, 220,.5);
-        color: grey;
-    }
-    .value-up {
-        background: rgb(0, 128, 0, .3);
+    .unchange {
         color: white;
+        width: 100%;
     }
-    .value-down {
-        background: rgb(255, 0, 0, .3);
-        color: white;
+    .up {
+        color: #00ff00;
+        width: 100%;
+    }
+    .down {
+        color: #ff0000;
+        width: 100%;
     }
 
     @keyframes status-changed {
-        from {
-            top: 5px;
-            opacity: 0;
-        }
         to {
-            top: 0px;
-            opacity: 1;
-            font-weight: bold;
+            background: transparent;
         }
     }
     
