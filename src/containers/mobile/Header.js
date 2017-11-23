@@ -24,6 +24,9 @@ class Header extends React.Component {
                     <span className={this.props.openMenu ? this.closeIcon : this.menuIcon} onClick={e => this.onOpenMenu()}></span>
 				</div>
 
+                <div className="header-account">
+                    <span className="glyphicon glyphicon-user" onClick={e => this.onOpenAccountInfo()}></span>
+                </div>
                 <div className="header-search">
                     <span className="glyphicon glyphicon-search" onClick={e => this.onOpenSearch()}></span>
                 </div>
@@ -41,6 +44,17 @@ class Header extends React.Component {
         this.props.onOpenSearch()
         this.props.onOpenMenu(false)
     }
+
+    onOpenAccountInfo() {
+        this.props.showAccountInfo({
+            data: {
+                theme: this.props.theme,
+                language: this.props.language
+            },
+            title: "Account Info",
+            id: "accountinfo"
+        })
+    }
 }
 
 
@@ -57,7 +71,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     onOpenSearch: (open) => { 
         dispatch(actions.openSearch(open)) 
     },
-
+    showAccountInfo: (param) => {
+        dispatch(actions.showPopup(param))
+    },
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -17,6 +17,7 @@ import EnterOrderSuccessMobile from './mobile/EnterOrderSuccess'
 import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
 import Setting from './mobile/Setting'
+import AccountInfo from './mobile/AccountInfo'
 
 export default function (verion, props, onClose) {
 	if (verion === "mobile") {
@@ -117,5 +118,10 @@ function genPopupMobile(props, onClose) {
 		case 'enterordersuccess':
 			return (<EnterOrderSuccessMobile onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
 			break;
+
+		case 'accountinfo':
+			return (<AccountInfo onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
+			break;
+
 	}
 }

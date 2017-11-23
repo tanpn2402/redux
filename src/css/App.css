@@ -2206,6 +2206,14 @@ label {
     width: 50px;
 
 }
+.header-account {
+    font-size: 24px;
+    padding-top: 10px;
+    color: #666;
+    float: right;
+    height: 50px;
+    width: 50px;
+}
     /* FUNCTION CHOOSER */
     .function-choose {
         text-align: center;
