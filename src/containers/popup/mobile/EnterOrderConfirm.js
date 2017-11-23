@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 import CheckAuthenticationModal from '../CheckAuthenticationModal';
 import PopupTable from '../../commons/PopupTable';
-
+import config from '../../../core/config'
 
 
 class EnterOrderConfirm extends Component{
@@ -69,23 +69,51 @@ class EnterOrderConfirm extends Component{
     submit(e){
         
         var data = this.props.data
+        // var params = {
+        //     "mvBS": data.mvBS,
+        //     "mvStockCode": data.mvStockCode,
+        //     "mvLending": "" + data.mvLending,
+        //     "mvBuyingPower": data.mvBuyPower,
+        //     "mvOrderTypeValue": data.mvOrderType,
+        //     "mvQuantity": data.mvVolume,
+        //     "mvPrice": data.mvPrice,
+        //     "mvGrossAmt": data.mvGrossAmt,
+        //     "mvNetFee": data.mvNetFee,
+        //     "mvMarketID": data.mvMarketID,
+        //     //"refId": "",
+        //     "mvWaitOrder": data.mvExpireChecked ? "on" : "off",
+        //     "mvGoodTillDate": data.mvExpireChecked ? data.mvExpireDate : '',
+        //     "mvAfterServerVerification": "Y",
+        //     "mvBankID": data.mvBankID,
+        //     "mvBankACID": data.mvBankACID,
+        // }
+
         var params = {
-            "mvBS": data.mvBS,
-            "mvStockCode": data.mvStockCode,
-            "mvLending": "" + data.mvLending,
-            "mvBuyingPower": data.mvBuyPower,
-            "mvOrderTypeValue": data.mvOrderType,
-            "mvQuantity": data.mvVolume,
-            "mvPrice": data.mvPrice,
-            "mvGrossAmt": data.mvGrossAmt,
-            "mvNetFee": data.mvNetFee,
-            "mvMarketID": data.mvMarketID,
-            //"refId": "",
-            "mvWaitOrder": data.mvExpireChecked ? "on" : "off",
-            "mvGoodTillDate": data.mvExpireChecked ? data.mvExpireDate : '',
-            "mvAfterServerVerification": "Y",
-            "mvBankID": data.mvBankID,
-            "mvBankACID": data.mvBankACID,
+            ClientID: config.cache.clientID,
+
+            BS: data.mvBS,
+            MarketID: data.mvMarketID,
+            InstrumentID: data.mvStockCode,
+            OrderType: data.mvOrderType,
+            Price: data.mvPrice,
+            Quantity: data.mvVolume,
+
+            IsOddLot: false,
+            IsManualTrade: false,
+            SessionID: config.cache.sessionID,
+
+            //not mandatory
+            OperatorID: "",    
+            BranchID: "",
+            TradingAccSeq: config.cache.tradingAccSeq,
+            Password: "",
+            StopOrderType: data.mvStopOrderType,
+            StopPrice: data.mvStopOrderPrice,
+            GoodTillDate: data.mvGoodTillDate,
+            ChannelID: config.cache.channelID,
+            LowestLimitPrice: 0,
+            ContactPhone: "",
+            Language: config.cache.lang,
         }
 
         //console.log(params)

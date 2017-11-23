@@ -15,9 +15,7 @@ class CancelOrder extends Component {
         this.id = 'cancelorder-popup'
     }
     onCancelSubmit() {
-        var authParams = this.auth.getParam()
-
-        this.props.onCancelSubmit(this.props.data, authParams, this.props.language)
+        this.props.onCancelOrder(this.props.data, this.props.language)
         this.props.onHide()
     }
     render() {
@@ -80,8 +78,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onCancelSubmit: (param, language, authParams) => {
-        dispatch(actions.onCancelSubmit(param, language, authParams))
+    onCancelOrder: (param, language) => {
+        dispatch(actions.onCancelOrder(param, language))
     },
 })
 

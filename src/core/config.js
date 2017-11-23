@@ -179,31 +179,31 @@ const config = {
 		'HKEX': [
 			{
                 label: "At Auction Limit",
-                value: "AAL"
+                value: "A"
             },
             {
                 label: "Enhanced Limit",
-                value: "EL"
+                value: "E"
             },
             {
                 label: "Odd Lot",
-                value: "LOT"
+                value: "O"
             },
             {
                 label: "Trigger",
-                value: "TRIGGER"
+                value: "T"
             }
 		],
 		'MAMK': [
             {
                 label: "Limit",
-                value: "Limit"
+                value: "L"
             }
 		],
 		'SZMK': [
             {
                 label: "Limit",
-                value: "Limit"
+                value: "L"
             }
 		]
 	},
@@ -403,7 +403,9 @@ const config = {
 			icon: 'language',
 			value: [
 				'vi_VN',
-				'en_US'
+				'en_US',
+				'zh_TW',
+				'zh_CN'
 			]
 		},
 		{
@@ -493,7 +495,11 @@ const config = {
 	cache: {
 		stockList: [],
 		lang: 'vi_VN',
-		theme: 'light'
+		theme: 'light',
+		channelID: '',
+		sessionID: '',
+		clientID: '',
+		tradingAccSeq: ''
 	},
 	tableColReorder: [],
 	tableColWidth: [],

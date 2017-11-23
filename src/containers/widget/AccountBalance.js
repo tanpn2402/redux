@@ -14,11 +14,22 @@ class AccountBalance extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
+
+        /*
+        accessor for accountBalanceLoopList: 
+            currencyID
+            dueBalance
+            hostAvailable
+            ledgerBalance
+            toDaySettlement
+            buyingPower
+            buyingPowerWRG
+        */
         this.state = {
             columns: [
                 {
                     id: "currency",
-                    accessor: "currency",
+                    accessor: "currencyID",
                     width: 150,
                     skip: false,
                     show: true,
@@ -50,7 +61,7 @@ class AccountBalance extends Component {
                 },
                 {
                     id: "ledgerbalance",
-                    accessor: "ledgerbalance",
+                    accessor: "ledgerBalance",
                     width: 200,
                     skip: false,
                     show: true,
@@ -79,7 +90,7 @@ class AccountBalance extends Component {
                 },
                 {
                     id: "settledbalance",
-                    accessor: "settledbalance",
+                    accessor: "toDaySettlement",
                     width: 120,
                     skip: false,
                     show: true,
@@ -94,32 +105,30 @@ class AccountBalance extends Component {
         this.defaultPageSize = 15
 
         this.params = {
-            
+            channelID: "",
+            clientID: "",
+            tradingAccSeq: "",
+            currencyID: "",
+            language: ""
         }
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-            
-    //     });
-    // }
-
-
     render() {
-        var data = [
-            {currency: "CVY", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
-            {currency: "EUR", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
-            {currency: "HKD", ledgerbalance: "20,250,156.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
-            {currency: "TWD", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
-            {currency: "USD", ledgerbalance: "12,523,150.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"}
-        ]
+        let data = this.props.data.accountBalanceLoopList
+        // var data = [
+        //     {currency: "CVY", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+        //     {currency: "EUR", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+        //     {currency: "HKD", ledgerbalance: "20,250,156.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+        //     {currency: "TWD", ledgerbalance: "0.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"},
+        //     {currency: "USD", ledgerbalance: "12,523,150.000", exrate: "1.000", holdamount: "0.000", withdrawable: "0.000", settledbalance: "0.000"}
+        // ]
         
         return (
             <div style={{ height: "100%", position: "relative" }}>
                 <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
                     columns={this.state.columns}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
-                    onToggleFilter={e => this.onToggleFilter(e)} >
+                    >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
@@ -130,7 +139,7 @@ class AccountBalance extends Component {
 
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
-                        filterable={this.state.filterable}
+                        filterable={false}
                         tableData={data}
 
                         pageIndex={this.state.pageIndex}
@@ -152,21 +161,15 @@ class AccountBalance extends Component {
 
     }
 
-    onToggleFilter(value) {
-        this.setState((prevState) => {
-            return { filterable: !prevState.filterable }
-        })
-    }
-
     componentDidMount() {
-        //this.props.onSearch(this.params)
+        this.props.onSearch(this.params)
     }
 
     onPageChange(page) {
-        this.state.pageIndex = page
-        this.params["page"] = this.state.pageIndex
-        this.params["start"] = (this.state.pageIndex - 1) * this.params["limit"]
-        this.props.onSearch(this.params)
+        // this.state.pageIndex = page
+        // this.params["page"] = this.state.pageIndex
+        // this.params["start"] = (this.state.pageIndex - 1) * this.params["limit"]
+        // this.props.onSearch(this.params)
     }
 
     onSearch(param) {
@@ -174,10 +177,9 @@ class AccountBalance extends Component {
         this.params["page"] = 1
         this.params["start"] = 0
 
-        this.params["mvBS"] = param["mvBuysell"]
-        this.params["mvInstrumentID"] = param["mvStockId"]
-        this.params["mvStartTime"] = param["mvStartDate"]
-        this.params["mvEndTime"] = param["mvEndDate"]
+        this.params.clientID = config.cache.clientID
+        this.params.language = config.cache.lang
+        this.params.channelID = config.cache.channelID
         
         this.props.onSearch(this.params)
     }
@@ -188,28 +190,16 @@ class AccountBalance extends Component {
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
     }
-
-    onExportExcel() {
-
-        this.exportParams["mvStartTime"] = this.params["mvStartTime"]
-        this.exportParams["mvEndTime"] = this.params["mvEndTime"]
-        this.exportParams["mvBS"] = this.params["mvBS"]
-        this.exportParams["mvInstrumentID"] = this.params["mvInstrumentID"] != "" ? this.params["mvInstrumentID"] : "ALL"
-
-        this.props.onExportExcel(this.exportParams)
-    }
-
-
 }
 const mapStateToProps = (state) => {
     return {
-        
+        data: state.accountbalance.data
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (param, reload) => {
-        dispatch(actions.enquiryOrderHistory(param, reload))
+    onSearch: (param) => {
+        dispatch(actions.accountBalanceEnquiry(param))
     }
 })
 

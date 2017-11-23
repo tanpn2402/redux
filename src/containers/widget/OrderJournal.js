@@ -265,6 +265,29 @@ class OrderJournal extends Component {
         this.id = 'orderjournal'
         this.defaultPageSize = 15
 
+        /*
+        ClientID
+        SessionID
+
+        MarketID
+        StartDate
+        EndDate
+        OrderGroupID
+        TradingAccSeq
+        InstrumentID
+        BranchID
+        OperatorID
+        ChannelID
+        Status
+        FetchCountLimit
+        Language
+
+
+        if(IsModifiable
+            IsCancelable
+        )  => show/hide icon cancel/modify
+        */
+
         this.param = {
             mvStatus: "ALL",
             mvOrderType: "ALL",
@@ -283,7 +306,6 @@ class OrderJournal extends Component {
 
     onModifyOrder(order) {
         this.handleModifyOrder(order)
-        console.log(order)
     }
 
 

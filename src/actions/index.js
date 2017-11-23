@@ -2,7 +2,7 @@ import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
 import { onTabClick, onMobileTabClick, getSavedContentLayout, 
     saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
-import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
+import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit,   onCancelOrder, onModifyOrder } from './orderjounal'
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
 import { stockSearch, getStockWatchInfo } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
@@ -38,8 +38,8 @@ import {
   getqueryAdvancePaymentInfo, getqueryBankInfo, calculateInterest, beforeSubmitCashAdvBank,
   submitCashAdvanceBank, paymentSelectionChange
 } from './cashadvancebank'
-
 import { showPopup } from './popup'
+import { accountBalanceEnquiry } from './accountbalance'
 
 export {
   reloadCustom,
@@ -182,4 +182,10 @@ export {
   showPopup,
   showMessageBox,
   showFlashPopup,
+
+
+  // GSL
+  accountBalanceEnquiry,
+  onCancelOrder,
+  onModifyOrder,
 };

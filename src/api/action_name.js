@@ -78,3 +78,23 @@ export const EXPORTTRANSACTIONHISTORY = 'exportTransactionHistory.action';
 export const EXPORTORDERCONFIRM = 'exportSignOrder.action';
 // Stock Watch Update
 export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action'
+
+
+
+// GSL MOBILE VERSION
+export const ACCOUNTBALANCEENQUIRY = 'mobileAccountBalanceEnquiry';
+export const CLIENTLOGIN = 'clientLogin';
+export const DISCLAIMERAGREED = 'disclaimerAgreed';
+export const ENTERORDER_GSL = 'enterOrder';
+export const CANELORDER = 'cancelOrder';
+export const MODIFYORDER = 'modifyOrder';
+export const QUERYORDERINFO = 'queryOrderInfo';
+export const PORTFOLIOENQUIRYBYINSTRUMENT = 'portfolioEnquiryByInstrument';
+export const TRANSACTIONHISTORY = 'transactionHistory';
+export const ESTMTFILECONTENTENQUIRY = 'eStmtFileContentEnquiry';
+export const QUERYINSTRUMENTINFO = 'queryInstrumentInfo';
+export const ORDERPLACEMENTPREVIEW = 'orderPlacementPreview';
+export const GETTRADEDATEINFO = 'getTradeDateInfo';
+
+export const POST = "POST";
+export const GET = "GET";

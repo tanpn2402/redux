@@ -13,63 +13,20 @@ class ModifyOrder extends Component {
     constructor(props) {
         super(props)
 
-        var data = this.props.data.data
-
-        this.paramGenModifyOrder = {
-            mvOrderId: data.mvOrderID,
-            mvBSValue: data.mvBSValue,
-            mvStockId: data.mvStockID,
-            mvMarketId: data.mvMarketID,
-            mvPriceValue: data.mvPriceValue,
-            mvQtyValue: data.mvQtyValue,
-            mvCancelQtyValue: data.mvCancelQtyValue,
-            mvInputTime: data.mvInputTime,
-            mvStopTypeValue: data.mvStopTypeValue,
-            mvStopPriceValue: data.mvStopPriceValue,
-            mvStopOrderExpiryDate: data.mvStopOrderExpiryDate == null ? "" : data.mvStopOrderExpiryDate,
-            mvOrderTypeValue: data.mvOrderTypeValue,
-            mvAllOrNothing: data.mvAllorNothing,
-            mvValidityDate: data.mvValidityDate == null ? "" : data.mvValidityDate,
-            mvActivationDate: data.mvActivationDate,
-            mvGoodTillDate: data.mvGoodTillDate,
-            mvRemark: data.mvRemark,
-            mvContactPhone:  data.mvContactPhone,
-            mvGrossAmt:  data.mvGrossAmt,
-            mvNetAmtValue:  data.mvNetAmtValue,
-            mvSCRIP:  data.mvSCRIP,
-            mvlotSize:  data.mvLotSize,
-            mvOrderGroupId:  data.mvOrderGroupID,
-            mvBaseNetAmtValue:  data.mvGrossAmt,
-            mvAvgPriceValue:  data.mvAvgPriceValue,
-            mvFilledQty:  data.mvFilledQty,
-            mvStatus:  data.mvStatus
-        }
-
         this.store = {
             stockInfoBean: null
         }
     }
 
     onModifySubmit() {
-        var authParams = this.auth.getParam()
-
-        this.props.onModifySubmit(
-            this.props.genModifyOrderData.mvGenModifyOrderBean, 
+        this.props.onModifyOrder(
+            this.props.data.data, 
             this.mvNewPrice.getValue(), 
-            this.mvNewQuantity.getValue(), 
-            authParams, 
+            this.mvNewQuantity.getValue(),
             this.props.language, 
             this.props.data.me
         )
-
         this.props.onHide()
-    }
-
-    componentWillReceiveProps(nextProps) {
-    }
-
-    componentDidMount(){
-        this.props.genModifyOrder(this.paramGenModifyOrder)
     }
 
     onPriceChange(value) {
@@ -77,11 +34,11 @@ class ModifyOrder extends Component {
     }
 
     onQtyChange(value) {
-
         this.calculateGrossAmt()
     }
+
     render() {
-        console.log(this.props.data.data)
+        
         var tmp = this.props.data.data
         var data = [
             {
@@ -110,7 +67,7 @@ class ModifyOrder extends Component {
             },
             {
                 header: "newPrice",
-                cell: props => {
+                Cell: props => {
                     return <Input key="newPrice" type="number" ref={ref => this.mvNewPrice =  ref} step={10}
                         defaultValue={tmp.mvPriceValue}
                         onChange={this.onPriceChange.bind(this)}/>
@@ -126,7 +83,7 @@ class ModifyOrder extends Component {
             },
             {
                 header: "newQuantity",
-                cell: props => {
+                Cell: props => {
                     return <Input key="newQuantity" type="number" ref={ref => this.mvNewQuantity =  ref} step={100}
                         defaultValue={tmp.mvQtyValue}
                         onChange={this.onQtyChange.bind(this)}/>
@@ -134,14 +91,13 @@ class ModifyOrder extends Component {
             },
             {
                 header: "totalCash",
-                cell: props => {
+                Cell: props => {
                     return <Input key="mvGrossAmt" className="showOnly"
                         ref={ref => this.mvGrossAmt = ref} readOnly value={0}/>
                 }
             }
         ]
 
-        var mvGenModifyOrderBean = this.props.genModifyOrderData.mvGenModifyOrderBean
         var language = this.props.language
         
         return (
@@ -222,18 +178,14 @@ class ModifyOrder extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        genModifyOrderData: state.orderjournal.genmodifyorder
+        
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onModifySubmit: (param, newPrice, newQty, authParams, language, me) => {
-        dispatch(actions.onModifySubmit(param, newPrice, newQty, authParams, language, me))
-    },
-    genModifyOrder: (param) => {
-        dispatch(actions.genModifyOrder(param))
+    onModifyOrder: (param, newPrice, newQty, language, me) => {
+        dispatch(actions.onModifyOrder(param, newPrice, newQty, language, me))
     }
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModifyOrder)

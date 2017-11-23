@@ -1,5 +1,6 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
+import config from '../core/config'
 import {showMessageBox, showFlashPopup} from './notification'
 
 const { ActionTypes } = require('../core/constants');
@@ -247,4 +248,84 @@ function getModifyOrderFailInfo(language){
             }
         )
     }    
+}
+
+
+
+
+// ------------------------------ GSL MOBILE VERSION
+export function onCancelOrder(_param, language) {
+    /*
+    fields:
+        ClientID
+        TradingAccSeq
+        Password
+        OrderGroupID
+        OperatorID
+        ChannelID
+        BranchID
+        Language
+        SessionID
+    */
+    console.log(_param)
+    let param = {
+        ClientID: config.cache.clientID,
+        TradingAccSeq: config.cache.tradingAccSeq,
+        // Password: "",
+        OrderGroupID: _param.OrderGroupID,
+        OperatorID: _param.OperatorID,
+        ChannelID: config.cache.channelID,
+        BranchID: _param.BranchID,
+        Language: config.cache.lang,
+        SessionID: config.cache.sessionID,
+    }
+
+    return function(dispatch){
+        api.post(ACTION.CANELORDER, param, dispatch, function(response){
+            return {
+                type: ActionTypes.CANELORDER,
+                data: response
+            }
+        })
+    }
+}
+
+export function onModifyOrder(_param, newPrice, newQty, language) {
+    /*
+    fields:
+        ClientID
+        TradingAccSeq
+        Password
+        OrderGroupID
+        OperatorID
+        NewPrice
+        NewQuantity
+        ChannelID
+        BranchID
+        Language
+        SessionID
+    */
+    console.log(_param)
+    let param = {
+        ClientID: config.cache.clientID,
+        TradingAccSeq: config.cache.tradingAccSeq,
+        // Password: "",
+        OrderGroupID: _param.OrderGroupID,
+        OperatorID: _param.OperatorID,
+        NewPrice: newPrice,
+        NewQuantity: newQty,
+        ChannelID: config.cache.channelID,
+        BranchID: _param.BranchID,
+        Language: config.cache.lang,
+        SessionID: config.cache.sessionID,
+    }
+
+    return function(dispatch){
+        api.post(ACTION.MODIFYORDER, param, dispatch, function(response){
+            return {
+                type: ActionTypes.MODIFYORDER,
+                data: response
+            }
+        })
+    }
 }

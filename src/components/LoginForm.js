@@ -7,11 +7,22 @@ import { sessionService } from 'redux-react-session';
 import * as sessionApi from '../api/sessionApi';
 import * as FetchAPI from '../api/fetchAPI';
 import {getLanguage} from '../utils'
-
+import config from '../core/config'
 class LoginForm extends Component {
 
     constructor(props) {
         super(props);
+        // this.params = {
+        //     chanelID: '',
+        //     clientID: '',
+        //     tradingAccSeq: '',
+        //     password: '',
+        //     encrypt: '',
+        //     externalPassword: '12345',
+        //     isFX: '',
+        //     clientIP: '',
+        //     language: ''
+        // }
         this.params = {
             mvClientID: '',
             mvPassword: '',
@@ -32,11 +43,18 @@ class LoginForm extends Component {
 
     render() {
         let language = getLanguage(this.props.language).page
-        
+        let configLang = config.settings.filter(e => e.id = "language")
+        if(configLang.length > 0)
+            configLang = configLang[0]
+        else
+            configLang = []
+
         return (
             <div className="login-form-wrapper">
                 <div className="login-form-header">
-                    <div id="company-logo" />
+                    <div className="header-logo" style={{fontSize: "40px", textAlign: "center"}}>
+                        GSL
+                    </div>
                 </div>
 
                 <div className="login-form-body">
@@ -92,8 +110,8 @@ class LoginForm extends Component {
 
                 
 
-                {/* <div className="login-form-footer">                 
-                    <Col sm={4}>
+                <div className="login-form-footer">                 
+                    {/* <Col sm={4}>
                         <h5> Hong Kong Head Office:</h5>
                         <p>21/F, Guangdong Finance Building, 88 Connaught Road West, Sheung Wan, Hong Kong
                             <br/> Phone: (+852) 2869-6346 - Fax: (+852) 2869-7998</p>
@@ -105,13 +123,34 @@ class LoginForm extends Component {
                     </Col>
                     <Col sm={4}>
                         <p>©2017 TTL</p>
-                    </Col>
-                </div> */}
+                    </Col> */}
+                    <div style={{textAlign: "center", paddingTop: "50px"}}>
+                        <select onChange={(e) => this.onLanguageChange(e.target.value)} ref={r => this.rLanguage = r}
+                            style={{color: "#FFF", maxWidth: "200px", background: "transparent", }}>
+                            {
+                                configLang.value.map(l => {
+                                    return (
+                                        <option value={l} style={{color: "#000"}}>{language.setting.language[l]}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                    <div className="footer-info" style={{background: "transparent", paddingTop: "10px"}}>
+                        <ul>
+                            <li style={{fontSize: "12px"}}>© 2016 Geminis Securities Limited - Copyrignt - All right reserved</li>
+                        </ul>
+                    </div>
+                </div>
                 
                 
                 
             </div>
         )
+    }
+
+    onLanguageChange(val) {
+        this.params.language = val
     }
 
     onSubmit(e) {

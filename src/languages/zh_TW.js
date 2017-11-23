@@ -1,8 +1,8 @@
 const { Contants } = require('../core/constants')
 export default
     {
-        "lang": "en_US",
-        "title": "en_US",
+        "lang": "zh_TW",
+        "title": "zh_TW",
         "page": {
             "tab": {
                 "trading": "Trading",
