@@ -10,11 +10,7 @@ class MarqueeItem extends React.Component {
         this.genPopover = this.genPopover.bind(this)
         this.state = {
             threshHold: 110,
-            data: [
-                { hour: 915, index: 110.9808, volume: 1595.6 }, { hour: 1012, index: 109.5505, volume: 1796.6 },
-                { hour: 1125, index: 109.0000, volume: 1748.5 }, { hour: 1230, index: 110.1041, volume: 1131.1 },
-                { hour: 1305, index: 110.4313, volume: 1336.1 }, { hour: 1442, index: 109.8071, volume: 1067.9 },
-            ]
+            data: []
         }
         this.data = [
             { hour: 9, index: 109.0000, volume: 1595.6 }, { hour: 10, index: 110.4802, volume: 1796.6 },
@@ -34,18 +30,25 @@ class MarqueeItem extends React.Component {
     }
 
     render() {
-        let data = this.props.data
+        let stock = this.props.stock
         return (
-            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(stock)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
                 <li>
-                    <strong className="title">{data.title}</strong>
-                    <span className={data.status}>&nbsp;{data.id}</span>
+                    <strong className="title">{stock.title}</strong>
+                    <span className={stock.status}>&nbsp;{stock.id}</span>
                     <span className="percent">
-                        <span className="netchange">&nbsp;{data.netchange}</span>&nbsp;(<span className="changepercentage">{data.changeper}</span>%)
+                        <span className="netchange">&nbsp;{stock.netchange}</span>&nbsp;(<span className="changepercentage">{stock.changeper}</span>%)
                     </span>
                 </li>
             </OverlayTrigger>
         )
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.data)
+        this.setState({
+            data: nextProps.data
+        })
     }
 
     componentDidMount() {
@@ -118,6 +121,11 @@ class MarqueeBar extends React.Component {
             onHover: false,
             stack1: [],
             stack2: [],
+            data:[
+                { hour: 915, index: 110.9808, volume: 1595.6 }, { hour: 1012, index: 109.5505, volume: 1796.6 },
+                { hour: 1125, index: 109.0000, volume: 1748.5 }, { hour: 1230, index: 110.1041, volume: 1131.1 },
+                { hour: 1305, index: 110.4313, volume: 1336.1 }, { hour: 1442, index: 109.8071, volume: 1067.9 },
+            ]
         }
         this.organizedData = {}
         //Default props
@@ -171,7 +179,6 @@ class MarqueeBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('++++++++++++++++++++++++++', nextProps)
         let stockList = nextProps.watchListLocalStockList ? nextProps.watchListLocalStockList:[]
         this.data.forEach(stock => {
             let isRemoved = !stockList.find(s => s.mvStockCode == stock.title && s.mvMarketID == stock.market)
@@ -202,7 +209,7 @@ class MarqueeBar extends React.Component {
             }
         })
         this.text = this.data.map(dataE => (
-            <MarqueeItem data={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)}
+            <MarqueeItem stock={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)}
                 theme={nextProps.theme} />
         ))
 
@@ -245,14 +252,24 @@ class MarqueeBar extends React.Component {
                 netchange: 0,
                 changeper: 0
             }
+            
+            let randomValue = Math.random() > 0.5 ? Math.random() : Math.random() * -1.5
+            let randomValue2 = Math.random() > 0.5 ? Math.random() * Math.pow(3, 5) : Math.random() * Math.pow(-3, 5)
+            let randomValue3 = Math.random() * 20
+            let newData = this.state.data.concat({
+                hour: this.state.data.slice(-1)[0].hour + randomValue3,
+                index: this.state.data.slice(-1)[0].index + randomValue,
+                volume: this.state.data.slice(-1)[0].volume + randomValue2
+            })
             let markets = [
-                <MarqueeItem theme={nextProps.theme} data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem theme={nextProps.theme} data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem theme={nextProps.theme} data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+                <MarqueeItem theme={nextProps.theme} data={newData} stock={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={nextProps.theme} data={newData} stock={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={nextProps.theme} data={newData} stock={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
             ]
             this.setState({
                 stack1: markets,
-                stack2: markets
+                stack2: markets,
+                data: newData
             })
         }
 
@@ -319,9 +336,9 @@ class MarqueeBar extends React.Component {
                 changeper: 0
             }
             let markets = [
-                <MarqueeItem theme={this.props.theme} data={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem theme={this.props.theme} data={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
-                <MarqueeItem theme={this.props.theme} data={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
+                <MarqueeItem theme={this.props.theme} stock={HA} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={this.props.theme} stock={HO} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />,
+                <MarqueeItem theme={this.props.theme} stock={OTC} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)} />
             ]
             this.setState({
                 stack1: markets,

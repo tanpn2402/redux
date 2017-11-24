@@ -59,7 +59,7 @@ class WatchList extends Component {
                         id: 'ce',
                         accessor: 'mvCeiling',
                         Cell: row => {  
-                            return this.onRowStatusChange(row, "mvCeiling")    
+                            return this.onRowStatusChange(row, "ce")    
                             },
                         width: 60,
                         skip: false,
@@ -68,7 +68,7 @@ class WatchList extends Component {
                         id: 'fl',
                         accessor: 'mvFloor',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvFloor")
+                            return this.onRowStatusChange(row, "fl")
                         },
                         width: 60,
                         skip: false,
@@ -77,7 +77,7 @@ class WatchList extends Component {
                         id: 'ref',
                         accessor: 'mvReferences',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvReferences")
+                            return this.onRowStatusChange(row, "ref")
                         },
                         width: 60,
                         skip: false,
@@ -92,7 +92,7 @@ class WatchList extends Component {
                         id: 'pri3',
                         accessor: 'mvBidPrice3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice3")
+                            return this.onRowStatusChange(row, "pri3")
                         },
                         width: 60,
                         skip: false,
@@ -100,9 +100,9 @@ class WatchList extends Component {
                     }, {
                         id: 'vol3',
                         accessor: 'mvBidVol3',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidVol3")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "vol3")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
@@ -110,36 +110,36 @@ class WatchList extends Component {
                     {
                         id: 'pri2',
                         accessor: 'mvBidPrice2',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidPrice2")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "pri2")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol2',
                         accessor: 'mvBidVol2',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidVol2")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "vol2")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'pri1',
                         accessor: 'mvBidPrice1',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidPrice1")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "pri1")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol1',
                         accessor: 'mvBidVol1',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidVol1")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "vol1")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
@@ -205,18 +205,18 @@ class WatchList extends Component {
                     columns: [{
                         id: 'pri1',
                         accessor: 'mvOfferPrice1',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvOfferPrice1")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "pri1")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol1',
                         accessor: 'mvOfferVol1',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvOfferVol1")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "vol1")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
@@ -224,18 +224,18 @@ class WatchList extends Component {
                     {
                         id: 'pri2',
                         accessor: 'mvOfferPrice2',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvOfferPrice2")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "pri2")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
                     }, {
                         id: 'vol2',
                         accessor: 'mvOfferVol2',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvOfferVol2")
-                        // },
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "vol2")
+                        },
                         width: 60,
                         skip: false,
                         show: true,
@@ -243,7 +243,7 @@ class WatchList extends Component {
                         id: 'pri3',
                         accessor: 'mvOfferPrice3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvOfferPrice3")
+                            return this.onRowStatusChange(row, "pri3")
                         },
                         width: 60,
                         skip: false,
@@ -252,7 +252,7 @@ class WatchList extends Component {
                         id: 'vol3',
                         accessor: 'mvOfferVol3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvOfferVol3")
+                            return this.onRowStatusChange(row, "vol3")
                         },
                         width: 60,
                         skip: false,
@@ -578,33 +578,46 @@ class WatchList extends Component {
 
     onRowStatusChange(row, rowName) {
         let index = row.index
-        if (rowName == "mvCeiling") {
-            return <div className="value-ceil">{row.value}</div>
+        if (rowName == "ce") {
+            return <div className="value value-ceil">{row.value}</div>
         }
-        if (rowName == "mvFloor") {
-            return <div className="value-floor">{row.value}</div>
+        if (rowName == "fl") {
+            return <div className="value value-floor">{row.value}</div>
         }
-        if (rowName == "mvReferences") {
-            return <div className="value-ref">{row.value}</div>            
+        if (rowName == "ref") {
+            return <div className="value value-ref">{row.value}</div>            
+        }
+
+        if(rowName.includes("vol")){
+            let price = rowName.replace("vol", "pri")
+            console.log(row, rowName, price, row.row[price], row.row.ref)
+            if(row.row[price] == null){
+                return <div className="value unchange">{row.value}</div>
+            }
+            if(+row.row[price] > +row.row.ref){
+                return <div className="value value-change up">{row.value}</div>
+            } else if (+row.row[price] < +row.row.ref){
+                return <div className="value value-change down">{row.value}</div>
+            }
         }
 
         if (row.value == null) {
             return ( 
                 <div className="value unchange">-</div>
             )
-        } else if (row.original == null || row.original.mvReferences == null) {
+        } else if (row.row == null || row.row.ref == null) {
             return (
                 <div className="value unchange">{row.value}</div>
             )
-        } else if (row.original.mvReferences > row.value) {
+        } else if (row.row.ref > row.value) {
             return (
                 <div className="value value-change down">{row.value}</div>
             )
-        } else if (row.original.mvReferences < row.value) {
+        } else if (row.row.ref < row.value) {
             return (
                 <div className="value value-change up">{row.value}</div>
             )
-        } else if (row.original.mvReferences == row.value) {
+        } else if (row.row.ref == row.value) {
             return (
                 <div className="value unchange">{row.value}</div>
             )
