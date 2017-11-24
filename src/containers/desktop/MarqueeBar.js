@@ -171,7 +171,8 @@ class MarqueeBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let stockList = nextProps.watchListLocalStockList
+        console.log('++++++++++++++++++++++++++', nextProps)
+        let stockList = nextProps.watchListLocalStockList ? nextProps.watchListLocalStockList:[]
         this.data.forEach(stock => {
             let isRemoved = !stockList.find(s => s.mvStockCode == stock.title && s.mvMarketID == stock.market)
             if (isRemoved) {
@@ -219,18 +220,7 @@ class MarqueeBar extends React.Component {
                 ["stack" + nextStackIndex]: this.getStack(nextHead, nextNextHead)
             })
             this.curHead = nextNextHead
-            // else {
-            //     var nextHead = (this.curHead + this.capacity) % this.text.length
-            //     var newArray = this.text.slice()
-            //     while (this.capacity - newArray.length >= this.text.length) {
-            //         newArray = newArray.concat(this.text)
-            //     }
-            //     this.setState({
-            //         ["stack" + nextStackIndex]: newArray.concat(this.getStack(0, nextHead))
-            //     })
-            // }
         } else {
-            console.log(nextProps.watchListData)
             let HA = {
                 id: 0,
                 title: 'HA',
@@ -265,10 +255,6 @@ class MarqueeBar extends React.Component {
                 stack2: markets
             })
         }
-        // } else {
-        //     let slicedWidth = (this.marqueeWrapper.offsetWidth - (this.curSliderObj.style.left.replace('px', '')))
-        //     this.curSliderObj.style.width = ((Math.ceil(slicedWidth / 200)) * 200) + 'px'
-        // }
 
     }
 
@@ -466,7 +452,8 @@ class MarqueeBar extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        watchListLocalStockList: state.watchlist.watchListLocalStockList,
+        watchListData: state.watchlist.watchListData,
+        watchListLocalStockList: state.watchlist.watchListLocalStockList
     }
 }
 
