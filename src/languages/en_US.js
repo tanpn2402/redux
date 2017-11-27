@@ -1382,7 +1382,9 @@ export default
                 "complete": "Complete"
             },
             "login": {
-                "username": "Account No",
+                "username": "Username",
+                "clientid": "Client ID",
+                "subaccount": "Sub Account ID",
                 "password": "Password",
                 "securityCode": "Security Code",
                 "message": {

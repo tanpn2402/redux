@@ -12,17 +12,21 @@ class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        // this.params = {
-        //     chanelID: '',
-        //     clientID: '',
-        //     tradingAccSeq: '',
-        //     password: '',
-        //     encrypt: '',
-        //     externalPassword: '12345',
-        //     isFX: '',
-        //     clientIP: '',
-        //     language: ''
-        // }
+        this.params1 = {
+            chanelID: 'MOB',
+            clientID: '',
+            tradingAccSeq: '',
+            password: '',
+            // encrypt: '',
+            // externalPassword: '12345',
+            // isFX: '',
+            // clientIP: '',
+            language: ''
+        }
+
+        this.state = {
+            language: ""
+        }
         this.params = {
             mvClientID: '',
             mvPassword: '',
@@ -31,6 +35,8 @@ class LoginForm extends Component {
 
         this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
         this.onSubmit = this.onSubmit.bind(this);
+
+        this.loginMethod = config.loginBy;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -39,16 +45,51 @@ class LoginForm extends Component {
             // go to home
             window.location.assign('/')
         }
+        this.setState({language: nextProps.language})
     }
 
     render() {
-        let language = getLanguage(this.props.language).page
+        let language = getLanguage(this.state.language).page
         let configLang = config.settings.filter(e => e.id = "language")
         if(configLang.length > 0)
             configLang = configLang[0]
         else
             configLang = []
 
+        let userForm;
+        if(this.loginMethod == "subAccount") {
+            userForm = <FormGroup>
+                            <Col xs={4}>
+                                {language.login.subaccount}
+                            </Col>
+                            <Col xs={8}>
+                                <input type="text" defaultValue="077" autoComplete="off"
+                                name="username" className="hks-input border" ref={node => { this.subAccount = node }} />
+                            </Col>
+                        </FormGroup>
+        }
+        else if(this.loginMethod == "username") {
+            userForm = <FormGroup>
+                            <Col xs={4}>
+                                {language.login.username}
+                            </Col>
+                            <Col xs={8}>
+                                <input type="text" defaultValue="077" autoComplete="off"
+                                name="username" className="hks-input border" ref={node => { this.username = node }} />
+                            </Col>
+                        </FormGroup>
+        }
+        else {
+            userForm = <FormGroup>
+                            <Col xs={4}>
+                                {language.login.clientid}
+                            </Col>
+                            <Col xs={8}>
+                                <input type="text" defaultValue="077" autoComplete="off"
+                                name="username" className="hks-input border" ref={node => { this.clientID = node }} />
+                            </Col>
+                        </FormGroup>
+        }
         return (
             <div className="login-form-wrapper">
                 <div className="login-form-header">
@@ -59,16 +100,7 @@ class LoginForm extends Component {
 
                 <div className="login-form-body">
                     <Form horizontal onSubmit={this.onSubmit} className="login-form">
-                        <FormGroup>
-                            <Col xs={4}>
-                                {language.login.username}
-                            </Col>
-                            <Col xs={8}>
-                                <input type="text" defaultValue="077" autoComplete="off"
-                                name="username" className="hks-input border" ref={node => { this.username = node }} />
-                            </Col>
-                            
-                        </FormGroup>
+                        {userForm}
                         <FormGroup>
                             <Col xs={4}>
                                 {language.login.password}
@@ -130,7 +162,7 @@ class LoginForm extends Component {
                             {
                                 configLang.value.map(l => {
                                     return (
-                                        <option value={l} style={{color: "#000"}}>{language.setting.language[l]}</option>
+                                        <option key={l} value={l} style={{color: "#000"}}>{language.setting.language[l]}</option>
                                     )
                                 })
                             }
@@ -151,11 +183,24 @@ class LoginForm extends Component {
 
     onLanguageChange(val) {
         this.params.language = val
+        this.setState({language: val})
     }
 
     onSubmit(e) {
         e.preventDefault();
-        this.params['mvClientID'] = this.username.value
+        if(this.loginMethod == "subAccount") {
+            this.params1["subAccountID"] = this.subAccount.value
+        }
+        else if(this.loginMethod == "username") {
+            this.params1["username"] = this.username.value
+        }
+        else {
+            this.params1["clientID"] = this.clientID.value
+
+            this.params['mvClientID'] = this.clientID.value
+        }
+
+        
         this.params['mvPassword'] = this.password.value
         this.params['securitycode'] = this.securitycode.value
         this.props.login(this.params)

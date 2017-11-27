@@ -222,6 +222,8 @@ const config = {
 		"USD"
 	],
 
+	loginBy: "clientID",  // subAccount , username
+
 	widget: [
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
 		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
@@ -402,8 +404,8 @@ const config = {
 			id: 'language',
 			icon: 'language',
 			value: [
-				'vi_VN',
 				'en_US',
+				'vi_VN',
 				'zh_TW',
 				'zh_CN'
 			]

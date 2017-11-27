@@ -1380,7 +1380,9 @@ export default
                 "close": "Đóng"
             },
             "login": {
-                "username": "Số tài khoản",
+                "username": "Tài khoản",
+                "clientID": "Client ID",
+                "subaccount": "Sub Account ID",
                 "password": "Mật khẩu",
                 "securityCode": "Mã an toàn",
                 "message": {
