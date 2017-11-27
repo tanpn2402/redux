@@ -618,35 +618,28 @@ label {
 }
 /* override from bootstrap*/
 .modal {
-    padding-left: 8px;
-    padding-right: 8px;
+    text-align: center;
+    padding: 0!important;
+    top: 50px;
+    bottom: 20px;
 }
-.modal-dialog {
-    display: table;
+
+.modal:before {
+    content: '';
+    display: inline-block;
     height: 100%;
-    margin-top: 0;
-    /* width: 100%; */
-    /* margin-left: 0px; */
-    margin-bottom: 0px;
-}
-.modal-content {
-    display: table-cell;
     vertical-align: middle;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    margin-top: 0;
+    margin-right: -4px; /* Adjusts for spacing */
 }
-.modal-wrapper {
-    position: relative;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: 6px;
-    outline: 0;
-    top: -30px;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: calc(100% - 15px);
 }
 .modal-header {
     padding-top: 5px;
@@ -958,8 +951,6 @@ label {
     height: 30px;
     float: left;
     text-align: center;
-}
-.setting-panel .st-icon > i{
 }
 .setting-panel span {
     font-size: 25px;
@@ -2971,8 +2962,8 @@ label {
         width: 40vw;
     }
     .mobile .modal-dialog {
-        width: 100%;
-        margin: 0;
+        /* width: 100%; */
+        /* margin: 0; */
     }
     .mobile .modal-body {
         padding-left: 0;

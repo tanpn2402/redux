@@ -20,6 +20,14 @@ class Setting extends React.Component {
         this.retypePass = ''
 
         this.responseMap = {}
+        this._ref = {}
+
+        this.subAcc = [
+            "C0800011",
+            "C0800012",
+            "C0800013",
+            "C0800014"            
+        ]
     }
 
     doResponseMapping() { // append actual data into each list item of the list instead of hardcode all in the render part
@@ -42,6 +50,25 @@ class Setting extends React.Component {
             console.log('ERROR_', error)
         }
     }
+
+    onClick(id) {
+        let x = this._ref[id]
+        // if(x) {
+        //     var f = x.classList
+        //     if(f[f.length - 1] == "in") {
+        //         f.remove("in")
+        //     }
+        // }
+        // this._ref.map(r => {
+        //     // r.classList.remove("in")
+        // })
+        
+    }
+
+    onSubAccChange(e) {
+        let val = e.target.value
+        console.log("Sub Account Id: " + val)
+    }
     
     render() {
         let language = this.props.data.language.page
@@ -52,46 +79,61 @@ class Setting extends React.Component {
         this.doResponseMapping()
         return (
             <div>
-                <Modal.Body>
+                <div className="modal-body profile-panel" >
                     <div className="profile-list">
+
+                        <div>
+                            <div data-toggle="collapse" data-target={'#subaccount'} className="st-header" onClick={() => this.onClick("subaccount")}>
+                                <div className="st-icon"><i className="material-icons md-24">account_balance_wallet</i></div>
+                                <label aria-expanded="true" className="main-menu-header">
+                                    {"SubAccount"}
+                                </label>
+                            </div>
+                            <div id='subaccount' className="nav nav-list tree profile-item collapse in" ref={r => this._ref["subaccount"]=r}
+                                aria-expanded="true" style={{textAlign: "center", margin: "20px 0"}}>
+                                <select style={{border: "1px solid: #ccc", borderRadius: "5px", padding:"4px 10px", height: "32px"}}
+                                    onChange={(e) => this.onSubAccChange(e)}>
+                                    {
+                                        this.subAcc.map(e => <option value={e}>{e}</option>)
+                                    }
+                                </select>
+                            </div>
+                           
+                        </div>
+
                         {
                             this.list.map(e => {
+                                if(e.id === 'changepassword')
+                                    return;
                                 return (
                                     <div>
-                                        <div data-toggle="collapse" data-target={'#' + e.id} className="st-header">
+                                        <div data-toggle="collapse" data-target={'#' + e.id} className="st-header" onClick={() => this.onClick(e.id)}>
                                             <div className="st-icon"><i className="material-icons md-24">{e.icon}</i></div>
-                                            <label aria-expanded="true" className="main-menu-header">{personalProfile[e.id].title}</label>
+                                            <label aria-expanded="true" className="main-menu-header">
+                                                {personalProfile[e.id].title}
+                                            </label>
                                         </div>
-                                        <ul id={e.id} className="nav nav-list tree profile-item" aria-expanded="true">
+                                        <ul id={e.id} className="nav nav-list tree profile-item collapse" aria-expanded="true" ref={r => this._ref[e.id]=r}>
                                             {
                                                 e.value.map(v => {
-                                                    if (e.id === 'changepassword' && v === 'save') {
-                                                        return (
-                                                            <div style={{textAlign: "center"}} >
-                                                                <button className='hks-btn btn-submit'
-                                                                    onClick={() => this.onChangePassword()}>
+                                                    
+                                                    return (
+                                                        <li id={e.id + '_' + v} >
+                                                            <div style={{display: "table", width: "100%"}}>
+                                                                <Col xs={4}>
                                                                     {personalProfile[e.id][v]}
-                                                                </button>
+                                                                </Col>
+                                                                <Col xs={8}>
+                                                                    <input type={e.id === 'changepassword' ? 'password' : 'text'} 
+                                                                        value={this.responseMap[e.id + '_' + v]} id={v} 
+                                                                        className='form-control' readOnly={e.id !== 'changepassword'} 
+                                                                        onChange={(e) => this.onChangeValue(e)} />
+                                                                </Col>
                                                             </div>
-                                                        )
-                                                    } else {
-                                                        return (
-                                                            <li id={e.id + '_' + v} >
-                                                                <div style={{display: "table", width: "100%"}}>
-                                                                    <Col xs={4}>
-                                                                        {personalProfile[e.id][v]}
-                                                                    </Col>
-                                                                    <Col xs={8}>
-                                                                        <input type={e.id === 'changepassword' ? 'password' : 'text'} 
-                                                                            value={this.responseMap[e.id + '_' + v]} id={v} 
-                                                                            className='form-control' readOnly={e.id !== 'changepassword'} 
-                                                                            onChange={(e) => this.onChangeValue(e)} />
-                                                                    </Col>
-                                                                </div>
-                                                            </li>
-                                                        )
-                                                    }
-                                                })
+                                                        </li>
+                                                    )}
+                                                    
+                                                )
                                             }
                                         </ul>
                                     </div>
@@ -99,10 +141,10 @@ class Setting extends React.Component {
                             })
                         }
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button className="cancel" onClick={this.props.onHide}>{language.button.close}</Button>
-                </Modal.Footer>
+                </div>
+                <div className="modal-footer" ref={r => this.footer = r}>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.close}</button>
+                </div>
             </div>
 
             
@@ -111,6 +153,11 @@ class Setting extends React.Component {
 
     componentDidMount() {
         this.props.getClientInfo([])
+
+
+
+        //this.
+        console.log(this.footer.offsetHeight)
     }
 
     onChangePassword() {

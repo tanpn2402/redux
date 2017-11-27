@@ -41,17 +41,19 @@ class MessageBox extends Component {
                                 onHide={e => this.onClose(msg.id)} 
                                 className={this.version + " messagebox"}>
                                 <div className="modal-wrapper">
-                                    <Modal.Header closeButton style={{ backgroundColor: widgetHeader, color: font }}>
-                                        <Modal.Title>{this.props.type}</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <div className="msg-content">
-                                            {this.props.message}
-                                        </div>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button onClick={e => this.onClose(msg.id)}>OK</Button>
-                                    </Modal.Footer>
+                                    <div className="modal-inner">
+                                        <Modal.Header closeButton style={{ backgroundColor: widgetHeader, color: font }}>
+                                            <Modal.Title>{this.props.type}</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <div className="msg-content">
+                                                {this.props.message}
+                                            </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button onClick={e => this.onClose(msg.id)}>OK</Button>
+                                        </Modal.Footer>
+                                    </div>
                                 </div>
                             </Modal>
 

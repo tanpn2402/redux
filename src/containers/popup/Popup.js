@@ -27,20 +27,18 @@ class Popup extends Component {
     render() {
         let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
         let font = this.props.theme.font.sub1.color
-        console.log(font)
+
         if (this.state.show) {
             return (
-                <Modal show={true} className={this.version} dialogClassName='popup' >
-                    <div className="modal-wrapper">
-                        <div className="modal-header popup-main-header" style={{ backgroundColor: widgetHeader, color: font }} >
-                            <button type="button" className="close" onClick={e => this.onClose()}>
-                                <span aria-hidden="true">×</span>
-                                <span className="sr-only">Close</span>
-                            </button>
-                            <h4 className="title modal-title">{this.props.title}</h4>
-                        </div>
-                        {generatePopup(this.version, this.props, this.onClose.bind(this))}
-                    </div>
+                <Modal show={true} dialogClassName='popup-abc' >
+                                           <div className="modal-header popup-main-header" style={{ backgroundColor: widgetHeader, color: font }} >
+                                           <button type="button" className="close" onClick={e => this.onClose()}>
+                                               <span aria-hidden="true">×</span>
+                                               <span className="sr-only">Close</span>
+                                           </button>
+                                           <h4 className="title modal-title">{this.props.title}</h4>
+                                       </div>
+                                       {generatePopup(this.version, this.props, this.onClose.bind(this))}
                 </Modal>
             )
         }
