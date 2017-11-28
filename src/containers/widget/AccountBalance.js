@@ -105,11 +105,12 @@ class AccountBalance extends Component {
         this.defaultPageSize = 15
 
         this.params = {
-            channelID: "",
-            clientID: "",
-            tradingAccSeq: "",
+            channelID: config.cache.channelID, // mandatory
+
+            clientID: config.cache.clientID,
+            tradingAccSeq: config.cache.tradingAccSeq,
             currencyID: "",
-            language: ""
+            language: config.cache.lang
         }
     }
 
@@ -173,14 +174,9 @@ class AccountBalance extends Component {
     }
 
     onSearch(param) {
-        this.state.pageIndex = 1
-        this.params["page"] = 1
-        this.params["start"] = 0
-
-        this.params.clientID = config.cache.clientID
-        this.params.language = config.cache.lang
-        this.params.channelID = config.cache.channelID
-        
+        // this.state.pageIndex = 1
+        // this.params["page"] = 1
+        // this.params["start"] = 0
         this.props.onSearch(this.params)
     }
 

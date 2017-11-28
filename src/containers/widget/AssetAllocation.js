@@ -11,47 +11,57 @@ class AssetAllocation extends React.Component{
         this.id = 'assetallocation'
     }
 
+    toValue(v) {
+        return isNaN(v) ? 0 : v
+    }
+
     render(){
+        let res = this.props.accountbalanceResponse
         let data = []
+        let totalMarketValue = 0
+        res.marketValueList.map(e => {
+            totalMarketValue += e.totalMarketValue
+        })
+        
         if(this.props.lite) {
             data = [
                 {
                     header: 'buyingpower',
-                    value: 0.00
+                    value: this.toValue(res.buyingPower)                 
                 },
                 {
                     header: 'ledgerbalance',
-                    value: 0.00
+                    value: this.toValue(res.ledgerBalace)
                 }
             ]
         } else {
             data = [
                 {
                     header: 'creditlimit',
-                    value: 84.95
+                    value: this.toValue(res.creditLimit)
                 },
                 {
                     header: 'buyingpower',
-                    value: 41.82
+                    value: this.toValue(res.buyingPower) 
                 },
                 {
                     header: 'withdrawablebalance',
-                    value: 85.25
+                    value: this.toValue(res.withdrawableAmount)
                 },
                 {
                     header: 'totalmarketvalue',
-                    value: 31.76
+                    value: totalMarketValue
                 },
                 {
                     header: 'settled',
-                    value: 53.26
+                    value: this.toValue(res.settledBalance)
                 },
                 {
                     header: 'ledgerbalance',
                     Cell: props => {
                         return (
                             <div style={{ display: 'table', width: '100%' }} ref={ref => this.ledBalance = ref} >
-                                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>92.18</div>
+                                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>{this.toValue(res.ledgerBalace)}</div>
                             </div>
                         )
                     },
@@ -103,7 +113,9 @@ class AssetAllocation extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        accountbalanceResponse: state.accountbalance.data
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
