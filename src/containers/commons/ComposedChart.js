@@ -1,5 +1,4 @@
 import React from 'react'
-import { ComposedChart as ComposedChartRC, Tooltip, ReferenceLine, Line, Area, Legend, CartesianGrid, XAxis, YAxis } from 'recharts'
 import * as d3 from 'd3'
 
 export class ComposedChart extends React.Component {
@@ -17,6 +16,7 @@ export class ComposedChart extends React.Component {
         }
         this.simulateUpdate.bind(this)
         this.draw.bind(this)
+        this.theme = this.props.dataObject.theme
     }
 
     simulateUpdate() {
@@ -35,9 +35,8 @@ export class ComposedChart extends React.Component {
     }
 
     render(){
-        let theme = this.props.dataObject.theme
         return(
-            <div className="composedChart" style={{ background: theme.backgroundColor}} ></div>
+            <div className="composedChart" style={{ background: this.theme.backgroundColor}} ></div>
         )
     }
 
@@ -65,12 +64,12 @@ export class ComposedChart extends React.Component {
             .attr("stroke", "url(#line-gradient)")
             .attr("fill", "none")
             .attr("stroke-width", 2)
-        this.canvas.append("g").attr("transform", "translate(0, " + (this.props.dataObject.height - 20) + ")").attr("stroke", "white").call(this.xAxis)
-        this.canvas.append("g").attr("transform", "translate(40, 0)").attr("stroke", "white").call(this.yAxisIndex)
-        this.canvas.append("g").attr("transform", "translate(" + (this.props.dataObject.width - 40) + ", 0)").attr("stroke", "white").call(this.yAxisVolume)
+        this.canvas.append("g").attr("transform", "translate(0, " + (this.props.dataObject.height - 20) + ")").attr("stroke", this.theme.color).call(this.xAxis)
+        this.canvas.append("g").attr("transform", "translate(40, 0)").attr("stroke", this.theme.color).call(this.yAxisIndex)
+        this.canvas.append("g").attr("transform", "translate(" + (this.props.dataObject.width - 40) + ", 0)").attr("stroke", this.theme.color).call(this.yAxisVolume)
         this.canvas.selectAll(".domain").attr("fill", "white")
         this.canvas.append("line").attr("x1", 40).attr("y1", this.yScaleIndex(110)).attr("x2", 460).attr("y2", this.yScaleIndex(110))
-            .attr("stroke", "yellow").attr("stroke-width", 2).attr("stroke-dasharray", "5, 5")
+            .attr("stroke", this.theme.referenceLine.color).attr("stroke-width", 2).attr("stroke-dasharray", "5, 5")
         this.canvas
             .on("mousemove", () => this.handleMouseMove(this, this.canvas.node()))
             .on("mouseleave", () => this.handleMouseLeave(this, this.canvas.node()))
