@@ -180,6 +180,8 @@ class Portfolio extends Component {
     render() {
         var data = this.props.data.Instruments
         let tableFooter = this.props.theme.table.tableFooter
+        let param = this.pa
+        console.log(param)
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
@@ -217,10 +219,9 @@ class Portfolio extends Component {
 
                         searchParams={[Contants.searchElement.MARKET, /*Contants.searchElement.CURRENCY*/]}
                         searchMobileParams={[Contants.searchElement.MARKET, /*Contants.searchElement.CURRENCY*/]}
-                        searchDefaultValues={{ mvMarket: this.pa.MarketID, mvCurrency: this.pa.CurrencyID }}
+                        searchDefaultValues={{ mvMarket: param.MarketID, mvCurrency: this.pa.CurrencyID }}
                         searchActions={[]}
                         searchData={{}}
-                        searchDefaultValues={[]}
                         onSearch={this.onSearch.bind(this)}
 
                     />

@@ -135,7 +135,8 @@ export default
                 "setting": "Thiết lập",
                 "assetallocation": 'Phân bổ tài sản',
                 "assetallocationchart": 'Đồ thị phân bổ tài sản',
-                "stockinfo": "Thông tin chứng khoán"
+                "stockinfo": "Thông tin chứng khoán",
+                "daytrade": "Day Trade"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -285,6 +286,45 @@ export default
                     "modifyFailed": "Chỉnh sửa thất bại. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "cancelSuccess": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "cancelFailed": "Hủy lệnh thất bại. Vui lòng liên hệ bộ phận hỗ trợ."
+                }
+            },
+            "daytrade": {
+                "header": {
+                    "cancelmodify": "Hủy/Sửa",
+                    "price": "Giá",
+                    "quantity": "Khối lượng",
+                    "status": "Trạng thái",
+                    "ordertype": "Loại lệnh",
+                    "stockid": "Mã CK",
+                    "buysell": "Mua/Bán",
+                    "currency": "Tiền tệ",
+                    "filled": "Số lượng khớp",
+                    "triggerprice": "Trigger Price",
+                    "gtd": "GTD",
+                    "orderNo": "Mã GD",
+                    // for popup table
+                    "market": "Sàn",
+                    "tradeId": "Mã trao đổi",
+                    "stockName": "Tên chứng khoán",
+                    "buysell": "Mua/Bán",
+                    "initialPrice": "Giá khởi điểm",
+                    "newPrice": "Giá mới",
+                    "initialQuantity": "Số lượng khởi điểm",
+                    "matchedQuantity": "Số lượng khớp",
+                    "newQuantity": "Số lượng mới",
+                    "totalCash": "Tổng tiền"
+                },
+                "popup": {
+                    "title": {
+                        "modify": "Confirm Modify",
+                        "cancel": "Confirm Cancel"
+                    }
+                },
+                "message": {
+                    "modifySucces": "Order is sent. Please check again in Order journal.",
+                    "modifyFailed": "Modify order failed. Please see detail in Order journal.",
+                    "cancelSuccess": "Order is sent. Please check again in Order journal",
+                    "cancelFailed": "Cancel order falied. Please contact to support team."
                 }
             },
             "cashstatement": {

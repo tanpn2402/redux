@@ -341,7 +341,7 @@ const config = {
 			title: "daytrade",
 			enabled: true,
 			widget: [
-				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
+				{ i: 'daytrade', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false }
 			]
 		},
 		{

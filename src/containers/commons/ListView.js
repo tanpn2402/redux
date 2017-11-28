@@ -410,8 +410,11 @@ export default class ListView extends React.Component {
         }
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-                <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar}
-                    searchParams={this.props.searchMobileParams} searchDefaultValues={this.props.searchDefaultValues}
+                <SearchListView ref={ref => this.lvSearch = ref} 
+                    language={this.props.language.searchbar}
+                    searchParams={this.props.searchMobileParams} 
+                    searchData={this.props.searchData}
+                    searchDefaultValues={this.props.searchDefaultValues}
                     onChange={this.onSearchChange.bind(this)} />
                 {
                     !this.state.toRender ? "" :
@@ -467,7 +470,7 @@ class SearchListView extends React.Component {
         super(props)
         this.values = {}
         this.ref = {}
-
+        
         this.onChange = this.onChange.bind(this)
     }
 
@@ -497,13 +500,18 @@ class SearchListView extends React.Component {
             case Contants.searchElement.TRADETYPE:
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.transtype} prefix="" />
+                        default={this.props.searchDefaultValues[id]} data={config.transtype} prefix=""/>
                 )
                 break
             case Contants.searchElement.STATUS:
+                let data = []
+                if(this.props.searchData["mvStatus"] != undefined) 
+                    data = this.props.searchData["mvStatus"]
+                else 
+                    data = config.orderstatus
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.orderstatus} prefix="" />
+                        default={this.props.searchDefaultValues[id]} data={data} prefix="" />
                 )
                 break
             case Contants.searchElement.MARKET:
@@ -595,10 +603,25 @@ class Selector extends React.Component {
             value: ""
         }
     }
+
+    componentWillMount() {
+        let defaultValue = this.props.default;
+        if(defaultValue != undefined) {
+            this.setState({value: defaultValue})
+        }
+    }
+
+    componentWillReceiveProps(nProps) {
+        let defaultValue = nProps.default;
+        if(defaultValue != undefined) {
+            this.setState({value: defaultValue})
+        }
+    }
+
+    
     render() {
-        console.log("RENDER", this.state, this.props)
         let id = this.props.id + "-" + new Date().getTime()
-        let defaultValue = this.props.default !== undefined ? this.props.default : this.state.value
+        let value = this.state.value
         let data = this.props.data
         let prefix = this.props.prefix
         return (
@@ -608,7 +631,7 @@ class Selector extends React.Component {
                 </div>
                 <div className="col-xs-7">
 
-                    <select value={defaultValue} className="form-control" ref={ref => this.selector = ref}
+                    <select value={value} className="form-control" ref={ref => this.selector = ref}
                         onChange={e => this.onChange(e.target.value)}>
                         {
                             data.map(e => {

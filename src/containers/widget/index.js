@@ -36,6 +36,7 @@ import CashTransHistory from './CashTransHistory'
 import OrderHistory from './OrderHistory'
 import EnterOrder from './EnterOrder_v2'
 import OrderJournal from './OrderJournal'
+import DayTrade from './DayTrade'
 import StockMarketInfo from './StockMarketInfo'
 import AccountInfo from './AccountInfo'
 import StockInfo from './StockInfo'
@@ -191,6 +192,10 @@ export default function (menuid, props){
 		case 'orderjournal':
 			return (
 				<OrderJournal stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		case 'daytrade':
+			return (
+				<DayTrade id={menuid} stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 		case 'accountinfo':
 			return (

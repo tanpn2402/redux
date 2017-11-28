@@ -135,7 +135,8 @@ export default
                 "setting": "Setting",
                 "assetallocation": 'Asset Allocation',
                 "assetallocationchart": 'Asset Allocation Chart',
-                "stockinfo": "Stock Info"
+                "stockinfo": "Stock Info",
+                "daytrade": "Day Trade"
             },
             "searchbar": {
                 "search": "Search",
@@ -279,6 +280,45 @@ export default
                 },
                 "action": {
                     "cancelorder": "Cancel"
+                },
+                "message": {
+                    "modifySucces": "Order is sent. Please check again in Order journal.",
+                    "modifyFailed": "Modify order failed. Please see detail in Order journal.",
+                    "cancelSuccess": "Order is sent. Please check again in Order journal",
+                    "cancelFailed": "Cancel order falied. Please contact to support team."
+                }
+            },
+            "daytrade": {
+                "header": {
+                    "cancelmodify": "Cancel/Modify",
+                    "price": "Price",
+                    "quantity": "Vol",
+                    "status": "Status",
+                    "ordertype": "Type",
+                    "stockid": "Stock ID",
+                    "buysell": "BS",
+                    "currency": "Currency",
+                    "filled": "Filled",
+                    "triggerprice": "Trigger Price",
+                    "gtd": "GTD",
+                    "orderNo": "Order No.",
+                    // for popup table
+                    "market": "Market",
+                    "tradeId": "Trade Code",
+                    "stockName": "Stock Name",
+                    "buysell": "Buy/Sell",
+                    "initialPrice": "Initial Price",
+                    "newPrice": "New Price",
+                    "initialQuantity": "Initial Quantity",
+                    "matchedQuantity": "Matched Quantity",
+                    "newQuantity": "New Quantity",
+                    "totalCash": "Total Money"
+                },
+                "popup": {
+                    "title": {
+                        "modify": "Confirm Modify",
+                        "cancel": "Confirm Cancel"
+                    }
                 },
                 "message": {
                     "modifySucces": "Order is sent. Please check again in Order journal.",

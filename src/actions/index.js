@@ -40,7 +40,7 @@ import {
 } from './cashadvancebank'
 import { showPopup } from './popup'
 import { accountBalanceEnquiry } from './accountbalance'
-
+import { queryOrderInfo } from './daytrade'
 export {
   reloadCustom,
   getSavedContentLayout,
@@ -189,4 +189,7 @@ export {
   accountBalanceEnquiry,
   onCancelOrder,
   onModifyOrder,
+
+  // daytrade
+  queryOrderInfo,
 };
