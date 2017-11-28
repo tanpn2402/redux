@@ -14,3 +14,17 @@ function Porfolio (response) {
     data: response,
   }
 }
+
+
+export function portfolioEnquiryByInstrument (params) {
+  return(dispatch) => {
+    WebApi.get(ACTION.PORTFOLIOENQUIRYBYINSTRUMENT, params, dispatch, function(res) {
+      if(res) {
+        return {
+          type: ActionTypes.PORFOLIO,
+          data: res,
+        }
+      }
+    })
+  }
+}

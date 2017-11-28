@@ -7,336 +7,115 @@ import SearchBar from '../commons/SearchBar'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import Pagination from '../commons/Pagination'
-
+import config from '../../core/config'
 const images = Utils.importAll(require.context('../../assets/images/flags', false, /\.(png|jpe?g|svg)$/))
 
 const { Contants } = require("../../core/constants")
+
 class Portfolio extends Component {
     constructor(props) {
         super(props)
         this.id = "portfolio"
+        this.lang = config.cache.lang
         this.defaultPageSize = 15
 
-        this.params = {
-            mvLastAction: 'AccountInfo',
-            mvChildLastAction: 'AccountInfo',
-            key: (new Date()).getTime(),
+        this.pa = {
+            MarketID: config.marketid[0],
+            ClientID: config.cache.clientID,
+            SesssionID: config.cache.sessionID,
+
+            TradingAccSeq: "", // not Mandatory
+            CurrencyID: "", // notsee in API Spec but in UI has it 
+            Language: this.lang
         }
 
         this.state = {
             pageIndex: 1,
+        
             columns: [
                 {
-                    id: '',
-                    Header: '',
+                    id: 'MarketID',
+                    accessor: 'MarketID',
                     skip: false,
-                    columns: [
-                        {
-                            id: 'mvStockID',
-                            accessor: 'mvStockID',
-                            skip: false,
-                            show: true,
-                            width: 70,
-                            Aggregated: () => {
-                                return null
-                            }
-                        },
-                        {
-                            id: 'mvStockName',
-                            accessor: 'mvStockName',
-                            skip: false,
-                            show: true,
-                            width: 170,
-                            Aggregated: () => {
-                                return null
-                            }
-                        }
-                    ]
+                    show: true,
+                    width: 60,
+                    Pivot: (cellInfo) => {
+                        return <span> {cellInfo.row._pivotVal} </span>
+                    },
+                    mobile: false,
+                    reorderable: false,
                 },
                 {
-                    id: ' ',
-                    Header: ' ',
+                    id: 'InstrumentID',
+                    accessor: 'InstrumentID',
                     skip: false,
-                    columns: [
-                        {
-                            id: 'mvMarketID',
-                            accessor: 'mvMarketID',
-                            skip: false,
-                            show: true,
-                            width: 60,
-                            Pivot: (cellInfo) => {
-                                return <span> {cellInfo.row._pivotVal} </span>
-                            },
-                            mobile: false,
-                        }
-                    ]
+                    show: true,
+                    width: 70,
+                    Aggregated: () => {
+                        return null
+                    },
                 },
                 {
-                    id: 'mvVolume',
-                    Header: 'Volume',
-                    headerClassName: 'volume',
+                    id: "InstrumentName",
+                    accessor: "InstrumentShortName",
                     skip: false,
-                    columns: [{
-                        id: 'mvTradableQty',
-                        parent: 'mvVolume',
-                        accessor: 'mvTradableQty',
-                        skip: false,
-                        show: true,
-                        width: 100,
-                        Aggregated: () => {
-                            return null
-                        },
-                        style: {textAlign: "right"}
-                    }, {
-                        id: 'mvTSettled',
-                        parent: 'mvVolume',
-                        accessor: 'mvTSettled',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        }
-                    }, {
-                        id: 'mvHoldingAmt',
-                        parent: 'mvVolume',
-                        accessor: 'mvHoldingAmt', //not sure
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvQueuingBuy',
-                        parent: 'mvVolume',
-                        accessor: 'mvQueuingBuy', //not sure
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTT1UnsettleBuy',
-                        parent: 'mvVolume',
-                        accessor: 'mvTT1UnsettleBuy', // not sure
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTDueBuy',
-                        parent: 'mvVolume',
-                        accessor: 'mvTDueBuy',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTMortgageQty',
-                        parent: 'mvVolume',
-                        accessor: 'mvTMortgageQty',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTManualHold',
-                        parent: 'mvVolume',
-                        accessor: 'mvTManualHold',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        }
-                    }, {
-                        id: 'mvTEntitlementQty',
-                        parent: 'mvVolume',
-                        accessor: 'mvTEntitlementQty',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTAwaitingTraceCert',
-                        parent: 'mvVolume',
-                        accessor: 'mvTAwaitingTraceCert',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTAwaitingDepositCert',
-                        parent: 'mvVolume',
-                        accessor: 'mvTAwaitingDepositCert',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvTAwaitingWithdrawalCert',
-                        parent: 'mvVolume',
-                        accessor: 'mvTAwaitingWithdrawalCert',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }]
+                    show: true,
+                    width: 150,
+                    Aggregated: () => {
+                        return null
+                    },
+                    Cell: props => {return this.renderInstrumentName(props)}
                 },
                 {
-                    id: 'mvPrice',
-                    Header: 'Price',
-                    headerClassName: 'price',
+                    id: "LedgerBalance",
+                    accessor: "LedgerQty",
                     skip: false,
-                    columns: [{
-                        id: 'mvAvgPrice',
-                        parent: 'mvPrice',
-                        accessor: 'mvAvgPrice',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        }
-                    }, {
-                        id: 'mvMarketPrice',
-                        parent: 'mvPrice',
-                        accessor: 'mvMarketPrice',
-                        skip: false,
-                        show: true,
-                        width: 90,
-                        Aggregated: () => {
-                            return null
-                        }
-                    }]
+                    show: true,
+                    width: 150,
+                    Aggregated: () => {
+                        return null
+                    },
                 },
                 {
-                    id: 'PortfolioAssessment',
-                    headerClassName: 'rate',
+                    id: "Currency",
+                    accessor: "Currency",
                     skip: false,
-                    columns: [{
-                        id: 'mvWAC',
-                        parent: 'PortfolioAssessment',
-                        accessor: 'mvWAC',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvMarketValue',
-                        parent: 'PortfolioAssessment',
-                        accessor: 'mvMarketValue',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvPL',
-                        parent: 'PortfolioAssessment',
-                        accessor: 'mvPL',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvPLPercent',
-                        parent: 'PortfolioAssessment',
-                        accessor: 'mvPLPercent',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }]
+                    show: true,
+                    width: 60,
+                    Aggregated: () => {
+                        return null
+                    },
                 },
                 {
-                    id: 'mvMargin',
-                    Header: '(%) Margin',
-                    headerClassName: 'deposit',
+                    id: "UsableBalance",
+                    accessor: "UsableBalance",
                     skip: false,
-                    columns: [{
-                        id: 'mvMarginPercentage',
-                        parent: 'mvMargin',
-                        accessor: 'mvMarginPercentage',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'mvMartginValue',
-                        parent: 'mvMargin',
-                        accessor: 'mvMartginValue',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'maintenancePercentage',
-                        parent: 'mvMargin',
-                        accessor: 'maintenancePercentage',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }, {
-                        id: 'maintenanceValue',
-                        parent: 'mvMargin',
-                        accessor: 'maintenanceValue',
-                        skip: false,
-                        show: true,
-                        width: 60,
-                        Aggregated: () => {
-                            return null
-                        },
-                        mobile: false,
-                    }]
+                    show: true,
+                    width: 100,
+                    Aggregated: () => {
+                        return null
+                    },
                 },
-
+                {
+                    id: "RefPrice",
+                    accessor: "ClosingPrice",
+                    skip: false,
+                    show: true,
+                    width: 100,
+                    Aggregated: () => {
+                        return null
+                    },
+                },
+                {
+                    id: "RefMarketValue",
+                    accessor: "MarketValue",
+                    skip: false,
+                    show: true,
+                    width: 100,
+                    Aggregated: () => {
+                        return null
+                    },
+                },
                 {
                     id: 'mobileaction',
                     mobile: false,
@@ -355,11 +134,20 @@ class Portfolio extends Component {
                         )
                     }
                 }
+                
             ],
 
-
-                
             filterable: true
+        }
+    }
+
+    renderInstrumentName(props) {
+        if(props == undefined || props.original == undefined)
+            return;
+        if(this.lang === "zh_TW") {
+            return props.original.InstrumentChineseShortName
+        } else {
+            return props.original.InstrumentShortName
         }
     }
 
@@ -369,7 +157,7 @@ class Portfolio extends Component {
         // - mvStockCode = props.mvStockID
         // - mvStockName = props.mvStockName
         // - mvMarketID = props.mvMarketID
-        console.log(props)
+        // console.log(props)
         this.props.setDefaultOrderParams({
             mvBS: "BUY",
             mvStockCode: props.mvStockID,
@@ -390,7 +178,7 @@ class Portfolio extends Component {
     }
 
     render() {
-        var data = this.props.data.mvPortfolioBeanList
+        var data = this.props.data.Instruments
         let tableFooter = this.props.theme.table.tableFooter
         return (
             <div style={{ height: '100%', position: 'relative' }}>
@@ -410,7 +198,7 @@ class Portfolio extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data}
-                        pivot={['mvMarketID']}
+                        pivot={['MarketID']}
                         getPivotRowProps={(propName) => {
                             return(
                                 <div className='lv-pivot-group' >
@@ -427,13 +215,13 @@ class Portfolio extends Component {
                         onPageChange={this.onPageChange.bind(this)}
                         totalPage={Math.ceil(data.length / this.defaultPageSize)}
 
-                        searchParams={[]}
-                        searchMobileParams={[Contants.searchElement.MARKET, Contants.searchElement.CURRENCY]}
+                        searchParams={[Contants.searchElement.MARKET, /*Contants.searchElement.CURRENCY*/]}
+                        searchMobileParams={[Contants.searchElement.MARKET, /*Contants.searchElement.CURRENCY*/]}
+                        searchDefaultValues={{ mvMarket: this.pa.MarketID, mvCurrency: this.pa.CurrencyID }}
                         searchActions={[]}
                         searchData={{}}
                         searchDefaultValues={[]}
-                        onSearch={() => {}}
-                        searchEnable={false}
+                        onSearch={this.onSearch.bind(this)}
 
                     />
 
@@ -443,6 +231,11 @@ class Portfolio extends Component {
 
     }
 
+    onSearch(param) {
+        this.pa.MarketID = param.mvMarket
+        this.props.portfolioEnquiryByInstrument(this.pa);
+    }
+
     onToggleFilter(value) {
         this.setState((prevState) => {
             return { filterable: !prevState.filterable }
@@ -450,7 +243,7 @@ class Portfolio extends Component {
     }
 
     componentDidMount() {
-        this.props.getPorfolio(this.params, !this.props.reload);
+        this.props.portfolioEnquiryByInstrument(this.pa);
     }
 
     onChangeStateColumn(e) {
@@ -482,32 +275,26 @@ class Portfolio extends Component {
         this.setState({ pageIndex: pageIndex });
     }
 
-    onNextPage() {
-        this.setState({ pageIndex: parseInt(this.state.pageIndex) + 1 });
-    }
-
-    onPrevPage() {
-        this.setState({ pageIndex: parseInt(this.state.pageIndex) - 1 });
-    }
-
 }
 
 const mapStateToProps = (state) => {
     return {
-        data: state.porfolio.data,
+        data: state.porfolio.response,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    getPorfolio: (params) => {
-        dispatch(actions.getPorfolio(params))
-    },
+    
     setDefaultOrderParams: (params) => {
         dispatch(actions.setDefaultOrderParams(params))
     },
     onMobileTabClick: (id) => {
         dispatch(actions.onMobileTabClick(id));
     },
+
+    portfolioEnquiryByInstrument: (params) => {
+        dispatch(actions.portfolioEnquiryByInstrument(params))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)

@@ -12,6 +12,11 @@ const initialState = {
   	totalPL: '',
   	totalPLPercent: '',
   	totalWACValue: ''
+  },
+
+  response: {
+    ClientID: '',
+    Instruments: []
   }
 };
 
@@ -21,6 +26,11 @@ export default function (state = initialState, action) {
         action.data.mvPortfolioBeanList = action.data.mvPortfolioBeanList === null ? [] : action.data.mvPortfolioBeanList
         return Object.assign({},state,{
           data: action.data,
+        });
+    case ActionTypes.PORTFOLIOENQUIRYBYINSTRUMENT:
+        action.data.Instruments = action.data.Instruments === null ? [] : action.data.Instruments
+        return Object.assign({},state,{
+          response: action.data,
         });
 
     default:

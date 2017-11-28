@@ -206,25 +206,23 @@ export default
                 "mvStatus": "Trạng thái lệnh",
                 "mvMarket": "Sàn",
                 "mvCurrency": "Đơn vị tiền tệ",
-                "HKD": "HKS",
-                "CVY": "CVY",
-                "EUR": "EUR",
-                "TWD": "TWD",
-                "USD": "USD",
-                "HO": "HO",
-                "HA": "HA",
-                "UPCOM": "UPCOM",
                 
+                "CURRENCY_ALL": "ALL",
+                "CURRENCY_HKD": "HKS",
+                "CURRENCY_CVY": "CVY",
+                "CURRENCY_EUR": "EUR",
+                "CURRENCY_TWD": "TWD",
+                "CURRENCY_USD": "USD",
+
                 "MARKET_ALL": "Tất cả",
-                "MARKET_HO": "HO",
-                "MARKET_HA": "HA",
-                "MARKET_UPCOM": "UPCOM",
+                "MARKET_HKEX": "HKEX",
+                "MARKET_MAMK": "MAMK",
+                "MARKET_SZMK": "SZMK",
 
                 "BS_ALL": "Tất cả",
                 "BS_B": "Mua",
                 "BS_S": "Bán",
                 
-
                 "ORDERTYPE_ALL": "Tất cả",
                 "ORDERTYPE_L": "Thường",
                 "ORDERTYPE_O": "ATO",
@@ -514,6 +512,17 @@ export default
                     "cashDeposit": "Nộp tiền mặt",
                     "sellStkInMarPort": "Bán CK trong danh mục ký quỹ",
                     "sellStkNotInMarPort": "Bán CK ngoài danh mục ký quỹ"
+                },
+                "header": {
+                    "InstrumentID": "Mã CK",
+                    "InstrumentName": "Tên chứng khoán",
+                    "MarketID": "Sàn",
+                    "Currency": "Đơn vị tiền tệ",
+                    "LedgerBalance": "Ledger Balance",
+                    "UsableBalance": "Usable Balance",
+                    "RefPrice": "Ref.Price",
+                    "RefMarketValue": "Ref.MarketValue",
+
                 }
             },
             "assetallocation":{

@@ -6,7 +6,7 @@ import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit,   onCancelO
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
 import { stockSearch, getStockWatchInfo } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
-import { getPorfolio } from './porfolio'
+import { getPorfolio, portfolioEnquiryByInstrument } from './porfolio'
 import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
 import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
 import { enquiryStockStatement, exportTransactionHistory } from './stockstatement'
@@ -81,6 +81,7 @@ export {
 
   //porfolio
   getPorfolio,
+  portfolioEnquiryByInstrument,
 
   //orderhistory
   enquiryOrderHistory,

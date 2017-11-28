@@ -380,17 +380,21 @@ export default class ListView extends React.Component {
             let pivot = this.props.pivot
             isPivot = true
             data = data.reduce((pivotArr, d, i, data) => {
-                let pivotID = d[pivot[0]].toUpperCase()
-                let marketObject = pivotArr.find(object => object.pivotID == pivotID)
-                if (marketObject){
-                    marketObject.list = marketObject.list.concat(d)
-                }else{
-                    pivotArr = pivotArr.concat({
-                        pivotID: pivotID,
-                        list: [].concat(d)
-                    })
+                if(d[pivot[0]] != undefined) {
+                    let pivotID = d[pivot[0]].toUpperCase()
+                    let marketObject = pivotArr.find(object => object.pivotID == pivotID)
+                    if (marketObject){
+                        marketObject.list = marketObject.list.concat(d)
+                    }else{
+                        pivotArr = pivotArr.concat({
+                            pivotID: pivotID,
+                            list: [].concat(d)
+                        })
+                    }
+                    return pivotArr
                 }
-                return pivotArr
+                return []
+                
             }, [])
         }
         let dataObject = {
@@ -493,25 +497,25 @@ class SearchListView extends React.Component {
             case Contants.searchElement.TRADETYPE:
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.transtype} />
+                        default={this.props.searchDefaultValues[id]} data={config.transtype} prefix="" />
                 )
                 break
             case Contants.searchElement.STATUS:
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.orderstatus} />
+                        default={this.props.searchDefaultValues[id]} data={config.orderstatus} prefix="" />
                 )
                 break
             case Contants.searchElement.MARKET:
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.marketid} />
+                        default={this.props.searchDefaultValues[id]} data={config.marketid} prefix="MARKET_" />
                 )
                 break
             case Contants.searchElement.CURRENCY:
                 return (
                     <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.currency} />
+                        default={this.props.searchDefaultValues[id]} data={config.currency} prefix="CURRENCY_" />
                 )
                 break
         }
@@ -592,9 +596,11 @@ class Selector extends React.Component {
         }
     }
     render() {
+        console.log("RENDER", this.state, this.props)
         let id = this.props.id + "-" + new Date().getTime()
-        let defaultValue = this.props.default !== undefined ? this.props.default : ""
+        let defaultValue = this.props.default !== undefined ? this.props.default : this.state.value
         let data = this.props.data
+        let prefix = this.props.prefix
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
                 <div className="col-xs-5" style={{ textAlign: "left" }}>
@@ -607,7 +613,7 @@ class Selector extends React.Component {
                         {
                             data.map(e => {
                                 return (
-                                    <option key={e} value={e}>{this.props.language[e]}</option>
+                                    <option key={e} value={e}>{this.props.language[prefix + e]}</option>
                                 )
                             })
                         }
