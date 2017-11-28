@@ -1970,7 +1970,8 @@ label {
     padding: 5px 15px 5px 0;
     position: relative;
     color: white;
-    width: 200px;
+    width: 120px;
+    margin-right: 80px;
     box-sizing: border-box;
     line-height: 100%;
     vertical-align: middle;
@@ -3103,4 +3104,9 @@ label {
     }
     .maincontent-mobile .dropdown-display, .maincontent-mobile .btn-close {
         display: none;
+    }
+
+    /* marquee overlay */
+    .marquee-overlay{
+        cursor: pointer;
     }

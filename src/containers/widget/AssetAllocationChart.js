@@ -38,7 +38,7 @@ class AssetAllocationChart extends React.Component {
                 },
                 {
                     name: language['withdrawablebalance'],
-                    value: 85.25
+                    value: 56.03
                 },
                 {
                     name: language['totalmarketvalue'],
@@ -60,7 +60,7 @@ class AssetAllocationChart extends React.Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme} ref={ref => this.widgetBody = ref}>
-                    <PieChart theme={this.props.theme} colors={[]} data={data} />
+                    <PieChart theme={this.props.theme} colors={[]} data={data}/>
                 </Body>
             </div>
         )

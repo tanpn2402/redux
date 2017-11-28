@@ -33,7 +33,7 @@ class MarqueeItem extends React.Component {
         let stock = this.props.stock
         return (
             <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(stock)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
-                <li>
+                <li className="marquee-overlay" >
                     <strong className="title">{stock.title}</strong>
                     <span className={stock.status}>&nbsp;{stock.id}</span>
                     <span className="percent">
@@ -90,16 +90,8 @@ class MarqueeItem extends React.Component {
             width: 500,
             height: 250,
             threshHoldPercentage: colorBreakPointPercentage,
-            leftTicks: [109, 110, 111],
-            rightTicks: [1000, 4000, 8000],
             threshHold: colorBreakPoint,
-            indexDataKey: 'index',
-            volumeDataKey: 'volume',
             theme: this.props.theme.chart.popoverChart,
-            minIndex: minIndex,
-            maxIndex: maxIndex,
-            minVolume: minVolume,
-            maxVolume: maxVolume
         }
         return (
             <Popover id="popover-trigger-hover-focus" style={{
