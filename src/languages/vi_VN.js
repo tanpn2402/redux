@@ -233,6 +233,23 @@ export default
                 "ORDERTYPE_B": "MOK",
                 "ORDERTYPE_Z": "MAK",
                 "ORDERTYPE_R": "MTL",
+
+                "TXNTYPE_ALL": "ALL",
+                "TXNTYPE_ORDER": "ORDER",
+                "TXNTYPE_DW": "DW",
+                "TXNTYPE_TRADE": "TRADE",
+                "TXNTYPE_CASHDW": "CASHDW",
+                "TXNTYPE_CHEQUEDW": "CHEQUEDW",
+                "TXNTYPE_STOCKDW": "STOCKDW",
+                "TXNTYPE_INTEREST": "INTEREST",
+                "TXNTYPE_CASHSETTLEMENT": "CASHSETTLEMENT",
+                "TXNTYPE_STOCKSETTLEMENT": "STOCKSETTLEMENT",
+                "TXNTYPE_BANK": "BANK",
+                "TXNTYPE_DIVIDEND": "DIVIDEND",
+                "TXNTYPE_WARRANT": "WARRANT",
+                "TXNTYPE_CONVERSION": "CONVERSION",
+                "TXNTYPE_IPO": "IPO",
+                "TXNTYPE_OTHERS": "OTHERS"
             },
             "marqueebar": {
                 "status": "Trạng thái",

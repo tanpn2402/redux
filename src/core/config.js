@@ -222,6 +222,25 @@ const config = {
 		"USD"
 	],
 
+	txnType: [
+		"ALL",
+		"ORDER",
+		"DW",
+		"TRADE",
+		"CASHDW",
+		"CHEQUEDW",
+		"STOCKDW",
+		"INTEREST",
+		"CASHSETTLEMENT",
+		"STOCKSETTLEMENT",
+		"BANK",
+		"DIVIDEND",
+		"WARRANT",
+		"CONVERSION",
+		"IPO",
+		"OTHERS"
+	],
+
 	loginBy: "clientID",  // subAccount , username
 
 	widget: [

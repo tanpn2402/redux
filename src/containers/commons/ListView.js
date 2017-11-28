@@ -499,19 +499,30 @@ class SearchListView extends React.Component {
                 break
             case Contants.searchElement.TRADETYPE:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={config.transtype} prefix=""/>
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} 
+                        language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} 
+                        data={config.transtype} 
+                        baseData={this.props.searchData[id]} prefix=""/>
+                )
+                break
+            case Contants.searchElement.TXNTYPE:
+                return (
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} 
+                        language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} 
+                        data={config.txnType} 
+                        baseData={this.props.searchData[id]} prefix="TXNTYPE_"/>
                 )
                 break
             case Contants.searchElement.STATUS:
-                let data = []
-                if(this.props.searchData["mvStatus"] != undefined) 
-                    data = this.props.searchData["mvStatus"]
-                else 
-                    data = config.orderstatus
+            case Contants.searchElement.TRANSSTATUS:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
-                        default={this.props.searchDefaultValues[id]} data={data} prefix="" />
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} 
+                        language={language} onChange={this.onChange}
+                        default={this.props.searchDefaultValues[id]} 
+                        data={config.orderstatus} 
+                        baseData={this.props.searchData[id]} prefix="" />
                 )
                 break
             case Contants.searchElement.MARKET:
@@ -550,57 +561,17 @@ class SearchListView extends React.Component {
     }
 }
 
-class TransType extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: ""
-        }
-    }
-    render() {
-        let id = this.props.id + "-" + new Date().getTime()
-        let defaultValue = this.props.default !== undefined ? this.props.default : ""
-
-        return (
-            <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
-                <div className="col-xs-5" style={{ textAlign: "left" }}>
-                    <label>{this.props.language[this.props.id]}</label>
-                </div>
-                <div className="col-xs-7">
-
-                    <select value={defaultValue} class="form-control" ref={ref => this.transtype = ref}
-                        onChange={e => this.onChange(e.target.value)}>
-                        {
-                            config.transtype.map(e => {
-                                return (
-                                    <option value={e}>{this.props.language[e]}</option>
-                                )
-                            })
-                        }
-                    </select>
-                </div>
-            </div>
-        )
-    }
-
-    getValue() {
-        return this.transtype.value
-    }
-
-    onChange(value) {
-        this.setState({ value: value })
-        let tmp = {}
-        tmp[this.props.id] = this.getValue()
-        this.props.onChange(tmp)
-    }
-
-}
-
 class Selector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             value: ""
+        }
+
+        if(this.props.baseData == undefined) {
+            this.data = this.props.data
+        } else {
+            this.data = this.props.baseData
         }
     }
 
@@ -622,7 +593,7 @@ class Selector extends React.Component {
     render() {
         let id = this.props.id + "-" + new Date().getTime()
         let value = this.state.value
-        let data = this.props.data
+        let data = this.data
         let prefix = this.props.prefix
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
@@ -665,12 +636,27 @@ class SearchDate extends React.Component {
         super(props)
 
         this.state = {
-            date: moment(this.props.default, 'DD/MM/YYYY')
+            date: moment()
         }
     }
+
+    componentWillMount() {
+        let defaultValue = this.props.default;
+        if(defaultValue != undefined) {
+            this.setState({date: moment(this.props.default, Contants.dateFormat)})
+        }
+    }
+
+    componentWillReceiveProps(nProps) {
+        let defaultValue = nProps.default;
+        if(defaultValue != undefined) {
+            this.setState({date: moment(this.props.default, Contants.dateFormat)})
+        }
+    }
+
     render() {
         let id = this.props.id + "-" + new Date().getTime()
-        let defaultValue = this.props.default != undefined ? moment(this.props.default, 'DD/MM/YYYY') : moment()
+        let defaultValue = this.state.date
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
                 <div className="col-xs-5" style={{ textAlign: "left" }}>

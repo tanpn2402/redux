@@ -4,7 +4,7 @@ const {ActionTypes} = require('../core/constants')
 
 export function queryOrderInfo(params){
 	return (dispatch) => {
-        api.get(ACTION.QUERYORDERINFO, params, dispatch, function(res) {
+        api.post(ACTION.QUERYORDERINFO, params, dispatch, function(res) {
             if(res) {
                 return {
                     type: ActionTypes.QUERYORDERINFO,

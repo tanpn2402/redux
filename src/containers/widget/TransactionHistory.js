@@ -28,7 +28,7 @@ class TransactionHistory extends Component {
                 {
                     id: "stockid",
                     accessor: "mvStockID",
-                    width: 80,
+                    width: 85,
                     skip: false,
                     show: true,
                 },
@@ -40,75 +40,47 @@ class TransactionHistory extends Component {
                     show: true,
                 },
                 {
-                    id: "marketid",
+                    id: "quantity",
+                    accessor: "mvStockID",
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: "filled",
+                    accessor: "mvStockID",
+                    width: 80,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: "avgprice",
                     accessor: "mvMarketID",
                     width: 56,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "buysell",
+                    id: "status",
                     accessor: "mvBS",
                     width: 50,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "quantity",
+                    id: "ordertype",
                     accessor: "mvQty",
                     width: 80,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: "filledprice",
+                    id: "inputtime",
                     accessor: "mvFilledPrice",
                     width: 80,
                     skip: false,
                     show: true,
-                },
-                {
-                    id: "filledquantity",
-                    accessor: "mvFilledQty",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matchedvalue",
-                    accessor: "mvAvgPriceValue",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "tradingtype",
-                    accessor: "mvOrderTypeValue",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matchedorderstatus",
-                    accessor: "mvStatus",
-                    width: 80,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "matcheddate",
-                    accessor: "matchedDate",
-                    width: 130,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "tradetime",
-                    accessor: "mvInputTime",
-                    width: 100,
-                    skip: false,
-                    show: true,
-                },
+                }
 
 
             ],
@@ -116,59 +88,67 @@ class TransactionHistory extends Component {
 
             cashHisColumns: [
                 {
-                    id: 'transid',
-                    accessor: 'tranID',
-                    width: 80,
+                    id: 'stockcode',
+                    accessor: 'stockID',
+                    width: 60,
+                    sortable: false,
                     skip: false,
                     show: true,
                 },
                 {
-                    id: 'amount',
-                    accessor: 'totalLendingAmt',
-                    width: 120,
+                    id: 'stockname',
+                    accessor: 'instrumentName',
+                    width: 100,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'quantity',
+                    accessor: 'qty',
+                    width: 100,
                     skip: false,
                     skip: false,
                     show: true,
                     style: {textAlign: "right"}
                 },
                 {
-                    id: 'datetrans',
-                    accessor: 'trandate',
+                    id: 'price',
+                    width: 100,
+                    sortable: true,
+                    skip: false,
+                    show: true,
+                    style: {textAlign: "right"}
+                },
+                {
+                    id: 'currency',
+                    accessor: 'currencyID',
+                    width: 150,
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'amount',
+                    accessor: 'amt',
+                    width: 150,
+                    skip: false,
+                    show: true,
+                    style: {textAlign: "right"}
+                },
+                {
+                    id: 'transdate',
+                    accessor: 'tradeDate',
                     width: 100,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'transtype',
-
-
+                    accessor: 'txnType',
                     width: 150,
                     sortable: false,
                     skip: false,
                     show: true,
                 },
-                {
-                    id: 'status',
-                    width: 70,
-                    maxWidth: 80,
-                    sortable: true,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'notes',
-                    accessor: 'remark',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'lastupdate',
-                    accessor: 'lastApprovaltime',
-                    width: 150,
-                    skip: false,
-                    show: true,
-                }
             ],
             cashHisPageIndex: 1,
         }
@@ -177,30 +157,40 @@ class TransactionHistory extends Component {
         this.defaultPageSize = 15
 
         this.orderHisParams = {
-            start: 0,
-            limit: 15,
-            mvBS: "A",
-            mvInstrumentID: "ALL",
-            mvStatus: "ALL",
-            mvSorting: "InputTime desc",
-            mvStartTime: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+            ClientID: config.cache.clientID,        // mandatory
+            SessionID: config.cache.sessionID,        // mandatory
+
+            // MarketID: "",
+            Status: "",             // -> transaction status
+            // BranchID: "",
+            // OperatorID: "",
+            // ChannelID: "MOB",
+            StartDate: moment(new Date()).format("DD/MM/YYYY"),
+            EndDate: moment(new Date()).format("DD/MM/YYYY"),
+            Language: config.cache.lang
         }
 
-        this.cashHisParams = {
-            tradeType: 'ALL',
-            mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
-            mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
-            start: 0,
-            limit: this.defaultPageSize,
-            page: 1
+        this.transHisParams = {
+            clientID: config.cache.clientID,        // mandatory
+            sessionID: config.cache.sessionID,        // mandatory
+            
+            // tradingAccSeq: config.cache.tradingAccSeq,
+            fromDate: moment(new Date()).format("DD/MM/YYYY"),
+            toDate: moment(new Date()).format("DD/MM/YYYY"),
+            // MarketID: "",
+            // InstrumentID: "",
+            txnType: config.txnType[0],             // -> transaction type
+            Language: config.cache.lang
+            
         }
         
     }
 
 
     render() {
-        
+        let orderHisData = this.props.orderHistory
+        let transHisData = this.props.transactionHistory
+
         return (
             <div style={{ height: "100%", position: "relative" }}>
                 <Title language={this.props.language} theme={this.props.theme}>
@@ -220,21 +210,22 @@ class TransactionHistory extends Component {
 
                                         pageSize={this.defaultPageSize}
                                         columns={this.state.orderHisColumns}
-                                        tableData={this.props.orderHistory.mvOrderBeanList}
+                                        tableData={orderHisData.OrderInfo}
 
                                         pageIndex={this.state.orderHisPageIndex}
                                         onPageChange={this.onOrderHisPageChange.bind(this)}
-                                        totalPage={Math.ceil(this.props.orderHistory.mvTotalOrders / this.defaultPageSize)}
+                                        totalPage={Math.ceil(orderHisData.OrderInfo.length / this.defaultPageSize)}
                                         onExportExcel={this.onExportExcel.bind(this)}
 
-                                        searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
-                                        searchMobileParams={["mvStartDate", "mvEndDate"]}
+                                        searchParams={["mvStartDate", "mvEndDate"]}
+                                        searchMobileParams={["mvStartDate", "mvEndDate", "mvTransStatus"]}
                                         searchActions={[]}
-                                        searchData={{ stockList: this.stockList }}
-                                        searchDefaultValues={{mvStartDate: this.orderHisParams.mvStartTime, 
-                                                mvEndDate: this.orderHisParams.mvEndTime}}
+                                        searchData={{ mvTransStatus: [] }}
+                                        searchDefaultValues={{
+                                                mvStartDate: this.orderHisParams.StartTime, 
+                                                mvEndDate: this.orderHisParams.EndTime,
+                                                mvTransStatus: this.orderHisParams.Status}}
                                         onSearch={this.onOrderHisSearch.bind(this)}
-
                                     />
                                 ) : null
                             }
@@ -245,25 +236,27 @@ class TransactionHistory extends Component {
                                 (
                                     <Table 
                                         theme={this.props.theme}
-                                        id={"cashtransaction"}
+                                        id={"transactionhistory"}
                                         language={this.props.language}
-                                        key={"cashtransaction"}
+                                        key={"transactionhistory"}
                                         pageSize={this.defaultPageSize}
                                         columns={this.state.cashHisColumns}
-                                        tableData={this.props.cashTransHistory.list}
+                                        tableData={transHisData.OrderInfo}
         
                                         pageIndex={this.state.cashHisPageIndex}
                                         onPageChange={this.onCashHisPageChange.bind(this)}
-                                        totalPage={Math.ceil(this.props.cashTransHistory.totalCount / this.defaultPageSize)}
+                                        totalPage={Math.ceil(transHisData.loopCounter / this.defaultPageSize)}
                                         onExportExcel={this.onExportExcel.bind(this)}
         
-                                        searchParams={["mvStockId", "mvBuysell", "mvStartDate", "mvEndDate"]}
-                                        searchMobileParams={["mvStartDate", "mvEndDate", "tradeType"]}
+                                        searchParams={["mvStartDate", "mvEndDate", "mvTxnType"]}
+                                        searchMobileParams={["mvStartDate", "mvEndDate", "mvTxnType"]}
                                         searchActions={[]}
-                                        searchData={{ stockList: this.stockList }}
-                                        searchDefaultValues={{mvEndDate: this.cashHisParams.mvEndDate, 
-                                                mvStartDate: this.cashHisParams.mvStartDate, tradeType: this.cashHisParams.tradeType }}
-                                        onSearch={this.onCashHisSearch.bind(this)}
+                                        searchData={{ tradeType: config.txnType }}
+                                        searchDefaultValues={{
+                                                mvEndDate: this.transHisParams.toDate, 
+                                                mvStartDate: this.transHisParams.fromDate, 
+                                                tradeType: this.transHisParams.txnType }}
+                                        onSearch={this.onTransHisSearch.bind(this)}
         
                                         />
                                 ) : null
@@ -284,29 +277,21 @@ class TransactionHistory extends Component {
 
     componentDidMount() {
         this.props.onOrderHisSearch(this.orderHisParams)
-        this.props.onCashHisSearch(this.cashHisParams)
+        this.props.onTransHisSearch(this.transHisParams)
     }
 
     onOrderHisPageChange(page) {
-        this.state.orderHisPageIndex = page
-        this.orderHisParams["page"] = this.state.orderHisPageIndex
-        this.orderHisParams["start"] = (this.state.orderHisPageIndex - 1) * this.orderHisParams["limit"]
+        // this.state.orderHisPageIndex = page
+        // this.orderHisParams["page"] = this.state.orderHisPageIndex
+        // this.orderHisParams["start"] = (this.state.orderHisPageIndex - 1) * this.orderHisParams["limit"]
         this.props.onOrderHisSearch(this.orderHisParams)
     }
 
     onOrderHisSearch(param) {
-        this.state.orderHisPageIndex = 1
-        this.orderHisParams["page"] = 1
-        this.orderHisParams["start"] = 0
-
-        if(param["mvBS"] != undefined)
-            this.orderHisParams["mvBS"] = param["mvBuysell"]
-        if(param["mvInstrumentID"] != undefined)
-            this.orderHisParams["mvInstrumentID"] = param["mvStockId"]
-
-        this.orderHisParams["mvStartTime"] = param["mvStartDate"]
-        this.orderHisParams["mvEndTime"] = param["mvEndDate"]
         
+        this.orderHisParams.StartDate = param.mvStartDate
+        this.orderHisParams.EndDate = param.mvEndDate
+        this.orderHisParams.Status = param.mvTransStatus
         this.props.onOrderHisSearch(this.orderHisParams)
     }
 
@@ -315,40 +300,36 @@ class TransactionHistory extends Component {
 
 
 
-    onCashHisSearch(param) {
-        this.state.orderHisPageIndex = 1
-        this.cashHisParams["page"] = 1
-        this.cashHisParams["start"] = 0
+    onTransHisSearch(param) {
+        this.transHisParams.txnType = param.mvTxnType
+        this.transHisParams.fromDate = param.mvStartDate
+        this.transHisParams.toDate = param.mvEndDate
 
-        this.cashHisParams['tradeType'] = param["tradeType"].toUpperCase()
-        this.cashHisParams["mvStartDate"] = param["mvStartDate"]
-        this.cashHisParams["mvEndDate"] = param["mvEndDate"]
-        
-        this.props.onCashHisSearch(this.cashHisParams)
+        this.props.onTransHisSearch(this.transHisParams)
     }
 
     onCashHisPageChange(page) {
-        this.state.cashHisPageIndex = page
-        this.cashHisParams["page"] = this.state.cashHisPageIndex
-        this.cashHisParams["start"] = (this.state.cashHisPageIndex - 1) * this.cashHisParams["limit"]
-        this.props.onCashHisSearch(this.cashHisParams)
+        // this.state.cashHisPageIndex = page
+        // this.transHisParams["page"] = this.state.cashHisPageIndex
+        // this.transHisParams["start"] = (this.state.cashHisPageIndex - 1) * this.transHisParams["limit"]
+        this.props.onTransHisSearch(this.transHisParams)
     }
 
 
 }
 const mapStateToProps = (state) => {
     return {
-        orderHistory: state.orderhistory.historyOrder,
-        cashTransHistory: state.cashtranshistory.cashTransHistory
+        orderHistory: state.daytrade.response,
+        transactionHistory: state.orderhistory.transactionHistory
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onOrderHisSearch: (param, reload) => {
-        dispatch(actions.enquiryOrderHistory(param, reload))
+    onOrderHisSearch: (param) => {
+        dispatch(actions.queryOrderInfo(param))
     },
-    onCashHisSearch: (param, reload) => {
-        dispatch(actions.enquiryCashTransaction(param, reload))
+    onTransHisSearch: (param, reload) => {
+        dispatch(actions.transactionHistory(param))
     },
     onExportExcel: (param) => {
         dispatch(actions.exportOrderHistory(param))

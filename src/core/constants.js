@@ -158,7 +158,8 @@ export const ActionTypes = {
   CANCELORDER: 'CANCELORDER',
   MODIFYORDER: 'MODIFYORDER',
   PORTFOLIOENQUIRYBYINSTRUMENT: 'PORTFOLIOENQUIRYBYINSTRUMENT',
-  QUERYORDERINFO: 'QUERYORDERINFO'
+  QUERYORDERINFO: 'QUERYORDERINFO',
+  TRANSACTIONHISTORY: 'TRANSACTIONHISTORY',
 }
 
 export const Contants = {
@@ -170,5 +171,7 @@ export const Contants = {
     STATUS: 'mvStatus',
     MARKET: 'mvMarket',
     CURRENCY: 'mvCurrency',
+    TXNTYPE: 'mvTxnType',
+    TRANSSTATUS: 'mvTransStatus'
   }
 }

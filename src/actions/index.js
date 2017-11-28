@@ -7,7 +7,7 @@ import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderPa
 import { stockSearch, getStockWatchInfo } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
 import { getPorfolio, portfolioEnquiryByInstrument } from './porfolio'
-import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
+import { enquiryOrderHistory, exportOrderHistory, transactionHistory } from './orderhistory'
 import { enquiryCashTransaction, exportGetCashTransactionHistory } from './cashtranshistory'
 import { enquiryStockStatement, exportTransactionHistory } from './stockstatement'
 import { enquiryCashStatement, exportCashTransactionHistory } from './cashstatement'
@@ -189,7 +189,7 @@ export {
   accountBalanceEnquiry,
   onCancelOrder,
   onModifyOrder,
-
+  transactionHistory,
   // daytrade
   queryOrderInfo,
 };

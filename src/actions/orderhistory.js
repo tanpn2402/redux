@@ -28,3 +28,16 @@ export function exportOrderHistory(params) {
         webapi.report(ACTION.EXPORTORDERHISTORY, params, dispatch, responseExportExcel)
     }
 }
+
+export function transactionHistory(params) {
+    return (dispatch) => {
+        webapi.post(ACTION.TRANSACTIONHISTORY, params, dispatch, function(res) {
+			if(res) {
+				return {
+					type: ActionTypes.TRANSACTIONHISTORY,
+					data: res
+				}
+			}
+		})
+    }
+}

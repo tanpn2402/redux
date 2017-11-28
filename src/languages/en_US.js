@@ -207,6 +207,8 @@ export default
                 "mvStatus": "Order Status",
                 "mvMarket": "Market",
                 "mvCurrency": "Currency",
+                "mvTxnType": "Transaction Type",
+                "mvTransStatus": "Transaction Status",
 
                 "CURRENCY_ALL": "ALL",
                 "CURRENCY_HKD": "HKS",
@@ -233,6 +235,23 @@ export default
                 "ORDERTYPE_B": "MOK",
                 "ORDERTYPE_Z": "MAK",
                 "ORDERTYPE_R": "MTL",
+
+                "TXNTYPE_ALL": "ALL",
+                "TXNTYPE_ORDER": "ORDER",
+                "TXNTYPE_DW": "DW",
+                "TXNTYPE_TRADE": "TRADE",
+                "TXNTYPE_CASHDW": "CASHDW",
+                "TXNTYPE_CHEQUEDW": "CHEQUEDW",
+                "TXNTYPE_STOCKDW": "STOCKDW",
+                "TXNTYPE_INTEREST": "INTEREST",
+                "TXNTYPE_CASHSETTLEMENT": "CASHSETTLEMENT",
+                "TXNTYPE_STOCKSETTLEMENT": "STOCKSETTLEMENT",
+                "TXNTYPE_BANK": "BANK",
+                "TXNTYPE_DIVIDEND": "DIVIDEND",
+                "TXNTYPE_WARRANT": "WARRANT",
+                "TXNTYPE_CONVERSION": "CONVERSION",
+                "TXNTYPE_IPO": "IPO",
+                "TXNTYPE_OTHERS": "OTHERS"
             },
             "marqueebar": {
                 "status": "Status",
@@ -342,10 +361,31 @@ export default
                     "transid": "Trans ID",
                     "datetrans": "Trans date",
                     "transtype": "Trans type",
+                    "stockcode": "Stock Code",
+                    "stockname": "Stock Name",
                     "amount": "Amount (VND)",
                     "status": "Status",
                     "notes": "Notes",
                     "lastupdate": "Last Update"
+                },
+                "status": {
+                    "P": "Pending",
+                    "A": "Approved",
+                    "R": "Rejected",
+                    "D": "Deleted"
+                }
+            },
+            "transactionhistory": {
+                "header": {
+                    "transid": "Trans ID",
+                    "transdate": "Transaction date",
+                    "transtype": "Transaction type",
+                    "stockcode": "Stock Code",
+                    "stockname": "Stock Name",
+                    "quantity": "Qty",
+                    "price": "Price",
+                    "currency": "CCY",
+                    "amount": "Amount"
                 },
                 "status": {
                     "P": "Pending",
@@ -394,7 +434,7 @@ export default
             },
             "ordershistory": {
                 "header": {
-                    "ordergroupid": "Order ID",
+                    "ordergroupid": "Order No.",
                     "matcheddate": "Matched Date",
                     "matchedorderstatus": "Matched Status",
                     "tradingtype": "Trand type",
@@ -408,8 +448,15 @@ export default
                     "cancelquantity": "Cancel Qty",
                     "status": "Status",
                     "ordertype": "Order Type",
-                    "stockid": "StockID",
-                    "buysell": "B/S"
+                    "stockid": "Stock Code",
+                    "buysell": "B/S",
+                    "instuction": "Instruction",
+                    "quantity": "Qty",
+                    "filled": "Filled",
+                    "avgprice": "Avg. Price",
+                    "ordertype": "Order Type",
+                    "inputtime": "Input Time"
+
                 }
             },
             "oddlottrading": {
