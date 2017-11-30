@@ -120,7 +120,7 @@ export class ComposedChart extends React.Component {
         this.id = setInterval(() => {
             this.simulateUpdate()
         }, 20)
-        setTimeout(() => clearInterval(this.id), 7220)
+        setTimeout(() => clearInterval(this.id), 7225)
     }
 
     componentWillUnmount(){

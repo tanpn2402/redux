@@ -90,8 +90,11 @@ export function checkAuth() {
                                     
                                     if (savedContent.layout) {
                                         config.tabbar = Object.assign(config.tabbar, savedContent.layout)
-                                        // // config.tabbar = savedContent.layout
+                                        // config.tabbar = savedContent.layout
                                         // console.log(config.tabbar)
+                                    }
+                                    if(savedContent.technicalAnalysisSetting){
+                                        config.technical_analysis_setting = Object.assign(config.technical_analysis_setting, savedContent.technicalAnalysisSetting)
                                     }
                                     if (savedContent.lang) {
                                         let params = {
@@ -144,7 +147,9 @@ export function checkAuth() {
                                         config.tableColReorder = savedContent.tableColReorder
                                     }
                                 }
-                                catch (ex) { }
+                                catch (ex) {
+                                    console.log("EXCEPTION: "+ ex)
+                                }
 
                                 // console.log(config.cache, savedContent, localStorage.getItem("lastLang"))
                             }

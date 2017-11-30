@@ -164,8 +164,8 @@ class MarqueeBar extends React.Component {
     render() {
         return (
             <div ref={e => this.marqueeWrapper = e} className="stockMarquee" >
-                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", height: '30px' }}>{this.state.stack1}</div>
-                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "white-space": "nowrap", "display": "none", height: '30px' }}>{this.state.stack2}</div>
+                <div ref={e => this.slider = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "whiteSpace": "nowrap", height: '30px' }}>{this.state.stack1}</div>
+                <div ref={e => this.slider2 = e} style={{ "position": "absolute", "width": "3000px", "overflow": "hidden", "whiteSpace": "nowrap", "display": "none", height: '30px' }}>{this.state.stack2}</div>
             </div>
         )
     }

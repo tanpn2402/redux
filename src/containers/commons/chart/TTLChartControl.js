@@ -11,55 +11,61 @@ import PropTypes from 'prop-types'; // ES6
 
 import { Button, FormControl, FormGroup, InputGroup, Dropdown, MenuItem, DropdownButton, Glyphicon } from 'react-bootstrap';
 import Switch from "react-bootstrap-switch"
-import { IndicatorPanel_RSI, IndicatorPanel_MACD, IndicatorPanel_STC, IndicatorPanel_Vol } from "./control/IndicatorPanel"
+import { IndicatorPanel_RSI, IndicatorPanel_MACD, IndicatorPanel_STO, IndicatorPanel_Vol } from './control/IndicatorPanel'
 
-const indicatorMap = {"RSI": IndicatorPanel_RSI, "MACD": IndicatorPanel_MACD, "STC": IndicatorPanel_STC, "Volume": IndicatorPanel_Vol };
-const chartPropsList = [
-            {id: 'InChartVol', name: 'Volume', paraType: 'null'},
-            {id: 'InChartSMA', name: 'SMA', paraType: 'int', defaultValue: [10,20]},
-            {id: 'InChartWMA', name: 'WMA', paraType: 'int', defaultValue: [10,20]},
-            {id: 'InChartEMA', name: 'EMA', paraType: 'int', defaultValue: [10,20]},
-            {id: 'InChartSAR', name: 'SAR', paraType: 'float', defaultValue: [0.02,0.2]},
-            {id: 'InChartBB', name: 'Bollinger (20, 2)', paraType: 'null'},
-        ];
+import Config from '../../../core/config'
 
-class TTLChartControl extends React.Component
-{
+const indicatorMap = { 
+    "RSI": IndicatorPanel_RSI, 
+    "MACD": IndicatorPanel_MACD, 
+    "STO": IndicatorPanel_STO, 
+    "Vol": IndicatorPanel_Vol 
+};
+let chartPropsList = [
+    { id: 'InChartVol', name: 'Volume', paraType: 'null', defaultValue: 'null', switchOn: true },
+    { id: 'InChartSMA', name: 'SMA', paraType: 'int', defaultValue: [10, 20], switchOn: false },
+    { id: 'InChartWMA', name: 'WMA', paraType: 'int', defaultValue: [10, 20], switchOn: false },
+    { id: 'InChartEMA', name: 'EMA', paraType: 'int', defaultValue: [10, 20], switchOn: false },
+    { id: 'InChartSAR', name: 'SAR', paraType: 'float', defaultValue: [0.02, 0.2], switchOn: false },
+    { id: 'InChartBB', name: 'Bollinger (20, 2)', paraType: 'null', defaultValue: 'null', switchOn: false },
+];
+
+class TTLChartControl extends React.Component {
     constructor(props) {
-		super(props);
-        
-		this.refresh = this.refresh.bind(this);
-		// this.componentDidMount = this.componentDidMount.bind(this);
-        
-		this.importState = this.importState.bind(this);
-		this.exportState = this.exportState.bind(this);
-		this.refreshState = this.refreshState.bind(this);
-		this.setChartMethod = this.setChartMethod.bind(this);
-        
-		this.createAddIndicatorButton = this.createAddIndicatorButton.bind(this);
-		this.addIndicator = this.addIndicator.bind(this);
-		this.removeIndicator = this.removeIndicator.bind(this);
-		this.addIndicatorRef = this.addIndicatorRef.bind(this);
-		this.getIndicatorValues = this.getIndicatorValues.bind(this);
-		// this.changeMainChartSeries = this.changeMainChartSeries.bind(this);
-		this.changeInSubChart = this.changeInSubChart.bind(this);
-        
-		this.createIndicatorPanel = this.createIndicatorPanel.bind(this);
-		this.createInchartInputForm = this.createInchartInputForm.bind(this);
-        
+        super(props);
+
+        this.refresh = this.refresh.bind(this);
+        // this.componentDidMount = this.componentDidMount.bind(this);
+
+        this.importState = this.importState.bind(this);
+        this.exportState = this.exportState.bind(this);
+        this.refreshState = this.refreshState.bind(this);
+        this.setChartMethod = this.setChartMethod.bind(this);
+
+        this.createAddIndicatorButton = this.createAddIndicatorButton.bind(this);
+        this.addIndicator = this.addIndicator.bind(this);
+        this.removeIndicator = this.removeIndicator.bind(this);
+        this.addIndicatorRef = this.addIndicatorRef.bind(this);
+        this.getIndicatorValues = this.getIndicatorValues.bind(this);
+        // this.changeMainChartSeries = this.changeMainChartSeries.bind(this);
+        this.changeInSubChart = this.changeInSubChart.bind(this);
+
+        this.createIndicatorPanel = this.createIndicatorPanel.bind(this);
+        this.createInchartInputForm = this.createInchartInputForm.bind(this);
+
         const { chartMethod, inCharts, subCharts } = this.props;
         this.chartMethodGlobal = chartMethod;
-        
-        
-        this.state={
+
+
+        this.state = {
             indicators: [],
             refreshState: false,
             controlShow: false,
         };
         this.refMap = {};
         this.getSetMap = {};
-        this.indicatorRowIDMap={};
-        this.indicatorRefMap={};
+        this.indicatorRowIDMap = {};
+        this.indicatorRefMap = {};
         this.errorState = {};
         this.indicatorRowID = 0;
 
@@ -67,36 +73,57 @@ class TTLChartControl extends React.Component
         // init inCharts
         console.log(inCharts, subCharts)
     }
-    
-    refresh()
-    {
+
+    refresh() {
         this.setState({
             refreshState: !this.state.refreshState
         });
     }
-    
-    componentDidMount()
-    {
+
+    componentDidMount() {
         if (!this.mainChartSeries) // Borrow flag
             // this.importState(["Area"])
             // this.changeMainChartSeries("Area");
 
             // hien tai thi import state chi dung voi subCharts
-            this.importState(["Candle", this.props.inCharts , this.props.subCharts ]);
+            this.importState(["Candle", this.props.inCharts, this.props.subCharts]);
     }
-    
-    render()
-    {
-        const { indicators, refreshState, controlShow} = this.state;
-        const cm = (pEventKey, pEvent) => {this.props.handleSeriesChange(pEventKey)};
-        
+
+    mergeConfig(chartPropsList){
+        Config.technical_analysis_setting.inChartList.map(chart => {
+            let [id, para] = chart
+            chartPropsList.map(chartObj => {
+                if(chartObj.id == id){
+                    chartObj.switchOn = true
+                    chartObj.defaultValue = para
+                }
+            })
+        })
+        Config.technical_analysis_setting.subChartList.map(chart => {
+            let [id, para] = chart
+            chartPropsList.map(chartObj => {
+                if (chartObj.id == id) {
+                    chartObj.switchOn = true
+                    chartObj.defaultValue = para
+                }
+            })
+        })
+        return chartPropsList
+    }
+
+    render() {
+        const { indicators, refreshState, controlShow } = this.state;
+        const cm = (pEventKey, pEvent) => { this.props.handleSeriesChange(pEventKey) };
+
+        chartPropsList = this.mergeConfig(chartPropsList) //modify chartPropList by merging it with config from database
+
         const inChartInputForms = chartPropsList.map((chartProps) => this.createInchartInputForm(chartProps));
         const AddDropDown = (props) => this.createAddIndicatorButton("main");
         return (
             <div>
-                <Button id="ChartControlDropdown" bsSize='sm' onClick={()=>this.setState({controlShow: !controlShow})}><Glyphicon glyph="cog"/></Button>
-                <div style={{'display': (controlShow ? 'block' : 'none')}} className="TTLStockChart_C_Ctl_Disp">
-                    <div className="panel panel-default" style={{'marginBottom': '0px'}} id="mainCtrl">
+                <Button id="ChartControlDropdown" bsSize='sm' onClick={() => this.setState({ controlShow: !controlShow })}><Glyphicon glyph="cog" /></Button>
+                <div style={{ 'display': (controlShow ? 'block' : 'none') }} className="TTLStockChart_C_Ctl_Disp">
+                    <div className="panel panel-default" style={{ 'marginBottom': '0px' }} id="mainCtrl">
                         <div className="panel-heading">
                             Display
                             <div className="pull-right">
@@ -108,16 +135,16 @@ class TTLChartControl extends React.Component
                                 </DropdownButton>
                             </div>
                         </div>
-                        <div className="panel-body" style={{'padding': '0px'}}>
+                        <div className="panel-body" style={{ 'padding': '0px' }}>
                             {inChartInputForms}
                         </div>
                         <div className="panel-heading">
                             Indicators
                             <div className="pull-right">
-                                <AddDropDown/>
+                                <AddDropDown />
                             </div>
                         </div>
-                        <div className="panel-body" style={{'padding': '0px'}}>
+                        <div className="panel-body" style={{ 'padding': '0px' }}>
                             {indicators}
                         </div>
                     </div>
@@ -125,128 +152,120 @@ class TTLChartControl extends React.Component
             </div>
         );
     }
-    
-    createInchartInputForm(chartProps)
-    {
-        const {id, name, paraType, defaultValue} = chartProps;
-        
-        if (paraType == 'null')
-        {
+
+    createInchartInputForm(chartProps) {
+        const { id, name, paraType, defaultValue, switchOn } = chartProps;
+
+        if (paraType == 'null') {
             this.getSetMap[id] = {
                 setOnOff: (value) => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value(value)
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value(value)
                 },
                 getOnOff: () => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value()
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value()
                 },
-                setPara: (value) => {},
-                getPara: () => {},
+                setPara: (value) => { },
+                getPara: () => { },
                 isValid: (value) => true,
             }
         }
-        else if (paraType == 'int')
-        {
+        else if (paraType == 'int') {
             this.getSetMap[id] = {
                 setOnOff: (value) => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value(value)
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value(value)
                 },
                 getOnOff: () => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value()
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value()
                 },
                 setPara: (value) => {
-                    if(this.refMap[id+'_P'])
-                        this.refMap[id+'_P'].value = value.toString()
+                    if (this.refMap[id + '_P'])
+                        return this.refMap[id + '_P'].value = value.toString()
                 },
                 getPara: () => {
-                    if(this.refMap[id+'_P'])
-                        this.refMap[id+'_P'].value.split(",").map(pStr=>parseInt(pStr))
+                    if (this.refMap[id + '_P'])
+                        return this.refMap[id + '_P'].value.split(",").map(pStr => parseInt(pStr))
                 },
                 isValid: (value) => {
-                    if(this.refMap[id+'_P']) {
-                        if (!value) 
-                            value = this.refMap[id+'_P'].value; 
-                        const patt = /^[0-9]+$/; var result = true; 
+                    if (this.refMap[id + '_P']) {
+                        if (!value)
+                            value = this.refMap[id + '_P'].value;
+                        const patt = /^[0-9]+$/; var result = true;
                         value.split(",").forEach((str) => {
-                            if(!patt.test(str)) 
+                            if (!patt.test(str))
                                 result = false;
-                        }); 
+                        });
                         return result;
                     }
                     return false;
                 },
             }
         }
-        else if (paraType == 'float')
-        {
+        else if (paraType == 'float') {
             this.getSetMap[id] = {
                 setOnOff: (value) => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value(value)
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value(value)
                 },
                 getOnOff: () => {
-                    if(this.refMap[id+'_C'])
-                        this.refMap[id+'_C'].value()
+                    if (this.refMap[id + '_C'])
+                        return this.refMap[id + '_C'].value()
                 },
                 setPara: (value) => {
-                    if(this.refMap[id+'_P'])
-                        this.refMap[id+'_P'].value = value.toString()
+                    if (this.refMap[id + '_P'])
+                        return this.refMap[id + '_P'].value = value.toString()
                 },
                 getPara: () => {
-                    if(this.refMap[id+'_P'])
-                        this.refMap[id+'_P'].value.split(",").map(pStr=>parseFloat(pStr))
+                    if (this.refMap[id + '_P'])
+                        return this.refMap[id + '_P'].value.split(",").map(pStr => parseFloat(pStr))
                 },
                 isValid: (value) => {
-                    if(this.refMap[id+'_P']) {
-                        if (!value) 
-                            value = this.refMap[id+'_P'].value; 
-                        const patt = /^[0-9]+(\.[0-9]+)?$/; 
-                        var result = true; value.split(",").forEach((str)=> {
-                            if(!patt.test(str)) 
+                    if (this.refMap[id + '_P']) {
+                        if (!value)
+                            value = this.refMap[id + '_P'].value;
+                        const patt = /^[0-9]+(\.[0-9]+)?$/;
+                        var result = true; value.split(",").forEach((str) => {
+                            if (!patt.test(str))
                                 result = false;
-                        }); 
+                        });
                         return result;
                     }
                     return false;
                 },
             }
         }
-        
-        const onChangeInternal = (e)=>
-        {
+
+        const onChangeInternal = (e) => {
             this.errorState[id] = !this.getSetMap[id].isValid(e.target.value);
-            this.setState({refreshState: !this.setState.refreshState});
+            this.setState({ refreshState: !this.setState.refreshState });
             this.changeInSubChart();
         };
-        
+
         const formCtrl = [];
-        if (paraType != 'null')
-        {
-            formCtrl.push(<FormControl key={0} inputRef={(ref)=>this.refMap[id+'_P']=ref} defaultValue={defaultValue.toString()} type="text" onChange={onChangeInternal}/>);
+        if (paraType != 'null') {
+            formCtrl.push(<FormControl key={0} inputRef={(ref) => this.refMap[id + '_P'] = ref} defaultValue={defaultValue.toString()} type="text" onChange={onChangeInternal} />);
             formCtrl.push(<FormControl.Feedback key={1} />);
         }
         return (
-            <FormGroup key={id} bsClass="panel-body" style={{'padding': '0px'}} validationState={this.errorState[id] ? 'error' : null}>
+            <FormGroup key={id} bsClass="panel-body" style={{ 'padding': '0px' }} validationState={this.errorState[id] ? 'error' : null}>
                 <InputGroup bsSize='sm'>
                     <InputGroup.Addon>
-                        <Switch bsSize="mini" ref={(ref)=>this.refMap[id+'_C']=ref} defaultValue={false} onChange={this.changeInSubChart}/> 
+                        <Switch bsSize="mini" ref={(ref) => this.refMap[id + '_C'] = ref} defaultValue={switchOn} onChange={this.changeInSubChart} />
                         {' ' + name}
                     </InputGroup.Addon>
                     {formCtrl}
                 </InputGroup>
             </FormGroup>);
     }
-    
-    setChartMethod(pChartMethod)
-    {
+
+    setChartMethod(pChartMethod) {
         this.chartMethodGlobal = pChartMethod;
     }
-    
-    importState(pState)
-    {
+
+    importState(pState) {
         /*
         set Chart:
             - MainChart type -> pState[0]
@@ -254,38 +273,31 @@ class TTLChartControl extends React.Component
             - SubCharts List
 
          */
-        if (pState[0])
-        {
+        if (pState[0]) {
             this.changeMainChartSeries(pState[0])
         }
-        if (pState[1])
-        {
-            chartPropsList.forEach((chartProps) =>
-            {
-                const {id, defaultValue} = chartProps;
+        if (pState[1]) {
+            chartPropsList.forEach((chartProps) => {
+                const { id, defaultValue } = chartProps;
                 this.getSetMap[id].setOnOff(false);
                 this.getSetMap[id].setPara(defaultValue);
             });
-            pState[1].forEach((pInChartState) =>
-            {
+            pState[1].forEach((pInChartState) => {
                 const [id, value] = pInChartState;
                 this.getSetMap[id].setOnOff(true);
                 this.getSetMap[id].setPara(value);
             });
         }
-        if (pState[2])
-        {
+        if (pState[2]) {
             this.removeAllIndicator();
-            pState[2].forEach((pInChartState)=>
-            {
+            pState[2].forEach((pInChartState) => {
                 const [id, value, height] = pInChartState;
                 this.addIndicator(id, "last", value, height);
             });
         }
     }
-    
-    exportState()
-    {
+
+    exportState() {
         /*
         return:
             - MainChart type: Line|...
@@ -295,178 +307,158 @@ class TTLChartControl extends React.Component
         const lvInChartList = [];
         const lvSubChartList = [];
         const setMap = this.getSetMap;
-        chartPropsList.forEach((chartProps) =>
-        {
-            const {id, defaultValue} = chartProps;
-            if (setMap[id].getOnOff())
-            {
-                if (setMap[id].isValid())
+        chartPropsList.forEach((chartProps) => {
+            const { id, defaultValue } = chartProps;
+            if (setMap[id].getOnOff()) {
+                if (setMap[id].isValid()) {
                     lvInChartList.push([id, setMap[id].getPara()])
+                }
             }
         });
-    
-        this.getIndicatorValues().forEach((value)=>
-        {
+
+        this.getIndicatorValues().forEach((value) => {
             if (value)
                 lvSubChartList.push(value);
         });
-        
+
         return [this.props.mainChartSeries, lvInChartList, lvSubChartList];
     }
-    
-    refreshState()
-    {
+
+    refreshState() {
         // this.changeMainChartSeries(this.mainChartSeries);
         //refresh
         this.changeInSubChart();
     }
-    
-    createAddIndicatorButton(pIndicatorRowID)
-    {
+
+    createAddIndicatorButton(pIndicatorRowID) {
         const menuItemList = [];
-        Object.keys(indicatorMap).forEach(function(key) {
-           menuItemList.push(<MenuItem key={key} eventKey={key}>{key}</MenuItem>);
+        Object.keys(indicatorMap).forEach(function (key) {
+            menuItemList.push(<MenuItem key={key} eventKey={key}>{key}</MenuItem>);
         });
-        
-        const lvID = "Add_"+pIndicatorRowID;
-        const onSelect = (pEventKey, pEvent) => {this.addIndicator(pEventKey, pIndicatorRowID)};
+
+        const lvID = "Add_" + pIndicatorRowID;
+        const onSelect = (pEventKey, pEvent) => { this.addIndicator(pEventKey, pIndicatorRowID) };
         return (<Dropdown pullRight={true} id={lvID}>
-                    <Dropdown.Toggle noCaret bsSize='xs'>
-                        <Glyphicon glyph="plus" />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu onSelect={onSelect}>
-                        {menuItemList}
-                    </Dropdown.Menu>
-                </Dropdown>)
+            <Dropdown.Toggle noCaret bsSize='xs'>
+                <Glyphicon glyph="plus" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu onSelect={onSelect}>
+                {menuItemList}
+            </Dropdown.Menu>
+        </Dropdown>)
     }
-    
-    addIndicator(pIndicatorName, pIndicatorRowID, pDefaultValue, pDefaultHeight)
-    {
+
+    addIndicator(pIndicatorName, pIndicatorRowID, pDefaultValue, pDefaultHeight) {
         const indicators = this.state.indicators;
-        const lvIndicatorRowID = "IndicatorRow_"+(this.indicatorRowID++);
+        const lvIndicatorRowID = "IndicatorRow_" + (this.indicatorRowID++);
         const panel = this.createIndicatorPanel(pIndicatorName, lvIndicatorRowID, pDefaultValue, pDefaultHeight);
-        
-        this.indicatorRowIDMap[lvIndicatorRowID]=panel;
+
+        this.indicatorRowIDMap[lvIndicatorRowID] = panel;
         const prevPanel = this.indicatorRowIDMap[pIndicatorRowID];
-        
+
         var index;
-        if (pIndicatorRowID == "main")
-        {
+        if (pIndicatorRowID == "main") {
             index = 0;
         }
-        else if (pIndicatorRowID == "last")
-        {
+        else if (pIndicatorRowID == "last") {
             index = indicators.length;
         }
-        else
-        {
-            for (var i=0;i<indicators.length;i++)
-                if (indicators[i] == prevPanel)
-                {
-                    index = i+1;
+        else {
+            for (var i = 0; i < indicators.length; i++)
+                if (indicators[i] == prevPanel) {
+                    index = i + 1;
                     break;
                 }
         }
-        indicators.splice(index,0,panel);
-        
+        indicators.splice(index, 0, panel);
+        console.log(indicators)
         this.setState({
             indicators: indicators
         })
     }
-    
-    removeIndicator(pIndicatorRowID)
-    {
+
+    removeIndicator(pIndicatorRowID) {
         var indicators = this.state.indicators;
-        
+
         var panel = this.indicatorRowIDMap[pIndicatorRowID]
         delete this.indicatorRowIDMap[pIndicatorRowID]
         delete this.indicatorRefMap[pIndicatorRowID]
-        
-        for(var i = indicators.length - 1; i >= 0; i--)
-            if(indicators[i] === panel)
-            {
+
+        for (var i = indicators.length - 1; i >= 0; i--)
+            if (indicators[i] === panel) {
                 indicators.splice(i, 1);
                 break;
             }
-        
+
         this.setState({
             indicators: indicators
         })
-        
+
         //refresh
         this.changeInSubChart();
     }
-    
-    removeAllIndicator()
-    {
+
+    removeAllIndicator() {
         var indicators = this.state.indicators;
-        for (var i=0;i<indicators.length;i++)
-        {
+        for (var i = 0; i < indicators.length; i++) {
             delete this.indicatorRowIDMap[indicators[i].key]
             delete this.indicatorRefMap[indicators[i].key]
         }
-            
+
         this.setState({
             indicators: []
         })
-        
+
         //refresh
         this.changeInSubChart();
     }
-    
-    addIndicatorRef(pIndicatorRowID, pRef)
-    {
-        if (this.indicatorRowIDMap[pIndicatorRowID])
-        {
+
+    addIndicatorRef(pIndicatorRowID, pRef) {
+        if (this.indicatorRowIDMap[pIndicatorRowID]) {
             this.indicatorRefMap[pIndicatorRowID] = pRef;
             //refresh
             this.changeInSubChart();
         }
     }
-    
-    getIndicatorValues()
-    {
+
+    getIndicatorValues() {
         var lvSubChartListPara = [];
-        
+
         var indicators = this.state.indicators;
-        for (var i=0;i<indicators.length;i++)
-            {
-                if(this.indicatorRefMap[indicators[i].key]) {
-                    lvSubChartListPara.push(this.indicatorRefMap[indicators[i].key].getValue())
-                }
+        for (var i = 0; i < indicators.length; i++) {
+            if (this.indicatorRefMap[indicators[i].key]) {
+                lvSubChartListPara.push(this.indicatorRefMap[indicators[i].key].getValue())
             }
+        }
         return lvSubChartListPara;
     }
-    
-    changeMainChartSeries(pSeries)
-    {
+
+    changeMainChartSeries(pSeries) {
         this.mainChartSeries = pSeries;
         if (this.chartMethodGlobal)
             this.chartMethodGlobal.chartObj.setMainChartSeries(pSeries);
     }
 
-    changeInSubChart()
-    {
+    changeInSubChart() {
         var state = this.exportState();
         // if (this.chartMethodGlobal)
         //     this.chartMethodGlobal.chartObj.setSubCharts(state[1], state[2]);
         this.props.handleSetSubCharts(state[1], state[2]);
     }
 
-    createIndicatorPanel(pName, pPanelID, pDefaultValue, pDefaultHeight)
-    {
-        var onChange = ()=>this.changeInSubChart();
-        var onRemove = ()=>this.removeIndicator(pPanelID);
+    createIndicatorPanel(pName, pPanelID, pDefaultValue, pDefaultHeight) {
+        var onChange = () => this.changeInSubChart();
+        var onRemove = () => this.removeIndicator(pPanelID);
         var refFunc = (ref) => this.addIndicatorRef(pPanelID, ref);
         var addIndicatorButton = this.createAddIndicatorButton(pPanelID);
-        
+
         var Indicator = indicatorMap[pName];
-        return <Indicator key={pPanelID} ref={refFunc} onChange={onChange} onRemove={onRemove} addbutton={addIndicatorButton} defaultValue={pDefaultValue} defaultHeight={pDefaultHeight}/>;
+        return <Indicator key={pPanelID} ref={refFunc} onChange={onChange} onRemove={onRemove} addbutton={addIndicatorButton} defaultValue={pDefaultValue} defaultHeight={pDefaultHeight} />;
     }
 }
 
 TTLChartControl.propTypes = {
-	chartMethod: PropTypes.object.isRequired
+    chartMethod: PropTypes.object.isRequired
 };
 
 TTLChartControl.defaultProps = {
