@@ -19,13 +19,15 @@ import { CrossHairCursor, MouseCoordinateX, MouseCoordinateY, CurrentCoordinate 
 import { sma, wma, ema, sar, bollingerBand, macd, rsi, stochasticOscillator } from "react-stockcharts/lib/indicator";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import { OHLCTooltip, MovingAverageTooltip, BollingerBandTooltip, MACDTooltip, RSITooltip, StochasticTooltip, SingleValueTooltip } from "react-stockcharts/lib/tooltip";
+import { CandlestickSeries, LineSeries, AreaSeries, OHLCSeries, BarSeries, MACDSeries, RSISeries, StochasticSeries, SARSeries, BollingerSeries} from "react-stockcharts/lib/series";
 
 // TTL element
 import TTLMainChart from "./TTLMainChart"
 import TTLTimeLineChart from "./TTLTimeLineChart"
 import TTLChartControl from "./TTLChartControl"
 import TTLChartEditControl from "./TTLChartEditControl"
-import { CandlestickSeries, LineSeries, AreaSeries, OHLCSeries, BarSeries, MACDSeries, RSISeries, StochasticSeries, SARSeries, BollingerSeries} from "react-stockcharts/lib/series";
+
+import Config from '../../../core/config'
 
 class TTLChart extends React.Component
 {
@@ -62,7 +64,7 @@ class TTLChart extends React.Component
 
         this.interactEnabled = {};
         this.interactRef = {};
-        this.interactGraph = {};
+        this.interactGraph = this.props.config.interactGraph;
         this.undoList = [];
         
         var isMob = false;
@@ -100,7 +102,7 @@ class TTLChart extends React.Component
     componentDidMount()
     {
         this.resetXExtents();
-
+        this.interactGraph = this.props.config.interactGraph
         this.subChartVarArray = this.props.config.subCharts;
         this.inChartVarArray = this.props.config.inCharts;
         this.handleSetSubCharts(this.props.config.inCharts, this.props.config.subCharts, this.props.config)
@@ -202,6 +204,7 @@ class TTLChart extends React.Component
             this.undoList.push(id);
             this.interactEnabled[id] = false;
             this.interactGraph[id] = graph;
+            Config.technical_analysis_setting.interactGraph[id] = graph
             this.setState((prevState, props) => ({
                 drawingSwitch: !prevState.drawingSwitch
             }));
@@ -219,6 +222,7 @@ class TTLChart extends React.Component
             {
                 this.interactGraph[key] = undefined;
                 this.interactEnabled[key] = false;
+                Config.technical_analysis_setting.interactGraph[key] = undefined
             }
             this.undoList = [];
         }
@@ -228,6 +232,7 @@ class TTLChart extends React.Component
             {
                 const undoGraphID = this.undoList.pop();
                 this.interactGraph[undoGraphID].pop();
+                Config.technical_analysis_setting.interactGraph[undoGraphID].pop();
             }
         }
         else
@@ -328,6 +333,7 @@ class TTLChart extends React.Component
     handleCreateMainChartSeries(pSeriesName, pConfig){
         var pSeries = createMainChartSeries(pSeriesName, pConfig);
         this.setState({mainChartSeries: pSeries})
+        Config.technical_analysis_setting.mainChartSeries = pSeriesName
         this.prevChartType = pSeriesName;
     }
     /*
@@ -357,6 +363,8 @@ class TTLChart extends React.Component
             lvData = this.state.data.map(function (r, i) {
                 return clearDataPoint(r);
             });
+        Config.technical_analysis_setting.inChartList = Object.assign([], pInChartVarArray)
+        Config.technical_analysis_setting.subChartList = Object.assign([], pSubChartVarArray)
         this.setState({
             data: lvData,
             inChartList: lvInChartList,

@@ -107,7 +107,7 @@ IndicatorPanel.propTypes = {
     onRemove: PropTypes.func,
 }
 
-class IndicatorPanel_RSI extends IndicatorPanel
+export class IndicatorPanel_RSI extends IndicatorPanel
 {
     constructor(props)
     {
@@ -124,7 +124,7 @@ IndicatorPanel_RSI.defaultProps = {
     name: "RSI",
 };
 
-class IndicatorPanel_MACD extends IndicatorPanel
+export class IndicatorPanel_MACD extends IndicatorPanel
 {
     constructor(props)
     {
@@ -141,7 +141,7 @@ IndicatorPanel_MACD.defaultProps = {
     name: "MACD",
 };
 
-class IndicatorPanel_STC extends IndicatorPanel
+export class IndicatorPanel_STO extends IndicatorPanel
 {
     constructor(props)
     {
@@ -152,13 +152,13 @@ class IndicatorPanel_STC extends IndicatorPanel
     }
 }
 
-IndicatorPanel_STC.defaultProps = {
+IndicatorPanel_STO.defaultProps = {
     defaultValue: [14, 5, 3],
     defaultHeight: 125,
-    name: "STC",
+    name: "STO",
 };
 
-class IndicatorPanel_Vol extends IndicatorPanel
+export class IndicatorPanel_Vol extends IndicatorPanel
 {
     constructor(props)
     {
@@ -174,5 +174,3 @@ IndicatorPanel_Vol.defaultProps = {
     defaultHeight: 125,
     name: "Volume",
 };
-
-export {IndicatorPanel_RSI, IndicatorPanel_MACD, IndicatorPanel_STC, IndicatorPanel_Vol}

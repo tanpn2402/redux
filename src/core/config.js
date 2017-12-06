@@ -397,6 +397,13 @@ const config = {
 		loanRefundStatus: { i: 'loanRefundStatus', x: 2, y: 0, w: 6, h: 5, isDraggable: false, isResizable: false }
 	},
 
+	technical_analysis_setting: {
+		mainChartSeries: '',
+		inChartList: [],
+		subChartList: [],
+		interactGraph: {}
+	},
+
 	settings: [
 		{
 			id: 'language',
@@ -497,6 +504,7 @@ const config = {
 	},
 	tableColReorder: [],
 	tableColWidth: [],
+	websockID: null,
 }
 
 export default config

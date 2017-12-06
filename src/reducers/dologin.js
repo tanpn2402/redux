@@ -11,7 +11,7 @@ const initialState = {
     userSavedData: {
         mvCfgList: [],
         mvResult: null,
-        success: false
+        success: false,
     },
 
     userService: {

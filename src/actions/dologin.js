@@ -21,13 +21,16 @@ export function doLogin(params) {
             function (err) {
                 // login ERROR
                 return {
-                    type: ActionTypes.DOLOGINACTION
+                    type: ActionTypes.DOLOGINACTION,
+                    loginResult: err
                 }
             })
     }
 }
 
 export function doLogout(id) {
+    //Clear socketID
+    localStorage.removeItem('socketID')
     //Clear localstorage
     localStorage.removeItem('lastTab')
     localStorage.removeItem('lastTheme')
@@ -40,6 +43,8 @@ export function doLogout(id) {
     return (dispatch) => {
         api.post(ACTION.LOGOUT, { force: 1, fromIndexPage: "Y", sessionID: "<s:property value='mvSessionID'/>" }, dispatch,
             function (response) {
+                localStorage.removeItem("curClientID");
+                
                 window.location.assign('/login');
             },
             function (err) {
@@ -85,8 +90,11 @@ export function checkAuth() {
                                     
                                     if (savedContent.layout) {
                                         config.tabbar = Object.assign(config.tabbar, savedContent.layout)
-                                        // // config.tabbar = savedContent.layout
+                                        // config.tabbar = savedContent.layout
                                         // console.log(config.tabbar)
+                                    }
+                                    if(savedContent.technicalAnalysisSetting){
+                                        config.technical_analysis_setting = Object.assign(config.technical_analysis_setting, savedContent.technicalAnalysisSetting)
                                     }
                                     if (savedContent.lang) {
                                         let params = {
@@ -139,7 +147,9 @@ export function checkAuth() {
                                         config.tableColReorder = savedContent.tableColReorder
                                     }
                                 }
-                                catch (ex) { }
+                                catch (ex) {
+                                    console.log("EXCEPTION: "+ ex)
+                                }
 
                                 // console.log(config.cache, savedContent, localStorage.getItem("lastLang"))
                             }

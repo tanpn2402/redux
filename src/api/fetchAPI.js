@@ -3,8 +3,9 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
-const SERVER = 'http://tts.tx-tech.com:'
-const PORT = '9090/iTrade/'
+export const WEBSOCKET = 'WEBSOCKET'
+const SERVER = 'http://192.168.150.193:'
+const PORT = '8080/iTradeMAS/'
 
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'
@@ -145,6 +146,5 @@ export async function FetchAPI(id, JsonData, method) {
         url += '?' + formData
         window.location.href = url
     }
-
 
 }

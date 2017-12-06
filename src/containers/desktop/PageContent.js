@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Notification from '../main/Notification'
-import config from '../../core/config'
 import generateWindow from './view'
 
 class PageContent extends React.Component {
