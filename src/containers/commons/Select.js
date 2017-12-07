@@ -25,6 +25,8 @@ class Select extends React.Component {
                     selected={this.props.selected}
                     handleValueChange={this.handleValueChange.bind(this)}
                     optionLabelPath={this.props.optionLabelPath}
+                    optionComponent={this.props.optionComponent}
+                    selectedOptionComponent={this.props.selectedOptionComponent}
                     showClear={false}
                     searchEnabled={this.props.searchEnabled}
                 />
@@ -36,6 +38,8 @@ class Select extends React.Component {
                     selected={this.props.selected}
                     handleValueChange={this.handleValueChange.bind(this)}
                     optionLabelPath={this.props.optionLabelPath}
+                    optionComponent={this.props.optionComponent}
+                    selectedOptionComponent={this.props.selectedOptionComponent}
                     showClear={false}
                     searchEnabled={this.props.searchEnabled}
                 />
@@ -62,6 +66,8 @@ class SelectTmpA extends React.Component {
                     selected={this.props.selected}
                     onChange={this.props.handleValueChange}
                     optionLabelPath={this.props.optionLabelPath}
+                    optionComponent={this.props.optionComponent}
+                    selectedOptionComponent={this.props.selectedOptionComponent}
                     showClear={false}
                     searchEnabled={this.props.searchEnabled}
                 />
@@ -78,6 +84,8 @@ class SelectTmpB extends React.Component {
                     selected={this.props.selected}
                     onChange={this.props.handleValueChange}
                     optionLabelPath={this.props.optionLabelPath}
+                    optionComponent={this.props.optionComponent}
+                    selectedOptionComponent={this.props.selectedOptionComponent}
                     showClear={false}
                     searchEnabled={this.props.searchEnabled}
                 />
@@ -91,6 +99,7 @@ Select.defaultProps = {
     selected: null,
     optionLabelPath: null,
     optionComponent: null,
+    selectedOptionComponent: null,
     searchEnabled: false,
 }
 export default Select

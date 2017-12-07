@@ -243,6 +243,13 @@ const config = {
 
 	loginBy: "clientID",  // subAccount , username
 
+	language: [
+		{flag: "flag_GBP.png", text: "en_US"},
+		{flag: "flag_viet.jpg", text: "vi_VN"},
+		{flag: "flag_china.jpg", text: "zh_TW"},
+		{flag: "flag_china.jpg", text: "zh_CN"}		
+	],
+	
 	widget: [
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
 		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
