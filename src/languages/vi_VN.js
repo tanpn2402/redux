@@ -1446,8 +1446,9 @@ export default
                 "close": "Đóng"
             },
             "login": {
+                "title": "GIAO DỊCH TRỰC TUYẾN",
                 "username": "Tài khoản",
-                "clientID": "Client ID",
+                "clientid": "Số tài khoản",
                 "subaccount": "Sub Account ID",
                 "password": "Mật khẩu",
                 "securityCode": "Mã an toàn",

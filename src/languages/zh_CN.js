@@ -1380,13 +1380,16 @@ export default
                 "close": "Đóng"
             },
             "login": {
-                "username": "Số tài khoản",
-                "password": "Mật khẩu",
-                "securityCode": "Mã an toàn",
+                "title": "TRADING ONLINE",
+                "username": "Username",
+                "clientid": "Client ID",
+                "subaccount": "Sub Account ID",
+                "password": "Password",
+                "securityCode": "Security Code",
                 "message": {
-                    "wrongAccountNo": "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
-                    "changePasswordRequest": "Để bảo mật, quý khách vui lòng thay đổi mật khẩu cho lần đăng nhập đầu tiên",
-                    "serviceNotAvailable": "Dịch vụ web hiện không có sẵn. Quý khách vui lòng liên hệ với TTL theo số (028) 3848 4472 để được trợ giúp."
+                    "wrongAccountNo": "Wrong Account Number or Password. Please try again.",
+                    "changePasswordRequest": "Please, change your password for the first login",
+                    "serviceNotAvailable": "Web services temporarily unavailable. Please call our Customer Service Team at (028) 3848 4472 if you require assistance."
                 }
             }
         }

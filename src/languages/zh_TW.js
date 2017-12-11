@@ -1382,7 +1382,10 @@ export default
                 "complete": "Complete"
             },
             "login": {
-                "username": "Account No",
+                "title": "TRADING ONLINE",
+                "username": "Username",
+                "clientid": "Client ID",
+                "subaccount": "Sub Account ID",
                 "password": "Password",
                 "securityCode": "Security Code",
                 "message": {

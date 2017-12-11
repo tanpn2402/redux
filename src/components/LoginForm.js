@@ -10,23 +10,28 @@ import {getLanguage} from '../utils'
 import config from '../core/config'
 import Select from "../containers/commons/Select"
 
-// const OptionComponent = ({ option }) => {
-//     console.log(option)
-//     let s = "../assets/images/flags/flag_viet.jpg"
-//     let x  = require(s)
-//     return (
-//         <div>
-//             <img className="flag" src={x} />
-//             {option.name} {option.text}
-//         </div>
-//     )
-// };
+const OptionComponent = ({ option }) => {
+    //console.log(option)
+    //let s = "../assets/images/abc.jpg"
+    //console.log(s)
+    let x  = require("../assets/images/flags/" + option.flag)
+    return (
+        <div>
+            <img className="flag" src={x} />
+            {option.name} {option.text}
+        </div>
+    )
+};
 
-// const SelectedOptionComponent = ({ option }) => (
-//     <b style={{ color: 'orange' }}>
-        
-//     </b>
-// );
+const SelectedOptionComponent = ({ option }) => {
+    let x  = require("../assets/images/flags/" + option.flag)
+    console.log(option)
+    return (
+        <div>
+            <img className="flag" src={x} />
+        </div>
+    )
+};
 
 
 class LoginForm extends Component {
@@ -70,12 +75,14 @@ class LoginForm extends Component {
         this.setState({language: nextProps.language})
     }
 
-    handleChange = ({ option }) => {
-        this.setState({ language: option });
-      };
+    handleLangChange(option) {
+        this.params.language = option.id
+
+        this.setState({ mvLanguage: option })
+    };
 
     render() {
-        let language = getLanguage(this.state.language).page
+        let language = getLanguage(this.state.mvLanguage.id).page
         let configLang = config.language
         
 
@@ -123,19 +130,19 @@ class LoginForm extends Component {
                         <div className="language-selector">
                            
 
-                            {/* <Select
+                            <Select
                                 ket="rStockSelector"
                                 options={configLang}
                                 selected={this.state.mvLanguage}
                                 optionLabelPath={'text'}
                                 optionComponent={<OptionComponent />}
                                 selectedOptionComponent={<SelectedOptionComponent />}
-                                handleChange={this.handleChange.bind(this)}
-                            /> */}
+                                handleChange={this.handleLangChange.bind(this)}
+                            />
                         </div>
                     </div>
                     <div className="login-body">
-                        <h3>GIAO DỊCH TRỰC TUYẾN</h3>
+                        <h3>{language.login.title}</h3>
                         <Form horizontal onSubmit={this.onSubmit} className="login-form">
                             {userForm}
                             <FormGroup>
@@ -159,6 +166,11 @@ class LoginForm extends Component {
                             </FormGroup>
 
                             
+                            <div className="login-message">
+                                {this.props.loginStatus === "ERROR"
+                                    ? language.login.message.serviceNotAvailable
+                                    : this.props.loginResult.mvMessage}
+                            </div>
                             
                             <div className="login-button-group">
                                 <button className={"hks-btn btn-login" + (this.props.loginStatus === "ERROR" ? " disabled" : "")} 
@@ -169,25 +181,21 @@ class LoginForm extends Component {
                         </Form>
                     </div>
                     <div className="login-footer">
-                        <ul className="links">
+                        {/* <ul className="links">
                             <li><a href="#">Hướng dẫn</a></li>	
                             <li><a href="#">Hỗ trợ</a></li>	
                             <li><a href="#">Bảo mật</a></li>	
                             <li><a href="#">Đ.khoản sử dụng</a></li>
-                        </ul>
+                        </ul> */}
 
                         <div className="about">
-                            <strong>TRỤ SỞ CHÍNH</strong>
+                            <strong>Hong Kong Head Office</strong>
                             <div>
-                                Tòa nhà Le Meridien, Tầng 7, 3C Tôn Đức Thắng, Phường Bến Nghé, 
-                                Quận 1, Tp. Hồ Chí Minh
-                                ĐT: 84-28-39102222 Fax: 84-28-39107222
+                                21/F, Guangdong Finance Building, 88 Connaught Road West, Sheung Wan, Hong Kong
                             </div>
-                            <strong>TRỤ SỞ CHÍNH</strong>
+                            <strong>Vietnam Office</strong>
                             <div>
-                                Tòa nhà Le Meridien, Tầng 7, 3C Tôn Đức Thắng, Phường Bến Nghé, 
-                                Quận 1, Tp. Hồ Chí Minh
-                                ĐT: 84-28-39102222 Fax: 84-28-39107222
+                                5/F HBT Tower, 456-458 Hai Bai Trung Street, Tan Dinh Ward, Dist. 1, HCMC, Vietnam
                             </div>
                         </div>
                     </div>
@@ -197,10 +205,6 @@ class LoginForm extends Component {
         )
     }
 
-    onLanguageChange(val) {
-        this.params.language = val
-        this.setState({language: val})
-    }
 
     onSubmit(e) {
         e.preventDefault();

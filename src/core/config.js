@@ -244,10 +244,10 @@ const config = {
 	loginBy: "clientID",  // subAccount , username
 
 	language: [
-		{flag: "flag_GBP.png", text: "en_US"},
-		{flag: "flag_viet.jpg", text: "vi_VN"},
-		{flag: "flag_china.jpg", text: "zh_TW"},
-		{flag: "flag_china.jpg", text: "zh_CN"}		
+		{flag: "flag_GBP.png", id: "en_US", text: "English"},
+		{flag: "flag_viet.jpg", id: "vi_VN", text: "Tiếng Việt"},
+		{flag: "flag_china.jpg", id: "zh_TW", text: "中國"},
+		{flag: "flag_china.jpg", id: "zh_CN", text: "中国"}		
 	],
 	
 	widget: [

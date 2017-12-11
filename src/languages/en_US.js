@@ -1415,6 +1415,7 @@ export default
                 "complete": "Complete"
             },
             "login": {
+                "title": "TRADING ONLINE",
                 "username": "Username",
                 "clientid": "Client ID",
                 "subaccount": "Sub Account ID",

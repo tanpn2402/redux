@@ -562,6 +562,12 @@ label {
     padding: 10px 30px;
     width: 60%;
 }
+.hks-btn.btn-login.disabled {
+    background-color: #000;
+}
+.hks-btn.btn-login.disabled:hover {
+    opacity: 1;
+}
 .login-button-group {
     text-align: center;
     padding: 10px 0;
@@ -577,12 +583,21 @@ label {
     list-style: none;
 }
 .login .links li {
-    padding: 20px 0;
+    padding: 15px 0;
     display: inline-block;
     text-align: center;
     width: 25%;
 }
-
+.login .about {
+    margin-top: 10px;
+}
+.login .select-control {
+    box-shadow: none;
+    background-color: transparent;
+}
+.login-message {
+    color: #FF0033;
+}
 @media(max-width: 767px) {
     .login-wrapper {
         width: 95%;
@@ -2576,6 +2591,11 @@ label {
     width:50px;
     word-break:break-all;
     user-select: none;
+}
+.PowerSelect__Menu {
+    min-width: 120px !important;
+    position: absolute !important;
+    left: -46px !important;
 }
 /* END SELECT CONTROL */
 
