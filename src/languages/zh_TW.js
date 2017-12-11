@@ -1,8 +1,8 @@
 const { Contants } = require('../core/constants')
 export default
     {
-        "lang": "en_US",
-        "title": "en_US",
+        "lang": "zh_TW",
+        "title": "zh_TW",
         "page": {
             "tab": {
                 "trading": "Trading",
@@ -135,8 +135,7 @@ export default
                 "setting": "Setting",
                 "assetallocation": 'Asset Allocation',
                 "assetallocationchart": 'Asset Allocation Chart',
-                "stockinfo": "Stock Info",
-                "daytrade": "Day Trade"
+                "stockinfo": "Stock Info"
             },
             "searchbar": {
                 "search": "Search",
@@ -207,25 +206,25 @@ export default
                 "mvStatus": "Order Status",
                 "mvMarket": "Market",
                 "mvCurrency": "Currency",
-                "mvTxnType": "Transaction Type",
-                "mvTransStatus": "Transaction Status",
+                "HKD": "HKS",
+                "CVY": "CVY",
+                "EUR": "EUR",
+                "TWD": "TWD",
+                "USD": "USD",
+                "HO": "HO",
+                "HA": "HA",
+                "UPCOM": "UPCOM",
 
-                "CURRENCY_ALL": "ALL",
-                "CURRENCY_HKD": "HKS",
-                "CURRENCY_CVY": "CVY",
-                "CURRENCY_EUR": "EUR",
-                "CURRENCY_TWD": "TWD",
-                "CURRENCY_USD": "USD",
-                
                 "MARKET_ALL": "ALL",
-                "MARKET_HKEX": "HKEX",
-                "MARKET_MAMK": "MAMK",
-                "MARKET_SZMK": "SZMK",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_UPCOM": "UPCOM",
 
                 "BS_ALL": "ALL",
                 "BS_B": "BUY",
                 "BS_S": "SELL",
                 
+
                 "ORDERTYPE_ALL": "ALL",
                 "ORDERTYPE_L": "Normal",
                 "ORDERTYPE_O": "ATO",
@@ -235,23 +234,6 @@ export default
                 "ORDERTYPE_B": "MOK",
                 "ORDERTYPE_Z": "MAK",
                 "ORDERTYPE_R": "MTL",
-
-                "TXNTYPE_ALL": "ALL",
-                "TXNTYPE_ORDER": "ORDER",
-                "TXNTYPE_DW": "DW",
-                "TXNTYPE_TRADE": "TRADE",
-                "TXNTYPE_CASHDW": "CASHDW",
-                "TXNTYPE_CHEQUEDW": "CHEQUEDW",
-                "TXNTYPE_STOCKDW": "STOCKDW",
-                "TXNTYPE_INTEREST": "INTEREST",
-                "TXNTYPE_CASHSETTLEMENT": "CASHSETTLEMENT",
-                "TXNTYPE_STOCKSETTLEMENT": "STOCKSETTLEMENT",
-                "TXNTYPE_BANK": "BANK",
-                "TXNTYPE_DIVIDEND": "DIVIDEND",
-                "TXNTYPE_WARRANT": "WARRANT",
-                "TXNTYPE_CONVERSION": "CONVERSION",
-                "TXNTYPE_IPO": "IPO",
-                "TXNTYPE_OTHERS": "OTHERS"
             },
             "marqueebar": {
                 "status": "Status",
@@ -307,45 +289,6 @@ export default
                     "cancelFailed": "Cancel order falied. Please contact to support team."
                 }
             },
-            "daytrade": {
-                "header": {
-                    "cancelmodify": "Cancel/Modify",
-                    "price": "Price",
-                    "quantity": "Vol",
-                    "status": "Status",
-                    "ordertype": "Type",
-                    "stockid": "Stock ID",
-                    "buysell": "BS",
-                    "currency": "Currency",
-                    "filled": "Filled",
-                    "triggerprice": "Trigger Price",
-                    "gtd": "GTD",
-                    "orderNo": "Order No.",
-                    // for popup table
-                    "market": "Market",
-                    "tradeId": "Trade Code",
-                    "stockName": "Stock Name",
-                    "buysell": "Buy/Sell",
-                    "initialPrice": "Initial Price",
-                    "newPrice": "New Price",
-                    "initialQuantity": "Initial Quantity",
-                    "matchedQuantity": "Matched Quantity",
-                    "newQuantity": "New Quantity",
-                    "totalCash": "Total Money"
-                },
-                "popup": {
-                    "title": {
-                        "modify": "Confirm Modify",
-                        "cancel": "Confirm Cancel"
-                    }
-                },
-                "message": {
-                    "modifySucces": "Order is sent. Please check again in Order journal.",
-                    "modifyFailed": "Modify order failed. Please see detail in Order journal.",
-                    "cancelSuccess": "Order is sent. Please check again in Order journal",
-                    "cancelFailed": "Cancel order falied. Please contact to support team."
-                }
-            },
             "cashstatement": {
                 "header": {
                     "date": "Date",
@@ -361,31 +304,10 @@ export default
                     "transid": "Trans ID",
                     "datetrans": "Trans date",
                     "transtype": "Trans type",
-                    "stockcode": "Stock Code",
-                    "stockname": "Stock Name",
                     "amount": "Amount (VND)",
                     "status": "Status",
                     "notes": "Notes",
                     "lastupdate": "Last Update"
-                },
-                "status": {
-                    "P": "Pending",
-                    "A": "Approved",
-                    "R": "Rejected",
-                    "D": "Deleted"
-                }
-            },
-            "transactionhistory": {
-                "header": {
-                    "transid": "Trans ID",
-                    "transdate": "Transaction date",
-                    "transtype": "Transaction type",
-                    "stockcode": "Stock Code",
-                    "stockname": "Stock Name",
-                    "quantity": "Qty",
-                    "price": "Price",
-                    "currency": "CCY",
-                    "amount": "Amount"
                 },
                 "status": {
                     "P": "Pending",
@@ -434,7 +356,7 @@ export default
             },
             "ordershistory": {
                 "header": {
-                    "ordergroupid": "Order No.",
+                    "ordergroupid": "Order ID",
                     "matcheddate": "Matched Date",
                     "matchedorderstatus": "Matched Status",
                     "tradingtype": "Trand type",
@@ -448,15 +370,8 @@ export default
                     "cancelquantity": "Cancel Qty",
                     "status": "Status",
                     "ordertype": "Order Type",
-                    "stockid": "Stock Code",
-                    "buysell": "B/S",
-                    "instuction": "Instruction",
-                    "quantity": "Qty",
-                    "filled": "Filled",
-                    "avgprice": "Avg. Price",
-                    "ordertype": "Order Type",
-                    "inputtime": "Input Time"
-
+                    "stockid": "StockID",
+                    "buysell": "B/S"
                 }
             },
             "oddlottrading": {
@@ -538,15 +453,67 @@ export default
             },
             "portfolio": {
                 "header": {
-                    "InstrumentID": "Stock Code",
-                    "InstrumentName": "Stock Name",
-                    "MarketID": "Market",
-                    "Currency": "Currency",
-                    "LedgerBalance": "Ledger Balance",
-                    "UsableBalance": "Usable Balance",
-                    "RefPrice": "Ref.Price",
-                    "RefMarketValue": "Ref.MarketValue",
-
+                    "mvStockName": "Stock Name",
+                    "mvMarketID": "Market",
+                    "sumary": "Sumary",
+                    "valuevnd": "Value (VND)",
+                    "value": "Value",
+                    "cashinfo": "Cash information",
+                    "portfolioassessment": "Portfolio assessment",
+                    "marginposition": "Margin position",
+                    "cash": "Cash",
+                    "stock": "Stock",
+                    "mvStockID": "Stock",
+                    "mvTradableQty": "Total volume",
+                    "mvTSettled": "Usable",
+                    "mvHoldingAmt": "Hold in day",
+                    "mvQueuingBuy": "T0 buy",
+                    "mvTT1UnsettleBuy": "T1 buy",
+                    "mvTDueBuy": "T2 buy",
+                    "mvTMortgageQty": "Mortgage",
+                    "mvTManualHold": "Hold",
+                    "mvTEntitlementQty": "Pend.entitlement",
+                    "mvTAwaitingTraceCert": "Await trading",
+                    "mvTAwaitingDepositCert": "Await deposit",
+                    "mvTAwaitingWithdrawalCert": "Await withdraw",
+                    "mvAvgPrice": "Avg price",
+                    "mvMarketPrice": "Current price",
+                    "mvWAC": "Buy value",
+                    "mvMarketValue": "Market value",
+                    "mvPL": "P/L",
+                    "mvPLPercent": "% P/L",
+                    "mvMarginPercentage": "% Lend",
+                    "mvMartginValue": "Lending value",
+                    "maintenancePercentage": "% Maintenance",
+                    "maintenanceValue": "Maintenance value",
+                    "totalAsset": "Total asset",
+                    "equity": "Equity",
+                    "stockValue": "Total stock market value",
+                    "profitLoss": "Profit/Loss",
+                    "PLPercent": "% Profit/Loss (per equity)",
+                    "cashBalance": "Cash balance(withdrawable)",
+                    "mvAvailAdvanceMoney": "Cash advanceable",
+                    "mvBuyHoldAmount": "Hold for executed purchase",
+                    "mvHoldAmount": "Hold for pending purchase",
+                    "CPendingWithdrawal": "Pending approval for withdrawal",
+                    "soldT0": "Sold T+0",
+                    "soldT1": "Sold T+1",
+                    "soldT2": "Sold T+2",
+                    "equityMar": "Total asset maintenance",
+                    "totalAssetMaintenance": "Equity (margin portfolio)",
+                    "stockMaintenance": "Stock maintenance",
+                    "cashMaintenance": "Cash maintenance",
+                    "mvOutstandingLoan": "Outstanding loan",
+                    "debtIncByPurchase": "Debt increase by purchase",
+                    "debitAccruedInterest": "Accured debit interest",
+                    "mvCreditLimit": "Credit limit",
+                    "lendableValue": "Lendable value",
+                    "minMarginReq": "Minimum margin requirement",
+                    "curLiqMargin": "Current liquidating margin",
+                    "marginableBalf": "Margin call (by options)",
+                    "cashDeposit": "Cash deposit",
+                    "sellStkInMarPort": "Selling stock in margin portfolio",
+                    "sellStkNotInMarPort": "Selling stock not in margin portfolio"
                 }
             },
             "assetallocation": {

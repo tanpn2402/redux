@@ -484,120 +484,148 @@ label {
 }
 /*END DROPDOWN CHECKBOX*/
 /* LOGIN */
-.login-form-wrapper {
+.login {
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: absolute;
-    background-color: #003664;
+    background-image: url("../assets/images/abc.jpg");
+    background-size: cover;
+    overflow-y: auto;
 }
 
-.login-form-header {
-    width: 100%;
-    height: auto;   
-    border-bottom: 3px solid rgb(75, 99, 123);
-    position: absolute;
+.login-wrapper {
+    width: 550px;
+    height: max-content;
     background-color: white;
-}
-
-#company-logo {
-    height: 90px;
-    width: 300px;
-    display: inline-block;
-    position: relative;
-    margin: 0 15px;
-    background: url(../assets/images/logo_main_ttl.png);
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-
-.login-form-footer {
-    width: 100%;
-    height: auto;
-    border-top: 3px solid rgb(75, 99, 123);
+    border-radius: 5px;
     position: absolute;
-    bottom: 0px;
-    color: white;
-}
-.login-form-footer > .col-sm-4 {
-    padding: 10px;
-}
-.login-form-body {
-    top: 0;
-    right: 0;
+    top:0;
     bottom: 0;
     left: 0;
-    position: absolute;
+    right: 0;
+    padding: 40px;
     margin: auto;
-    box-sizing: border-box;
-    width: 400px;
-    height: 250px;
 }
-.login-form {
-    color: #fff;
-    padding: 20px 30px 40px 30px;
-    width: 400px;
-    height: 250px;
-
-    border: 3px solid #ff6600;
-    border-radius: 5px;
-    background-color: #003664;
-    font-size: 15px;
+.login-header {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-top: 10px;padding-bottom: 10px;
 }
-.login-form > .form-group {
-    margin-bottom: 10px;
-    font-size: 15px;
+.login-header .logo {
+    float: left;
 }
-.login-message {
-    margin-top: 10px;
-    width: 400px;
+.login-header .logo img {
+    width: 200px;
+}
+.login-header .language-selector {
+    float: right;
+    padding-top: 3px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.login-body {
+    padding: 5px 0;
+}
+.login-body h3 {
     text-align: center;
-    color: #ffff00;
-    
+    margin-bottom: 30px;
 }
-.login-form .hks-input {
-    color: black;
-}
-.login-form #security-image {
-    border-radius: 2px;
+.login-form input {
     height: 40px;
-    border: 1px solid #dcdcdc;
-    background-color: #f0f1f1;
-    padding: 1px;
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
+    border-radius: 0 !important;
+    font-size: 18px;
 }
-.login-form #security-image > img {
-    border-radius: 2px;
-    height: 38px;
+.login-form .title {
+    text-align: left;
+    padding-top: 15px;
+    font-size: 14px;
+}
+.login-form .security-input {
+    position: absolute;
+    padding-right: 120px;
+}
+.login-form .security-image {
+    float: right;
+    z-index: 1;
+    top: -4px;
+    position: relative;
+}
+
+.hks-btn.btn-login {
+    background-color: #16377c;
+    border-radius: 4px;
+    padding: 10px 30px;
+    width: 60%;
+}
+.hks-btn.btn-login.disabled {
+    background-color: #000;
+}
+.hks-btn.btn-login.disabled:hover {
+    opacity: 1;
 }
 .login-button-group {
     text-align: center;
-}
-.hks-btn.btn-login {
-    background-color: #ff6600;
-    border: none; 
-    color: #fff;
-    padding: 8px 35px;
-}
-.hks-btn.btn-login.disabled {
-    background-color: #575757;
-    cursor: not-allowed;
-}
-@media(max-width: 400px) {
-    .login-form-body {
-        width: 100%;
-        padding: 0 10px;
-    }
-    .login-form {
-        width: 100%;
-    }
-}
- */
-.form-group {
-    margin: 0;
-    font-size: 12px;
+    padding: 10px 0;
 }
 
+.login-footer {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.login .links {
+    padding: 0;
+    list-style: none;
+}
+.login .links li {
+    padding: 15px 0;
+    display: inline-block;
+    text-align: center;
+    width: 25%;
+}
+.login .about {
+    margin-top: 10px;
+}
+.login .select-control {
+    box-shadow: none;
+    background-color: transparent;
+}
+.login-message {
+    color: #FF0033;
+}
+@media(max-width: 767px) {
+    .login-wrapper {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .login .links li {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        padding: 10px 0;
+    }
+}
+@media(max-width: 400px) {
+   
+    .login .about {
+        display: none;
+    }
+    .login h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
+    .login-footer {
+        margin-top: 0px;
+    }
+}
 /*END LOGIN*/
 
 

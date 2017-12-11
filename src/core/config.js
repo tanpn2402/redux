@@ -221,6 +221,15 @@ const config = {
 		"TWD",
 		"USD"
 	],
+	
+	loginBy: "clientID",  // subAccount , username
+
+	language: [
+		{flag: "flag_GBP.png", id: "en_US", text: "English"},
+		{flag: "flag_viet.jpg", id: "vi_VN", text: "Tiếng Việt"},
+		{flag: "flag_china.jpg", id: "zh_TW", text: "中國"},
+		{flag: "flag_china.jpg", id: "zh_CN", text: "中国"}		
+	],
 
 	widget: [
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },

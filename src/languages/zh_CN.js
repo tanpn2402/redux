@@ -1,8 +1,8 @@
 const { Contants } = require('../core/constants')
 export default
     {
-        "lang": "vi_VN",
-        "title": "vi_VN",
+        "lang": "zh_CN",
+        "title": "zh_CN",
         "page": {
             "tab": {
                 "trading": "Giao dịch",
@@ -135,8 +135,7 @@ export default
                 "setting": "Thiết lập",
                 "assetallocation": 'Phân bổ tài sản',
                 "assetallocationchart": 'Đồ thị phân bổ tài sản',
-                "stockinfo": "Thông tin chứng khoán",
-                "daytrade": "Day Trade"
+                "stockinfo": "Thông tin chứng khoán"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -207,23 +206,25 @@ export default
                 "mvStatus": "Trạng thái lệnh",
                 "mvMarket": "Sàn",
                 "mvCurrency": "Đơn vị tiền tệ",
+                "HKD": "HKS",
+                "CVY": "CVY",
+                "EUR": "EUR",
+                "TWD": "TWD",
+                "USD": "USD",
+                "HO": "HO",
+                "HA": "HA",
+                "UPCOM": "UPCOM",
                 
-                "CURRENCY_ALL": "ALL",
-                "CURRENCY_HKD": "HKS",
-                "CURRENCY_CVY": "CVY",
-                "CURRENCY_EUR": "EUR",
-                "CURRENCY_TWD": "TWD",
-                "CURRENCY_USD": "USD",
-
                 "MARKET_ALL": "Tất cả",
-                "MARKET_HKEX": "HKEX",
-                "MARKET_MAMK": "MAMK",
-                "MARKET_SZMK": "SZMK",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_UPCOM": "UPCOM",
 
                 "BS_ALL": "Tất cả",
                 "BS_B": "Mua",
                 "BS_S": "Bán",
                 
+
                 "ORDERTYPE_ALL": "Tất cả",
                 "ORDERTYPE_L": "Thường",
                 "ORDERTYPE_O": "ATO",
@@ -233,23 +234,6 @@ export default
                 "ORDERTYPE_B": "MOK",
                 "ORDERTYPE_Z": "MAK",
                 "ORDERTYPE_R": "MTL",
-
-                "TXNTYPE_ALL": "ALL",
-                "TXNTYPE_ORDER": "ORDER",
-                "TXNTYPE_DW": "DW",
-                "TXNTYPE_TRADE": "TRADE",
-                "TXNTYPE_CASHDW": "CASHDW",
-                "TXNTYPE_CHEQUEDW": "CHEQUEDW",
-                "TXNTYPE_STOCKDW": "STOCKDW",
-                "TXNTYPE_INTEREST": "INTEREST",
-                "TXNTYPE_CASHSETTLEMENT": "CASHSETTLEMENT",
-                "TXNTYPE_STOCKSETTLEMENT": "STOCKSETTLEMENT",
-                "TXNTYPE_BANK": "BANK",
-                "TXNTYPE_DIVIDEND": "DIVIDEND",
-                "TXNTYPE_WARRANT": "WARRANT",
-                "TXNTYPE_CONVERSION": "CONVERSION",
-                "TXNTYPE_IPO": "IPO",
-                "TXNTYPE_OTHERS": "OTHERS"
             },
             "marqueebar": {
                 "status": "Trạng thái",
@@ -303,45 +287,6 @@ export default
                     "modifyFailed": "Chỉnh sửa thất bại. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "cancelSuccess": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "cancelFailed": "Hủy lệnh thất bại. Vui lòng liên hệ bộ phận hỗ trợ."
-                }
-            },
-            "daytrade": {
-                "header": {
-                    "cancelmodify": "Hủy/Sửa",
-                    "price": "Giá",
-                    "quantity": "Khối lượng",
-                    "status": "Trạng thái",
-                    "ordertype": "Loại lệnh",
-                    "stockid": "Mã CK",
-                    "buysell": "Mua/Bán",
-                    "currency": "Tiền tệ",
-                    "filled": "Số lượng khớp",
-                    "triggerprice": "Trigger Price",
-                    "gtd": "GTD",
-                    "orderNo": "Mã GD",
-                    // for popup table
-                    "market": "Sàn",
-                    "tradeId": "Mã trao đổi",
-                    "stockName": "Tên chứng khoán",
-                    "buysell": "Mua/Bán",
-                    "initialPrice": "Giá khởi điểm",
-                    "newPrice": "Giá mới",
-                    "initialQuantity": "Số lượng khởi điểm",
-                    "matchedQuantity": "Số lượng khớp",
-                    "newQuantity": "Số lượng mới",
-                    "totalCash": "Tổng tiền"
-                },
-                "popup": {
-                    "title": {
-                        "modify": "Confirm Modify",
-                        "cancel": "Confirm Cancel"
-                    }
-                },
-                "message": {
-                    "modifySucces": "Order is sent. Please check again in Order journal.",
-                    "modifyFailed": "Modify order failed. Please see detail in Order journal.",
-                    "cancelSuccess": "Order is sent. Please check again in Order journal",
-                    "cancelFailed": "Cancel order falied. Please contact to support team."
                 }
             },
             "cashstatement": {
@@ -569,17 +514,6 @@ export default
                     "cashDeposit": "Nộp tiền mặt",
                     "sellStkInMarPort": "Bán CK trong danh mục ký quỹ",
                     "sellStkNotInMarPort": "Bán CK ngoài danh mục ký quỹ"
-                },
-                "header": {
-                    "InstrumentID": "Mã CK",
-                    "InstrumentName": "Tên chứng khoán",
-                    "MarketID": "Sàn",
-                    "Currency": "Đơn vị tiền tệ",
-                    "LedgerBalance": "Ledger Balance",
-                    "UsableBalance": "Usable Balance",
-                    "RefPrice": "Ref.Price",
-                    "RefMarketValue": "Ref.MarketValue",
-
                 }
             },
             "assetallocation":{
@@ -1446,16 +1380,16 @@ export default
                 "close": "Đóng"
             },
             "login": {
-                "title": "GIAO DỊCH TRỰC TUYẾN",
-                "username": "Tài khoản",
-                "clientid": "Số tài khoản",
+                "title": "TRADING ONLINE",
+                "username": "Username",
+                "clientid": "Client ID",
                 "subaccount": "Sub Account ID",
-                "password": "Mật khẩu",
-                "securityCode": "Mã an toàn",
+                "password": "Password",
+                "securityCode": "Security Code",
                 "message": {
-                    "wrongAccountNo": "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
-                    "changePasswordRequest": "Để bảo mật, quý khách vui lòng thay đổi mật khẩu cho lần đăng nhập đầu tiên",
-                    "serviceNotAvailable": "Dịch vụ web hiện không có sẵn. Quý khách vui lòng liên hệ với TTL theo số (028) 3848 4472 để được trợ giúp."
+                    "wrongAccountNo": "Wrong Account Number or Password. Please try again.",
+                    "changePasswordRequest": "Please, change your password for the first login",
+                    "serviceNotAvailable": "Web services temporarily unavailable. Please call our Customer Service Team at (028) 3848 4472 if you require assistance."
                 }
             }
         }
