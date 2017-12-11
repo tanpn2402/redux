@@ -1990,7 +1990,8 @@ label {
     padding: 5px 15px 5px 0;
     position: relative;
     color: white;
-    width: 200px;
+    width: 120px;
+    margin-right: 80px;
     box-sizing: border-box;
     line-height: 100%;
     vertical-align: middle;
@@ -3083,6 +3084,50 @@ label {
     .maincontent-mobile .widget-body .widget-wrapper {
         padding-top: 40px;
     }
+
+    /*watchlsit cell format*/
+    .value{
+        width: 100%;
+        font-weight: bold;
+    }
+
+    .value-ceil{
+        color: #ff4cf0;
+    }
+
+    .value-floor{
+        color: #4cf3ff;
+    }
+
+    .value-ref{
+        color: #f6fc4e;
+    }
+
+    /* Cell status change */
+    .value-change {
+        background: #c6c6c6;
+        animation: status-changed ease-out 0.75s;
+        animation-fill-mode: forwards;
+    }
+    .unchange {
+        color: white;
+        width: 100%;
+    }
+    .up {
+        color: #00ff00;
+        width: 100%;
+    }
+    .down {
+        color: #ff0000;
+        width: 100%;
+    }
+
+    @keyframes status-changed {
+        to {
+            background: transparent;
+        }
+    }
+    
     .maincontent-mobile .hks-btn.btn-modify {
         background-color: #a6003e !important;
         border: none !important;
@@ -3092,4 +3137,9 @@ label {
     }
     .maincontent-mobile .dropdown-display, .maincontent-mobile .btn-close {
         display: none;
+    }
+
+    /* marquee overlay */
+    .marquee-overlay{
+        cursor: pointer;
     }

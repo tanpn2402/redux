@@ -221,6 +221,15 @@ const config = {
 		"TWD",
 		"USD"
 	],
+	
+	loginBy: "clientID",  // subAccount , username
+
+	language: [
+		{flag: "flag_GBP.png", id: "en_US", text: "English"},
+		{flag: "flag_viet.jpg", id: "vi_VN", text: "Tiếng Việt"},
+		{flag: "flag_china.jpg", id: "zh_TW", text: "中國"},
+		{flag: "flag_china.jpg", id: "zh_CN", text: "中国"}		
+	],
 
 	txnType: [
 		"ALL",
@@ -425,6 +434,13 @@ const config = {
 		loanRefundStatus: { i: 'loanRefundStatus', x: 2, y: 0, w: 6, h: 5, isDraggable: false, isResizable: false }
 	},
 
+	technical_analysis_setting: {
+		mainChartSeries: '',
+		inChartList: [],
+		subChartList: [],
+		interactGraph: {}
+	},
+
 	settings: [
 		{
 			id: 'language',
@@ -531,6 +547,7 @@ const config = {
 	},
 	tableColReorder: [],
 	tableColWidth: [],
+	websockID: null,
 }
 
 export default config
