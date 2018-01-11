@@ -58,18 +58,18 @@ export default function (state = initialState, action) {
         state.watchListData = new Array();
       }
       var newStockList = [...state.watchListData]
-      console.log("REDUCER",action.stockJson, newStockList)      
+      // console.log("REDUCER",action.stockJson, newStockList)      
       let willBeUpdatedStock = newStockList.find(stock => action.stockJson.mvStockCode == stock.mvStockCode)
-      console.log("WIllbeupdated: ",willBeUpdatedStock)
+      // console.log("WIllbeupdated: ",willBeUpdatedStock)
       if (willBeUpdatedStock != null) {
-        console.log("||| ",willBeUpdatedStock)        
+        // console.log("||| ",willBeUpdatedStock)        
         willBeUpdatedStock = Utils.mergeObjectOmitNull(willBeUpdatedStock, action.stockJson)
-        console.log("||| ",willBeUpdatedStock)
+        // console.log("||| ",willBeUpdatedStock)
       } else {
         willBeUpdatedStock = action.stockJson
         newStockList = state.watchListData.concat(willBeUpdatedStock)
       }
-      console.log("New stock", newStockList)
+      // console.log("New stock", newStockList)
       return {
         watchListData: newStockList
       }

@@ -20,7 +20,7 @@ var request = {
 }
 
 request.onOpen = function (res) {
-    console.log('Atmosphere connected using ' + res.transport)
+    // console.log('Atmosphere connected using ' + res.transport)
     transport = res.transport;
 
     if (res.transport == "local") {
@@ -29,7 +29,7 @@ request.onOpen = function (res) {
 }
 
 request.onTransportFailure = function (errorMsg, request) {
-    console.log("ERROR: " + errorMsg)
+    // console.log("ERROR: " + errorMsg)
     if (window.EventSource) {
         request.falrequestlbackTransport = "sse";
         transport = "see";
@@ -41,7 +41,7 @@ export function sendMessage(msgObject) {
     if (subSocket == null) 
         return
     subSocket.push(JSON.stringify(msgObject))
-    console.log("MsgObject sent")
+    // console.log("MsgObject sent")
 }
 
 export function subscribe(clientID, callback) {
@@ -51,10 +51,10 @@ export function subscribe(clientID, callback) {
         var message = response.responseBody
         try {
             var json = JSON.parse(message);
-            console.log("Message: ", json)
+            // console.log("Message: ", json)
             callback(json.result)
         } catch (e) {
-            console.log('This does not look like a valid JSON: ', message.data);
+            // console.log('This does not look like a valid JSON: ', message.data);
         }
     }
 

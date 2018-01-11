@@ -60,7 +60,7 @@ class LoginForm extends Component {
             securitycode: '12345'
         }
 
-        this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
+        this.captchaURL = FetchAPI.getServerUrl() + "Security"
         this.onSubmit = this.onSubmit.bind(this);
 
         this.loginMethod = config.loginBy;

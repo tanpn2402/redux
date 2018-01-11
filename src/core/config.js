@@ -272,10 +272,13 @@ const config = {
 			title: "portfolio",
 			enabled: true,
 			widget: [
+				////{ i: 'portfolio', x: 0, y: 11, w: 8, h: 5, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
+				// { i: 'accountbalance', x: 4, y: 0, w: 4, h: 4, isDraggable: false, isResizable: false },
+				// { i: 'assetallocation', x: 0, y: 0, w: 2, h: 4, isDraggable: false, isResizable: false },
+				// { i: 'assetallocationchart', x: 2, y:0, w: 2, h: 4, isDraggable: false, isResizable: false}
+				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
 				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 5, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
-				{ i: 'accountbalance', x: 4, y: 0, w: 4, h: 4, isDraggable: false, isResizable: false },
-				{ i: 'assetallocation', x: 0, y: 0, w: 2, h: 4, isDraggable: false, isResizable: false },
-				{ i: 'assetallocationchart', x: 2, y:0, w: 2, h: 4, isDraggable: false, isResizable: false}
+				{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
 			]
 		},
 		{

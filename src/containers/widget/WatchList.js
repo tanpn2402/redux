@@ -6,7 +6,7 @@ import { FormControl, Form, ControlLabel, FormGroup, Button } from 'react-bootst
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
-
+import Select from "../commons/Select"
 
 import Config from '../../core/config'
 
@@ -339,7 +339,8 @@ class WatchList extends Component {
             showAlert: false,
             pageIndex: 1,
             disableRemove: true,
-            watchStockList: []
+            watchStockList: [],
+            mvStockID: null
         }
         this.oldWatchStockList = []
         this.rowSelected = []
@@ -418,15 +419,15 @@ class WatchList extends Component {
         })
     }
 
-    // onRefresh(newParams) {
-    //     // var time = (new Date()).getTime()
-    //     // this.getDataParams['key'] = time
-    //     // this.props.onRefresh(this.getDataParams)
-    //     let stock = this.state.watchStockList.find(stock => {
-    //         return stock.mvStockCode == newParams.mvStockCode
-    //     })
+    onRefresh(newParams) {
+        // var time = (new Date()).getTime()
+        // this.getDataParams['key'] = time
+        // this.props.onRefresh(this.getDataParams)
+        // let stock = this.state.watchStockList.find(stock => {
+        //     return stock.mvStockCode == newParams.mvStockCode
+        // })
 
-    // }
+    }
 
     onAddStock(willBeAddedStockCode) {
         let stock = this.state.watchStockList.find(stock => {
@@ -504,37 +505,41 @@ class WatchList extends Component {
         this.setState({ pageIndex: pageIndex });
     }
 
+    handleStockChange(options) {
+        this.setState({ 
+            mvStockID: options
+        })
+    }
+
     render() {
         let button = this.props.theme.searchbar.default.button || undefined
         this.buttonAction = [
-            <Button bsStyle="default" type="button" onClick={e => this.onRefresh()}>
+            <button type="button" className="hks-btn btn-refresh" onClick={e => this.onRefresh()}>
                 <span className="glyphicon glyphicon-refresh"></span>
-            </Button>,
+            </button>,
 
             <FormGroup controlId="mvStockId">
-                <FormControl bsClass='form-control stockSearch'
-                    componentClass="input" list="stockList"
-                    placeholder={this.props.language.watchlist.header.stock}
-                    onChange={e => this.onChange(e)}
+                <Select
+                    key="rStockID"
+                    options={Config.cache.stockList}
+                    selected={this.state.mvStockID}
+                    optionLabelPath={'stockCode'}
+                    handleChange={this.handleStockChange.bind(this)}
+                    searchEnabled={true}
                 />
-                <datalist id="stockList">
-                    {
-                        this.props.stockList.map(e => {
-                            return (<option value={e.stockCode}>{e.stockName}</option>)
-                        })
-                    }
-                </datalist>
             </FormGroup>,
-            <Button type="button" style={button}
+
+            <button type="button" className="hks-btn btn-add-stock" style={button}
                 onClick={e => this.onAddStock(this.inputValue)}>
                 <span className="glyphicon glyphicon-plus" ></span>
                 {this.props.language.watchlist.toolbar.addstock}
-            </Button>,
-            <Button bsStyle="default" type="button"
+            </button>,
+            
+            <button type="button" className="hks-btn btn-remove-stock"
                 onClick={e => this.onRemoveStock(this.rowSelected)} disabled={this.state.disableRemove}>
                 <span className="glyphicon glyphicon-remove"></span>
                 {this.props.language.watchlist.toolbar.removestock}
-            </Button>
+            </button>
         ]
         let tableHeader = this.props.theme.table.tableHeader
         let tableFooter = this.props.theme.table.tableFooter
@@ -590,7 +595,7 @@ class WatchList extends Component {
 
         if(rowName.includes("vol")){
             let price = rowName.replace("vol", "pri")
-            console.log(row, rowName, price, row.row[price], row.row.ref)
+            // console.log(row, rowName, price, row.row[price], row.row.ref)
             if(row.row[price] == null){
                 return <div className="value unchange">{row.value}</div>
             }
@@ -625,18 +630,22 @@ class WatchList extends Component {
     }
 
     onSubscribeToServer() {
-        // localStorage.setItem("socketID","C080001")
+        console.log("Start subcribe")
+        localStorage.setItem("socketID","C080001")
         
         let socketID = localStorage.getItem("socketID")
         if (socketID == null) {
             console.log("No WebSocketID")
         } else {
             atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+                
                 if (stockJsonResponse!=null) {
+                    
                     this.props.updateStockInfo(stockJsonResponse)
                 }
             }).bind(this))
-            
+
+            // window.fetch(window.location.href + "/ITradePushServer/StockInfo/"+socketID);
         }
     }
 

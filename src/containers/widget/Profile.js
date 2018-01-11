@@ -197,7 +197,7 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        this.props.getClientInfo([])
+        this.props.getClientInfo({})
     }
     onChangePassword(){
       if(this.params['oldPassword']=== ''){

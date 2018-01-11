@@ -14,6 +14,7 @@ function responseGetMarketData(response) {
 }
 
 export function addStock(params) {
+  console.log(" ADD STOCK ", params)
   return (dispatch) => {
     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, responseAddStock)
   }
@@ -24,6 +25,7 @@ function responseAddStock(response) {
 }
 
 export function removeStock(params) {
+  console.log(" REMOVE STOCK ", params)
   return (dispatch) => {
     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, responseRemoveStock)
   }
@@ -45,6 +47,6 @@ export function getStocksFromLocalStore() {
 }
 
 export function updateStockInfo(stockJson) {
-  console.log(stockJson)
+  // console.log(stockJson)
   return {type: ActionTypes.UPDATESTOCKINFO, stockJson: stockJson}
 }

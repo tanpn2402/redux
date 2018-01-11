@@ -56,11 +56,11 @@ export function TTLlog(msg) {
 }
 
 export function mergeObjectOmitNull(objA, objB) {
-    console.log("2 Object: ",objA,objB,Object.keys(objB))
+    // console.log("2 Object: ",objA,objB,Object.keys(objB))
     for (let i = 0; i< Object.keys(objB).length; i++) {
         let key = Object.keys(objA)[i]
         if (objB[key] != null) {
-            console.log("Scan_" + key)
+            // console.log("Scan_" + key)
             objA[key] = objB[key]
         }
     }

@@ -94,7 +94,7 @@ class ProfileNav extends Component {
     }
 
     componentDidMount() {
-        this.props.getClientInfo([])
+        this.props.getClientInfo({})
     }
 
 

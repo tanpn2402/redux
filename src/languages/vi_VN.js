@@ -116,6 +116,8 @@ export default
                 "orderHistory": "Giao dịch cổ phiếu",
                 "portfolio": "Danh mục đầu tư",
                 "sumary": "Tổng quát",
+                "accountsumary": "Thông tin tiểu khoản",
+                "clientsumary": "Thông tin tài khoản",
                 "oddLotOrder": "Đặt lệnh giao dịch lô lẻ",
                 "oddlotHistory": "Tra cứu lịch sử giao dịch chứng khoán lô lẻ",
                 "matchOrderBankList": "Danh sách lệnh khớp",
@@ -570,17 +572,17 @@ export default
                     "sellStkInMarPort": "Bán CK trong danh mục ký quỹ",
                     "sellStkNotInMarPort": "Bán CK ngoài danh mục ký quỹ"
                 },
-                "header": {
-                    "InstrumentID": "Mã CK",
-                    "InstrumentName": "Tên chứng khoán",
-                    "MarketID": "Sàn",
-                    "Currency": "Đơn vị tiền tệ",
-                    "LedgerBalance": "Ledger Balance",
-                    "UsableBalance": "Usable Balance",
-                    "RefPrice": "Ref.Price",
-                    "RefMarketValue": "Ref.MarketValue",
+                // "header": {
+                //     "InstrumentID": "Mã CK",
+                //     "InstrumentName": "Tên chứng khoán",
+                //     "MarketID": "Sàn",
+                //     "Currency": "Đơn vị tiền tệ",
+                //     "LedgerBalance": "Ledger Balance",
+                //     "UsableBalance": "Usable Balance",
+                //     "RefPrice": "Ref.Price",
+                //     "RefMarketValue": "Ref.MarketValue",
 
-                }
+                // }
             },
             "assetallocation":{
                 "header": {

@@ -37,7 +37,7 @@ body {
 
 .hks-btn {
     border: none;
-    border-radius: 15px;
+    border-radius: 8px;
     background-color: transparent;
     color: #fff;
     /*outline: none;*/
@@ -136,6 +136,18 @@ body {
 .hks-btn.btn-complete {
     background: #6ad07c;
     border-color: #6ad07c;
+}
+.hks-btn.btn-refresh {
+    border: 1px solid #CCC;
+    color: #000;
+    min-width: unset;
+    width: 45px;
+    background: #FFF;
+}
+.hks-btn.btn-remove-stock {
+    border: 1px solid #CCC;
+    color: #000;
+    background: #FFF;
 }
 .hks-tab {
     color: #fff;
@@ -2950,7 +2962,7 @@ label {
     padding-bottom: 60px;
 }
 .maincontent-desktop .select-control {
-    height: 26px;
+    height: 24px;
     background: #FFF;
     box-shadow: unser;
     border: 1px solid #dcdcdc;
@@ -3079,6 +3091,13 @@ label {
     .maincontent-mobile .widget-body .widget-wrapper {
         padding-top: 40px;
     }
+
+    /* START WATCHLIST */
+    #watchlist-search-bar .hks-btn span {
+        line-height: 1.3 !important;
+        margin-right: 4px;
+    }
+    /* END WATLIST */
 
     /*watchlsit cell format*/
     .value{

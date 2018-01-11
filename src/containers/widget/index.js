@@ -34,7 +34,7 @@ import MatchOrderList from './MatchOrderList'
 import AdvanceHistory from './AdvanceHistory'
 import CashTransHistory from './CashTransHistory'
 import OrderHistory from './OrderHistory'
-import EnterOrder from './EnterOrder_v2'
+import EnterOrder from './EnterOrder_v3'
 import OrderJournal from './OrderJournal'
 import StockMarketInfo from './StockMarketInfo'
 import AccountInfo from './AccountInfo'
@@ -49,6 +49,7 @@ import Sumary from './Sumary'
 import AccountBalance from './AccountBalance'
 import AssetAllocation from './AssetAllocation'
 import AssetAllocationChart from './AssetAllocationChart'
+// import ClientSumary from './ClientSumary'
 
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
@@ -60,7 +61,7 @@ import AvailableMargin from './AvailableMargin'
 import TransactionHistory from './TransactionHistory'
 
 export default function (menuid, props){
-	
+	console.log(menuid)
 	switch(menuid){
 		// case 'management':
 		// 	return(
@@ -229,6 +230,10 @@ export default function (menuid, props){
 			return (
 				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={true}/>
 			)
+		// case 'clientsumary':
+		// 	return (
+		// 		<ClientSumary stockList={props.stockList} language={props.language} theme={props.theme}/>
+		// 	)
 			
 		case 'loanrefund':
 			return (

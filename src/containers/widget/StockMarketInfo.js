@@ -246,6 +246,22 @@ class StockMarketInfo extends Component {
 		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
 		let rowEven = this.props.theme.table.rowEven.backgroundColor
 		let font2 = this.props.theme.font.sub1.color
+
+		let themee = this.props.theme.title
+		
+				let bg = "";
+				let tColor= "";
+		
+				if(themee == "dark") {
+					bg = "#474747"
+					tColor = "#FFF"
+				} else {
+					bg = "#FFF"
+					tColor = "#000"
+		
+				}
+
+				
 		return (
 			<div id={this.id}>
 				<Title language={this.props.language} theme={this.props.theme}>

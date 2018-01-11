@@ -3,14 +3,15 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
-const SERVER = 'http://192.168.150.193:'
-const PORT = '8080/iTradeMAS/'
+export const WEBSOCKET = 'WEBSOCKET'
+const SERVER = 'http://tts.tx-tech.com:'
+const PORT = '3000/'
 
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'
 const ACCEPT_LANGUAGE = 'en-US,en;q=0.5'
 const ACCEPT = 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-const CONTENT_TYPE = 'application/x-www-form-urlencoded; charset=UTF-8'
+const CONTENT_TYPE = 'application/json'
 const CONNECTION = 'keep-alive'
 
 const HEADERS = {
@@ -32,61 +33,83 @@ export function getServerUrl() {
     return SERVER + PORT
 }
 export async function FetchAPI(id, JsonData, method) {
-    var url = SERVER + PORT + id + '';
-    var formData = '';
-    for (var k in JsonData) {
-        formData += k + '=' + JsonData[k] + '&'
-    }
+    var url = SERVER + PORT + "Actions/" + id + '';
+    // var formData = '';
+    // for (var k in JsonData) {
+    //     formData += k + '=' + JsonData[k] + '&'
+    // }
     //console.log(url,formData)
     // method GET
+    var datajson = JSON.stringify(JsonData);
+    //datajson.append("json",JSON.stringify(JsonData));
+    console.log(datajson);
     if (method === GET) {
-        // url += GET;  
-        if (formData != null) {
-            url += '?' + formData
-            return new Promise((resolve, reject) => {
-                var response = window.fetch(url, {
-                    method: GET,
-                    headers: HEADERSCK,
-                    credentials: 'include'
-                })
-
-                response.then(res => {
-                    if (res.ok) {
-                        res.json().then(resolve).catch(reject)
-                    } else {
-                        reject(res)
-                    }
-                })
-                    .catch(reject)
-            })
-        } else {
-            return new Promise((resolve, reject) => {
-                var response = window.fetch(url, {
-                    method: GET,
-                    headers: HEADERSCK
-                })
-
-                response.then(res => {
-                    if (res.ok) {
-                        res.json().then(resolve).catch(reject)
-                    } else {
-                        reject(res)
-                    }
-                })
-                    .catch(reject)
-            })
-        }
-    }
-
-    //method POST
-    if (method === POST) {
         //url += POST
         return new Promise((resolve, reject) => {
             let response = fetch(url, {
                 method: POST,
                 headers: HEADERSCK,
                 credentials: 'include',
-                body: formData
+                body: datajson
+            })
+            response.then(res => {
+                if (res.ok) {
+                    res.json().then(resolve).catch(reject)
+                } else {
+                    reject(res)
+                }
+            })
+                .catch(reject)
+        })
+
+        // url += GET;  
+        // if (formData != null) {
+            
+        //     return new Promise((resolve, reject) => {
+        //         var response = window.fetch(url, {
+        //             method: GET,
+        //             headers: HEADERSCK,
+        //             credentials: 'include'
+        //         })
+
+        //         response.then(res => {
+        //             if (res.ok) {
+        //                 res.json().then(resolve).catch(reject)
+        //             } else {
+        //                 reject(res)
+        //             }
+        //         })
+        //             .catch(reject)
+        //     })
+        // } else {
+        //     return new Promise((resolve, reject) => {
+        //         var response = window.fetch(url, {
+        //             method: GET,
+        //             headers: HEADERSCK
+        //         })
+
+        //         response.then(res => {
+        //             if (res.ok) {
+        //                 res.json().then(resolve).catch(reject)
+        //             } else {
+        //                 reject(res)
+        //             }
+        //         })
+        //             .catch(reject)
+        //     })
+        // }
+    }
+
+    //method POST
+    if (method === POST) {
+        //url += POST
+        console.log(datajson);
+        return new Promise((resolve, reject) => {
+            let response = fetch(url, {
+                method: POST,
+                headers: HEADERSCK,
+                credentials: 'include',
+                body: datajson
             })
             response.then(res => {
                 if (res.ok) {
@@ -107,7 +130,7 @@ export async function FetchAPI(id, JsonData, method) {
                 method: POST,
                 headers: HEADERSCK,
                 credentials: 'include',
-                body: formData
+                body: datajson
             })
             response.then(res => {
                 if (res.ok) {
@@ -129,7 +152,7 @@ export async function FetchAPI(id, JsonData, method) {
                 method: POST,
                 headers: HEADERSCK,
                 credentials: 'include',
-                body: formData
+                body: datajson
             })
             response.then(res => {
                 if (res.ok) {
@@ -142,9 +165,15 @@ export async function FetchAPI(id, JsonData, method) {
         })
     }
     if (method === 'REPORT') {
-        url += '?' + formData
-        window.location.href = url
-    }
+        // url += '?' + formData
+        // window.location.href = url
 
+    }
+    
 
 }
+
+
+
+// WEBPACK FOOTER //
+// ./src/api/fetchAPI.js

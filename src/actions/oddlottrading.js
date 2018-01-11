@@ -138,6 +138,6 @@ export function beforeRegisterOddLot(params){
   }
 
   return (dispatch) => {
-    WebApi.post(ACTION.GETANNOUNCEMENT, [], dispatch, process)
+    WebApi.post(ACTION.GETANNOUNCEMENT, {}, dispatch, process)
   }
 }

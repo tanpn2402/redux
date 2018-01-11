@@ -6,20 +6,20 @@ import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import PieChart from '../commons/PieChart'
-
+import AssetAllocationChart from './AssetAllocationChart'
 
 class Sumary extends Component {
     constructor(props) {
         super(props)
-        this.id = "sumary"
+        this.id = "accountsumary"
 
 
     }
 
 
     render() {
+        console.log('SUMARY . . . .. . . .')
         var d = this.props.data.mvPortfolioAccSummaryBean
-
         this.data = [
             {
                 name: this.props.language.portfolio.header.totalAsset,
@@ -119,8 +119,40 @@ class Sumary extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
+
+
+        let headerBG = 'rgb(0, 90, 160)'
+        let headerFont = '#FFF'
+
+        let language = this.props.language.assetallocation.header
+        let data = [
+            {
+                name: language['creditlimit'],
+                value: 84.95
+            },
+            {
+                name: language['buyingpower'],
+                value: 41.82
+            },
+            {
+                name: language['withdrawablebalance'],
+                value: 56.03
+            },
+            {
+                name: language['totalmarketvalue'],
+                value: 31.76
+            },
+            {
+                name: language['settled'],
+                value: 53.26
+            },
+            {
+                name: language['ledgerbalance'],
+                value: 92.18,
+            }
+        ]
         return (
-            <div>
+            <div style={{ height: "100%", position: "relative" }}>
                 <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
@@ -128,13 +160,17 @@ class Sumary extends Component {
                     <div className="table-main no-header no-footer">
                             <div className="col-sm-2" style={{height: '100%',
                                 marginTop: '-35px', paddingTop: '35px'}}>
-                                <PieChart id="sumary-piechart" data={this.data} theme={this.props.theme} /> 
+                                <PieChart theme={this.props.theme} colors={[]} data={data}/>
                             </div>
                             <div className="col-sm-3" style={{height: '100%',
-                                marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030' }}> 
+                                marginTop: '-35px', paddingTop: '35px'}}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
                                         <tbody>
+                                            <tr style={{ backgroundColor: headerBG, color: headerFont }} >
+                                                <th>{this.props.language.portfolio.header.sumary}</th>
+                                                <td>{this.props.language.portfolio.header.value}</td>
+                                            </tr>
                                             {
                                                 this.data.map((d, i) => {
                                                     if (i % 2 != 0) {
@@ -161,11 +197,15 @@ class Sumary extends Component {
                             </div>
 
                         <div className="col-sm-2" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
+                            marginTop: '-35px', paddingTop: '35px' }}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
+                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
+                                            <th>{this.props.language.portfolio.header.cashinfo}</th>
+                                            <td>{this.props.language.portfolio.header.value}</td>
+                                        </tr>
                                         {
                                             data2.map((d, i) => {
                                                 if (i % 2 != 0) {
@@ -193,11 +233,15 @@ class Sumary extends Component {
                         </div>
 
                         <div className="col-sm-3" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
+                            marginTop: '-35px', paddingTop: '35px'}}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
+                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
+                                            <th>{this.props.language.portfolio.header.portfolioassessment}</th>
+                                            <td>{this.props.language.portfolio.header.value}</td>
+                                        </tr>
                                         {
                                             data3.map((d, i) => {
                                                 if (i % 2 != 0) {
@@ -226,11 +270,16 @@ class Sumary extends Component {
 
 
                         <div className="col-sm-2" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px', backgroundColor: '#303030'  }}>
+                            marginTop: '-35px', paddingTop: '35px' }}>
 
                             <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                 <table className="table">
                                     <tbody >
+                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
+                                            <th>{this.props.language.portfolio.header.marginposition}</th>
+                                            <td>{this.props.language.portfolio.header.value}</td>
+                                        </tr>
+                                        
                                         {
                                             data4.map((d, i) => {
                                                 if (i % 2 != 0) {
@@ -271,5 +320,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sumary)
