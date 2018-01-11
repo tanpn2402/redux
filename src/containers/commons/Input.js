@@ -20,7 +20,7 @@ class Input extends React.Component {
                         <button type="button" className="btn btn-default" 
                             onClick={() => this.handleButtonInputClick((-1)*step)} ref={r => this.rButton1 = r} >-</button>
                     </span>
-                    <FormControl 
+                    <FormControl
                         inputRef={ref => this.rInput = ref}
                         onChange={this.handleChange} defaultValue={this.props.defaultValue} />
                     <span className='input-group-btn' style={{ zIndex: '0' }}>
@@ -88,7 +88,7 @@ class Input extends React.Component {
             this.rInput.readOnly = _bol
             this.readOnly = _bol
             if(_bol) {
-                this.rInputControl.classList.add("readOnly") 
+                this.rInputControl.classList.add("readOnly")
             } else {
                 this.rInputControl.classList.remove("readOnly") 
             }

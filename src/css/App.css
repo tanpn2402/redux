@@ -2675,6 +2675,9 @@ label {
 .enterorder-form .input-control.showOnly input {
     text-align: left;
 }
+.enterorder-form .radio-inline:first-child {
+    padding-left: 0px !important;
+}
 
 /* Listview-control */
 .listview-control {

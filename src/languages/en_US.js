@@ -669,7 +669,7 @@ export default
                     "totalCash": "Total Cash",
                     "market": "Market",
                     "bank": "Bank",
-                    "lending": "% Lending",
+                    "lending": "Margin",
                     "buyingpower": "Buying Power",
                     "ordertype": "Order Type",
                     "volume": "Volume",

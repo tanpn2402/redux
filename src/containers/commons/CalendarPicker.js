@@ -139,7 +139,9 @@ class CalendarPicker extends React.Component {
     }
 
     handleIconCalendarClick(e) {
-        this.setState({ showPicker: !this.state.showPicker })
+        if(!this.props.disabled) {
+            this.setState({ showPicker: !this.state.showPicker })
+        }
     }
 
     handleInputChange(e) {

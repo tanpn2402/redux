@@ -13,6 +13,7 @@ import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
 import Select from "../commons/Select"
 import Input from "../commons/Input"
+import * as Log from "../../logger/TTLLog"
 const { Contants } = require('../../core/constants')
 
 class EnterOrder extends React.Component {
@@ -32,13 +33,14 @@ class EnterOrder extends React.Component {
             mvStockSelected: {
                 stockCode: ''
             },
-            mvOrderTypeSelected: config.ordertype[config.marketid[0]][0],
-            
+            mvOrderTypeSelected: [],
+            mvLending: 0,
 
-
+            mvExpireChecked: false,
+            mvExpireDate: moment(),
             // other paras support for view
             stockList: this.props.stockList,
-            mvOrderTypeList: config.ordertype[config.marketid[0]],
+            mvOrderTypeList: [],
             mvBSList: ["BUY", "SELL"],
 
             // bank account
@@ -48,6 +50,7 @@ class EnterOrder extends React.Component {
         this.store = {
             stockInfoBean: null,
             stockBalanceInfo: null,
+            listOrderType: {}
         }
 
         this.value = {
@@ -63,10 +66,13 @@ class EnterOrder extends React.Component {
             mvGrossAmt: 0,
             mvMaxQty: 0,
             mvExpireChecked: false,
-            mvExpireDate: null,
+            mvExpireDate: moment(),
             mvBankACID: null,
-            mvBankID: null
+            mvBankID: null,
+
+            mvSettlementAccSelected: null
         }
+        
     }
 
     setValue(_val) {
@@ -114,22 +120,30 @@ class EnterOrder extends React.Component {
             mvMarketID: marketID
         })
         this.refStockName.value(stockName)
-
+        this.refMarketID.value(marketID)
         this.getStockInfo(stockCode, marketID, bsValue)
         this.props.setDefaultOrderParams(this.value)
+        this.getOrderTypeList(this.props.genEnterOrderData)
     }
 
-    handleOrderTypeChange(options) {
-        var orderTypeValue = options.value
-        if(orderTypeValue == "TRIGGER") {
-            this.rTriggerForm.style.display = "table"
+    handleOrderTypeChange(option) {
+        var orderTypeValue = option.value
+        var type = option.value
+        this.state.mvOrderType = type
+
+        this.calculateGrossAmt();
+        this.mvPrice.readonly(false)
+
+        if (type === this.props.language.enterorder.value.OTLO || 
+            type === this.props.language.enterorder.value.OTLOddLot) 
+        {
+            this.mvPrice.readonly(false)
+        } else {
+            this.mvPrice.value = ''
+            this.mvPrice.readonly(true)
         }
-        else {
-            this.rTriggerForm.style.display = "none"
-        }
-        this.setState({
-            mvOrderTypeSelected: options
-        })
+
+        this.setState({ value: Object.assign(this.state, { mvOrderTypeSelected: option }) })
     }
 
     onQtyChange(value) {
@@ -146,10 +160,22 @@ class EnterOrder extends React.Component {
     handleTriggerPriceChange(options) {
         this.setState({mvTriggerSelected: options})
     }
+
+    handleDateChange(_date) {
+        this.setState({
+            mvExpireDate: _date
+        });
+        this.setValue({ mvExpireDate: _date })
+    }
+
+    handleDateExpireCheck(e) {
+        this.setState({ mvExpireChecked: e.target.checked });
+        this.setValue({ mvExpireChecked: e.target.checked });
+    }
     
     render() {
         let header = this.props.language.enterorder.header
-        this.stockList = config.cache.stockList.filter(e => e.mvMarketID == this.state.mvMarketID)
+        this.stockList = config.cache.stockList
 
         let themee = this.props.theme.title
 
@@ -172,20 +198,23 @@ class EnterOrder extends React.Component {
                 </Title>                    
                 <Body theme={this.props.theme}>
                 <div className={"enterorder-form " + this.state.mvBS.toLowerCase()} style={{ height: "100%", backgroundColor: bg }}>
-
                     {/* BUY/SELL */}
-                    <div style={{textAlign: "center"}}>
-                        <FormGroup>
-                            <Radio name="radioGroup" inline checked={this.state.mvBS === "BUY"} style={{margin: "0 20px", color: tColor}}
-                                onChange={() => this.handleBSChange("BUY") }>
-                                Buy
-                            </Radio>
-                            
-                            <Radio name="radioGroup" inline checked={this.state.mvBS === "SELL"} style={{margin: "0 20px", color: tColor}}
-                                onChange={() => this.handleBSChange("SELL") }>
-                                Sell
-                            </Radio>
-                        </FormGroup>
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5} style={{color: tColor}}></Col>
+                        <Col xs={7}>
+                            <FormGroup>
+                                <Radio name="radioGroup" inline checked={this.state.mvBS === "BUY"} style={{margin: "0 20px", color: tColor}}
+                                    onChange={() => this.handleBSChange("BUY") }>
+                                    {header.buy}
+                                </Radio>
+                                
+                                <Radio name="radioGroup" inline checked={this.state.mvBS === "SELL"} style={{margin: "0 20px", color: tColor}}
+                                    onChange={() => this.handleBSChange("SELL") }>
+                                    {header.sell}
+                                </Radio>
+                            </FormGroup>
+                        </Col>
+                        
                     </div>
 
                     {/* MARKET */}
@@ -194,13 +223,9 @@ class EnterOrder extends React.Component {
                             {header.market}
                         </Col>
                         <Col xs={7}>
-                            <Select
-                                ket="rMarketSelector"
-                                ref={r => this.rMarketSelector = r}
-                                options={config.marketid}
-                                selected={this.state.mvMarketID}
-                                handleChange={this.handleMarketChange.bind(this)}
-                            />
+                            <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
+                                className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                        
                         </Col>
                     </div>
 
@@ -282,7 +307,7 @@ class EnterOrder extends React.Component {
                     {/* ORDER TYPE */}
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
-                            {header.type}
+                            {header.ordertype}
                         </Col>
                         <Col xs={7}>
                             <Select
@@ -296,7 +321,7 @@ class EnterOrder extends React.Component {
                         </Col>
                     </div>
 
-                    {/* GOOD TILL */}
+                    {/* GOOD TILL
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
                             {header.goodTill}
@@ -311,6 +336,18 @@ class EnterOrder extends React.Component {
                                     handleChange={this.handleStockChange.bind(this)}
                                 />
                         </Col>
+                    </div> */}
+
+                    {/* % Lending */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5} style={{color: tColor}}>
+                            {header.lending}
+                        </Col>
+                        <Col xs={7}>
+                            <Input key="mvLending" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvLending = ref} readOnly value={this.value.mvLending}  
+                                style={{color: tColor, textAlign: "right"}}/>
+                        </Col>
                     </div>
 
                     {/* BUYING POWER */}
@@ -320,7 +357,8 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}  style={{color: tColor}}/>
+                                ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}  
+                                style={{color: tColor, textAlign: "right"}}/>
                         </Col>
                     </div>
 
@@ -331,11 +369,47 @@ class EnterOrder extends React.Component {
                         </Col>
                         <Col xs={7}>
                             <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
-                                ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt} style={{color: tColor}}                           />
+                                ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt} 
+                                style={{color: tColor, textAlign: "right"}}/>
                         </Col>
                     </div>
 
-                    {/* COMMISSION FEE */}
+                    {/* NET FEE */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5} style={{color: tColor}}>
+                            {header.netfee}
+                        </Col>
+                        <Col xs={7} style={{color: tColor}}>
+                            <Input key="mvNetFee" className="showOnly"  defaultValue={"---"}
+                                ref={ref => this.mvNetFee = ref} readOnly value={this.value.mvNetFee} 
+                                style={{color: tColor, textAlign: "right"}}/>
+                        </Col>
+                    </div>
+
+                    {/* Expire Date */}
+                    <div style={{display: "table", width: "100%"}}>
+                        <Col xs={5} style={{color: tColor}}>
+                            {header.expirydate}
+                        </Col>
+                        <Col xs={7} style={{}}>
+                            <div style={{float: "left"}}>
+                                <input name="isCheck" type="checkbox"
+                                    checked={this.state.mvExpireChecked}
+                                    onChange={this.handleDateExpireCheck.bind(this)}
+                                    value={this.state.mvExpireChecked} />
+                            </div>
+                            <div style={{paddingLeft: "20px"}}>
+                                <CalendarPicker 
+                                    disabled={!this.state.mvExpireChecked}
+                                    selected={this.state.mvExpireDate} 
+                                    onChange={this.handleDateChange.bind(this)} 
+                                    id={"canlender-enterorder"}/>
+                            </div>
+                            
+                        </Col>
+                    </div>
+
+                    {/* COMMISSION FEE
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
                             {header.commissionFees}
@@ -344,9 +418,9 @@ class EnterOrder extends React.Component {
                             <Input key="mvCommissionFees" className="showOnly"  defaultValue={"---"}
                                 ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvCommissionFees} style={{color: tColor}}/>
                         </Col>
-                    </div>
+                    </div> */}
 
-                    {/* NET AMT */}
+                    {/* NET AMT
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
                             {header.netAmt}
@@ -355,9 +429,9 @@ class EnterOrder extends React.Component {
                             <Input key="mvNetAmt" className="showOnly"  defaultValue={"---"}
                                 ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvNetAmt}  style={{color: tColor}}/>
                         </Col>
-                    </div>
+                    </div> */}
 
-                    {/* AVAIL QUANTITY */}
+                    {/* AVAIL QUANTITY
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
                             {header.availQty}
@@ -366,7 +440,7 @@ class EnterOrder extends React.Component {
                             <Input key="mvAvailQty" className="showOnly"  defaultValue={"---"}
                                 ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty} style={{color: tColor}}/>
                         </Col>
-                    </div>
+                    </div> */}
 
                     <div className="group-btn-action form-submit-action">
                         <span>
@@ -417,9 +491,6 @@ class EnterOrder extends React.Component {
     componentDidMount() {
         this.props.genEnterOrder()
     }
-
-
-    //---------------------------------------
 
     handleSubmit(e) {
         e.preventDefault()
@@ -529,7 +600,7 @@ class EnterOrder extends React.Component {
                     netFee = Utils.numUnFormat(value.mvFeeRate, ',');
                 }
                 // console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, state.mvSettlementAccSelected)
-
+                console.log("checkTimeOrder", me.value)
                 me.checkOrderBalanceStatus(state.mvSettlementAccSelected, bs, value.mvStockCode,
                     value.mvMarketID, priceValue, quantity, netFee,
                     function () {
@@ -540,7 +611,7 @@ class EnterOrder extends React.Component {
                             mvPrice: value.mvPrice,
                             mvQuantity: value.mvVol,
                             mvOrderTypeValue: value.mvOrderType,
-                            mvGoodTillDate: moment(value.mvExpireDate).format(Contants.dateFormat),
+                            mvGoodTillDate: value.mvExpireDate,
                             mvGrossAmt: value.mvGrossAmt,
                             mvBankID: value.mvBankID,
                             mvBankACID: value.mvBankACID,
@@ -607,7 +678,6 @@ class EnterOrder extends React.Component {
                 console.log('FAIL FIRST')
             }
         )
-
     }
 
     handleResetForm() {
@@ -631,9 +701,12 @@ class EnterOrder extends React.Component {
         this.refStockName.value("")
         this.mvGrossAmt.value("---")
         this.mvBuyingPower.value("---")
-        this.mvCommissionFees.value("---")
-        this.mvNetAmt.value("---")
-        this.mvAvailQty.value("---")
+        // this.mvCommissionFees.value("---")
+        // this.mvNetAmt.value("---")
+        // this.mvAvailQty.value("---")
+        this.mvLending.value("---")
+        this.mvNetFee.value("---")
+
     }
 
 
@@ -671,7 +744,7 @@ class EnterOrder extends React.Component {
                 me.store.stockInfoBean.mvTemporaryFee = Utils.numUnFormat(me.value.mvFeeRate);
             }
 
-            // me.updateMarginPower()
+            me.updateMarginPower()
 
             me.calculateGrossAmt()
             me.calBuySellAll()
@@ -705,15 +778,18 @@ class EnterOrder extends React.Component {
         var volume = this.mvVol.getValue()
         var netFee = 0;
 
-        if (this.state.mvFeeRate != '') {
-            netFee = Utils.numUnFormat(this.state.mvFeeRate, ',')
+        if (this.value.mvFeeRate != '') {
+            netFee = Utils.numUnFormat(this.value.mvFeeRate, ',')
         }
 
         if (volume === 0 || price === 0) {
             return false;
         }
         this.setValue({mvGrossAmt: Utils.currencyShowFormatter((price * volume).toFixed(4), ",", this.lang) })
+        this.setValue({ mvNetFee : Utils.currencyShowFormatter((price * volume * netFee / 100).toFixed(2), ",", this.lang) })
+
         this.mvGrossAmt.value(Utils.currencyShowFormatter((price * volume).toFixed(4), ",", this.lang))
+        this.mvNetFee.value(Utils.currencyShowFormatter((price * volume * netFee / 100).toFixed(2), ",", this.lang))
     }
 
 
@@ -766,14 +842,13 @@ class EnterOrder extends React.Component {
                 mvOrderTypeSelected: defaultOrderTypeSelected
             })
 
+            console.log(defaultOrderTypeSelected.value, Log.LOG)
             if (defaultOrderTypeSelected.value == this.props.language.enterorder.value.OTLO || 
                 defaultOrderTypeSelected.value == this.props.language.enterorder.value.OTLOddLot) 
             {
-                this.mvPrice.value("0")
                 this.mvPrice.readonly(false)
-            }
-            else {
-                this.mvPrice.value("")
+            } else {
+                this.mvPrice.value = ''
                 this.mvPrice.readonly(true)
             }
 
@@ -839,31 +914,32 @@ class EnterOrder extends React.Component {
 
     //----------------
     updateMarginPower() {
-        // if (this.store.stockInfoBean !== null) {
-        //     var marginPercentage = Utils.numUnFormat(this.store.stockInfoBean.mvMarginPercentage);
-        //     var buyingPowerd = 0;
+        
+        if (this.store.stockInfoBean !== null) {
+            var marginPercentage = Utils.numUnFormat(this.store.stockInfoBean.mvMarginPercentage);
+            var buyingPowerd = 0;
+            
+            if (this.value.mvSettlementAccSelected !== null) {
+                marginPercentage = 0;
+                buyingPowerd = this.value.mvSettlementAccSelected.mvBalance
+            } else {
+                if (!marginPercentage || marginPercentage === "null") {
+                    marginPercentage = 0;
+                }
+                buyingPowerd = Utils.numUnFormat(this.store.stockInfoBean.mvBuyingPowerd);
+            }
+            if (buyingPowerd < 0) {
+                buyingPowerd = 0;
+            }
+            
+            console.log(Log.LOG, "buyingPowerd = " + buyingPowerd)
+            var buyingPowerExpected = buyingPowerd / (1 - marginPercentage / 100);
+            this.state.mvBuyingPower = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
+            this.state.mvLending = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang));
 
-        //     if (this.state.value.mvSettlementAccSelected !== null) {
-        //         marginPercentage = 0;
-        //         buyingPowerd = this.state.value.mvSettlementAccSelected.mvBalance
-        //     } 
-        //     else {
-        //         if (!marginPercentage || marginPercentage === "null") {
-        //             marginPercentage = 0;
-        //         }
-        //         buyingPowerd = Utils.numUnFormat(this.store.stockInfoBean.mvBuyingPowerd);
-        //     }
-        //     if (buyingPowerd < 0) {
-        //         buyingPowerd = 0;
-        //     }
-        //     var buyingPowerExpected = buyingPowerd / (1 - marginPercentage / 100);
-        //     this.state.value.mvBuyPower = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
-        //     this.state.value.mvLending = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang));
-
-        //     this.mvLending.value = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang) + "%");
-        //     this.mvBuyPower.value = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
-        // }
-
+            this.mvLending.value(Utils.quantityShowFormatter(marginPercentage, ",", this.lang) + "%");
+            this.mvBuyingPower.value(Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
+        }
     }
 
     //----------------
@@ -903,6 +979,7 @@ class EnterOrder extends React.Component {
 
     //----------------
     checkTimeOrder(marketID, orderType, expiryChecked, successHandler, failHandler) {
+        console.log("checkTimeOrder ", marketID, orderType, expiryChecked)
         if (expiryChecked) {
             successHandler()
             return
@@ -979,7 +1056,7 @@ class EnterOrder extends React.Component {
         var buyVol = qty * p;
         var language = this.props.language
         var me = this
-        console.log('checkOrderBalanceStatus', settleAcc, p, qty, buyVol)
+        console.log('checkOrderBalanceStatus', settleAcc, bs, stockCode, mvMarketID, price, pQty, temporaryFee)
         // check buying power when user buy CK
         if (bs == 'B') {
             // If bank account
@@ -1065,7 +1142,7 @@ class EnterOrder extends React.Component {
             mvVolume: value.mvVol,
             mvOrderType: value.mvOrderType,
             mvGrossAmt: value.mvGrossAmt,
-            mvExpireDate: moment(value.mvExpireDate).format(Contants.dateFormat),
+            mvExpireDate: value.mvExpireDate.format(Contants.dateFormat),
             mvExpireChecked: value.mvExpireChecked,
             mvNetFee: value.mvNetFee,
             mvLending: value.mvLending,
@@ -1076,6 +1153,7 @@ class EnterOrder extends React.Component {
             mvBS: value.mvBS.slice(0, 1),
             language: this.props.language
         }
+        console.log(data)
         this.props.showOrderConfirm({
             data: data,
             title: this.props.language.enterorder.popup.title.replace('{0}', value.mvBS.slice(0, 1) === 'B' ?
