@@ -39,13 +39,13 @@ class LoanTrans extends Component {
                 }, {
                     id: 'trandate',
                     accessor: 'tradeDate',
-                    width: 100,
+                    width: 120,
                     show: true,
                     skip: false,
                 }, {
                     id: 'refundamount',
                     accessor: 'refundAmt',
-                    width: 100,
+                    width: 140,
                     show: true,
                     skip: false,
                 }, {
@@ -58,7 +58,7 @@ class LoanTrans extends Component {
                 }, {
                     id: 'status',
                     accessor: 'status',
-                    width: 100,
+                    width: 140,
                     Cell: props => this.getStatus(props.original.status, this.props.language.loanrefund.status),
                     show: true,
                     skip: false,

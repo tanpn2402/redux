@@ -87,7 +87,7 @@ class OrderHistory extends Component {
                 {
                     id: "matchedorderstatus",
                     accessor: "mvStatus",
-                    width: 80,
+                    width: 100,
                     skip: false,
                     show: true,
                 },

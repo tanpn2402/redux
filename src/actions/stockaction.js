@@ -45,3 +45,10 @@ export function getStockWatchInfo(stockInfo) {
         api.post('stockInfo.action', param, dispatch, response)
     }
 }
+
+export function sendStockToStockMarketInfoWidget(code) {
+    return {
+        type: ActionTypes.STOCKMARKET,
+        stockCode: code
+    }
+}

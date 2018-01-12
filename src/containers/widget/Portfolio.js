@@ -46,7 +46,7 @@ class Portfolio extends Component {
                             accessor: 'mvStockName',
                             skip: false,
                             show: true,
-                            width: 170,
+                            width: 250,
                             Aggregated: () => {
                                 return null
                             }
@@ -103,7 +103,7 @@ class Portfolio extends Component {
                         accessor: 'mvHoldingAmt', //not sure
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 80,
                         Aggregated: () => {
                             return null
                         },
@@ -147,7 +147,7 @@ class Portfolio extends Component {
                         accessor: 'mvTMortgageQty',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 70,
                         Aggregated: () => {
                             return null
                         },
@@ -168,7 +168,7 @@ class Portfolio extends Component {
                         accessor: 'mvTEntitlementQty',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 110,
                         Aggregated: () => {
                             return null
                         },
@@ -179,7 +179,7 @@ class Portfolio extends Component {
                         accessor: 'mvTAwaitingTraceCert',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 90,
                         Aggregated: () => {
                             return null
                         },
@@ -190,7 +190,7 @@ class Portfolio extends Component {
                         accessor: 'mvTAwaitingDepositCert',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 90,
                         Aggregated: () => {
                             return null
                         },
@@ -201,7 +201,7 @@ class Portfolio extends Component {
                         accessor: 'mvTAwaitingWithdrawalCert',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 90,
                         Aggregated: () => {
                             return null
                         },
@@ -219,7 +219,7 @@ class Portfolio extends Component {
                         accessor: 'mvAvgPrice',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 80,
                         Aggregated: () => {
                             return null
                         }
@@ -245,7 +245,7 @@ class Portfolio extends Component {
                         accessor: 'mvWAC',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 100,
                         Aggregated: () => {
                             return null
                         },
@@ -256,7 +256,7 @@ class Portfolio extends Component {
                         accessor: 'mvMarketValue',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 100,
                         Aggregated: () => {
                             return null
                         },
@@ -267,7 +267,7 @@ class Portfolio extends Component {
                         accessor: 'mvPL',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 80,
                         Aggregated: () => {
                             return null
                         },
@@ -278,7 +278,7 @@ class Portfolio extends Component {
                         accessor: 'mvPLPercent',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 70,
                         Aggregated: () => {
                             return null
                         },
@@ -296,7 +296,7 @@ class Portfolio extends Component {
                         accessor: 'mvMarginPercentage',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 80,
                         Aggregated: () => {
                             return null
                         },
@@ -307,7 +307,7 @@ class Portfolio extends Component {
                         accessor: 'mvMartginValue',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 100,
                         Aggregated: () => {
                             return null
                         },
@@ -318,7 +318,7 @@ class Portfolio extends Component {
                         accessor: 'maintenancePercentage',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 100,
                         Aggregated: () => {
                             return null
                         },
@@ -329,7 +329,7 @@ class Portfolio extends Component {
                         accessor: 'maintenanceValue',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 120,
                         Aggregated: () => {
                             return null
                         },
@@ -358,7 +358,7 @@ class Portfolio extends Component {
             ],
 
 
-                
+
             filterable: true
         }
     }
@@ -401,11 +401,11 @@ class Portfolio extends Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <Table 
+                    <Table
                         theme={this.props.theme}
                         id={this.id}
                         language={this.props.language}
-            
+
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
                         filterable={this.state.filterable}

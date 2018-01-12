@@ -102,11 +102,11 @@ export default class SearchBar extends React.Component {
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
                 <div className="scrolling-tabs-main search-bar" id={this.props.id + "-scroll-bar"}>
-                    <button type="button" className="hks-btn btn-tab-prev search-bar"
+                    {/*<button type="button" className="hks-btn btn-tab-prev search-bar"
                         onClick={e => this.onTabSlideClick(1)}
                         style={scrollBtnStyle}>
                         <span className="glyphicon glyphicon-menu-left" style={{ zIndex: '1' }}></span>
-                    </button>
+                    </button>*/}
                     <div className="scroll search-bar" id={this.props.id + "-scroll"}>
                         <div className="scrolling-tabs" id={this.props.id + "-search-bar"}>
                             <nav className='vertical-align-middle'>
@@ -145,11 +145,11 @@ export default class SearchBar extends React.Component {
                             </nav>
                         </div>
                     </div>
-                    <button type="button" className="hks-btn btn-tab-next search-bar"
+                    {/*<button type="button" className="hks-btn btn-tab-next search-bar"
                         onClick={e => this.onTabSlideClick(2)}
                         style={scrollBtnStyle}>
                         <span className="glyphicon glyphicon-menu-right"></span>
-                    </button>
+                    </button>*/}
                 </div>
 
             </Form>

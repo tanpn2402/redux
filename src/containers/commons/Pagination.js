@@ -35,7 +35,7 @@ export default class Pagination extends React.Component {
 					<span className="glyphicon glyphicon-triangle-left" />
 				</button>
 
-				<span style={{ color: font2 }} >Page</span>
+
 
 				<input type="number" value={this.state.page}
 					id="pageinput" className="hks-input page-input"
@@ -44,7 +44,7 @@ export default class Pagination extends React.Component {
 					style={{ textAlign: "center" }}
 				/>
 
-				<span style={{ color: font2 }}> of {this.props.totalPage}  </span>
+				<span style={{ color: font2 }}> / {this.props.totalPage}  </span>
 
 				<button type="button" className="hks-btn btn-pagination-top" style={background}
 					onClick={this.onNextPage.bind(this)}>

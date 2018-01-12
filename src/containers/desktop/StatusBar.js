@@ -57,8 +57,8 @@ class StatusBar extends React.Component {
 
         return (
             <div id="status-bar" style={this.props.theme.statusbar}>
-                <div className="connection-status open">
-                    <span className="glyphicon glyphicon-signal"></span>
+                <div className="connection-status open"  >
+                    <span className="glyphicon glyphicon-th-large" onClick={this.onFocus}></span>
                 </div>
                 <div className="widget-search">
                     <input ref={input => this.inputSearchValue = input} type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"

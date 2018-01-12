@@ -1,9 +1,13 @@
 @font-face {
     font-family: "fontawesome";
-    src: url("../../node_modules/react-modal/_book/gitbook/fonts/fontawesome/fontawesome-webfont.ttf")
+    src: url("../../node_modules/react-modal/_book/gitbook/fonts/fontawesome/fontawesome-webfont.ttf")  
+}
+@font-face{
+    font-family:"Tahoma";
+    src: url('../assets/fonts/tahoma-font/Tahoma.ttf')
 }
 body {
-    font-family: sans-serif;
+    font-family: Tahoma,sans-serif;
     margin: 0;
     padding: 0;
     overflow-y: hidden;
@@ -37,7 +41,7 @@ body {
 
 .hks-btn {
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: transparent;
     color: #fff;
     /*outline: none;*/
@@ -1314,8 +1318,8 @@ label {
 .scroll.search-bar {
     position: absolute;
     width: 100%;
-    padding-left: 22px;
-    padding-right: 22px;
+    /* padding-left: 22px; */
+    /* padding-right: 22px; */
     height: 100%;
 }
 .scrolling-tabs {
@@ -2976,13 +2980,19 @@ label {
     border: 1px solid #dcdcdc;
 }
 .maincontent-desktop .widget-header {
-    height: 35px !important;
+    height: 25px !important;
 }
 .maincontent-desktop .widget-title {
     font-size: 18px !important;
+    padding: 0 10px 0 10px;
 }
+.widget-title span{
+     top: -3px ;
+     position: relative;
+}
+
 .maincontent-desktop .widget-wrapper {
-    padding-top: 35px !important;
+    padding-top: 25px !important;
 }
 .maincontent-desktop .btn-submit,
 .maincontent-desktop .btn-cancel  {
@@ -3160,3 +3170,7 @@ label {
     .marquee-overlay{
         cursor: pointer;
     }
+/* Pie Chart move under header*/
+#pieChartSVG{
+    margin-top: 30px;
+}

@@ -124,6 +124,8 @@ class EnterOrder extends React.Component {
         this.getStockInfo(stockCode, marketID, bsValue)
         this.props.setDefaultOrderParams(this.value)
         this.getOrderTypeList(this.props.genEnterOrderData)
+
+        this.props.setStockInfo(options)
     }
 
     handleOrderTypeChange(option) {
@@ -1187,6 +1189,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     setDefaultOrderParams: (params) => {
         dispatch(actions.setDefaultOrderParams(params))
     },
+    setStockInfo: (param) => {
+        dispatch(actions.sendStockToStockMarketInfoWidget(param))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrder)

@@ -82,7 +82,7 @@ export default {
             backgroundColor: '#FFFFFF'
         },
         widgetBody: {
-            border: '1.75px solid #FFFFFF'
+            // border: '1.75px solid #FFFFFF'
         }
     },
     // Comment to use default library theme, uncomment to customize

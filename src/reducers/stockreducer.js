@@ -15,7 +15,8 @@ const initialState = {
       mvDayOpen: '-',
       mvCurrentRoom: '-'
     }
-  }
+  },
+  
 };
 
 export default function (state = initialState, action) {
@@ -32,6 +33,11 @@ export default function (state = initialState, action) {
     case ActionTypes.STOCKWATCHDATAUPDATE:
       return Object.assign({}, state, {
         stockWatchInfo: Object.assign({}, ...state.stockWatchInfo, action.data == null ? {} : action.data),
+      });
+
+    case ActionTypes.STOCKMARKET:
+      return Object.assign({}, state, {
+          stockCode: action.stockCode,
       });
 
     default:

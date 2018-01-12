@@ -26,7 +26,7 @@ export default {
       backgroundColor: '#F0F0F0'
     },
     background: {
-      backgroundColor: '#474747',
+      backgroundColor: '#262626',
     },
     pageMenuNav: {
       backgroundColor: '#1D1C1C'
@@ -49,7 +49,7 @@ export default {
   },
   widget: {
     widgetBackground: {
-      backgroundColor: '#EEECEC'
+      backgroundColor: 'rgb(71, 71, 71)'
     },
     widgetHeader: {
       backgroundColor: '#FF8000'

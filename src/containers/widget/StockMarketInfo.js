@@ -226,6 +226,8 @@ class StockMarketInfo extends Component {
 				askVol: 0,
 			},
 		})
+
+		
 	}
 
 	rerenderBidAskPer(bidPer, askPer) {
@@ -238,6 +240,12 @@ class StockMarketInfo extends Component {
 	getData(value) {
 		if (value == null) return "-"
 		return value
+	}
+
+	componentDidMount() {
+		if(this.props.stockInfo == null) {
+			this.onSearch(this.props.stockInfo)
+		}
 	}
 
 	render() {
@@ -395,7 +403,10 @@ class StockMarketInfo extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return { stockWatchInfo: state.stock.stockWatchInfo }
+	return { 
+		stockWatchInfo: state.stock.stockWatchInfo,
+		stockInfo: state.stock.stockInfo
+	}
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

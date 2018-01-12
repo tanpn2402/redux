@@ -4,7 +4,7 @@ import { onTabClick, onMobileTabClick, getSavedContentLayout,
 import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
-import { stockSearch, getStockWatchInfo } from './stockaction'
+import { stockSearch, getStockWatchInfo, sendStockToStockMarketInfoWidget } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
 import { getPorfolio } from './porfolio'
 import { enquiryOrderHistory, exportOrderHistory } from './orderhistory'
@@ -67,7 +67,7 @@ export {
   // stock action
   stockSearch,
   getStockWatchInfo,
-
+  sendStockToStockMarketInfoWidget,
 
   // enterorder
   genEnterOrder,

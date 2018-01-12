@@ -47,14 +47,14 @@ class LoanTrans extends Component {
                 }, {
                     id: 'trandate',
                     accessor: this.accessor[1],
-                    width: 100,
+                    width: 120,
                     show: true,
                     skip: false,
                 }, {
                     id: 'refundamount',
                     accessor: this.accessor[2],
                     Cell: props => Utils.currencyShowFormatter(props.original.refundAmt, ",", this.lang),
-                    width: 100,
+                    width: 140,
                     show: true,
                     skip: false,
                 }, {
@@ -67,7 +67,7 @@ class LoanTrans extends Component {
                 }, {
                     id: 'status',
                     accessor: this.accessor[4],
-                    width: 100,
+                    width: 140,
                     Cell: props => this.getStatus(props.original.status, this.props.language.loanrefund.status),
                     show: true,
                     skip: false,

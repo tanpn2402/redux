@@ -54,7 +54,7 @@ class ActionRightList extends Component {
                     Cell: props => {
                         return this.redererToCash(props.original)
                     },
-                    width: 100,
+                    width: 150,
                     skip: false,
                     show: true,
                 },

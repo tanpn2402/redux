@@ -14,9 +14,11 @@ class PageContent extends React.Component {
 
     render() {
         let background = this.props.theme.page.background
+        
         return (
-            <div style={background} id="pagecontent" className={"pagecontent " + this.props.tabID}>
-                <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
+            <div id="pagecontent" className={"pagecontent " + this.props.tabID}>
+                <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto", 
+                    backgroundColor: background.backgroundColor }} 
                     ref={r=> this.Wrapper = r}>
                     <Notification theme={this.props.theme} language={this.props.language} />
                     {
