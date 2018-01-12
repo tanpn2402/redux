@@ -31,13 +31,17 @@ class DesktopTable extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.theme.table)
+		let tableSearch = this.props.theme.table.tableSearch
 		let tableHeader = this.props.theme.table.tableHeader
 		let tableFooter = this.props.theme.table.tableFooter
+		let tableBody = this.props.theme.table.tableBody
+		
 		let language = this.props.language[this.props.idParent ? this.props.idParent : this.props.id]
 		return (
 			<div className="destop-table" style={{ width: "100%", height: "100%", position: "relative" }}>
 
-				<div className={"table-main"} style={tableHeader} ref={e => this.rTable = e}>
+				<div className={"table-main"} style={tableBody} ref={e => this.rTable = e}>
 					<DataTable
 						theme={this.props.theme}
 						key={this.props.id}
@@ -57,7 +61,7 @@ class DesktopTable extends React.Component {
 				{
 					!this.props.searchEnable ? null :
 						(
-							<div className="table-header">
+							<div className="table-header" style={tableSearch}>
 								<SearchBar
 									id={this.props.id}
 									onSearch={this.props.onSearch ? this.onSearch.bind(this) : undefined}
@@ -217,9 +221,10 @@ class DataTable extends React.Component {
 		let rowEven = this.props.theme.table.rowEven.backgroundColor
 		let filterRow = this.props.theme.table.filterRow
 		let font2 = this.props.theme.font.sub1.color
-		let font3 = this.props.theme.font.sub2.color
+		let font3 = this.props.theme.font.sub2
+
 		let font = this.props.theme.font.main.color
-		let tableHeaderBackground = this.props.theme.table.tableHeader.backgroundColor
+		let tableHeader = this.props.theme.table.tableHeader
 		let noDataDisplay = this.props.theme.table.noDataDisplay
 		let height = this.props.maxRows * 24 + 27 + 'px'
 		let widgetHeader = this.props.theme.widget.widgetHeader.backgroundColor
@@ -227,7 +232,7 @@ class DataTable extends React.Component {
 		let newStateColumns = this.state.columns
 
 		let notPopupTable = !this.props.id.includes('-table')
-
+		let pivotRow = this.props.theme.table.pivotRow
 
 
 		if (notPopupTable && !this.isHeaderRendered) { //Then render div in header
@@ -276,11 +281,7 @@ class DataTable extends React.Component {
 							}
 						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
 							return {
-								style: {
-									background: '#0644a8',
-									color: font,
-									fontWeight: 'bold'
-								}
+								style: {...pivotRow}
 							}
 						} else {
 							return {}
@@ -296,18 +297,12 @@ class DataTable extends React.Component {
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
 						return {
-							style: {
-								color: font3,
-								background: tableHeaderBackground
-							}
+							style: {...font3, ...tableHeader}
 						}
 					}}
 					getTheadGroupProps={(state, rowInfo, column, instance) => {
 						return {
-							style: {
-								color: font3,
-								background: tableHeaderBackground
-							}
+							style: {...font3, ...tableHeader}
 						}
 					}}
 					getTdProps={(state, rowInfo, column, instance) => {

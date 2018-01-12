@@ -88,7 +88,7 @@ class MatchOrderList extends Component {
                     width: 150,
                 }
             ],
-            filterable: true
+            filterable: false
         }
     }
 

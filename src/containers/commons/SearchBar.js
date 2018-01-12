@@ -58,6 +58,22 @@ export default class SearchBar extends React.Component {
             'mvLending': false,
             'mvActionType': false
         }
+        this.state = {
+            default: {
+                'mvStatus': "",
+                'mvBuysell': "",
+                'mvMarket': "",
+                'mvTrade': "",
+                'mvOrderType': "",
+                'mvStockId': undefined,
+                'mvStartDate': "",
+                'mvEndDate': "",
+                'mvLending': "",
+                'mvActionType': ""
+            }
+        }
+
+        this.state.default = Object.assign(this.state.default, this.props.defaultParams)
 
         this.components = {
             'mvStatus': (id, props)     => <Selector ref={r => this.ref.mvStatus = r} {...props} id={id} data={this.OrderStatusList} prefix=""/> ,
@@ -65,7 +81,8 @@ export default class SearchBar extends React.Component {
             'mvMarket': (id, props)     => <Selector ref={r => this.ref.mvMarket = r} {...props} id={id} data={this.MarketList} prefix="MARKET_"/> ,
             'mvTrade': (id, props)      => <Selector ref={r => this.ref.mvTrade = r} {...props} id={id} data={this.TransTypeList} prefix=""/> ,
             'mvOrderType': (id, props)  => <Selector ref={r => this.ref.mvOrderType = r} {...props} id={id} data={this.OrderTypeList} prefix="ORDERTYPE_"/> ,
-            'mvStockId': (id, props)    => <SelectorStock ref={r => this.ref.mvStockId = r} {...props} id={id} data={this.StockList} prefix=""/> ,
+            'mvStockId': (id, props, state)    => <SelectorStock ref={r => this.ref.mvStockId = r} {...props} id={id} 
+                data={this.StockList} prefix="" default={state.default["mvStockId"]}/> ,
             'mvStartDate': (id, props)  => <SearchDate ref={r => this.ref.mvStartDate = r} {...props} id={id} prefix="" /> ,
             'mvEndDate': (id, props)    => <SearchDate ref={r => this.ref.mvEndDate = r} {...props} id={id} prefix="" /> ,
             'mvLending': (id, props)    => <div></div> ,
@@ -92,12 +109,13 @@ export default class SearchBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        this.state.default = Object.assign(this.state.default, nextProps.defaultParams)
         
     }
 
     render() {
         let scrollBtnStyle = this.props.theme.scrolling.button
-
+        console.log("SEARCH BAR")
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
@@ -122,7 +140,7 @@ export default class SearchBar extends React.Component {
 
                                 {
                                     this.props.param.map(e => {
-                                        return this.components[e](e, this.props)
+                                        return this.components[e](e, this.props, this.state)
                                     })
                                 }
 
@@ -245,17 +263,39 @@ class SelectorStock extends React.Component {
         super(props)
         
         this.state = {
-            value: ""
+            value: {}
         }
+
+        
     }
 
     componentWillMount() {
         if(this.props.data.length > 0)
-            this.state.value = this.props.data[0]
+        {
+            if(this.props.default != undefined) {
+                this.state.value = this.props.default
+            }
+            // else {
+            //     this.state.value = this.props.data[0]
+            // }
+        }
     }
     componentWillUpdate() {
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("AAAAAA",nextProps )
+        if(nextProps.data.length > 0)
+        {
+            if(nextProps.default != undefined) {
+                this.state.value = nextProps.default
+            } else {
+                this.state.value = nextProps.data[0]
+            }
+        }
+    }
     render() {
+        console.log("AAAAAA",this.state.value )
         let id = this.props.id + "-" + new Date().getTime()
         let data = this.props.data
         let language = this.props.language
@@ -283,6 +323,9 @@ class SelectorStock extends React.Component {
 
     onChange(option) {
         this.setState({value: option})
+        if(this.props.handleStockChange != undefined) {
+            this.props.handleStockChange(option)
+        }
     }
 }
 

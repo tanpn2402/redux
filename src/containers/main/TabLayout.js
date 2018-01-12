@@ -57,11 +57,11 @@ class TabLayout extends Component {
         return (
             <div style={{height: "100%"}}>
                 <div className="scrolling-tabs-main tab-layout" style={background}>
-                    <div className="scrolling-tabs-left">
+                    {/* <div className="scrolling-tabs-left">
                         <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
                             <span className="glyphicon glyphicon-menu-left"></span>
                         </button>
-                    </div>
+                    </div> */}
                     <div className="scroll">
                         <div className="scrolling-tabs" id="scrolling-tablayout">
                             <nav className='vertical-align-middle'>
@@ -82,11 +82,11 @@ class TabLayout extends Component {
                             </nav>
                         </div>
                     </div>
-                    <div className="scrolling-tabs-right">
+                    {/* <div className="scrolling-tabs-right">
                         <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollBtnStyle}>
                             <span className="glyphicon glyphicon-menu-right"></span>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="tab-content" id="management">
                     <GridLayout 
@@ -94,7 +94,7 @@ class TabLayout extends Component {
                         layout={layout}
                         stockList={this.props.stockList} 
                         theme={this.props.theme}
-                        margin={[3,3]}
+                        margin={[4, 4]}
                         >
                     </GridLayout>
 

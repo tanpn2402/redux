@@ -1448,7 +1448,7 @@ label {
         position: absolute;
         width: 100%;
         padding-right: 130px;
-        padding-left: 27px;
+        padding-left: 4px;
         height: 100%;
     }
 
@@ -1538,8 +1538,9 @@ label {
     .scrolling-tabs-main.tab-layout > .scroll {
         position: absolute;
         width: 100%;
-        padding-right: 25px;
-        padding-left: 25px;
+        /* padding-right: 25px;
+        padding-left: 25px; */
+        padding-left: 2px;
         height: 100%;
     }
 
@@ -1716,7 +1717,7 @@ label {
     width: 100%;
     height: 100%;
     bottom: 0px;
-    padding-top: 105px;
+    padding-top: 125px;
 }
 
 .marketdatainfo-mini-table table {
@@ -1728,9 +1729,34 @@ label {
     color: white;
 }
 .marketdatainfo-mini-table table td ,.marketdatainfo-mini-table table th{
-    border: 1px solid #dcdcdc;
+    /* border: 1px solid #dcdcdc; */
     text-align: center;
     font-size: 12px;
+}
+.TTSTable {
+    width: 100%;
+}
+.TTSTable th {
+    background: #286cae;
+    color: #FFF;
+    text-align: center;
+    padding: 2px;
+    height: 22px;
+    font-weight: normal;
+    font-size: 12px;
+}
+.TTSTable tr{
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;  
+    height: 25px;  
+}
+.TTSTable tr td:not(:last-child),
+.TTSTable th:not(:last-child) {
+    border-right: 1px solid rgba(0,0,0,0.02);
+}
+.TTSTable tr:not(:first-child) {
+    
 }
 /* W */
 
@@ -1942,7 +1968,7 @@ label {
     bottom: 0;
     width: 100%;
     position: absolute;
-    background-color: #dcdcdc;
+    /* background-color: #dcdcdc; */
     padding: 2px 0;
     font-size: 12px;
 }
@@ -1960,16 +1986,16 @@ label {
     width: 50%;
     font-weight: normal !important;
 }
-.widget-body th,
+/* .widget-body th,
 .widget-body td {
-    font-weight: normal !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;   
+    font-weight: normal ;
+    padding-top: 5px ;
+    padding-bottom: 5px ;   
     border-top: 1px solid rgba(221, 221, 221, 0.5); 
 }
 .widget-form .table > tbody > tr {
     border: 1px solid #dcdcdc;
-}
+} */
 .widget-body .table > tbody > tr:nth-child(even) {background: #f7f7f7}
 .widget-body .table > tbody > tr:nth-child(odd) {background: #FFF}
 /* END WIDGET HEADER */
@@ -2629,10 +2655,15 @@ label {
 }
 .ReactTable {
     user-select: none;
+    border: none !important;
 }
 .ReactTable .rt-tr>.rt-resizable-header {
     padding: 5px 0;
 }
+.ReactTable .rt-tbody .rt-tr-group {
+    border-bottom: none;
+}
+
 /* end reorder column */
 .enterorder-form {
     padding: 0 10px;

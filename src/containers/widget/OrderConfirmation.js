@@ -113,7 +113,7 @@ class OrderConfirmation extends Component {
                 },
             ],
             pageIndex: 1,
-            filterable: true
+            filterable: false
         }
 
         this.rowSelected = []

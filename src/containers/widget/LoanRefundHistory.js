@@ -87,7 +87,7 @@ class LoanTrans extends Component {
                     skip: false,
                 },
             ],
-            filterable: true
+            filterable: false
         }
     }
 

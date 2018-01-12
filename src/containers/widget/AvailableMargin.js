@@ -54,7 +54,7 @@ class AvaibleMarginList extends Component {
                     show: true,
                 },
             ],
-            filterable: true,
+            filterable: false,
             pageIndex: 1,
         }
 

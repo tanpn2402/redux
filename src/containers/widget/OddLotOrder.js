@@ -70,7 +70,7 @@ class OddLotOrder extends Component {
                     show: true,
                 },
             ],
-            filterable: true
+            filterable: false
         }
         this.defaultPageSize = 15
         this.paramsEnquiryOddLot = {

@@ -482,11 +482,19 @@ class EnterOrder extends React.Component {
                 mvOrderType: orderDefault.mvOrderType
             })
             this.refStockName.value(orderDefault.mvStockName)
+            this.refMarketID.value(orderDefault.mvMarketID)
             if(orderDefault.mvStockCode != "") {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
+
+            this.props.setStockInfo({
+                "stockCode": orderDefault.mvStockCode,
+                "stockName": orderDefault.mvStockName,
+                "mvMarketID": orderDefault.mvMarketID
+            })
         }
-        if(this.state.mvOrderTypeList.length === 0)
+        console.log(this.state.mvOrderTypeList)
+        //if(this.state.mvOrderTypeList.length === 0)
             this.getOrderTypeList(nextProps.genEnterOrderData)
     }
 

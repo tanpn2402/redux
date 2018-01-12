@@ -63,7 +63,7 @@ class AdBankHistory extends Component {
                     skip: false,
                 }
             ],
-            filterable: true
+            filterable: false
         }
     }
 

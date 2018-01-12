@@ -99,7 +99,7 @@ class CashTransHistory extends Component {
                 }
             ],
             pageIndex: 1,
-            filterable: true
+            filterable: false
         }
 
     }

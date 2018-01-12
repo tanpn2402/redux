@@ -86,7 +86,7 @@ class AccountBalance extends Component {
                 }
             ],
             pageIndex: 1,
-            filterable: true
+            filterable: false
         }
 
         this.id = "accountbalance"

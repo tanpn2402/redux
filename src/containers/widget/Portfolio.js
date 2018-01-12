@@ -359,7 +359,7 @@ class Portfolio extends Component {
 
 
 
-            filterable: true
+            filterable: false
         }
     }
 

@@ -101,7 +101,7 @@ class MatchOrderBankList extends Component {
                     skip: false,
                 }
             ],
-            filterable: true
+            filterable: false
         }
 
         this.rowSelected = []

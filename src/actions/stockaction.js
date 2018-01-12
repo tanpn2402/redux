@@ -46,9 +46,23 @@ export function getStockWatchInfo(stockInfo) {
     }
 }
 
-export function sendStockToStockMarketInfoWidget(code) {
-    return {
-        type: ActionTypes.STOCKMARKET,
-        stockCode: code
+export function sendStockToStockMarketInfoWidget(stockInfo) {
+
+    var param = {
+        mvInstrument: stockInfo.stockCode,
+        mvMarketId: stockInfo.mvMarketID,
+        mvBS: 'B',
+        mvEnableGetStockInfo: 'N',
+        mvAction: 'OI,BP',
+        key: new Date(),
+    }
+    return function (dispatch) {
+        api.post('stockInfo.action', param, dispatch, function(res) {
+            return {
+                type: ActionTypes.STOCKMARKET,
+                stockInfo: stockInfo,
+                data: res
+            }
+        })
     }
 }

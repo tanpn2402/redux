@@ -32,7 +32,7 @@ class OrderJournal extends Component {
                 layout={ this.layout}
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
-                margin={[15, 15]}
+                margin={[4, 4]}
                 >
             </GridLayout>
         )

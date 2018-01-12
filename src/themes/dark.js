@@ -63,7 +63,13 @@ export default {
       backgroundColor: '#262626'
     },
     tableFooter: {
-      backgroundColor: '#262626'
+      // backgroundColor: '#262626'
+    },
+    tableBody: {
+      // backgroundColor: '#262626'
+    },
+    tableSearch: {
+      // backgroundColor: '#262626'
     },
     rowOdd: {
       backgroundColor: '#3F3E3E'
@@ -74,6 +80,11 @@ export default {
     filterRow: {
       backgroundColor: 'rgb(121, 121, 121)',
       color: '#FFF'
+    },
+    pivotRow: {
+      backgroundColor: '#0644a8',
+      color: '#FFF',
+      fontWeight: 'normal'
     },
     noDataDisplay: {
       backgroundColor: 'transparent',

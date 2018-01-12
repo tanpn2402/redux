@@ -98,7 +98,7 @@ class FundTransHistory extends Component {
             ],
             isShow: false,
             pageIndex: 1,
-            filterable: true
+            filterable: false
         }
 
         this.paramshkscashtranhis = {
@@ -107,7 +107,7 @@ class FundTransHistory extends Component {
             tradeType: 'FUND',
             start: '0',
             limit: '15',
-            key: '211121121112121',
+            key: new Date(),
         }
     }
     componentWillReceiveProps(nextProps) {

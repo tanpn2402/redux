@@ -17,7 +17,7 @@ class EntitlementHistory extends Component {
         this.idParent = 'entitlement'
         this.state = {
             pageIndex: 1,
-            filterable: true,
+            filterable: false,
             columns: [
                 {
                     id: 'registerdate',

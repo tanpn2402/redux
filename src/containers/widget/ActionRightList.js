@@ -112,7 +112,7 @@ class ActionRightList extends Component {
                     skip: false,
                     show: true,
                 }],
-            filterable: true
+            filterable: false
         }
 
         this.paramsright = {

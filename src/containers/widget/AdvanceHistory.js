@@ -87,7 +87,7 @@ class AdvanceHistory extends Component {
                     width: 300,
                 }
             ],
-            filterable: true
+            filterable: false
         }
 
         this.getCashAdvanceHistoryParams = {

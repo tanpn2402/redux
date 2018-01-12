@@ -37,7 +37,8 @@ export default function (state = initialState, action) {
 
     case ActionTypes.STOCKMARKET:
       return Object.assign({}, state, {
-          stockCode: action.stockCode,
+          stockInfo: action.stockInfo,
+          stockWatchInfo: Object.assign({}, ...state.stockWatchInfo, action.data == null ? {} : action.data),
       });
 
     default:

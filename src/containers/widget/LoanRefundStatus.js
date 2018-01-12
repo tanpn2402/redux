@@ -85,7 +85,7 @@ class LoanTrans extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
 
-            filterable: true
+            filterable: false
         })
     }
 

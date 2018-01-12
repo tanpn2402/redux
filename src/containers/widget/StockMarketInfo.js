@@ -227,6 +227,7 @@ class StockMarketInfo extends Component {
 			},
 		})
 
+		console.log("RECEIVE PROPS", this.props, nextProps)
 		
 	}
 
@@ -242,11 +243,45 @@ class StockMarketInfo extends Component {
 		return value
 	}
 
-	componentDidMount() {
-		if(this.props.stockInfo == null) {
-			this.onSearch(this.props.stockInfo)
-		}
+	componentDidUpdate() {
+		
 	}
+
+	componentDidMount() {
+		
+	}
+
+	shouldComponentUpdate(nextProps) {
+		// console.log("shouldComponentUpdate", nextProps.stockInfo, this.props.stockInfo)
+		// if(this.props.stockInfo != undefined && nextProps.stockInfo != undefined) {
+		// 	return this.props.stockInfo.stockCode != nextProps.stockInfo.stockCode
+		// }
+		return true
+		
+	}
+
+	handleStockChange(option) {
+		console.log("handleStockChange", option)
+		this.props.setDefaultOrderParams({
+			mvStockCode: option.stockCode,
+			mvStockName: option.stockName,
+			mvMarketID: option.mvMarketID,
+			mvBS: "BUY",
+            mvVol: 0,
+            mvFeeRate: "",
+            mvLending: "",
+            mvBuyPower: "",
+            mvGrossAmt: 0,
+            mvMaxQty: 0,
+            mvExpireChecked: false,
+            mvBankACID: null,
+            mvBankID: null,
+            mvSettlementAccSelected: null
+		})
+
+		this.onSearch({"mvStockId": option.stockCode})
+	}
+	
 
 	render() {
 		let tableHeader = this.props.theme.table.tableHeader
@@ -269,7 +304,9 @@ class StockMarketInfo extends Component {
 		
 				}
 
-				
+		console.log("ENDER", this.props)
+
+		let lang = this.props.language.stockmarketinform
 		return (
 			<div id={this.id}>
 				<Title language={this.props.language} theme={this.props.theme}>
@@ -277,7 +314,20 @@ class StockMarketInfo extends Component {
 				</Title>
 
 				<Body theme={this.props.theme}>
-					<div className="table-main" style={{ "padding-bottom": 0 }}>
+					<div className="table-header" style={{tableHeader, "zIndex": 2, paddingTop: 1}}>
+						<SearchBar
+							ref={e => this.mvStockId = e}
+							id={this.id}
+							buttonAction={[]}
+							language={this.props.language.searchbar}
+							theme={this.props.theme}
+							data={{ stockList: this.props.stockList }}
+							param={['mvStockId']}
+							defaultParams={{"mvStockId": this.props.stockInfo}}
+							allStockEnabled={false}
+							handleStockChange={this.handleStockChange.bind(this)} />
+					</div>
+					<div className="table-main" style={{ paddingBottom: 0, position: "relative" }}>
 						<div className="table-responsive col-xs-6" style={{ height: '100%', fontSize: '12px' }}>
 							<table className="table">
 								<tbody >
@@ -307,28 +357,23 @@ class StockMarketInfo extends Component {
 						<div className=" col-xs-6 stock-info">
 
 							<div className="marketdatainfo-mini-table">
-								<table>
+								<table className="TTSTable">
 									<tr>
 										<th colSpan={2}>{this.props.language.stockmarketinform.header.BestBid}</th>
 										<th colSpan={2}>{this.props.language.stockmarketinform.header.BestAsk}</th>
 									</tr>
-									{this.state.panel3.data.map((row, i) => {
-										if (i % 2 != 0) {
-											return (<tr style={{ backgroundColor: 'rowOdd', color: font2 }}>
-												<td>{row.BestBid.price}</td>
-												<td>{row.BestBid.volume}</td>
-												<td>{row.BestAsk.price}</td>
-												<td>{row.BestAsk.volume}</td>
-											</tr>)
-										} else {
-											return (<tr style={{ backgroundColor: rowEven, color: font2 }}>
-												<td>{row.BestBid.price}</td>
-												<td>{row.BestBid.volume}</td>
-												<td>{row.BestAsk.price}</td>
-												<td>{row.BestAsk.volume}</td>
-											</tr>)
-										}
-									})}
+									{
+										this.state.panel3.data.map((row, i) => {
+											return (
+												<tr style={{ backgroundColor: i%2 != 0 ? rowOdd: rowEven, color: font2 }}>
+													<td>{row.BestBid.price}</td>
+													<td>{row.BestBid.volume}</td>
+													<td>{row.BestAsk.price}</td>
+													<td>{row.BestAsk.volume}</td>
+												</tr>
+											)
+										})
+									}
 								</table>
 								<div className="bid-ask-footer">
 									<div ref={e => this.perBuy = e}>-</div>
@@ -337,32 +382,37 @@ class StockMarketInfo extends Component {
 							</div>
 
 
-							<div className="marketdatainfo-mini-table" id="match-order-table">
-								{/* <Table theme={this.props.theme}
-									key={this.id}
-									id={this.id}
-									defaultPageSize={15}
-									columns={this.state.panel2}
-									data={[]}
-									language = {this.props.language.stockmarketinform.header}
-								/> */}
+							<div id="match-order-table">
+								<div style={{textAlign: "center", backgroundColor: "#286cae", color: "#FFF", borderBottom: "1px solid #cccccc25", fontSize: 12, padding: 3}}>{
+									lang.header.MatchingOrderInfo}
+								</div>
+								<table className="TTSTable">
+									<tr>
+										<th>{lang.header.Time}</th>
+										<th>{lang.header.Volume}</th>
+										<th>{lang.header.Price}</th>
+										<th>{lang.header.Total}</th>
+									</tr>
+									{
+										this.state.panel3.data.map((row, i) => {
+
+											return (
+												<tr style={{ backgroundColor: i%2 != 0 ? rowOdd: rowEven, color: font2 }}>
+													<td>{row.BestBid.price}</td>
+													<td>{row.BestBid.volume}</td>
+													<td>{row.BestAsk.price}</td>
+													<td>{row.BestAsk.volume}</td>
+												</tr>
+											)
+										})
+									}
+								</table>
 							</div>
 
 						</div>
 					</div>
 
-					<div className="table-header" style={tableHeader}>
-						<SearchBar
-							ref={e => this.mvStockId = e}
-							id={this.id}
-							onSearch={this.onSearch.bind(this)}
-							buttonAction={[]}
-							language={this.props.language.searchbar}
-							theme={this.props.theme}
-							data={{ stockList: this.props.stockList }}
-							param={['mvStockId']}
-							allStockEnabled={false} />
-					</div>
+					
 				</Body>
 			</div>
 			// <div className="marketdatainfo-widget">
@@ -397,6 +447,7 @@ class StockMarketInfo extends Component {
 	onSearch(param) {
 		var curStock = Config.cache.stockList.filter(stock => stock.stockCode == param.mvStockId)
 		if (curStock.length > 0) {
+			console.log("ON SEARCH")
 			this.props.getStockWatchInfo(curStock[0])
 		}
 	}
@@ -410,6 +461,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-	getStockWatchInfo: (param) => { dispatch(actions.getStockWatchInfo(param)) }
+	getStockWatchInfo: (param) => { dispatch(actions.getStockWatchInfo(param)) },
+    setDefaultOrderParams: (params) => {
+        dispatch(actions.setDefaultOrderParams(params))
+    },
 })
 export default connect(mapStateToProps, mapDispatchToProps)(StockMarketInfo)

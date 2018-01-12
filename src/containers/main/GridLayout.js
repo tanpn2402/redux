@@ -67,7 +67,7 @@ class GridLayout extends React.Component {
 }
 
 GridLayout.defaultProps = {
-    margin: [3,3],
+    margin: [4,4],
 }
 
 const mapStateToProps = (state, props) => ({

@@ -88,20 +88,31 @@ export default {
     // Comment to use default library theme, uncomment to customize
     table: {
         tableHeader: {
-            //     backgroundColor: '#262626'
+                backgroundColor: 'rgba(38, 38, 38, 0.13)'
         },
         tableFooter: {
             //     backgroundColor: '#262626'
         },
+        tableBody: {
+    
+        },
+        tableSearch: {
+    
+        },
         rowOdd: {
-            //     backgroundColor: '#3F3E3E'
+                backgroundColor: '#eaeaea'
         },
         rowEven: {
-            //     backgroundColor: '#474747'
+                backgroundColor: '#FFF'
         },
         filterRow: {
             backgroundColor: 'rgb(222, 222, 222)',
             color: '#000000'
+        },
+        pivotRow: {
+            background: '#0644a8',
+            color: '#FFF',
+            fontWeight: 'normal'
         },
         noDataDisplay: {
             backgroundColor: 'transparent',

@@ -258,7 +258,7 @@ class OrderJournal extends Component {
             ],
             pageIndex: 1,
             key: false,
-            filterable: true
+            filterable: false
         }
 
         this.rowSelected = []
