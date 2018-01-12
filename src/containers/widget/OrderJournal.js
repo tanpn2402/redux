@@ -25,7 +25,7 @@ class OrderJournal extends Component {
                             if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
                                 if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
                                     return (
-                                        <input type='checkbox' style={{ position: 'relative', top: '6px' }}
+                                        <input type='checkbox' style={{ }}
                                             className={this.id + "-row-checkbox"}
                                             onChange={() => { this.onRowSelected(props.original) }} />
                                     )

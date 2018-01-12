@@ -181,5 +181,15 @@ export default {
       color: "#ffffff",
     },
     background: ""
+  },
+  popup: {
+    header: {
+      backgroundColor: "rgb(255, 128, 0)",
+      color: "#FFF"
+    },
+    body: {
+      backgroundColor: "rgb(97, 97, 97)",
+      color: "#FFF"
+    }
   }
 }

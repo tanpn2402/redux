@@ -19,6 +19,13 @@ export default class Pagination extends React.Component {
 	render() {
 		let font2 = this.props.theme.font.sub1.color
 		let background = this.props.theme.searchbar.default.button
+		var pages = [];
+		for (var i = 1; i <= this.props.totalPage; i++) {
+			if(i == this.state.page)
+				pages.push(<option value={i} selected="true">{i}</option>)
+			else
+				pages.push(<option value={i}>{i}</option>)
+		}
 		return (
 			<div className="form-inline form-group pagination-top">
 				{
@@ -35,14 +42,11 @@ export default class Pagination extends React.Component {
 					<span className="glyphicon glyphicon-triangle-left" />
 				</button>
 
+				<select id="pageinput" className="hks-input page-input"
+					onChange={e => this.onPageSelect(e)} max={5}>
+					{pages}
+				</select>
 
-
-				<input type="number" value={this.state.page}
-					id="pageinput" className="hks-input page-input"
-					onKeyDown={e => this.onPageChange(e)}
-					onChange={e => e.target.value > 0 ? this.setState({ page: e.target.value }) : 0}
-					style={{ textAlign: "center" }}
-				/>
 
 				<span style={{ color: font2 }}> / {this.props.totalPage}  </span>
 
@@ -80,9 +84,18 @@ export default class Pagination extends React.Component {
 		)
 	}
 
+	onPageSelect(e){
+			e.preventDefault();
+			this.setState({page: e.target.value});
+			if(e.target.value !== undefined){
+					this.props.onPageChange(e.target.value);
+			}
+	}
+
 	onNextPage() {
 		if (this.state.page < this.props.totalPage && this.props.onPageChange) {
-			this.props.onPageChange(this.state.page + 1)
+			this.props.onPageChange((parseInt(this.state.page) + 1))
+
 		}
 	}
 

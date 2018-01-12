@@ -4,7 +4,13 @@
 }
 @font-face{
     font-family:"Tahoma";
-    src: url('../assets/fonts/tahoma-font/Tahoma.ttf')
+    font-style: normal;
+    font-weight:400;
+    src: url('../assets/fonts/tahoma-font/Tahoma.eot');
+    src: local('Tahaoma'),
+        local('Tahoma-Regular')
+        url('../assets/fonts/tahoma-font/TahomaRegular.ttf') format('truetype'),
+        url('../assets/fonts/tahoma-font/tahoma.woff') format('woff');
 }
 body {
     font-family: Tahoma,sans-serif;
@@ -308,6 +314,23 @@ label {
     padding: 3px 6px;
     height: 22px;
     background-color: transparent;
+}
+.ReactTable .rt-tr>.rt-resizable-header {
+    padding: 5px 0;
+    border-right: 1px solid rgba(187, 186, 186, .3);
+    border-top: 1px solid rgba(187, 186, 186, .3);
+    background-clip: padding-box;
+}
+.ReactTable .rt-thead.-headerGroups {
+    border-bottom: none;
+}
+.ReactTable .rt-table>.rt-thead.-headerGroups>.rt-tr>.rt-th{
+    border-right: 1px solid rgba(187, 186, 186, .3);
+    background-clip: padding-box;
+}
+.ReactTable .rt-thead .rt-th:last-child {
+    border-right: 1px solid rgba(187, 186, 186, .3);
+    background-clip: padding-box;
 }
 /*END DATATABLE*/
 /*DATATABLE FOOTER*/
@@ -648,7 +671,7 @@ label {
 /*POPUP*/
 
 .title {
-    text-align: center;
+    text-align: left;
     font-size: 14px;
 }
 .modalbody {
@@ -672,6 +695,7 @@ label {
     /* width: 100%; */
     /* margin-left: 0px; */
     margin-bottom: 0px;
+    max-width: 550px;
 }
 .modal-content {
     display: table-cell;
@@ -692,11 +716,16 @@ label {
     -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
     box-shadow: 0 3px 9px rgba(0,0,0,.5);
 }
+.modal-inner {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;    
+}
 .modal-header {
     padding-top: 5px;
     padding-bottom: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom: none;
 }
 .modal-title {
     font-size: 16px;
@@ -1620,7 +1649,8 @@ label {
 }
 .hks-input.page-input {
     border: 1px solid #dcdcdc;
-    width: 45px;
+    width: 55px;
+    border-radius: 2px;
 }
 
 .form-inline.search-bar .hks-input.page-input {
@@ -1757,6 +1787,10 @@ label {
 }
 .TTSTable tr:not(:first-child) {
     
+}
+
+.table.no-border, .table.no-border td, .table.no-border th {
+    border: none;
 }
 /* W */
 
@@ -2663,7 +2697,9 @@ label {
 .ReactTable .rt-tbody .rt-tr-group {
     border-bottom: none;
 }
-
+.ReactTable .rt-thead.-header {
+    
+}
 /* end reorder column */
 .enterorder-form {
     padding: 0 10px;
@@ -3205,3 +3241,4 @@ label {
 #pieChartSVG{
     margin-top: 30px;
 }
+

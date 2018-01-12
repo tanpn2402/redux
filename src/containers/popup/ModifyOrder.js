@@ -69,7 +69,7 @@ class ModifyOrder extends Component {
         return (
             <div >
                 <Modal.Body>
-                    <table className="table table-bordered" >
+                    <table className="table table-bordered no-border" >
                         <tbody >
                             <tr className="modalbody">
                                 <th>{this.props.language.orderjournal.header.stockid}</th>
