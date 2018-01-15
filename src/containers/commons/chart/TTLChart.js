@@ -71,8 +71,8 @@ class TTLChart extends React.Component
         if (isMob)
         {
             this.chartLayout = {
-                chartCanvas_margin_left: 50,
-                chartCanvas_margin_right: 10,
+                chartCanvas_margin_left: 40,
+                chartCanvas_margin_right:40,
                 axis_fontSize: 22,
                 tooltip_fontSize: 16,
                 subchart_topPadding: 30,
@@ -83,8 +83,8 @@ class TTLChart extends React.Component
         else
         {
             this.chartLayout = {
-                chartCanvas_margin_left: 50,
-                chartCanvas_margin_right: 10,
+                chartCanvas_margin_left: 40,
+                chartCanvas_margin_right: 40,
                 axis_fontSize: 11,
                 tooltip_fontSize: 11,
                 subchart_topPadding: 10,
@@ -419,12 +419,12 @@ function createInChartVol(props)
             yExtents={d => d.volume}
             height={height}
             origin={origin}>
-            <YAxis axisAt="left" orient="left" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
                 tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
-                at="left"
-                orient="left"
+                at="right"
+                orient="right"
                 displayFormat={format(".4s")} />
         
             <BarSeries yAccessor={d => d.volume} />
@@ -450,12 +450,12 @@ function createVol(props)
             padding={{ top: topPadding, bottom: 0 }}>
             
             <XAxis axisAt="bottom" orient="bottom" showTicks={false} outerTickSize={0} tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
-            <YAxis axisAt="left" orient="left" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
+            <YAxis axisAt="right" orient="right" fontSize={chartLayout.axis_fontSize} ticks={5} tickFormat={format(".0s")} 
                 tickStroke={config.axis.tickStroke} stroke={config.axis.stroke}/>
         
             <MouseCoordinateY
-                at="left"
-                orient="left"
+                at="right"
+                orient="right"
                 displayFormat={format(".4s")} />
         
             <BarSeries yAccessor={d => d.volume} />

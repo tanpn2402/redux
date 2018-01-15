@@ -2172,7 +2172,7 @@ label {
 .TTLStockChart_C_Main {
     width: 100%;
     height: 100%;
-
+    top: 0;
 
     left: 0;
 }
@@ -2217,6 +2217,7 @@ label {
     z-index: 1000;
     outline-style: none;
     right: 0;
+
     top: 24px;
 }
 .TTLStockChart_C_Ctl_Disp > .panel > .panel-body .input-group > .input-group-addon{
@@ -2227,10 +2228,13 @@ label {
 }
 .TTLStockChart_C_Ctl {
     z-index: 3;
-    right: 55px;
+    right: 33px;
+    top: -25px;
 }
 .TTLStockChart_C_EditCtl {
-    margin-right: 55px;
+    margin-right: 40px;
+    top: -25px;
+    position: relative;
 }
 
 #ChartEditDropdown {
