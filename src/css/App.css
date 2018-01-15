@@ -2698,7 +2698,9 @@ label {
     border-bottom: none;
 }
 .ReactTable .rt-thead.-header {
-    
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
 }
 /* end reorder column */
 .enterorder-form {

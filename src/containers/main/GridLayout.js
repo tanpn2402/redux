@@ -10,6 +10,9 @@ var WidthProvider = require('react-grid-layout').WidthProvider
 var ResponsiveReactGridLayout  = require('react-grid-layout').Responsive
 ResponsiveReactGridLayout  = WidthProvider(ResponsiveReactGridLayout )
 
+const HEIGHT = 55
+
+
 class GridLayout extends React.Component {
 
     constructor () {
@@ -24,19 +27,39 @@ class GridLayout extends React.Component {
     generateChild(menuid){
         //console.log(this.state.layout)
         const layout = this.state.layout[menuid]
-        //console.log(layout)
+        console.log(layout)
+        
+        let col
+        if(layout['h'] == undefined) {
+            try {
+                let y = layout['y']
+                let ele = document.getElementById("maincontent")
+                let tab = document.getElementById("management")
+                let hei = 0
+                if(layout['tab'] == undefined || layout['tab'] == 0) {
+                    
+                    hei = ele.offsetHeight - 60
+                }
+                else hei = ele.offsetHeight - 60 - 30
+                let heightToFit = hei - y*(HEIGHT + 10)
+                col = Math.floor(heightToFit / (HEIGHT + 10))
+            } catch(ex) {
+                col = 4
+            }
+        } else {
+            col = layout['h']
+        }
+        console.log(menuid + "   " + col)
         return (
             <div key={menuid + (new Date()).getTime()} 
                 data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 
-                    h: layout['h'], minW: layout['minW'], minH: layout['minH'], 
+                    h: col, minW: layout['minW'], minH: layout['minH'], 
                     maxW: layout['maxW'], maxH: layout['maxH'], isDraggable: layout['isDraggable'],
                     isResizable: layout['isResizable']}}>
 
                 {
                     generateWindow(menuid, this.props)
                 }
-                        
-             
             </div>
         )
     }
@@ -57,7 +80,7 @@ class GridLayout extends React.Component {
         var x = this.generateDOM(layout)
         return (
 
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={55} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={HEIGHT} width={1320} 
                 margin={this.props.margin} useCSSTransforms={false}
                 >
                 {x}
