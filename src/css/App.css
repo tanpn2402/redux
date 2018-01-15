@@ -2702,6 +2702,16 @@ label {
     box-shadow: none;
 
 }
+.ReactTable .rt-tr-group:hover {
+    cursor: pointer;
+    /* background-color: #000; */
+}
+.ReactTable .rt-tr-group .rt-tr .-even:hover {
+    background-color: #000 !important;
+}
+.ReactTable .rt-tr-group .rt-tr .-odd:hover {
+    background-color: #000 !important;
+}
 /* end reorder column */
 .enterorder-form {
     padding: 0 10px;

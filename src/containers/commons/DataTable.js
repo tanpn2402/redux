@@ -54,7 +54,7 @@ class DesktopTable extends React.Component {
 						language={language ? language.header : undefined}
 						onRowSelected={this.onRowSelected.bind(this)}
 						maxRows={this.props.maxRows}
-
+						onCellClick={this.props.onCellClick}
 					/>
 				</div>
 
@@ -262,6 +262,9 @@ class DataTable extends React.Component {
 
 			this.state.columns = newStateColumns
 		}
+
+		
+
 		return (
 			<div ref={e => { this.curComp = e }} className="hks-table" id={this.props.id} onScroll={e => this.handleOnScroll(e)}>
 				<ReactTable
@@ -311,6 +314,11 @@ class DataTable extends React.Component {
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center'
+							},
+							onClick: e => {
+								
+									return this.onCellClick(state, rowInfo, column, instance)
+								
 							}
 						}
 					}}
@@ -335,7 +343,12 @@ class DataTable extends React.Component {
 
 	}
 
-
+	onCellClick(state, rowInfo, column, instance) {
+		// console.log(state)
+		if(this.props.onCellClick != undefined) {
+			this.props.onCellClick(state, rowInfo, column, instance)
+		}
+	}
 	// handleOnMouseEnter(e) {
 	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
 	// 	e.target.style = 'color: white; background-color: black;'

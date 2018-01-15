@@ -462,6 +462,41 @@ class EnterOrder extends React.Component {
         )
     }
 
+    componentDidMount() {
+        this.props.genEnterOrder()
+        console.log("componentDidMount", this.props)
+        let orderDefault = this.props.orderDefault
+        if(orderDefault !== null) {
+            this.state.mvBS = orderDefault.mvBS
+            this.state.mvMarketID = orderDefault.mvMarketID
+            this.state.mvStockName = orderDefault.mvStockName
+            this.state.mvStockSelected = {
+                stockCode: orderDefault.mvStockCode,
+                stockName: orderDefault.mvStockName
+            }
+
+            this.setValue({
+                mvBS: orderDefault.mvBS,
+                mvStockCode: orderDefault.mvStockCode,
+                mvStockName: orderDefault.mvStockName,
+                mvMarketID: orderDefault.mvMarketID,
+                // mvOrderType: orderDefault.mvOrderType
+            })
+            this.refStockName.value(orderDefault.mvStockName)
+            this.refMarketID.value(orderDefault.mvMarketID)
+            if(orderDefault.mvStockCode != "") {
+                this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
+            }
+
+            this.props.setStockInfo({
+                "stockCode": orderDefault.mvStockCode,
+                "stockName": orderDefault.mvStockName,
+                "mvMarketID": orderDefault.mvMarketID
+            })
+            this.getOrderTypeList(this.props.genEnterOrderData)
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         
         let orderDefault = nextProps.orderDefault
@@ -496,10 +531,6 @@ class EnterOrder extends React.Component {
         console.log(this.state.mvOrderTypeList)
         //if(this.state.mvOrderTypeList.length === 0)
             this.getOrderTypeList(nextProps.genEnterOrderData)
-    }
-
-    componentDidMount() {
-        this.props.genEnterOrder()
     }
 
     handleSubmit(e) {

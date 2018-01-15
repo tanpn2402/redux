@@ -434,13 +434,37 @@ class Portfolio extends Component {
                         searchDefaultValues={[]}
                         onSearch={() => {}}
                         searchEnable={false}
-
+                        onCellClick={this.onCellClick.bind(this)}
                     />
 
                 </Body>
             </div>
         )
 
+    }
+
+    onCellClick(state, rowInfo, column, instance) {
+        console.log(rowInfo, column, instance)
+        switch(column.id) {
+            case "mvStockID":
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvMarketID: rowInfo.original.mvMarketID,
+                    mvStockName: rowInfo.original.mvStockName,
+                    mvStockCode: rowInfo.original.mvStockID
+                })
+                this.props.onDesktopTabClick("trading", "enterorder")
+                break;
+            case "mvTradableQty":
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvMarketID: rowInfo.original.mvMarketID,
+                    mvStockName: rowInfo.original.mvStockName,
+                    mvStockCode: rowInfo.original.mvStockID
+                })
+                this.props.onDesktopTabClick("trading", "enterorder")
+                break;
+        }
     }
 
     onToggleFilter(value) {
@@ -507,6 +531,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onMobileTabClick: (id) => {
         dispatch(actions.onMobileTabClick(id));
+    },
+    onDesktopTabClick: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID));
     },
 })
 
