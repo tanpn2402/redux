@@ -159,6 +159,12 @@ export default {
             },
             decreaseLine:{
                 color: '#E50000'
+            },
+            chartFrame: {
+                backgroundColor: "#F2F2F2",
+                width: 550,
+                border: "1px solid #6790fc",
+                maxWidth: "none"
             }
         }
     },

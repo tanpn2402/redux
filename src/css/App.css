@@ -2966,12 +2966,14 @@ label {
     padding: 10px;
 }
 .stock-statistis .-title {
-    font-size: 20px;
+    font-size: 18px;
 }
 .stock-statistis .-title label {
     display: block;
 }
-
+.stock-info-table {
+    padding: 0 10px;
+}
 .stockinfo-detail {
     padding: 10px;
 }
@@ -3119,7 +3121,7 @@ label {
     .mobile .modal-footer .btn-default {
         min-width: 100px;
         max-width: 150px;
-        border-radius: 15px;
+        border-radius: 4px;
         font-size: 14px;
         padding: 6px 6px;
         border: none;

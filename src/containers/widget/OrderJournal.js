@@ -47,27 +47,27 @@ class OrderJournal extends Component {
 
                         } else {
                             var child = []
-                            //if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                //if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                            if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
+                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
                                     child.push(
                                         <button className="hks-btn sm btn-cancel-order" type="button"
                                             onClick={() => this.handleCancelOrder(props.original)}>
                                             <span className="glyphicon glyphicon-remove"></span>
                                         </button>
                                     )
-                                //}
-                            //}
+                                }
+                            }
 
-                            //if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                //if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                            if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
+                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
                                     child.push(
                                         <button className="hks-btn sm btn-modify" type="button"
                                             onClick={() => this.handleModifyOrder(props.original)}>
                                             <span className="glyphicon glyphicon-edit"></span>
                                         </button>
                                     )
-                                //}
-                            //}
+                                }
+                            }
 
                             return (
                                     <div>

@@ -415,8 +415,8 @@ class Portfolio extends Component {
                             return(
                                 <div className='lv-pivot-group' >
                                     <img src={propName == 'HA' ? images['flag_viet.jpg']
-                                        :propName=='HO'?images['flag_us.jpg']
-                                        :images['flag_hk.jpg']} style={{position: 'relative',
+                                        :propName=='HO'?images['flag_viet.jpg']
+                                        :images['flag_viet.jpg']} style={{position: 'relative',
                                         top: '-1px', marginRight: '15px'}} />
                                     <strong>{propName}</strong>
                                 </div>
@@ -428,7 +428,7 @@ class Portfolio extends Component {
                         totalPage={Math.ceil(data.length / this.defaultPageSize)}
 
                         searchParams={[]}
-                        searchMobileParams={[Contants.searchElement.MARKET, Contants.searchElement.CURRENCY]}
+                        searchMobileParams={[]}
                         searchActions={[]}
                         searchData={{}}
                         searchDefaultValues={[]}

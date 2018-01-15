@@ -170,7 +170,7 @@ export default
                 "FULLYFILLED": "Khớp toàn bộ",
                 "QUEUE": "Chờ khớp",
                 "PARTIALLYFILL": "Khớp một phần",
-                "REJECTED": "Không hợp lệ",
+                "REJECTED": "Lệnh bị huỷ",
                 "CANCELLED": "Đã hủy",
                 "READYTOSEND": "Chờ xử lý",
                 "SENDING": "Đang gửi",

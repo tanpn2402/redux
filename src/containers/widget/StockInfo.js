@@ -183,50 +183,82 @@ class StockStatistis extends React.Component {
                 value: 0.00
             }
         ]
+        console.log(this.props)
 
+        let stockName = "-"
+        let stockCode = "-"
+        let bidValue = "-"
+        let askValue = "-"
+        let nominalValue = "-"
+        let netChangeValue = "-"
+        let netChangePer = "-"
+        let netChangeStatus = "-"
+        let hightValue = 0
+        let lowValue = 0
+        let indexValue = 0
+        if(this.props.stockInfo != null) {
+            stockName = this.props.stockInfo.stockName
+            stockCode = this.props.stockInfo.stockCode
+
+
+        }
+        if(this.props.stockWatchInfo.mvStockInfoBean != undefined ) {
+            let mvStockInfoBean = this.props.stockWatchInfo.mvStockInfoBean
+            hightValue = mvStockInfoBean.mvHight
+            lowValue = mvStockInfoBean.Low
+            nominalValue = mvStockInfoBean.mvNomial
+            indexValue = mvStockInfoBean.mvLedgerCashBal
+        }
+        
+        let percent = 0
+        try {
+            percent = (indexValue - lowValue) / (hightValue - lowValue)
+        } catch(e) { percent = 0 }
+
+        let header = this.props.language.stockmarketinform.header
         return (
             <div className="stock-statistis">
                 <div className="-title">
-                    <label >ACB BANK</label>
-                    <label >ACB</label>
+                    <label >{stockName}</label>
+                    <label >{stockCode}</label>
                 </div>
                 <div style={{display: "table", width: "100%"}}>
                     <Col xs={8}>
                         <p>Nominal</p>
                         <div>
-                            <label style={{fontSize: "30px", color: "#48c15c"}}>99.500</label>
+                            <label style={{fontSize: "30px", color: "#48c15c"}}>{nominalValue}</label>
                         </div>
                     </Col>
                     <Col xs={4}>
                         <p>Net Change</p>
                         <div>
-                            <div style={{color: "#48c15c"}}>+ 120.47</div>
-                            <div style={{color: "#48c15c"}}>+ (0.4%)</div>
+                            <div style={{color: "#48c15c"}}>{netChangeStatus + " " + netChangeValue}</div>
+                            <div style={{color: "#48c15c"}}>{netChangeStatus + " (" + netChangeValue + "%)"}</div>
                         </div>
                     </Col>
                 </div>
 
                 <div style={{display: "table", width: "100%", background: "#666", color: "#FFF"}}>
                     <Col xs={6} style={{padding: "6px 10px", borderRight: "1px solid #FFF"}}>
-                        <span>Bid</span>
+                        <span>{header.BestBid}</span>
                         {"  "}
-                        <span>88.450</span>
+                        <span>{bidValue}</span>
                     </Col>
                     <Col xs={6} style={{padding: "6px 10px"}}>
-                        <span>Ask</span>
+                        <span>{header.BestAsk}</span>
                         {"  "}
-                        <span>99.563</span>
+                        <span>{askValue}</span>
                     </Col>
                 </div>
-                <BalanceBar left={{label: "Buy", value: "45%"}} right={{label: "Sell", value: "55%"}}
-                    title="Volume" percent={0.45}/>
+                {/* <BalanceBar left={{label: "Buy", value: "45%"}} right={{label: "Sell", value: "55%"}}
+                    title="Volume" percent={0.45}/> */}
 
-                <BalanceBar left={{label: "Low", value: "99.500"}} right={{label: "Hight", value: "110.675"}}
-                    title="Today" percent={ (105.600 - 99.500) / (110.675 - 99.500) }
-                    background={["#f5a621", "#d8d8d8"]} indexValue={105.600} hasIndex={true}/>
+                <BalanceBar left={{label: "Low", value: lowValue}} right={{label: "Hight", value: hightValue}}
+                    title="Today" percent={ percent }
+                    background={["#f5a621", "#d8d8d8"]} indexValue={indexValue} hasIndex={true}/>
 
 
-                <div style={{display: "table", width: "100%"}}>
+                {/* <div style={{display: "table", width: "100%"}}>
                     <Col xs={6} style={{paddingRight: "10px"}}>
                         <Table language={this.props.language.stockinfo.header} data={data} className="border-line"/>
                     </Col>
@@ -234,7 +266,7 @@ class StockStatistis extends React.Component {
                         <Table language={this.props.language.stockinfo.header} data={data} className="border-line"/>
                     </Col>
                     
-                </div>
+                </div> */}
             </div>
         )
     }
@@ -321,6 +353,61 @@ class StockInfoDetail extends React.Component {
     }
 }
 
+class StockInfoDetail1 extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        let header = this.props.language.stockmarketinform.header
+        // console.log(this.props, header)
+		let data = [
+				{
+					Header: props => <div>{header.Current}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvNomial,
+				}, {
+					Header: props => <div>{header.ChangeRate}</div>,
+					value: 0.0,
+				}, {
+					Header: props => <div>{header.Ref}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvReferencePrice,
+				}, {
+					Header: props => <div>{header.FloorCell}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvFloor + "/" + this.props.stockWatchInfo.mvStockInfoBean.mvCeiling,
+				}, {
+					Header: props => <div>{header.LowHigh}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvLow + "/" + this.props.stockWatchInfo.mvStockInfoBean.mvHigh,
+				}, {
+					Header: props => <div>{header.Open}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvDayOpen,
+				}, {
+					Header: props => <div>{header.Avg}</div>,
+					value: "-",
+				}, {
+					Header: props => <div>{header.Volume}</div>,
+					value: "-",
+				}, {
+					Header: props => <div>{header.Total}</div>,
+					value: '-',
+				}, {
+					Header: props => <div>{header.ForBuySell}</div>,
+					value: '/',
+				},
+				{
+					Header: props => <div>{header.Room}</div>,
+					value: this.props.stockWatchInfo.mvStockInfoBean.mvCurrentRoom,
+				},
+            ]
+
+        
+        return (
+            <div className="stock-info-table">
+                <Table language={this.props.language.stockmarketinform.header} data={data} className="border-line"/>
+            </div>
+        )
+    }
+}
+
 class StockInfo extends React.Component {
     constructor(props) {
         super(props)
@@ -354,22 +441,22 @@ class StockInfo extends React.Component {
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body key={this.id + "-body-" + (new Date()).getTime()} theme={this.props.theme}>
-                    <StockSearchBox {...this.props} />
+                    {/* <StockSearchBox {...this.props} /> */}
                     <StockStatistis {...this.props} />
-                    
+                    <StockInfoDetail1 {...this.props} />
                     {
-                        !this.state.isExpended ? null :
-                            <StockInfoDetail {...this.props} />
+                        // !this.state.isExpended ? null :
+                        //     <StockInfoDetail {...this.props} />
                     }
 
-                    <div style={{position: "absolute", bottom: "0", width: "100%", height: "40px", textAlign: "center", background: "#bc0000"}}>
+                    {/* <div style={{position: "absolute", bottom: "0", width: "100%", height: "40px", textAlign: "center", background: "#bc0000"}}>
                         <button style={{border: "none", height: "100%", width: "100%", background: "transparent", color: "#FFF"}}
                             onClick={() => this.expandStockInfoPanel()}>
                             {
                                 this.state.isExpended ? " - Less " : " + More "
                             }
                         </button>
-                    </div>
+                    </div> */}
                    
                     
                 </Body>
@@ -394,14 +481,16 @@ class StockInfo extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        
+        stockWatchInfo: state.stock.stockWatchInfo,
+        stockInfo: state.stock.stockInfo
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
     onReloadPageContent: () => {
         dispatch(actions.onReloadPageContent())
-    }
+    },
+    getStockWatchInfo: (param) => { dispatch(actions.getStockWatchInfo(param)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockInfo)
