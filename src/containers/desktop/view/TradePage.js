@@ -32,7 +32,7 @@ class TradePage extends Component {
                 stockList={this.props.stockList} 
                 theme={this.props.theme}
                 margin={[4, 4]}
-                identifyLayout={{lg: 6, md: 6, sm: 6, xs: 2, xxs: 2}}
+                identifyLayout={{lg: 8, md: 8, sm: 8, xs: 2, xxs: 2}}
                 >
             </GridLayout>
         )

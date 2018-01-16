@@ -32,7 +32,7 @@ class TradingChart extends Component {
     }
 
     componentDidMount() {
-        setInterval( this.simulate.bind(this) , 5000)
+        setInterval( this.simulate.bind(this) , 2000)
     }
 
     simulate() {

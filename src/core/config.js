@@ -272,13 +272,14 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'tradeheader', x: 1, y: 0, w: 3, h: 1, isDraggable: false, isResizable: false },
-				{ i: 'bidask', x: 1, y: 1, w: 1, h: 5, isDraggable: false, isResizable: false },
-				{ i: 'tradehistory', x: 1, y: 7, w: 1, h: 5, isDraggable: false, isResizable: false },
-				{ i: 'watchlist-small', x: 4, y: 0, w: 1, h: 11, isDraggable: false, isResizable: false },
-				{ i: 'tradingchart', x: 2, y: 2, w: 2, h: 5, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 1, y: 11, w: 4, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'orderHistory', x: 1, y: 17, w: 4, h:6, isDraggable: false, isResizable: false },
+				{ i: 'tradeheader', x: 0, y: 0, w: 6, h: 1, isDraggable: false, isResizable: false },
+				{ i: 'bidask', x: 0, y: 1, w: 2, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'tradehistory', x: 0, y: 7, w: 2, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'watchlist-small', x: 6, y: 0, w: 2, h: 11, isDraggable: false, isResizable: false },
+				{ i: 'placeorder', x: 2, y: 7, w: 4, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'tradingchart', x: 2, y: 2, w: 4, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 0, y: 11, w: 4, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'orderHistory', x: 4, y: 11, w: 4, h:6, isDraggable: false, isResizable: false },
 			]
 		},
 		{

@@ -65,7 +65,7 @@ import TradeHistory from './TradeHistory'
 import WatchListSmall from './WatchListSmall'
 import TradeHeader from './TradeHeader'
 import TradingChart from './TradingChart'
-
+import PlaceOrder from './PlaceOrder'
 
 
 export default function (menuid, props){
@@ -319,6 +319,12 @@ export default function (menuid, props){
 		case 'tradingchart':
 			return (
 				<TradingChart stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+
+		case 'placeorder':
+			return (
+				<PlaceOrder stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
     }

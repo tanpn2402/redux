@@ -923,6 +923,15 @@ label {
 }
 #pageheader .logo {
     padding: 10px 0px 10px 10px;
+    width: 18.88%;
+    float: left;
+    min-width: 100px;
+    transition-property: transform;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+}
+#pageheader .logo img{
+    height: 40px
 }
 
 /*END HEADER*/
@@ -2723,28 +2732,37 @@ label {
 .enterorder-form > div {
     margin-bottom: 10px;
     display: table;
-    width: 100%;
+    /* width: 100%; */
 }
 .enterorder-form > .form-submit-action {
-    margin-top: 10px;
+    margin-top: 0px;
+    width: 100%;
 }
 .enterorder-form.buy .btn-submit {
     background-color: #005899;
     border: 2px solid #005899;
+    height: 30px;
+    padding: 0;
 }
 .enterorder-form.buy .btn-cancel {
     border: 2px solid #005899;
     background-color: #fff;
     color: #005899;
+    height: 30px;
+    padding: 0;
 }
 .enterorder-form.sell .btn-submit {
     background-color: #FF6600;
     border: 2px solid #FF6600;
+    height: 30px;
+    padding: 0;
 }
 .enterorder-form.sell .btn-cancel {
     border: 2px solid #FF6600;
     background-color: #fff;
     color: #FF6600;
+    height: 30px;
+    padding: 0;
 }
 .enterorder-form .select-control,
 .enterorder-form .input-control {
@@ -2766,6 +2784,31 @@ label {
     padding-left: 0px !important;
 }
 
+.placeorder-col-right{
+    padding-left: 10px;
+    font-size: 12px;
+}
+.placeorder-col-left {
+    padding-right: 10px;
+    font-size: 12px;
+}
+.placeorder-row{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.placeorder-col-left > div,.placeorder-col-right > div{
+    padding-bottom: 8px;
+}
+.buy-sell{
+    position: absolute;
+    left: 25%;
+}
+#enterorder .widget-wrapper {
+    padding-top: 5px !important;
+}
 /* Listview-control */
 .listview-control {
     width: 100%;
@@ -3394,3 +3437,94 @@ label {
 }
 
 /* END TRADING CHART */
+
+
+/* Slider Format */
+.headSlider, .logo{
+    display: inline-block;
+}
+.headSlider{
+    width: 50%;
+    float: left;
+    height: 60px;
+    border: 1px solid;
+    margin-left: 13%;
+    transform: translateX();
+    transition-property: transform;
+    transition-duration: 1.5s;
+    transition-timing-function: ease-in-out;
+}   
+.headSlider img{
+    height: 60px;
+    width: 100%;
+    object-fit: cover;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    transition-property: transform , width;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+.slick-dots{
+    position: absolute;
+    top: 40px;
+}
+.slick-dots {
+     position: absolute;
+    top: 35px;
+    height: 0;
+    width: auto;
+    right: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+.slick-dots li button:before
+{
+    font-family: 'slick';
+    font-size: 10px;
+    line-height: 20px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 20px;
+    height: 20px;
+
+    content: '•';
+    text-align: center;
+
+    opacity: .25;
+    color: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+@media only screen and (max-width: 1000px){
+    .headSlider{
+        transform: translateX(25%);
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .headSlider{
+       display: none;
+        }
+    #pageheader .logo{
+        transform: translateX(60%);
+    }
+}
+/* securityCode CSS format*/
+.securityCode{
+    display: inline-block;
+    float: right;
+    z-index: 1;
+    top: -4px;
+    position: relative;
+    background: #F0F0F0;
+    padding-top: 6px;
+}
+.login-form .security-image {
+   width: 80%;
+    float: right;
+}

@@ -60,7 +60,7 @@ class LoginForm extends Component {
             securitycode: '12345'
         }
 
-        this.captchaURL = FetchAPI.getServerUrl() + "Security"
+        this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
         this.onSubmit = this.onSubmit.bind(this);
 
         this.loginMethod = config.loginBy;
@@ -160,7 +160,9 @@ class LoginForm extends Component {
                                 </div>
                                 <Col xs={8}>
                                     <input pattern="\d{4}" type="text" className="hks-input border security-input" name="security" ref={node => { this.securitycode = node }} />
-                                    <img className="security-image" src={this.captchaURL} />
+                                    <div className="securityCode">
+                                        <img className="security-image" src={this.captchaURL} />
+                                    </div>
                                 </Col>
                                 
                             </FormGroup>

@@ -194,31 +194,30 @@ class PlaceOrder extends React.Component {
         }
         // console.log(themee)
         return (
-            <div style={{ height: "100%", position: "relative" }} id={this.id}>
-                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
-                    {this.props.language.menu[this.id]}
-                </Title>                    
+            <div style={{ height: "100%", position: "relative" }} id={this.id}>                 
                 <Body theme={this.props.theme}>
-                <div className={"enterorder-form " + this.state.mvBS.toLowerCase()} style={{ height: "100%", backgroundColor: bg }}>
-                    {/* BUY/SELL */}
-                    <div style={{display: "table", width: "100%"}}>
-                        <Col xs={5} style={{color: tColor}}></Col>
-                        <Col xs={7}>
-                            <FormGroup>
-                                <Radio name="radioGroup" inline checked={this.state.mvBS === "BUY"} style={{margin: "0 20px", color: tColor}}
-                                    onChange={() => this.handleBSChange("BUY") }>
-                                    {header.buy}
-                                </Radio>
-                                
-                                <Radio name="radioGroup" inline checked={this.state.mvBS === "SELL"} style={{margin: "0 20px", color: tColor}}
-                                    onChange={() => this.handleBSChange("SELL") }>
-                                    {header.sell}
-                                </Radio>
-                            </FormGroup>
-                        </Col>
-                        
-                    </div>
-
+                <div className={"enterorder-form " + this.state.mvBS.toLowerCase()} style={{height: "100%", backgroundColor: bg }}>
+             
+                {/* BUY/SELL */}
+                <div style={{display: "table", width: "100%"}}>
+                    <Col xs={5} style={{color: tColor}}></Col>
+                    <Col xs={7}>
+                        <FormGroup>
+                            <Radio name="radioGroup" inline checked={this.state.mvBS === "BUY"} style={{margin: "0 20px", color: tColor}}
+                                onChange={() => this.handleBSChange("BUY") }>
+                                {header.buy}
+                            </Radio>
+                            
+                            <Radio name="radioGroup" inline checked={this.state.mvBS === "SELL"} style={{margin: "0 20px", color: tColor}}
+                                onChange={() => this.handleBSChange("SELL") }>
+                                {header.sell}
+                            </Radio>
+                        </FormGroup>
+                    </Col>
+                    
+                </div>
+                {/* Column Left */}
+                <div className="placeorder-col-left" style={{display: "table-cell"}}>
                     {/* MARKET */}
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
@@ -273,7 +272,7 @@ class PlaceOrder extends React.Component {
                     </div>
 
                     {/* TRIGGER PRICE */}
-                    <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
+                  { /* <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
                         <Col xs={5} style={{color: tColor}}>
                             {header.triggerPrice}
                         </Col>
@@ -294,10 +293,10 @@ class PlaceOrder extends React.Component {
                             </Col>
                         </Col>
                     </div>
-
+                        */}
                     {/* QUANTITY */}
                     <div style={{display: "table", width: "100%"}}>
-                        <Col xs={5} style={{color: tColor}}>
+                        <Col xs={5} className="placeorder-title" style={{color: tColor}}>
                             {header.quantity}
                         </Col>
                         <Col xs={7}>
@@ -307,8 +306,8 @@ class PlaceOrder extends React.Component {
                     </div>
 
                     {/* ORDER TYPE */}
-                    <div style={{display: "table", width: "100%"}}>
-                        <Col xs={5} style={{color: tColor}}>
+                    <div  style={{display: "table", width: "100%"}}>
+                        <Col xs={5}  style={{color: tColor}}>
                             {header.ordertype}
                         </Col>
                         <Col xs={7}>
@@ -322,7 +321,11 @@ class PlaceOrder extends React.Component {
                             />
                         </Col>
                     </div>
-
+                    </div>
+                {/* End Left Column */}
+                    
+                {/* Column Right */}
+                <div className="placeorder-col-right" style={{display: "table-cell"}}>
                     {/* GOOD TILL
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
@@ -339,7 +342,6 @@ class PlaceOrder extends React.Component {
                                 />
                         </Col>
                     </div> */}
-
                     {/* % Lending */}
                     <div style={{display: "table", width: "100%"}}>
                         <Col xs={5} style={{color: tColor}}>
@@ -443,25 +445,26 @@ class PlaceOrder extends React.Component {
                                 ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty} style={{color: tColor}}/>
                         </Col>
                     </div> */}
-
-                    <div className="group-btn-action form-submit-action">
-                        <span>
-                            <button type="submit" className="hks-btn btn-submit"
-                                onClick={this.handleSubmit.bind(this)}>
-                                {this.state.mvBS}
-                            </button>
-                            <button type="reset" className="hks-btn btn-cancel"
-                                onClick={this.handleResetForm.bind(this)}>
-                                {this.props.language.button.reset}
-                            </button>
-                        </span>
-                    </div>
                 </div>
-                </Body>
+                {/* End Right Column */}
+                <div className="group-btn-action form-submit-action" style={{}}>
+                    <span>
+                        <button type="submit" className="hks-btn btn-submit"
+                            onClick={this.handleSubmit.bind(this)}>
+                            {this.state.mvBS}
+                        </button>
+                        <button type="reset" className="hks-btn btn-cancel"
+                            onClick={this.handleResetForm.bind(this)}>
+                            {this.props.language.button.reset}
+                        </button>
+                    </span>
+                </div>
             </div>
+        
+        </Body>
+    </div>
         )
     }
-
     componentDidMount() {
         this.props.genEnterOrder()
         console.log("componentDidMount", this.props)
@@ -517,20 +520,16 @@ class PlaceOrder extends React.Component {
                 mvOrderType: orderDefault.mvOrderType
             })
             this.refStockName.value(orderDefault.mvStockName)
-            this.refMarketID.value(orderDefault.mvMarketID)
             if(orderDefault.mvStockCode != "") {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
-
-            this.props.setStockInfo({
-                "stockCode": orderDefault.mvStockCode,
-                "stockName": orderDefault.mvStockName,
-                "mvMarketID": orderDefault.mvMarketID
-            })
         }
-        console.log(this.state.mvOrderTypeList)
-        //if(this.state.mvOrderTypeList.length === 0)
+        if(this.state.mvOrderTypeList.length === 0)
             this.getOrderTypeList(nextProps.genEnterOrderData)
+    }
+
+    componentDidMount() {
+        this.props.genEnterOrder()
     }
 
     handleSubmit(e) {
