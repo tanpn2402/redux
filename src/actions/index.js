@@ -41,7 +41,7 @@ import {
 
 import { showPopup } from './popup'
 
-import { changeInstrument } from './trading'
+import { changeInstrument, removeInstrumentFromWatch, addInstrumentToWatch } from './trading'
 
 export {
   reloadCustom,
@@ -188,4 +188,6 @@ export {
 
   // trading widget
   changeInstrument,
+  removeInstrumentFromWatch, 
+  addInstrumentToWatch,
 };

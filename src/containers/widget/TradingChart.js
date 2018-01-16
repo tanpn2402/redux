@@ -104,7 +104,7 @@ class TradingChart extends Component {
             interactGraph: Config.technical_analysis_setting.interactGraph || {},
             control: theme.control
         }
-        console.log(this.state.data)
+        // console.log(this.state.data)
         
        
         if(this.state.startRender) {

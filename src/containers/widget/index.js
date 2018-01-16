@@ -66,7 +66,7 @@ import WatchListSmall from './WatchListSmall'
 import TradeHeader from './TradeHeader'
 import TradingChart from './TradingChart'
 import PlaceOrder from './PlaceOrder'
-
+import PortfolioSmall from './PortfolioSmall'
 
 export default function (menuid, props){
 	console.log(menuid)
@@ -325,6 +325,11 @@ export default function (menuid, props){
 		case 'placeorder':
 			return (
 				<PlaceOrder stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'portfolio-small':
+			return (
+				<PortfolioSmall stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
     }

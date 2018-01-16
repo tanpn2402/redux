@@ -8,3 +8,17 @@ export function changeInstrument(ins) {
         instrument: ins, // ex: AVC, VNM
     }
 }
+
+export function addInstrumentToWatch(ins) {
+    return {
+        type: ActionTypes.ADDINSTRUMENTTOWATCH,
+        instrument: ins, // ex: AVC, VNM
+    }
+}
+
+export function removeInstrumentFromWatch(ins) {
+    return {
+        type: ActionTypes.REMOVEINSTRUMENTFROMWATCH,
+        instrument: ins, // ex: AVC, VNM
+    }
+}

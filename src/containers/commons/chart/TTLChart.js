@@ -99,7 +99,7 @@ class TTLChart extends React.Component
         this.state.subChartList = this.handleSetSubCharts(this.inChartVarArray, this.subChartVarArray, nextProps.config);
 
         let _tmp = convertRawData(nextProps.rawData)
-        console.log("TTL CHAR", _tmp)
+        // console.log("TTL CHAR", _tmp)
         this.setState({
             data: _tmp,
             refreshState: true,
@@ -350,7 +350,7 @@ class TTLChart extends React.Component
     */
     handleSetSubCharts(pInChartVarArray, pSubChartVarArray, pConfig)
     {
-        console.log(pInChartVarArray, pSubChartVarArray)
+        // console.log(pInChartVarArray, pSubChartVarArray)
         var lvDisplayInChartVol = false;
         if (pInChartVarArray != undefined)
         {
@@ -419,7 +419,7 @@ pChartName= InChartVol|Vol|RSI|MACD|STO
 function createInChartVol(props)
 {
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
-    console.log('create In Chart Vol')
+    // console.log('create In Chart Vol')
     return (
         <Chart
             id={id}
@@ -441,7 +441,7 @@ function createInChartVol(props)
 
 function createVol(props)
 {
-    console.log('create Vol')
+    // console.log('create Vol')
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
     // No para
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
@@ -479,7 +479,7 @@ function createVol(props)
 
 function createRSI(props)
 {
-    console.log('create RSI')
+    // console.log('create RSI')
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pPeriod] = para; //14
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
@@ -522,7 +522,7 @@ function createRSI(props)
 
 function createMACD(props)
 {
-    console.log('create MACD')
+    // console.log('create MACD')
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pShortEMA, pLongEMA, pSignalLine] = para;//12,26,9
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
@@ -566,7 +566,7 @@ function createMACD(props)
 
 function createSTO(props)
 {
-    console.log('create STO')
+    // console.log('create STO')
     const {id, height, origin, para, addPadding, chartLayout, config} = props;
     const [pK, pD, pKW] = para; //slow:14,5,3  fast:20,5,1
     const topPadding = chartLayout.subchart_topPadding + (addPadding ? subChartInitialTopPadding : 0);
@@ -611,7 +611,7 @@ function createSTO(props)
 
 function createInChartSMA(props)
 {
-    console.log('create In Chart SMA')
+    // console.log('create In Chart SMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -640,7 +640,7 @@ function createInChartSMA(props)
 
 function createInChartWMA(props)
 {
-    console.log('create In Chart WMA')
+    // console.log('create In Chart WMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -669,7 +669,7 @@ function createInChartWMA(props)
 
 function createInChartEMA(props)
 {
-    console.log('create In Chart EMA')
+    // console.log('create In Chart EMA')
     const {id, tooltipStruct, para, chartLayout} = props;
     // var [pPeriod] = para; // 10
     var lvInChartArray = [];
@@ -698,7 +698,7 @@ function createInChartEMA(props)
 
 function createInChartSAR(props)
 {
-    console.log('create In Chart SAR')
+    // console.log('create In Chart SAR')
     const {id, tooltipStruct, para, chartLayout} = props;
     var [pSccelerationFactor, pMaxAccelerationFactor] = para; // 0.02,0.2
     var lvInChartArray = [];
@@ -719,7 +719,7 @@ function createInChartSAR(props)
 
 function createInChartBB(props)
 {
-    console.log('create In Chart BB')
+    // console.log('create In Chart BB')
     const {id, tooltipStruct, para, chartLayout} = props;
     const lvInChartArray = [];
     const calculator = bollingerBand()

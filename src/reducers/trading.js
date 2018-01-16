@@ -1,7 +1,8 @@
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-    instrument: null
+    instrument: "ACB",
+    listInstrumentToWatch: ["ACB"]
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,15 @@ export default function(state = initialState, action) {
             return Object.assign({}, state, {
                 instrument: action.instrument,
             });
+        case ActionTypes.ADDINSTRUMENTTOWATCH:
+            return Object.assign({}, state, {
+                listInstrumentToWatch: [...state.listInstrumentToWatch, action.instrument]
+            });
+        case ActionTypes.REMOVEINSTRUMENTFROMWATCH:
+            return Object.assign({}, state, {
+                listInstrumentToWatch: state.listInstrumentToWatch.filter(e => e != action.instrument)
+            });
+
 
         default:
             return state;

@@ -2558,8 +2558,8 @@ label {
     display: table;
     border-collapse: separate;
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075); */
     background-color: #e2e0e1;
 }
 .input-control > span > button {
@@ -2626,8 +2626,8 @@ label {
 .select-control {
     border-radius: 4px;
     background-color: #e2e0e1;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075); */
 }
 .select-control > .PowerSelect {
     height: 100%;
@@ -2807,7 +2807,7 @@ label {
     left: 25%;
 }
 #enterorder .widget-wrapper {
-    padding-top: 5px !important;
+    padding-top: 0px !important;
 }
 /* Listview-control */
 .listview-control {
@@ -3099,7 +3099,7 @@ label {
 .maincontent-desktop .select-control {
     height: 24px;
     background: #FFF;
-    box-shadow: unser;
+    box-shadow: unset;
     border: 1px solid #dcdcdc;
 }
 .maincontent-desktop .input-control {
@@ -3355,9 +3355,21 @@ label {
 .wl-sm-input {
     float: left;
     width: calc(100% - 170px);
+    border-radius: 4px;
+    border: 1px solid #dcdcdc;
+    height: 22px;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 .wl-sm-form-group {
     float: right;
+    font-size: 12px;    
+    position: relative;
+    top: 3px;
+}
+.wl-sm-form-group input {
+    top: -2px;
+    cursor: pointer;
 }
 .wl-sm-controls {
     display: table;
@@ -3371,7 +3383,7 @@ label {
 
 /* TRADING HEADER */
 .trd-header {
-    padding-left: 60px;
+    padding-left: 220px;
     position: relative;
     background-color: #FFF;
     height: 100%;
@@ -3399,9 +3411,27 @@ label {
 .trd-header .trd-instrument-code {
     font-size: 18px;
     color: #333;
+    margin-left: 16px !important;
+}
+.trd-header-control {
     position: absolute;
-    left: 10px;
     top: 16px;
+    left: 2px;
+}
+.trd-header-control > .select-control {
+    width: 150px;
+    display: inline-block;
+}
+.trd-header-control > span {
+    margin: 0 8px;
+    position: relative;
+    top: -5px;
+}
+.trd-header-control .trd-control-watch {
+    cursor: pointer;
+    font-size: 18px;
+    top: -4px;
+    color: #fded96;
 }
 .trd-changeRate {
     font-size: 12px;
@@ -3430,29 +3460,78 @@ label {
 .trd-chart .TTLStockChart_C_Ctl {
     top: 5px;
     right: 5px;
+    z-index: 3 !important;
 }
 .trd-chart .TTLStockChart_C_EditCtl {
     top: 5px;
     right: -30px;
+    z-index: 3 !important;
 }
 
 /* END TRADING CHART */
 
+/* PORTFOLIO SMALL TABLE */
+.por-sm-table {
+    height: calc(100% - 25px);
 
+}
+
+/* END PORTFOLIO SM */
+
+/* TRADE LOG */
+.trd-log-table {
+    height: calc(100% - 25px);
+}
+/* END TRADE LOG */
+
+/* TRADE BODY */
+.trd-body {
+    background-color: #FFF;
+}
+.trd-body > label {
+    padding-top: 2px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+}
+/* END TRADE BODY */
+
+
+/* PLACE ORDER */
+.pl-tab-control {
+    /* display: inline-flex; */
+}
+.pl-tab {
+    display: inline-block;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 20px;
+    border: 1px solid #e6e6e6;
+    cursor: pointer;
+    user-select: none;
+}
+.pl-tab.active {
+    background: #f7f7f7;
+    border-bottom-color: #f7f7f7;
+    color: #e8b342;
+    font-weight: bold;
+}
+/* END PLACE ORDER */
 /* Slider Format */
 .headSlider, .logo{
     display: inline-block;
 }
 .headSlider{
-    width: 50%;
-    float: left;
+    width: calc(100% - 330px);
+    float: right;
+    margin-right: 2px;
     height: 60px;
-    border: 1px solid;
-    margin-left: 13%;
-    transform: translateX();
+    /* border: 1px solid; */
+    /* margin-left: 13%; */
+    /* transform: translateX();
     transition-property: transform;
-    transition-duration: 1.5s;
-    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out; */
 }   
 .headSlider img{
     height: 60px;
@@ -3460,9 +3539,9 @@ label {
     object-fit: cover;
     padding-bottom: 3px;
     padding-top: 3px;
-    transition-property: transform , width;
+    /* transition-property: transform , width;
     transition-duration: 1s;
-    transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out; */
 }
 .slick-dots{
     position: absolute;
@@ -3500,20 +3579,7 @@ label {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-@media only screen and (max-width: 1000px){
-    .headSlider{
-        transform: translateX(25%);
-    }
-}
 
-@media only screen and (max-width: 700px){
-    .headSlider{
-       display: none;
-        }
-    #pageheader .logo{
-        transform: translateX(60%);
-    }
-}
 /* securityCode CSS format*/
 .securityCode{
     display: inline-block;

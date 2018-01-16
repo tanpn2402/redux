@@ -139,7 +139,7 @@ export default
                 "assetallocationchart": 'Asset Allocation Chart',
                 "stockinfo": "Stock Info",
                 "daytrade": "Day Trade",
-                "tradehistory": "Trade History"
+                "tradehistory": "Trade Log"
             },
             "searchbar": {
                 "search": "Search",
@@ -918,7 +918,7 @@ export default
                     "forbuy": "For. Buy",
                     "forsell": "For. Sell",
                     "room": "Room",
-                    "change": "Change"
+                    "change": "(+/-)"
                 }
             },
             "personalprofile": {
@@ -1323,8 +1323,12 @@ export default
             "trading": {
                 "header": {
                     "price": "Price{0}",
+                    "qty": "Qty{0}",
                     "amount": "Amount{0}",
-                    "total": "Total{0}"
+                    "total": "Total{0}",
+                    "vol": "Volume",
+                    "totalvol": "Total Volume",
+                    "time": "Time"
                 }
             },
             "messagebox": {

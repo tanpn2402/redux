@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
-
+import config from "../../core/config"
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 
@@ -11,48 +11,13 @@ class WatchListA extends Component {
     constructor(props) {
         super(props)
 
-        this.listStock = [
-            "ACB",
-            "VNM",
-            "HAG",
-            "HCM",
-            "TLH",
-            "TNH",
-            "BBC",
-            "B82",
-            "HBG",
-            "HGM",
-            "TQH",
-            "TFH",
-            "HGC",
-            "B22",
-            "ALC",
-            "T82",
-            "JBG",
-            "KGM",
-            "PQH",
-            "YUH",
-            "DHC",
-            "UI2",
-            "HTC",
-            "BG2",
-            "ARC",
-            "TY2",
-            "JQG",
-            "KJM",
-            "PKH",
-            "YLH",
-            "DUC",
-            "UO2"
-        ]
-
         this.state = {
             data : [
                 
             ],
             modeView: MODE_CHANGE,
-            stockSelected: "ACB",
-            listStock: this.listStock.slice(0)
+            stockSelected: this.props.instrument,
+            listStock: this.props.listInstrumentToWatch.slice(0)
         }
 
         this.balance = {
@@ -63,31 +28,58 @@ class WatchListA extends Component {
 
 
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            stockSelected: nextProps.instrument
+        })
+        this.onStockChange(nextProps.listInstrumentToWatch)
+        
+    }
     
 
     render() {
+        // console.log("AAAAAAA", this.state)
         let currency = "VND"
         let language = this.props.language.watchlist.header
         let header = [
             {
                 title: language.stock,
-                style: {width: "34%"},
-                bodyStyle: {width: "34%"},
+                style: {width: "20%"},
+                bodyStyle: {width: "20%"},
                 accessor: "stockCode",
             },
             {
                 title: language.price,
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
+                style: {width: "20%", textAlign: "right"},
+                bodyStyle: {width: "20%", textAlign: "right"},
                 accessor: "price",
                 cell: props => {
                     return this.fillColor(props, "price")
                 }
             },
             {
+                title: language.volume,
+                style: {width: "20%", textAlign: "right"},
+                bodyStyle: {width: "20%", textAlign: "right"},
+                accessor: "change",
+                cell: props => {
+                    return this.fillColor(props, "change")
+                }
+            },
+            {
+                title: language.totalvol,
+                style: {width: "20%", textAlign: "right"},
+                bodyStyle: {width: "20%", textAlign: "right"},
+                accessor: "change",
+                cell: props => {
+                    return this.fillColor(props, "change")
+                }
+            },
+            {
                 title: language.change,
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
+                style: {width: "20%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "20%", textAlign: "right"},
                 accessor: "change",
                 show: this.state.modeView == MODE_CHANGE,
                 cell: props => {
@@ -96,8 +88,8 @@ class WatchListA extends Component {
             },
             {
                 title: language.volume,
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
+                style: {width: "20%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "20%", textAlign: "right"},
                 accessor: "volume",
                 show: this.state.modeView == MODE_VOL,
                 cell: props => {
@@ -108,9 +100,11 @@ class WatchListA extends Component {
         ]
         // console.log(this.state.stockSelected)
         return (
-            <div style={{height: "100%", backgroundColor: "#FFF"}}>
+            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
                 <div className="wl-sm-controls">
-                    <input className="wl-sm-input" onChange={e => this.onStockChange(e)}/>
+                    <input className="wl-sm-input"
+                        ref={r => this.input = r}
+                        onChange={e => this.onStockChange(this.props.listInstrumentToWatch)}/>
                     <div className="wl-sm-form-group">
                         <Radio name="radioGroup" inline checked={this.state.modeView == MODE_CHANGE} 
                             style={{margin: "0"}}
@@ -152,16 +146,27 @@ class WatchListA extends Component {
     }
 
     onRowClick(e, prop) {
-        this.setState({stockSelected: prop.stockCode})
+        // this.setState({stockSelected: prop.stockCode})
         this.props.changeInstrument(prop.stockCode)
 
         // console.log(this.props)
+        
+        let tmp = config.cache.stockList.filter(e => e.stockCode == prop.stockCode)
+        if(tmp.length > 0) {
+            let tp = tmp[0]
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: tp.stockCode,
+                mvStockName: tp.stockName,
+                mvMarketID: tp.mvMarketID
+            })
+        }
     }
 
-    onStockChange(e) {
-        
-        let val = e.target.value
-        let tmp = this.listStock.filter(e => e.toUpperCase().includes(val.toUpperCase()))
+    onStockChange(listStock) {
+        let val = this.input.value
+        console.log("BBBB", val, listStock)
+        let tmp = listStock.filter(e => e.toUpperCase().includes(val.toUpperCase()))
         
         this.setState({
             listStock: tmp.slice(0)
@@ -190,9 +195,9 @@ class WatchListA extends Component {
         this.simulate()
         setInterval( this.simulate.bind(this) , 2000)
 
-        if(this.state.listStock.length > 0) { 
-            this.props.changeInstrument(this.state.listStock[0])
-        }
+        // if(this.state.listStock.length > 0) { 
+        //     this.props.changeInstrument(this.state.listStock[0])
+        // }
     }
 
     simulate() {
@@ -217,12 +222,15 @@ class WatchListA extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        instrument: state.trading.instrument
+        instrument: state.trading.instrument,
+        listInstrumentToWatch: state.trading.listInstrumentToWatch
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) }
+    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
+
+    setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchListA)

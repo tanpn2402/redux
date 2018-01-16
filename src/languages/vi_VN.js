@@ -139,7 +139,7 @@ export default
                 "assetallocationchart": 'Đồ thị phân bổ tài sản',
                 "stockinfo": "Thông tin chứng khoán",
                 "daytrade": "Day Trade",
-                "tradehistory": "Trade History"
+                "tradehistory": "Khớp lệnh theo thời gian"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -888,7 +888,7 @@ export default
                     "forbuy": "NN Mua",
                     "forsell": "NN Bán",
                     "room": "Room",
-                    "change": "Thay đổi"
+                    "change": "(+/-)"
                 }
             },
             "personalprofile": {
@@ -1293,8 +1293,12 @@ export default
             "trading": {
                 "header": {
                     "price": "Giá{0}",
+                    "qty": "KL{0}",
                     "amount": "Tổng tiền{0}",
-                    "total": "Tổng cộng{0}"
+                    "total": "Tổng cộng{0}",
+                    "vol": "KL",
+                    "totalvol": "Tổng KL",
+                    "time": "Thời gian"
                 }
             },
             "messagebox": {

@@ -78,6 +78,14 @@ export default class TTLTable extends Component {
     }
 
     componentDidMount() {
+
+        if(this.tHeader != undefined && this.tBody != undefined) {
+            console.log( "calc(100% - " + this.tHeader.offsetHeight + "px)")
+
+            this.tBody.style.height = "calc(100% - " + this.tHeader.offsetHeight + "px)"
+        }
+
+
         if(this.props.getTHeaderProps != undefined) {
             this.props.getTHeaderProps(this.tHeader)
         }

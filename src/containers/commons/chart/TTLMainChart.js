@@ -58,14 +58,14 @@ class TTLMainChart extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(" TT LMAIN CHAR componentWillReceiveProps", nextProps.data)
+        // console.log(" TT LMAIN CHAR componentWillReceiveProps", nextProps.data)
         this.setState({
             data: nextProps.data,
         })
     }
     
 	render() {
-        console.log('render in main')
+        // console.log('render in main')
         var { width, height, ratio, chartLayout, config } = this.props;
         var subChartList = this.props.subChartList;
         var inChartList = this.props.inChartList;
@@ -197,7 +197,7 @@ class TTLMainChart extends React.Component {
             r: config.control.edgeRadius,
             strokeWidth: config.control.strokeWidth
         }
-        console.log(" TTL MAIN CHAR", data)
+        // console.log(" TTL MAIN CHAR", data)
 		return (
             <ChartCanvas ref={node => {this.canvas=node;}} width={width} height={mainChartHeight + 3} pointsPerPxThreshold={2}
                 ratio={ratio}

@@ -14,54 +14,73 @@ class TradeHistory extends Component {
             ]
         }
 
-        this.balance = 0.3654
+        this.balance = {
+            "price": 0.235
+        }
+    }
+
+    fillColor(props, accessor) {
+        let child = <span style={{color: "#000"}}>{props[accessor]}</span>
+        if(props["price"] > this.balance["price"]) {
+            child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+        }
+        else {
+            child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
+        }
+        return child
     }
 
     render() {
         let currency = "VND"
         let language = this.props.language.trading.header
         let header = [
+            
             {
-                title: language.price.replace("{0}", "(" + currency + ")"),
-                style: {width: "34%"},
-                bodyStyle: {width: "34%"},
-                accessor: "value1",
+                title: language.time,
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "25%", textAlign: "right"},
+                accessor: "time"
+            },
+            {
+                title: language.price.replace("{0}", ""),
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "25%", textAlign: "right"},
+                accessor: "price",
                 cell: props => {
-                    let child = <span style={{color: "#70a800"}}>{props.value1}</span>
-                    if(props.value1 > this.balance) {
-                        child = <span style={{color: "#ea0070"}}>{props.value1}</span>
-                    }
-                    else {
-
-                    }
-                    return child
+                    return this.fillColor(props, "price")
                 }
             },
             {
-                title: language.amount.replace("{0}", "(" + currency + ")"),
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
-                accessor: "value2"
+                title: language.vol,
+                style: {width: "25%", textAlign: "right", paddingRight: "0px"},
+                bodyStyle: {width: "25%", textAlign: "right"},
+                accessor: "vol",
+                cell: props => {
+                    return this.fillColor(props, "vol")
+                }
             },
             {
-                title: language.total.replace("{0}", "(" + currency + ")"),
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
-                accessor: "value3"
+                title: language.totalvol,
+                style: {width: "25%", textAlign: "right"},
+                bodyStyle: {width: "25%", textAlign: "right"},
+                accessor: "totalvol",
+                cell: props => {
+                    return this.fillColor(props, "totalvol")
+                }
             }
         ]
 
         return (
-            <div style={{height: "100%", backgroundColor: "#FFF"}}>
+            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
                 <label>{this.props.language.menu.tradehistory}</label>
-                <div style={{height: "calc(100% - 22px)"}}>
+                <div className="trd-log-table">
                     <TTLTable data={this.state.data} header={header}
                         getTHeaderProps={(theader)=> {
-                            theader.style.display = "none"
+                            // theader.style.display = "none"
 
                         }}
                         getTBodyProps={(tbody)=>{
-                            tbody.style.height = "100%"
+                            // tbody.style.height = "100%"
                         }}
                     />
                 </div>
@@ -71,16 +90,17 @@ class TradeHistory extends Component {
 
     componentDidMount() {
         
-        setInterval( this.simulate.bind(this) , 1500)
+        setInterval( this.simulate.bind(this) , 2000)
     }
 
     simulate() {
         // console.log("adssddsdsd")
         let _data = this.state.data
         _data.unshift({
-            "value1": Math.random().toFixed(8),
-            "value2": Math.random().toFixed(4),
-            "value3": moment().format("HH:mm:ss")
+            "price": Math.random().toFixed(4) + 10,
+            "vol": Math.random().toFixed(4),
+            "totalvol": Math.random().toFixed(4),
+            "time": moment().format("HH:mm:ss")
         })
 
         if(_data.length > 30) {

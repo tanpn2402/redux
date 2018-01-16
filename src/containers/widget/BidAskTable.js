@@ -14,7 +14,12 @@ class BidAskTable extends Component {
             ]
         }
 
-        this.balance = 0.3654
+        this.balance = {
+            "price1": 0.356,
+            "qty1": 0.555,
+            "price2": 0.666,
+            "qty2": 0.3333
+        }
     }
 
     render() {
@@ -22,37 +27,37 @@ class BidAskTable extends Component {
         let language = this.props.language.trading.header
         let header = [
             {
-                title: language.price.replace("{0}", "(" + currency + ")"),
-                style: {width: "34%"},
-                bodyStyle: {width: "34%"},
+                title: language.price.replace("{0}", "1"),
+                style: {width: "25%", textAlign: "center"},
+                bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value1",
-                cell: props => {
-                    let child = <span style={{color: "#70a800"}}>{props.value1}</span>
-                    if(props.value1 > this.balance) {
-                        child = <span style={{color: "#ea0070"}}>{props.value1}</span>
-                    }
-                    else {
-
-                    }
-                    return child
-                }
+                cell: props => {return this.fillColor(props, "price1")}
             },
             {
-                title: language.amount.replace("{0}", "(" + currency + ")"),
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
-                accessor: "value2"
+                title: language.qty.replace("{0}", "1"),
+                style: {width: "25%", textAlign: "center"},
+                bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                accessor: "value2",
+                cell: props => {return this.fillColor(props, "qty1")}
             },
             {
-                title: language.total.replace("{0}", "(" + currency + ")"),
-                style: {width: "33%", textAlign: "right"},
-                bodyStyle: {width: "33%", textAlign: "right"},
+                title: language.price.replace("{0}", "2"),
+                style: {width: "25%", textAlign: "center"},
+                bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value3",
-            }
+                cell: props => {return this.fillColor(props, "price2")}
+            },
+            {
+                title: language.qty.replace("{0}", "2"),
+                style: {width: "25%", textAlign: "center"},
+                bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                accessor: "value4",
+                cell: props => {return this.fillColor(props, "qty2")}
+            },
         ]
 
         return (
-            <div style={{height: "100%", backgroundColor: "#FFF"}}>
+            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
                 <TTLTable data={this.state.data} header={header}
                     getTHeaderProps={(theader)=> {
                         // console.log(theader)
@@ -63,18 +68,30 @@ class BidAskTable extends Component {
         )
     }
 
+    fillColor(props, accessor) {
+        let child = <span style={{color: "#000"}}>{props[accessor]}</span>
+        if(props[accessor] > this.balance[accessor]) {
+            child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+        }
+        else {
+            child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
+        }
+        return child
+    }
+
     componentDidMount() {
         
-        setInterval( this.simulate.bind(this) , 1500)
+        setInterval( this.simulate.bind(this) , 2000)
     }
 
     simulate() {
         // console.log("adssddsdsd")
         let _data = this.state.data
         _data.unshift({
-            "value1": Math.random().toFixed(6),
-            "value2": Math.random().toFixed(6),
-            "value3": Math.random().toFixed(6)
+            "price1": Math.random().toFixed(6),
+            "qty1": Math.random().toFixed(6),
+            "price2": Math.random().toFixed(6),
+            "qty2": Math.random().toFixed(6),
         })
 
         if(_data.length > 30) {
