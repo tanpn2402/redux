@@ -27,6 +27,7 @@ import cashadvance from './cashadvance'
 import cashadvancebank from './cashadvancebank'
 import flashpopup from './flashpopup'
 import popup from './popup'
+import trading from './trading'
 
 
 export default combineReducers({
@@ -59,4 +60,5 @@ export default combineReducers({
   flashpopup,
   popup,
 
+  trading,
 });

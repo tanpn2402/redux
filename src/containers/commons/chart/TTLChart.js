@@ -71,7 +71,7 @@ class TTLChart extends React.Component
         if (isMob)
         {
             this.chartLayout = {
-                chartCanvas_margin_left: 40,
+                chartCanvas_margin_left: 50,
                 chartCanvas_margin_right:40,
                 axis_fontSize: 22,
                 tooltip_fontSize: 16,
@@ -83,7 +83,7 @@ class TTLChart extends React.Component
         else
         {
             this.chartLayout = {
-                chartCanvas_margin_left: 40,
+                chartCanvas_margin_left: 50,
                 chartCanvas_margin_right: 40,
                 axis_fontSize: 11,
                 tooltip_fontSize: 11,
@@ -97,6 +97,14 @@ class TTLChart extends React.Component
     componentWillReceiveProps(nextProps){
         this.state.mainChartSeries = createMainChartSeries(this.prevChartType, nextProps.config);
         this.state.subChartList = this.handleSetSubCharts(this.inChartVarArray, this.subChartVarArray, nextProps.config);
+
+        let _tmp = convertRawData(nextProps.rawData)
+        console.log("TTL CHAR", _tmp)
+        this.setState({
+            data: _tmp,
+            refreshState: true,
+            mainChartSeries: createMainChartSeries(nextProps.config.chart.type, nextProps.config),
+        })
     }
     
     componentDidMount()
@@ -844,7 +852,7 @@ function createSubChartList(pDisplayInChartVol, pSubChartVarArray, pChartLayout,
 
 function createMainChartSeries(pSeriesName, pConfig)
 {
-    console.log(pConfig)
+    // console.log(pConfig)
     if (pSeriesName == "Line")
     {
         return <LineSeries yAccessor={d => d.close} strokeWidth={2} stroke={pConfig.chart.appearance.strokeNormal} />;

@@ -60,6 +60,14 @@ import MarginLoanStatement from './MarginLoanStatement'
 import AvailableMargin from './AvailableMargin'
 import TransactionHistory from './TransactionHistory'
 
+import BidAskTable from './BidAskTable'
+import TradeHistory from './TradeHistory'
+import WatchListSmall from './WatchListSmall'
+import TradeHeader from './TradeHeader'
+import TradingChart from './TradingChart'
+
+
+
 export default function (menuid, props){
 	console.log(menuid)
 	switch(menuid){
@@ -285,6 +293,32 @@ export default function (menuid, props){
 		case 'transactionhistory':
 			return (
 				<TransactionHistory stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'bidask':
+			return (
+				<BidAskTable stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+
+		case 'tradehistory':
+			return (
+				<TradeHistory stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'watchlist-small':
+			return (
+				<WatchListSmall stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'tradeheader':
+			return (
+				<TradeHeader stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'tradingchart':
+			return (
+				<TradingChart stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
     }

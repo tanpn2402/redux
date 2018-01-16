@@ -78,9 +78,14 @@ class GridLayout extends React.Component {
     render () {
         const layout = this.props.layout
         var x = this.generateDOM(layout)
+
+        let identifyLayout = this.layoutCols
+        if(this.props.identifyLayout != undefined) {
+            identifyLayout = this.props.identifyLayout
+        }
         return (
 
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={HEIGHT} width={1320} 
+            <ResponsiveReactGridLayout className="layout" cols={identifyLayout} rowHeight={HEIGHT} width={1320} 
                 margin={this.props.margin} useCSSTransforms={false}
                 >
                 {x}

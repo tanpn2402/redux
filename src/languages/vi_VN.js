@@ -138,7 +138,8 @@ export default
                 "assetallocation": 'Phân bổ tài sản',
                 "assetallocationchart": 'Đồ thị phân bổ tài sản',
                 "stockinfo": "Thông tin chứng khoán",
-                "daytrade": "Day Trade"
+                "daytrade": "Day Trade",
+                "tradehistory": "Trade History"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -886,7 +887,8 @@ export default
                     "avg": "TB",
                     "forbuy": "NN Mua",
                     "forsell": "NN Bán",
-                    "room": "Room"
+                    "room": "Room",
+                    "change": "Thay đổi"
                 }
             },
             "personalprofile": {
@@ -1286,6 +1288,13 @@ export default
             "stockinfo": {
                 "header": {
 
+                }
+            },
+            "trading": {
+                "header": {
+                    "price": "Giá{0}",
+                    "amount": "Tổng tiền{0}",
+                    "total": "Tổng cộng{0}"
                 }
             },
             "messagebox": {

@@ -256,15 +256,29 @@ const config = {
 	],
 
 	tabbar: [
+		// {
+		// 	id: "trading",
+		// 	title: "trading",
+		// 	enabled: true,
+		// 	widget: [
+		// 		{ i: 'enterorder', x: 0, y: 0, w: 2, h: 10, isDraggable: false, isResizable: false },
+		// 		{ i: 'stockmarketinform', x: 5, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
+		// 		{ i: 'accountinfo', x: 2, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
+		// 		{ i: 'orderjournal', x: 2, y: 6, w: 6,   minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: true }
+		// 	]
+		// },
 		{
-			id: "trading",
+			id: "tradepage",
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', x: 0, y: 0, w: 2, h: 10, isDraggable: false, isResizable: false },
-				{ i: 'stockmarketinform', x: 5, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'accountinfo', x: 2, y: 0, w: 3, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 2, y: 6, w: 6,   minW: 8, maxW: 8, minH: 4, maxH: 8, isDraggable: false, isResizable: true }
+				{ i: 'tradeheader', x: 1, y: 0, w: 3, h: 1, isDraggable: false, isResizable: false },
+				{ i: 'bidask', x: 1, y: 1, w: 1, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'tradehistory', x: 1, y: 7, w: 1, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'watchlist-small', x: 4, y: 0, w: 1, h: 11, isDraggable: false, isResizable: false },
+				{ i: 'tradingchart', x: 2, y: 2, w: 2, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 1, y: 11, w: 4, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'orderHistory', x: 1, y: 17, w: 4, h:6, isDraggable: false, isResizable: false },
 			]
 		},
 		{

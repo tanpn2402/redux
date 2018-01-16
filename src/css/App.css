@@ -3260,3 +3260,137 @@ label {
     margin-top: 30px;
 }
 
+
+.ttl-table {
+    font-size: 12px;
+    height: 100%;
+}
+.ttl-table .ttl-tbody {
+    height: calc(100% - 20px);
+    overflow: auto;
+}
+.ttl-table .ttl-cell {
+    display: inline-block;
+}
+.ttl-table .ttl-tbody .ttl-cell:hover {
+    font-weight: 900;
+    cursor: pointer;
+}
+.ttl-table .ttl-thead .ttl-cell:hover {
+    font-weight: unset !important;
+    cursor: unset !important;
+}
+.ttl-table .ttl-thead {
+    color: #999;
+    /* background-color: #FFF !important; */
+}
+.ttl-table .ttl-tr {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    
+}
+.ttl-table .ttl-tr:nth-child(odd) {
+    background-color: rgba(143, 143, 143, 0.11);
+}
+.ttl-table .ttl-tr:nth-child(even) {
+    background-color: #FFF;
+}
+.ttl-table .ttl-thead .ttl-tr {
+    background-color: #FFF;
+}
+
+.ttl-table.watchlist-small .ttl-tbody .ttl-tr:hover{
+    font-weight: 900;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.15)
+}
+
+
+/* watchlist - small component */
+.wl-sm-input {
+    float: left;
+    width: calc(100% - 170px);
+}
+.wl-sm-form-group {
+    float: right;
+}
+.wl-sm-controls {
+    display: table;
+    padding: 6px 2px;
+}
+.wl-sm-table {
+    height: calc(100% - 38px);
+}
+/* end  */
+
+
+/* TRADING HEADER */
+.trd-header {
+    padding-left: 60px;
+    position: relative;
+    background-color: #FFF;
+    height: 100%;
+    padding-top: 10px;
+}
+.trd-header ul {
+    overflow: hidden;
+}
+.trd-header ul li {
+    float: left;
+    margin-right: 58px;
+    line-height: 1.4;
+    list-style: none;
+}
+.trd-header li h4 {
+    font-size: 12px;
+    color: #999;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    padding: 0;
+}
+.trd-header li strong {
+    font-size: 14px;
+}
+.trd-header .trd-instrument-code {
+    font-size: 18px;
+    color: #333;
+    position: absolute;
+    left: 10px;
+    top: 16px;
+}
+.trd-changeRate {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 5px;
+
+}
+.trd-transMoney {
+    color: #666;
+    margin-left: 5px;
+}
+/* END TRADING HEADER */
+
+/* TRADING CHART */
+.trd-chart {
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+    /* padding-left: 4px;
+    padding-right: 4px; */
+}
+.trd-chart > div > label,
+.trd-chart > div > select {
+    display: none;
+}
+.trd-chart .TTLStockChart_C_Ctl {
+    top: 5px;
+    right: 5px;
+}
+.trd-chart .TTLStockChart_C_EditCtl {
+    top: 5px;
+    right: -30px;
+}
+
+/* END TRADING CHART */

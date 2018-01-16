@@ -56,6 +56,13 @@ class TTLMainChart extends React.Component {
     componentDidUpdate(){
         this.interactRef["FibonacciRetracement"].forceUpdate();
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(" TT LMAIN CHAR componentWillReceiveProps", nextProps.data)
+        this.setState({
+            data: nextProps.data,
+        })
+    }
     
 	render() {
         console.log('render in main')
@@ -190,7 +197,7 @@ class TTLMainChart extends React.Component {
             r: config.control.edgeRadius,
             strokeWidth: config.control.strokeWidth
         }
-        
+        console.log(" TTL MAIN CHAR", data)
 		return (
             <ChartCanvas ref={node => {this.canvas=node;}} width={width} height={mainChartHeight + 3} pointsPerPxThreshold={2}
                 ratio={ratio}

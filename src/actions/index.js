@@ -41,6 +41,8 @@ import {
 
 import { showPopup } from './popup'
 
+import { changeInstrument } from './trading'
+
 export {
   reloadCustom,
   getSavedContentLayout,
@@ -183,4 +185,7 @@ export {
   showPopup,
   showMessageBox,
   showFlashPopup,
+
+  // trading widget
+  changeInstrument,
 };
