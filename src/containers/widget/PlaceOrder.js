@@ -290,27 +290,27 @@ class PlaceOrder extends React.Component {
                             </div>
 
                             {/* TRIGGER PRICE */}
-                        { /* <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.triggerPrice}
-                                </Col>
-                                <Col xs={7}>
-                                    <Col xs={5}>
-                                        <Select
-                                            ket="rTriggerPriceSelector"
-                                            ref={r => this.rTriggerPriceSelector = r}
-                                            options={["UP", "DOWN"]}
-                                            selected={this.state.mvTriggerSelected}
-                                            optionLabelPath={'stockCode'}
-                                            handleChange={this.handleTriggerPriceChange.bind(this)}
-                                        />
+                            { /* <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
+                                    <Col xs={5} style={{color: tColor}}>
+                                        {header.triggerPrice}
                                     </Col>
                                     <Col xs={7}>
-                                        <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
-                                            defaultValue={""} style={{textAlign: "left"}}/>
+                                        <Col xs={5}>
+                                            <Select
+                                                ket="rTriggerPriceSelector"
+                                                ref={r => this.rTriggerPriceSelector = r}
+                                                options={["UP", "DOWN"]}
+                                                selected={this.state.mvTriggerSelected}
+                                                optionLabelPath={'stockCode'}
+                                                handleChange={this.handleTriggerPriceChange.bind(this)}
+                                            />
+                                        </Col>
+                                        <Col xs={7}>
+                                            <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
+                                                defaultValue={""} style={{textAlign: "left"}}/>
+                                        </Col>
                                     </Col>
-                                </Col>
-                            </div>
+                                </div>
                                 */}
                             {/* QUANTITY */}
                             <div style={{display: "table", width: "100%"}}>
@@ -322,24 +322,15 @@ class PlaceOrder extends React.Component {
                                         onChange={this.onQtyChange.bind(this)}/>
                                 </Col>
                             </div>
-
-                            {/* ORDER TYPE */}
+                        	{/* PERCENTAGE */}
                             <div  style={{display: "table", width: "100%"}}>
                                 <Col xs={5}  style={{color: tColor}}>
-                                    {header.ordertype}
                                 </Col>
                                 <Col xs={7}>
-                                    <Select
-                                        ket="rOrderTypeSelector"
-                                        ref={r => this.rOrderTypeSelector = r}
-                                        options={this.state.mvOrderTypeList}
-                                        selected={this.state.mvOrderTypeSelected}
-                                        optionLabelPath={"label"}
-                                        handleChange={this.handleOrderTypeChange.bind(this)}
-                                    />
-                                </Col>
+                              		<ul  className="listPercentage">{listPercentage}</ul>  
+                        	    </Col>
                             </div>
-                            </div>
+                        </div>
                         {/* End Left Column */}
                             
                         {/* Column Right */}
@@ -360,6 +351,22 @@ class PlaceOrder extends React.Component {
                                         />
                                 </Col>
                             </div> */}
+                            {/* ORDER TYPE */}
+                            <div  style={{display: "table", width: "100%"}}>
+                                <Col xs={5}  style={{color: tColor}}>
+                                    {header.ordertype}
+                                </Col>
+                                <Col xs={7}>
+                                    <Select
+                                        ket="rOrderTypeSelector"
+                                        ref={r => this.rOrderTypeSelector = r}
+                                        options={this.state.mvOrderTypeList}
+                                        selected={this.state.mvOrderTypeSelected}
+                                        optionLabelPath={"label"}
+                                        handleChange={this.handleOrderTypeChange.bind(this)}
+                                    />
+                                </Col>
+                            </div>
                             {/* % Lending */}
                             <div style={{display: "table", width: "100%"}}>
                                 <Col xs={5} style={{color: tColor}}>
@@ -1226,7 +1233,12 @@ class PlaceOrder extends React.Component {
     }
 
 }
-
+/* For PErcentage Component*/
+const percentages=[25,50,75,100];
+const listPercentage=percentages.map((percentage)=>
+   <li className="percentage">{percentage}%</li>
+);
+/*************************/
 const mapStateToProps = (state) => {
     return {
         genEnterOrderData: state.enterOrder.genEnterOrder,

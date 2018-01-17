@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import config from '../../core/config'
 import Popup from '../popup/Popup'
+import Clock from './Clock'
 
 class StatusBar extends React.Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-user" onClick={this.openProfile}></span>
                     <span className="glyphicon glyphicon-cog" onClick={this.openSetting}></span>
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
-
+                    <Clock/>
                 </div>
             </div>
 
