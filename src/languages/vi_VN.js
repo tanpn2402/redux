@@ -1298,7 +1298,9 @@ export default
                     "total": "Tổng cộng{0}",
                     "vol": "KL",
                     "totalvol": "Tổng KL",
-                    "time": "Thời gian"
+                    "time": "Thời gian",
+                    "bymarket": "Theo thị trường",
+                    "bycompany": "Theo công ty",
                 }
             },
             "messagebox": {

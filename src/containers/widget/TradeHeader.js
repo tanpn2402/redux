@@ -30,7 +30,7 @@ class TradeHeader extends Component {
 
         this.props.changeInstrument(option.stockCode)
         this.props.setDefaultOrderParams({
-            mvBS: "BUY",
+            mvBS: this.props.portfolioData.filter(e => e.mvStockID == option.stockCode).length > 0 ? "SELL" : "BUY",
             mvStockCode: option.stockCode,
             mvStockName: option.stockName,
             mvMarketID: option.mvMarketID
@@ -152,7 +152,9 @@ class TradeHeader extends Component {
 const mapStateToProps = (state) => {
     return {
         instrument: state.trading.instrument,
-        listInstrumentToWatch: state.trading.listInstrumentToWatch
+        listInstrumentToWatch: state.trading.listInstrumentToWatch,
+        portfolioData: state.porfolio.data.mvPortfolioBeanList,
+
     }
 }
 

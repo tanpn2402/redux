@@ -3,15 +3,19 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
+import Select from "../commons/Select"
+import config from '../../core/config';
 
-class TradeHistory extends Component {
+
+class TradeLogTable extends Component {
+
     constructor(props) {
         super(props)
-        this.id = "tradehistory"
+        this.id = "tradelog"
         this.state = {
             data : [
                 
-            ]
+            ],
         }
 
         this.balance = {
@@ -30,7 +34,9 @@ class TradeHistory extends Component {
         return child
     }
 
+
     render() {
+        // console.log(this.props)
         let currency = "VND"
         let language = this.props.language.trading.header
         let header = [
@@ -69,21 +75,17 @@ class TradeHistory extends Component {
                 }
             }
         ]
-
         return (
-            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
-                <label>{this.props.language.menu.tradehistory}</label>
-                <div className="trd-log-table">
-                    <TTLTable data={this.state.data} header={header}
-                        getTHeaderProps={(theader)=> {
-                            // theader.style.display = "none"
+            <div className="trd-log-table">
+                <TTLTable data={this.state.data} header={header}
+                    getTHeaderProps={(theader)=> {
+                        // theader.style.display = "none"
 
-                        }}
-                        getTBodyProps={(tbody)=>{
-                            // tbody.style.height = "100%"
-                        }}
-                    />
-                </div>
+                    }}
+                    getTBodyProps={(tbody)=>{
+                        // tbody.style.height = "100%"
+                    }}
+                />
             </div>
         )
     }
@@ -111,6 +113,59 @@ class TradeHistory extends Component {
             data: _data
         })
     }
+
+}
+
+
+class TradeHistory extends Component {
+    constructor(props) {
+        super(props)
+        this.id = "tradehistory"
+        this.state = {
+            filterSelected: {
+                text: "BY COMPANY",
+                value: "C"
+            }
+        }
+
+        this.listFilter = [
+            {
+                text: this.props.language.trading.header.bycompany,
+                value: "C"
+            },
+            {
+                text: this.props.language.trading.header.bymarket,
+                value: "M"
+            }
+        ]
+    }
+
+    
+    handleFilterChange(option) {
+        this.setState({ filterSelected: option })
+    }
+
+    render() {
+        
+        return (
+            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
+                <div className="trd-log-control">
+                    <label>{this.props.language.menu.tradehistory}</label>
+                    <div className="trd-log-filter">
+                        <Select
+                            options={this.listFilter}
+                            selected={this.state.filterSelected}
+                            optionLabelPath={"text"}
+                            handleChange={this.handleFilterChange.bind(this)}
+                        />
+                    </div>
+                </div>
+                <TradeLogTable {...this.props} />
+            </div>
+        )
+    }
+
+    
 
 }
 

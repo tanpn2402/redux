@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
+import config from "../../core/config"
 
 class PortfolioSmall extends Component {
     constructor(props) {
@@ -31,6 +32,12 @@ class PortfolioSmall extends Component {
             "B22"
         ]
 
+        this.params = {
+            mvLastAction: 'AccountInfo',
+            mvChildLastAction: 'AccountInfo',
+            key: (new Date()).getTime(),
+        }
+
         this.balance = 0.3654
 
         this.balance = {
@@ -42,14 +49,39 @@ class PortfolioSmall extends Component {
 
     fillColor(props, accessor) {
         
-        let child = <span style={{color: "#000"}}>{props[accessor]}</span>
-        if(props[accessor] > this.balance[accessor]) {
-            child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+        
+        let color = "#000"
+        if(props[accessor] < 0) {
+            color = "#ea0070"
+        } else if (props[accessor] > 0 ) {
+            color = "#70a800"
         }
-        else {
-            child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
-        }
+        let child = <span style={{color: color}}>{props[accessor]}</span>
+        // if(props[accessor] > this.balance[accessor]) {
+        //     child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+        // }
+        // else {
+        //     child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
+        // }
         return child
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let _data = new Array()
+        nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
+            // console.log(e)
+            _data.push({
+                "stockCode": e.mvStockID,
+                "mvTSettled": e.mvTSettled,
+                "mvAvgPrice": e.mvAvgPrice,
+                "mvMarketPrice": e.mvMarketPrice,
+                "mvPL": e.mvPL
+                
+            })
+        })
+        this.setState({
+            data: _data
+        })
     }
 
     render() {
@@ -58,44 +90,44 @@ class PortfolioSmall extends Component {
         let header = [
             {
                 title: language.mvStockID,
-                style: {width: "20%"},
-                bodyStyle: {width: "20%"},
+                style: {width: "15%"},
+                bodyStyle: {width: "15%"},
                 accessor: "stockCode",
             },
             {
                 title: language.mvTSettled,
                 style: {width: "20%", textAlign: "right"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "price",
-                cell: props => {
-                    return this.fillColor(props, "price")
-                }
+                accessor: "mvTSettled",
+                // cell: props => {
+                //     return this.fillColor(props, "mvTSettled")
+                // }
             },
             {
                 title: language.mvAvgPrice,
                 style: {width: "20%", textAlign: "right"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
-                cell: props => {
-                    return this.fillColor(props, "change")
-                }
+                accessor: "mvAvgPrice",
+                // cell: props => {
+                //     return this.fillColor(props, "mvAvgPrice")
+                // }
             },
             {
                 title: language.mvMarketPrice,
                 style: {width: "20%", textAlign: "right"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
-                cell: props => {
-                    return this.fillColor(props, "change")
-                }
+                accessor: "mvMarketPrice",
+                // cell: props => {
+                //     return this.fillColor(props, "mvMarketPrice")
+                // }
             },
             {
                 title: language.mvPL,
-                style: {width: "20%", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "25%", textAlign: "right"},
+                accessor: "mvPL",
                 cell: props => {
-                    return this.fillColor(props, "change")
+                    return this.fillColor(props, "mvPL")
                 }
             },
         ]
@@ -109,27 +141,47 @@ class PortfolioSmall extends Component {
                             // console.log(theader)
 
                         }}
+                        onRowClick={(e, data)=> this.onRowClick(e, data)}
                     />
                 </div>
             </div>
         )
     }
 
+    onRowClick(e, data) {
+        let stock = config.cache.stockList.filter(s => s.stockCode == data.stockCode)
+        // console.log(config.cache.stockList)
+        if(stock.length > 0) {
+            
+            let tmp = stock[0]
+            this.props.setDefaultOrderParams({
+                mvBS: "SELL",
+                mvStockCode: tmp.stockCode,
+                mvStockName: tmp.stockName,
+                mvMarketID: tmp.mvMarketID
+            })
+        }
+    }
+
     componentDidMount() {
         
         setInterval( this.simulate.bind(this) , 1500)
+        this.props.getPorfolio(this.params)
     }
 
     simulate() {
         
         let _data = new Array()
-        this.listStock.map(stock => {
+        this.state.data.map(stock => {
+
+            let avgPrice =  (Math.floor(Math.random() * 20) + 9) + Math.random().toFixed(2)
+            let marketPrice = (Math.floor(Math.random() * 20) + 9) +  Math.random().toFixed(2)
             _data.push({
-                "stockCode": stock,
-                "price": Math.random().toFixed(4),
-                "change": Math.random().toFixed(4),
-                "volume": Math.random().toFixed(4)
-                
+                "stockCode": stock.stockCode,
+                "mvAvgPrice": avgPrice,
+                "mvTSettled": stock.mvTSettled,
+                "mvMarketPrice": marketPrice,
+                "mvPL": Math.round( (marketPrice - avgPrice)*1000)/1000
             })
         })
 
@@ -142,11 +194,14 @@ class PortfolioSmall extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        instrument: state.trading.instrument
+        instrument: state.trading.instrument,
+        porfolioBeanList: state.porfolio.data,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+    getPorfolio: (params) => { dispatch(actions.getPorfolio(params)) },
+    setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PortfolioSmall)

@@ -37,7 +37,7 @@ export function doLogout(id) {
     localStorage.removeItem('lastLang')
     localStorage.removeItem('lastTabID')
     localStorage.removeItem('lastSubTabID')
-
+    localStorage.removeItem('favs')
     clearInterval(id)
 
     return (dispatch) => {
@@ -145,6 +145,9 @@ export function checkAuth() {
                                     }
                                     if (savedContent.tableColReorder) {
                                         config.tableColReorder = savedContent.tableColReorder
+                                    }
+                                    if(savedContent.favourite){
+                                        config.cache.favourite = savedContent.favourite
                                     }
                                 }
                                 catch (ex) {

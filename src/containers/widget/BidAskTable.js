@@ -15,10 +15,10 @@ class BidAskTable extends Component {
         }
 
         this.balance = {
-            "price1": 0.356,
-            "qty1": 0.555,
-            "price2": 0.666,
-            "qty2": 0.3333
+            "price1": 40.56,
+            "qty1": 200,
+            "price2": 50.66,
+            "qty2": 150
         }
     }
 
@@ -28,28 +28,28 @@ class BidAskTable extends Component {
         let header = [
             {
                 title: language.price.replace("{0}", "1"),
-                style: {width: "25%", textAlign: "center"},
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value1",
                 cell: props => {return this.fillColor(props, "price1")}
             },
             {
                 title: language.qty.replace("{0}", "1"),
-                style: {width: "25%", textAlign: "center"},
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value2",
                 cell: props => {return this.fillColor(props, "qty1")}
             },
             {
                 title: language.price.replace("{0}", "2"),
-                style: {width: "25%", textAlign: "center"},
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value3",
                 cell: props => {return this.fillColor(props, "price2")}
             },
             {
                 title: language.qty.replace("{0}", "2"),
-                style: {width: "25%", textAlign: "center"},
+                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "25%", textAlign: "right", paddingRight: "10px"},
                 accessor: "value4",
                 cell: props => {return this.fillColor(props, "qty2")}
@@ -88,10 +88,10 @@ class BidAskTable extends Component {
         // console.log("adssddsdsd")
         let _data = this.state.data
         _data.unshift({
-            "price1": Math.random().toFixed(6),
-            "qty1": Math.random().toFixed(6),
-            "price2": Math.random().toFixed(6),
-            "qty2": Math.random().toFixed(6),
+            "price1": Math.floor(Math.random() * 10) + Math.random().toFixed(2),
+            "qty1": Math.floor(Math.random() * 300),
+            "price2": Math.floor(Math.random() * 10) + Math.random().toFixed(2),
+            "qty2": Math.floor(Math.random() * 300),
         })
 
         if(_data.length > 30) {

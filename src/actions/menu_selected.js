@@ -92,7 +92,8 @@ export function saveLayout(groupId, language) {
         layout:config.tabbar,
         tableColWidth: config.tableColWidth,
         tableColReorder: config.tableColReorder,
-        technicalAnalysisSetting: config.technical_analysis_setting
+        technicalAnalysisSetting: config.technical_analysis_setting,
+        favourite: config.cache.favourite
     }
     let params = Array()
     params['mvGroupName'] = 'User1'

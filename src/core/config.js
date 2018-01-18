@@ -1,4 +1,139 @@
 const config = {
+	start_menu: [
+		{
+			id: 'trading',
+			text: 'trading',
+			link: '',
+			subitems: [
+				{
+					id: 'enterorder',
+					text: 'enterorder',
+					link: ''
+				},
+				{
+					id: 'stockmarketinform',
+					text: 'stockmarketinform',
+					link: ''
+				},
+				{
+					id: 'watchlist',
+					text: 'watchlist',
+					link: ''
+				},
+				{
+					id: 'orderjournal',
+					text: 'orderjournal',
+					link: ''
+				},
+				{
+					id: 'accountinfo',
+					text: 'accountinfo',
+					link: ''
+				},
+				{
+					id: 'portfolio',
+					text: 'portfolio',
+					link: ''
+				},
+				{
+					id: "techanalysis",
+					text: "techanalysis",
+					link: ''
+				},
+				{
+					id: "orderconfirmation",
+					text: "orderconfirmation",
+					link: ''
+				},
+			]
+		},
+		{
+			id: 'account',
+			text: 'account',
+			link: '',
+			subitems: [
+				{
+					id: 'ordershistory',
+					text: 'ordershistory',
+					link: ''
+				},
+				{
+					id: 'cashtransactionhistory',
+					text: 'cashtransactionhistory',
+					link: ''
+				},
+				{
+					id: 'cashstatement',
+					text: 'cashstatement',
+					link: ''
+				},
+				{
+					id: 'stockstatement',
+					text: 'stockstatement',
+					link: ''
+				},
+				{
+					id: 'marginloan',
+					text: 'marginloan',
+					link: ''
+				},
+				{
+					id: 'personalprofile',
+					text: 'personalprofile',
+					link: ''
+				}
+			]
+		},
+		{
+			id: 'otherservice',
+			text: 'otherservice',
+			link: '',
+			subitems: [
+				{
+					id: 'cashtransfer',
+					text: 'cashtransfer',
+					link: ''
+				},
+				{
+					id: 'cashadvance',
+					text: 'cashadvance',
+					link: ''
+				},
+				{
+					id: 'cashadvancebank',
+					text: 'cashadvancebank',
+					link: ''
+				},
+				{
+					id: 'oddLot',
+					text: 'oddLot',
+					link: ''
+				},
+				{
+					id: 'entitlement',
+					text: 'entitlement',
+					link: ''
+				},
+				{
+					id: 'loanrefund',
+					text: 'loanrefund',
+					link: ''
+				}
+			]
+		},
+		{
+			id: 'help',
+			text: 'help',
+			link: '',
+			subitems: [
+				{
+					id: 'available',
+					text: 'available',
+					link: ''
+				}
+			]
+		}
+	],
 	menu_items: [
 		{
 			id: 'tradingplatform',
@@ -528,8 +663,10 @@ const config = {
 	cache: {
 		stockList: [],
 		lang: 'vi_VN',
-		theme: 'light'
+		theme: 'light',
+		favourite: []
 	},
+	maxFav: 6,
 	tableColReorder: [],
 	tableColWidth: [],
 	websockID: null,

@@ -13,7 +13,7 @@ class StatusBar extends React.Component {
             searchInputVal: '',
             searchResult: [],
             reload: false,
-            showSearchBox: true,
+            showSearchBox: false,
             lgShow: false,
             onHoverDiv: {
                 backgroundColor: '#ccc',
@@ -21,35 +21,91 @@ class StatusBar extends React.Component {
                 cursor: 'hand',
                 cursor: 'pointer'
             },
-            currentlySelectedItemIndex: 0
+            currentlySelectedItemIndex: 0,
+            onFav: -1,
+            favList: config.cache.favourite
         }
         this.allWidget = config.widget
-        this.onBlur = this.onBlur.bind(this)
         this.onFocus = this.onFocus.bind(this)
         this.openSetting = this.openSetting.bind(this)
         this.openProfile = this.openProfile.bind(this)
         this.logout = this.logout.bind(this)
         this.onKeyDown = this.onKeyDown.bind(this)
+        this.handleBaseBlur = this.handleBaseBlur.bind(this)
     }
 
     componentWillMount() {
+    	//f5 => restore config.cache.fav and state from localstorage
+        if(localStorage.getItem("favs") != undefined )
+            config.cache.favourite = this.state.favList = JSON.parse(localStorage.getItem("favs"))
+        else    
+            //first render, login
+            localStorage.setItem("favs", JSON.stringify(this.state.favList))
+            
+        
     }
 
+    handleBaseBlur(e) {
+        var target = e.target.className
+        console.log(e.target.className)
+        if ( target.includes('search-trigger') ||
+            target.includes('glyphicon-th-large') || target.includes("search-re-header") ||
+            target.includes("search-block") || target.includes("widget-search-result")) {
+
+        } else {
+            this.setState({
+                showSearchBox: false
+            })
+            window.removeEventListener("click", this.handleBaseBlur, false)
+        }
+    }
+   
+    componentWillUpdate() {
+        if(this.state.showSearchBox) {
+            
+        }
+    }
+    
     render() {
         let lgClose = () => { this.setState({ lgShow: false }) }
+        let index = -1
         let searchResultBox = (
             <div tabIndex="0" className="widget-search-result"
                 id="widget-search-result"
-                style={{ display: this.state.showSearchBox ? "block" : "none" }}
-            >
+                style={{ display: this.state.showSearchBox ? "block" : "none" }}>
                 {
-                    this.state.searchResult.map((el, index) => {
+                    this.state.searchResult.map((menu) => {
+                        
                         return (
-                            <div
-                                id={'item-' + index}
-                                style={index == this.state.currentlySelectedItemIndex ? this.state.onHoverDiv : undefined}
-                                key={el.i}
-                                onClick={e => this.gotoResultTab(el.i, this.props.language)}>{this.props.language.menu[el.i]}</div>
+                            <div className="search-block">
+                                <label className="search-re-header">{this.props.language.menu[menu.id]}</label>
+                                {
+                                    
+                                    menu.subitems.map(el => {
+                                        index += 1
+                                        // console.log(index, this.state.onFav)
+                                        return (
+                                            <div
+                                                id={'item-' + el.id}
+                                                className="search-item"
+                                                key={el.id}
+                                                onClick={e => this.gotoResultTab(el.id, this.props.language)}
+                                                onMouseOver={e => this.setState({onFav: el.id})}
+                                                onMouseOut={e => this.setState({onFav: -1})}>
+                                                    {this.props.language.menu[el.id]}
+                            
+                                                    <span style={{visibility: (el.id == this.state.onFav || this.state.currentlySelectedItemIndex == index) ?"visible" : "hidden", 
+                                                        color: this.isFav(el.id) >= 0 ? "yellow" : "white"}} 
+                                                        onClick={e => this.onFavClick(e, el.id)}
+                                                        tabIndex='0' 
+                                                        className="glyphicon glyphicon-star">
+                                                    </span>
+                                            
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         )
                     })
                 }
@@ -58,20 +114,30 @@ class StatusBar extends React.Component {
 
         return (
             <div id="status-bar" style={this.props.theme.statusbar}>
-                <div className="connection-status open"  >
-                    <span className="glyphicon glyphicon-th-large" onClick={this.onFocus}></span>
+                <div className="start-menu" onClick={this.onFocus}>
+                    <span className="glyphicon glyphicon-th-large"></span>
                 </div>
                 <div className="widget-search">
-                    <input ref={input => this.inputSearchValue = input} type="text" value={this.state.searchInputVal} className="form-control" placeholder="Menu"
+                    <input ref={input => this.inputSearchValue = input} type="text" 
+                        value={this.state.searchInputVal} 
+                        className="form-control search-trigger" 
+                        placeholder="Menu" id="form-control-input"
                         onChange={e => this.onChange(e, this.props.language)}
-                        onBlur={e => this.onBlur(e)}
                         onClick={this.onFocus}
                         onKeyDown={e => this.onKeyDown(e)}
                     />
 
                     {(this.state.searchResult.length > 0) ? searchResultBox : null}
                 </div>
-
+        
+                {
+                    this.state.favList.map((el, index) =>{
+                        return(
+                            <div id={'fav-tab-' + index} className="fav-tab" onClick={e => this.gotoResultTab(el, this.props.language)} >              {this.props.language.menu[el]}
+                            </div>
+                        )
+                    })
+                } 
 
                 <div className="user-action">
                     <span className="glyphicon glyphicon-user" onClick={this.openProfile}></span>
@@ -82,6 +148,36 @@ class StatusBar extends React.Component {
             </div>
 
         )
+    }
+
+    onFavClick(e, id){
+        e.stopPropagation()
+        var index = this.isFav(id)
+        if(index < 0){
+            if(this.state.favList.length < config.maxFav){
+                
+                config.cache.favourite.push(id) 
+                this.setState({favList: config.cache.favourite})
+                localStorage.setItem("favs", JSON.stringify(config.cache.favourite))
+            }
+        } else{
+            
+                config.cache.favourite.splice(index, 1)
+                this.setState({favList: config.cache.favourite})
+                if(config.cache.favourite == 0)
+                    localStorage.removeItem("favs")    
+                else
+                    localStorage.setItem("favs", JSON.stringify(config.cache.favourite))
+            
+        }
+        document.getElementById("form-control-input").focus()
+    }
+    
+    isFav(id){
+        for(var i =0; i < this.state.favList.length; i++)
+            if(id == this.state.favList[i])
+                return i
+        return -1
     }
 
     componentDidMount() {
@@ -125,8 +221,6 @@ class StatusBar extends React.Component {
         if (!isTabMenu && widgetList.find(wg => wg == subMenuID) == null) {
             this.addWidget(subMenuID)
         }
-        this.inputSearchValue.blur()
-        this.onBlur({})
     }
 
     onKeyDown(e) {
@@ -166,49 +260,69 @@ class StatusBar extends React.Component {
     }
 
     onFocus() {
-        if (this.state.searchInputVal !== '') {
+        if(this.state.showSearchBox) {
             this.setState({
-                showSearchBox: true,
+                showSearchBox: false,
             })
-        } else {
-            this.setState({
-                showSearchBox: true,
-                menuitem: config.widget,
-                searchResult: config.widget,
-            })
+            window.removeEventListener("click", this.handleBaseBlur, false)
         }
-    }
-
-    onBlur(e) {
-        if (e.relatedTarget != null) {
-            return;
+        else {
+            if (this.state.searchInputVal !== '') {
+                this.setState({
+                    showSearchBox: true,
+                })
+            } else {
+                this.setState({
+                    showSearchBox: true,
+                    searchResult: config.start_menu,
+                })
+            }
+            document.getElementById("form-control-input").focus()
+            window.addEventListener("click", this.handleBaseBlur, false)
         }
-        if(document.getElementById('widget-search-result'))
-            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
-        this.setState({
-            showSearchBox: false,
-            currentlySelectedItemIndex: 0,
-            searchInputVal: ''
-        })
     }
 
     onChange(e, language) {
         let value = e.target.value
-        var widgets = config.widget
+        let menus = config.start_menu.slice(0)
+        let list = []
 
         var matchesFilter = new RegExp(value, "i")
-        var tmp = widgets.filter(el => {
-            var text = language.menu[el.i]
-            if (matchesFilter.test(text))
-                return true
+        menus.forEach(item => {
+            // console.log(item.subitems)
+            var tmp = item.subitems.filter(subitem => {
+                var text = language.menu[subitem.text]
+                // console.log(text)
+                if(matchesFilter.test(text))
+                    return true
+            })
+            // console.log("this")
+            // console.log(tmp)
+            if(tmp.length > 0)
+            {
+                // var result = JSON.parse(JSON.stringify(item))
+                let result = {
+                    id: item.id,
+                    text: language.menu[item.id],
+                    type: "menu"
+                }
+                tmp = tmp.map(data=>new Object({label: language.menu[data.id], id: data.id, type: "sub"}))
+                // console.log(result);
+                result['subitems'] = tmp
+                list.push(result)
+            }
+            
         })
-        if(tmp.length > 0 && document.getElementById('widget-search-result')){
-            document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
+
+        console.log(list)
+        
+        if(list.length > 0 && document.getElementById('widget-search-result')){
+            // document.getElementById('widget-search-result').scrollTop = document.getElementById('item-0').offsetTop
         }
         //Control text input
         this.setState({
             searchInputVal: value,
-            searchResult: tmp,
+            searchResult: list,
             currentlySelectedItemIndex: 0
         })
 

@@ -96,6 +96,9 @@ body {
     padding: 5px 16px;
     width: 30%;
 }
+.hks-btn.btn-cancel-order > span {
+    top: -1px !important;
+}
 .hks-btn.btn-detail {
     background-color: #005899;
     color: white;
@@ -113,7 +116,9 @@ body {
     padding: 5px 16px;
     width: 120px;
 }
-
+.hks-btn.btn-modify > span {
+    top: -1px !important;
+}
 .hks-btn.btn-buy {
     /* background-color: rgb(255, 102, 0); */
     background-color: #4990e2;
@@ -844,50 +849,67 @@ label {
 .widget-search-result {
     width: 250px;
     overflow: auto;
-    min-height: 200px;
-    max-height: 300px;
+    height: 350px;
     background-color: white;
     box-shadow: 2px -1px 2px rgba(0, 0, 0, 0.5);
     position: absolute;
     bottom: 30px;
+    left: 1px;
 }
-
-.widget-search-result>div {
-    padding: 5px;
-    box-sizing: border-box;
-    user-select: none;
-}
-
-.widget-search-result>div:hover {
+.widget-search-result .search-item:hover {
     background-color: #ccc;
     color: #555;
     cursor: hand;
     cursor: pointer;
 }
+.widget-search-result .search-item {
+    padding: 6px 0 6px 10px;
+    position: relative;
+}
+.widget-search-result .search-re-header {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+.widget-search-result .search-block {
+    padding-top: 14px;
+}
+.widget-search-result .search-item span {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    outline: none;
+}
 
-.widget-search-result>div {
-    padding: 8px 15px;
+.fav-tab{
+    padding: 4px 7px 2px 7px;
+    color: white;
+    box-sizing: border-box;
+	float:left;
+	border-right: 1px solid white;
+	cursor: pointer;
+    
 }
 
 .widget-search input {
     padding: 0px 6px;
     height: 26px;
-    border-radius: 2px;
+    border-radius: 0px;
 }
-.connection-status {
+.start-menu {
     height: 100%;
     width: auto;
     margin-left: 5px;
     margin-right: 5px;
     float: left;
+    color: #fff;
+}
+.start-menu:hover {
+    opacity: 0.5;
 }
 .widget-search {
     float: left;
 }
 
-.connection-status.open > span{
-    color: #fff;
-}
 .user-action {
     float: right;
     height: 100%;
@@ -1419,7 +1441,7 @@ label {
     }
     .scrolling-tabs-main.tab-bar .tabs-item{  /*for tabbar*/
         font-size: 14px;
-        padding: 0 5px;
+        padding: 0 15px;
         height: 100%;
         line-height: 2;
         min-width: 130px;
@@ -1427,10 +1449,10 @@ label {
         font-weight: 600;
         user-select: none;
         display: inline-block;
-        padding-left: 15px;
     }
     .scrolling-tabs-main.tab-bar .tabs-item:hover {
-        opacity: 0.8;
+        /* opacity: 0.8; */
+        background-color: #002c4c;
     }
     .scrolling-tabs-main.tab-bar .tabs-item.normal{  /*for tabbar*/
         background-color: transparent;
@@ -2074,7 +2096,7 @@ label {
     width: 100%;
     background: #181a22;
     color: white;
-    z-index: 1;
+    z-index: 2;
     padding: auto auto;
     bottom: 30px;
 }
@@ -2683,6 +2705,9 @@ label {
     word-break:break-all;
     user-select: none;
 }
+.tether-element {
+    z-index: 1;
+}
 /* END SELECT CONTROL */
 
 /* Table-dragNdrop */
@@ -2787,7 +2812,9 @@ label {
 .enterorder-form .radio-inline:first-child {
     padding-left: 0px !important;
 }
-
+.enterorder-form .calendar-picker--trigger {
+    height: 22px !important;
+}
 .placeorder-col-right{
     padding-left: 10px;
     font-size: 12px;
@@ -2816,6 +2843,7 @@ label {
 #enterorder .widget-wrapper {
     padding-top: 0px !important;
 }
+
 /* Listview-control */
 .listview-control {
     width: 100%;
@@ -3487,7 +3515,25 @@ label {
 
 /* TRADE LOG */
 .trd-log-table {
-    height: calc(100% - 25px);
+    height: calc(100% - 27px);
+}
+.trd-log-control {
+    height: 26px;
+}
+.trd-log-filter {
+    position: absolute;
+    display: inline-flex;
+    right: 1px;
+    top: 1px;
+    width: 130px;
+}
+.trd-log-control > label {
+    padding-top: 2px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+}
+.trd-log-filter > .select-control {
+    border-radius: 0 !important;
 }
 /* END TRADE LOG */
 
@@ -3525,6 +3571,15 @@ label {
     color: #e8b342;
     font-weight: bold;
     border-bottom-width: 0px !important;
+}
+.pl-sub-account {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 150px;
+}
+.pl-sub-account > .select-control {
+    border-radius: 0 !important;
 }
 /* END PLACE ORDER */
 /* Slider Format */

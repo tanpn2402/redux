@@ -155,7 +155,7 @@ class WatchListA extends Component {
         if(tmp.length > 0) {
             let tp = tmp[0]
             this.props.setDefaultOrderParams({
-                mvBS: "BUY",
+                mvBS: this.props.portfolioData.filter(el => el.mvStockID == prop.stockCode).length > 0 ? "SELL" : "BUY",
                 mvStockCode: tp.stockCode,
                 mvStockName: tp.stockName,
                 mvMarketID: tp.mvMarketID
@@ -165,7 +165,7 @@ class WatchListA extends Component {
 
     onStockChange(listStock) {
         let val = this.input.value
-        console.log("BBBB", val, listStock)
+        // console.log("BBBB", val, listStock)
         let tmp = listStock.filter(e => e.toUpperCase().includes(val.toUpperCase()))
         
         this.setState({
@@ -223,7 +223,8 @@ class WatchListA extends Component {
 const mapStateToProps = (state) => {
     return {
         instrument: state.trading.instrument,
-        listInstrumentToWatch: state.trading.listInstrumentToWatch
+        listInstrumentToWatch: state.trading.listInstrumentToWatch,
+        portfolioData: state.porfolio.data.mvPortfolioBeanList,
     }
 }
 

@@ -16,8 +16,9 @@ export default class MainContent extends Component {
     render() {
         return (
             <div id="maincontent" className="maincontent-desktop">
-                <StatusBar theme={this.props.theme} language={this.props.language.page} checkSessionID={this.props.checkSessionID} />
+               
                 <MarqueeBar theme={this.props.theme} language={this.props.language.page} />
+                <StatusBar theme={this.props.theme} language={this.props.language.page} checkSessionID={this.props.checkSessionID} />
                 <ProfileNav theme={this.props.theme} language={this.props.language.page} />
                 <SettingNav theme={this.props.theme} language={this.props.language} />
                 <PageContent theme={this.props.theme} language={this.props.language.page} />

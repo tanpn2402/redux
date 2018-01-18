@@ -93,9 +93,9 @@ export default
                 "marginloan": "Margin Loan Statement",
                 "personalprofile": "Personal Profile",
                 "otherservice": "Other Service",
-                "cashtransfer": "Cash Transfer",
-                "cashadvance": "Cash Advance",
-                "cashadvancebank": "Cash Advance (Bank)",
+                "cashtransfer": "Fund Transfer",
+                "cashadvance": "Advance Payment",
+                "cashadvancebank": "Bank Advance Payment",
                 "oddLot": "Odd Lot Trading",
                 "entitlement": "Entitlement",
                 "loanrefund": "Loan Refund",
@@ -1328,7 +1328,10 @@ export default
                     "total": "Total{0}",
                     "vol": "Volume",
                     "totalvol": "Total Volume",
-                    "time": "Time"
+                    "time": "Time",
+                    "bymarket": "BY MARKET",
+                    "bycompany": "BY COMPANY"
+                    
                 }
             },
             "messagebox": {

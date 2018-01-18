@@ -205,7 +205,7 @@ class CalendarPicker extends React.Component {
     render() {
 
         return (
-            <div className="calendar-picker--trigger">
+            <div className={this.props.disabled ? "calendar-picker--trigger disabled":"calendar-picker--trigger"}>
                 <div className="calendar-picker--group">
                     <input id={this.id} className="calendar-picker-input"
                         onClick={this.handleInputFocus}
