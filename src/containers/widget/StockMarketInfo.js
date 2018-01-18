@@ -309,7 +309,7 @@ class StockMarketInfo extends Component {
 		let lang = this.props.language.stockmarketinform
 		return (
 			<div id={this.id}>
-				<Title language={this.props.language} theme={this.props.theme}>
+				<Title language={this.props.language} theme={this.props.theme} widgetID={'stockmarketinform'}>
 					{this.props.language.menu[this.id]}
 				</Title>
 

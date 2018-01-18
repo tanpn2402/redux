@@ -6,8 +6,8 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'enterorder',
-					text: 'enterorder',
+					id: 'placeorder',
+					text: 'placeorder',
 					link: ''
 				},
 				{
@@ -58,8 +58,8 @@ const config = {
 					link: ''
 				},
 				{
-					id: 'cashtransactionhistory',
-					text: 'cashtransactionhistory',
+					id: 'cashTransHistory',
+					text: 'cashTransHistory',
 					link: ''
 				},
 				{

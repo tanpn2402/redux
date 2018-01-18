@@ -6,7 +6,7 @@ class Input extends React.Component {
         super(props)
         this.handleButtonInputClick = this.handleButtonInputClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
-
+        this.handleKeyPress = this.handleKeyPress.bind(this)
         this.readOnly = false
     }
 
@@ -22,7 +22,8 @@ class Input extends React.Component {
                     </span>
                     <FormControl
                         inputRef={ref => this.rInput = ref}
-                        onChange={this.handleChange} defaultValue={this.props.defaultValue} />
+                        onChange={this.handleChange} defaultValue={this.props.defaultValue}
+                        onKeyPress={this.handleKeyPress} />
                     <span className='input-group-btn' style={{ zIndex: '0' }}>
                         <button type="button" className="btn btn-default" 
                             onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>+</button>
@@ -64,6 +65,16 @@ class Input extends React.Component {
 
             if( this.props.onChange && !isNaN(this.rInput.value)) {
                 this.props.onChange(this.rInput.value)
+            }
+        }
+    }
+
+    handleKeyPress(e){
+        if (e.key === 'Enter') {
+            console.log('a');       
+            // e.stopPropagation();
+            if(this.props.onKeyPress) {
+                this.props.onKeyPress(e);
             }
         }
     }

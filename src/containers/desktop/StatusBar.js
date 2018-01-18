@@ -224,7 +224,7 @@ class StatusBar extends React.Component {
     }
 
     onKeyDown(e) {
-        
+        // return;
         //e.preventDefault()
         let keyCode = e.keyCode
         let searchResultSize = this.state.searchResult.length - 1
@@ -232,24 +232,24 @@ class StatusBar extends React.Component {
         let nextItem = (this.state.currentlySelectedItemIndex + 1) > searchResultSize ? 0 : (this.state.currentlySelectedItemIndex + 1)
         
         switch (keyCode) {
-            case 38: // Up
-                this.setState({
-                    currentlySelectedItemIndex: (previousItem)
-                })
-                if(document.getElementById('widget-search-result'))
-                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
-                break;
-            case 40: // Down
-                this.setState({
-                    currentlySelectedItemIndex: (nextItem)
-                })
-                if(document.getElementById('widget-search-result'))
-                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
-                break;
-            case 13: // Enter
-                let subMenuID = this.state.searchResult[this.state.currentlySelectedItemIndex].i
-                this.gotoResultTab(subMenuID, this.props.language)
-                break;
+            // case 38: // Up
+            //     this.setState({
+            //         currentlySelectedItemIndex: (previousItem)
+            //     })
+            //     if(document.getElementById('widget-search-result'))
+            //         document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
+            //     break;
+            // case 40: // Down
+            //     this.setState({
+            //         currentlySelectedItemIndex: (nextItem)
+            //     })
+            //     if(document.getElementById('widget-search-result'))
+            //         document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
+            //     break;
+            // case 13: // Enter
+            //     let subMenuID = this.state.searchResult[this.state.currentlySelectedItemIndex].i
+            //     this.gotoResultTab(subMenuID, this.props.language)
+            //     break;
             case 27: // Esc
                 this.setState({
                     showSearchBox: false,

@@ -78,6 +78,8 @@ export default
                 }
             },
             "menu": {
+                "placeorder": "Đặt lệnh",
+                "trading": "Giao dịch",
                 "tradingplatform": "Giao dịch",
                 "enterorder": "Đặt lệnh giao dịch",
                 "stockmarketinform": "Thông tin chứng khoán",

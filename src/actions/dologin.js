@@ -34,7 +34,7 @@ export function doLogout(id) {
     //Clear localstorage
     localStorage.removeItem('lastTab')
     localStorage.removeItem('lastTheme')
-    localStorage.removeItem('lastLang')
+    // localStorage.removeItem('lastLang')
     localStorage.removeItem('lastTabID')
     localStorage.removeItem('lastSubTabID')
     localStorage.removeItem('favs')

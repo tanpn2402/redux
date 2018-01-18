@@ -77,9 +77,26 @@ class LoginForm extends Component {
 
     handleLangChange(option) {
         this.params.language = option.id
-
         this.setState({ mvLanguage: option })
+
+        this.props.switchLanguage(option.id)
+        config.cache.lang = option.id
+        localStorage.setItem('lastLang', option.id)
     };
+
+    componentWillMount() {
+        
+        if(localStorage.getItem('lastLang') != null) {
+            let tmp = config.language.filter(e => e.id == localStorage.getItem('lastLang'))
+            if(tmp.length > 0) {
+                let t = tmp[0]
+                this.setState({
+                    mvLanguage: t
+                })
+            }
+        }
+        
+    }
 
     render() {
         let language = getLanguage(this.state.mvLanguage.id).page
@@ -241,7 +258,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     login: (params) => {
         dispatch(actions.doLogin(params))
-    }
+    },
+    switchLanguage: (language) => { 
+        dispatch(actions.switchLanguage(language)) 
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

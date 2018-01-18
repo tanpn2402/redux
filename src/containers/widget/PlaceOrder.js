@@ -131,6 +131,7 @@ class PlaceOrder extends React.Component {
         this.getOrderTypeList(this.props.genEnterOrderData)
 
         this.props.setStockInfo(options)
+        this.props.changeInstrument(options.stockCode)
     }
 
     handleOrderTypeChange(option) {
@@ -293,7 +294,9 @@ class PlaceOrder extends React.Component {
                                 </Col>
                                 <Col xs={7}>
                                     <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={100}
-                                        onChange={this.onPriceChange.bind(this)}/>
+                                        onChange={this.onPriceChange.bind(this)}
+                                        onKeyPress={this.handleSubmit.bind(this)}
+                                        />
                                 </Col>
                             </div>
 
@@ -327,7 +330,9 @@ class PlaceOrder extends React.Component {
                                 </Col>
                                 <Col xs={7}>
                                     <Input key="mvVol" type="number" ref={ref => this.mvVol =  ref} step={100}
-                                        onChange={this.onQtyChange.bind(this)}/>
+                                        onChange={this.onQtyChange.bind(this)}
+                                        onKeyPress={this.handleSubmit.bind(this)}
+                                    />
                                 </Col>
                             </div>
                         	{/* PERCENTAGE */}
@@ -1271,7 +1276,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     setStockInfo: (param) => {
         dispatch(actions.sendStockToStockMarketInfoWidget(param))
-    }
+    },
+
+    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceOrder)

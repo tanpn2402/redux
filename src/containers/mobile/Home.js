@@ -26,8 +26,6 @@ class Home extends Component {
                     theme={theme} 
                     language={lang}
                     checkSessionID={this.checkSessionID} />
-
-
             </div>
         )
     }

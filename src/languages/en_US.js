@@ -78,6 +78,7 @@ export default
                 }
             },
             "menu": {
+                "placeorder": "Place Order",
                 "trading": "Trading",
                 "trandate": "Day Trade",
                 "enterorder": "Enter Order",

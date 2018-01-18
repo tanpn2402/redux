@@ -494,7 +494,7 @@ class AccountInfo extends Component {
 
 		return (
 			<div id={this.id}>
-				<Title language={this.props.language} theme={this.props.theme}>
+				<Title language={this.props.language} theme={this.props.theme}  widgetID={'accountinfo'}>
 					{this.props.language.menu[this.id]}
 				</Title>
 

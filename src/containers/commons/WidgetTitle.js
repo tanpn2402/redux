@@ -12,11 +12,11 @@ class WidgetTitle extends Component {
     removeWidget() {
         var widgetID = this.props.widgetID
         var tabs = config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget
-
+        
         var indexOfTobeDelWidget = tabs.findIndex(tab => {
             return tab.i == widgetID
         })
-
+        console.log(tabs,widgetID )
         if (indexOfTobeDelWidget > -1) {
             config.tabbar[config.tabbar.findIndex(tab => tab.id == "customization")].widget.splice(indexOfTobeDelWidget, 1) //Delete widget from CustomConfig
             this.props.reloadCustom(this.props.load)
