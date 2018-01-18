@@ -91,8 +91,11 @@ class TradeLogTable extends Component {
     }
 
     componentDidMount() {
-        
-        setInterval( this.simulate.bind(this) , 2000)
+        this.interval = setInterval( this.simulate.bind(this) , 2000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
     }
 
     simulate() {

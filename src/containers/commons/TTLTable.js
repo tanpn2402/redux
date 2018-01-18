@@ -19,11 +19,20 @@ export default class TTLTable extends Component {
                         {
                             this.props.header.map((d, i) => {
                                 if(d.show == undefined || d.show) {
-                                    return (
-                                        <div className="ttl-cell" style={d.style} >
-                                            {d.title}
-                                        </div>
-                                    )
+                                    if(typeof d.title === "function" ) {
+                                        return (
+                                            <div className="ttl-cell" style={d.style} >
+                                                {d.title(d)}
+                                            </div>
+                                        )
+                                    } else {
+                                        return (
+                                            <div className="ttl-cell" style={d.style} >
+                                                {d.title}
+                                            </div>
+                                        )
+                                    }
+                                       
                                 }
                             })
                         }

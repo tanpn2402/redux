@@ -757,7 +757,12 @@ export default
                     "Time": "Thời gian",
                     "Price": "Giá",
                     "Volume": "Khối lượng",
-                    "Total": "Tổng"
+                    "Total": "Tổng",
+                    "openprice": "Giá mở cứa",
+                    "lowprice": "Giá thấp nhất",
+                    "highprice": "Giá cao nhất",
+                    "floor": "Sàn",
+                    "cell": "Trần"
                 }
             },
             "avaiblemarginlist": {
@@ -890,7 +895,8 @@ export default
                     "forbuy": "NN Mua",
                     "forsell": "NN Bán",
                     "room": "Room",
-                    "change": "(+/-)"
+                    "change": "+/-",
+                    "percent": "%"
                 }
             },
             "personalprofile": {

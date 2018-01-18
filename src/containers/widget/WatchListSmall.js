@@ -6,6 +6,7 @@ import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 
 import config from "../../core/config"
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
+const MODE_PERCENT = "percent"
 
 class WatchListA extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class WatchListA extends Component {
 
         this.balance = {
             "change": 0.356,
-            "volume": 0.555,
+            "percent": 0.555,
             "price": 0.666
         }
 
@@ -35,6 +36,12 @@ class WatchListA extends Component {
         })
         this.onStockChange(nextProps.listInstrumentToWatch)
         
+    }
+
+    changeModeView(mode) {
+        this.setState({
+            modeView: this.state.modeView == MODE_PERCENT ? MODE_CHANGE : MODE_PERCENT
+        })
     }
     
 
@@ -62,62 +69,52 @@ class WatchListA extends Component {
                 title: language.volume,
                 style: {width: "20%", textAlign: "right"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
+                accessor: "volume",
                 cell: props => {
-                    return this.fillColor(props, "change")
+                    return this.fillColor(props, "volume")
                 }
             },
             {
                 title: language.totalvol,
                 style: {width: "20%", textAlign: "right"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
+                accessor: "totalvol",
                 cell: props => {
-                    return this.fillColor(props, "change")
+                    return this.fillColor(props, "totalvol")
                 }
             },
             {
-                title: language.change,
-                style: {width: "20%", textAlign: "right", paddingRight: "10px"},
+                // title:  this.state.modeView == MODE_CHANGE ? language.change : language.volume,
+                style: {width: "20%", textAlign: "right", paddingRight: "4px"},
                 bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "change",
-                show: this.state.modeView == MODE_CHANGE,
-                cell: props => {
-                    return this.fillColor(props, "change")
-                }
-            },
-            {
-                title: language.volume,
-                style: {width: "20%", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "20%", textAlign: "right"},
-                accessor: "volume",
-                show: this.state.modeView == MODE_VOL,
-                cell: props => {
-                    return this.fillColor(props, "volume")
-                }
-            },
+                title: props => {
+                    return (
+                        <div>
+                            <span className="glyphicon glyphicon-menu-left" onClick={e => this.changeModeView(MODE_CHANGE)} 
+                                style={{cursor: "pointer"}}></span>
+                            <span>{this.state.modeView == MODE_CHANGE ? language.change : language.percent}</span>
+                            <span className="glyphicon glyphicon-menu-right" onClick={e => this.changeModeView(MODE_PERCENT)} 
+                                style={{cursor: "pointer"}}></span>
+                        </div>
+                    )
 
+                },
+                cell: props => {
+                    return this.fillColor(props, this.state.modeView == MODE_CHANGE ? "change" : "percent")
+                }
+                
+            }
         ]
         // console.log(this.state.stockSelected)
         return (
             <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
                 <div className="wl-sm-controls">
+                    <label>{this.props.language.menu.watchlist}</label>
+
                     <input className="wl-sm-input"
                         ref={r => this.input = r}
                         onChange={e => this.onStockChange(this.props.listInstrumentToWatch)}/>
-                    <div className="wl-sm-form-group">
-                        <Radio name="radioGroup" inline checked={this.state.modeView == MODE_CHANGE} 
-                            style={{margin: "0"}}
-                            onChange={() => this.handleViewModeChange(MODE_CHANGE) }>
-                            {"Change"}
-                        </Radio>
-                        
-                        <Radio name="radioGroup" inline checked={this.state.modeView == MODE_VOL} 
-                            style={{margin: "0 0 0 15px"}}
-                            onChange={() => this.handleViewModeChange(MODE_VOL) }>
-                            {"Volume"}
-                        </Radio>
-                    </div>
+                   
                 </div>
                 <div className="wl-sm-table">
                     <TTLTable className="watchlist-small" data={this.state.data} header={header}
@@ -183,21 +180,30 @@ class WatchListA extends Component {
         
         let child = <span style={{color: "#000"}}>{props[accessor]}</span>
         if(props[accessor] > this.balance[accessor]) {
-            child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+            if(accessor == "change")
+                child = <span style={{color: "#ea0070"}}>{"+" + props[accessor]}</span>
+            else if(accessor == "percent")
+                child = <span style={{color: "#ea0070"}}>{props[accessor] + "%"}</span>
         }
         else {
-            child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
+            if(accessor == "change")
+                child = <span style={{color: "#70a800"}}>{"-" + props[accessor]}</span>
+            else if(accessor == "percent")
+                child = <span style={{color: "#70a800"}}>{props[accessor] + "%"}</span>
         }
         return child
     }
 
     componentDidMount() {
         this.simulate()
-        setInterval( this.simulate.bind(this) , 2000)
+        this.interval = setInterval( this.simulate.bind(this) , 2000)
 
         // if(this.state.listStock.length > 0) { 
         //     this.props.changeInstrument(this.state.listStock[0])
         // }
+    }
+    componentWillUnmount() {
+        clearInterval(this.interval)
     }
 
     simulate() {
@@ -207,8 +213,10 @@ class WatchListA extends Component {
             _data.push({
                 "stockCode": stock,
                 "price": Math.random().toFixed(4),
+                "volume": Math.random().toFixed(4),
                 "change": Math.random().toFixed(4),
-                "volume": Math.random().toFixed(4)
+                "percent": Math.random().toFixed(2),
+                "totalvol": Math.random().toFixed(4)
                 
             })
         })

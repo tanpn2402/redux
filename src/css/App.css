@@ -3388,9 +3388,10 @@ label {
 
 /* watchlist - small component */
 .wl-sm-input {
-    float: left;
-    width: calc(100% - 170px);
-    border-radius: 4px;
+    position: absolute;
+    right: 1px;
+    width: 40%;
+    border-radius: 0px;
     border: 1px solid #dcdcdc;
     height: 22px;
     padding-right: 6px;
@@ -3410,8 +3411,14 @@ label {
     display: table;
     padding: 6px 2px;
 }
+.wl-sm-controls label {
+    float: left;
+    padding-left: 10px;
+}
 .wl-sm-table {
     height: calc(100% - 38px);
+    padding-right: 1px;
+    padding-left: 1px;
 }
 /* end  */
 
@@ -3508,6 +3515,8 @@ label {
 /* PORTFOLIO SMALL TABLE */
 .por-sm-table {
     height: calc(100% - 25px);
+    padding-right: 1px;
+    padding-left: 1px;
 
 }
 
@@ -3516,6 +3525,8 @@ label {
 /* TRADE LOG */
 .trd-log-table {
     height: calc(100% - 27px);
+    padding-right: 1px;
+    padding-left: 1px;
 }
 .trd-log-control {
     height: 26px;
@@ -3548,6 +3559,72 @@ label {
 }
 /* END TRADE BODY */
 
+/* BID ASK TABLE */
+.bidask-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+}
+.bidask-table, .bidask-table td, .bidask-table th {
+    border: 1px solid #ccc;  
+}
+.bidask-td {
+    padding: 3px 6px;
+}
+.bidask-td > div{
+    display: table;
+    width: 100%;
+}
+.bidask-td span {
+    padding: 4px 0px;
+}
+.bidask-td.left {
+    width: calc(50% - 40px );
+}
+.bidask-td.mid {
+    width: 80px;
+    text-align: center;
+    padding-right: 0 !important;
+    padding-left: 0 !important;    
+}
+.bidask-td.right {
+    width: calc(50% - 40px );
+}
+.bidask-row {
+    width: 100%;
+}
+.bidask-row.align-center {
+    text-align: center;
+}
+
+.bidask-row .bidask-title {
+    float: left;
+}
+.bidask-row .bidask-value {
+    float: right;
+}
+.bidask-row .binding:hover {
+    font-weight: 900;
+    cursor: pointer;
+}
+.bidask-td.mid .bidask-value {
+    float: unset !important;
+}
+.bidask-td.mid > div {
+    padding: 4px 2px !important;
+    display: block;
+}
+.bidask-td.green {
+    background-color: #edf6e9;
+}
+.bidask-td.pink {
+    background-color: #feeff1;
+}
+.bidask-row.align-center.header {
+
+}
+/* END BID ASK TABLE */
 
 /* PLACE ORDER */
 .pl-tab-control {
@@ -3697,3 +3774,12 @@ label {
     line-height: 1.5;
     height: 100%;
 }
+
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+{    
+
+    -webkit-appearance: none;    
+    margin: 0; 
+}
+input[type=number]::-webkit-inner-spin-button,    input[type=number]::-webkit-outer-spin-button {       appearance: none;      -webkit-appearance: none;      -moz-appearance: none;    margin: 0;   }   input[type=number] {      -moz-appearance: textfield;   }

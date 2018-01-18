@@ -786,7 +786,12 @@ export default
                     "Time": "Time",
                     "Price": "Price",
                     "Volume": "Volume",
-                    "Total": "Total"
+                    "Total": "Total",
+                    "openprice": "Open Price",
+                    "lowprice": "Low Price",
+                    "highprice": "High Price",
+                    "floor": "Floor",
+                    "cell": "Cell"
                 }
             },
             "avaiblemarginlist": {
@@ -919,7 +924,8 @@ export default
                     "forbuy": "For. Buy",
                     "forsell": "For. Sell",
                     "room": "Room",
-                    "change": "(+/-)"
+                    "change": "+/-",
+                    "percent": "%"
                 }
             },
             "personalprofile": {

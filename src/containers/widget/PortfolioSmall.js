@@ -165,8 +165,12 @@ class PortfolioSmall extends Component {
 
     componentDidMount() {
         
-        setInterval( this.simulate.bind(this) , 1500)
+        this.interval = setInterval( this.simulate.bind(this) , 1500)
         this.props.getPorfolio(this.params)
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.interval)
     }
 
     simulate() {

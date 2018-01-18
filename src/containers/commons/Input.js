@@ -23,7 +23,10 @@ class Input extends React.Component {
                     <FormControl
                         inputRef={ref => this.rInput = ref}
                         onChange={this.handleChange} defaultValue={this.props.defaultValue}
-                        onKeyPress={this.handleKeyPress} />
+                        onKeyPress={this.handleKeyPress} 
+                        type='number'
+                        min='0'
+                        />
                     <span className='input-group-btn' style={{ zIndex: '0' }}>
                         <button type="button" className="btn btn-default" 
                             onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>+</button>
@@ -70,14 +73,22 @@ class Input extends React.Component {
     }
 
     handleKeyPress(e){
-        if (e.key === 'Enter') {
-            console.log('a');       
-            // e.stopPropagation();
-            if(this.props.onKeyPress) {
-                this.props.onKeyPress(e);
+        var decimalvalidate = /^[0-9][0-9]*$/;
+        if (!decimalvalidate.test(e.key)) {
+            let number = parseFloat( this.rInput.value );
+            e.preventDefault();
+            if (e.key === 'Enter' && this.props.onKeyPress != undefined) {
+                this.props.onKeyPress(e)
+
+            }
+            else if(e.key==='+'){
+                this.rInput.value=number + this.props.step;
+            } else if(e.key==='-' && number !== 0) {
+                this.rInput.value = (number - this.props.step) > 0 ? number - this.props.step : 0;
             }
         }
     }
+      
 
     handleChange(e) {
         if( this.props.onChange ) {
