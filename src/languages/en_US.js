@@ -129,7 +129,7 @@ export default
                 "advancePanel": "Cash Advance Place",
                 "fundTransPanel": "Cash Transfer Place",
                 "fundTransHistory": "Cash Transfer Transaction",
-                "stockmarketinfo": "Stock Market Data Realtime",
+                "stockmarketinfo": "Stock Market Info",
                 "loanRefundPanel": "Loan Refund Panel",
                 "loanRefundHistory": "Loan Refund Transaction History",
                 "loanRefundStatus": "Loan Refund Transaction Status",
@@ -787,11 +787,13 @@ export default
                     "Price": "Price",
                     "Volume": "Volume",
                     "Total": "Total",
-                    "openprice": "Open Price",
-                    "lowprice": "Low Price",
-                    "highprice": "High Price",
+                    "openprice": "Open",
+                    "lowprice": "Low",
+                    "highprice": "High",
                     "floor": "Floor",
-                    "cell": "Cell"
+                    "cell": "Ceil",
+                    "ref": "Ref",
+                    "foreigner": "Foreigner"
                 }
             },
             "avaiblemarginlist": {

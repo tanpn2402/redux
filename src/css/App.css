@@ -2215,8 +2215,8 @@ label {
 }
 .TTLMainChart {
     height: 100%;
-    padding-bottom: 100px;
-    padding-top: 25px;
+    /* padding-bottom: 100px;
+    padding-top: 25px; */
 }
 .TTLStockChart.dark {
     background-color: #303030;
@@ -2757,6 +2757,7 @@ label {
     border: 1px solid #e6e6e6;
     top: -1px;
     position: relative;
+    padding-top: 6px;
 }
 .enterorder-form > div {
     margin-bottom: 10px;
@@ -2795,8 +2796,9 @@ label {
 }
 .enterorder-form .select-control,
 .enterorder-form .input-control {
-    height: 28px;
+    height: 22px;
     width: 100%;
+    font-size: 12px;
 }
 .enterorder-form input[type=radio] {
     height: 15px;
@@ -2834,7 +2836,7 @@ label {
 }
 
 .placeorder-col-left > div,.placeorder-col-right > div{
-    padding-bottom: 8px;
+    padding-bottom: 5px;
 }
 .buy-sell{
     position: absolute;
@@ -3138,7 +3140,7 @@ label {
     border: 1px solid #dcdcdc;
 }
 .maincontent-desktop .input-control {
-    height: 26px !important;
+    height: 24px !important;
     background: #FFF;
     border: 1px solid #dcdcdc;
 }
@@ -3492,12 +3494,18 @@ label {
     height: 100%;
     position: relative;
     background-color: #fff;
+    padding-top: 2px;
     /* padding-left: 4px;
     padding-right: 4px; */
 }
 .trd-chart > div > label,
 .trd-chart > div > select {
     display: none;
+}
+.trd-chart .TTLMainChart {
+    padding: 0px ;
+    padding-top: 15px;
+
 }
 .trd-chart .TTLStockChart_C_Ctl {
     top: 5px;
@@ -3560,13 +3568,26 @@ label {
 /* END TRADE BODY */
 
 /* BID ASK TABLE */
+.bidask .stockname {
+    position: absolute;
+    right: 1px;
+}
 .bidask-table {
+    position: absolute;
     width: 100%;
+    height: 100%;
+    padding-top: 30px;
+}
+.bidask-table table{
+    width: 100%;
+    max-height: 100%;
     border-collapse: collapse;
     font-size: 12px;
     table-layout: fixed;
+    overflow: auto;
+    
 }
-.bidask-table, .bidask-table td, .bidask-table th {
+.bidask-table table, .bidask-table td, .bidask-table th {
     border: 1px solid #ccc;  
 }
 .bidask-td {
@@ -3580,16 +3601,16 @@ label {
     padding: 4px 0px;
 }
 .bidask-td.left {
-    width: calc(50% - 40px );
+    width: calc(50% - 30px );
 }
 .bidask-td.mid {
-    width: 80px;
+    width: 60px;
     text-align: center;
     padding-right: 0 !important;
     padding-left: 0 !important;    
 }
 .bidask-td.right {
-    width: calc(50% - 40px );
+    width: calc(50% - 30px );
 }
 .bidask-row {
     width: 100%;
@@ -3651,12 +3672,19 @@ label {
 }
 .pl-sub-account {
     position: absolute;
-    right: 0;
+    left: calc(50% + 10px);
     top: 1px;
     width: 150px;
+    width: calc(50% - 10px);
+}
+.pl-sub-account > .account-name {
+    position: absolute;
+    left: 160px;
+    top: 2px;
 }
 .pl-sub-account > .select-control {
     border-radius: 0 !important;
+    width: 150px;
 }
 /* END PLACE ORDER */
 /* Slider Format */
@@ -3664,7 +3692,7 @@ label {
     display: inline-block;
 }
 .headSlider{
-    width: calc(100% - 330px);
+    width: calc(100% - 360px);
     float: right;
     margin-right: 2px;
     height: 60px;
@@ -3773,6 +3801,25 @@ label {
     font-size: 18px;
     line-height: 1.5;
     height: 100%;
+}
+#fav-tab-container{
+    width: calc(100% - 430px);
+    float: left;
+    
+}
+
+.fav-tab{
+    padding: 4px 7px 2px 7px;
+    color: white;
+    box-sizing: border-box;
+	float:left;
+	border-right: 1px solid white;
+	cursor: pointer;
+    /* width: 12.5%; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 }
 
 

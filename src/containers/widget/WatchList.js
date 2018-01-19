@@ -340,7 +340,7 @@ class WatchList extends Component {
             pageIndex: 1,
             disableRemove: true,
             watchStockList: [],
-            mvStockID: null
+            mvInstrument: null
         }
         this.oldWatchStockList = []
         this.rowSelected = []
@@ -420,86 +420,26 @@ class WatchList extends Component {
     }
 
     onRefresh(newParams) {
-        // var time = (new Date()).getTime()
-        // this.getDataParams['key'] = time
-        // this.props.onRefresh(this.getDataParams)
-        // let stock = this.state.watchStockList.find(stock => {
-        //     return stock.mvStockCode == newParams.mvStockCode
-        // })
-
-    }
-
-    onAddStock(willBeAddedStockCode) {
-        let stock = this.state.watchStockList.find(stock => {
-            return willBeAddedStockCode == stock.mvStockCode
-        })
-        if (stock === undefined) {
-            let willBeAddedStock = this.props.stockList.find(stockInStockList => stockInStockList.stockCode == willBeAddedStockCode)
-            if (willBeAddedStock!=null) {
-                this.addRemoveParams['mvAddOrRemove'] = 'Add'
-                this.addRemoveParams['mvStockCode'] = willBeAddedStock.stockCode
-                this.addRemoveParams['mvMarketID'] = willBeAddedStock.mvMarketID
-                this.props.onAddStock(this.addRemoveParams)
-                
-            } else {
-            console.log("Stock not found")
-            } 
-        }
         
-        // console.log(this.props.watchListData)
-        // if (!this.alreadyInList(stockID)) {
-        //     this.props.onAddStock(this.addRemoveParams);
-        //     this.onRefresh()
-        // } else {
-        //     //show Alert
-        //     console.log("alert")
-        // }
     }
 
-    onRemoveStock(removeList) {
-
-
-        // removeList.forEach(stock => {
-        //     let removeStock = {
-        //         mvStockCode: stock.mvStockCode,
-        //         mvMarketID: stock.mvMarketID
-        //     }
-        //     this.props.removeStockFromLocalStore(removeStock)
-        // })
-        
-        //Get selected stockID
-        this.rowSelected = []
-        document.getElementById("watchlist-cb-all").checked = false
-        let checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
-        for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = false
+    onAddStock() {
+        let instrument = this.state.mvInstrument
+        let stockCode = instrument.stockCode
+        let tmp = this.props.listInstrumentToWatch.filter(e => e == stockCode)
+        if(tmp.length > 0) {
+            // already in list
+            // message box here
+        } else {
+            this.props.addInstrument(stockCode)
         }
-
-        //Add or remove stock from list
-        this.addRemoveParams['mvAddOrRemove'] = 'Remove'
-        removeList.map(stock => {
-            this.addRemoveParams['mvStockCode'] = stock.mvStockCode
-            this.addRemoveParams['mvMarketID'] = stock.mvMarketID
-            this.props.onRemoveStock(this.addRemoveParams)
-        })
-        this.rowSelected = []
-
-        // this.onRefresh()
     }
 
-
-    onChange(e) {
-        this.inputValue = e.target.value
+    onRemoveStock() {
+        // this.rowSelected.map(stock => {
+        //     this.props.removeInstrument(stock.stockCode)
+        // })
     }
-
-    // alreadyInList(stockID) {
-    //     var i = 0;
-    //     this.props.watchListLocalStockList.map(stock => {
-    //         if (stockID === stock.mvStockId)
-    //             i++
-    //     })
-    //     return i === 0 ? false : true
-    // }
 
     onPageChange(pageIndex) {
         this.setState({ pageIndex: pageIndex });
@@ -507,7 +447,7 @@ class WatchList extends Component {
 
     handleStockChange(options) {
         this.setState({ 
-            mvStockID: options
+            mvInstrument: options
         })
     }
 
@@ -522,7 +462,7 @@ class WatchList extends Component {
                 <Select
                     key="rStockID"
                     options={Config.cache.stockList}
-                    selected={this.state.mvStockID}
+                    selected={this.state.mvInstrument}
                     optionLabelPath={'stockCode'}
                     handleChange={this.handleStockChange.bind(this)}
                     searchEnabled={true}
@@ -530,13 +470,13 @@ class WatchList extends Component {
             </FormGroup>,
 
             <button type="button" className="hks-btn btn-add-stock" style={button}
-                onClick={e => this.onAddStock(this.inputValue)}>
+                onClick={this.onAddStock.bind(this)}>
                 <span className="glyphicon glyphicon-plus" ></span>
                 {this.props.language.watchlist.toolbar.addstock}
             </button>,
             
             <button type="button" className="hks-btn btn-remove-stock"
-                onClick={e => this.onRemoveStock(this.rowSelected)} disabled={this.state.disableRemove}>
+                onClick={e => this.onRemoveStock()} disabled={this.state.disableRemove}>
                 <span className="glyphicon glyphicon-remove"></span>
                 {this.props.language.watchlist.toolbar.removestock}
             </button>
@@ -655,33 +595,38 @@ class WatchList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        watchListData: state.watchlist.watchListData,
-        watchListLocalStockList: state.watchlist.watchListLocalStockList
+        // watchListData: state.watchlist.watchListData,
+        // watchListLocalStockList: state.watchlist.watchListLocalStockList
+        listInstrumentToWatch: state.trading.listInstrumentToWatch,
+        listInstrumentData: state.trading.listInstrumentData
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onRefresh: (param) => {
-        dispatch(actions.loadWatchList(param))
-    },
-    onAddStock: (param) => {
-        dispatch(actions.addStock(param))
-    },
-    onRemoveStock: (param) => {
-        dispatch(actions.removeStock(param))
-    },
-    addStockToLocalStore: (param) => {
-        dispatch(actions.addStockToLocalStore(param))
-    },
-    removeStockFromLocalStore: (param) => {
-        dispatch(actions.removeStockFromLocalStore(param))
-    },
-    updateStockInfo: (param) => {
-        dispatch(actions.updateStockInfo(param))
-    }
+    // onRefresh: (param) => {
+    //     dispatch(actions.loadWatchList(param))
+    // },
+    // onAddStock: (param) => {
+    //     dispatch(actions.addStock(param))
+    // },
+    // onRemoveStock: (param) => {
+    //     dispatch(actions.removeStock(param))
+    // },
+    // addStockToLocalStore: (param) => {
+    //     dispatch(actions.addStockToLocalStore(param))
+    // },
+    // removeStockFromLocalStore: (param) => {
+    //     dispatch(actions.removeStockFromLocalStore(param))
+    // },
+    // updateStockInfo: (param) => {
+    //     dispatch(actions.updateStockInfo(param))
+    // }
     // getStockFromServer: (param) => {
     //     dispatch(actions.getStocksFromServer(param))
     // }
+
+    addInstrument: (ins) => { dispatch(actions.addInstrumentToWatch(ins)) },
+    removeInstrument: (ins) => { dispatch(actions.removeInstrumentFromWatch(ins)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)

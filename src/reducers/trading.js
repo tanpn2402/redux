@@ -2,7 +2,8 @@ const {ActionTypes} = require('../core/constants');
 
 const initialState = {
     instrument: "ACB",
-    listInstrumentToWatch: ["ACB"]
+    listInstrumentToWatch: ["ACB"],
+    listInstrumentData: []
 };
 
 export default function(state = initialState, action) {

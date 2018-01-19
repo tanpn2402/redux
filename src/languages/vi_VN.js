@@ -82,7 +82,7 @@ export default
                 "trading": "Giao dịch",
                 "tradingplatform": "Giao dịch",
                 "enterorder": "Đặt lệnh giao dịch",
-                "stockmarketinform": "Thông tin chứng khoán",
+                "stockmarketinform": "Dữ liệu chứng khoán",
                 "watchlist": "Danh mục quan tâm",
                 "orderjournal": "Tra cứu lệnh giao dịch",
                 "accountinfo": "Thông tin tài khoản",
@@ -758,11 +758,13 @@ export default
                     "Price": "Giá",
                     "Volume": "Khối lượng",
                     "Total": "Tổng",
-                    "openprice": "Giá mở cứa",
-                    "lowprice": "Giá thấp nhất",
-                    "highprice": "Giá cao nhất",
+                    "openprice": "Mở cứa",
+                    "lowprice": "Thấp nhất",
+                    "highprice": "Cao nhất",
                     "floor": "Sàn",
-                    "cell": "Trần"
+                    "cell": "Trần",
+                    "ref": "TC",
+                    "foreigner": "NN"
                 }
             },
             "avaiblemarginlist": {

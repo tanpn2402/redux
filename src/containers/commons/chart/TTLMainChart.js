@@ -70,9 +70,9 @@ class TTLMainChart extends React.Component {
         var subChartList = this.props.subChartList;
         var inChartList = this.props.inChartList;
 		var { data: initialData, chartType, drawingSwitch } = this.state;
-        const margin = {left: chartLayout.chartCanvas_margin_left, right: chartLayout.chartCanvas_margin_right, top:0, bottom: 5}; // margin.top will bug the graph, do not set. margin.bottom will affect cursor line
+        const margin = {left: chartLayout.chartCanvas_margin_left, right: chartLayout.chartCanvas_margin_right, top:10, bottom: 5}; // margin.top will bug the graph, do not set. margin.bottom will affect cursor line
         
-        var mainChartHeight = height + margin.bottom;
+        var mainChartHeight = height + margin.bottom + margin.top/2;
         var needBottomPadForXAxis = true;
         const gridHeight = height - margin.top;// - margin.bottom;
 		const gridWidth = width - margin.left - margin.right;
@@ -113,21 +113,21 @@ class TTLMainChart extends React.Component {
         
         var MouseCoordinateX_rectWidth;
         var MouseCoordinateX_displayFormat;
-        if (chartType == "IntraDay")
-        {
+        // if (chartType == "IntraDay")
+        // {
             MouseCoordinateX_rectWidth = 90;
-            MouseCoordinateX_displayFormat = timeFormat("%m-%d %H:%M:%S");
-        }
-        else if (chartType == "Monthly")
-        {
-            MouseCoordinateX_rectWidth = 70;
-            MouseCoordinateX_displayFormat = timeFormat("%Y-%m");
-        }
-        else//if (chartType == "Daily")
-        {
-            MouseCoordinateX_rectWidth = 80;
-            MouseCoordinateX_displayFormat = timeFormat("%Y-%m-%d");
-        }
+            MouseCoordinateX_displayFormat = timeFormat("%Y-%m-%d %H:%M:%S");
+        // }
+        // else if (chartType == "Monthly")
+        // {
+        //     MouseCoordinateX_rectWidth = 70;
+        //     MouseCoordinateX_displayFormat = timeFormat("%Y-%m");
+        // }
+        // else//if (chartType == "Daily")
+        // {
+        //     MouseCoordinateX_rectWidth = 80;
+        //     MouseCoordinateX_displayFormat = timeFormat("%Y-%m-%d");
+        // }
         
         var chartData = initialData;
         const yExtents = [d => [d.high, d.low]]
@@ -209,10 +209,10 @@ class TTLMainChart extends React.Component {
                 displayXAccessor={displayXAccessor}
                 clamp={true}
                 >
-                <Chart ref={node => this.aa = node} id={1} height={height} padding={{ top: 10, bottom: 20 }}
+                <Chart ref={node => this.aa = node} id={1} height={height - 3} padding={{ top: 10, bottom: 20 }}
                     yExtents={yExtents}>
                     <XAxis axisAt="bottom" orient="bottom" ticks={5} {...yGrid} fontSize={chartLayout.axis_fontSize} 
-                        tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={false}/>
+                        tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={true}/>
                     <YAxis axisAt="left" orient="left" ticks={5} {...xGrid} fontSize={chartLayout.axis_fontSize} 
                         tickStroke={config.axis.tickStroke} stroke={config.axis.stroke} zoomEnabled={false}/>
     
@@ -227,7 +227,8 @@ class TTLMainChart extends React.Component {
                         displayFormat={format(".2f")} />
                     {this.props.mainSeries}
                 
-                    <OHLCTooltip margin={{left: 100}} xDisplayFormat={MouseCoordinateX_displayFormat} fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, 5]}/>
+                    <OHLCTooltip margin={{left: 100}} xDisplayFormat={MouseCoordinateX_displayFormat} 
+                        fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, -8]}/>
                     
                     {inChartList}
                     

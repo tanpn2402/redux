@@ -10,6 +10,7 @@ export function changeInstrument(ins) {
 }
 
 export function addInstrumentToWatch(ins) {
+    console.log(ins)
     return {
         type: ActionTypes.ADDINSTRUMENTTOWATCH,
         instrument: ins, // ex: AVC, VNM

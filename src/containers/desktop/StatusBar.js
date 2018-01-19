@@ -1,10 +1,106 @@
 import React from 'react';
-import { Row, Col, Table, Button, FormControl } from 'react-bootstrap'
+import { Row, Col, Table, Button, FormControl, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import config from '../../core/config'
 import Popup from '../popup/Popup'
 import Clock from './Clock'
+
+class FavouriteBar extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.listFavcompoment = []
+        this.container = null
+
+        this.showTooltip = this.showTooltip.bind(this)
+
+        this.state = {
+            needShowToolTip: false
+        }
+    }
+
+    componentWillUpdate() {
+        this.listFavcompoment.map(e => {
+            if(e != null)
+                e.style.width = "auto"
+        })
+    }
+
+    showTooltip(text) {
+        // if(this.state.needShowToolTip) {
+        //     return (
+        //         <Tooltip id="tooltip">
+        //             {text}
+        //         </Tooltip>
+        //     )
+        // }
+        // else 
+            return (<div></div>)
+    }
+
+    render() {
+        this.listFavcompoment = []
+
+        return (
+            <div id="fav-tab-container" ref={r => this.container = r}>
+            {
+                this.props.favList.map((el, index) =>{
+                    return(
+                        <OverlayTrigger placement="top" overlay={this.showTooltip(this.props.language.menu[el])} >
+                            <div id={'fav-tab-' + index} className="fav-tab" ref={r => this.listFavcompoment.push(r)}
+                                onClick={e => this.gotoResultTab(el, this.props.language)}>
+                                {this.props.language.menu[el]}
+                            </div>
+                        </OverlayTrigger>
+                    )
+                })
+            } 
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        let totalcomWid = 0
+        this.listFavcompoment.map(e => {
+            
+            totalcomWid += e.offsetWidth + 1
+        })
+        // console.log(totalcomWid, this.container.offsetWidth)
+        if(this.container != null && this.container.offsetWidth < totalcomWid ) {
+            this.state.needShowToolTip = true
+            this.listFavcompoment.map(e => {
+                e.style.width = (100/this.props.favList.length) + "%"
+            })
+        } else {
+            this.state.needShowToolTip = false
+        }
+    }
+
+    componentDidUpdate() {
+        let totalcomWid = 0
+        this.listFavcompoment.map(e => {
+            if(e != null)
+                totalcomWid += e.offsetWidth + 1
+        })
+        // console.log(totalcomWid, this.container.offsetWidth)
+        if(this.container != null && this.container.offsetWidth < totalcomWid ) {
+            this.state.needShowToolTip = true;
+            this.listFavcompoment.map(e => {
+                if(e != null)
+                    e.style.width = (100/this.props.favList.length) + "%"
+            })
+        } else {
+            this.state.needShowToolTip = false
+        }
+    }
+
+    gotoResultTab(e, la) {
+        if(this.props.gotoResultTab != undefined) {
+            this.props.gotoResultTab(e, la)
+        }
+    }
+}
 
 class StatusBar extends React.Component {
     constructor(props) {
@@ -23,7 +119,8 @@ class StatusBar extends React.Component {
             },
             currentlySelectedItemIndex: 0,
             onFav: -1,
-            favList: config.cache.favourite
+            favList: config.cache.favourite,
+            subMenuArray: []
         }
         this.allWidget = config.widget
         this.onFocus = this.onFocus.bind(this)
@@ -38,10 +135,10 @@ class StatusBar extends React.Component {
     	//f5 => restore config.cache.fav and state from localstorage
         if(localStorage.getItem("favs") != undefined )
             config.cache.favourite = this.state.favList = JSON.parse(localStorage.getItem("favs"))
-        else    
+        else {
             //first render, login
             localStorage.setItem("favs", JSON.stringify(this.state.favList))
-            
+        }
         
     }
 
@@ -69,6 +166,8 @@ class StatusBar extends React.Component {
     render() {
         let lgClose = () => { this.setState({ lgShow: false }) }
         let index = -1
+        if(this.state.subMenuArray.length > 0)
+            this.state.subMenuArray = []
         let searchResultBox = (
             <div tabIndex="0" className="widget-search-result"
                 id="widget-search-result"
@@ -83,11 +182,14 @@ class StatusBar extends React.Component {
                                     
                                     menu.subitems.map(el => {
                                         index += 1
-                                        // console.log(index, this.state.onFav)
+                                        if(!this.state.subMenuArray.find(id => this.isInSearchList(el.id, id)))
+                                            this.state.subMenuArray.push(el.id)
+                            
                                         return (
                                             <div
                                                 id={'item-' + el.id}
                                                 className="search-item"
+                                                style={index == this.state.currentlySelectedItemIndex ? this.state.onHoverDiv : undefined}
                                                 key={el.id}
                                                 onClick={e => this.gotoResultTab(el.id, this.props.language)}
                                                 onMouseOver={e => this.setState({onFav: el.id})}
@@ -129,25 +231,20 @@ class StatusBar extends React.Component {
 
                     {(this.state.searchResult.length > 0) ? searchResultBox : null}
                 </div>
-        
-                {
-                    this.state.favList.map((el, index) =>{
-                        return(
-                            <div id={'fav-tab-' + index} className="fav-tab" onClick={e => this.gotoResultTab(el, this.props.language)} >              {this.props.language.menu[el]}
-                            </div>
-                        )
-                    })
-                } 
-
+                
                 <div className="user-action">
                     <span className="glyphicon glyphicon-user" onClick={this.openProfile}></span>
                     <span className="glyphicon glyphicon-cog" onClick={this.openSetting}></span>
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
                     <Clock/>
                 </div>
+                
+                <FavouriteBar language={this.props.language} favList={this.state.favList} 
+                    gotoResultTab={(e, la) => this.gotoResultTab(e, la)}/>
             </div>
 
         )
+        
     }
 
     onFavClick(e, id){
@@ -178,6 +275,12 @@ class StatusBar extends React.Component {
             if(id == this.state.favList[i])
                 return i
         return -1
+    }
+
+    isInSearchList(x, id){
+        if(x == id)
+            return true;
+        return false;
     }
 
     componentDidMount() {
@@ -224,32 +327,32 @@ class StatusBar extends React.Component {
     }
 
     onKeyDown(e) {
-        // return;
+        
         //e.preventDefault()
         let keyCode = e.keyCode
-        let searchResultSize = this.state.searchResult.length - 1
+        let searchResultSize = this.state.subMenuArray.length - 1
         let previousItem = (this.state.currentlySelectedItemIndex - 1) < 0 ? searchResultSize : (this.state.currentlySelectedItemIndex - 1)
         let nextItem = (this.state.currentlySelectedItemIndex + 1) > searchResultSize ? 0 : (this.state.currentlySelectedItemIndex + 1)
         
         switch (keyCode) {
-            // case 38: // Up
-            //     this.setState({
-            //         currentlySelectedItemIndex: (previousItem)
-            //     })
-            //     if(document.getElementById('widget-search-result'))
-            //         document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + previousItem).offsetTop - 120
-            //     break;
-            // case 40: // Down
-            //     this.setState({
-            //         currentlySelectedItemIndex: (nextItem)
-            //     })
-            //     if(document.getElementById('widget-search-result'))
-            //         document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + nextItem).offsetTop - 120
-            //     break;
-            // case 13: // Enter
-            //     let subMenuID = this.state.searchResult[this.state.currentlySelectedItemIndex].i
-            //     this.gotoResultTab(subMenuID, this.props.language)
-            //     break;
+            case 38: // Up
+                this.setState({
+                    currentlySelectedItemIndex: (previousItem)
+                })
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + this.state.subMenuArray[previousItem]).offsetTop - 120
+                break;
+            case 40: // Down
+                this.setState({
+                    currentlySelectedItemIndex: (nextItem)
+                })
+                if(document.getElementById('widget-search-result'))
+                    document.getElementById('widget-search-result').scrollTop = document.getElementById('item-' + this.state.subMenuArray[nextItem]).offsetTop - 120
+                break;
+            case 13: // Enter
+                let subMenuID = this.state.subMenuArray[this.state.currentlySelectedItemIndex]
+                this.gotoResultTab(subMenuID, this.props.language)
+                break;
             case 27: // Esc
                 this.setState({
                     showSearchBox: false,
@@ -280,6 +383,8 @@ class StatusBar extends React.Component {
             document.getElementById("form-control-input").focus()
             window.addEventListener("click", this.handleBaseBlur, false)
         }
+        
+        
     }
 
     onChange(e, language) {

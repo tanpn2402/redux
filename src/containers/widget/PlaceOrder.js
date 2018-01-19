@@ -232,6 +232,7 @@ class PlaceOrder extends React.Component {
                         <span className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
                             onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
                         <div className="pl-sub-account">
+                            <div className="account-name"><span>Trading Account</span></div>
                             <Select
                                 key="rSubAccSelector"
                                 ref={r => this.rSubAccSelector = r}
@@ -239,10 +240,11 @@ class PlaceOrder extends React.Component {
                                 selected={this.state.mvSubAccSelected}
                                 handleChange={this.handleSubAccChange.bind(this)}
                             />
+                            
                         </div>
                     </div>
                     <div className={"enterorder-form " + this.state.mvBS.toLowerCase()} 
-                    style={{height: "calc(100% - 28px)", backgroundColor: "#f7f7f7", paddingTop: "12px" }}>
+                    style={{height: "calc(100% - 28px)", backgroundColor: "#f7f7f7"}}>
                         {/* Column Left */}
                         <div className="placeorder-col-left" style={{display: "table-cell"}}>
                             {/* MARKET */}
@@ -335,14 +337,24 @@ class PlaceOrder extends React.Component {
                                     />
                                 </Col>
                             </div>
-                        	{/* PERCENTAGE */}
+
+                            {/* ORDER TYPE */}
                             <div  style={{display: "table", width: "100%"}}>
                                 <Col xs={5}  style={{color: tColor}}>
+                                    {header.ordertype}
                                 </Col>
                                 <Col xs={7}>
-                              		<ul  className="listPercentage">{listPercentage}</ul>  
-                        	    </Col>
+                                    <Select
+                                        ket="rOrderTypeSelector"
+                                        ref={r => this.rOrderTypeSelector = r}
+                                        options={this.state.mvOrderTypeList}
+                                        selected={this.state.mvOrderTypeSelected}
+                                        optionLabelPath={"label"}
+                                        handleChange={this.handleOrderTypeChange.bind(this)}
+                                    />
+                                </Col>
                             </div>
+                        	
                         </div>
                         {/* End Left Column */}
                             
@@ -401,6 +413,15 @@ class PlaceOrder extends React.Component {
                                 </Col>
                             </div>
 
+                            {/* PERCENTAGE */}
+                            <div  style={{display: "table", width: "100%"}}>
+                                {/* <Col xs={5}  style={{color: tColor}}>
+                                </Col> */}
+                                <Col xs={12}>
+                              		<ul  className="listPercentage">{listPercentage}</ul>  
+                        	    </Col>
+                            </div>
+
                             {/* NET FEE */}
                             <div style={{display: "table", width: "100%"}}>
                                 <Col xs={5} style={{color: tColor}}>
@@ -410,23 +431,6 @@ class PlaceOrder extends React.Component {
                                     <Input key="mvNetFee" className="showOnly"  defaultValue={"---"}
                                         ref={ref => this.mvNetFee = ref} readOnly value={this.value.mvNetFee} 
                                         style={{color: tColor, textAlign: "right"}}/>
-                                </Col>
-                            </div>
-
-                            {/* ORDER TYPE */}
-                            <div  style={{display: "table", width: "100%"}}>
-                                <Col xs={5}  style={{color: tColor}}>
-                                    {header.ordertype}
-                                </Col>
-                                <Col xs={7}>
-                                    <Select
-                                        ket="rOrderTypeSelector"
-                                        ref={r => this.rOrderTypeSelector = r}
-                                        options={this.state.mvOrderTypeList}
-                                        selected={this.state.mvOrderTypeSelected}
-                                        optionLabelPath={"label"}
-                                        handleChange={this.handleOrderTypeChange.bind(this)}
-                                    />
                                 </Col>
                             </div>
 

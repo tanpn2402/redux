@@ -97,13 +97,14 @@ class TTLChart extends React.Component
     componentWillReceiveProps(nextProps){
         this.state.mainChartSeries = createMainChartSeries(this.prevChartType, nextProps.config);
         this.state.subChartList = this.handleSetSubCharts(this.inChartVarArray, this.subChartVarArray, nextProps.config);
-
+        
         let _tmp = convertRawData(nextProps.rawData)
         // console.log("TTL CHAR", _tmp)
         this.setState({
             data: _tmp,
             refreshState: true,
             mainChartSeries: createMainChartSeries(nextProps.config.chart.type, nextProps.config),
+            // subChartList: this.handleSetSubCharts(nextProps.inCharts, nextProps.subCharts, nextProps.config)
         })
     }
     
@@ -128,8 +129,6 @@ class TTLChart extends React.Component
         // this.TTLStockChart.style.height = h + "px"
     }
 
-    componentWillUnmount() {
-    }
 
 	render() {
 		var { width, height, ratio, config } = this.props;
@@ -146,7 +145,7 @@ class TTLChart extends React.Component
                 style={{backgroundColor: config.chart.appearance.background}}>
                 
                 <div id="TTLStockChart_C_Main" className="TTLStockChart_C_Main">
-                    <div className="TTLMainChart" style={{paddingTop: padding.top, paddingBottom: padding.bottom}}>
+                    <div className="TTLMainChart">
                         <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
                             <TTLMainChart width={width} height={height} ratio={ratio} ref={node => {this.mainChart=node;}} baseref={this}
                                 chartLayout={this.chartLayout}
