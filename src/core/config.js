@@ -534,7 +534,7 @@ const config = {
 		actionRightList: { i: 'actionRightList', x: 2, y: 0, w: 6, h: 4, isDraggable: false, isResizable: false },
 		additionSharesInfo: { i: 'additionSharesInfo', x: 2, y: 4, w: 6, h: 4, isDraggable: false, isResizable: false },
 		entitlementPanel: { i: 'entitlementPanel', x: 0, y: 0, w: 2, h: 8, isDraggable: false, isResizable: false },
-		entitlementHistory: { i: 'entitlementHistory', x: 2, y: 8, w: 6,  maxH: 15, isDraggable: false, isResizable: false, tab: 1 },
+		entitlementHistory: { i: 'entitlementHistory', x: 2, y: 8, w: 6, minH: 3,  maxH: 15, isDraggable: false, isResizable: false, tab: 1 },
 
 		oddLotOrder: { i: 'oddLotOrder', x: 0, y: 0, w: 8, h: 5, minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false },
 		oddLotHistory: { i: 'oddLotHistory', x: 0, y: 5, w: 8,  minW: 1, minH: 6, maxW: 30, maxH: 15, isDraggable: false, isResizable: false, tab: 1 },
@@ -552,10 +552,10 @@ const config = {
 		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 8, isDraggable: false, isResizable: false, tab: 1 },
 
 		fundTransfer: { i: 'fundTransfer', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 10, isDraggable: false, isResizable: false },
-		fundTransHistory: { i: 'fundTransHistory', x: 2, y: 0, w: 6,  isDraggable: false, isResizable: false, tab: 1 },
+		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 7, isDraggable: false, isResizable: false },
+		fundTransHistory: { i: 'fundTransHistory', x: 2, y: 0, w: 6, minH: 7, isDraggable: false, isResizable: false, tab: 1 },
 
-		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6,  isDraggable: false, isResizable: false, tab: 1 },
+		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6, minH: 4,  isDraggable: false, isResizable: false, tab: 1 },
 		loanRefundPanel: { i: 'loanRefundPanel', x: 0, y: 0, w: 2, h: 5, isDraggable: false, isResizable: false },
 		loanRefundStatus: { i: 'loanRefundStatus', x: 2, y: 0, w: 6, h: 5, isDraggable: false, isResizable: false }
 	},

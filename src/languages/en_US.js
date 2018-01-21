@@ -92,7 +92,7 @@ export default
                 "cashstatement": "Cash Statement",
                 "stockstatement": "Stock Statement",
                 "marginloan": "Margin Loan Statement",
-                "personalprofile": "Personal Profile",
+                "personalprofile": "Profile",
                 "otherservice": "Other Service",
                 "cashtransfer": "Fund Transfer",
                 "cashadvance": "Advance Payment",

@@ -88,7 +88,7 @@ export default {
     // Comment to use default library theme, uncomment to customize
     table: {
         tableHeader: {
-            backgroundColor: 'rgba(38, 38, 38, 0.13)',
+            backgroundColor: 'rgba(38, 38, 38, 0.2)',
             color: "#000"
         },
         tableFooter: {

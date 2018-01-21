@@ -119,10 +119,7 @@ class Sumary extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
-
-
-        let headerBG = 'rgb(0, 90, 160)'
-        let headerFont = '#FFF'
+        let tableHeader = this.props.theme.table.tableHeader
 
         let language = this.props.language.assetallocation.header
         let data = [
@@ -158,19 +155,23 @@ class Sumary extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
-                            <div className="col-sm-2" style={{height: '100%',
-                                marginTop: '-35px', paddingTop: '35px'}}>
-                                <PieChart theme={this.props.theme} colors={[]} data={data}/>
-                            </div>
+                        <div className="col-xs-2" style={{height: '100%',
+                            marginTop: '-35px', paddingTop: '35px'}}>
+                            <PieChart theme={this.props.theme} colors={[]} data={data}/>
+                        </div>
+                        <div className="col-xs-10" >
                             <div className="col-sm-3" style={{height: '100%',
                                 marginTop: '-35px', paddingTop: '35px'}}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
-                                        <tbody>
-                                            <tr style={{ backgroundColor: headerBG, color: headerFont }} >
+                                        <thead>
+                                            <tr style={tableHeader} >
                                                 <th>{this.props.language.portfolio.header.sumary}</th>
                                                 <td>{this.props.language.portfolio.header.value}</td>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            
                                             {
                                                 this.data.map((d, i) => {
                                                     if (i % 2 != 0) {
@@ -196,115 +197,122 @@ class Sumary extends Component {
                                 </div>
                             </div>
 
-                        <div className="col-sm-2" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px' }}>
+                            <div className="col-sm-3" style={{ height: '100%',
+                                marginTop: '-35px', paddingTop: '35px' }}>
 
-                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                <table className="table">
-                                    <tbody >
-                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
-                                            <th>{this.props.language.portfolio.header.cashinfo}</th>
-                                            <td>{this.props.language.portfolio.header.value}</td>
-                                        </tr>
-                                        {
-                                            data2.map((d, i) => {
-                                                if (i % 2 != 0) {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowOdd, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                } else {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowEven, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            })
-                                        }
+                                <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">
+                                        <thead>
+                                            <tr style={tableHeader} >
+                                                <th>{this.props.language.portfolio.header.cashinfo}</th>
+                                                <td>{this.props.language.portfolio.header.value}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                data2.map((d, i) => {
+                                                    if (i % 2 != 0) {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowOdd, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowEven, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                })
+                                            }
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
 
-                        </div>
+                            <div className="col-sm-3" style={{ height: '100%',
+                                marginTop: '-35px', paddingTop: '35px'}}>
 
-                        <div className="col-sm-3" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px'}}>
+                                <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">
+                                        <thead>
+                                            <tr style={tableHeader} >
+                                                <th>{this.props.language.portfolio.header.portfolioassessment}</th>
+                                                <td>{this.props.language.portfolio.header.value}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                data3.map((d, i) => {
+                                                    if (i % 2 != 0) {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowOdd, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowEven, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                })
+                                            }
 
-                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                <table className="table">
-                                    <tbody >
-                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
-                                            <th>{this.props.language.portfolio.header.portfolioassessment}</th>
-                                            <td>{this.props.language.portfolio.header.value}</td>
-                                        </tr>
-                                        {
-                                            data3.map((d, i) => {
-                                                if (i % 2 != 0) {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowOdd, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                } else {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowEven, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            })
-                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                                    </tbody>
-                                </table>
                             </div>
 
-                        </div>
 
+                            <div className="col-sm-3" style={{ height: '100%',
+                                marginTop: '-35px', paddingTop: '35px' }}>
 
-                        <div className="col-sm-2" style={{ height: '100%',
-                            marginTop: '-35px', paddingTop: '35px' }}>
+                                <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">
+                                        <thead>
+                                            <tr style={tableHeader} >
+                                                <th>{this.props.language.portfolio.header.marginposition}</th>
+                                                <td>{this.props.language.portfolio.header.value}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                data4.map((d, i) => {
+                                                    if (i % 2 != 0) {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowOdd, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <tr style={{ backgroundColor: rowEven, color: font2 }} >
+                                                                <th>{d.name}</th>
+                                                                <td>{d.value}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                })
+                                            }
 
-                            <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                <table className="table">
-                                    <tbody >
-                                        <tr style={{ backgroundColor: headerBG, color: headerFont }} >
-                                            <th>{this.props.language.portfolio.header.marginposition}</th>
-                                            <td>{this.props.language.portfolio.header.value}</td>
-                                        </tr>
-                                        
-                                        {
-                                            data4.map((d, i) => {
-                                                if (i % 2 != 0) {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowOdd, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                } else {
-                                                    return (
-                                                        <tr style={{ backgroundColor: rowEven, color: font2 }} >
-                                                            <th>{d.name}</th>
-                                                            <td>{d.value}</td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            })
-                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                                    </tbody>
-                                </table>
                             </div>
-
                         </div>
+                       
                     </div>
                 </Body>
             </div>

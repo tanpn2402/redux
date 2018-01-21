@@ -24,7 +24,7 @@ class SettingNav extends Component {
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
                 <div className="setting-panel" style={settingPanel} >
                     <div className="title" style={settingTitle} >
-                        Settings
+                        {this.props.language.page.menu.setting}
                     </div>
                     <div className="setting-list">
                         {

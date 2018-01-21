@@ -73,7 +73,6 @@ class Portfolio extends Component {
                 },
                 {
                     id: 'mvVolume',
-                    Header: 'Volume',
                     headerClassName: 'volume',
                     skip: false,
                     columns: [{
@@ -93,7 +92,7 @@ class Portfolio extends Component {
                         accessor: 'mvTSettled',
                         skip: false,
                         show: true,
-                        width: 60,
+                        width: 65,
                         Aggregated: () => {
                             return null
                         }
@@ -103,7 +102,7 @@ class Portfolio extends Component {
                         accessor: 'mvHoldingAmt', //not sure
                         skip: false,
                         show: true,
-                        width: 80,
+                        width: 105,
                         Aggregated: () => {
                             return null
                         },
@@ -210,7 +209,6 @@ class Portfolio extends Component {
                 },
                 {
                     id: 'mvPrice',
-                    Header: 'Price',
                     headerClassName: 'price',
                     skip: false,
                     columns: [{
@@ -287,7 +285,6 @@ class Portfolio extends Component {
                 },
                 {
                     id: 'mvMargin',
-                    Header: '(%) Margin',
                     headerClassName: 'deposit',
                     skip: false,
                     columns: [{
@@ -444,7 +441,7 @@ class Portfolio extends Component {
     }
 
     onCellClick(state, rowInfo, column, instance) {
-        console.log(rowInfo, column, instance)
+        if(rowInfo == undefined) return
         switch(column.id) {
             case "mvStockID":
                 this.props.setDefaultOrderParams({

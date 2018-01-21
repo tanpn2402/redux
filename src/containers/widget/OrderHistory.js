@@ -66,7 +66,7 @@ class OrderHistory extends Component {
                 {
                     id: "filledquantity",
                     accessor: "mvFilledQty",
-                    width: 80,
+                    width: 100,
                     skip: false,
                     show: true,
                 },

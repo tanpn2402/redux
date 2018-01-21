@@ -1019,6 +1019,7 @@ label {
 .setting-panel > .title {
     padding-top: 15px;
     padding-bottom: 15px;
+    padding-left: 15px;
     font-size: 25px;
     background-color: #005AA0;
     color: #fff;
@@ -1103,6 +1104,7 @@ label {
 }
 .profilenav.open > .profile-panel {
     width: 450px;
+    padding-bottom: 20px;
 }
 .profilenav.open > .overlay {
     display: block;
@@ -1110,6 +1112,7 @@ label {
 .profile-panel > .title {
     padding-top: 15px;
     padding-bottom: 15px;
+    padding-left: 15px;
     font-size: 25px;
     background-color: #005AA0;
     color: #fff;
@@ -3894,4 +3897,23 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button
     -webkit-appearance: none;    
     margin: 0; 
 }
-input[type=number]::-webkit-inner-spin-button,    input[type=number]::-webkit-outer-spin-button {       appearance: none;      -webkit-appearance: none;      -moz-appearance: none;    margin: 0;   }   input[type=number] {      -moz-appearance: textfield;   }
+input[type=number]::-webkit-inner-spin-button,    
+input[type=number]::-webkit-outer-spin-button {       
+    appearance: none;      
+    -webkit-appearance: none;      
+    -moz-appearance: none;    
+    margin: 0;   
+}   
+input[type=number] {      
+    -moz-appearance: textfield;   
+}
+
+.table-responsive th, .table-responsive td{
+    border: 0px !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    font-weight: normal !important;
+}
+.table-responsive thead th, .table-responsive thead td {
+    font-weight: bold !important;
+}

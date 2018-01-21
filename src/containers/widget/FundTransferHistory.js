@@ -18,21 +18,21 @@ class FundTransHistory extends Component {
                 {
                     id: 'transfertype',
                     accessor: 'action',
-                    width: 100,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'transferamount',
                     accessor: 'totalLendingAmt',
-                    width: 100,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'beneficiaryaccount',
                     accessor: 'receiveClientID',
-                    width: 130,
+                    width: 150,
                     skip: false,
                     show: true,
                 },
@@ -67,7 +67,7 @@ class FundTransHistory extends Component {
                 {
                     id: 'approvetime',
                     accessor: 'lastApprovaltime',
-                    width: 90,
+                    width: 120,
                     skip: false,
                     show: true,
                 },
@@ -109,11 +109,6 @@ class FundTransHistory extends Component {
             limit: '15',
             key: new Date(),
         }
-    }
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-
-        });
     }
 
 

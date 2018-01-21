@@ -33,14 +33,14 @@ class ProfileNav extends Component {
         let personalProfile = this.props.language.personalprofile
         let profileTitle = this.props.theme.profile.profileTitle
         let profilePanel = this.props.theme.profile.profilePanel
-
+        
         this.doResponseMapping()
         return (
             <div id="profilenav" className="profilenav">
                 <div className="overlay" onClick={e => this.closeSetting()}></div>
                 <div className="profile-panel" style={profilePanel} >
                     <div className="title" style={profileTitle} >
-                        Profile
+                        {this.props.language.menu.personalprofile}
                     </div>
                     <div className="profile-list">
                         {
@@ -51,7 +51,7 @@ class ProfileNav extends Component {
                                             <div className="st-icon"><i className="material-icons md-24">{e.icon}</i></div>
                                             <label aria-expanded="true" className="main-menu-header">{personalProfile[e.id].title}</label>
                                         </div>
-                                        <ul id={e.id} className="nav nav-list tree profile-item" aria-expanded="true">
+                                        <ul id={e.id} className="nav nav-list tree profile-item collapse in" aria-expanded="true">
                                             {
                                                 e.value.map(v => {
                                                     if (e.id === 'changepassword' && v === 'save') {
