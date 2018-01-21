@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import config from "../../core/config"
+import Component from "../commons/Component"
 
-class PortfolioSmall extends Component {
+class PortfolioSmall extends React.Component {
     constructor(props) {
         super(props)
 
@@ -31,14 +32,15 @@ class PortfolioSmall extends Component {
 
     fillColor(props, accessor) {
         
-        
-        let color = "#000"
+        let theme = this.props.theme.bindingdata
+        let style = theme.normal
+
         if(props[accessor] < 0) {
-            color = "#ea0070"
+            style = theme.down
         } else if (props[accessor] > 0 ) {
-            color = "#70a800"
+            style = theme.up
         }
-        let child = <span style={{color: color}}>{props[accessor]}</span>
+        let child = <span style={style}>{props[accessor]}</span>
         // if(props[accessor] > this.balance[accessor]) {
         //     child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
         // }
@@ -114,11 +116,13 @@ class PortfolioSmall extends Component {
             },
         ]
 
+        let theme = this.props.theme
+
         return (
-            <div  className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
-                <label>{this.props.language.menu.portfolio}</label>
+            <Component className="trd-body" theme={theme}>
+                <label style={theme.font.main}>{this.props.language.menu.portfolio}</label>
                 <div className="por-sm-table">
-                    <TTLTable data={this.state.data} header={header}
+                    <TTLTable data={this.state.data} header={header} theme={this.props.theme}
                         getTHeaderProps={(theader)=> {
                             // console.log(theader)
 
@@ -126,7 +130,7 @@ class PortfolioSmall extends Component {
                         onRowClick={(e, data)=> this.onRowClick(e, data)}
                     />
                 </div>
-            </div>
+            </Component>
         )
     }
 

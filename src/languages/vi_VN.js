@@ -637,7 +637,7 @@ export default
                     "buysellall": "Mua/Bán (tất cả)",
                     "stock": "Mã CK",
                     "stockCode": "Mã CK",
-                    "stockName": "Stock Name",
+                    "stockName": "Tên CK",
                     "quantity": "Khối lượng",
                     "type": "Loại",
                     "totalCash": "Total Cash",

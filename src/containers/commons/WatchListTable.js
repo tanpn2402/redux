@@ -846,6 +846,7 @@ class WatchListTable extends React.Component {
         // console.log(row, accessor)
         let data = row.original
         let color = this.props.theme.watchlist
+        let bindingStyle = this.props.theme.bindingdata
         
         if (accessor == "mvCeiling") {
             return <div className="value-ceil" style={color.ceil}>{data[accessor]}</div>
@@ -858,10 +859,10 @@ class WatchListTable extends React.Component {
         }
 
         if(data[accessor] == null) {
-            return <div className="value unchange" style={color.nochange}>-</div>
+            return <div className="value unchange" style={bindingStyle.normal}>-</div>
         } else {
             let state = data["mvMatchPrice"] > data["mvReferences"] ? "up" : 
-                data["mvMatchPrice"] < data["mvReferences"] ? "down" : "nochange"
+                data["mvMatchPrice"] < data["mvReferences"] ? "down" : "normal"
             let content = data[accessor]
 
             if(accessor == "mvMatchUpDown" || accessor == "mvMatchUpDown") {
@@ -869,7 +870,7 @@ class WatchListTable extends React.Component {
                 content = <span><span className={className}></span>{data[accessor]}</span>
             }
 
-            return <div className="value value-change" style={color[state]}>{content}</div>
+            return <div className="value value-change" style={bindingStyle[state]}>{content}</div>
                 
         }
 

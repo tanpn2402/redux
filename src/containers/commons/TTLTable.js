@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import {getLanguage, getTheme } from '../../utils'
+
 
 export default class TTLTable extends Component {
     constructor(props) {
@@ -11,11 +13,22 @@ export default class TTLTable extends Component {
 
 
     render() {
-        // console.log(this.props)
+        // console.log("TTL TABLE", this.props.theme)
+        let theme = this.props.theme
+        if(this.props.theme == undefined){
+            theme = getTheme("light")
+        }
+        
+        let tableBody = theme.table.tableBody
+        let tableHeader = theme.table.tableHeader
+        let rowOdd = theme.table.rowOdd
+        let rowEven = theme.table.rowEven
+        
         return (
+
             <div className={"ttl-table " + this.props.className}>
-                <div className="ttl-thead" ref={r => this.tHeader = r}>
-                    <div className="ttl-tr">
+                <div className="ttl-thead" style={tableHeader} ref={r => this.tHeader = r}>
+                    <div className="ttl-tr" style={tableHeader}>
                         {
                             this.props.header.map((d, i) => {
                                 if(d.show == undefined || d.show) {
@@ -32,24 +45,32 @@ export default class TTLTable extends Component {
                                             </div>
                                         )
                                     }
-                                       
+                                
                                 }
                             })
                         }
                     </div>
                 </div>
 
-                <div className="ttl-tbody" ref={r => this.tBody = r}>
+                <div className="ttl-tbody" style = {tableBody} ref={r => this.tBody = r} >
                     {
                         this.props.data.map((data, i) => {
-
                             let style = {}
                             if(this.props.getTRowProps != undefined) {
                                 style = this.props.getTRowProps(data).style
                             }
+                          
+                            if(i % 2 === 0) {
+                                style= Object.assign({}, rowEven, style)
+                            } else {
+                                style= Object.assign({}, rowOdd, style)
+                            }
+                            
+
+                            console.log(style)
 
                             return (
-                                <div className="ttl-tr" onClick={e => this.tRowClick(e, data)} style={style}>
+                                <div className="ttl-tr" style={style} onClick={e => this.tRowClick(e, data)}>
                                     {
                                         this.props.header.map((header) => {
                                             if(header.show == undefined || header.show) {

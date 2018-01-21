@@ -103,7 +103,7 @@ export function removeInstrumentFromWatchList(ins, market) {
 // UPDATE WATLIST DATA
 export function updateWatchlistData(listStock) {
     let data = []
-    console.log("AAAA")
+    // console.log("AAAA")
     config.cache.listInstrumentToWatch.map(e => {
         // let tmp = config.cache.stockList.filter(el => el.stockCode == e)
         // let market = ""

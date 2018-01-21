@@ -3152,6 +3152,10 @@ label {
     background: #FFF;
     border: 1px solid #dcdcdc;
 }
+.maincontent-desktop .input-control .input-group-btn span {
+    font-size: 12px !important;
+    top: -3px !important;
+}
 .maincontent-desktop .widget-header {
     height: 25px !important;
 }
@@ -3533,10 +3537,10 @@ label {
 
 }
 .trd.binding.up {
-    color: rgb(112, 168, 0) !important;
+    color: rgb(112, 168, 0) ;
 }
 .trd-binding.down {
-    color: rgb(234, 0, 112) !important;
+    color: rgb(234, 0, 112) ;
 }
 .trd-transMoney {
     color: #666;
@@ -3608,6 +3612,7 @@ label {
 }
 .trd-log-filter > .select-control {
     border-radius: 0 !important;
+    font-size: 12px;
 }
 /* END TRADE LOG */
 
@@ -3643,7 +3648,7 @@ label {
     
 }
 .bidask-table table, .bidask-table td, .bidask-table th {
-    border: 1px solid #ccc;  
+    border: 1px solid #cccccc30;  
 }
 .bidask-td {
     padding: 3px 6px;
@@ -3734,12 +3739,14 @@ label {
 }
 .pl-sub-account > .account-name {
     position: absolute;
-    left: 160px;
-    top: 2px;
+    left: 105px;
+    top: 3px;
+    font-size: 12px;
 }
 .pl-sub-account > .select-control {
     border-radius: 0 !important;
-    width: 150px;
+    width: 100px;
+    font-size: 12px;
 }
 /* END PLACE ORDER */
 /* Slider Format */
@@ -3747,9 +3754,9 @@ label {
     display: inline-block;
 }
 .headSlider{
-    width: calc(100% - 360px - 160px);
+    width: calc(100% - 400px - 160px);
     position: absolute;
-    right: 160px;
+    right: 140px;
     height: 60px;
 }   
 .headSlider img{
@@ -3758,6 +3765,12 @@ label {
     object-fit: cover;
     padding-bottom: 3px;
     padding-top: 3px;
+}
+@media(max-width: 900px) {
+    .headSlider {
+        right: 80px;
+        width: calc(100% - 400px - 50px);
+    }
 }
 @media(max-width: 786px) {
     .headSlider {

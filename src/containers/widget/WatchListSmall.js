@@ -1,14 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 import config from "../../core/config"
+import Component from "../commons/Component"
+import * as utils from "../../utils"
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 const MODE_PERCENT = "percent"
 
-class WatchListA extends Component {
+class WatchListA extends React.Component {
     constructor(props) {
         super(props)
 
@@ -47,7 +49,6 @@ class WatchListA extends Component {
     
 
     render() {
-        // console.log("AAAAAAA", this.state)
         let currency = "VND"
         let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
         let data = listInstrumentData.filter(stock => {
@@ -113,16 +114,18 @@ class WatchListA extends Component {
 
                 },
                 cell: props => {
-                    return this.fillColor(props, this.state.modeView == MODE_CHANGE ? "mvMatchUpDown" : "mvMatchUpDown")
+                    return this.fillColor(props, this.state.modeView == MODE_CHANGE ? "mvMatchUpDown" : "mvMatchPercent")
                 }
                 
             }
         ]
-        // console.log(this.state.stockSelected)
+       
+        let theme = this.props.theme
+        
         return (
-            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
+            <Component className="trd-body" theme={theme}>
                 <div className="wl-sm-controls">
-                    <label>{this.props.language.menu.watchlist}</label>
+                    <label style={theme.font.main}>{this.props.language.menu.watchlist}</label>
 
                     <input className="wl-sm-input"
                         ref={r => this.input = r}
@@ -130,7 +133,7 @@ class WatchListA extends Component {
                    
                 </div>
                 <div className="wl-sm-table">
-                    <TTLTable className="watchlist-small" data={data} header={header}
+                    <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme}
                         getTRowProps={(data) => {
                             if(data.mvStockCode == this.state.stockSelected) {
                                 return {
@@ -139,11 +142,9 @@ class WatchListA extends Component {
                                         fontWeight: "900"
                                     }
                                 }
-                            }else {
+                            } else {
                                 return {
-                                    style: {
-                                        
-                                    }
+                                    style: {}
                                 }
                             }
                             
@@ -151,7 +152,7 @@ class WatchListA extends Component {
                         onRowClick={(e, props) => this.onRowClick(e, props) }
                     />
                 </div>
-            </div>
+            </Component>
         )
     }
 
@@ -190,19 +191,20 @@ class WatchListA extends Component {
     }
 
     fillColor(props, accessor) {
-        
-        let child = <span style={{color: "#000"}}>{props[accessor]}</span>
+        props["mvMatchPercent"] = utils.round( parseFloat(props["mvMatchUpDown"]) - 1, 2)
+        let theme = this.props.theme.bindingdata
+        let child = <span style={theme.normal}>{props[accessor]}</span>
         if(props[accessor] > this.balance[accessor]) {
             if(accessor == "mvMatchUpDown")
-                child = <span style={{color: "#70a800"}}>{"+" + props[accessor]}</span>
+                child = <span style={theme.up}>{"+" + props[accessor]}</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={{color: "#70a800"}}>{props[accessor] + "%"}</span>
+                child = <span style={theme.up}>{props["mvMatchPercent"] + "%"}</span>
         }
         else {
             if(accessor == "mvMatchUpDown")
-                child = <span style={{color: "#ea0070"}}>{"-" + props[accessor]}</span>
+                child = <span style={theme.down}>{"-" + props[accessor]}</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={{color: "#ea0070"}}>{props[accessor] + "%"}</span>
+                child = <span style={theme.down}>{props["mvMatchPercent"] + "%"}</span>
         }
         return child
     }

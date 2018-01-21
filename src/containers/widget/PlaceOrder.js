@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
@@ -14,6 +14,7 @@ import CalendarPicker from '../commons/CalendarPicker'
 import Select from "../commons/Select"
 import Input from "../commons/Input"
 import * as Log from "../../logger/TTLLog"
+import Component from "../commons/Component"
 const { Contants } = require('../../core/constants')
 
 class PlaceOrder extends React.Component {
@@ -220,65 +221,48 @@ class PlaceOrder extends React.Component {
             tColor = "#000"
 
         }
-        // console.log(themee)
+
+        let theme = this.props.theme
+        let BS = this.state.mvBS
+        console.log(Object.assign({height: "calc(100% - 28px)"}, theme.placeorder.background[BS.toLowerCase()] ))
         return (
-            <div style={{ height: "100%", position: "relative" }} id={this.id}>                 
-                <Body theme={this.props.theme}>
+            <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
 
-                    {/* PLACE ORDER CONTROL */}
-                    <div className="pl-tab-control">
-                        <span className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
-                            onClick={e => this.handleBSTabChange("BUY")}>{header.buy}</span>
-                        <span className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
-                            onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
-                        <div className="pl-sub-account">
-                            <div className="account-name"><span>Trading Account</span></div>
-                            <Select
-                                key="rSubAccSelector"
-                                ref={r => this.rSubAccSelector = r}
-                                options={this.state.mvListSubAcc}
-                                selected={this.state.mvSubAccSelected}
-                                handleChange={this.handleSubAccChange.bind(this)}
-                            />
-                            
-                        </div>
+                {/* PLACE ORDER CONTROL */}
+                <div className="pl-tab-control">
+                    <span style={BS=="BUY"?theme.placeorder.tabBS.active:theme.placeorder.tabBS.normal} 
+                        className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
+                        onClick={e => this.handleBSTabChange("BUY")}>{header.buy}</span>
+                    <span style={BS=="SELL"?theme.placeorder.tabBS.active:theme.placeorder.tabBS.normal} 
+                        className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
+                        onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
+                    <div className="pl-sub-account">
+                        <div style={theme.font.main} className="account-name"><span>Trading Account</span></div>
+                        <Select
+                            key="rSubAccSelector"
+                            ref={r => this.rSubAccSelector = r}
+                            options={this.state.mvListSubAcc}
+                            selected={this.state.mvSubAccSelected}
+                            handleChange={this.handleSubAccChange.bind(this)}
+                        />
+                        
                     </div>
-                    <div className={"enterorder-form " + this.state.mvBS.toLowerCase()} 
-                    style={{height: "calc(100% - 28px)", backgroundColor: "#f7f7f7"}}>
-                        {/* Column Left */}
-                        <div className="placeorder-col-left" style={{display: "table-cell"}}>
-                            {/* MARKET */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.market}
+                </div>
+                <div className={"enterorder-form " + BS.toLowerCase()}
+                    style={Object.assign({}, {height: "calc(100% - 28px)"}, theme.placeorder.background[BS.toLowerCase()] )}>
+                    {/* Column Left */}
+                    <div className="placeorder-col-left" style={{display: "table-cell"}}>
+                        {/* MARKET */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {}
+                            </Col>
+                            <Col xs={7}>
+                                <Col xs={6}>
+                                    <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
+                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
                                 </Col>
-                                <Col xs={7}>
-                                    <Col xs={6}>
-                                        <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
-                                            className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
-                                    </Col>
-                                    <Col xs={6}>
-                                        <Select
-                                            ket="rStockSelector"
-                                            ref={r => this.rStockSelector = r}
-                                            options={this.stockList}
-                                            selected={this.state.mvStockSelected}
-                                            optionLabelPath={'stockCode'}
-                                            handleChange={this.handleStockChange.bind(this)}
-                                            searchEnabled={true}
-                                        />
-                                    </Col>
-                                
-                                </Col>
-                            </div>
-
-                            {/* STOCK CODE */}
-                            {/* <div style={{display: "table", width: "100%"}}>
-                                
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.stockCode}
-                                </Col>
-                                <Col xs={7}>
+                                <Col xs={6}>
                                     <Select
                                         ket="rStockSelector"
                                         ref={r => this.rStockSelector = r}
@@ -289,236 +273,256 @@ class PlaceOrder extends React.Component {
                                         searchEnabled={true}
                                     />
                                 </Col>
-                            </div> */}
+                            
+                            </Col>
+                        </div>
 
-                            {/* STOCK NAME */}
-                            <div style={{display: "table", width: "100%"}}>
+                        {/* STOCK CODE */}
+                        {/* <div style={{display: "table", width: "100%"}}>
+                            
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.stockCode}
+                            </Col>
+                            <Col xs={7}>
+                                <Select
+                                    ket="rStockSelector"
+                                    ref={r => this.rStockSelector = r}
+                                    options={this.stockList}
+                                    selected={this.state.mvStockSelected}
+                                    optionLabelPath={'stockCode'}
+                                    handleChange={this.handleStockChange.bind(this)}
+                                    searchEnabled={true}
+                                />
+                            </Col>
+                        </div> */}
+
+                        {/* STOCK NAME */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.stockName}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
+                                    className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                            </Col>
+                        </div>
+
+                        {/* PRICE */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.price}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={100}
+                                    onChange={this.onPriceChange.bind(this)}
+                                    onKeyPress={this.handleSubmit.bind(this)}
+                                    />
+                            </Col>
+                        </div>
+
+                        {/* TRIGGER PRICE */}
+                        { /* <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
                                 <Col xs={5} style={{color: tColor}}>
-                                    {header.stockName}
+                                    {header.triggerPrice}
                                 </Col>
                                 <Col xs={7}>
-                                    <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
-                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
-                                </Col>
-                            </div>
-
-                            {/* PRICE */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.price}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={100}
-                                        onChange={this.onPriceChange.bind(this)}
-                                        onKeyPress={this.handleSubmit.bind(this)}
+                                    <Col xs={5}>
+                                        <Select
+                                            ket="rTriggerPriceSelector"
+                                            ref={r => this.rTriggerPriceSelector = r}
+                                            options={["UP", "DOWN"]}
+                                            selected={this.state.mvTriggerSelected}
+                                            optionLabelPath={'stockCode'}
+                                            handleChange={this.handleTriggerPriceChange.bind(this)}
                                         />
-                                </Col>
-                            </div>
-
-                            {/* TRIGGER PRICE */}
-                            { /* <div style={{display: "none", width: "100%"}} ref={r => this.rTriggerForm = r}>
-                                    <Col xs={5} style={{color: tColor}}>
-                                        {header.triggerPrice}
                                     </Col>
                                     <Col xs={7}>
-                                        <Col xs={5}>
-                                            <Select
-                                                ket="rTriggerPriceSelector"
-                                                ref={r => this.rTriggerPriceSelector = r}
-                                                options={["UP", "DOWN"]}
-                                                selected={this.state.mvTriggerSelected}
-                                                optionLabelPath={'stockCode'}
-                                                handleChange={this.handleTriggerPriceChange.bind(this)}
-                                            />
-                                        </Col>
-                                        <Col xs={7}>
-                                            <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
-                                                defaultValue={""} style={{textAlign: "left"}}/>
-                                        </Col>
+                                        <Input key="rTriggerPriceName" type="text" ref={ref => this.mvTriggerPriceValue =  ref} 
+                                            defaultValue={""} style={{textAlign: "left"}}/>
                                     </Col>
-                                </div>
-                                */}
-                            {/* QUANTITY */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} className="placeorder-title" style={{color: tColor}}>
-                                    {header.quantity}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvVol" type="number" ref={ref => this.mvVol =  ref} step={100}
-                                        onChange={this.onQtyChange.bind(this)}
-                                        onKeyPress={this.handleSubmit.bind(this)}
-                                    />
                                 </Col>
                             </div>
-
-                            {/* ORDER TYPE */}
-                            <div  style={{display: "table", width: "100%"}}>
-                                <Col xs={5}  style={{color: tColor}}>
-                                    {header.ordertype}
-                                </Col>
-                                <Col xs={7}>
-                                    <Select
-                                        ket="rOrderTypeSelector"
-                                        ref={r => this.rOrderTypeSelector = r}
-                                        options={this.state.mvOrderTypeList}
-                                        selected={this.state.mvOrderTypeSelected}
-                                        optionLabelPath={"label"}
-                                        handleChange={this.handleOrderTypeChange.bind(this)}
-                                    />
-                                </Col>
-                            </div>
-                        	
+                            */}
+                        {/* QUANTITY */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} className="placeorder-title" style={{color: tColor}}>
+                                {header.quantity}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvVol" type="number" ref={ref => this.mvVol =  ref} step={100}
+                                    onChange={this.onQtyChange.bind(this)}
+                                    onKeyPress={this.handleSubmit.bind(this)}
+                                />
+                            </Col>
                         </div>
-                        {/* End Left Column */}
-                            
-                        {/* Column Right */}
-                        <div className="placeorder-col-right" style={{display: "table-cell"}}>
-                            {/* GOOD TILL
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.goodTill}
-                                </Col>
-                                <Col xs={7}>
-                                        <Select
-                                            ket="rGoodTillSelector"
-                                            ref={r => this.rStockSelector = r}
-                                            options={this.stockList}
-                                            selected={this.state.mvStockSelected}
-                                            optionLabelPath={'stockCode'}
-                                            handleChange={this.handleStockChange.bind(this)}
-                                        />
-                                </Col>
-                            </div> */}
-                            
-                            {/* % Lending */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.lending}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvLending" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvLending = ref} readOnly value={this.value.mvLending}  
-                                        style={{color: tColor, textAlign: "right"}}/>
-                                </Col>
-                            </div>
 
-                            {/* BUYING POWER */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.buyingpower}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}  
-                                        style={{color: tColor, textAlign: "right"}}/>
-                                </Col>
-                            </div>
-
-                            {/* GROSS AMT */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.grossAmt}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt} 
-                                        style={{color: tColor, textAlign: "right"}}/>
-                                </Col>
-                            </div>
-
-                            {/* PERCENTAGE */}
-                            {/* <div  style={{display: "table", width: "100%"}}>
-                                
-                                <Col xs={12}>
-                              		<ul  className="listPercentage">{listPercentage}</ul>  
-                        	    </Col>
-                            </div> */}
-
-                            {/* NET FEE */}
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.netfee}
-                                </Col>
-                                <Col xs={7} style={{color: tColor}}>
-                                    <Input key="mvNetFee" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvNetFee = ref} readOnly value={this.value.mvNetFee} 
-                                        style={{color: tColor, textAlign: "right"}}/>
-                                </Col>
-                            </div>
-
-                            {/* Expire Date */}
-                            {/* <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.expirydate}
-                                </Col>
-                                <Col xs={7} style={{}}>
-                                    <div style={{float: "left"}}>
-                                        <input name="isCheck" type="checkbox"
-                                            checked={this.state.mvExpireChecked}
-                                            onChange={this.handleDateExpireCheck.bind(this)}
-                                            value={this.state.mvExpireChecked} />
-                                    </div>
-                                    <div style={{paddingLeft: "20px"}}>
-                                        <CalendarPicker 
-                                            disabled={!this.state.mvExpireChecked}
-                                            selected={this.state.mvExpireDate} 
-                                            onChange={this.handleDateChange.bind(this)} 
-                                            id={"canlender-enterorder"}/>
-                                    </div>
-                                    
-                                </Col>
-                            </div> */}
-
-                            {/* COMMISSION FEE
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.commissionFees}
-                                </Col>
-                                <Col xs={7} style={{color: tColor}}>
-                                    <Input key="mvCommissionFees" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvCommissionFees} style={{color: tColor}}/>
-                                </Col>
-                            </div> */}
-
-                            {/* NET AMT
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.netAmt}
-                                </Col>
-                                <Col xs={7}>
-                                    <Input key="mvNetAmt" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvNetAmt}  style={{color: tColor}}/>
-                                </Col>
-                            </div> */}
-
-                            {/* AVAIL QUANTITY
-                            <div style={{display: "table", width: "100%"}}>
-                                <Col xs={5} style={{color: tColor}}>
-                                    {header.availQty}
-                                </Col>
-                                <Col xs={7} style={{color: tColor}}>
-                                    <Input key="mvAvailQty" className="showOnly"  defaultValue={"---"}
-                                        ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty} style={{color: tColor}}/>
-                                </Col>
-                            </div> */}
+                        {/* ORDER TYPE */}
+                        <div  style={{display: "table", width: "100%"}}>
+                            <Col xs={5}  style={{color: tColor}}>
+                                {header.ordertype}
+                            </Col>
+                            <Col xs={7}>
+                                <Select
+                                    ket="rOrderTypeSelector"
+                                    ref={r => this.rOrderTypeSelector = r}
+                                    options={this.state.mvOrderTypeList}
+                                    selected={this.state.mvOrderTypeSelected}
+                                    optionLabelPath={"label"}
+                                    handleChange={this.handleOrderTypeChange.bind(this)}
+                                />
+                            </Col>
                         </div>
-                        {/* End Right Column */}
-                        <div className="group-btn-action form-submit-action" style={{}}>
-                            <span>
-                                <button type="submit" className="hks-btn btn-submit"
-                                    onClick={this.handleSubmit.bind(this)}>
-                                    {this.state.mvBS}
-                                </button>
-                                <button type="reset" className="hks-btn btn-cancel"
-                                    onClick={this.handleResetForm.bind(this)}>
-                                    {this.props.language.button.reset}
-                                </button>
-                            </span>
-                        </div>
+                        
                     </div>
+                    {/* End Left Column */}
+                        
+                    {/* Column Right */}
+                    <div className="placeorder-col-right" style={{display: "table-cell"}}>
+                        {/* GOOD TILL
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.goodTill}
+                            </Col>
+                            <Col xs={7}>
+                                    <Select
+                                        ket="rGoodTillSelector"
+                                        ref={r => this.rStockSelector = r}
+                                        options={this.stockList}
+                                        selected={this.state.mvStockSelected}
+                                        optionLabelPath={'stockCode'}
+                                        handleChange={this.handleStockChange.bind(this)}
+                                    />
+                            </Col>
+                        </div> */}
+                        
+                        {/* % Lending */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.lending}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvLending" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvLending = ref} readOnly value={this.value.mvLending}  
+                                    style={{color: tColor, textAlign: "right"}}/>
+                            </Col>
+                        </div>
+
+                        {/* BUYING POWER */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.buyingpower}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}  
+                                    style={{color: tColor, textAlign: "right"}}/>
+                            </Col>
+                        </div>
+
+                        {/* GROSS AMT */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.grossAmt}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt} 
+                                    style={{color: tColor, textAlign: "right"}}/>
+                            </Col>
+                        </div>
+
+                        {/* PERCENTAGE */}
+                        {/* <div  style={{display: "table", width: "100%"}}>
+                            
+                            <Col xs={12}>
+                                <ul  className="listPercentage">{listPercentage}</ul>  
+                            </Col>
+                        </div> */}
+
+                        {/* NET FEE */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.netfee}
+                            </Col>
+                            <Col xs={7} style={{color: tColor}}>
+                                <Input key="mvNetFee" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvNetFee = ref} readOnly value={this.value.mvNetFee} 
+                                    style={{color: tColor, textAlign: "right"}}/>
+                            </Col>
+                        </div>
+
+                        {/* Expire Date */}
+                        {/* <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.expirydate}
+                            </Col>
+                            <Col xs={7} style={{}}>
+                                <div style={{float: "left"}}>
+                                    <input name="isCheck" type="checkbox"
+                                        checked={this.state.mvExpireChecked}
+                                        onChange={this.handleDateExpireCheck.bind(this)}
+                                        value={this.state.mvExpireChecked} />
+                                </div>
+                                <div style={{paddingLeft: "20px"}}>
+                                    <CalendarPicker 
+                                        disabled={!this.state.mvExpireChecked}
+                                        selected={this.state.mvExpireDate} 
+                                        onChange={this.handleDateChange.bind(this)} 
+                                        id={"canlender-enterorder"}/>
+                                </div>
+                                
+                            </Col>
+                        </div> */}
+
+                        {/* COMMISSION FEE
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.commissionFees}
+                            </Col>
+                            <Col xs={7} style={{color: tColor}}>
+                                <Input key="mvCommissionFees" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvCommissionFees = ref} readOnly value={this.value.mvCommissionFees} style={{color: tColor}}/>
+                            </Col>
+                        </div> */}
+
+                        {/* NET AMT
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.netAmt}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvNetAmt" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvNetAmt = ref} readOnly value={this.value.mvNetAmt}  style={{color: tColor}}/>
+                            </Col>
+                        </div> */}
+
+                        {/* AVAIL QUANTITY
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.availQty}
+                            </Col>
+                            <Col xs={7} style={{color: tColor}}>
+                                <Input key="mvAvailQty" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvAvailQty = ref} readOnly value={this.value.mvAvailQty} style={{color: tColor}}/>
+                            </Col>
+                        </div> */}
+                    </div>
+                    {/* End Right Column */}
+                    <div className="group-btn-action form-submit-action" style={{}}>
+                        <span>
+                            <button type="submit" className="hks-btn btn-submit"
+                                onClick={this.handleSubmit.bind(this)}>
+                                {this.state.mvBS}
+                            </button>
+                            <button type="reset" className="hks-btn btn-cancel"
+                                onClick={this.handleResetForm.bind(this)}>
+                                {this.props.language.button.reset}
+                            </button>
+                        </span>
+                    </div>
+                </div>
         
-                </Body>
-            </div>
+            </Component>
         )
     }
     componentDidMount() {

@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import Select from "../commons/Select"
-import config from '../../core/config';
+import config from '../../core/config'
+import Component from "../commons/Component"
 
 
-class TradeLogTable extends Component {
+class TradeLogTable extends React.Component {
 
     constructor(props) {
         super(props)
@@ -24,12 +25,14 @@ class TradeLogTable extends Component {
     }
 
     fillColor(props, accessor) {
-        let child = <span style={{color: "#000"}}>{props[accessor]}</span>
+        let theme = this.props.theme.bindingdata
+        
+        let child = <span style={theme.normal}>{props[accessor]}</span>
         if(props["price"] > this.balance["price"]) {
-            child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
+            child = <span style={theme.up}>{props[accessor]}</span>
         }
         else {
-            child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
+            child = <span style={theme.down}>{props[accessor]}</span>
         }
         return child
     }
@@ -43,13 +46,13 @@ class TradeLogTable extends Component {
             
             {
                 title: language.time,
-                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "25%", textAlign: "right"},
+                style: {width: "25%", textAlign: "center"},
+                bodyStyle: {width: "25%", textAlign: "center"},
                 accessor: "time"
             },
             {
                 title: language.price.replace("{0}", ""),
-                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
+                style: {width: "25%", textAlign: "right"},
                 bodyStyle: {width: "25%", textAlign: "right"},
                 accessor: "price",
                 cell: props => {
@@ -58,7 +61,7 @@ class TradeLogTable extends Component {
             },
             {
                 title: language.vol,
-                style: {width: "25%", textAlign: "right", paddingRight: "0px"},
+                style: {width: "25%", textAlign: "center"},
                 bodyStyle: {width: "25%", textAlign: "right"},
                 accessor: "vol",
                 cell: props => {
@@ -75,9 +78,10 @@ class TradeLogTable extends Component {
                 }
             }
         ]
+        let theme = this.props.theme
         return (
-            <div className="trd-log-table">
-                <TTLTable data={this.state.data} header={header}
+            <Component className="trd-log-table" theme={theme}>
+                <TTLTable data={this.state.data} header={header} theme={theme}
                     getTHeaderProps={(theader)=> {
                         // theader.style.display = "none"
 
@@ -86,7 +90,7 @@ class TradeLogTable extends Component {
                         // tbody.style.height = "100%"
                     }}
                 />
-            </div>
+            </Component>
         )
     }
 
@@ -149,11 +153,11 @@ class TradeHistory extends Component {
     }
 
     render() {
-        
+        let theme = this.props.theme
         return (
-            <div className="trd-body" style={{height: "100%", backgroundColor: "#FFF"}}>
+            <Component className="trd-body" theme={theme}>
                 <div className="trd-log-control">
-                    <label>{this.props.language.menu.tradehistory}</label>
+                    <label style={theme.font.main}>{this.props.language.menu.tradehistory}</label>
                     <div className="trd-log-filter">
                         <Select
                             options={this.listFilter}
@@ -164,7 +168,7 @@ class TradeHistory extends Component {
                     </div>
                 </div>
                 <TradeLogTable {...this.props} />
-            </div>
+            </Component>
         )
     }
 

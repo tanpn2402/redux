@@ -27,7 +27,7 @@ class GridLayout extends React.Component {
     generateChild(menuid){
         //console.log(this.state.layout)
         const layout = this.state.layout[menuid]
-        console.log(layout)
+        // console.log(layout)
         
         let col
         if(layout['h'] == undefined) {
@@ -49,7 +49,7 @@ class GridLayout extends React.Component {
         } else {
             col = layout['h']
         }
-        console.log(menuid + "   " + col)
+        // console.log(menuid + "   " + col)
         return (
             <div key={menuid + (new Date()).getTime()} 
                 data-grid={{x: layout['x'], y: layout['y'], w: layout['w'], 

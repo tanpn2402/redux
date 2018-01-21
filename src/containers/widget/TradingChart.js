@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux"
 import * as actions from "../../actions"
 import Title from "../commons/WidgetTitle"
@@ -6,10 +6,11 @@ import Body from "../commons/WidgetBody"
 import Chart from "../commons/chart/index"
 import moment from "moment"
 import Config from "../../core/config"
+import Component from "../commons/Component"
 
 const LENGTH = 30
 
-class TradingChart extends Component {
+class TradingChart extends React.Component {
 
     constructor(props) {
         super(props)
@@ -135,15 +136,15 @@ class TradingChart extends Component {
        
         if(this.state.startRender) {
             return (
-                <div style={{ height: "100%", position: "relative", backgroundColor: "#FFF" }} className="trd-chart">
-                <Chart height={300} rawData={this.state.data} config={config} />
-                </div>
+                <Component style={{ position: "relative" }} className="trd-chart" theme={this.props.theme}>
+                    <Chart height={300} rawData={this.state.data} config={config} />
+                </Component>
             )
         } else {
             return (
-                <div style={{ height: "100%", position: "relative", backgroundColor: "#FFF" }} className="trd-chart">
-                <Chart height={300} rawData={this.state.data} config={config} />
-                </div>
+                <Component style={{position: "relative"}} className="trd-chart" theme={this.props.theme}>
+                    <Chart height={300} rawData={this.state.data} config={config} />
+                </Component>
             )
         }
 

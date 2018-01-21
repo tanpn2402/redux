@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
@@ -6,8 +6,9 @@ import moment from "moment"
 import Select from "../commons/Select"
 import config from "../../core/config"
 import TradeHeaderStatus from "../commons/TradeHeaderStatus"
+import Component from "../commons/Component"
 
-class TradeHeader extends Component {
+class TradeHeader extends React.Component {
     constructor(props) {
         super(props)
 
@@ -119,9 +120,9 @@ class TradeHeader extends Component {
         }
 
         let className = "glyphicon glyphicon-star" + tmp
-        // console.log(className)
+        let theme = this.props.theme
         return (
-            <div className="trd-header">
+            <Component className="trd-header" theme={theme}>
                 <div className="trd-header-control">
                     <Select
                         ket="rStockSelector"
@@ -133,15 +134,15 @@ class TradeHeader extends Component {
                         searchEnabled={true}
                     />
                     <div className="trd-instrument-name" ref={r => this.StockName = r}>
-                        <p className="trd-instrument-code">{instrumentName}</p>
+                        <p style={theme.font.main} className="trd-instrument-code">{instrumentName}</p>
                     </div>
                     <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>
                     </span>
                 </div>
                 
-                <TradeHeaderStatus language={this.props.language} />
-            </div>
+                <TradeHeaderStatus language={this.props.language} theme={theme} />
+            </Component>
         )
     }
 

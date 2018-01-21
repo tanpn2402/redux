@@ -30,40 +30,50 @@ class TradeHeaderStatus extends Component {
     }
 
     _render(props, accessor) {
-        let color = "#000"
+        let theme = this.props.theme.bindingdata
+        let style = theme.normal
+
         let tmp = props[accessor]
-        if(props[accessor] < this.balance[accessor]) {
-            color = "#ea0070"
-            if(accessor == "mvMatchUpDown") tmp = "-" + tmp
-        } else if (props[accessor] > this.balance[accessor] ) {
-            color = "#70a800"
-            if(accessor == "mvMatchUpDown") tmp = "+" + tmp
+        
+        if(tmp == undefined) {
+            return <span style={style}>---</span>
         }
 
-        
-        
-        let child = <span style={{color: color}}>{tmp}</span>
+        if(props[accessor] < this.balance[accessor]) {
+            style = theme.down
+            if(accessor == "mvMatchUpDown") tmp = "-" + tmp
+        } else if (props[accessor] > this.balance[accessor] ) {
+            style = theme.up
+            if(accessor == "mvMatchUpDown") tmp = "+" + tmp
+        }
+        let child = <span style={style}>{tmp}</span>
         return child
     }
 
     _renderChange() {
         if(this.props.instrument == "") 
             return 
+        
+        let theme = this.props.theme.bindingdata
+        let style = theme.normal
+
         let percent = Math.random().toFixed(2)
         let change = utils.round(1 + parseFloat(Math.random().toFixed(2)), 2)
         if(percent > 0.3) {
-            percent = <span className="trd-binding up">{"" + percent + "%"}</span>
-            change = <span className="trd-binding up">{"+" + change + ""}</span>
+            style = theme.up
+            percent = <span style={{color: style.color}} className="trd-binding up">{"" + percent + "%"}</span>
+            change = <span style={{color: style.color}} className="trd-binding up">{"+" + change + ""}</span>
 
             return <span>{change}
-                {<span style={{color: "#70a800", marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-top"></span>}
+                {<span style={{color: style.color, marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-top"></span>}
                 {percent}</span>
         }
         else {
-            percent = <span className="trd-binding down">{"" + percent + "%"}</span>
-            change = <span className="trd-binding down">{"+" + change + ""}</span>
+            style = theme.down
+            percent = <span style={{color: style.color}} className="trd-binding down">{"" + percent + "%"}</span>
+            change = <span style={{color: style.color}} className="trd-binding down">{"-" + change + ""}</span>
             return <span>{change}
-                {<span style={{color: "#ea0070", marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-bottom"></span>}
+                {<span style={{color: style.color, marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-bottom"></span>}
                 {percent}</span>
         }
     }
@@ -77,22 +87,22 @@ class TradeHeaderStatus extends Component {
             data = _tmp[0]
             this.state.data = data
         }
-
+        let theme = this.props.theme
         return (
                 <ul>
                     <li>
-                        <h4 class="trd-binding">{header.Price}</h4>
+                        <h4 style={theme.font.sub1} class="trd-binding">{header.Price}</h4>
                         <strong className="">{this._render(data, "mvMatchPrice")}</strong>
                         {/* <strong className="trd-transMoney">{}</strong> */}
                     </li>
                     <li>
-                        <h4 className="trd-binding">{header.Volume}</h4>
+                        <h4 style={theme.font.sub1} className="trd-binding">{header.Volume}</h4>
                         <strong className="trd-binding">{this._render(data, "mvMatchVol")}</strong>
                         <strong className="trd-changeRate">{this._render(data, "mvMatchUpDown")}</strong>
                         
                     </li>
                     <li>
-                        <h4 className="trd-binding">{header.TotalVol}</h4>
+                        <h4 style={theme.font.sub1} className="trd-binding">{header.TotalVol}</h4>
                         <strong className="ng-binding">{this._render(data, "mvMatchVolTotal")}</strong>
                     </li>
                     <li className="trd-changePercent">

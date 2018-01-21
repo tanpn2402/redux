@@ -20,7 +20,7 @@ export default {
         //                                              +
         //+++++++++++++++++++++++++++++++++++++++++++++++
         main: {
-            color: '#fff'
+            color: '#000'
         },
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
         //                      SUB1                          +
@@ -88,7 +88,8 @@ export default {
     // Comment to use default library theme, uncomment to customize
     table: {
         tableHeader: {
-                backgroundColor: 'rgba(38, 38, 38, 0.13)'
+            backgroundColor: 'rgba(38, 38, 38, 0.13)',
+            color: "#000"
         },
         tableFooter: {
             //     backgroundColor: '#262626'
@@ -100,10 +101,12 @@ export default {
     
         },
         rowOdd: {
-                backgroundColor: '#eaeaea'
+            backgroundColor: '#eaeaea',
+            color: "#000"
         },
         rowEven: {
-                backgroundColor: '#FFF'
+            backgroundColor: '#FFF',
+            color: "#000"
         },
         filterRow: {
             backgroundColor: 'rgb(222, 222, 222)',
@@ -253,6 +256,39 @@ export default {
             borderRight: "1px solid rgba(0, 0, 0, 0.1)",
             borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
             // textAlign: "left"
+        }
+    },
+    placeorder: {
+        tabBS: {
+            avtive: {
+                backgroundColor: "#f7f7f7",
+                color: "#e8b342",
+                fontWeight: 700,
+            },
+            normal: {
+                backgroundColor: "#FFF",
+                color: "#999",
+                fontWeight: 500,
+            }
+        },
+        background: {
+            buy: {
+                backgroundColor: "#f7f7f7"
+            },
+            sell: {
+                backgroundColor: "#f7f7f7"
+            }
+        }
+    },
+    bindingdata: {
+        up: {
+            color: "#70a800"
+        },
+        down: {
+            color: "#ea0070"
+        },
+        normal: {
+            color: "#000"
         }
     }
 }

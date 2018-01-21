@@ -18,7 +18,9 @@ class Input extends React.Component {
                 <div className={'input-control ' + type + " " + this.props.className} ref={ r => this.rInputControl = r } >
                     <span className='input-group-btn' style={{ zIndex: '0' }} >
                         <button type="button" className="btn btn-default" 
-                            onClick={() => this.handleButtonInputClick((-1)*step)} ref={r => this.rButton1 = r} >-</button>
+                            onClick={() => this.handleButtonInputClick((-1)*step)} ref={r => this.rButton1 = r} >
+                            <span className="glyphicon glyphicon-minus"></span>    
+                        </button>
                     </span>
                     <FormControl
                         inputRef={ref => this.rInput = ref}
@@ -29,7 +31,9 @@ class Input extends React.Component {
                         />
                     <span className='input-group-btn' style={{ zIndex: '0' }}>
                         <button type="button" className="btn btn-default" 
-                            onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>+</button>
+                            onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>
+                            <span className="glyphicon glyphicon-plus"></span>    
+                        </button>
                     </span>
                 </div>
             )

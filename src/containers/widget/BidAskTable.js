@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import config from "../../core/config"
+import Component from "../commons/Component"
 
-class BidAskTable extends Component {
+class BidAskTable extends React.Component {
     constructor(props) {
         super(props)
 
@@ -68,13 +69,15 @@ class BidAskTable extends Component {
     }
 
     _renderValue(accessor) {
-        // console.log()
-        let color = "#000"
+        let theme = this.props.theme.bindingdata
+        let style = theme.normal
+        
         if(this.state.data[accessor] > this.balance[accessor])
-            color = "#70a800"
+            style = theme.up
         else
-            color = "#ea0070"
-        return {color: color}
+            style = theme.down
+
+        return {color: style.color}
     }
 
     render() {
@@ -92,13 +95,16 @@ class BidAskTable extends Component {
         if(tmp.length > 0) {
             stock = tmp[0]
         }
+
+        let theme = this.props.theme
         return (
 
-            <div className="trd-body bidask" style={{display: "inline-flex", width: "100%", height: "100%", backgroundColor: "#FFF"}}>
+            <Component className="trd-body bidask" theme={theme}
+                style={{display: "inline-flex", width: "100%", height: "100%"}}>
                 <div className="wl-sm-controls">
-                    <label>{this.props.language.menu.stockmarketinfo}</label>
+                    <label style={theme.font.main}>{this.props.language.menu.stockmarketinfo}</label>
 
-                    <label className="stockname">{stock.stockCode + " | " + stock.mvMarketID}</label>
+                    <label style={theme.font.main} className="stockname">{stock.stockCode + " | " + stock.mvMarketID}</label>
                     
                 </div>
                 <div className="bidask-table">
@@ -106,27 +112,27 @@ class BidAskTable extends Component {
                         <tbody>
                             <tr className="bidask-row align-center header">
                                 <td className="bidask-td left">
-                                    <div><span className="">{header.BestBid}</span></div>
+                                    <div><span style={theme.font.main} className="">{header.BestBid}</span></div>
                                 </td>
                                 <td className="bidask-td mid">
-                                    <div><span className=""></span></div>
+                                    <div><span style={theme.font.main} className=""></span></div>
                                 </td>
                                 <td className="bidask-td right">
-                                    <div><span className="">{header.BestAsk}</span></div>
+                                    <div><span style={theme.font.main} className="">{header.BestAsk}</span></div>
                                 </td>
                             </tr>
                             <tr className="bidask-row">
                                 <td className="bidask-td left">
                                     <div>
-                                        <span className="bidask-title">{header.openprice}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.openprice}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("openprice")}>{data.mvOpen}</span>
                                     </div>
                                     <div>
-                                        <span className="bidask-title">{header.highprice}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.highprice}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("highprice")}>{data.mvHigh}</span>
                                     </div>
                                     <div>
-                                        <span className="bidask-title">{header.lowprice}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.lowprice}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("lowprice")}>{data.mvLow}</span>
                                     </div>
                                 </td>
@@ -154,15 +160,15 @@ class BidAskTable extends Component {
                                 </td>
                                 <td className="bidask-td right">
                                     <div>
-                                        <span className="bidask-title">{header.cell}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.cell}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvCeiling")}>{data.mvCeiling}</span>
                                     </div>
                                     <div>
-                                        <span className="bidask-title">{header.floor}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.floor}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvFloor")}>{data.mvFloor}</span>
                                     </div>
                                     <div>
-                                        <span className="bidask-title">{header.ref}</span>
+                                        <span style={theme.font.main} className="bidask-title">{header.ref}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvReferences")}>{data.mvReferences}</span>
                                     </div>
                                 </td>
@@ -184,7 +190,7 @@ class BidAskTable extends Component {
                                     <div><span className="binding" onClick={e => this.onClick()} style={this._renderValue("mvForeignForBuy")}>{data.mvForeignForBuy}</span></div>
                                 </td>
                                 <td className="bidask-td mid">
-                                    <div><span className="">{header.foreigner}</span></div>
+                                    <div><span style={theme.font.main} className="">{header.foreigner}</span></div>
                                 </td>
                                 <td className="bidask-td right">
                                     <div><span className="binding" onClick={e => this.onClick()} style={this._renderValue("mvForeignForSell")}>{data.mvForeignForSell}</span></div>
@@ -194,7 +200,7 @@ class BidAskTable extends Component {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </Component>
         )
     }
 
