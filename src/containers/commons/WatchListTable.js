@@ -26,12 +26,12 @@ class WatchListTable extends React.Component {
                     }],
                     skip: true,
                     show: true,
-                    background: this.props.theme.watchlist.evenCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                 },
                 {
                     id: 'reference',
                     Header: this.props.language.watchlist.header.reference,
-                    background: this.props.theme.watchlist.oddCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
                             id: 'ref',
@@ -67,7 +67,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'bid',
-                    background: this.props.theme.watchlist.evenCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'pri3',
                         Cell: row => {
@@ -130,7 +130,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'matching',
-                    background: this.props.theme.watchlist.oddCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                     {
                         id: 'stock',
@@ -200,7 +200,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'offer',
                     Header: this.props.language.watchlist.header.bestask,
-                    background: this.props.theme.watchlist.evenCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
                             id: 'pri1',
@@ -265,7 +265,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'pricehistory',
                     Header: this.props.language.watchlist.header.pricehistory,
-                    background: this.props.theme.watchlist.oddCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'open',
                         Cell: row => {
@@ -308,7 +308,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'foreigninvestment',
-                    background: this.props.theme.watchlist.evenCol,
+                    background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'forbuy',
                         Cell: row => {
@@ -403,7 +403,7 @@ class WatchListTable extends React.Component {
                         },
                         sortable: false,
                         skip: true,
-                        background: props.theme.watchlist.evenCol,
+                        background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     }],
                     skip: true,
                     show: true,
@@ -412,7 +412,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'reference',
                     Header: props.language.watchlist.header.reference,
-                    background: props.theme.watchlist.oddCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
                             id: 'ref',
@@ -448,7 +448,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'bid',
-                    background: props.theme.watchlist.evenCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'pri3',
                         Cell: row => {
@@ -511,7 +511,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'matching',
-                    background: props.theme.watchlist.oddCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                     {
                         id: 'stock',
@@ -581,7 +581,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'offer',
                     Header: props.language.watchlist.header.bestask,
-                    background: props.theme.watchlist.evenCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
                             id: 'pri1',
@@ -646,7 +646,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'pricehistory',
                     Header: props.language.watchlist.header.pricehistory,
-                    background: props.theme.watchlist.oddCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'open',
                         Cell: row => {
@@ -689,7 +689,7 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'foreigninvestment',
-                    background: props.theme.watchlist.evenCol,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'forbuy',
                         Cell: row => {

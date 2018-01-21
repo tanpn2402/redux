@@ -3758,9 +3758,12 @@ label {
     object-fit: cover;
     padding-bottom: 3px;
     padding-top: 3px;
-    /* transition-property: transform , width;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out; */
+}
+@media(max-width: 786px) {
+    .headSlider {
+        right: 2px;
+        width: calc(100% - 360px);
+    }
 }
 .slick-dots{
     position: absolute;
