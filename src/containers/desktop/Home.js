@@ -16,6 +16,9 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.handleCheckSessionID = this.handleCheckSessionID.bind(this)
+
+
+        this.interval = this.interval.bind(this)
     }
 
     render() {
@@ -48,18 +51,67 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.checkSession(this.handleCheckSessionID)
+
+        this.onSubscribeToServer()
+    }
+
+    componentWillUnmount() {
+        this.onUnSubcribe();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // this.onUnSubcribe()
+        // this.onSubscribeToServer()
+    }
+
+    onSubscribeToServer() {
+        console.log("Prepare to subcribe")
+        localStorage.setItem("socketID","C080001")
+        
+        let socketID = localStorage.getItem("socketID")
+        if (socketID == null) {
+            console.log("No WebSocketID")
+        } else {
+            console.log("Start subcribe on clientId = " + socketID)
+            // atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+                
+            //     if (stockJsonResponse!=null) {
+                    
+            //         this.props.updateStockInfo(stockJsonResponse)
+            //     }
+            // }).bind(this))
+
+            // window.fetch(window.location.href + "/ITradePushServer/StockInfo/"+socketID);
+
+            setInterval(this.interval, 2000)
+
+        }
+    }
+
+    onUnSubcribe() {
+        console.log("Socket will be unsubscribed")
+        // atmosphereAPI.unsubscribe()
+        clearInterval(this.interval)
+    }
+
+    interval() {
+        this.props.updateWatchlistData(this.props.listInstrumentToWatch)
     }
 }
 
 const mapStateToProps = (state) => ({
     language: state.config.language,
-    theme: state.config.style
+    theme: state.config.style,
+
+    listInstrumentToWatch: state.trading.listInstrumentToWatch,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
     checkSession: (handleCheckSessionID) => { 
         dispatch(actions.checkSession(handleCheckSessionID)) 
     },
+
+    updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -4,6 +4,8 @@ import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import Select from "../commons/Select"
+import config from "../../core/config"
+import TradeHeaderStatus from "../commons/TradeHeaderStatus"
 
 class TradeHeader extends Component {
     constructor(props) {
@@ -22,31 +24,64 @@ class TradeHeader extends Component {
     }
 
     handleStockChange(option) {
-        this.setState({
-            watched: option.stockCode == this.state.mvStockSelected.stockCode,
-            mvStockSelected: option,
-            instrument: option.stockCode
-        })
 
-        this.props.changeInstrument(option.stockCode)
-        this.props.setDefaultOrderParams({
-            mvBS: this.props.portfolioData.filter(e => e.mvStockID == option.stockCode).length > 0 ? "SELL" : "BUY",
-            mvStockCode: option.stockCode,
-            mvStockName: option.stockName,
-            mvMarketID: option.mvMarketID
-        })
+        
+        let {mvStockSelected, watched} = this.state
+        let {listInstrumentInWatchList, portfolioData} = this.props
+
+        if(option.stockCode == mvStockSelected.stockCode) {
+            // selected same instrument
+            return
+        }
+        else {
+
+            // remove previous instrument if it not in watchlist and not in portfolio list
+            if(listInstrumentInWatchList.indexOf(mvStockSelected.stockCode) < 0 && 
+                this.props.portfolioData.filter(e => e.mvStockID == mvStockSelected.stockCode).length < 1) 
+            {
+                this.props.removeInstrumentFromWatch(mvStockSelected.stockCode, mvStockSelected.mvMarketID)
+            }
+
+            this.setState({
+                watched: option.stockCode == this.state.mvStockSelected.stockCode,
+                mvStockSelected: option,
+                instrument: option.stockCode
+            })
+    
+            // checkif instrument already in watchlist or portfolio list
+            if(listInstrumentInWatchList.indexOf(option.stockCode) > -1 || 
+                this.props.portfolioData.filter(e => e.mvStockID == option.stockCode).length > 0 )
+            {
+                // already in watchlist and portfolio list
+            } else {
+                // add new instrument is selected to watch  ( not watchlist )
+                this.props.addInstrumentToWatch(option.stockCode, option.mvMarketID)
+            }
+
+            
+            this.props.changeInstrument(option.stockCode)
+            this.props.setDefaultOrderParams({
+                mvBS: this.props.portfolioData.filter(e => e.mvStockID == option.stockCode).length > 0 ? "SELL" : "BUY",
+                mvStockCode: option.stockCode,
+                mvStockName: option.stockName,
+                mvMarketID: option.mvMarketID
+            })
+        }
+
+
+        
     }
 
     onWatchClick() {
-        if(this.state.instrument != null) {
+        if(this.state.instrument != null && this.state.instrument != "") {
             if(this.state.watched) {
                 // unwatch
-                this.props.removeInstrument(this.state.instrument)
+                this.props.removeInstrumentFromWatchList(this.state.instrument, this.state.mvStockSelected.mvMarketID)
             } else {
                 // watch
-                this.props.addInstrument(this.state.instrument)
+                this.props.addInstrumentToWatchList(this.state.instrument, this.state.mvStockSelected.mvMarketID)
             }
-
+            
             this.setState({
                 watched: !this.state.watched
             })
@@ -63,19 +98,26 @@ class TradeHeader extends Component {
     }
 
     render() {
+        let header = this.props.language.stockmarketinform.header
         let currency = "VND"
         let {instrument, watched} = this.state
-        let {listInstrumentToWatch} = this.props
+        let {listInstrumentInWatchList} = this.props
+        let instrumentName = "---"
 
-        if(instrument == undefined) {
-            instrument = "---"
+        if(instrument != undefined) {
+            let tmp = config.cache.stockList.filter(e => e.stockCode == instrument)
+            if(tmp.length > 0) {
+                instrumentName = tmp[0].stockName
+            }
         }
 
         let tmp = "-empty"
-        if(listInstrumentToWatch.indexOf(instrument) > -1) {
+        // console.log(listInstrumentToWatch)
+        if(listInstrumentInWatchList.indexOf(instrument) > -1) {
             this.state.watched = true
             tmp = ""
         }
+
         let className = "glyphicon glyphicon-star" + tmp
         // console.log(className)
         return (
@@ -90,44 +132,39 @@ class TradeHeader extends Component {
                         handleChange={this.handleStockChange.bind(this)}
                         searchEnabled={true}
                     />
-                    <span className="trd-instrument-code">{instrument}</span>
+                    <div className="trd-instrument-name" ref={r => this.StockName = r}>
+                        <p className="trd-instrument-code">{instrumentName}</p>
+                    </div>
                     <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>
                     </span>
                 </div>
                 
-                <ul>
-                    <li>
-                        <h4 class="trd-binding">Last Price</h4>
-                        <strong className="">12,821.02</strong>
-                        <strong className="trd-transMoney">$12,821.02</strong>
-                    </li>
-                    <li>
-                        <h4 className="trd-binding">24h Change</h4>
-                        <strong className="trd-binding">-616.17</strong>
-                        <strong className="trd-changeRate">-4.59%</strong>
-                        
-                    </li>
-                    <li>
-                        <h4 className="trd-binding">24h High</h4>
-                        <strong className="ng-binding">14,249.99</strong>
-                    </li>
-                    <li>
-                        <h4 className="trd-binding">24h Low</h4>
-                        <strong className="ng-binding">12,501.00</strong>
-                    </li>
-                    <li>
-                        <h4 className="trd-binding">24h Volume</h4>
-                        <strong className="trd-binding">264,906,607.20 USDT</strong>
-                    </li>
-                </ul>
+                <TradeHeaderStatus language={this.props.language} />
             </div>
         )
     }
 
     componentDidMount() {
+        if(this.StockName != undefined) {
+            if(this.StockName.offsetHeight < 46) {
+                this.StockName.style.paddingTop = "10px"
+            } else {
+                this.StockName.style.paddingTop = "0px"
+            }
+        }
         
         // setInterval( this.simulate.bind(this) , 1500)
+    }
+
+    componentDidUpdate() {
+        if(this.StockName != undefined) {
+            if(this.StockName.offsetHeight < 46) {
+                this.StockName.style.paddingTop = "10px"
+            } else {
+                this.StockName.style.paddingTop = "0px"
+            }
+        }
     }
 
     simulate() {
@@ -152,15 +189,20 @@ class TradeHeader extends Component {
 const mapStateToProps = (state) => {
     return {
         instrument: state.trading.instrument,
-        listInstrumentToWatch: state.trading.listInstrumentToWatch,
-        portfolioData: state.porfolio.data.mvPortfolioBeanList,
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+        portfolioData: state.trading.portfolioData.mvPortfolioBeanList
 
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    addInstrument: (ins) => { dispatch(actions.addInstrumentToWatch(ins)) },
-    removeInstrument: (ins) => { dispatch(actions.removeInstrumentFromWatch(ins)) },
+    addInstrumentToWatch: (ins, market) => { dispatch(actions.addInstrumentToWatch(ins, market)) },
+    removeInstrumentFromWatch: (ins, market) => { dispatch(actions.removeInstrumentFromWatch(ins, market)) },
+
+    addInstrumentToWatchList: (ins, market) => { dispatch(actions.addInstrumentToWatchList(ins, market)) },
+    removeInstrumentFromWatchList: (ins, market) => { dispatch(actions.removeInstrumentFromWatchList(ins, market)) },
+
+
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
 
     

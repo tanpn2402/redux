@@ -757,7 +757,7 @@ export default
                     "Time": "Thời gian",
                     "Price": "Giá",
                     "Volume": "Khối lượng",
-                    "Total": "Tổng",
+                    "TotalVol": "Tổng KL",
                     "openprice": "Mở cứa",
                     "lowprice": "Thấp nhất",
                     "highprice": "Cao nhất",

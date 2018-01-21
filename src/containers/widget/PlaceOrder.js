@@ -253,14 +253,27 @@ class PlaceOrder extends React.Component {
                                     {header.market}
                                 </Col>
                                 <Col xs={7}>
-                                    <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
-                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                                    <Col xs={6}>
+                                        <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
+                                            className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Select
+                                            ket="rStockSelector"
+                                            ref={r => this.rStockSelector = r}
+                                            options={this.stockList}
+                                            selected={this.state.mvStockSelected}
+                                            optionLabelPath={'stockCode'}
+                                            handleChange={this.handleStockChange.bind(this)}
+                                            searchEnabled={true}
+                                        />
+                                    </Col>
                                 
                                 </Col>
                             </div>
 
                             {/* STOCK CODE */}
-                            <div style={{display: "table", width: "100%"}}>
+                            {/* <div style={{display: "table", width: "100%"}}>
                                 
                                 <Col xs={5} style={{color: tColor}}>
                                     {header.stockCode}
@@ -276,7 +289,7 @@ class PlaceOrder extends React.Component {
                                         searchEnabled={true}
                                     />
                                 </Col>
-                            </div>
+                            </div> */}
 
                             {/* STOCK NAME */}
                             <div style={{display: "table", width: "100%"}}>
@@ -414,13 +427,12 @@ class PlaceOrder extends React.Component {
                             </div>
 
                             {/* PERCENTAGE */}
-                            <div  style={{display: "table", width: "100%"}}>
-                                {/* <Col xs={5}  style={{color: tColor}}>
-                                </Col> */}
+                            {/* <div  style={{display: "table", width: "100%"}}>
+                                
                                 <Col xs={12}>
                               		<ul  className="listPercentage">{listPercentage}</ul>  
                         	    </Col>
-                            </div>
+                            </div> */}
 
                             {/* NET FEE */}
                             <div style={{display: "table", width: "100%"}}>
@@ -435,7 +447,7 @@ class PlaceOrder extends React.Component {
                             </div>
 
                             {/* Expire Date */}
-                            <div style={{display: "table", width: "100%"}}>
+                            {/* <div style={{display: "table", width: "100%"}}>
                                 <Col xs={5} style={{color: tColor}}>
                                     {header.expirydate}
                                 </Col>
@@ -455,7 +467,7 @@ class PlaceOrder extends React.Component {
                                     </div>
                                     
                                 </Col>
-                            </div>
+                            </div> */}
 
                             {/* COMMISSION FEE
                             <div style={{display: "table", width: "100%"}}>

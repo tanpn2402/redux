@@ -31,7 +31,7 @@ class DesktopTable extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.theme.table)
+		// console.log(this.props)
 		let tableSearch = this.props.theme.table.tableSearch
 		let tableHeader = this.props.theme.table.tableHeader
 		let tableFooter = this.props.theme.table.tableFooter
@@ -187,7 +187,7 @@ class DataTable extends React.Component {
 		this.handleOnMouseUp = this.handleOnMouseUp.bind(this)
 		this.handleMouseMove = this.handleMouseMove.bind(this)
 		this.handleOnMouseDown = this.handleOnMouseDown.bind(this)
-
+		// console.log(props)
 	}
 
 	// COMPONENT LIFE CYCLE
@@ -499,6 +499,7 @@ class DataTable extends React.Component {
 	}
 
 	loadHeaderLanguage(nextProps) {
+		// console.log(nextProps)
 		this.isHeaderRendered = false
 		let language = nextProps.language
 		let translatedHeaders = this.loadHeaderOrder(nextProps)
@@ -506,6 +507,7 @@ class DataTable extends React.Component {
 
 			if (col.columns != undefined) {
 				col.columns = col.columns.map(subCol => {
+					// console.log(language)
 					if (language[subCol.id] != undefined) {
 						subCol.Header = language[subCol.id]
 					} else {

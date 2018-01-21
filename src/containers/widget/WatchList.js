@@ -7,442 +7,38 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
 import Select from "../commons/Select"
-
 import Config from '../../core/config'
+import WatchListTable from "../commons/WatchListTable"
 
 class WatchList extends Component {
     constructor(props) {
         super(props)
+        this.id = "watchlist"
         this.state = {
-            columns: [
-                {
-                    columns: [{
-                        id: 'cb',
-                        // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
-                        //     onChange={() => this.onRowSelected('ALL')} />,
-                        maxWidth: 50,
-                        width: 40,
-                        Cell: props => {
-                            return (<input type='checkbox' className={this.id + "-row-checkbox"}
-                                onChange={() => { this.onRowSelected(props.original) }} />
-                            )
-                        },
-                        sortable: false,
-                        skip: true
-                    }],
-                    skip: true,
-                    show: true
-                },
-                {
-                    id: 'name',
-                    Header: this.props.language.watchlist.header.name,
-                    columns: [{
-                        id: 'stock',
-                        accessor: 'mvStockCode',
-                        width: 60,
-                        show: true,
-                        skip: false
-                    }, {
-                        id: 'market',
-                        accessor: 'mvMarket',
-                        width: 60,
-                        show: true,
-                        skip: false
-                    }],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'reference',
-                    Header: this.props.language.watchlist.header.reference,
-                    columns: [{
-                        id: 'ce',
-                        accessor: 'mvCeiling',
-                        Cell: row => {  
-                            return this.onRowStatusChange(row, "ce")    
-                            },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'fl',
-                        accessor: 'mvFloor',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "fl")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'ref',
-                        accessor: 'mvReferences',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "ref")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'bestbid',
-                    columns: [{
-                        id: 'pri3',
-                        accessor: 'mvBidPrice3',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri3")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol3',
-                        accessor: 'mvBidVol3',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol3")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'pri2',
-                        accessor: 'mvBidPrice2',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri2")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol2',
-                        accessor: 'mvBidVol2',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol2")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'pri1',
-                        accessor: 'mvBidPrice1',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri1")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol1',
-                        accessor: 'mvBidVol1',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol1")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }
-                    ],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'matching',
-                    columns: [{
-                        id: 'price',
-                        accessor: 'mvNominal',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvNominal")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'volume',
-                        accessor: 'mvNoalPriSubRefPri',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvNoalPriSubRefPri")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'mvTotalTradingQty',
-                        Header: '+/-',
-                        accessor: 'mvMatchUpDown',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvMatchUpDown")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'ce1',
-                        Header: '%',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidVol1")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'totalvol',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvBidVol1")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'bestask',
-                    Header: this.props.language.watchlist.header.bestask,
-                    columns: [{
-                        id: 'pri1',
-                        accessor: 'mvOfferPrice1',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri1")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol1',
-                        accessor: 'mvOfferVol1',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol1")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    },
-                    {
-                        id: 'pri2',
-                        accessor: 'mvOfferPrice2',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri2")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol2',
-                        accessor: 'mvOfferVol2',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol2")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'pri3',
-                        accessor: 'mvOfferPrice3',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "pri3")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'vol3',
-                        accessor: 'mvOfferVol3',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "vol3")
-                        },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }
-                    ],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'pricehistory',
-                    Header: this.props.language.watchlist.header.pricehistory,
-                    columns: [{
-                        id: 'open',
-                        accessor: 'mvOpen',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvOpen")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'high',
-                        accessor: 'mvHigh',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvHigh")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'low',
-                        accessor: 'mvLow',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvLow")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'avg',
-                        // accessor: 'avgPrice',
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }],
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: 'foreigninvestment',
-                    columns: [{
-                        id: 'forbuy',
-                        accessor: 'mvForeignForBuy',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvForeignForBuy")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'forsell',
-                        accessor: 'mvForeignForSell',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvForeignForSell")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'room',
-                        accessor: 'mvForeignForRoom',
-                        // Cell: row => {
-                        //     return this.onRowStatusChange(row, "mvForeignForRoom")
-                        // },
-                        width: 60,
-                        skip: false,
-                        show: true,
-                    }],
-                    skip: false,
-                    show: true,
-                }
-            ],
-            showAlert: false,
-            pageIndex: 1,
-            disableRemove: true,
-            watchStockList: [],
             mvInstrument: null
         }
-        this.oldWatchStockList = []
-        this.rowSelected = []
-        this.id = 'watchlist'
-        this.addRemoveParams = {
-            mvTimelyUpdate: 'Y',
-            mvAddOrRemove: '',
-            mvCategory: '1',
-            mvStockCode: '',
-            mvMarketID: ''
-        }
-
-        this.getDataParams = {
-            key: '',
-            mvCategory: '1'
-        }        
-    }
-
-    onRowSelected(param) {
-        if (param === 'ALL') {
-            var current = document.getElementById('watchlist-cb-all').checked
-            var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = current;
-            }
-            if (current)
-                this.rowSelected = this.props.watchListData !== undefined ?
-                    this.props.watchListData : []
-            else
-                this.rowSelected = []
-        }
-        else {
-            var index = this.rowSelected.indexOf(param)
-            if (index === -1) {
-                this.rowSelected.push(param)
-            }
-            else {
-                this.rowSelected.splice(index, 1)
-            }
-
-            if (document.getElementsByClassName("watchlist-row-checkbox").length === this.rowSelected.length)
-                document.getElementById("watchlist-cb-all").checked = true
-            else
-                document.getElementById("watchlist-cb-all").checked = false
-        }
-        this.setState({
-            disableRemove: this.rowSelected.length == 0 ? true : false
-        })
-    }
-
-    componentDidMount() {
-        this.onSubscribeToServer()
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        // let className = document.querySelector(".value").className
-        // let newClassName = className.replace(" value-change", "")
-        // document.querySelector(".value").className = newClassName
-        document.querySelectorAll(".value").forEach(div => {
-            div.className = div.className.replace(" value-change", "")
-        })
-        window.requestAnimationFrame(time => {
-            window.requestAnimationFrame(time => {
-                // document.querySelector(".value").className = newClassName + " value-change"
-                document.querySelectorAll(".value").forEach(div => {
-                    div.className = div.className + " value-change"
-                })
-            })
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.oldWatchStockList = this.state.watchStockList
-        this.setState({
-            watchStockList: nextProps.watchListData
-        })
+       
     }
 
     onRefresh(newParams) {
         
     }
-
     onAddStock() {
         let instrument = this.state.mvInstrument
         let stockCode = instrument.stockCode
-        let tmp = this.props.listInstrumentToWatch.filter(e => e == stockCode)
+        let tmp = this.props.listInstrumentInWatchList.filter(e => e == stockCode)
         if(tmp.length > 0) {
             // already in list
             // message box here
         } else {
-            this.props.addInstrument(stockCode)
+            this.props.addInstrumentToWatchList(stockCode, tmp.mvMarketID)
+            this.props.changeInstrument(stockCode)
         }
     }
-
     onRemoveStock() {
         // this.rowSelected.map(stock => {
-        //     this.props.removeInstrument(stock.stockCode)
+        //     this.props.removeInstrumentFromWatchList(stock.stockCode)
         // })
-    }
-
-    onPageChange(pageIndex) {
-        this.setState({ pageIndex: pageIndex });
     }
 
     handleStockChange(options) {
@@ -453,140 +49,42 @@ class WatchList extends Component {
 
     render() {
         let button = this.props.theme.searchbar.default.button || undefined
-        this.buttonAction = [
-            <button type="button" className="hks-btn btn-refresh" onClick={e => this.onRefresh()}>
-                <span className="glyphicon glyphicon-refresh"></span>
-            </button>,
-
-            <FormGroup controlId="mvStockId">
-                <Select
-                    key="rStockID"
-                    options={Config.cache.stockList}
-                    selected={this.state.mvInstrument}
-                    optionLabelPath={'stockCode'}
-                    handleChange={this.handleStockChange.bind(this)}
-                    searchEnabled={true}
-                />
-            </FormGroup>,
-
-            <button type="button" className="hks-btn btn-add-stock" style={button}
-                onClick={this.onAddStock.bind(this)}>
-                <span className="glyphicon glyphicon-plus" ></span>
-                {this.props.language.watchlist.toolbar.addstock}
-            </button>,
-            
-            <button type="button" className="hks-btn btn-remove-stock"
-                onClick={e => this.onRemoveStock()} disabled={this.state.disableRemove}>
-                <span className="glyphicon glyphicon-remove"></span>
-                {this.props.language.watchlist.toolbar.removestock}
-            </button>
-        ]
-        let tableHeader = this.props.theme.table.tableHeader
-        let tableFooter = this.props.theme.table.tableFooter
+    
         return (
             <div style={{ height: '100%' }}>
                 <Title id={this.id} language={this.props.language} theme={this.props.theme} widgetID={'watchlist'}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <DataTable
-                        theme={this.props.theme}
-                        id="watchlist"
-                        columns={this.state.columns}
-                        tableData={this.state.watchStockList}
-                        onRowSelected={(param) => this.onRowSelected(param)}
-                        language={this.props.language}
-
-                        pageIndex={this.state.pageIndex}
-                        totalPage={11}
-                        onPageChange={this.onPageChange.bind(this)}
-
-                        searchActions={this.buttonAction}
-                        searchData={{ stockList: [] }}
-                        searchParams={[]}
-                        searchMobileParams={[]}
-                        searchDefaultValues={{}}
-                    />
+                    <div className="wl-control">
+                        <button type="button" className="hks-btn btn-refresh" onClick={e => this.onRefresh()}>
+                            <span className="glyphicon glyphicon-refresh"></span>
+                        </button>
+                        <Select
+                            key="rStockID"
+                            options={Config.cache.stockList}
+                            selected={this.state.mvInstrument}
+                            optionLabelPath={'stockCode'}
+                            handleChange={this.handleStockChange.bind(this)}
+                            searchEnabled={true}
+                        />
+                        <button type="button" className="hks-btn btn-add-stock" style={button}
+                            onClick={this.onAddStock.bind(this)}>
+                            <span className="glyphicon glyphicon-plus" ></span>
+                            {this.props.language.watchlist.toolbar.addstock}
+                        </button>
+                        <button type="button" className="hks-btn btn-remove-stock"
+                            onClick={e => this.onRemoveStock()} disabled={this.state.disableRemove}>
+                            <span className="glyphicon glyphicon-remove"></span>
+                            {this.props.language.watchlist.toolbar.removestock}
+                        </button>
+                    </div>
+                    <div className="wl-table">
+                        <WatchListTable theme={this.props.theme} language={this.props.language} />
+                    </div>
                 </Body>
             </div>
         )
-    }
-
-    onChangeStateColumn(e) {
-
-    }
-
-    componentWillUnmount() {
-        console.log("Socket will be unsubscribed")
-        atmosphereAPI.unsubscribe()
-    }
-
-    onRowStatusChange(row, rowName) {
-        let index = row.index
-        if (rowName == "ce") {
-            return <div className="value value-ceil">{row.value}</div>
-        }
-        if (rowName == "fl") {
-            return <div className="value value-floor">{row.value}</div>
-        }
-        if (rowName == "ref") {
-            return <div className="value value-ref">{row.value}</div>            
-        }
-
-        if(rowName.includes("vol")){
-            let price = rowName.replace("vol", "pri")
-            // console.log(row, rowName, price, row.row[price], row.row.ref)
-            if(row.row[price] == null){
-                return <div className="value unchange">{row.value}</div>
-            }
-            if(+row.row[price] > +row.row.ref){
-                return <div className="value value-change up">{row.value}</div>
-            } else if (+row.row[price] < +row.row.ref){
-                return <div className="value value-change down">{row.value}</div>
-            }
-        }
-
-        if (row.value == null) {
-            return ( 
-                <div className="value unchange">-</div>
-            )
-        } else if (row.row == null || row.row.ref == null) {
-            return (
-                <div className="value unchange">{row.value}</div>
-            )
-        } else if (row.row.ref > row.value) {
-            return (
-                <div className="value value-change down">{row.value}</div>
-            )
-        } else if (row.row.ref < row.value) {
-            return (
-                <div className="value value-change up">{row.value}</div>
-            )
-        } else if (row.row.ref == row.value) {
-            return (
-                <div className="value unchange">{row.value}</div>
-            )
-        }
-    }
-
-    onSubscribeToServer() {
-        console.log("Start subcribe")
-        localStorage.setItem("socketID","C080001")
-        
-        let socketID = localStorage.getItem("socketID")
-        if (socketID == null) {
-            console.log("No WebSocketID")
-        } else {
-            atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
-                
-                if (stockJsonResponse!=null) {
-                    
-                    this.props.updateStockInfo(stockJsonResponse)
-                }
-            }).bind(this))
-
-            // window.fetch(window.location.href + "/ITradePushServer/StockInfo/"+socketID);
-        }
     }
 
 
@@ -595,38 +93,15 @@ class WatchList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        // watchListData: state.watchlist.watchListData,
-        // watchListLocalStockList: state.watchlist.watchListLocalStockList
-        listInstrumentToWatch: state.trading.listInstrumentToWatch,
-        listInstrumentData: state.trading.listInstrumentData
+        listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    // onRefresh: (param) => {
-    //     dispatch(actions.loadWatchList(param))
-    // },
-    // onAddStock: (param) => {
-    //     dispatch(actions.addStock(param))
-    // },
-    // onRemoveStock: (param) => {
-    //     dispatch(actions.removeStock(param))
-    // },
-    // addStockToLocalStore: (param) => {
-    //     dispatch(actions.addStockToLocalStore(param))
-    // },
-    // removeStockFromLocalStore: (param) => {
-    //     dispatch(actions.removeStockFromLocalStore(param))
-    // },
-    // updateStockInfo: (param) => {
-    //     dispatch(actions.updateStockInfo(param))
-    // }
-    // getStockFromServer: (param) => {
-    //     dispatch(actions.getStocksFromServer(param))
-    // }
-
-    addInstrument: (ins) => { dispatch(actions.addInstrumentToWatch(ins)) },
-    removeInstrument: (ins) => { dispatch(actions.removeInstrumentFromWatch(ins)) },
+    addInstrumentToWatchList: (ins, market) => { dispatch(actions.addInstrumentToWatchList(ins, market)) },
+    removeInstrumentFromWatchList: (ins, market) => { dispatch(actions.removeInstrumentFromWatchList(ins, market)) },
+    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)

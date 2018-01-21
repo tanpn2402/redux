@@ -7,21 +7,30 @@ const stockList = { "mvIsEnableMultiMarket": true, "mvResult": null, "stockSearc
 
 
 export function stockSearch(param) {
-    // return {
-    //     type: ActionTypes.STOCKSEARCH,
-    //     stockList: []
-    //   }
+    console.log(param)
     return function (dispatch) {
-        api.post('stockSearch.action', param, dispatch, stockListResponse)
+        api.post('stockSearch.action', param, dispatch, 
+        function(response) {
+            console.log("AAAAAAAAAAAAA", response)
+            if(response == undefined || response.stockList.length < 0) {
+                return (dispath) => dispatch(stockSearch(param))
+            } else {
+                config.cache.stockList = response.stockSearchList
+                return {
+                    type: ActionTypes.STOCKSEARCH,
+                    stockList: response
+                }   
+            }
+        },
+        function(err) {
+            console.log("FAILLLLLLLLLL STOCK SEARCHHHHH")
+            return (dispatch) => dispatch(stockSearch(param))
+        })
     }
 }
 
 function stockListResponse(response) {
-    config.cache.stockList = response.stockSearchList
-    return {
-        type: ActionTypes.STOCKSEARCH,
-        stockList: response
-    }
+    
 }
 
 export function getStockWatchInfo(stockInfo) {

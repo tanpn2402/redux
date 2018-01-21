@@ -272,3 +272,8 @@ export function importAll(r){
     r.keys().map((item, index) => { images[item.replace('./','')] = r(item)})
     return images
 }
+
+export function round(number, precision) {
+    var factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+}

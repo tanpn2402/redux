@@ -313,7 +313,7 @@ class Sumary extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        data: state.porfolio.data,
+        data: state.trading.portfolioData,
     }
 }
 

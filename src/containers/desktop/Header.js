@@ -13,12 +13,22 @@ class Header extends React.Component {
 		this.id = 'pageHeader'
 	}
 
+	onLogoClick() {
+		console.log("AAAAAAAAAAAAAAAAAA", {
+			instrument: this.props.instrument,
+			listInstrumentData: this.props.listInstrumentData,
+			listInstrumentInWatchList: this.props.listInstrumentInWatchList,
+			listInstrumentToWatch: this.props.listInstrumentToWatch,
+			portfolioData: this.props.portfolioData
+		})
+	}
+
 	render() {
 		let pageHeader = this.props.theme.page.pageHeader
 		return (
 			<div id="pageheader" style={pageHeader} >
 				<div className='rows'>
-					<div className="logo">
+					<div className="logo" onClick = {(e) => this.onLogoClick()}>
 						<img src={require('../../assets/images/logo_main_ttl.png')} />
 					</div>
 					<div className="headSlider">
@@ -29,11 +39,18 @@ class Header extends React.Component {
 		)
 	}
 
+
 }
 
 
 const mapStateToProps = (state) => {
-	return {}
+	 return {
+        instrument: state.trading.instrument,
+        listInstrumentToWatch: state.trading.listInstrumentToWatch,
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+		portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
+		listInstrumentData: state.trading.listInstrumentData
+    }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({

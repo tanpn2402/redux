@@ -1,0 +1,485 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../actions'
+import DataTable from './DataTable'
+
+class WatchListTable extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            columns: [
+                {
+                    columns: [{
+                        id: 'cb',
+                        // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
+                        //     onChange={() => this.onRowSelected('ALL')} />,
+                        width: 30,
+                        Cell: props => {
+                            return (<input type='checkbox' className={this.id + "-row-checkbox"}
+                                onChange={() => { this.onRowSelected(props.original) }} />
+                            )
+                        },
+                        sortable: false,
+                        skip: true
+                    }],
+                    skip: true,
+                    show: true
+                },
+                {
+                    id: 'reference',
+                    Header: this.props.language.watchlist.header.reference,
+                    columns: [{
+                        id: 'ce',
+                        Cell: row => {  
+                            return this.onRowStatusChange(row, "mvCeiling")    
+                            },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'fl',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvFloor")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'ref',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvReferences")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'bid',
+                    columns: [{
+                        id: 'pri3',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice3")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'vol3',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol3")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                    },
+                    {
+                        id: 'pri2',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice2")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'vol2',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol2")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'pri1',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice1")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'vol1',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol1")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                    }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'matching',
+                    columns: [
+                    {
+                        id: 'stock',
+                        accessor: 'mvStockCode',
+                        width: 45,
+                        show: true,
+                        skip: false
+                    }, {
+                        id: 'market',
+                        accessor: 'mvMarket',
+                        width: 45,
+                        show: true,
+                        skip: false
+                    },
+                    {
+                        id: 'price',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchPrice")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'volume',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchVol")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'totalvol',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchVolTotal")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'percent',
+                        Header: '%',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                        },
+                        width: 45,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'change',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                        },
+                        width: 45,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'offer',
+                    Header: this.props.language.watchlist.header.bestask,
+                    columns: [
+                        {
+                            id: 'pri1',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice1")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'vol1',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol1")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                        },
+                        {
+                            id: 'pri2',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice2")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'vol2',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol2")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'pri3',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice3")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                        }, {
+                            id: 'vol3',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol3")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                        }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'pricehistory',
+                    Header: this.props.language.watchlist.header.pricehistory,
+                    columns: [{
+                        id: 'open',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvOpen")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'high',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvHigh")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'low',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvLow")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'avg',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvNomial")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'foreigninvestment',
+                    columns: [{
+                        id: 'forbuy',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForBuy")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'forsell',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForSell")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }, {
+                        id: 'forroom',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForRoom")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                    }],
+                    skip: false,
+                    show: true,
+                }
+            ],
+            pageIndex: 1,
+            disableRemove: true,
+            watchStockList: [],
+            mvInstrument: null
+        }
+
+        this.balance = {
+            mvOpen: 80.4,
+            mvHigh: 70.5,
+            mvLow: 60.5,
+            mvNomial: 11.5,
+
+            mvCeiling: 80.216,
+            mvFloor: 70.135,
+            mvReferences: 80.235,
+
+            mvBidPrice1: 85.56,
+            mvBidPrice2: 75.26,
+            mvBidPrice3: 65.85,
+
+            mvBidVol1: 75.76,
+            mvBidVol2: 47.52,
+            mvBidVol3: 96.67,
+
+            mvMatchPrice: 86.2,
+            mvMatchVol: 569.6,
+            mvMatchUpDown: 1.5,
+            mvMatchVolTotal: 469.56,
+
+
+            mvOfferPrice1: 65.26,
+            mvOfferPrice2: 87.12,
+            mvOfferPrice3: 97.45,
+
+            mvOfferVol1: 65.56,
+            mvOfferVol2: 97.34,
+            mvOfferVol3: 65.6,
+
+            mvForeignForBuy: 56.5,
+            mvForeignForSell: 69.3,
+            mvForeignForRoom: 11.6
+        }
+    }
+
+    onRowSelected(param) {
+        if (param === 'ALL') {
+            var current = document.getElementById('watchlist-cb-all').checked
+            var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = current;
+            }
+            if (current)
+                this.rowSelected = this.props.watchListData !== undefined ?
+                    this.props.watchListData : []
+            else
+                this.rowSelected = []
+        }
+        else {
+            var index = this.rowSelected.indexOf(param)
+            if (index === -1) {
+                this.rowSelected.push(param)
+            }
+            else {
+                this.rowSelected.splice(index, 1)
+            }
+
+            if (document.getElementsByClassName("watchlist-row-checkbox").length === this.rowSelected.length)
+                document.getElementById("watchlist-cb-all").checked = true
+            else
+                document.getElementById("watchlist-cb-all").checked = false
+        }
+        this.setState({
+            disableRemove: this.rowSelected.length == 0 ? true : false
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+    }
+
+    componentDidMount() {
+        // this.onSubscribeToServer()
+    }
+
+    componentDidUpdate(){
+        let classList = document.querySelector(".value")
+        if(classList != null) {
+            let className = classList.className
+            let newClassName = className.replace(" value-change", "")
+            document.querySelector(".value").className = newClassName
+            document.querySelectorAll(".value").forEach(div => {
+                div.className = div.className.replace(" value-change", "")
+            })
+            window.requestAnimationFrame(time => {
+                window.requestAnimationFrame(time => {
+                    // document.querySelector(".value").className = newClassName + " value-change"
+                    document.querySelectorAll(".value").forEach(div => {
+                        div.className = div.className + " value-change"
+                    })
+                })
+            })
+        }
+        
+    }
+
+    render() {
+
+        let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
+        let data = listInstrumentData.filter(stock => {
+            if(listInstrumentInWatchList.indexOf(stock.mvStockCode) > -1) {
+                return stock
+            }
+        })
+        // console.log(this.props.language)
+        return (
+            <DataTable
+                theme={this.props.theme}
+                id="watchlist"
+                columns={this.state.columns}
+                tableData={data}
+                onRowSelected={(param) => this.onRowSelected(param)}
+                language={this.props.language}
+
+                pageIndex={this.state.pageIndex}
+                totalPage={Math.ceil(data.length/15)}
+                onPageChange={this.onPageChange.bind(this)}
+
+                searchActions={[]}
+                searchData={{ stockList: [] }}
+                searchParams={[]}
+                searchMobileParams={[]}
+                searchDefaultValues={{}}
+                searchEnable={false}
+            />
+        )
+    }
+
+    onRowStatusChange(row, accessor) {
+        // console.log(row, accessor)
+        let data = row.original
+
+        if (accessor == "mvCeiling") {
+            return <div className="value-ceil">{data[accessor]}</div>
+        }
+        else if (accessor == "mvFloor") {
+            return <div className="value-floor">{data[accessor]}</div>
+        }
+        else if (accessor == "mvReferences") {
+            return <div className="value-ref">{data[accessor]}</div>            
+        }
+
+        if(data[accessor] == null) {
+            return <div className="value unchange">-</div>
+        } else {
+            if(data["mvMatchPrice"] > data["mvReferences"])
+                return <div className="value value-change up">{data[accessor]}</div>
+            else if(data["mvMatchPrice"] < data["mvReferences"])
+                return <div className="value value-change down">{data[accessor]}</div>
+            else
+                return <div className="value unchange">{data[accessor]}</div>
+        }
+
+    }
+
+    onPageChange(pageIndex) {
+        this.setState({ pageIndex: pageIndex });
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        listInstrumentData: state.trading.listInstrumentData,
+        listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => ({
+    
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchListTable)

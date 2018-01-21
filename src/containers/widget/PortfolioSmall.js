@@ -14,24 +14,6 @@ class PortfolioSmall extends Component {
                 
             ]
         }
-
-        this.listStock = [
-            "ACB",
-            "VNM",
-            "HAG",
-            "HCM",
-            "TLH",
-            "TNH",
-            "BBC",
-            "B82",
-            "HBG",
-            "HGM",
-            "TQH",
-            "TFH",
-            "HGC",
-            "B22"
-        ]
-
         this.params = {
             mvLastAction: 'AccountInfo',
             mvChildLastAction: 'AccountInfo',
@@ -150,8 +132,8 @@ class PortfolioSmall extends Component {
 
     onRowClick(e, data) {
         let stock = config.cache.stockList.filter(s => s.stockCode == data.stockCode)
-        // console.log(config.cache.stockList)
-        if(stock.length > 0) {
+        // console.log(data)
+        if(stock.length > 0 && data.mvTSettled != 0) {
             
             let tmp = stock[0]
             this.props.setDefaultOrderParams({
@@ -199,7 +181,7 @@ class PortfolioSmall extends Component {
 const mapStateToProps = (state) => {
     return {
         instrument: state.trading.instrument,
-        porfolioBeanList: state.porfolio.data,
+        porfolioBeanList: state.trading.portfolioData,
     }
 }
 

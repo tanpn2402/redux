@@ -518,7 +518,7 @@ class Portfolio extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.porfolio.data,
+        data: state.trading.portfolioData,
     }
 }
 

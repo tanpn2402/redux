@@ -408,11 +408,11 @@ const config = {
 			enabled: true,
 			widget: [
 				{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 1, isDraggable: false, isResizable: false },
-				{ i: 'bidask', x: 6, y: 1, w: 2, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'bidask', x: 6, y: 1, w: 2, h: 5, isDraggable: false, isResizable: false },
 				{ i: 'tradehistory', x: 6, y: 7, w: 2, h: 5, isDraggable: false, isResizable: false },
-				{ i: 'watchlist-small', x: 0, y: 1, w: 2, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'watchlist-small', x: 0, y: 1, w: 2, h: 5, isDraggable: false, isResizable: false },
 				{ i: 'portfolio-small', x: 0, y: 7, w: 2, h: 5, isDraggable: false, isResizable: false },
-				{ i: 'placeorder', x: 2, y: 8, w: 4, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'placeorder', x: 2, y: 8, w: 4, h: 4, isDraggable: false, isResizable: false },
 				{ i: 'tradingchart', x: 2, y: 2, w: 4, h: 6, isDraggable: false, isResizable: false },
 				{ i: 'orderjournal', x: 0, y: 11, w: 8, h: 8, isDraggable: false, isResizable: false },
 				// { i: 'orderHistory', x: 4, y: 11, w: 4, h:6, isDraggable: false, isResizable: false },
@@ -664,12 +664,14 @@ const config = {
 		stockList: [],
 		lang: 'vi_VN',
 		theme: 'light',
-		favourite: []
+		favourite: [],
+		listInstrumentToWatch: []
 	},
 	maxFav: 1000,
 	tableColReorder: [],
 	tableColWidth: [],
 	websockID: null,
+	defaultWatchlist: ["ACB", "VNM"]
 }
 
 export default config

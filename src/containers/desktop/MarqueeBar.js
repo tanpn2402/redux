@@ -171,40 +171,35 @@ class MarqueeBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let stockList = nextProps.watchListLocalStockList ? nextProps.watchListLocalStockList:[]
-        this.data.forEach(stock => {
-            let isRemoved = !stockList.find(s => s.mvStockCode == stock.title && s.mvMarketID == stock.market)
-            if (isRemoved) {
-                let newData = [...this.data]
-                newData.splice(newData.indexOf(stock), 1)
-                this.data = newData
-            }
-        })
-        stockList.forEach(stock => {
-            let isExist = this.data.find(obj => (obj.title == stock.mvStockCode && obj.market == stock.mvMarketID))
-            let newDataE = Object.assign({}, this.defaultData)
-            if (!isExist) {
-                newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
-                newDataE.title = stock.mvStockCode
-                newDataE.market = stock.mvMarketID
-                newDataE.status = this.randomSym()
-                newDataE.netchange = (Math.floor(Math.random() * 100) + 1) / 1000
-                newDataE.changeper = (Math.floor(Math.random() * 100) + 1) / 1000 + 1
-                newDataE.value = (Math.floor(Math.random() * 10000000000000) + 1) / 10
-                newDataE.volume = (Math.floor(Math.random() * 100000000000) + 1) / 10
-                newDataE.advance = (Math.floor(Math.random() * 1000) + 1) / 10
-                newDataE.statusValue = '-'
-                newDataE.price = (Math.floor(Math.random() * 100000000000) + 1) / 10
-                this.data.push(newDataE)
-                let hasProp = this.organizedData.hasOwnProperty(stock.mvMarketID)
-                this.organizedData[stock.mvMarketID] = hasProp ? this.organizedData[stock.mvMarketID].concat(newDataE) : [].concat(newDataE)
-            }
-        })
-        this.text = this.data.map(dataE => (
+        
+        // let data = nextProps.listInstrumentInWatchList.map(stock => {
+        //     let newDataE = Object.assign({}, this.defaultData)
+        //     let tmp = nextProps.listInstrumentData.filter(instrument => instrument.mvStockCode == stock)
+        //     if(tmp.length > 0) {
+        //         let _data = tmp[0]
+        //         newDataE.id = (Math.floor(Math.random() * 1000) + 1) / 10
+        //         newDataE.title = _data.mvStockCode
+        //         newDataE.market = _data.mvMarket
+        //         newDataE.status = this.randomSym()
+        //         newDataE.netchange = _data.mvMatchUpDown
+        //         newDataE.changeper = _data.mvMatchUpDown
+        //         newDataE.value = _data.mvMatchUpDown
+        //         newDataE.volume = _data.mvMatchVol
+        //         newDataE.advance = _data.mvMatchUpDown
+        //         newDataE.statusValue = '-'
+        //         newDataE.price = _data.mvMatchPrice
+        //         return newDataE
+        //     }
+
+        // })
+
+        let data = []
+        
+        this.text = data.map(dataE => (
             <MarqueeItem stock={dataE} onPause={this.onPause.bind(this)} onResume={this.onResume.bind(this)}
                 theme={nextProps.theme} />
         ))
-
+        // console.log(this.text)
         // if (this.state.currentSliderInterval.length > 1) {
         if (this.text.length > this.capacity) {
             //Check whether slider or slider2 to add data
@@ -270,7 +265,7 @@ class MarqueeBar extends React.Component {
 
     // Generate first loop
     componentDidMount() {
-        this.props.getLocalStockList()
+        // this.props.getLocalStockList()
 
 
         window.addEventListener('wheel', this.handleScroll.bind(this))
@@ -461,8 +456,11 @@ class MarqueeBar extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        watchListData: state.watchlist.watchListData,
-        watchListLocalStockList: state.watchlist.watchListLocalStockList
+        watchListLocalStockList: state.watchlist.watchListLocalStockList,
+
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+		portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
+		listInstrumentData: state.trading.listInstrumentData
     }
 }
 
