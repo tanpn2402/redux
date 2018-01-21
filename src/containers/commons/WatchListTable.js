@@ -6,59 +6,68 @@ import DataTable from './DataTable'
 class WatchListTable extends React.Component {
     constructor(props) {
         super(props)
-
+        this.id = "watchlist"
         this.state = {
             columns: [
                 {
                     columns: [{
                         id: 'cb',
-                        // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
-                        //     onChange={() => this.onRowSelected('ALL')} />,
-                        width: 30,
+                        Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
+                            onChange={() => this.onRowSelected('ALL')} />,
+                        width: 40,
                         Cell: props => {
                             return (<input type='checkbox' className={this.id + "-row-checkbox"}
                                 onChange={() => { this.onRowSelected(props.original) }} />
                             )
                         },
                         sortable: false,
-                        skip: true
+                        skip: true,
+                        background: this.props.theme.watchlist.evenCol,
                     }],
                     skip: true,
-                    show: true
+                    show: true,
+                    background: this.props.theme.watchlist.evenCol,
                 },
                 {
                     id: 'reference',
                     Header: this.props.language.watchlist.header.reference,
-                    columns: [{
-                        id: 'ce',
-                        Cell: row => {  
-                            return this.onRowStatusChange(row, "mvCeiling")    
+                    background: this.props.theme.watchlist.oddCol,
+                    columns: [
+                        {
+                            id: 'ref',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvReferences")
                             },
-                        width: 48,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'fl',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "mvFloor")
-                        },
-                        width: 48,
-                        skip: false,
-                        show: true,
-                    }, {
-                        id: 'ref',
-                        Cell: row => {
-                            return this.onRowStatusChange(row, "mvReferences")
-                        },
-                        width: 48,
-                        skip: false,
-                        show: true,
-                    }],
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: this.props.theme.watchlist.oddCol
+                        }, {
+                            id: 'ce',
+                            Cell: row => {  
+                                return this.onRowStatusChange(row, "mvCeiling")    
+                                },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: this.props.theme.watchlist.oddCol
+                        }, {
+                            id: 'fl',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvFloor")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: this.props.theme.watchlist.oddCol
+                        }
+                    ],
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'bid',
+                    background: this.props.theme.watchlist.evenCol,
                     columns: [{
                         id: 'pri3',
                         Cell: row => {
@@ -67,6 +76,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol3',
                         Cell: row => {
@@ -75,6 +85,7 @@ class WatchListTable extends React.Component {
                         width: 55,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     },
                     {
                         id: 'pri2',
@@ -84,6 +95,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol2',
                         Cell: row => {
@@ -92,6 +104,7 @@ class WatchListTable extends React.Component {
                         width: 55,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'pri1',
                         Cell: row => {
@@ -100,6 +113,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol1',
                         Cell: row => {
@@ -108,6 +122,7 @@ class WatchListTable extends React.Component {
                         width: 55,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol
                     }
                     ],
                     skip: false,
@@ -115,19 +130,22 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'matching',
+                    background: this.props.theme.watchlist.oddCol,
                     columns: [
                     {
                         id: 'stock',
                         accessor: 'mvStockCode',
                         width: 45,
                         show: true,
-                        skip: false
+                        skip: false,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'market',
                         accessor: 'mvMarket',
                         width: 45,
                         show: true,
-                        skip: false
+                        skip: false,
+                        background: this.props.theme.watchlist.oddCol,
                     },
                     {
                         id: 'price',
@@ -137,6 +155,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'volume',
                         Cell: row => {
@@ -145,6 +164,7 @@ class WatchListTable extends React.Component {
                         width: 55,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'totalvol',
                         Cell: row => {
@@ -153,6 +173,7 @@ class WatchListTable extends React.Component {
                         width: 55,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'percent',
                         Header: '%',
@@ -162,6 +183,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'change',
                         Cell: row => {
@@ -170,6 +192,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }],
                     skip: false,
                     show: true,
@@ -177,6 +200,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'offer',
                     Header: this.props.language.watchlist.header.bestask,
+                    background: this.props.theme.watchlist.evenCol,
                     columns: [
                         {
                             id: 'pri1',
@@ -186,6 +210,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol1',
                             Cell: row => {
@@ -194,6 +219,7 @@ class WatchListTable extends React.Component {
                             width: 55,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         },
                         {
                             id: 'pri2',
@@ -203,6 +229,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol2',
                             Cell: row => {
@@ -211,6 +238,7 @@ class WatchListTable extends React.Component {
                             width: 55,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'pri3',
                             Cell: row => {
@@ -219,6 +247,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol3',
                             Cell: row => {
@@ -227,6 +256,7 @@ class WatchListTable extends React.Component {
                             width: 55,
                             skip: false,
                             show: true,
+                            background: this.props.theme.watchlist.evenCol
                         }
                     ],
                     skip: false,
@@ -235,6 +265,7 @@ class WatchListTable extends React.Component {
                 {
                     id: 'pricehistory',
                     Header: this.props.language.watchlist.header.pricehistory,
+                    background: this.props.theme.watchlist.oddCol,
                     columns: [{
                         id: 'open',
                         Cell: row => {
@@ -243,6 +274,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'high',
                         Cell: row => {
@@ -251,6 +283,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'low',
                         Cell: row => {
@@ -259,6 +292,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'avg',
                         Cell: row => {
@@ -267,12 +301,14 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.oddCol,
                     }],
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'foreigninvestment',
+                    background: this.props.theme.watchlist.evenCol,
                     columns: [{
                         id: 'forbuy',
                         Cell: row => {
@@ -281,6 +317,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol,
                     }, {
                         id: 'forsell',
                         Cell: row => {
@@ -289,6 +326,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol,
                     }, {
                         id: 'forroom',
                         Cell: row => {
@@ -297,6 +335,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
+                        background: this.props.theme.watchlist.evenCol,
                     }],
                     skip: false,
                     show: true,
@@ -344,9 +383,350 @@ class WatchListTable extends React.Component {
             mvForeignForSell: 69.3,
             mvForeignForRoom: 11.6
         }
+
+        this.rowSelected = []
     }
 
+    reloadColumTable(props) {
+        this.setState({
+            columns: [
+                {
+                    columns: [{
+                        id: 'cb',
+                        // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
+                        //     onChange={() => this.onRowSelected('ALL')} />,
+                        width: 30,
+                        Cell: props => {
+                            return (<input type='checkbox' className={this.id + "-row-checkbox"}
+                                onChange={() => { this.onRowSelected(props.original) }} />
+                            )
+                        },
+                        sortable: false,
+                        skip: true,
+                        background: props.theme.watchlist.evenCol,
+                    }],
+                    skip: true,
+                    show: true,
+                    background: props.theme.watchlist.evenCol,
+                },
+                {
+                    id: 'reference',
+                    Header: props.language.watchlist.header.reference,
+                    background: props.theme.watchlist.oddCol,
+                    columns: [
+                        {
+                            id: 'ref',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvReferences")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.oddCol
+                        }, {
+                            id: 'ce',
+                            Cell: row => {  
+                                return this.onRowStatusChange(row, "mvCeiling")    
+                                },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.oddCol
+                        }, {
+                            id: 'fl',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvFloor")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.oddCol
+                        }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'bid',
+                    background: props.theme.watchlist.evenCol,
+                    columns: [{
+                        id: 'pri3',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice3")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    }, {
+                        id: 'vol3',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol3")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    },
+                    {
+                        id: 'pri2',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice2")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    }, {
+                        id: 'vol2',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol2")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    }, {
+                        id: 'pri1',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidPrice1")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    }, {
+                        id: 'vol1',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvBidVol1")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol
+                    }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'matching',
+                    background: props.theme.watchlist.oddCol,
+                    columns: [
+                    {
+                        id: 'stock',
+                        accessor: 'mvStockCode',
+                        width: 45,
+                        show: true,
+                        skip: false,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'market',
+                        accessor: 'mvMarket',
+                        width: 45,
+                        show: true,
+                        skip: false,
+                        background: props.theme.watchlist.oddCol,
+                    },
+                    {
+                        id: 'price',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchPrice")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'volume',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchVol")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'totalvol',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchVolTotal")
+                        },
+                        width: 55,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'percent',
+                        Header: '%',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                        },
+                        width: 45,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'change',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                        },
+                        width: 45,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'offer',
+                    Header: props.language.watchlist.header.bestask,
+                    background: props.theme.watchlist.evenCol,
+                    columns: [
+                        {
+                            id: 'pri1',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice1")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        }, {
+                            id: 'vol1',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol1")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        },
+                        {
+                            id: 'pri2',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice2")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        }, {
+                            id: 'vol2',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol2")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        }, {
+                            id: 'pri3',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferPrice3")
+                            },
+                            width: 48,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        }, {
+                            id: 'vol3',
+                            Cell: row => {
+                                return this.onRowStatusChange(row, "mvOfferVol3")
+                            },
+                            width: 55,
+                            skip: false,
+                            show: true,
+                            background: props.theme.watchlist.evenCol
+                        }
+                    ],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'pricehistory',
+                    Header: props.language.watchlist.header.pricehistory,
+                    background: props.theme.watchlist.oddCol,
+                    columns: [{
+                        id: 'open',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvOpen")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'high',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvHigh")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'low',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvLow")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }, {
+                        id: 'avg',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvNomial")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.oddCol,
+                    }],
+                    skip: false,
+                    show: true,
+                },
+                {
+                    id: 'foreigninvestment',
+                    background: props.theme.watchlist.evenCol,
+                    columns: [{
+                        id: 'forbuy',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForBuy")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol,
+                    }, {
+                        id: 'forsell',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForSell")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol,
+                    }, {
+                        id: 'forroom',
+                        Cell: row => {
+                            return this.onRowStatusChange(row, "mvForeignForRoom")
+                        },
+                        width: 48,
+                        skip: false,
+                        show: true,
+                        background: props.theme.watchlist.evenCol,
+                    }],
+                    skip: false,
+                    show: true,
+                }
+            ],
+        })
+    }
+    
     onRowSelected(param) {
+        // console.log(param)
         if (param === 'ALL') {
             var current = document.getElementById('watchlist-cb-all').checked
             var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
@@ -354,8 +734,7 @@ class WatchListTable extends React.Component {
                 checkboxes[i].checked = current;
             }
             if (current)
-                this.rowSelected = this.props.watchListData !== undefined ?
-                    this.props.watchListData : []
+                this.rowSelected = this.props.listInstrumentData
             else
                 this.rowSelected = []
         }
@@ -373,12 +752,24 @@ class WatchListTable extends React.Component {
             else
                 document.getElementById("watchlist-cb-all").checked = false
         }
-        this.setState({
-            disableRemove: this.rowSelected.length == 0 ? true : false
-        })
+
+        if(this.props.onRowSelected != undefined) {
+            this.props.onRowSelected(this.rowSelected)
+        }
     }
 
     componentWillReceiveProps(nextProps) {
+        if(nextProps.theme.title != this.props.theme.title) {
+            this.reloadColumTable(nextProps)
+        }
+
+        if(nextProps.listInstrumentInWatchList.length != this.props.listInstrumentInWatchList.length) {
+            document.getElementById('watchlist-cb-all').checked = false
+            var checkboxes = document.getElementsByClassName('watchlist-row-checkbox')
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+            }
+        }
     }
 
     componentDidMount() {
@@ -406,6 +797,18 @@ class WatchListTable extends React.Component {
         
     }
 
+    onCellClick(state, rowInfo, cell, instance) {
+        if(rowInfo == undefined) return
+        let data = rowInfo.original
+        let cellID = cell.id
+
+        let stockCode = data.mvStockCode
+        let market = data.mvMarket
+
+        this.props.changeInstrument(stockCode)
+
+    }
+
     render() {
 
         let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
@@ -423,6 +826,7 @@ class WatchListTable extends React.Component {
                 tableData={data}
                 onRowSelected={(param) => this.onRowSelected(param)}
                 language={this.props.language}
+                onCellClick={this.onCellClick.bind(this)}
 
                 pageIndex={this.state.pageIndex}
                 totalPage={Math.ceil(data.length/15)}
@@ -441,26 +845,32 @@ class WatchListTable extends React.Component {
     onRowStatusChange(row, accessor) {
         // console.log(row, accessor)
         let data = row.original
-
+        let color = this.props.theme.watchlist
+        
         if (accessor == "mvCeiling") {
-            return <div className="value-ceil">{data[accessor]}</div>
+            return <div className="value-ceil" style={color.ceil}>{data[accessor]}</div>
         }
         else if (accessor == "mvFloor") {
-            return <div className="value-floor">{data[accessor]}</div>
+            return <div className="value-floor" style={color.floor}>{data[accessor]}</div>
         }
         else if (accessor == "mvReferences") {
-            return <div className="value-ref">{data[accessor]}</div>            
+            return <div className="value-ref" style={color.ref}>{data[accessor]}</div>            
         }
 
         if(data[accessor] == null) {
-            return <div className="value unchange">-</div>
+            return <div className="value unchange" style={color.nochange}>-</div>
         } else {
-            if(data["mvMatchPrice"] > data["mvReferences"])
-                return <div className="value value-change up">{data[accessor]}</div>
-            else if(data["mvMatchPrice"] < data["mvReferences"])
-                return <div className="value value-change down">{data[accessor]}</div>
-            else
-                return <div className="value unchange">{data[accessor]}</div>
+            let state = data["mvMatchPrice"] > data["mvReferences"] ? "up" : 
+                data["mvMatchPrice"] < data["mvReferences"] ? "down" : "nochange"
+            let content = data[accessor]
+
+            if(accessor == "mvMatchUpDown" || accessor == "mvMatchUpDown") {
+                let className = ("glyphicon glyphicon-triangle-") + (state == "up" ? "top" : "bottom")
+                content = <span><span className={className}></span>{data[accessor]}</span>
+            }
+
+            return <div className="value value-change" style={color[state]}>{content}</div>
+                
         }
 
     }
@@ -479,7 +889,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    
+    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchListTable)

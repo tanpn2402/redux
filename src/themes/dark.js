@@ -197,5 +197,35 @@ export default {
       backgroundColor: "rgb(97, 97, 97)",
       color: "#FFF"
     }
+  },
+  watchlist: {
+      up: {
+          color: "#00E339",
+      },
+      down: {
+          color: "#ff0000",
+      },
+      floor: {
+          color: "#fff",
+      },
+      ceil: {
+          color: "#fff",
+      },
+      ref: {
+          color: "#fff",
+      },
+      nochange: {
+          color: "#fff",
+      },
+      oddCol: {
+          backgroundColor: "rgb(22, 22, 22)",
+          borderRight: "1px solid #424040",
+          borderBottom: "1px solid #424040",
+      },
+      evenCol: {
+          backgroundColor: "#000000",
+          borderRight: "1px solid #424040",
+          borderBottom: "1px solid #424040",
+      }
   }
 }

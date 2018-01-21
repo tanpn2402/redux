@@ -1469,7 +1469,8 @@ export default
                     "lakeStock": "Insufficient stock.",
                     "multiUsers": "There are 2 or more users logging in. Logging you out...",
                     "sessionExpired": "Session expired. Logging you out...",
-                    "willTimeOut": "Session will expired in 50 seconds"
+                    "willTimeOut": "Session will expired in 50 seconds",
+                    "stockExistInWatch": "Stock already exist in your Watchlist"
                 }
             },
             "button": {
@@ -1512,6 +1513,7 @@ export default
                 "subaccount": "Sub Account ID",
                 "password": "Password",
                 "securityCode": "Security Code",
+                "waiting": "Waiting...",
                 "message": {
                     "wrongAccountNo": "Wrong Account Number or Password. Please try again.",
                     "changePasswordRequest": "Please, change your password for the first login",

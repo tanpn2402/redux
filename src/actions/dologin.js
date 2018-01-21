@@ -58,6 +58,12 @@ export function checkAuth() {
         mvTimelyUpdate: "N",
         key: (new Date()).getTime()
     }
+
+    return {
+        type: ActionTypes.CHECKAUTH,
+        status: "SUCCESS",
+    }
+
     return (dispatch) => {
         api.login(ACTION.CHECKSESSION, params, dispatch,
             function (response) {

@@ -222,5 +222,37 @@ export default {
         backgroundColor: "#FFF",
         color: "#000"
       }
+    },
+    watchlist: {
+        up: {
+            color: "rgb(112, 168, 0)",
+        },
+        down: {
+            color: "#ff0000",
+        },
+        floor: {
+            color: "#000",
+        },
+        ceil: {
+            color: "#000",
+        },
+        ref: {
+            color: "#000",
+        },
+        nochange: {
+            color: "#000",
+        },
+        oddCol: {
+            backgroundColor: "rgba(226, 226, 226, 0.4)",
+            borderRight: "1px solid rgba(0, 0, 0, 0.1)",
+            borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+            // textAlign: "left"
+        },
+        evenCol: {
+            backgroundColor: "#FFF",
+            borderRight: "1px solid rgba(0, 0, 0, 0.1)",
+            borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+            // textAlign: "left"
+        }
     }
 }

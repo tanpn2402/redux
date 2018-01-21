@@ -69,7 +69,7 @@ import PlaceOrder from './PlaceOrder'
 import PortfolioSmall from './PortfolioSmall'
 
 export default function (menuid, props){
-	console.log(menuid)
+	// console.log(menuid)
 	switch(menuid){
 		// case 'management':
 		// 	return(

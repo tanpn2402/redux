@@ -875,7 +875,7 @@ export default
                     "matching": "Khớp lệnh",
                     "bestask": "Dư bán",
                     "pricehistory": "Lịch sử giá",
-                    "foreigninvestment": "Giao dịch NN",
+                    "foreigninvestment": "NĐTNN",
                     "stock": "Mã CK",
                     "market": "Sàn",
                     "ce": "Trần",
@@ -896,9 +896,11 @@ export default
                     "avg": "TB",
                     "forbuy": "NN Mua",
                     "forsell": "NN Bán",
-                    "room": "Room",
+                    "forroom": "Room",
                     "change": "+/-",
-                    "percent": "%"
+                    "percent": "%",
+                    "offer": "Dư bán",
+                    "bid": "Dư mua"
                 }
             },
             "personalprofile": {
@@ -1437,7 +1439,8 @@ export default
                     "lakeStock": "Tài khoản của quí khách không đủ chứng khoán để thực hiện giao dịch này.",
                     "multiUsers": "Hiện đang có 2 hoặc nhiều người đang đăng nhập tài khoản này. Bạn đang được chuyển về trang login...",
                     "sessionExpired": "Phiên làm việc của bạn đã hết hạn. Bạn đang được chuyển về trang login...",
-                    "willTimeOut": "Phiên làm việc sẽ hết hạn trong vòng 50 giây nữa"
+                    "willTimeOut": "Phiên làm việc sẽ hết hạn trong vòng 50 giây nữa",
+                    "stockExistInWatch": "Mã này đã có trong danh sách quan tâm của bạn"
                 }
             },
             "button": {
@@ -1479,6 +1482,7 @@ export default
                 "subaccount": "Sub Account ID",
                 "password": "Mật khẩu",
                 "securityCode": "Mã an toàn",
+                "waiting": "Đang đang nhập...",
                 "message": {
                     "wrongAccountNo": "Số tài khoản hoặc mật khẩu của Quý khách không hợp lệ. Xin Quý khách vui lòng thử lại.",
                     "changePasswordRequest": "Để bảo mật, quý khách vui lòng thay đổi mật khẩu cho lần đăng nhập đầu tiên",

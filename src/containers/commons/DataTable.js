@@ -299,22 +299,56 @@ class DataTable extends React.Component {
 						}
 					}}
 					getTheadProps={(state, rowInfo, column, instance) => {
+						let style = {...font3, ...tableHeader}
+						// if(column.background != undefined) {
+						// 	style = Object.assign(style, column.background)
+						// }
 						return {
-							style: {...font3, ...tableHeader}
+							style: style
 						}
 					}}
 					getTheadGroupProps={(state, rowInfo, column, instance) => {
+						let style = {...font3, ...tableHeader}
+						// if(column.background != undefined) {
+						// 	style = Object.assign(style, column.background)
+						// }
+						// console.log(state, rowInfo, column, instance)
 						return {
-							style: {...font3, ...tableHeader}
+							style: style
+						}
+					}}
+					getTheadThProps={(state, rowInfo, column, instance) => {
+						let style = {}
+						if(column.background != undefined) {
+							style = Object.assign(style, column.background)
+						}
+						// console.log(state, rowInfo, column, instance)
+						return {
+							style: style
+						}
+					}}
+					getTheadGroupThProps={(state, rowInfo, column, instance) => {
+						let style = {}
+						if(column.background != undefined) {
+							style = Object.assign(style, column.background)
+						}
+						// console.log(state, rowInfo, column, instance)
+						return {
+							style: style
 						}
 					}}
 					getTdProps={(state, rowInfo, column, instance) => {
+						let style = {
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center'
+						}
+
+						if(column.background != undefined) {
+							style = Object.assign(style, column.background)
+						}
 						return {
-							style: {
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center'
-							},
+							style: style,
 							onClick: e => {
 								
 									return this.onCellClick(state, rowInfo, column, instance)

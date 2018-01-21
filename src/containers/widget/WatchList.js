@@ -15,8 +15,9 @@ class WatchList extends Component {
         super(props)
         this.id = "watchlist"
         this.state = {
-            mvInstrument: null
+            mvInstrument: {stockCode: ""}
         }
+        this.rowSelected = []
        
     }
 
@@ -24,21 +25,40 @@ class WatchList extends Component {
         
     }
     onAddStock() {
+        console.log(this.state.mvInstrument)
         let instrument = this.state.mvInstrument
         let stockCode = instrument.stockCode
-        let tmp = this.props.listInstrumentInWatchList.filter(e => e == stockCode)
-        if(tmp.length > 0) {
-            // already in list
-            // message box here
+        let language = this.props.language
+
+        if(stockCode == null || stockCode == "") {
+            this.props.onShowMessageBox(language.messagebox.title.info, 
+                language.messagebox.message.invalidStockCode)
         } else {
-            this.props.addInstrumentToWatchList(stockCode, tmp.mvMarketID)
-            this.props.changeInstrument(stockCode)
+            let tmp = this.props.listInstrumentInWatchList.filter(e => e == stockCode)
+            if(tmp.length > 0) {
+                // already in list
+                // message box here
+                
+                this.props.onShowMessageBox(language.messagebox.title.info, 
+                    language.messagebox.message.stockExistInWatch)
+            } else {
+                this.props.addInstrumentToWatchList(stockCode, tmp.mvMarketID)
+                this.props.changeInstrument(stockCode)
+            }
         }
+        
     }
     onRemoveStock() {
-        // this.rowSelected.map(stock => {
-        //     this.props.removeInstrumentFromWatchList(stock.stockCode)
-        // })
+        // let rowSelected = this.watchListTable.rowSelected
+        // console.log(this.rowSelected)
+        this.rowSelected.map(stock => {
+            this.props.removeInstrumentFromWatchList(stock.mvStockCode, stock.mvMarket)
+        })
+    }
+
+    onRowSelected(row) {
+        // console.log(row)
+        this.rowSelected = row
     }
 
     handleStockChange(options) {
@@ -74,13 +94,16 @@ class WatchList extends Component {
                             {this.props.language.watchlist.toolbar.addstock}
                         </button>
                         <button type="button" className="hks-btn btn-remove-stock"
-                            onClick={e => this.onRemoveStock()} disabled={this.state.disableRemove}>
+                            onClick={this.onRemoveStock.bind(this)} disabled={this.state.disableRemove}>
                             <span className="glyphicon glyphicon-remove"></span>
                             {this.props.language.watchlist.toolbar.removestock}
                         </button>
                     </div>
                     <div className="wl-table">
-                        <WatchListTable theme={this.props.theme} language={this.props.language} />
+                        <WatchListTable
+                            onRowSelected={this.onRowSelected.bind(this)}
+                            theme={this.props.theme} 
+                            language={this.props.language} />
                     </div>
                 </Body>
             </div>
@@ -102,6 +125,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     addInstrumentToWatchList: (ins, market) => { dispatch(actions.addInstrumentToWatchList(ins, market)) },
     removeInstrumentFromWatchList: (ins, market) => { dispatch(actions.removeInstrumentFromWatchList(ins, market)) },
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
+    
+    onShowMessageBox: (type, message) => {
+        dispatch(actions.showMessageBox(type, message))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)

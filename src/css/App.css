@@ -615,6 +615,11 @@ label {
 .hks-btn.btn-login.disabled:hover {
     opacity: 1;
 }
+.hks-btn.btn-login.waiting,
+.hks-btn.btn-login.waiting:hover {
+    cursor: default !important;
+    opacity: 1 !important;
+}
 .login-button-group {
     text-align: center;
     padding: 10px 0;
@@ -3302,49 +3307,49 @@ label {
     /*watchlsit cell format*/
     .value{
         width: 100%;
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     .value-ceil{
-        color: #DE00DE;
+        /* color: #DE00DE; */
         width: 100%;
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     .value-floor{
-        color: #63CFFF;
+        /* color: #63CFFF; */
         width: 100%;
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     .value-ref{
-        color: #EFFB00;
+        /* color: #EFFB00; */
         width: 100%;
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     /* Cell status change */
     .value-change {
-        background: #c6c6c6;
+        background-color: #cccccc4d;
         animation: status-changed ease-out 0.75s;
         animation-fill-mode: forwards;
     }
     .unchange {
-        color: white;
+        /* color: white; */
         width: 100%;
     }
     .up {
-        color: rgb(112, 168, 0);
+        /* color: rgb(112, 168, 0); */
         width: 100%;
     }
     .down {
-        color: #ff0000;
+        /* color: #ff0000; */
         width: 100%;
     }
 
     @keyframes status-changed {
         to {
-            background: transparent;
+            background-color: transparent;
         }
     }
     
@@ -3742,16 +3747,10 @@ label {
     display: inline-block;
 }
 .headSlider{
-    width: calc(100% - 360px);
-    float: right;
-    margin-right: 2px;
+    width: calc(100% - 360px - 160px);
+    position: absolute;
+    right: 160px;
     height: 60px;
-    /* border: 1px solid; */
-    /* margin-left: 13%; */
-    /* transform: translateX();
-    transition-property: transform;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out; */
 }   
 .headSlider img{
     height: 60px;

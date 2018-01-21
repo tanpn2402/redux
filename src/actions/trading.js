@@ -91,7 +91,7 @@ export function addInstrumentToWatchList(ins, market) {
     // }
 }
 
-export function removeInstrumentFromWatchList(ins) {
+export function removeInstrumentFromWatchList(ins, market) {
     return {
         type: ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST,
         instrument: ins, // ex: AVC, VNM
@@ -103,17 +103,17 @@ export function removeInstrumentFromWatchList(ins) {
 // UPDATE WATLIST DATA
 export function updateWatchlistData(listStock) {
     let data = []
-    
+    console.log("AAAA")
     config.cache.listInstrumentToWatch.map(e => {
-        let tmp = config.cache.stockList.filter(el => el.stockCode == e)
-        let market = ""
-        if(tmp.length > 0) {
-            market = tmp[0].mvMarketID
-        }
+        // let tmp = config.cache.stockList.filter(el => el.stockCode == e)
+        // let market = ""
+        // if(tmp.length > 0) {
+        //     market = tmp[0].mvMarketID
+        // }
 
         data.push({
             mvStockCode: e,
-            mvMarket: market,
+            mvMarket: "AC",
 
             mvCeiling: 80.2,
             mvFloor: 70.3,

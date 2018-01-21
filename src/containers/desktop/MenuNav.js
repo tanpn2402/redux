@@ -27,7 +27,7 @@ class MenuNav extends Component {
                         <nav className='vertical-align-middle'>
                             {
                                 this.tabbar.map(tab => {
-                                    console.log(tab)
+                                    // console.log(tab)
                                     if(tab.enabled) {
                                         return (
                                             <span key={tab.id} className={'tabs-item ' + (tab.id === activeTab ? 'actived' : 'normal')}

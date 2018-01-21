@@ -18,9 +18,9 @@ class HeadSlider extends Component {
      };
     return (
         <Slider {...settings}>
-          <div><img src={require('../../assets/images/slider/pic1.jpg')} /></div>
-          <div><img src={require('../../assets/images/slider/007.jpg')} /></div>
-          <div><img src={require('../../assets/images/slider/006.jpg')} /></div>
+          <div><img src={require('../../assets/images/slider/banner1.jpg')} /></div>
+          <div><img src={require('../../assets/images/slider/banner2.jpg')} /></div>
+          <div><img src={require('../../assets/images/slider/banner3.jpg')} /></div>
         </Slider>
     );
   }

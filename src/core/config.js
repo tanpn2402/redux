@@ -665,7 +665,7 @@ const config = {
 		lang: 'vi_VN',
 		theme: 'light',
 		favourite: [],
-		listInstrumentToWatch: []
+		listInstrumentToWatch: ["ACB", "VNM", "HGA", "SGA", "TTL", "SDS"]
 	},
 	maxFav: 1000,
 	tableColReorder: [],

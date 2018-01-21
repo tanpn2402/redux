@@ -52,7 +52,8 @@ class LoginForm extends Component {
 
         this.state = {
             language: "",
-            mvLanguage: config.language[0]
+            mvLanguage: config.language[0],
+            watingLogin: false
         }
         this.params = {
             mvClientID: '',
@@ -72,7 +73,7 @@ class LoginForm extends Component {
             // go to home
             window.location.assign('/')
         }
-        this.setState({language: nextProps.language})
+        this.setState({language: nextProps.language, watingLogin: false})
     }
 
     handleLangChange(option) {
@@ -192,9 +193,17 @@ class LoginForm extends Component {
                             </div>
                             
                             <div className="login-button-group">
-                                <button className={"hks-btn btn-login" + (this.props.loginStatus === "ERROR" ? " disabled" : "")} 
+                                <button className={"hks-btn btn-login" + (this.props.loginStatus === "ERROR" ? " disabled" : this.state.watingLogin ? " waiting" : "")} 
                                     type="submit" disabled={this.props.loginStatus === "ERROR" ? true : false}>
-                                    {language.button.login}
+                                    {
+                                        this.state.watingLogin ? 
+                                        <span>
+                                            <img src={require('../assets/images/loading.gif')} style={{width: "16px", height: "16px", marginRight: "4px"}} />
+                                            {language.login.waiting}
+                                        </span>
+                                        :
+                                        language.button.login
+                                    }
                                 </button>
                             </div>
                         </Form>
@@ -227,6 +236,9 @@ class LoginForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        if(this.state.watingLogin)
+            return;
+
         if(this.loginMethod == "subAccount") {
             this.params1["subAccountID"] = this.subAccount.value
         }
@@ -238,7 +250,7 @@ class LoginForm extends Component {
 
             this.params['mvClientID'] = this.clientID.value
         }
-
+        this.setState({watingLogin: true})
         
         this.params['mvPassword'] = this.password.value
         this.params['securitycode'] = this.securitycode.value
