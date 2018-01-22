@@ -61,7 +61,7 @@ class LoginForm extends Component {
             securitycode: '12345'
         }
 
-        this.captchaURL = FetchAPI.getServerUrl() + "randomImage.jpg"
+        this.captchaURL = FetchAPI.getServerUrl() + "Security"
         this.onSubmit = this.onSubmit.bind(this);
 
         this.loginMethod = config.loginBy;
@@ -251,7 +251,7 @@ class LoginForm extends Component {
             this.params['mvClientID'] = this.clientID.value
         }
         this.setState({watingLogin: true})
-        
+
         this.params['mvPassword'] = this.password.value
         this.params['securitycode'] = this.securitycode.value
         this.props.login(this.params)

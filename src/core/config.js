@@ -428,8 +428,9 @@ const config = {
 				// { i: 'assetallocation', x: 0, y: 0, w: 2, h: 4, isDraggable: false, isResizable: false },
 				// { i: 'assetallocationchart', x: 2, y:0, w: 2, h: 4, isDraggable: false, isResizable: false}
 				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-				{ i: 'portfolio', x: 0, y: 5, w: 8, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
-				{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'portfolio', x: 0, y: 6, w: 8, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
+				{ i: 'sumary', x: 0, y: 1, w: 8, h: 5, isDraggable: false, isResizable: false },
+				{ i: 'clientsumary', x: 0, y: 0, w: 8, h: 1, isDraggable: false, isResizable: false },
 			]
 		},
 		{
@@ -469,7 +470,7 @@ const config = {
 			title: "customization",
 			enabled: true,
 			widget: [
-				// { i: 'orderconfirmation', smW: 8, smH: 8, lgW: 8, lgH: 8, minW: 4, minH: 6, maxW: 8, maxH: 11, isDraggable: true, isResizable: true }
+				{ i: 'watchlist', x: 0, y: 0, w: 8, h: 8, minH: 5, maxh: 12, minW: 4, isDraggable: true, isResizable: true }
 			]
 		}
 	],
@@ -665,7 +666,7 @@ const config = {
 		lang: 'vi_VN',
 		theme: 'light',
 		favourite: [],
-		listInstrumentToWatch: ["ACB", "VNM", "HGA", "SGA", "TTL", "SDS"]
+		listInstrumentToWatch: ["ACB", "VNM"]
 	},
 	maxFav: 1000,
 	tableColReorder: [],

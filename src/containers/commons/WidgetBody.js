@@ -34,7 +34,7 @@ export default class WidgetBody extends Component {
             return (
                 <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{background: widgetBackground}} 
                     ref={ref => this.Body = ref}>
-                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref} style={{backgroundColor: bg}}>
+                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref} style={{backgroundColor: widgetBackground}}>
                         {this.props.children}
                     </div>
                 </div>

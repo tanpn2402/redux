@@ -11,7 +11,7 @@ export default
                 "orderjournal": "Order Journal",
                 "transhistory": "Transaction History",
                 "management": "Management",
-                "customization": "Customization",
+                "customization": "My Page",
                 "mobile": "mobile",
                 "orderhistory": "Order History"
             },
@@ -129,7 +129,7 @@ export default
                 "advancePanel": "Cash Advance Place",
                 "fundTransPanel": "Cash Transfer Place",
                 "fundTransHistory": "Cash Transfer Transaction",
-                "stockmarketinfo": "Stock Market Info",
+                "stockmarketinfo": "Stock Info",
                 "loanRefundPanel": "Loan Refund Panel",
                 "loanRefundHistory": "Loan Refund Transaction History",
                 "loanRefundStatus": "Loan Refund Transaction Status",
@@ -576,7 +576,7 @@ export default
                     "maintenanceValue": "Maintenance value",
                     "totalAsset": "Total asset",
                     "equity": "Equity",
-                    "stockValue": "Total stock market value",
+                    "stockValue": "Market value",
                     "profitLoss": "Profit/Loss",
                     "PLPercent": "% Profit/Loss (per equity)",
                     "cashBalance": "Cash balance(withdrawable)",
@@ -601,7 +601,11 @@ export default
                     "marginableBalf": "Margin call (by options)",
                     "cashDeposit": "Cash deposit",
                     "sellStkInMarPort": "Selling stock in margin portfolio",
-                    "sellStkNotInMarPort": "Selling stock not in margin portfolio"
+                    "sellStkNotInMarPort": "Selling stock not in margin portfolio",
+                    "mvVolume": "Volume",
+                    "mvPrice": "Price",
+                    "PortfolioAssessment": "Portfolio Assessment",
+                    "mvMargin": "Margin"
                 }
                 // "header": {
                 //     "InstrumentID": "Stock Code",
@@ -664,7 +668,7 @@ export default
                     "buysell": "Buy/Sell",
                     "buysellall": "Buy all/Sell all",
                     "stock": "Stock",
-                    "stockCode": "Stock Code",
+                    "stockCode": "Stock",
                     "stockName": "Stock Name",
                     "quantity": "Quantity",
                     "type": "Type",

@@ -11,7 +11,7 @@ export default
                 "orderjournal": "Sổ lệnh",
                 "transhistory": "Lịch sử giao dịch",
                 "management": "Dịch vụ khác",
-                "customization": "Tùy chỉnh",
+                "customization": "Trang của tôi",
                 "mobile": "mobile",
                 "orderhistory": "Lịch sử lệnh"
             },

@@ -52,7 +52,8 @@ export default {
             backgroundColor: 'rgb(71, 71, 71)'
         },
         widgetHeader: {
-            backgroundColor: '#FF8000'
+            backgroundColor: '#FF8000',
+            color: "#000"
         },
         widgetBody: {
 

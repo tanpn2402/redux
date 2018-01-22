@@ -450,7 +450,7 @@ class Portfolio extends Component {
                     mvStockName: rowInfo.original.mvStockName,
                     mvStockCode: rowInfo.original.mvStockID
                 })
-                this.props.onDesktopTabClick("trading", "enterorder")
+                // this.props.onDesktopTabClick("trading", "placeorder")
                 break;
             case "mvTradableQty":
                 this.props.setDefaultOrderParams({
@@ -459,7 +459,7 @@ class Portfolio extends Component {
                     mvStockName: rowInfo.original.mvStockName,
                     mvStockCode: rowInfo.original.mvStockID
                 })
-                this.props.onDesktopTabClick("trading", "enterorder")
+                // this.props.onDesktopTabClick("trading", "placeorder")
                 break;
         }
     }

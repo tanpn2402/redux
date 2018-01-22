@@ -67,7 +67,7 @@ export default class TTLTable extends Component {
                             }
                             
 
-                            console.log(style)
+                            // console.log(style)
 
                             return (
                                 <div className="ttl-tr" style={style} onClick={e => this.tRowClick(e, data)}>

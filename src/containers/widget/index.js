@@ -49,7 +49,7 @@ import Sumary from './Sumary'
 import AccountBalance from './AccountBalance'
 import AssetAllocation from './AssetAllocation'
 import AssetAllocationChart from './AssetAllocationChart'
-// import ClientSumary from './ClientSumary'
+import ClientSumary from './ClientSumary'
 
 import TechAnalysis from './TechAnalysis'
 import OrderConfirmation from './OrderConfirmation'
@@ -238,10 +238,10 @@ export default function (menuid, props){
 			return (
 				<AssetAllocation stockList={props.stockList} language={props.language} theme={props.theme} lite={true}/>
 			)
-		// case 'clientsumary':
-		// 	return (
-		// 		<ClientSumary stockList={props.stockList} language={props.language} theme={props.theme}/>
-		// 	)
+		case 'clientsumary':
+			return (
+				<ClientSumary stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
 			
 		case 'loanrefund':
 			return (

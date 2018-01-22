@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
 import SearchBar from '../commons/SearchBar'
 import { connect } from 'react-redux'
@@ -7,18 +7,31 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import PieChart from '../commons/PieChart'
 import AssetAllocationChart from './AssetAllocationChart'
+import Component from "../commons/Component"
+import Select from "../commons/Select"
 
-class Sumary extends Component {
+class Sumary extends React.Component {
     constructor(props) {
         super(props)
         this.id = "accountsumary"
+        
+        this.state = {
+            //sub account
+            mvListSubAcc: ["C08000011", "C08000012"],
+            mvSubAccSelected: "C08000011",
+        }
 
+    }
 
+    handleSubAccChange(option) {
+        this.setState({
+            mvSubAccSelected: option
+        })
     }
 
 
     render() {
-        console.log('SUMARY . . . .. . . .')
+        // console.log('SUMARY . . . .. . . .')
         var d = this.props.data.mvPortfolioAccSummaryBean
         this.data = [
             {
@@ -116,10 +129,12 @@ class Sumary extends Component {
                 value: d.sellStkNotInMarPort
             }
         ]
-        let rowOdd = this.props.theme.table.rowOdd.backgroundColor
-        let rowEven = this.props.theme.table.rowEven.backgroundColor
-        let font2 = this.props.theme.font.sub1.color
-        let tableHeader = this.props.theme.table.tableHeader
+        let theme = this.props.theme
+        let rowOdd = theme.table.rowOdd.backgroundColor
+        let rowEven = theme.table.rowEven.backgroundColor
+        let font2 = theme.font.sub1.color
+        let tableHeader = theme.table.tableHeader
+        let widgetHeader = theme.widget.widgetHeader
 
         let language = this.props.language.assetallocation.header
         let data = [
@@ -149,10 +164,23 @@ class Sumary extends Component {
             }
         ]
         return (
-            <div style={{ height: "100%", position: "relative" }}>
-                <Title language={this.props.language} theme={this.props.theme}>
-                    {this.props.language.menu[this.id]}
-                </Title>
+            <Component style={{ height: "100%", position: "relative" }}>
+                <div className="sum-control" style={widgetHeader} >
+                    <div className="col-xs-2 com-title">
+                        {this.props.language.menu[this.id]}
+                    </div>
+                    <div className="col-xs-10 sum-subaccount">
+                        <div className="account-name"><span>Trading Account</span></div>
+                        <Select
+                            key="rSubAccSelector"
+                            ref={r => this.rSubAccSelector = r}
+                            options={this.state.mvListSubAcc}
+                            selected={this.state.mvSubAccSelected}
+                            handleChange={this.handleSubAccChange.bind(this)}
+                        />
+                    </div>
+                    
+                </div>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
                         <div className="col-xs-2" style={{height: '100%',
@@ -315,7 +343,7 @@ class Sumary extends Component {
                        
                     </div>
                 </Body>
-            </div>
+            </Component>
         )
     }
 }

@@ -79,7 +79,8 @@ export default {
             backgroundColor: '#FFFFFF'
         },
         widgetHeader: {
-            backgroundColor: '#FFFFFF'
+            backgroundColor: '#FFFFFF',
+            color: "#000"
         },
         widgetBody: {
             // border: '1.75px solid #FFFFFF'

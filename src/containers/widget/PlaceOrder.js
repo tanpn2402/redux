@@ -255,13 +255,9 @@ class PlaceOrder extends React.Component {
                         {/* MARKET */}
                         <div style={{display: "table", width: "100%"}}>
                             <Col xs={5} style={{color: tColor}}>
-                                {}
+                                {header.stockCode}
                             </Col>
                             <Col xs={7}>
-                                <Col xs={6}>
-                                    <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
-                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
-                                </Col>
                                 <Col xs={6}>
                                     <Select
                                         ket="rStockSelector"
@@ -272,6 +268,10 @@ class PlaceOrder extends React.Component {
                                         handleChange={this.handleStockChange.bind(this)}
                                         searchEnabled={true}
                                     />
+                                </Col>
+                                <Col xs={6}>
+                                    <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
+                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
                                 </Col>
                             
                             </Col>
@@ -299,7 +299,7 @@ class PlaceOrder extends React.Component {
                         {/* STOCK NAME */}
                         <div style={{display: "table", width: "100%"}}>
                             <Col xs={5} style={{color: tColor}}>
-                                {header.stockName}
+                                {}
                             </Col>
                             <Col xs={7}>
                                 <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
@@ -713,13 +713,13 @@ class PlaceOrder extends React.Component {
                             mvPrice: value.mvPrice,
                             mvQuantity: value.mvVol,
                             mvOrderTypeValue: value.mvOrderType,
-                            mvGoodTillDate: value.mvExpireDate,
+                            mvGoodTillDate: value.mvExpireDate.format("ddd MMM DD YYYY HH:mm:ss ZZ"),
                             mvGrossAmt: value.mvGrossAmt,
                             mvBankID: value.mvBankID,
                             mvBankACID: value.mvBankACID,
                         }
 
-                        // console.log('SUCCESS SECOND', param)
+                        console.log('SUCCESS SECOND -> VERIFY ORDER', param)
                         api.fetch(ACTION.VERIFYORDER, param, 'POST',
                             function (result) {//success
 

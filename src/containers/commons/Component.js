@@ -9,7 +9,7 @@ export default class Component extends React.Component {
             theme = getTheme("light")
         }
         let widgetStyle = theme.widget
-        console.log(Object.assign({}, style, widgetStyle))
+        // console.log(Object.assign({}, style, widgetStyle))
         return (
             <div className={className} id={id} style={Object.assign({}, style, widgetStyle.widgetBackground)}>
                 {this.props.children}

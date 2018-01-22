@@ -1955,12 +1955,12 @@ label {
 .widget-header {
     width: 100%;
     position: absolute;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(138, 48, 48);
     z-index: 1;
 }
 .widget-header > .widget-title {
     float: left;
-    color: #000;
+    color: inherit;
     line-height: 1.8;
     font-size: 14px;
     padding-right: 10px;
@@ -2092,11 +2092,72 @@ label {
 
 /* END TRANS HISTORY WIDGET */
 
+/* CLIENT SUMARY */
+.client-sum {
+    padding-top: 15px;
+}
+.client-sum-control {
+    padding-left: 12px;
+}
+.client-sum-control li {
+    min-width: 100px;
+    /* max-width: 150px; */
+    float: left;
+    margin-right: 58px;
+    line-height: 1.4;
+    list-style: none;
+}
+.client-sum-control .cl-info {
+    font-size: 18px;
+    color: #333;
+    position: relative;
+    top: -10px;
+}
+.client-sum-control .cl-info span {
+    display: block;
+}
+.client-sum-control .cl-name {
+    /* margin-left: 10px; */
+    font-size: 14px;
+}
+.client-sum-control li h4 {
+    font-size: 12px;
+    color: #999;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    padding: 0;
+}
+/* END CLIENT SUMARY */
 
 /* SUMARY COMPONENT */
 #sumary-piechart {
     width: 100%;
     height: 100%;
+}
+.sum-subaccount > .account-name {
+    position: absolute;
+    left: 105px;
+    top: 2px;
+    font-size: 14px;
+}
+.sum-subaccount > .select-control {
+    border-radius: 0 !important;
+    width: 100px;
+    font-size: 12px;
+}
+.sum-control {
+    display: table;
+    width: 100%;
+    position: absolute;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    z-index: 1;
+}
+.sum-control > .com-title {
+    font-size: 16px;
+    color: inherit;
+    padding-left: 8px;
+    padding-top: 2px;
 }
 /* END SUMARY COMPONENT */
 
@@ -3743,7 +3804,7 @@ label {
 .pl-sub-account > .account-name {
     position: absolute;
     left: 105px;
-    top: 3px;
+    top: 4px;
     font-size: 12px;
 }
 .pl-sub-account > .select-control {

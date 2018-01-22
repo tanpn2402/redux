@@ -59,13 +59,13 @@ export function checkAuth() {
         key: (new Date()).getTime()
     }
 
-    return {
-        type: ActionTypes.CHECKAUTH,
-        status: "SUCCESS",
-    }
+    // return {
+    //     type: ActionTypes.CHECKAUTH,
+    //     status: "SUCCESS",
+    // }
 
     return (dispatch) => {
-        api.login(ACTION.CHECKSESSION, params, dispatch,
+        api.post(ACTION.CHECKSESSION, params, dispatch,
             function (response) {
 
                 var lvResult = response.mvResult;

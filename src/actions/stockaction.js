@@ -11,8 +11,8 @@ export function stockSearch(param) {
     return function (dispatch) {
         api.post('stockSearch.action', param, dispatch, 
         function(response) {
-            console.log("AAAAAAAAAAAAA", response)
-            if(response == undefined || response.stockList.length < 0) {
+            // console.log("AAAAAAAAAAAAA", response)
+            if(response == undefined || response.stockSearchList.length < 0) {
                 return (dispath) => dispatch(stockSearch(param))
             } else {
                 config.cache.stockList = response.stockSearchList

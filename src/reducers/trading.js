@@ -3,11 +3,11 @@ import config from '../core/config';
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-    instrument: "",     // current stock user is watching in tranding page, it affect to WatchlistSmall, PlaceOrder,
+    instrument: "ACB",     // current stock user is watching in tranding page, it affect to WatchlistSmall, PlaceOrder,
     // TradeHistory(TradeLog), BidAskTable
-    listInstrumentToWatch: ["ACB", "VNM", "HGA", "SGA", "TTL", "SDS"],  // list stock includes: list stock in watchlist and stock user choosed
+    listInstrumentToWatch: ["ACB", "VNM"],  // list stock includes: list stock in watchlist and stock user choosed
     listInstrumentData: [], // list stock and its data
-    listInstrumentInWatchList: ["ACB", "VNM", "HGA", "SGA", "TTL", "SDS"],  // list stock in watchlist table
+    listInstrumentInWatchList: ["ACB", "VNM"],  // list stock in watchlist table
 
     listInstrumentInPortfolio: [],
     portfolioData: {        // portfolio data bean, it affect to Portfolio Widget
