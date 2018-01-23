@@ -23,7 +23,9 @@ class ClientSumary extends React.Component {
                 <ul className="client-sum-control">
                     <li>
                         <div className="cl-info"  >
-                            <span style={theme.font.main} className="cl-account">{clientData.mvPersonnalProfileBean.mvAccountNumber}</span>
+                            <span style={theme.font.main} className="cl-account">
+                                <label>{clientData.mvPersonnalProfileBean.mvAccountNumber}</label>
+                            </span>
                             <span style={theme.font.main} className="cl-name">{clientData.mvPersonnalProfileBean.mvName}</span>
                         </div>
                     </li>

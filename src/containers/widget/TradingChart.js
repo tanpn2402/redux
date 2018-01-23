@@ -136,14 +136,14 @@ class TradingChart extends React.Component {
        
         if(this.state.startRender) {
             return (
-                <Component style={{ position: "relative" }} className="trd-chart" theme={this.props.theme}>
-                    <Chart height={240} rawData={this.state.data} config={config} />
+                <Component style={{ position: "relative", paddingTop: "20px" }} className="trd-chart" theme={this.props.theme}>
+                    <Chart height={235} rawData={this.state.data} config={config} />
                 </Component>
             )
         } else {
             return (
-                <Component style={{position: "relative"}} className="trd-chart" theme={this.props.theme}>
-                    <Chart height={240} rawData={this.state.data} config={config} />
+                <Component style={{position: "relative", paddingTop: "20px"}} className="trd-chart" theme={this.props.theme}>
+                    <Chart height={235} rawData={this.state.data} config={config} />
                 </Component>
             )
         }

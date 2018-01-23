@@ -106,7 +106,9 @@ class WatchListA extends React.Component {
                         <div>
                             <span className="glyphicon glyphicon-menu-left" onClick={e => this.changeModeView(MODE_CHANGE)} 
                                 style={{cursor: "pointer"}}></span>
-                            <span>{this.state.modeView == MODE_CHANGE ? language.change : language.percent}</span>
+                            <span style={{width: "18px", display: "inline-block", textAlign: "center"}}>
+                                {this.state.modeView == MODE_CHANGE ? language.change : language.percent}
+                            </span>
                             <span className="glyphicon glyphicon-menu-right" onClick={e => this.changeModeView(MODE_PERCENT)} 
                                 style={{cursor: "pointer"}}></span>
                         </div>

@@ -103,7 +103,7 @@ export function removeInstrumentFromWatchList(ins, market) {
 
 // UPDATE WATLIST DATA
 export function updateWatchlistData(json) {
-    let data = []
+    /*let data = []
     // console.log("AAAA")
     config.cache.listInstrumentToWatch.map(e => {
         // let tmp = config.cache.stockList.filter(el => el.stockCode == e)
@@ -149,15 +149,14 @@ export function updateWatchlistData(json) {
             mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 2),
             mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 2)
         })
-    })
+    })*/
     // console.log("UPDATE", data)
 
     
     //console.log("UPDATE ATM", json)
     // json = one stock data
     return {
-        type: ActionTypes.UPDATEWATCHLISTDATA,
-        data: data
+        type: 0
     }
     // return {
     //     type: 0

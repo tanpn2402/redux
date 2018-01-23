@@ -90,10 +90,14 @@ class TradeHeaderStatus extends Component {
         let theme = this.props.theme
         return (
                 <ul>
-                    <li>
+                    <li style={{width: "160px"}}>
                         <h4 style={theme.font.sub1} class="trd-binding">{header.Price}</h4>
-                        <strong className="">{this._render(data, "mvMatchPrice")}</strong>
+                        
                         {/* <strong className="trd-transMoney">{}</strong> */}
+                        <div className="trd-binding price">
+                            <strong style={{marginRight: "10px"}}>{this._render(data, "mvMatchPrice")}</strong>
+                            {this._renderChange()}                            
+                        </div>
                     </li>
                     <li>
                         <h4 style={theme.font.sub1} className="trd-binding">{header.Volume}</h4>
@@ -107,7 +111,6 @@ class TradeHeaderStatus extends Component {
                     </li>
                     <li className="trd-changePercent">
                         <div>
-                            {this._renderChange()}
                         </div>
                     </li>
                    

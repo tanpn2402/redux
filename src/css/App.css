@@ -1442,7 +1442,7 @@ label {
 }
     /* scrolling in tabbar */
     .scrolling-tabs-main.tab-bar {  /*for tabbar*/
-        height: 35px;
+        height: 32px;
         margin: 0;
     }
     .scrolling-tabs-main.tab-bar .vertical-align-middle {
@@ -1539,7 +1539,7 @@ label {
 
     /* scrolling in tab-layout */
     .scrolling-tabs-main.tab-layout { 
-        height: 30px;
+        height: 26px;
         margin: 0;
         background-color: #fff;
         z-index: 2;
@@ -1552,10 +1552,10 @@ label {
         padding: 0 5px;
         margin: 0 2px;
         height: 100%;
-        line-height: 2;
+        line-height: inherit;
         min-width: 130px;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 550;
         user-select: none;
         display: inline-block;
     }
@@ -1961,7 +1961,7 @@ label {
 .widget-header > .widget-title {
     float: left;
     color: inherit;
-    line-height: 1.8;
+    line-height: inherit;
     font-size: 14px;
     padding-right: 10px;
     padding-left: 10px;
@@ -1988,7 +1988,7 @@ label {
     height: 100%;
     width: 21px;
     text-align: center;
-    line-height: 1.8;
+    line-height: inherit;
     cursor: pointer;
     user-select: none;
     margin: 0 2px;
@@ -2080,7 +2080,7 @@ label {
 #management {
     width: 100%;
     height: 100%;
-    padding-top: 30px;
+    padding-top: 24px;
 }
 /* END MANAGEMENT WIDGET */
 
@@ -2154,7 +2154,7 @@ label {
     z-index: 1;
 }
 .sum-control > .com-title {
-    font-size: 16px;
+    font-size: 14px;
     color: inherit;
     padding-left: 8px;
     padding-top: 2px;
@@ -3202,7 +3202,7 @@ label {
 
 /* FOR DESKTOP */
 .maincontent-desktop .pagecontent {
-    padding-top: 35px;
+    padding-top: 32px;
     padding-bottom: 60px;
 }
 .maincontent-desktop .select-control {
@@ -3221,7 +3221,7 @@ label {
     top: -3px !important;
 }
 .maincontent-desktop .widget-header {
-    height: 25px !important;
+    height: 20px !important;
 }
 .maincontent-desktop .widget-title {
     font-size: 14px !important;
@@ -3233,7 +3233,7 @@ label {
 }
 
 .maincontent-desktop .widget-wrapper {
-    padding-top: 25px !important;
+    padding-top: 20px !important;
 }
 .maincontent-desktop .btn-submit,
 .maincontent-desktop .btn-cancel  {
@@ -3512,7 +3512,7 @@ label {
 }
 .wl-sm-controls {
     display: table;
-    padding: 6px 2px;
+    padding: 0px 2px;
 }
 .wl-sm-controls label {
     float: left;
@@ -3539,7 +3539,6 @@ label {
 }
 .trd-header ul li {
     min-width: 100px;
-    max-width: 120px;
     float: left;
     margin-right: 58px;
     line-height: 1.4;
@@ -3563,7 +3562,7 @@ label {
     position: absolute;
     top: -10px;
     width: 300px;
-    left: 100px;
+    left: 125px;
 }
 .trd-header-control {
     position: absolute;
@@ -3584,7 +3583,6 @@ label {
     font-size: 18px;
     top: -4px;
     color: #fded96;
-    left: 330px;
 }
 .trd-changeRate {
     font-size: 12px;
@@ -3627,20 +3625,23 @@ label {
 }
 .trd-chart .TTLMainChart {
     padding: 0px ;
-    padding-top: 15px;
+    padding-top: 22px;
 
 }
 .trd-chart .TTLStockChart_C_Ctl {
-    top: 5px;
+    top: -20px;
     right: 5px;
     z-index: 3 !important;
 }
 .trd-chart .TTLStockChart_C_EditCtl {
-    top: 5px;
-    right: -30px;
+    top: -20px;
+    right: -36px;
     z-index: 3 !important;
 }
-
+.trd-chart .TTLStockChart_C_EditCtl #ChartEditDropdown,
+.trd-chart .TTLStockChart_C_Ctl #ChartControlDropdown {
+    font-size: 12px;
+}
 /* END TRADING CHART */
 
 /* PORTFOLIO SMALL TABLE */
@@ -3685,9 +3686,9 @@ label {
     background-color: #FFF;
 }
 .trd-body > label {
-    padding-top: 2px;
+    padding-top: 0px;
     padding-left: 10px;
-    padding-bottom: 2px;
+    padding-bottom: 0px;
 }
 /* END TRADE BODY */
 
@@ -3700,7 +3701,7 @@ label {
     position: absolute;
     width: 100%;
     height: 100%;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 .bidask-table table{
     width: 100%;
@@ -3766,8 +3767,17 @@ label {
 .bidask-td.pink {
     background-color: #feeff1;
 }
-.bidask-row.align-center.header {
-
+.bidask-td.vl-left .bidask-title {
+    float: right;
+}
+.bidask-td.vl-left .bidask-value {
+    float: left;
+}
+.bidask-td.vl-right .bidask-title {
+    float: left;
+}
+.bidask-td.vl-right .bidask-value {
+    float: right;
 }
 /* END BID ASK TABLE */
 
@@ -3806,6 +3816,7 @@ label {
     left: 105px;
     top: 4px;
     font-size: 12px;
+    font-weight: bold;
 }
 .pl-sub-account > .select-control {
     border-radius: 0 !important;

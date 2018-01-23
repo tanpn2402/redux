@@ -84,12 +84,12 @@ export default
                 "enterorder": "Đặt lệnh giao dịch",
                 "stockmarketinform": "Dữ liệu chứng khoán",
                 "watchlist": "Danh mục quan tâm",
-                "orderjournal": "Tra cứu lệnh giao dịch",
+                "orderjournal": "Sổ lệnh",
                 "accountinfo": "Thông tin tài khoản",
                 "porfolio": "Danh mục đầu tư",
                 "account": "Tài khoản",
-                "ordershistory": "Tra cứu lịch sử giao dịch",
-                "cashtransaction": "Tra cứu lịch sử giao dịch tiền",
+                "ordershistory": "Lịch sử giao dịch",
+                "cashtransaction": "Lịch sử giao dịch tiền",
                 "cashstatement": "Sao kê tài khoản tiền",
                 "stockstatement": "Sao kê tài khoản chứng khoán",
                 "marginloan": "Sao kê nợ GDKQ",
@@ -768,7 +768,8 @@ export default
                     "floor": "Sàn",
                     "cell": "Trần",
                     "ref": "TC",
-                    "foreigner": "NN"
+                    "foreigner": "NN",
+                    "total": "Tổng"
                 }
             },
             "avaiblemarginlist": {
@@ -982,7 +983,7 @@ export default
                     "entitlementplace": "Đăng kí thực hiện quyền",
                     "corporateactionlist": "Danh sách quyền",
                     "additionalissuesharesinformation": "Thông tin mua cổ phiếu phát hành tiền",
-                    "additionalissuesharesbuyinghistory": "Tra cứu lịch sử giao dịch mua cổ phiếu phát hành tiền"
+                    "additionalissuesharesbuyinghistory": "Lịch sử giao dịch mua cổ phiếu phát hành tiền"
                 },
                 "status": {
                     "STATUS_W": "Đã đóng tiền",

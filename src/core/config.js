@@ -344,9 +344,9 @@ const config = {
 	},
 
 	marketid: [
-		"HKEX",
-		"MAMK",
-		"SZMK"
+		"HO",
+		"HA",
+		"OTC"
 	],
 
 	currency: [
@@ -428,7 +428,7 @@ const config = {
 				// { i: 'assetallocation', x: 0, y: 0, w: 2, h: 4, isDraggable: false, isResizable: false },
 				// { i: 'assetallocationchart', x: 2, y:0, w: 2, h: 4, isDraggable: false, isResizable: false}
 				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
-				{ i: 'portfolio', x: 0, y: 6, w: 8, minW: 8, maxW: 8, minH: 5, maxH: 10, isDraggable: false, isResizable: true },
+				{ i: 'portfolio', x: 0, y: 6, w: 8, minW: 8, maxW: 8, minH: 7, maxH: 10, isDraggable: false, isResizable: true },
 				{ i: 'sumary', x: 0, y: 1, w: 8, h: 5, isDraggable: false, isResizable: false },
 				{ i: 'clientsumary', x: 0, y: 0, w: 8, h: 1, isDraggable: false, isResizable: false },
 			]

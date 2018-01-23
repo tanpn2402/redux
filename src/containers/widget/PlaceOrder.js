@@ -25,7 +25,7 @@ class PlaceOrder extends React.Component {
         this.state = {
             // enterorder params
             mvBS: "BUY",
-            mvMarketID: config.marketid[0],
+            mvMarketID: "",
             mvOrderType: "",
             mvFeeRate: "",
             mvGrossAmt: 0,
@@ -63,7 +63,7 @@ class PlaceOrder extends React.Component {
             mvStockName: "",
             mvOrderType: "",
             mvBS: "BUY",
-            mvMarketID: config.marketid[0],
+            mvMarketID: "",
             mvVol: 0,
             mvFeeRate: "",
             mvLending: "",
@@ -224,7 +224,6 @@ class PlaceOrder extends React.Component {
 
         let theme = this.props.theme
         let BS = this.state.mvBS
-        console.log(Object.assign({height: "calc(100% - 28px)"}, theme.placeorder.background[BS.toLowerCase()] ))
         return (
             <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
 
@@ -561,7 +560,7 @@ class PlaceOrder extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        
+        console.log(nextProps.orderDefault)
         let orderDefault = nextProps.orderDefault
         if(orderDefault !== null) {
             this.state.mvBS = orderDefault.mvBS
@@ -580,11 +579,27 @@ class PlaceOrder extends React.Component {
                 mvMarketID: orderDefault.mvMarketID,
                 mvOrderType: orderDefault.mvOrderType
             })
+
+            if(orderDefault.mvQty != undefined) {
+                this.state.mvVol = orderDefault.mvQty
+                this.setValue({ mvVol: Utils.numUnFormat(this.state.mvVol) })
+                console.log(Utils.numUnFormat(this.state.mvVol))
+                this.mvVol.value(Utils.numUnFormat(this.state.mvVol))
+            }
+            if(orderDefault.mvPrice != undefined) {
+                this.state.mvPrice = orderDefault.mvPrice
+                this.setValue({ mvPrice: Math.ceil(this.state.mvPrice) })
+                this.mvPrice.value(Math.ceil(this.state.mvPrice))
+            }
+
             this.refStockName.value(orderDefault.mvStockName)
             this.refMarketID.value(orderDefault.mvMarketID)
             if(orderDefault.mvStockCode != "") {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
+
+            // focus to mvVol
+            this.mvVol.focus()
         }
         if(this.state.mvOrderTypeList.length === 0)
             this.getOrderTypeList(nextProps.genEnterOrderData)
@@ -786,9 +801,11 @@ class PlaceOrder extends React.Component {
         this.setState({
             mvStockSelected: "",
         })
+
         this.setValue({
             mvStockCode: "",
             mvStockName: "",
+            mvMarketID: "",
             mvVol: 0,
             mvFeeRate: "",
             mvLending: "",
@@ -796,9 +813,11 @@ class PlaceOrder extends React.Component {
             mvGrossAmt: 0,
             mvMaxQty: 0,
             mvExpireChecked: false,
-            mvExpireDate: null,
+            mvExpireDate: moment(),
             mvBankACID: null,
-            mvBankID: null
+            mvBankID: null,
+            mvSettlementAccSelected: null,
+            mvSubAccSelected: "C08000011"
         })
         this.refStockName.value("")
         this.mvGrossAmt.value("---")
@@ -808,7 +827,9 @@ class PlaceOrder extends React.Component {
         // this.mvAvailQty.value("---")
         this.mvLending.value("---")
         this.mvNetFee.value("---")
-
+        this.mvVol.value(0)
+        this.mvPrice.value(0)
+        this.refMarketID.value("")
     }
 
 

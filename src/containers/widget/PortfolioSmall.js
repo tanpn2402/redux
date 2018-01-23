@@ -127,24 +127,34 @@ class PortfolioSmall extends React.Component {
                             // console.log(theader)
 
                         }}
-                        onRowClick={(e, data)=> this.onRowClick(e, data)}
+                        onCellClick={(e, rowData, cellData)=> this.onRowClick(e, rowData, cellData)}
                     />
                 </div>
             </Component>
         )
     }
 
-    onRowClick(e, data) {
-        let stock = config.cache.stockList.filter(s => s.stockCode == data.stockCode)
-        // console.log(data)
-        if(stock.length > 0 && data.mvTSettled != 0) {
+    onRowClick(e, rowData, cellData) {
+        let stock = config.cache.stockList.filter(s => s.stockCode == rowData.stockCode)
+       
+        if(stock.length > 0 && rowData.mvTSettled != 0) {
+           
+            let qty = rowData.mvTSettled
+            let marketPrice = rowData.mvMarketPrice
+            let avgPrice = rowData.mvAvgPrice
+
+
+            let price = rowData.mvMarketPrice
+            if(cellData.accessor == "mvAvgPrice") price = rowData.mvAvgPrice
             
             let tmp = stock[0]
             this.props.setDefaultOrderParams({
                 mvBS: "SELL",
                 mvStockCode: tmp.stockCode,
                 mvStockName: tmp.stockName,
-                mvMarketID: tmp.mvMarketID
+                mvMarketID: tmp.mvMarketID,
+                mvQty: qty,
+                mvPrice: price
             })
         }
     }

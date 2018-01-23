@@ -133,12 +133,12 @@ class TradeHeader extends React.Component {
                         handleChange={this.handleStockChange.bind(this)}
                         searchEnabled={true}
                     />
-                    <div className="trd-instrument-name" ref={r => this.StockName = r}>
-                        <p style={theme.font.main} className="trd-instrument-code">{instrumentName}</p>
-                    </div>
                     <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>
                     </span>
+                    <div className="trd-instrument-name" ref={r => this.StockName = r}>
+                        <p style={theme.font.main} className="trd-instrument-code">{instrumentName}</p>
+                    </div>
                 </div>
                 
                 <TradeHeaderStatus language={this.props.language} theme={theme} />

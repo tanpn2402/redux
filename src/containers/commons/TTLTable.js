@@ -76,14 +76,16 @@ export default class TTLTable extends Component {
                                             if(header.show == undefined || header.show) {
                                                 if(header.cell != undefined) {
                                                     return (
-                                                        <div className="ttl-cell" style={header.bodyStyle} >
+                                                        <div className="ttl-cell" style={header.bodyStyle} 
+                                                             onClick={e => this.tCellClick(e, data, header)}>
                                                             {header.cell(data)}
                                                         </div>
                                                     )
                                                 }
                                                 else {
                                                     return (
-                                                        <div className="ttl-cell" style={header.bodyStyle} >
+                                                        <div className="ttl-cell" style={header.bodyStyle} 
+                                                             onClick={e => this.tCellClick(e, data, header)}>
                                                             {data[header.accessor]}
                                                         </div>
                                                     )
@@ -104,6 +106,12 @@ export default class TTLTable extends Component {
         
         if(this.props.onRowClick != undefined) {
             this.props.onRowClick(e, data)
+        }
+    }
+
+    tCellClick(event, rowData, cellData) {
+        if(this.props.onCellClick != undefined) {
+            this.props.onCellClick(event, rowData, cellData)
         }
     }
 

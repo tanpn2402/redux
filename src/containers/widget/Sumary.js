@@ -167,7 +167,7 @@ class Sumary extends React.Component {
             <Component style={{ height: "100%", position: "relative" }}>
                 <div className="sum-control" style={widgetHeader} >
                     <div className="col-xs-2 com-title">
-                        {this.props.language.menu[this.id]}
+                        <label>{this.props.language.menu[this.id]}</label>
                     </div>
                     <div className="col-xs-10 sum-subaccount">
                         <div className="account-name"><span>Trading Account</span></div>
@@ -184,12 +184,12 @@ class Sumary extends React.Component {
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
                         <div className="col-xs-2" style={{height: '100%',
-                            marginTop: '-35px', paddingTop: '35px'}}>
+                            marginTop: '-35px', paddingTop: '40px'}}>
                             <PieChart theme={this.props.theme} colors={[]} data={data}/>
                         </div>
                         <div className="col-xs-10" >
                             <div className="col-sm-3" style={{height: '100%',
-                                marginTop: '-35px', paddingTop: '35px'}}> 
+                                marginTop: '-35px', paddingTop: '40px'}}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
                                         <thead>
@@ -226,7 +226,7 @@ class Sumary extends React.Component {
                             </div>
 
                             <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '35px' }}>
+                                marginTop: '-35px', paddingTop: '40px' }}>
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">
@@ -264,7 +264,7 @@ class Sumary extends React.Component {
                             </div>
 
                             <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '35px'}}>
+                                marginTop: '-35px', paddingTop: '40px'}}>
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">
@@ -303,7 +303,7 @@ class Sumary extends React.Component {
 
 
                             <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '35px' }}>
+                                marginTop: '-35px', paddingTop: '40px' }}>
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">

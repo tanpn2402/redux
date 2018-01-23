@@ -139,18 +139,11 @@ class FundTransHistory extends Component {
                         totalPage={this.props.data.mvTotalOrders}
                         onPageChange={this.onPageChange.bind(this)}
 
-                        searchEnable={this.props.data.list == undefined ? false:this.props.data.list.length > 0}
+                        searchEnable={false}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
                     />
                 </Body>
-                {/* <Popup
-                        id="canceltransfer"
-                        show={this.state.lgShow}
-                        onHide={lgClose}
-                        language={this.props.language}
-                        popupType={this.popupType}
-                        title="CancelTransfer" /> */}
             </div>
         )
 
