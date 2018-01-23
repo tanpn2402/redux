@@ -77,4 +77,11 @@ export const EXPORTCASHTRANSACTIONHISTORY = 'exportCashTransactionHistory.action
 export const EXPORTTRANSACTIONHISTORY = 'exportTransactionHistory.action';
 export const EXPORTORDERCONFIRM = 'exportSignOrder.action';
 // Stock Watch Update
-export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action'
+export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action';
+
+
+
+
+
+// MDS
+export const GETLISTSTOCKINWATCHLIST = 'ITradePushServer/WatchList/{clientID}';

@@ -1,52 +1,22 @@
-export const GET = 'GET'
-export const POST = 'POST'
-export const PUT = 'PUT'
-export const LOGIN = 'LOGIN'
-export const DELETE = 'DELETE'
-const SERVER = 'http://192.168.150.251:'
-const PORT = '9090/iTradeMAS/'
+import * as CONFIG from "./serverconfig"
 
-const HOST = 'mi-trade.masvn.com'
-const USER_AGENT = 'Mozilla/5.0'
-const ACCEPT_LANGUAGE = 'en-US,en;q=0.5'
-const ACCEPT = 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-const CONTENT_TYPE = 'application/x-www-form-urlencoded; charset=UTF-8'
-const CONNECTION = 'keep-alive'
-
-const HEADERS = {
-    'Host': HOST,
-    'User-Agent': USER_AGENT,
-    'Accept': ACCEPT,
-    'Accept-language': ACCEPT_LANGUAGE,
-    'Connection': CONNECTION,
-    'Content-Type': CONTENT_TYPE
-}
-const HEADERSCK = {
-    'Host': HOST,
-    'Accept': ACCEPT,
-    'Accept-language': ACCEPT_LANGUAGE,
-    'Content-Type': CONTENT_TYPE
-}
-
-export function getServerUrl() {
-    return SERVER + PORT
-}
 export async function FetchAPI(id, JsonData, method) {
-    var url = SERVER + PORT + id + '';
+
+    var url = CONFIG.SERVER + CONFIG.PORT + id + '';
     var formData = '';
     for (var k in JsonData) {
         formData += k + '=' + JsonData[k] + '&'
     }
     //console.log(url,formData)
     // method GET
-    if (method === GET) {
+    if (method === CONFIG.GET) {
         // url += GET;  
         if (formData != null) {
             url += '?' + formData
             return new Promise((resolve, reject) => {
                 var response = window.fetch(url, {
-                    method: GET,
-                    headers: HEADERSCK,
+                    method: CONFIG.GET,
+                    headers: CONFIG.HEADERSCK,
                     credentials: 'include'
                 })
 
@@ -62,8 +32,8 @@ export async function FetchAPI(id, JsonData, method) {
         } else {
             return new Promise((resolve, reject) => {
                 var response = window.fetch(url, {
-                    method: GET,
-                    headers: HEADERSCK
+                    method: CONFIG.GET,
+                    headers: CONFIG.HEADERSCK
                 })
 
                 response.then(res => {
@@ -79,12 +49,12 @@ export async function FetchAPI(id, JsonData, method) {
     }
 
     //method POST
-    if (method === POST) {
+    if (method === CONFIG.POST) {
         //url += POST
         return new Promise((resolve, reject) => {
             let response = fetch(url, {
-                method: POST,
-                headers: HEADERSCK,
+                method: CONFIG.POST,
+                headers: CONFIG.HEADERSCK,
                 credentials: 'include',
                 body: formData
             })
@@ -100,12 +70,12 @@ export async function FetchAPI(id, JsonData, method) {
     }
 
     //method LOGIN
-    if (method === LOGIN) {
+    if (method === CONFIG.LOGIN) {
         //url += LOGIN
         return new Promise((resolve, reject) => {
             var response = window.fetch(url, {
-                method: POST,
-                headers: HEADERSCK,
+                method: CONFIG.POST,
+                headers: CONFIG.HEADERSCK,
                 credentials: 'include',
                 body: formData
             })
@@ -122,12 +92,12 @@ export async function FetchAPI(id, JsonData, method) {
 
     //method DELETE
     //method POST
-    if (method === DELETE) {
+    if (method === CONFIG.DELETE) {
         //url += DELETE
         return new Promise((resolve, reject) => {
             var response = window.fetch(url, {
-                method: POST,
-                headers: HEADERSCK,
+                method: CONFIG.POST,
+                headers: CONFIG.HEADERSCK,
                 credentials: 'include',
                 body: formData
             })
@@ -144,6 +114,25 @@ export async function FetchAPI(id, JsonData, method) {
     if (method === 'REPORT') {
         url += '?' + formData
         window.location.href = url
+    }
+
+    if(method === 'MDSGET') {
+        console.log("MDS API IN FETCH API")
+        return new Promise((resolve, reject) => {
+            var response = window.fetch("http://localhost:8089/test", {
+                method: CONFIG.GET,
+                headers: CONFIG.HEADERSCK
+            })
+
+            response.then(res => {
+                if (res.ok) {
+                    res.json().then(resolve).catch(reject)
+                } else {
+                    reject(res)
+                }
+            })
+                .catch(reject)
+        })
     }
 
 

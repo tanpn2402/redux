@@ -127,9 +127,9 @@ class WatchListA extends React.Component {
                 <div className="wl-sm-controls">
                     <label style={theme.font.main}>{this.props.language.menu.watchlist}</label>
 
-                    <input className="wl-sm-input"
+                    {/* <input className="wl-sm-input"
                         ref={r => this.input = r}
-                        onChange={e => this.onStockChange(this.props.listInstrumentInWatchList)}/>
+                        onChange={e => this.onStockChange(this.props.listInstrumentInWatchList)}/> */}
                    
                 </div>
                 <div className="wl-sm-table">
@@ -175,13 +175,13 @@ class WatchListA extends React.Component {
     }
 
     onStockChange(listStock) {
-        let val = this.input.value
-        // console.log("BBBB", val, listStock)
-        let tmp = listStock.filter(e => e.toUpperCase().includes(val.toUpperCase()))
+        // let val = this.input.value
+        // // console.log("BBBB", val, listStock)
+        // let tmp = listStock.filter(e => e.toUpperCase().includes(val.toUpperCase()))
         
-        this.setState({
-            listStock: tmp.slice(0)
-        })
+        // this.setState({
+        //     listStock: tmp.slice(0)
+        // })
     }
 
     handleViewModeChange(mode) {

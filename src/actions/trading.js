@@ -1,4 +1,5 @@
-import * as api from '../api/web_service_api'
+import * as itradeapi from '../api/web_service_api'
+import * as mdsapi from '../api/mdsapi'
 import * as ACTION from '../api/action_name'
 import config from "../core/config"
 import * as utils from '../utils'
@@ -101,7 +102,7 @@ export function removeInstrumentFromWatchList(ins, market) {
 
 
 // UPDATE WATLIST DATA
-export function updateWatchlistData(listStock) {
+export function updateWatchlistData(json) {
     let data = []
     // console.log("AAAA")
     config.cache.listInstrumentToWatch.map(e => {
@@ -151,8 +152,42 @@ export function updateWatchlistData(listStock) {
     })
     // console.log("UPDATE", data)
 
+    
+    //console.log("UPDATE ATM", json)
+    // json = one stock data
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
         data: data
     }
+    // return {
+    //     type: 0
+    // }
+}
+
+export function getListStockInWatchList() {
+    let cliendID = localStorage.getItem("clientID")
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
+        return (dispatch) => {
+            
+            itradeapi.mdsGET(url, {} , dispatch,
+                function (response) {
+                    console.log(response)
+                    
+                },
+                function (err) {
+                    console.log(err)
+                })
+        }
+    }
+
+    
+
+
+    
 }

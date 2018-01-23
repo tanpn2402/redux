@@ -5,7 +5,7 @@ import { Form, FormGroup, Col, ControlLabel, Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { sessionService } from 'redux-react-session';
 import * as sessionApi from '../api/sessionApi';
-import * as FetchAPI from '../api/fetchAPI';
+import * as FetchAPI from '../api/serverconfig';
 import {getLanguage} from '../utils'
 import config from '../core/config'
 import Select from "../containers/commons/Select"
@@ -58,7 +58,8 @@ class LoginForm extends Component {
         this.params = {
             mvClientID: '',
             mvPassword: '',
-            securitycode: '12345'
+            securitycode: '12345',
+            language: config.language[0].id
         }
 
         this.captchaURL = FetchAPI.getServerUrl() + "Security"

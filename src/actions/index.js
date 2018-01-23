@@ -42,7 +42,8 @@ import {
 import { showPopup } from './popup'
 
 import { changeInstrument, removeInstrumentFromWatch, addInstrumentToWatch,
-  removeInstrumentFromWatchList, addInstrumentToWatchList, updateWatchlistData } from './trading'
+  removeInstrumentFromWatchList, addInstrumentToWatchList, updateWatchlistData,
+  getListStockInWatchList } from './trading'
 
 export {
   reloadCustom,
@@ -194,4 +195,5 @@ export {
   addInstrumentToWatchList,
   removeInstrumentFromWatchList,
   updateWatchlistData,
+  getListStockInWatchList
 };

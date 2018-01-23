@@ -97,9 +97,17 @@ export default function(state = initialState, action) {
         
         // update watchlist data (includes all instrument watched in watchlist small widget)
         case ActionTypes.UPDATEWATCHLISTDATA: 
-        
+            console.log("UPDATEWATCHLISTDATA", state.listInstrumentData)
+            let json = action.data
+            let dataTemp = state.listInstrumentData.slice(0)
+            console.log("LISTDATA = ", json)
+
+            dataTemp = dataTemp.filter(e => e.mvStockCode == json.mvStockCode && e.mvMarket == json.mvMarket)
+            dataTemp.push(json)
+            console.log("LISTDATA 2= ", dataTemp)
+
             return Object.assign({}, state, {
-                listInstrumentData: action.data
+                listInstrumentData: dataTemp
             });
 
 
@@ -111,11 +119,24 @@ export default function(state = initialState, action) {
             let tmp10 = state.instrument == "" ? [] : [state.instrument]
             let tmp11 = [...new Set([...state.listInstrumentInWatchList, ...tmp9, ...tmp10 ])]
             config.cache.listInstrumentToWatch = tmp11
+
+            console.log(state, config.cache.listInstrumentToWatch)
             action.data.mvPortfolioBeanList = portfolioDataList
             return Object.assign({},state,{
                 portfolioData: action.data,
                 listInstrumentToWatch: tmp11,
                 listInstrumentInPortfolio: tmp9
+            });
+
+        case ActionTypes.GETLISTSTOCKINWATCHLIST:
+            let list = action.list
+            let tmpIns = list.length > 0 ? list[0] : ""
+            config.cache.listInstrumentToWatch = list
+            console.log(state, config.cache.listInstrumentToWatch)
+            return Object.assign({},state,{
+                instrument: tmpIns,
+                listInstrumentToWatch: list,
+                listInstrumentInWatchList: list
             });
 
         default:

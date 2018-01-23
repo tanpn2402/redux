@@ -10,9 +10,13 @@ import { showMessageBox } from './notification';
 import { getLanguage } from '../utils';
 
 export function doLogin(params) {
+    console.log(params)
     return (dispatch) => {
         return api.login(ACTION.DOLOGIN, params, dispatch,
             function (responseForLogin) {
+                if(responseForLogin && responseForLogin.success) {
+                    localStorage.setItem("clientID", params.mvClientID.substring(3, params.mvClientID.length))
+                }
                 return {
                     type: ActionTypes.DOLOGINACTION,
                     loginResult: responseForLogin
@@ -38,6 +42,7 @@ export function doLogout(id) {
     localStorage.removeItem('lastTabID')
     localStorage.removeItem('lastSubTabID')
     localStorage.removeItem('favs')
+    localStorage.removeItem('clientID')
     clearInterval(id)
 
     return (dispatch) => {

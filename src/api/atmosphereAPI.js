@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import atmosphere from 'atmosphere.js'
+import * as SERVER from '../api/serverconfig';
 
 const SUBSCRIBE_URL = "ITradePushServer/StockInfo/"
 
@@ -11,7 +12,7 @@ var transport = 'websocket';
 var callback;
 
 var request = {
-    url: window.location.href + "ITradePushServer/StockInfo/",
+    url: /*SERVER.getServerUrl() + */ "http://192.168.150.199:3000/ITradePushServer/StockInfo/",
     contentType: "application/json",
     trackMessageLength: true,
     transport: transport,
@@ -20,7 +21,7 @@ var request = {
 }
 
 request.onOpen = function (res) {
-    // console.log('Atmosphere connected using ' + res.transport)
+    console.log('Atmosphere connected using ' + res.transport)
     transport = res.transport;
 
     if (res.transport == "local") {
@@ -29,7 +30,7 @@ request.onOpen = function (res) {
 }
 
 request.onTransportFailure = function (errorMsg, request) {
-    // console.log("ERROR: " + errorMsg)
+    console.log("ERROR: " + errorMsg)
     if (window.EventSource) {
         request.falrequestlbackTransport = "sse";
         transport = "see";
@@ -41,12 +42,12 @@ export function sendMessage(msgObject) {
     if (subSocket == null) 
         return
     subSocket.push(JSON.stringify(msgObject))
-    // console.log("MsgObject sent")
+    console.log("MsgObject sent")
 }
 
 export function subscribe(clientID, callback) {
     request.url = request.url + clientID
-
+    console.log(request.url)
     request.onMessage = function (response) {
         var message = response.responseBody
         try {
@@ -60,16 +61,7 @@ export function subscribe(clientID, callback) {
 
     subSocket = socket.subscribe(request)
     //New request to notify server sending data by WSprotocol
-        window.fetch(document.location.href + 'ITradePushServer/StockInfo/' + clientID, {
-            method: 'GET',
-            headers: {
-                'Host': 'HOST',
-                'Accept': 'ACCEPT',
-                'Accept-language': 'ACCEPT_LANGUAGE',
-                'Content-Type': 'CONTENT_TYPE'
-            },
-            credentials: 'include',
-        })
+        window.fetch(/*SERVER.getServerUrl() + */'http://192.168.150.199:3000/ITradePushServer/StockInfo/' + clientID)
 }
 
 export function unsubscribe() {

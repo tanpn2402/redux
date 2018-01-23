@@ -1,5 +1,5 @@
-
-import { FetchAPI, POST, PUT, GET, LOGIN, DELETE } from './fetchAPI';
+import { POST, PUT, GET, LOGIN, DELETE } from './serverconfig';
+import { FetchAPI} from './fetchAPI';
 import { showMessageBox } from '../actions/notification'
 
 export function get(id, param, dispatch, successHandler, failHandler) {
@@ -88,3 +88,14 @@ export function fetch(action, param, method, successHandler, failHandler) {
 		return error
 	})
 }
+
+export  function mdsGET(url, param, dispatch, successHandler, failHandler) {
+	return (FetchAPI(url, param, "MDSGET")).then(response => response).then(parseData => {
+		dispatch(successHandler(parseData))
+		return parseData
+	}).catch(error => {
+		if (failHandler)
+			failHandler(error)
+		return error
+	})
+};

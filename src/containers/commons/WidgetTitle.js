@@ -30,9 +30,9 @@ class WidgetTitle extends Component {
         return (
             <div className="widget-header" style={widgetHeader}>
                 <div className="widget-title">
-                    <span>
+                    <label>
                         {this.props.children}
-                    </span>
+                    </label>
                 </div>
                 <div className="widget-action">
                     <ul>

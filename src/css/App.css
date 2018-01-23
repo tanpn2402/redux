@@ -3224,7 +3224,7 @@ label {
     height: 25px !important;
 }
 .maincontent-desktop .widget-title {
-    font-size: 18px !important;
+    font-size: 14px !important;
     padding: 0 10px 0 10px;
 }
 .widget-title span{
@@ -3715,14 +3715,14 @@ label {
     border: 1px solid #cccccc30;  
 }
 .bidask-td {
-    padding: 3px 6px;
+    padding: 0px 6px;
 }
 .bidask-td > div{
     display: table;
     width: 100%;
 }
 .bidask-td span {
-    padding: 4px 0px;
+    padding: 2px 0px;
 }
 .bidask-td.left {
     width: calc(50% - 30px );

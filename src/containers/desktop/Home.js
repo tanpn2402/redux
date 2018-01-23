@@ -6,6 +6,7 @@ import MenuNav from './MenuNav'
 import MainContent from './MainContent'
 import config from '../../core/config'
 import {getLanguage, getTheme } from '../../utils'
+import * as atmosphereAPI from '../../api/atmosphereAPI'
 
 class Home extends Component {
     /*
@@ -51,7 +52,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.checkSession(this.handleCheckSessionID)
-
+        this.props.getListStockInWatchList()
         this.onSubscribeToServer()
     }
 
@@ -66,20 +67,20 @@ class Home extends Component {
 
     onSubscribeToServer() {
         console.log("Prepare to subcribe")
-        localStorage.setItem("socketID","C080001")
+        // localStorage.setItem("clientID","C080001")
         
-        let socketID = localStorage.getItem("socketID")
+        let socketID = localStorage.getItem("clientID")
         if (socketID == null) {
             console.log("No WebSocketID")
         } else {
             console.log("Start subcribe on clientId = " + socketID)
-            // atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+            atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
                 
-            //     if (stockJsonResponse!=null) {
+                if (stockJsonResponse != null) {
                     
-            //         this.props.updateStockInfo(stockJsonResponse)
-            //     }
-            // }).bind(this))
+                    this.props.updateWatchlistData(stockJsonResponse)
+                }
+            }).bind(this))
 
             // window.fetch(window.location.href + "/ITradePushServer/StockInfo/"+socketID);
 
@@ -90,7 +91,7 @@ class Home extends Component {
 
     onUnSubcribe() {
         console.log("Socket will be unsubscribed")
-        // atmosphereAPI.unsubscribe()
+        atmosphereAPI.unsubscribe()
         clearInterval(this.interval)
     }
 
@@ -111,7 +112,8 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.checkSession(handleCheckSessionID)) 
     },
 
-    updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) }
+    updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) },
+    getListStockInWatchList: () => {dispatch(actions.getListStockInWatchList()) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

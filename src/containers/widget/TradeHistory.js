@@ -80,7 +80,7 @@ class TradeLogTable extends React.Component {
         ]
         let theme = this.props.theme
         return (
-            <Component className="trd-log-table" theme={theme}>
+            <Component className="trd-log-table" theme={theme} style={{}}>
                 <TTLTable data={this.state.data} header={header} theme={theme}
                     getTHeaderProps={(theader)=> {
                         // theader.style.display = "none"
