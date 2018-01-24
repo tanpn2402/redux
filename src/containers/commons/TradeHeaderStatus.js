@@ -29,7 +29,7 @@ class TradeHeaderStatus extends Component {
         
     }
 
-    _render(props, accessor) {
+    _render(props, accessor, isFormted) {
         let theme = this.props.theme.bindingdata
         let style = theme.normal
 
@@ -45,6 +45,9 @@ class TradeHeaderStatus extends Component {
         } else if (props["mvMatchPrice"] > props["mvReferences"]) {
             style = theme.up
             if(accessor == "mvMatchUpDown") tmp = "+" + tmp
+        }
+        if(isFormted != undefined && isFormted) {
+            tmp = utils.currencyShowFormatter(tmp)
         }
         let child = <span style={style}>{tmp}</span>
         return child
@@ -110,13 +113,13 @@ class TradeHeaderStatus extends Component {
                     </li>
                     <li>
                         <h4 style={theme.font.sub1} className="trd-binding">{header.Volume}</h4>
-                        <strong className="trd-binding">{this._render(data, "mvMatchVol")}</strong>
+                        <strong className="trd-binding">{this._render(data, "mvMatchVol", true)}</strong>
                         <strong className="trd-changeRate">{this._render(data, "mvMatchUpDown")}</strong>
                         
                     </li>
                     <li>
                         <h4 style={theme.font.sub1} className="trd-binding">{header.TotalVol}</h4>
-                        <strong className="ng-binding">{this._render(data, "mvMatchVolTotal")}</strong>
+                        <strong className="ng-binding">{this._render(data, "mvMatchVolTotal", true)}</strong>
                     </li>
                     <li className="trd-changePercent">
                         <div>

@@ -69,38 +69,38 @@ class WatchListA extends React.Component {
         let header = [
             {
                 title: language.stock,
-                style: {width: "20%"},
-                bodyStyle: {width: "20%"},
+                style: {width: "12%"},
+                bodyStyle: {width: "12%"},
                 accessor: "mvStockCode",
             },
             {
                 title: language.price,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "16%", textAlign: "right"},
+                bodyStyle: {width: "16%", textAlign: "right"},
                 cell: props => {
                     return this.fillColor(props, "mvMatchPrice")
                 }
             },
             {
                 title: language.volume,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "27%", textAlign: "right"},
+                bodyStyle: {width: "27%", textAlign: "right"},
                 cell: props => {
-                    return this.fillColor(props, "mvMatchVol")
+                    return this.fillColor(props, "mvMatchVol", true)
                 }
             },
             {
                 title: language.totalvol,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "27%", textAlign: "right"},
+                bodyStyle: {width: "27%", textAlign: "right"},
                 cell: props => {
-                    return this.fillColor(props, "mvMatchVolTotal")
+                    return this.fillColor(props, "mvMatchVolTotal", true)
                 }
             },
             {
                 // title:  this.state.modeView == MODE_CHANGE ? language.change : language.volume,
-                style: {width: "20%", textAlign: "right", paddingRight: "4px"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "18%", textAlign: "right", paddingRight: "4px"},
+                bodyStyle: {width: "18%", textAlign: "right"},
                 title: props => {
                     return (
                         <div>
@@ -192,7 +192,7 @@ class WatchListA extends React.Component {
         })
     }
 
-    fillColor(props, accessor) {
+    fillColor(props, accessor, isFormated) {
 
         let refPrice = props["mvReferences"]
         let matchPrice = props["mvMatchPrice"]
@@ -207,6 +207,8 @@ class WatchListA extends React.Component {
                 child = <span style={theme.down}>{"-" + change }</span>
             else if(accessor == "mvMatchPercent")
                 child = <span style={theme.down}>{percent + "%"}</span>
+            else if(isFormated != undefined && isFormated)
+                child = <span style={theme.down}>{utils.currencyShowFormatter(props[accessor])}</span>
             else 
                 child = <span style={theme.down}>{props[accessor]}</span>
         }
@@ -215,9 +217,12 @@ class WatchListA extends React.Component {
                 child = <span style={theme.up}>{"+" + change }</span>
             else if(accessor == "mvMatchPercent")
                 child = <span style={theme.up}>{percent + "%"}</span>
+            else if(isFormated != undefined && isFormated)
+                child = <span style={theme.up}>{utils.currencyShowFormatter(props[accessor])}</span>
             else 
                 child = <span style={theme.up}>{props[accessor]}</span>
         }
+        
         return child
     }
 

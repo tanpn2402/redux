@@ -25,7 +25,7 @@ class WatchList extends Component {
         
     }
     onAddStock() {
-        console.log(this.state.mvInstrument)
+        // console.log(this.state.mvInstrument)
         let instrument = this.state.mvInstrument
         let stockCode = instrument.stockCode
         let language = this.props.language
@@ -77,9 +77,6 @@ class WatchList extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <div className="wl-control">
-                        <button type="button" className="hks-btn btn-refresh" onClick={e => this.onRefresh()}>
-                            <span className="glyphicon glyphicon-refresh"></span>
-                        </button>
                         <Select
                             key="rStockID"
                             options={Config.cache.stockList}

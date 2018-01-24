@@ -2139,6 +2139,7 @@ label {
     left: 105px;
     top: 2px;
     font-size: 14px;
+    font-weight: bold;
 }
 .sum-subaccount > .select-control {
     border-radius: 0 !important;

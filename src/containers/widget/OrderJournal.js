@@ -40,7 +40,7 @@ class OrderJournal extends Component {
                 {
                     id: 'cancelmodify',
                     maxWidth: 200,
-                    width: 140,
+                    width: 120,
                     sortable: false,
                     Cell: props => {
                         if (props.aggregated) {
@@ -148,7 +148,7 @@ class OrderJournal extends Component {
                 {
                     id: 'price',
                     accessor: 'mvPrice',
-                    width: 100,
+                    width: 80,
                     skip: false,
                     show: true,
                     style: { textAlign: "right" }
@@ -184,7 +184,7 @@ class OrderJournal extends Component {
                 {
                     id: 'status',
                     accessor: 'mvStatus',
-                    width: 80,
+                    width: 120,
                     Cell: props => {
                         if (props.aggregated) {
 
@@ -203,11 +203,11 @@ class OrderJournal extends Component {
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
-                    show: true,
+                    show: true
                 },
                 {
                     id: 'feetax',
-                    accessor: 'mvOrderType',
+                    accessor: 'a',
                     width: 90,
                     skip: false,
                     show: true,

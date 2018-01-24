@@ -116,57 +116,57 @@ export function formatDate(input, interval) {
 
 export function statusRenderer(text, status) {
     switch (status) {
-        case 'NEW':
+        case 'NEW': // new
             return (
                 <div style={{ backgroundColor: '#30d6b4', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'CAN':
+        case 'CAN': // canceled
             return (
-                <div style={{ backgroundColor: '#881600', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffbedc', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'REJ':
+        case 'REJ': // rejected 
             return (
-                <div style={{ backgroundColor: '#001011', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#f09191', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'FEX':
+        case 'FEX'://
             return (
                 <div style={{ backgroundColor: '#1b5041', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'PEX':
+        case 'PEX':  // 
             return (
                 <div style={{ backgroundColor: '#49dcb1', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'FLL':
+        case 'FLL': // fully filled
             return (
-                <div style={{ backgroundColor: '#36a181', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#96ff96', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'WA':
+        case 'WA':  // waiting
             return (
                 <div style={{ backgroundColor: '#e6e8e6', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'Q':
+        case 'Q':   // queue
             return (
-                <div style={{ backgroundColor: '#e6e8e6', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'WC':
+        case 'WC':  // waiting cancle
             return (
-                <div style={{ backgroundColor: '#eac435', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )

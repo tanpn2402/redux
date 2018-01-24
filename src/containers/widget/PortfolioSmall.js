@@ -73,14 +73,14 @@ class PortfolioSmall extends React.Component {
         let header = [
             {
                 title: language.mvStockID,
-                style: {width: "15%"},
-                bodyStyle: {width: "15%"},
+                style: {width: "12%"},
+                bodyStyle: {width: "12%"},
                 accessor: "stockCode",
             },
             {
                 title: language.mvTSettled,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "24%", textAlign: "right"},
+                bodyStyle: {width: "24%", textAlign: "right"},
                 accessor: "mvTSettled",
                 // cell: props => {
                 //     return this.fillColor(props, "mvTSettled")
@@ -88,8 +88,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvAvgPrice,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "18%", textAlign: "right"},
+                bodyStyle: {width: "18%", textAlign: "right"},
                 accessor: "mvAvgPrice",
                 // cell: props => {
                 //     return this.fillColor(props, "mvAvgPrice")
@@ -97,8 +97,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvMarketPrice,
-                style: {width: "20%", textAlign: "right"},
-                bodyStyle: {width: "20%", textAlign: "right"},
+                style: {width: "18%", textAlign: "right"},
+                bodyStyle: {width: "18%", textAlign: "right"},
                 accessor: "mvMarketPrice",
                 // cell: props => {
                 //     return this.fillColor(props, "mvMarketPrice")
@@ -106,8 +106,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvPL,
-                style: {width: "25%", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "25%", textAlign: "right"},
+                style: {width: "28%", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "28%", textAlign: "right"},
                 accessor: "mvPL",
                 cell: props => {
                     return this.fillColor(props, "mvPL")

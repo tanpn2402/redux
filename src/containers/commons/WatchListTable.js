@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from './DataTable'
+import * as utils from '../../utils'
 
 class WatchListTable extends React.Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'ref',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvReferences")
+                                return this.onRowStatusChange(row, "mvReferences", "reference")
                             },
                             width: 48,
                             skip: false,
@@ -45,7 +46,7 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'ce',
                             Cell: row => {  
-                                return this.onRowStatusChange(row, "mvCeiling")    
+                                return this.onRowStatusChange(row, "mvCeiling", "reference")    
                                 },
                             width: 48,
                             skip: false,
@@ -54,7 +55,7 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'fl',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvFloor")
+                                return this.onRowStatusChange(row, "mvFloor", "reference")
                             },
                             width: 48,
                             skip: false,
@@ -71,7 +72,7 @@ class WatchListTable extends React.Component {
                     columns: [{
                         id: 'pri3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice3")
+                            return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
                         width: 48,
                         skip: false,
@@ -80,9 +81,9 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol3")
+                            return this.onRowStatusChange(row, "mvBidVol3", "bid3")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: this.props.theme.watchlist.evenCol
@@ -90,7 +91,7 @@ class WatchListTable extends React.Component {
                     {
                         id: 'pri2',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice2")
+                            return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
                         width: 48,
                         skip: false,
@@ -99,16 +100,16 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol2',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol2")
+                            return this.onRowStatusChange(row, "mvBidVol2", "bid2")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'pri1',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice1")
+                            return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
                         width: 48,
                         skip: false,
@@ -117,9 +118,9 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol1',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol1")
+                            return this.onRowStatusChange(row, "mvBidVol1", "bid1")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: this.props.theme.watchlist.evenCol
@@ -150,7 +151,7 @@ class WatchListTable extends React.Component {
                     {
                         id: 'price',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchPrice")
+                            return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
                         width: 48,
                         skip: false,
@@ -159,18 +160,18 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'volume',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchVol")
+                            return this.onRowStatusChange(row, "mvMatchVol", "matching")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'totalvol',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchVolTotal")
+                            return this.onRowStatusChange(row, "mvMatchVolTotal", "matching")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: this.props.theme.watchlist.oddCol,
@@ -178,7 +179,7 @@ class WatchListTable extends React.Component {
                         id: 'percent',
                         Header: '%',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                            return this._renderChangePercent(row, "mvMatchUpDown", "matching")
                         },
                         width: 45,
                         skip: false,
@@ -187,7 +188,7 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'change',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                            return this._renderChangeValue(row, "mvMatchUpDown", "matching")
                         },
                         width: 45,
                         skip: false,
@@ -205,7 +206,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'pri1',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice1")
+                                return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
                             width: 48,
                             skip: false,
@@ -214,9 +215,9 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol1',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol1")
+                                return this.onRowStatusChange(row, "mvOfferVol1", "offer1")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: this.props.theme.watchlist.evenCol
@@ -224,7 +225,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'pri2',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice2")
+                                return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
                             width: 48,
                             skip: false,
@@ -233,16 +234,16 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol2',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol2")
+                                return this.onRowStatusChange(row, "mvOfferVol2", "offer2")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'pri3',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice3")
+                                return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
                             width: 48,
                             skip: false,
@@ -251,9 +252,9 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol3',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol3")
+                                return this.onRowStatusChange(row, "mvOfferVol3", "offer3")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: this.props.theme.watchlist.evenCol
@@ -312,7 +313,7 @@ class WatchListTable extends React.Component {
                     columns: [{
                         id: 'forbuy',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForBuy")
+                            return this.onRowStatusChange(row, "mvForeignForBuy", "foreigninvestment")
                         },
                         width: 48,
                         skip: false,
@@ -321,7 +322,7 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'forsell',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForSell")
+                            return this.onRowStatusChange(row, "mvForeignForSell", "foreigninvestment")
                         },
                         width: 48,
                         skip: false,
@@ -330,7 +331,7 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'forroom',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForRoom")
+                            return this.onRowStatusChange(row, "mvForeignForRoom", "foreigninvestment")
                         },
                         width: 48,
                         skip: false,
@@ -417,7 +418,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'ref',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvReferences")
+                                return this.onRowStatusChange(row, "mvReferences", "reference")
                             },
                             width: 48,
                             skip: false,
@@ -426,7 +427,7 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'ce',
                             Cell: row => {  
-                                return this.onRowStatusChange(row, "mvCeiling")    
+                                return this.onRowStatusChange(row, "mvCeiling", "reference")    
                                 },
                             width: 48,
                             skip: false,
@@ -435,7 +436,7 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'fl',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvFloor")
+                                return this.onRowStatusChange(row, "mvFloor", "reference")
                             },
                             width: 48,
                             skip: false,
@@ -452,7 +453,7 @@ class WatchListTable extends React.Component {
                     columns: [{
                         id: 'pri3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice3")
+                            return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
                         width: 48,
                         skip: false,
@@ -461,9 +462,9 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol3',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol3")
+                            return this.onRowStatusChange(row, "mvBidVol3", "bid3")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: props.theme.watchlist.evenCol
@@ -471,7 +472,7 @@ class WatchListTable extends React.Component {
                     {
                         id: 'pri2',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice2")
+                            return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
                         width: 48,
                         skip: false,
@@ -480,16 +481,16 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol2',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol2")
+                            return this.onRowStatusChange(row, "mvBidVol2", "bid2")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: props.theme.watchlist.evenCol
                     }, {
                         id: 'pri1',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidPrice1")
+                            return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
                         width: 48,
                         skip: false,
@@ -498,9 +499,9 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'vol1',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvBidVol1")
+                            return this.onRowStatusChange(row, "mvBidVol1", "bid1")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: props.theme.watchlist.evenCol
@@ -531,7 +532,7 @@ class WatchListTable extends React.Component {
                     {
                         id: 'price',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchPrice")
+                            return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
                         width: 48,
                         skip: false,
@@ -540,18 +541,18 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'volume',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchVol")
+                            return this.onRowStatusChange(row, "mvMatchVol", "matching")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: props.theme.watchlist.oddCol,
                     }, {
                         id: 'totalvol',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchVolTotal")
+                            return this.onRowStatusChange(row, "mvMatchVolTotal", "matching")
                         },
-                        width: 55,
+                        width: 100,
                         skip: false,
                         show: true,
                         background: props.theme.watchlist.oddCol,
@@ -559,7 +560,7 @@ class WatchListTable extends React.Component {
                         id: 'percent',
                         Header: '%',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                            return this._renderChangePercent(row, "mvMatchUpDown", "matching")
                         },
                         width: 45,
                         skip: false,
@@ -568,7 +569,7 @@ class WatchListTable extends React.Component {
                     }, {
                         id: 'change',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvMatchUpDown")
+                            return this._renderChangeValue(row, "mvMatchUpDown", "matching")
                         },
                         width: 45,
                         skip: false,
@@ -586,7 +587,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'pri1',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice1")
+                                return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
                             width: 48,
                             skip: false,
@@ -595,9 +596,9 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol1',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol1")
+                                return this.onRowStatusChange(row, "mvOfferVol1", "offer1")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: props.theme.watchlist.evenCol
@@ -605,7 +606,7 @@ class WatchListTable extends React.Component {
                         {
                             id: 'pri2',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice2")
+                                return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
                             width: 48,
                             skip: false,
@@ -614,16 +615,16 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol2',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol2")
+                                return this.onRowStatusChange(row, "mvOfferVol2", "offer2")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: props.theme.watchlist.evenCol
                         }, {
                             id: 'pri3',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferPrice3")
+                                return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
                             width: 48,
                             skip: false,
@@ -632,9 +633,9 @@ class WatchListTable extends React.Component {
                         }, {
                             id: 'vol3',
                             Cell: row => {
-                                return this.onRowStatusChange(row, "mvOfferVol3")
+                                return this.onRowStatusChange(row, "mvOfferVol3", "offer3")
                             },
-                            width: 55,
+                            width: 100,
                             skip: false,
                             show: true,
                             background: props.theme.watchlist.evenCol
@@ -842,40 +843,146 @@ class WatchListTable extends React.Component {
         )
     }
 
-    onRowStatusChange(row, accessor) {
-        // console.log(row, accessor)
+
+    onRowStatusChange(row, accessor, parent) {
         let data = row.original
+        let refPrice = data["mvReferences"]
         let color = this.props.theme.watchlist
         let bindingStyle = this.props.theme.bindingdata
+        let style = bindingStyle.nochange
+
         
-        if (accessor == "mvCeiling") {
-            return <div className="value-ceil" style={color.ceil}>{data[accessor]}</div>
-        }
-        else if (accessor == "mvFloor") {
-            return <div className="value-floor" style={color.floor}>{data[accessor]}</div>
-        }
-        else if (accessor == "mvReferences") {
-            return <div className="value-ref" style={color.ref}>{data[accessor]}</div>            
+
+        let accessorToCompare = null
+        
+        switch(parent) {
+            case "reference":
+
+            break;
+            case "bid1": 
+                accessorToCompare = "mvBidPrice1"; break;
+            case "bid2":
+                accessorToCompare = "mvBidPrice2";break;
+            case "bid3":
+                accessorToCompare = "mvBidPrice3";break;
+
+            case "offer1":
+                accessorToCompare = "mvOfferPrice1";break;
+            case "offer2":
+                accessorToCompare = "mvOfferPrice2";break;
+            case "offer3":
+                accessorToCompare = "mvOfferPrice3";break;
+
+            case "matching":
+                accessorToCompare = "mvMatchPrice";break;
+                
+            
         }
 
-        if(data[accessor] == null) {
-            return <div className="value unchange" style={bindingStyle.normal}>-</div>
+        if(accessorToCompare == null) {
+            return <div className="value-ceil" style={bindingStyle.normal}>{data[accessor]}</div>
         } else {
-            let state = data["mvMatchPrice"] > data["mvReferences"] ? "up" : 
-                data["mvMatchPrice"] < data["mvReferences"] ? "down" : "normal"
-            let content = data[accessor]
-
-            if(accessor == "mvMatchUpDown" || accessor == "mvMatchUpDown") {
-                let className = ("glyphicon glyphicon-triangle-") + (state == "up" ? "top" : "bottom")
-                content = <span><span className={className}></span>{data[accessor]}</span>
+            if(refPrice > data[accessorToCompare]) {
+                // down
+                style = bindingStyle.down
+            } else if(refPrice < data[accessorToCompare]) {
+                style = bindingStyle.up
+            }
+            let value  = data[accessor]
+            if(accessor.includes("Vol")) {
+                value = utils.currencyShowFormatter(value)
             }
 
-            return <div className="value value-change" style={bindingStyle[state]}>{content}</div>
-                
+            return <div className="value value-change" style={style}>{value}</div>
         }
+        
+
+
+
+        
+
+
+        // let data = row.original
+        // let color = this.props.theme.watchlist
+        // let bindingStyle = this.props.theme.bindingdata
+        
+        // if (accessor == "mvCeiling") {
+        //     return <div className="value-ceil" style={color.ceil}>{data[accessor]}</div>
+        // }
+        // else if (accessor == "mvFloor") {
+        //     return <div className="value-floor" style={color.floor}>{data[accessor]}</div>
+        // }
+        // else if (accessor == "mvReferences") {
+        //     return <div className="value-ref" style={color.ref}>{data[accessor]}</div>            
+        // }
+
+        // if(data[accessor] == null) {
+        //     return <div className="value unchange" style={bindingStyle.normal}>-</div>
+        // } else {
+        //     let state = data["mvMatchPrice"] > data["mvReferences"] ? "up" : 
+        //         data["mvMatchPrice"] < data["mvReferences"] ? "down" : "normal"
+        //     let content = data[accessor]
+
+        //     if(accessor == "mvMatchUpDown" || accessor == "mvMatchUpDown") {
+        //         let className = ("glyphicon glyphicon-triangle-") + (state == "up" ? "top" : "bottom")
+        //         content = <span><span className={className}></span>{data[accessor]}</span>
+        //     }
+
+        //     return <div className="value value-change" style={bindingStyle[state]}>{content}</div>
+                
+        // }
 
     }
 
+    _renderChangeValue(props, accessor) {
+
+        let refPrice = props.original["mvReferences"]
+        let matchPrice = props.original["mvMatchPrice"]
+        
+        let changeValue = Math.abs(utils.round(refPrice - matchPrice, 1))
+        console.log(changeValue, refPrice, matchPrice)
+        let style = this.props.theme.bindingdata.nochange
+        let className = "glyphicon glyphicon-triangle-";
+        if(refPrice > matchPrice) {
+            style = this.props.theme.bindingdata.down
+            className += "bottom"
+        } else if(refPrice < matchPrice) {
+            style = this.props.theme.bindingdata.up
+            className += "top"
+        }
+
+
+        return (
+            <div className="value value-change" style={style}>
+                <span><span className={className}></span>{changeValue}</span>
+            </div> 
+        )
+    }
+
+    _renderChangePercent(props, accessor) {
+        let refPrice = props.original["mvReferences"]
+        let matchPrice = props.original["mvMatchPrice"]
+        
+        let percentChange = Math.abs(utils.round( (refPrice - matchPrice)/refPrice * 100 , 1))
+
+        let style = this.props.theme.bindingdata.nochange
+        let className = "glyphicon glyphicon-triangle-";
+        if(props.original["mvReferences"] > props.original["mvMatchPrice"]) {
+            style = this.props.theme.bindingdata.down
+            className += "bottom"
+        } else if(props.original["mvReferences"] < props.original["mvMatchPrice"]) {
+            style = this.props.theme.bindingdata.up
+            className += "top"
+        }
+
+
+        return (
+            <div className="value value-change" style={style}>
+                <span><span className={className}></span>{percentChange + "%"}</span>
+            </div> 
+        )
+    }
+    
     onPageChange(pageIndex) {
         this.setState({ pageIndex: pageIndex });
     }

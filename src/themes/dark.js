@@ -263,6 +263,9 @@ export default {
         },
         normal: {
             color: "#FFF"
+        },
+        nochange: {
+            color: "#EFFB00"
         }
     }
 }
