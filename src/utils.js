@@ -27,43 +27,23 @@ export function numUnFormat(v, s) {
 
 export function currencyShowFormatter(original, separator, language) {
 
-    if (language == 'vi_VN') {
-        var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
-        if (!original || isNaN(original)
-            || (original == "")) {
-            original = 0;
-        }
-        separator = separator || ",";							//dau phan cach hang nghin voi hang tram
-
-        var m = /(\d+)(?:(\.\d+)|)/.exec(original + ""), x = m[1].length > 3 ? m[1].length % 3
-            : 0;
-        var n = parseFloat(m[1]).toFixed(0);
-        var v = (original < 0 ? '-' : '') // preserve
-            //minus sign
-            + (x ? n.substr(0, x) + separator : "")
-            + n.substr(x).replace(/(\d{3})(?=\d)/g,
-                "$1" + separator);
-
-        return v;
-    } else {
-        var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
-        if (!original || isNaN(original)
-            || (original == "")) {
-            original = 0;
-        }
-        separator = separator || ",";							//dau phan cach hang nghin voi hang tram
-
-        var m = /(\d+)(?:(\.\d+)|)/.exec(original + ""), x = m[1].length > 3 ? m[1].length % 3
-            : 0;
-        var n = parseFloat(m[1]).toFixed(0);
-        var v = (original < 0 ? '-' : '') // preserve
-            //minus sign
-            + (x ? n.substr(0, x) + separator : "")
-            + n.substr(x).replace(/(\d{3})(?=\d)/g,
-                "$1" + separator);
-
-        return v;
+    var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
+    if (!original || isNaN(original)
+        || (original == "")) {
+        original = 0;
     }
+    separator = separator || ",";							//dau phan cach hang nghin voi hang tram
+
+    var m = /(\d+)(?:(\.\d+)|)/.exec(original + ""), x = m[1].length > 3 ? m[1].length % 3
+        : 0;
+    var n = parseFloat(m[1]).toFixed(0);
+    var v = (original < 0 ? '-' : '') // preserve
+        //minus sign
+        + (x ? n.substr(0, x) + separator : "")
+        + n.substr(x).replace(/(\d{3})(?=\d)/g,
+            "$1" + separator);
+
+    return v;
 
 }
 
@@ -277,3 +257,7 @@ export function round(number, precision) {
     var factor = Math.pow(10, precision);
     return Math.round(number * factor) / factor;
 }
+
+export function randomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }

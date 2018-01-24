@@ -42,19 +42,25 @@ export default function(state = initialState, action) {
 
         // add instrument to watch ( not to watchlist)
         case ActionTypes.ADDINSTRUMENTTOWATCH:
+            console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
+            let listDataTmp1 = genDefaultData(state.listInstrumentData, [action.instrument])
             let tmp = state.listInstrumentToWatch
-            if(action.instrument != null && state.listInstrumentInWatchList.indexOf(action.instrument) < 0) {
+            if(action.instrument != null && state.listInstrumentInWatchList.indexOf(action.instrument) < 0
+                && tmp.indexOf(action.instrument) < 0)
+            {
                 tmp = [...state.listInstrumentToWatch, action.instrument]
             }
 
             config.cache.listInstrumentToWatch = tmp
 
             return Object.assign({}, state, {
-                listInstrumentToWatch: tmp
+                listInstrumentToWatch: tmp,
+                listInstrumentData: listDataTmp1
             });
 
         // remove instrument from watch (not from watchlist)
         case ActionTypes.REMOVEINSTRUMENTFROMWATCH:
+            console.log("REMOVEINSTRUMENTFROMWATCH  REDUCERS", action)
             let tmp0 = state.listInstrumentToWatch.filter(e => e != action.instrument)
             config.cache.listInstrumentToWatch = tmp0
             return Object.assign({}, state, {
@@ -63,6 +69,7 @@ export default function(state = initialState, action) {
 
         // add instrument to watchlist ( to db also )
         case ActionTypes.ADDINSTRUMENTTOWATCHLIST:
+            let listDataTmp2 = genDefaultData(state.listInstrumentData, [action.instrument])
             let tmp1 = state.listInstrumentInWatchList
             let listInstrumentToWatchTMP1 = state.listInstrumentToWatch
             if(action.instrument != null) {
@@ -77,7 +84,8 @@ export default function(state = initialState, action) {
 
             return Object.assign({}, state, {
                 listInstrumentInWatchList: tmp1,
-                listInstrumentToWatch: listInstrumentToWatchTMP1
+                listInstrumentToWatch: listInstrumentToWatchTMP1,
+                listInstrumentData: listDataTmp2
             });
         
         // remove instrument from watchlist (from db also )
@@ -97,15 +105,31 @@ export default function(state = initialState, action) {
         
         // update watchlist data (includes all instrument watched in watchlist small widget)
         case ActionTypes.UPDATEWATCHLISTDATA: 
-            console.log("UPDATEWATCHLISTDATA", state.listInstrumentData)
             let json = action.data
+            for(let key in json) {
+                if(json[key] == null) {
+                
+                } else if(json[key] == "-" || json[key] == "0" || json[key] == 0) {
+                    delete json[key]
+                }
+            }
+            console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
+
+           
             let dataTemp = state.listInstrumentData.slice(0)
-            console.log("LISTDATA = ", json)
+            let dataTmp2 = dataTemp
 
-            dataTemp = dataTemp.filter(e => e.mvStockCode == json.mvStockCode && e.mvMarket == json.mvMarket)
-            dataTemp.push(json)
-            console.log("LISTDATA 2= ", dataTemp)
-
+            dataTmp2 = dataTmp2.filter(e=> {
+                if(e.mvStockCode == json.mvStockCode && e.mvMarket == json.mvMarket) return true
+                else return false
+            })
+            
+            if(dataTmp2.length > 0) {
+                Object.assign(dataTmp2[0], json)
+            } else {
+                dataTemp.push(json)
+            }
+            
             return Object.assign({}, state, {
                 listInstrumentData: dataTemp
             });
@@ -130,16 +154,66 @@ export default function(state = initialState, action) {
 
         case ActionTypes.GETLISTSTOCKINWATCHLIST:
             let list = action.list
+            let listDataTmp3 = genDefaultData(state.listInstrumentData, list)
             let tmpIns = list.length > 0 ? list[0] : ""
-            config.cache.listInstrumentToWatch = list
+            let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...list])]
+            config.cache.listInstrumentToWatch = tmp12
             console.log(state, config.cache.listInstrumentToWatch)
             return Object.assign({},state,{
                 instrument: tmpIns,
-                listInstrumentToWatch: list,
-                listInstrumentInWatchList: list
+                listInstrumentToWatch: tmp12,
+                listInstrumentInWatchList: list,
+                listInstrumentData: listDataTmp3
             });
 
         default:
             return state;
     }
 };
+
+function genDefaultData(listInstrumentData, listStock) {
+    // listStock.map(stockCode => {
+    //     if(listInstrumentData.filter(e => e.mvStockCode == stockCode).length < 1) {
+    //         let data = {
+    //             mvStockCode: stockCode,
+    //             mvMarket: "---",
+
+    //             mvCeiling: "---",
+    //             mvFloor:"---",
+    //             mvReferences: "---",
+
+    //             mvBidPrice1: "---",
+    //             mvBidPrice2: "---",
+    //             mvBidPrice3: "---",
+
+    //             mvBidVol1: "---",
+    //             mvBidVol2: "---",
+    //             mvBidVol3: "---",
+
+    //             mvMatchPrice: "---",
+    //             mvMatchVol: "---",
+    //             mvMatchUpDown: "---",
+    //             mvMatchVolTotal: "---",
+
+    //             mvOfferPrice1: "---",
+    //             mvOfferPrice2: "---",
+    //             mvOfferPrice3: "---",
+    //             mvOfferVol1: "---",
+    //             mvOfferVol2: "---",
+    //             mvOfferVol3: "---",
+
+    //             mvOpen: "---",
+    //             mvHigh: "---",
+    //             mvLow: "---",
+    //             mvNomial: "---",
+
+    //             mvForeignForBuy: "---",
+    //             mvForeignForSell: "---",
+    //             mvForeignForRoom: "---"
+    //         }
+    //         listInstrumentData.push(data)
+    //     }
+    // })
+
+    return listInstrumentData
+}

@@ -91,7 +91,7 @@ export default class SearchBar extends React.Component {
 
         this.ref = {}
 
-        console.log(this.props)
+        // console.log(this.props)
     }
 
     onSearch() {
@@ -99,7 +99,7 @@ export default class SearchBar extends React.Component {
         this.props.param.map(e => {
             result[e] = this.ref[e].getValue()
         })
-        console.log(result)
+        // console.log(result)
         this.props.onSearch(result)
     }
 
@@ -115,7 +115,7 @@ export default class SearchBar extends React.Component {
 
     render() {
         let scrollBtnStyle = this.props.theme.scrolling.button
-        console.log("SEARCH BAR")
+        // console.log("SEARCH BAR")
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
@@ -284,7 +284,7 @@ class SelectorStock extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("AAAAAA",nextProps )
+        // console.log("AAAAAA",nextProps )
         if(nextProps.data.length > 0)
         {
             if(nextProps.default != undefined) {
@@ -295,7 +295,7 @@ class SelectorStock extends React.Component {
         }
     }
     render() {
-        console.log("AAAAAA",this.state.value )
+        // console.log("AAAAAA",this.state.value )
         let id = this.props.id + "-" + new Date().getTime()
         let data = this.props.data
         let language = this.props.language

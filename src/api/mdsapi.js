@@ -1,27 +1,18 @@
-import { POST, PUT, GET, LOGIN, DELETE, HEADERSCK } from './serverconfig'
-import { FetchAPI} from './fetchAPI';
+import { POST, PUT, GET, LOGIN, DELETE, HEADERSCK, SERVER } from './serverconfig'
+
 export function get(url, param, dispatch, successHandler, failHandler) {
 
-    url = "http://192.168.150.251:9090/iTradeMAS/enquiryportfolio.action?mvLastAction=AccountInfo&mvChildLastAction=AccountInfo&key=1516681606658&"
-    
-    // return (FetchAPI(id, param, GET)).then(response => response).then(parseData => {
-	// 	dispatch(successHandler(parseData))
-	// 	return parseData
-	// }).catch(error => {
-	// 	if (failHandler)
-	// 		failHandler(error)
-	// 	return error
-    // }) 
-    return (FetchAPI(url, param, "MDS")).then(response => response).then(parseData => {
-        console.log(parseData)
+    url = SERVER + url
+	return (fetch(url, param, GET)).then(response => response).then(parseData => {
+        // console.log(parseData)
 		dispatch(successHandler(parseData))
 		return parseData
 	}).catch(error => {
-        console.log(error)
+        // console.log(error)
 		if (failHandler)
 			failHandler(error)
 		return error
-    })
+    })    
 }
 
 function fetch(url, JsonData, method) {
@@ -46,19 +37,19 @@ function fetch(url, JsonData, method) {
                 .catch(reject)
         })
     } else {
-        console.log(url)
+        // console.log(url)
         return new Promise((resolve, reject) => {
             var response = window.fetch(url)
-            console.log(response)
+            // console.log(response)
             response.then(res => {
-                console.log(res)
+                console.log("MDS FETCH SUCCESS", res)
                 if (res.ok) {
                     res.json().then(resolve).catch(reject)
                 } else {
                     reject(res)
                 }
             }).catch(() => {
-                console.log("aaaaaaaaa")
+                console.log("MDS FETCH FAIL")
                 return reject(response)
             })
         })

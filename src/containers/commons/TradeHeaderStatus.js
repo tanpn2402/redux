@@ -39,10 +39,10 @@ class TradeHeaderStatus extends Component {
             return <span style={style}>---</span>
         }
 
-        if(props[accessor] < this.balance[accessor]) {
+        if(props["mvMatchPrice"] < props["mvReferences"] ) {
             style = theme.down
             if(accessor == "mvMatchUpDown") tmp = "-" + tmp
-        } else if (props[accessor] > this.balance[accessor] ) {
+        } else if (props["mvMatchPrice"] > props["mvReferences"]) {
             style = theme.up
             if(accessor == "mvMatchUpDown") tmp = "+" + tmp
         }
@@ -57,24 +57,33 @@ class TradeHeaderStatus extends Component {
         let theme = this.props.theme.bindingdata
         let style = theme.normal
 
-        let percent = Math.random().toFixed(2)
-        let change = utils.round(1 + parseFloat(Math.random().toFixed(2)), 2)
-        if(percent > 0.3) {
-            style = theme.up
-            percent = <span style={{color: style.color}} className="trd-binding up">{"" + percent + "%"}</span>
-            change = <span style={{color: style.color}} className="trd-binding up">{"+" + change + ""}</span>
+        let refPrice = this.state.data["mvReferences"]
+        let matchPrice = this.state.data["mvMatchPrice"]
 
-            return <span>{change}
-                {<span style={{color: style.color, marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-top"></span>}
-                {percent}</span>
-        }
-        else {
+        if(refPrice > matchPrice) {
             style = theme.down
+            let percent = utils.round( (refPrice - matchPrice) / refPrice * 100, 1)
+            let change = utils.round(refPrice - matchPrice, 1)
+
             percent = <span style={{color: style.color}} className="trd-binding down">{"" + percent + "%"}</span>
             change = <span style={{color: style.color}} className="trd-binding down">{"-" + change + ""}</span>
+            
             return <span>{change}
                 {<span style={{color: style.color, marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-bottom"></span>}
                 {percent}</span>
+        }
+        else if(refPrice < matchPrice) {
+            style = theme.up
+            let percent = utils.round( (matchPrice - refPrice) / refPrice * 100, 1)
+            let change =  utils.round(matchPrice - refPrice, 1)
+
+            percent = <span style={{color: style.color}} className="trd-binding down">{"" + percent + "%"}</span>
+            change = <span style={{color: style.color}} className="trd-binding down">{"+" + change + ""}</span>
+            
+            return <span>{change}
+                {<span style={{color: style.color, marginLeft: 3, marginRight: 3}} className="glyphicon glyphicon-triangle-top"></span>}
+                {percent}</span>
+            
         }
     }
 

@@ -797,7 +797,8 @@ export default
                     "floor": "Floor",
                     "cell": "Ceil",
                     "ref": "Ref",
-                    "foreigner": "Foreigner"
+                    "foreigner": "Foreigner",
+                    "total": "Total"
                 }
             },
             "avaiblemarginlist": {

@@ -193,20 +193,30 @@ class WatchListA extends React.Component {
     }
 
     fillColor(props, accessor) {
-        props["mvMatchPercent"] = utils.round( parseFloat(props["mvMatchUpDown"]) - 1, 2)
+
+        let refPrice = props["mvReferences"]
+        let matchPrice = props["mvMatchPrice"]
+        let percent = utils.round( (refPrice - matchPrice) / refPrice * 100, 1)
+        let change = Math.abs(utils.round(refPrice - matchPrice, 1))
+        
+
         let theme = this.props.theme.bindingdata
         let child = <span style={theme.normal}>{props[accessor]}</span>
-        if(props[accessor] > this.balance[accessor]) {
+        if(refPrice > matchPrice) {
             if(accessor == "mvMatchUpDown")
-                child = <span style={theme.up}>{"+" + props[accessor]}</span>
+                child = <span style={theme.down}>{"-" + change }</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={theme.up}>{props["mvMatchPercent"] + "%"}</span>
+                child = <span style={theme.down}>{percent + "%"}</span>
+            else 
+                child = <span style={theme.down}>{props[accessor]}</span>
         }
-        else {
+        else if(refPrice < matchPrice) {
             if(accessor == "mvMatchUpDown")
-                child = <span style={theme.down}>{"-" + props[accessor]}</span>
+                child = <span style={theme.up}>{"+" + change }</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={theme.down}>{props["mvMatchPercent"] + "%"}</span>
+                child = <span style={theme.up}>{percent + "%"}</span>
+            else 
+                child = <span style={theme.up}>{props[accessor]}</span>
         }
         return child
     }

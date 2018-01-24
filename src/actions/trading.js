@@ -1,5 +1,4 @@
-import * as itradeapi from '../api/web_service_api'
-import * as mdsapi from '../api/mdsapi'
+import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
 import config from "../core/config"
 import * as utils from '../utils'
@@ -102,91 +101,53 @@ export function removeInstrumentFromWatchList(ins, market) {
 
 
 // UPDATE WATLIST DATA
-export function updateWatchlistData(json) {
-    /*let data = []
-    // console.log("AAAA")
-    config.cache.listInstrumentToWatch.map(e => {
-        // let tmp = config.cache.stockList.filter(el => el.stockCode == e)
-        // let market = ""
-        // if(tmp.length > 0) {
-        //     market = tmp[0].mvMarketID
-        // }
+export function updateWatchlistData(listStock) {
+    let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
+    let stockCode = config.cache.listInstrumentToWatch[marIndex]
 
-        data.push({
-            mvStockCode: e,
+    
+        let data = {
+            mvStockCode: stockCode,
             mvMarket: "AC",
 
             mvCeiling: 80.2,
             mvFloor: 70.3,
-            mvReferences: 80.456,
+            mvReferences: 80.5,
 
-            mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 2),
-            mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 2),
-            mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 2),
+            mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvBidVol1: utils.round(75 + parseFloat(Math.random().toFixed(2)), 2),
-            mvBidVol2: utils.round(47 + parseFloat(Math.random().toFixed(2)), 2),
-            mvBidVol3: utils.round(96 + parseFloat(Math.random().toFixed(2)), 2),
+            mvBidVol1: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidVol2: utils.round(47 + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidVol3: utils.round(96 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvMatchPrice: utils.round(80+ parseFloat(Math.random().toFixed(2)), 2),
-            mvMatchVol: utils.round(569 + parseFloat(Math.random().toFixed(2)), 2),
-            mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 2),
-            mvMatchVolTotal: utils.round(469 + parseFloat(Math.random().toFixed(2)), 2),
+            mvMatchPrice: utils.round(80+ parseFloat(Math.random().toFixed(2)), 1),
+            mvMatchVol: utils.round(569 + parseFloat(Math.random().toFixed(2)), 1),
+            mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
+            mvMatchVolTotal: utils.round(469 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvOfferPrice1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 2),
-            mvOfferPrice2: utils.round(87 + parseFloat(Math.random().toFixed(2)), 2),
-            mvOfferPrice3: utils.round(97 + parseFloat(Math.random().toFixed(2)), 2),
-            mvOfferVol1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 2),
-            mvOfferVol2: utils.round(97 + parseFloat(Math.random().toFixed(2)), 2),
-            mvOfferVol3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 2),
+            mvOfferPrice1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+            mvOfferPrice2: utils.round(87 + parseFloat(Math.random().toFixed(2)), 1),
+            mvOfferPrice3: utils.round(97 + parseFloat(Math.random().toFixed(2)), 1),
+            mvOfferVol1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+            mvOfferVol2: utils.round(97 + parseFloat(Math.random().toFixed(2)), 1),
+            mvOfferVol3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvOpen: utils.round(80 + parseFloat(Math.random().toFixed(2)), 2),
-            mvHigh: utils.round(70 + parseFloat(Math.random().toFixed(2)), 2),
-            mvLow: utils.round(60 + parseFloat(Math.random().toFixed(2)), 2),
-            mvNomial: utils.round(11 + parseFloat(Math.random().toFixed(2)), 2),
+            mvOpen: utils.round(80 + parseFloat(Math.random().toFixed(2)), 1),
+            mvHigh: utils.round(70 + parseFloat(Math.random().toFixed(2)), 1),
+            mvLow: utils.round(60 + parseFloat(Math.random().toFixed(2)), 1),
+            mvNomial: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 2),
-            mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 2),
-            mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 2)
-        })
-    })*/
+            mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
+            mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
+            mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
+        }
+
     // console.log("UPDATE", data)
 
-    
-    //console.log("UPDATE ATM", json)
-    // json = one stock data
     return {
-        type: 0
+        type: ActionTypes.UPDATEWATCHLISTDATA,
+        data: data
     }
-    // return {
-    //     type: 0
-    // }
-}
-
-export function getListStockInWatchList() {
-    let cliendID = localStorage.getItem("clientID")
-    if(cliendID == undefined) {
-        console.log("Not find clientId in localstorage")
-        return {
-            type: 0
-        }
-    } else {
-        let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
-        return (dispatch) => {
-            
-            itradeapi.mdsGET(url, {} , dispatch,
-                function (response) {
-                    console.log(response)
-                    
-                },
-                function (err) {
-                    console.log(err)
-                })
-        }
-    }
-
-    
-
-
-    
 }

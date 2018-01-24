@@ -537,7 +537,7 @@ export default
                     "mvTAwaitingDepositCert": "Chờ lưu kí",
                     "mvTAwaitingWithdrawalCert": "Chờ rút",
                     "mvAvgPrice": "Giá TB",
-                    "mvMarketPrice": "Giá hiện tại",
+                    "mvMarketPrice": "Giá TT",
                     "mvWAC": "Giá trị mua",
                     "mvMarketValue": "Giá trị thị trường",
                     "mvPL": "Lãi/Lỗ",

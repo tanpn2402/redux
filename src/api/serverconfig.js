@@ -3,8 +3,13 @@ export const POST = 'POST'
 export const PUT = 'PUT'
 export const LOGIN = 'LOGIN'
 export const DELETE = 'DELETE'
-export const SERVER = 'http://192.168.150.251:'
-export const PORT = '9090/iTradeMAS/'
+export const PROTOCOL = 'http:'
+export const HOSTNAME = '192.168.150.251'
+export const PORT = '9090'
+// export const PROTOCOL = window.location.protocol //"http:"
+// export const HOSTNAME = window.location.hostname // "localhost"
+// export const PORT = window.location.port // "3000"
+export const SERVER = PROTOCOL + "//" + HOSTNAME + ":" + PORT + "/"
 
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'
@@ -29,5 +34,5 @@ export const HEADERSCK = {
 }
 
 export function getServerUrl() {
-    return SERVER + PORT
+    return SERVER
 }

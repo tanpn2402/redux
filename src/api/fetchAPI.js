@@ -1,22 +1,24 @@
-import * as CONFIG from "./serverconfig"
+import {SERVER, PORT, POST, GET, DELETE, LOGIN, HEADERS, HEADERSCK, PUT} from "./serverconfig"
 
+export function getServerUrl() {
+    return SERVER + PORT
+}
 export async function FetchAPI(id, JsonData, method) {
-
-    var url = CONFIG.SERVER + CONFIG.PORT + id + '';
+    var url = SERVER + "iTradeMAS/" + id
     var formData = '';
     for (var k in JsonData) {
         formData += k + '=' + JsonData[k] + '&'
     }
     //console.log(url,formData)
     // method GET
-    if (method === CONFIG.GET) {
+    if (method === GET) {
         // url += GET;  
         if (formData != null) {
             url += '?' + formData
             return new Promise((resolve, reject) => {
                 var response = window.fetch(url, {
-                    method: CONFIG.GET,
-                    headers: CONFIG.HEADERSCK,
+                    method: GET,
+                    headers: HEADERSCK,
                     credentials: 'include'
                 })
 
@@ -32,8 +34,8 @@ export async function FetchAPI(id, JsonData, method) {
         } else {
             return new Promise((resolve, reject) => {
                 var response = window.fetch(url, {
-                    method: CONFIG.GET,
-                    headers: CONFIG.HEADERSCK
+                    method: GET,
+                    headers: HEADERSCK
                 })
 
                 response.then(res => {
@@ -49,12 +51,12 @@ export async function FetchAPI(id, JsonData, method) {
     }
 
     //method POST
-    if (method === CONFIG.POST) {
+    if (method === POST || method === DELETE || method === LOGIN ) {
         //url += POST
         return new Promise((resolve, reject) => {
             let response = fetch(url, {
-                method: CONFIG.POST,
-                headers: CONFIG.HEADERSCK,
+                method: POST,
+                headers: HEADERSCK,
                 credentials: 'include',
                 body: formData
             })
@@ -69,71 +71,9 @@ export async function FetchAPI(id, JsonData, method) {
         })
     }
 
-    //method LOGIN
-    if (method === CONFIG.LOGIN) {
-        //url += LOGIN
-        return new Promise((resolve, reject) => {
-            var response = window.fetch(url, {
-                method: CONFIG.POST,
-                headers: CONFIG.HEADERSCK,
-                credentials: 'include',
-                body: formData
-            })
-            response.then(res => {
-                if (res.ok) {
-                    res.json().then(resolve).catch(reject)
-                } else {
-                    reject(res)
-                }
-            })
-                .catch(reject)
-        })
-    }
 
-    //method DELETE
-    //method POST
-    if (method === CONFIG.DELETE) {
-        //url += DELETE
-        return new Promise((resolve, reject) => {
-            var response = window.fetch(url, {
-                method: CONFIG.POST,
-                headers: CONFIG.HEADERSCK,
-                credentials: 'include',
-                body: formData
-            })
-            response.then(res => {
-                if (res.ok) {
-                    res.json().then(resolve).catch(reject)
-                } else {
-                    reject(res)
-                }
-            })
-                .catch(reject)
-        })
-    }
     if (method === 'REPORT') {
         url += '?' + formData
         window.location.href = url
     }
-
-    if(method === 'MDSGET') {
-        console.log("MDS API IN FETCH API")
-        return new Promise((resolve, reject) => {
-            var response = window.fetch("http://localhost:8089/test", {
-                method: CONFIG.GET,
-                headers: CONFIG.HEADERSCK
-            })
-
-            response.then(res => {
-                if (res.ok) {
-                    res.json().then(resolve).catch(reject)
-                } else {
-                    reject(res)
-                }
-            })
-                .catch(reject)
-        })
-    }
-
-
 }

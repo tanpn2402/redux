@@ -85,3 +85,5 @@ export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action';
 
 // MDS
 export const GETLISTSTOCKINWATCHLIST = 'ITradePushServer/WatchList/{clientID}';
+export const WATCHLISTADD = 'ITradePushServer/WatchListAdd/{clientID}/{stockCode}/{marketID}';
+export const WATCHLISTREMOVE = 'ITradePushServer/WatchListRemove/{clientID}/{stockCode}';

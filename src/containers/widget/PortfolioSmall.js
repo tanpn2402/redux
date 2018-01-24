@@ -15,11 +15,7 @@ class PortfolioSmall extends React.Component {
                 
             ]
         }
-        this.params = {
-            mvLastAction: 'AccountInfo',
-            mvChildLastAction: 'AccountInfo',
-            key: (new Date()).getTime(),
-        }
+        
 
         this.balance = 0.3654
 
@@ -51,6 +47,7 @@ class PortfolioSmall extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        
         let _data = new Array()
         nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
             // console.log(e)
@@ -66,6 +63,8 @@ class PortfolioSmall extends React.Component {
         this.setState({
             data: _data
         })
+
+        
     }
 
     render() {
@@ -160,42 +159,19 @@ class PortfolioSmall extends React.Component {
     }
 
     componentDidMount() {
-        
-        this.interval = setInterval( this.simulate.bind(this) , 1500)
-        this.props.getPorfolio(this.params)
+        let params = {
+            mvLastAction: 'AccountInfo',
+            mvChildLastAction: 'AccountInfo',
+            key: (new Date()).getTime(),
+        }
+        this.props.getPorfolio(params)
     }
-    
-    componentWillUnmount() {
-        clearInterval(this.interval)
-    }
-
-    simulate() {
-        
-        let _data = new Array()
-        this.state.data.map(stock => {
-
-            let avgPrice =  (Math.floor(Math.random() * 20) + 9) + Math.random().toFixed(2)
-            let marketPrice = (Math.floor(Math.random() * 20) + 9) +  Math.random().toFixed(2)
-            _data.push({
-                "stockCode": stock.stockCode,
-                "mvAvgPrice": avgPrice,
-                "mvTSettled": stock.mvTSettled,
-                "mvMarketPrice": marketPrice,
-                "mvPL": Math.round( (marketPrice - avgPrice)*1000)/1000
-            })
-        })
-
-        this.setState({
-            data: _data
-        })
-
-    }
-
 }
 const mapStateToProps = (state) => {
     return {
         instrument: state.trading.instrument,
         porfolioBeanList: state.trading.portfolioData,
+        listInstrumentData: state.trading.listInstrumentData
     }
 }
 

@@ -7,7 +7,7 @@ const stockList = { "mvIsEnableMultiMarket": true, "mvResult": null, "stockSearc
 
 
 export function stockSearch(param) {
-    console.log(param)
+    // console.log(param)
     return function (dispatch) {
         api.post('stockSearch.action', param, dispatch, 
         function(response) {
@@ -23,7 +23,7 @@ export function stockSearch(param) {
             }
         },
         function(err) {
-            console.log("FAILLLLLLLLLL STOCK SEARCHHHHH")
+            // console.log("FAILLLLLLLLLL STOCK SEARCHHHHH")
             return (dispatch) => dispatch(stockSearch(param))
         })
     }

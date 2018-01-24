@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import atmosphere from 'atmosphere.js'
-import * as SERVER from '../api/serverconfig';
+import {SERVER} from '../api/serverconfig';
 
 const SUBSCRIBE_URL = "ITradePushServer/StockInfo/"
 
@@ -12,7 +12,7 @@ var transport = 'websocket';
 var callback;
 
 var request = {
-    url: /*SERVER.getServerUrl() + */ "http://192.168.150.199:3000/ITradePushServer/StockInfo/",
+    url: SERVER + SUBSCRIBE_URL,
     contentType: "application/json",
     trackMessageLength: true,
     transport: transport,
@@ -61,7 +61,7 @@ export function subscribe(clientID, callback) {
 
     subSocket = socket.subscribe(request)
     //New request to notify server sending data by WSprotocol
-        window.fetch(/*SERVER.getServerUrl() + */'http://192.168.150.199:3000/ITradePushServer/StockInfo/' + clientID)
+        window.fetch(SERVER + SUBSCRIBE_URL + clientID)
 }
 
 export function unsubscribe() {

@@ -3726,16 +3726,17 @@ label {
     padding: 2px 0px;
 }
 .bidask-td.left {
-    width: calc(50% - 30px );
+    width: calc(50% - 50px );
 }
 .bidask-td.mid {
-    width: 60px;
+    width: 100px;
     text-align: center;
     padding-right: 0 !important;
-    padding-left: 0 !important;    
+    padding-left: 0 !important;  
+    font-weight: bold;  
 }
 .bidask-td.right {
-    width: calc(50% - 30px );
+    width: calc(50% - 50px );
 }
 .bidask-row {
     width: 100%;
@@ -3758,7 +3759,7 @@ label {
     float: unset !important;
 }
 .bidask-td.mid > div {
-    padding: 4px 2px !important;
+    padding: 2px 2px !important;
     display: block;
 }
 .bidask-td.green {
