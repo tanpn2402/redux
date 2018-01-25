@@ -35,7 +35,8 @@ class BidAskTable extends React.Component {
             data : {},
             instrument: this.props.instrument,
             mvStockSelected: {},
-            instrumentData: {}
+            instrumentData: {},
+            watched: false
         }
         
     }
@@ -121,6 +122,7 @@ class BidAskTable extends React.Component {
     }
 
     onWatchClick() {
+        console.log(this.state)
         if(this.state.instrument != null && this.state.instrument != "") {
             if(this.state.watched) {
                 // unwatch
@@ -154,7 +156,7 @@ class BidAskTable extends React.Component {
             }
 
             this.setState({
-                watched: option.stockCode == mvStockSelected.stockCode,
+                watched: !watched,
                 mvStockSelected: option,
                 instrument: option.stockCode
             })
@@ -215,6 +217,8 @@ class BidAskTable extends React.Component {
         if(listInstrumentInWatchList.indexOf(instrument) > -1) {
             this.state.watched = true
             className = "glyphicon glyphicon-star"
+        } else {
+            this.state.watched = false
         }
         
         return (

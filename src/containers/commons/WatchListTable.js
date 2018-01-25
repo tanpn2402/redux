@@ -72,6 +72,7 @@ class WatchListTable extends React.Component {
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'pri3',
+                        accessor_tmp: 'mvBidPrice3',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
@@ -81,6 +82,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol3',
+                        accessor_tmp: 'mvBidVol3',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol3", "bid3")
                         },
@@ -91,6 +93,7 @@ class WatchListTable extends React.Component {
                     },
                     {
                         id: 'pri2',
+                        accessor_tmp: 'mvBidPrice2',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
@@ -100,6 +103,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol2',
+                        accessor_tmp: 'mvBidVol2',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol2", "bid2")
                         },
@@ -109,6 +113,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'pri1',
+                        accessor_tmp: 'mvBidPrice1',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
@@ -118,6 +123,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.evenCol
                     }, {
                         id: 'vol1',
+                        accessor_tmp: 'mvBidVol1',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol1", "bid1")
                         },
@@ -151,6 +157,7 @@ class WatchListTable extends React.Component {
                     },
                     {
                         id: 'price',
+                        accessor: 'mvMatchPrice',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
@@ -160,6 +167,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'volume',
+                        accessor: 'mvMatchVol',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVol", "matching")
                         },
@@ -169,6 +177,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'totalvol',
+                        accessor: 'mvMatchVolTotal',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVolTotal", "matching")
                         },
@@ -178,6 +187,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'percent',
+                        accessor: 'mvMatchUpDown',
                         Header: '%',
                         Cell: row => {
                             return this._renderChangePercent(row, "mvMatchUpDown", "matching")
@@ -188,6 +198,7 @@ class WatchListTable extends React.Component {
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'change',
+                        accessor: 'mvMatchUpDown',
                         Cell: row => {
                             return this._renderChangeValue(row, "mvMatchUpDown", "matching")
                         },
@@ -206,6 +217,7 @@ class WatchListTable extends React.Component {
                     columns: [
                         {
                             id: 'pri1',
+                            accessor_tmp: 'mvOfferPrice1',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
@@ -215,6 +227,7 @@ class WatchListTable extends React.Component {
                             background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol1',
+                            accessor_tmp: 'mvOfferVol1',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol1", "offer1")
                             },
@@ -225,6 +238,7 @@ class WatchListTable extends React.Component {
                         },
                         {
                             id: 'pri2',
+                            accessor_tmp: 'mvOfferPrice2',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
@@ -234,6 +248,7 @@ class WatchListTable extends React.Component {
                             background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol2',
+                            accessor_tmp: 'mvOfferVol2',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol2", "offer2")
                             },
@@ -243,6 +258,7 @@ class WatchListTable extends React.Component {
                             background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'pri3',
+                            accessor_tmp: 'mvOfferPrice3',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
@@ -252,6 +268,7 @@ class WatchListTable extends React.Component {
                             background: this.props.theme.watchlist.evenCol
                         }, {
                             id: 'vol3',
+                            accessor_tmp: 'mvOfferVol3',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol3", "offer3")
                             },
@@ -823,14 +840,87 @@ class WatchListTable extends React.Component {
     }
 
     onCellClick(state, rowInfo, cell, instance) {
+
         if(rowInfo == undefined) return
         let data = rowInfo.original
         let cellID = cell.id
 
         let stockCode = data.mvStockCode
         let market = data.mvMarket
+        let tmp = config.cache.stockList.filter(e => e.stockCode == stockCode)
+        let stockName = tmp.length > 0 ? tmp[0].stockName : ""
 
+        // console.log(cell, rowInfo, state, instance)
         this.props.changeInstrument(stockCode)
+
+      
+        let accessor = cell.accessor_tmp
+        if(accessor == "mvBidVol1" || accessor == "mvBidPrice1") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvBidVol1"],
+                mvPrice: data["mvBidPrice1"]
+            })
+        } else if(accessor == "mvBidVol2" || accessor == "mvBidPrice2") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvBidVol2"],
+                mvPrice: data["mvBidPrice2"]
+            })
+        } else if(accessor == "mvBidVol3" || accessor == "mvBidPrice3") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvBidVol3"],
+                mvPrice: data["mvBidPrice3"]
+            })
+        } else if(accessor == "mvOfferVol1" || accessor == "mvOfferPrice1") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvOfferVol1"],
+                mvPrice: data["mvOfferPrice1"]
+            })
+        } else if(accessor == "mvOfferVol2" || accessor == "mvOfferPrice2") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvOfferVol2"],
+                mvPrice: data["mvOfferPrice2"]
+            })
+        } else if(accessor == "mvOfferPrice3" || accessor == "mvOfferVol3") {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvOfferVol3"],
+                mvPrice: data["mvOfferPrice3"]
+            })
+        } else {
+            this.props.setDefaultOrderParams({
+                mvBS: "BUY",
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: market,
+                mvQty: data["mvMatchVol"],
+                mvPrice: data["mvMatchPrice"]
+            })
+        }
+
+        this.props.onDesktopTabClick("tradepage", "placeorder")
 
     }
 
@@ -999,6 +1089,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
+    setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
+    onDesktopTabClick: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID));
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchListTable)

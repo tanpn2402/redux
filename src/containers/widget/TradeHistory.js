@@ -161,14 +161,14 @@ class TradeHistory extends Component {
             <Component className="trd-body" theme={theme}>
                 <div className="trd-log-control">
                     <label style={theme.font.main}>{this.props.language.menu.tradehistory}</label>
-                    <div className="trd-log-filter">
+                    {/* <div className="trd-log-filter">
                         <Select
                             options={this.listFilter}
                             selected={this.state.filterSelected}
                             optionLabelPath={"text"}
                             handleChange={this.handleFilterChange.bind(this)}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <TradeLogTable {...this.props} />
             </Component>

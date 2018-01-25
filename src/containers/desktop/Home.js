@@ -6,6 +6,7 @@ import MenuNav from './MenuNav'
 import MainContent from './MainContent'
 import config from '../../core/config'
 import {getLanguage, getTheme } from '../../utils'
+import * as atmosphereAPI from '../../api/atmosphereAPI'
 
 class Home extends Component {
     /*
@@ -22,7 +23,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log("ASSSSSSSSSSS")
         // we do not use state at here
         // we use state to reload this component
         let theme = getTheme(config.cache.theme)
@@ -53,6 +53,7 @@ class Home extends Component {
     componentDidMount() {
         this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
+        // this.props.getListStockInWatchList()
     }
 
     componentWillUnmount() {
@@ -72,14 +73,20 @@ class Home extends Component {
         if (socketID == null) {
             console.log("No WebSocketID")
         } else {
-            console.log("Start subcribe on clientId = " + socketID)
+            console.log("Start subcribe on clientId = " + socketID + ", but i use C080001 to test :v")
+            // atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
+            //     if (stockJsonResponse != null) {
+                    
+            //         this.props.updateWatchlistData(stockJsonResponse)
+            //     }
+            // }).bind(this))
             setInterval(this.interval, 2000)
-
         }
     }
 
     onUnSubcribe() {
         console.log("Socket will be unsubscribed")
+        // atmosphereAPI.unsubscribe()
         clearInterval(this.interval)
     }
 
@@ -100,7 +107,8 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.checkSession(handleCheckSessionID)) 
     },
 
-    updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) }
+    updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) },
+    getListStockInWatchList: () => {dispatch(actions.getListStockInWatchList()) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

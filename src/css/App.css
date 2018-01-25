@@ -3849,9 +3849,11 @@ label {
 }
 .bidask-td.core {
     width: 110px !important;
+    border-left-width: 0px !important;
 }
 .bidask-td.status {
     width: 105px !important;
+    border-right-width: 0px !important;
 }
 .bidask-td.status .match-price {
     font-size: 30px;

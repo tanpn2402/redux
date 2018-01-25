@@ -141,6 +141,7 @@ export function checkAuthentication(authParams, successEvent, failEvent){
 }
 
 export function setDefaultOrderParams(params) {
+    console.log(params)
     return {
         type: ActionTypes.GOTOORDERPLACE,
         params: params
