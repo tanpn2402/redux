@@ -33,7 +33,9 @@ class BidAskTable extends React.Component {
 
         this.state = {
             data : {},
-            instrument: this.props.instrument
+            instrument: this.props.instrument,
+            mvStockSelected: {},
+            instrumentData: {}
         }
         
     }
@@ -106,7 +108,8 @@ class BidAskTable extends React.Component {
             style = theme.down
         }
         
-        return <div className="match-price" style={style}>{this.state.data["mvMatchPrice"]}</div>
+        return <div className="match-price" style={style} onClick={e => this.onClick("match")} >
+            {this.state.data["mvMatchPrice"]}</div>
     }
 
     getValue(data, accessor) {
@@ -134,25 +137,25 @@ class BidAskTable extends React.Component {
     }
 
     handleStockChange(option) {
-        let {instrument, watched} = this.state
-        let {listInstrumentInWatchList, portfolioData} = this.props
+        let {mvStockSelected, watched} = this.state
+        let {listInstrumentInWatchList, portfolioData, instrument} = this.props
 
         if(option.stockCode == instrument.stockCode) {
             // selected same instrument
             return
         }
         else {
-            console.log(portfolioData)
+            // console.log(portfolioData)
             // remove previous instrument if it not in watchlist and not in portfolio list
-            if(listInstrumentInWatchList.indexOf(instrument.stockCode) < 0 && 
-                portfolioData.filter(e => e.mvStockID == instrument.stockCode).length < 1) 
+            if(listInstrumentInWatchList.indexOf(mvStockSelected.stockCode) < 0 && 
+                portfolioData.filter(e => e.mvStockID == mvStockSelected.stockCode).length < 1) 
             {
-                this.props.removeInstrumentFromWatch(instrument.stockCode, instrument.mvMarketID)
+                this.props.removeInstrumentFromWatch(mvStockSelected.stockCode, mvStockSelected.mvMarketID)
             }
 
             this.setState({
-                watched: option.stockCode == this.state.instrument.stockCode,
-                instrument: option,
+                watched: option.stockCode == mvStockSelected.stockCode,
+                mvStockSelected: option,
                 instrument: option.stockCode
             })
     
@@ -185,11 +188,11 @@ class BidAskTable extends React.Component {
 
 
     render() {
-        let {listInstrumentInWatchList, listInstrumentData} = this.props
-        let {instrument} = this.state
+        let {listInstrumentInWatchList, listInstrumentData, instrument} = this.props
+        let { mvStockSelected } = this.state
 
         let data = []
-        let _tmp = this.props.listInstrumentData.filter(e => e.mvStockCode == this.props.instrument)
+        let _tmp = this.props.listInstrumentData.filter(e => e.mvStockCode == instrument)
         if(_tmp.length > 0) {
             data = _tmp[0]
             this.state.data = data
@@ -197,12 +200,14 @@ class BidAskTable extends React.Component {
             data["mvTotalBidVol"] = this.getValue(data, "mvBidVol1") + this.getValue(data, "mvBidVol2") + this.getValue(data, "mvBidVol3")
             
         }
+        
         let header = this.props.language.stockmarketinform.header
 
-        let tmp = config.cache.stockList.filter(e => e.stockCode == this.props.instrument)
-        let stock = {stockCode: this.props.instrument, mvMarketID: "", stockName: ""}
+        let tmp = config.cache.stockList.filter(e => e.stockCode == instrument)
+        let stock = {stockCode: instrument, mvMarketID: "", stockName: ""}
         if(tmp.length > 0) {
             stock = tmp[0]
+            this.state.mvStockSelected = stock
         }
         let theme = this.props.theme
 
@@ -308,38 +313,38 @@ class BidAskTable extends React.Component {
                                     <div>
                                         {<span style={theme.font.main} className="bidask-title">{header.total}</span>}
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvTotalAskVol)}
+                                            {utils.currencyShowFormatter(data.mvTotalBidVol)}
                                         </span>
                                     </div>
 
                                 </td>
                                 <td className="bidask-td mid pink" style={backgroundStyles[theme.title].ask}>
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice1")}>
-                                        {(data.mvBidPrice1)}</span>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick("ask1")} style={this._renderValue("mvOfferPrice1")}>
+                                        {(data.mvOfferPrice1)}</span>
                                     </div>
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice2")}>
-                                        {(data.mvBidPrice2)}</span>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick("ask2")} style={this._renderValue("mvOfferPrice2")}>
+                                        {(data.mvOfferPrice2)}</span>
                                     </div>
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice3")}>
-                                        {(data.mvBidPrice3)}</span>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick("ask3")} style={this._renderValue("mvOfferPrice3")}>
+                                        {(data.mvOfferPrice3)}</span>
                                     </div>
                                 </td>
                                 <td className="bidask-td right pink vl-left" style={backgroundStyles[theme.title].ask}>
                                     <div>
                                         {/* {<span style={theme.font.main} className="bidask-title">{header.BestAsk + " 1"}</span>} */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("ask1")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvOfferVol1)}
                                         </span>
                                     </div>
                                     <div>
                                         {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 2"}</span> */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("ask2")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvOfferVol2)}
                                         </span>
                                     </div>
                                     <div>
                                         {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 3"}</span> */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("ask3")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvOfferVol3)}
                                         </span>
                                     </div>
@@ -349,19 +354,19 @@ class BidAskTable extends React.Component {
                                 <td className="bidask-td left green vl-right" style={backgroundStyles[theme.title].bid}>
                                     <div>
                                         {/* {<span style={theme.font.main} className="bidask-title">{header.BestBid + " 1"}</span>} */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid1")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvBidVol1)}
                                         </span>
                                     </div>
                                     <div>
                                         {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 2"}</span> */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid2")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvBidVol2)}
                                         </span>
                                     </div>
                                     <div>
                                         {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 3"}</span> */}
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid3")} style={this._renderValue("")}>
                                             {utils.currencyShowFormatter(data.mvBidVol3)}
                                         </span>
                                     </div>
@@ -369,18 +374,18 @@ class BidAskTable extends React.Component {
                                 </td>
                                 <td className="bidask-td mid green" style={backgroundStyles[theme.title].bid}>
                                     <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice1")}>
-                                            {(data.mvOfferPrice1)}
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid1")} style={this._renderValue("mvBidPrice1")}>
+                                            {(data.mvBidPrice1)}
                                         </span>
                                     </div>
                                     <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice2")}>
-                                            {(data.mvOfferPrice2)}
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid2")} style={this._renderValue("mvBidPrice2")}>
+                                            {(data.mvBidPrice2)}
                                         </span>
                                     </div>
                                     <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice3")}>
-                                            {(data.mvOfferPrice3)}
+                                        <span className="bidask-value binding" onClick={e => this.onClick("bid3")} style={this._renderValue("mvBidPrice3")}>
+                                            {(data.mvBidPrice3)}
                                         </span>
                                     </div>
                                 </td>
@@ -417,7 +422,82 @@ class BidAskTable extends React.Component {
         )
     }
 
-    onClick() {
+    onClick(accessor) {
+        let stockName = this.state.mvStockSelected.stockName
+        let stockCode = this.state.mvStockSelected.stockCode
+        let market = this.state.mvStockSelected.mvMarketID
+        // console.log(this.state.instrument)
+        let data = this.state.data
+        if(data == {}) {
+            return
+        } else {
+            if(accessor == "bid1") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvBidVol1,
+                    mvPrice: data.mvBidPrice1
+                })
+            } else if(accessor == "bid2") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvBidVol2,
+                    mvPrice: data.mvBidPrice2
+                })
+            } else if(accessor == "bid3") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvBidVol3,
+                    mvPrice: data.mvBidPrice3
+                })
+            } else if(accessor == "ask1") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvOfferVol1,
+                    mvPrice: data.mvOfferPrice1
+                })
+            } else if(accessor == "ask2") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvOfferVol2,
+                    mvPrice: data.mvOfferPrice2
+                })
+            } else if(accessor == "ask3") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvOfferVol3,
+                    mvPrice: data.mvOfferPrice3
+                })
+            } else if(accessor == "match") {
+                this.props.setDefaultOrderParams({
+                    mvBS: "BUY",
+                    mvStockCode: stockCode,
+                    mvStockName: stockName,
+                    mvMarketID: market,
+                    mvQty: data.mvMatchVol,
+                    mvPrice: data.mvMatchPrice
+                })
+            }
+        }
+        
+        
         
     }
 

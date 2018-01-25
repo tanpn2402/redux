@@ -3856,6 +3856,7 @@ label {
 .bidask-td.status .match-price {
     font-size: 30px;
     font-weight: bold;
+    cursor: pointer;
 }
 .bidask-td.status .trading-status {
     margin-top: 5px;

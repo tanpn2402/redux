@@ -171,7 +171,10 @@ class WatchListA extends React.Component {
                 mvBS: this.props.portfolioData.filter(el => el.mvStockID == prop.mvStockCode).length > 0 ? "SELL" : "BUY",
                 mvStockCode: tp.stockCode,
                 mvStockName: tp.stockName,
-                mvMarketID: tp.mvMarketID
+                mvMarketID: tp.mvMarketID,
+                mvQty: prop.mvMatchVol,
+                mvPrice: prop.mvMatchPrice
+                
             })
         }
     }
