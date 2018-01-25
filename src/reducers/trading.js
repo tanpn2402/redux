@@ -31,7 +31,7 @@ export default function(state = initialState, action) {
     
     switch (action.type) {
         // change default instrument in trading page
-        case ActionTypes.CHANGEINSTRUMENT:
+        case ActionTypes.CHANGEINSTRUMENT: {
             let listInstrumentToWatchTMPX = state.listInstrumentToWatch
 
             if(listInstrumentToWatchTMPX.indexOf(action.instrument) < 0) {
@@ -42,9 +42,10 @@ export default function(state = initialState, action) {
                 instrument: action.instrument,
                 listInstrumentToWatch: listInstrumentToWatchTMPX
             });
+        }
 
         // add instrument to watch ( not to watchlist)
-        case ActionTypes.ADDINSTRUMENTTOWATCH:
+        case ActionTypes.ADDINSTRUMENTTOWATCH: {
             // console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
             let listDataTmp1 = genDefaultData(state.listInstrumentData, [action.instrument])
             let tmp = state.listInstrumentToWatch
@@ -60,18 +61,20 @@ export default function(state = initialState, action) {
                 listInstrumentToWatch: tmp,
                 listInstrumentData: listDataTmp1
             });
-
+        }
+        
         // remove instrument from watch (not from watchlist)
-        case ActionTypes.REMOVEINSTRUMENTFROMWATCH:
+        case ActionTypes.REMOVEINSTRUMENTFROMWATCH: {
             // console.log("REMOVEINSTRUMENTFROMWATCH  REDUCERS", action)
             let tmp0 = state.listInstrumentToWatch.filter(e => e != action.instrument)
             config.cache.listInstrumentToWatch = tmp0
             return Object.assign({}, state, {
                 listInstrumentToWatch: tmp0
             });
+        }
 
         // add instrument to watchlist ( to db also )
-        case ActionTypes.ADDINSTRUMENTTOWATCHLIST:
+        case ActionTypes.ADDINSTRUMENTTOWATCHLIST: {
             let listDataTmp2 = genDefaultData(state.listInstrumentData, [action.instrument])
             let tmp1 = state.listInstrumentInWatchList
             let listInstrumentToWatchTMP1 = state.listInstrumentToWatch
@@ -90,9 +93,10 @@ export default function(state = initialState, action) {
                 listInstrumentToWatch: listInstrumentToWatchTMP1,
                 listInstrumentData: listDataTmp2
             });
-        
+        }
+
         // remove instrument from watchlist (from db also )
-        case ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST:
+        case ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST: {
             let listInstrumentToWatchTMP2 = state.listInstrumentToWatch
             if(listInstrumentToWatchTMP2.indexOf(action.instrument) > -1 && state.instrument != action.instrument) {
                 listInstrumentToWatchTMP2 = listInstrumentToWatchTMP2.filter(e => e != action.instrument)
@@ -104,10 +108,10 @@ export default function(state = initialState, action) {
                 listInstrumentInWatchList: state.listInstrumentInWatchList.filter(e => e != action.instrument),
                 listInstrumentToWatch: listInstrumentToWatchTMP2
             });
-        
+        }
         
         // update watchlist data (includes all instrument watched in watchlist small widget)
-        case ActionTypes.UPDATEWATCHLISTDATA: 
+        case ActionTypes.UPDATEWATCHLISTDATA: {
             let json = action.data
             for(let key in json) {
                 if(json[key] == null) {
@@ -137,10 +141,10 @@ export default function(state = initialState, action) {
                 listInstrumentData: dataTemp,
                 instrumentData: json
             });
-
+        }
 
         // portfolio data
-        case ActionTypes.PORFOLIO:
+        case ActionTypes.PORFOLIO: {
             let portfolioDataList = action.data.mvPortfolioBeanList
             portfolioDataList = portfolioDataList === null ? [] : portfolioDataList
             let tmp9 = portfolioDataList.map(e => e.mvStockID)
@@ -155,8 +159,9 @@ export default function(state = initialState, action) {
                 listInstrumentToWatch: tmp11,
                 listInstrumentInPortfolio: tmp9
             });
+        }
 
-        case ActionTypes.GETLISTSTOCKINWATCHLIST:
+        case ActionTypes.GETLISTSTOCKINWATCHLIST: {
             let list = action.list
             let listDataTmp3 = genDefaultData(state.listInstrumentData, list)
             let tmpIns = list.length > 0 ? list[0] : ""
@@ -169,6 +174,7 @@ export default function(state = initialState, action) {
                 listInstrumentInWatchList: list,
                 listInstrumentData: listDataTmp3
             });
+        }
 
         default:
             return state;
@@ -176,48 +182,49 @@ export default function(state = initialState, action) {
 };
 
 function genDefaultData(listInstrumentData, listStock) {
-    // listStock.map(stockCode => {
-    //     if(listInstrumentData.filter(e => e.mvStockCode == stockCode).length < 1) {
-    //         let data = {
-    //             mvStockCode: stockCode,
-    //             mvMarket: "---",
+    console.log(listInstrumentData, listStock)
+    listStock.map(stockCode => {
+        if(listInstrumentData.filter(e => e.mvStockCode == stockCode).length < 1) {
+            let data = {
+                mvStockCode: stockCode,
+                mvMarket: "---",
 
-    //             mvCeiling: "---",
-    //             mvFloor:"---",
-    //             mvReferences: "---",
+                mvCeiling: "---",
+                mvFloor:"---",
+                mvReferences: "---",
 
-    //             mvBidPrice1: "---",
-    //             mvBidPrice2: "---",
-    //             mvBidPrice3: "---",
+                mvBidPrice1: "---",
+                mvBidPrice2: "---",
+                mvBidPrice3: "---",
 
-    //             mvBidVol1: "---",
-    //             mvBidVol2: "---",
-    //             mvBidVol3: "---",
+                mvBidVol1: "---",
+                mvBidVol2: "---",
+                mvBidVol3: "---",
 
-    //             mvMatchPrice: "---",
-    //             mvMatchVol: "---",
-    //             mvMatchUpDown: "---",
-    //             mvMatchVolTotal: "---",
+                mvMatchPrice: "---",
+                mvMatchVol: "---",
+                mvMatchUpDown: "---",
+                mvMatchVolTotal: "---",
 
-    //             mvOfferPrice1: "---",
-    //             mvOfferPrice2: "---",
-    //             mvOfferPrice3: "---",
-    //             mvOfferVol1: "---",
-    //             mvOfferVol2: "---",
-    //             mvOfferVol3: "---",
+                mvOfferPrice1: "---",
+                mvOfferPrice2: "---",
+                mvOfferPrice3: "---",
+                mvOfferVol1: "---",
+                mvOfferVol2: "---",
+                mvOfferVol3: "---",
 
-    //             mvOpen: "---",
-    //             mvHigh: "---",
-    //             mvLow: "---",
-    //             mvNomial: "---",
+                mvOpen: "---",
+                mvHigh: "---",
+                mvLow: "---",
+                mvNomial: "---",
 
-    //             mvForeignForBuy: "---",
-    //             mvForeignForSell: "---",
-    //             mvForeignForRoom: "---"
-    //         }
-    //         listInstrumentData.push(data)
-    //     }
-    // })
+                mvForeignForBuy: "---",
+                mvForeignForSell: "---",
+                mvForeignForRoom: "---"
+            }
+            listInstrumentData.push(data)
+        }
+    })
 
     return listInstrumentData
 }
