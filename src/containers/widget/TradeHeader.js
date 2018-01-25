@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
-import Select from "../commons/Select"
+import InputSelect from "../commons/InputSelect"
 import config from "../../core/config"
 import TradeHeaderStatus from "../commons/TradeHeaderStatus"
 import Component from "../commons/Component"
@@ -124,8 +124,9 @@ class TradeHeader extends React.Component {
         return (
             <Component className="trd-header" theme={theme}>
                 <div className="trd-header-control">
-                    <Select
-                        ket="rStockSelector"
+                    <InputSelect
+                        className="stock-selector"
+                        key="rStockSelector-header"
                         ref={r => this.rStockSelector = r}
                         options={this.props.stockList}
                         selected={this.state.mvStockSelected}

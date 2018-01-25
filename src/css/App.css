@@ -383,6 +383,10 @@ label {
     display: inline-block !important;
     max-width: 110px;
 }
+.search-bar .select-control.stock-selector {
+    display: inline-block !important;
+    width: 100px !important;
+}
 .search-bar button {
     padding: 2px 15px;
     font-size: 12px;
@@ -2759,6 +2763,20 @@ label {
     width: 20px;
     padding: 0px 10px 0px 10px;
 }
+.select-control.stock-selector .PowerSelect__TriggerStatus {
+    display: none !important;
+}
+.select-control .PowerSelect__TriggerInputContainer,
+.select-control .PowerSelect__TriggerInput {
+    height: 100% !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    cursor: text;
+}
+.select-control .PowerSelect__TriggerInput {
+    padding-left: 4px;
+    padding-right: 4px;
+}
 .PowerSelect__Options {
     max-height: 200px;
 }
@@ -3363,9 +3381,10 @@ label {
         margin: 0 2px;
     }
     .wl-table {
-        padding-top: 2px;
+        position: relative;
+        top: -2px;
         width: 100%;
-        height: calc(100% - 25px);
+        height: calc(100% - 28px);
     }
     #watchlist-search-bar .hks-btn span {
         line-height: 1.3 !important;
@@ -3815,14 +3834,14 @@ label {
 }
 .pl-sub-account > .account-name {
     position: absolute;
-    left: 105px;
+    left: 112px;
     top: 4px;
     font-size: 12px;
     font-weight: bold;
 }
 .pl-sub-account > .select-control {
     border-radius: 0 !important;
-    width: 100px;
+    width: 107px;
     font-size: 12px;
 }
 /* END PLACE ORDER */

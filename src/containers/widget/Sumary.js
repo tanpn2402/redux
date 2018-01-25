@@ -8,7 +8,7 @@ import Body from '../commons/WidgetBody'
 import PieChart from '../commons/PieChart'
 import AssetAllocationChart from './AssetAllocationChart'
 import Component from "../commons/Component"
-import Select from "../commons/Select"
+import Select from "../commons/InputSelect"
 
 class Sumary extends React.Component {
     constructor(props) {

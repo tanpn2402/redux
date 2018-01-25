@@ -9,7 +9,7 @@ import $ from 'jquery'
 import { PowerSelect } from 'react-power-select'
 import 'react-power-select/dist/react-power-select.css'
 import Select from '../commons/Select'
-
+import InputSelect from '../commons/InputSelect'
 import CalendarPicker from './CalendarPicker';
 const {Contants} = require('../../core/constants')
 export default class SearchBar extends React.Component {
@@ -304,7 +304,8 @@ class SelectorStock extends React.Component {
             <FormGroup key={id}>
                 <ControlLabel style={{ color: font3 }}>{language[this.props.id]}</ControlLabel>
                     {'   '}
-                <Select
+                <InputSelect
+                    className="stock-selector"
                     options={data}
                     selected={this.state.value}
                     handleChange={this.onChange.bind(this)}

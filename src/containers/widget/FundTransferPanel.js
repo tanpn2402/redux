@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import Select from '../commons/Select'
+import Select from '../commons/InputSelect'
 
 class FundTransPanel extends Component {
     constructor(props) {

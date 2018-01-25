@@ -11,7 +11,7 @@ import config from '../../core/config'
 import * as api from '../../api/web_service_api'
 import * as ACTION from '../../api/action_name'
 import CalendarPicker from '../commons/CalendarPicker'
-import Select from "../commons/Select"
+import Select from "../commons/InputSelect"
 import Input from "../commons/Input"
 import * as Log from "../../logger/TTLLog"
 import Component from "../commons/Component"
@@ -259,7 +259,8 @@ class PlaceOrder extends React.Component {
                             <Col xs={7}>
                                 <Col xs={6}>
                                     <Select
-                                        ket="rStockSelector"
+                                        className="stock-selector"
+                                        key="rStockSelector"
                                         ref={r => this.rStockSelector = r}
                                         options={this.stockList}
                                         selected={this.state.mvStockSelected}

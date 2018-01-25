@@ -78,6 +78,7 @@ class WatchList extends Component {
                 <Body theme={this.props.theme}>
                     <div className="wl-control">
                         <Select
+                            className="stock-selector"
                             key="rStockID"
                             options={Config.cache.stockList}
                             selected={this.state.mvInstrument}

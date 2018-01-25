@@ -1,6 +1,6 @@
 import React from 'react'
 import { PowerSelect } from 'react-power-select'
-
+import InputSelect from './InputSelect'
 class Select extends React.Component {
     constructor(props) {
         super(props)
@@ -14,38 +14,7 @@ class Select extends React.Component {
     }
 
     render() {
-        let options = ["---"]
-        if(this.props.options.length > 0) 
-            options = this.props.options
-        this.tmpValue = !this.tmpValue
-        if(this.tmpValue) {
-            return (
-                <SelectTmpA 
-                    options={options}
-                    selected={this.props.selected}
-                    handleValueChange={this.handleValueChange.bind(this)}
-                    optionLabelPath={this.props.optionLabelPath}
-                    optionComponent={this.props.optionComponent}
-                    selectedOptionComponent={this.props.selectedOptionComponent}
-                    showClear={false}
-                    searchEnabled={this.props.searchEnabled}
-                />
-            )
-        } else {
-            return (
-                <SelectTmpB
-                    options={options}
-                    selected={this.props.selected}
-                    handleValueChange={this.handleValueChange.bind(this)}
-                    optionLabelPath={this.props.optionLabelPath}
-                    optionComponent={this.props.optionComponent}
-                    selectedOptionComponent={this.props.selectedOptionComponent}
-                    showClear={false}
-                    searchEnabled={this.props.searchEnabled}
-                />
-            )
-
-        }
+        return <InputSelect {...this.props} />
     }
 
     componentDidMount() {
