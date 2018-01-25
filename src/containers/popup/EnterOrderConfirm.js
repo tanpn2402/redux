@@ -5,6 +5,8 @@ import ReactTable from "react-table"
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
+import {getTheme} from "../../utils"
+import PopupTable from '../commons/PopupTable';
 
 class EnterOrderConfirm extends Component{
     constructor(props) {
@@ -15,53 +17,53 @@ class EnterOrderConfirm extends Component{
 
 
     render(){
-        var data = this.props.data
+        var tmp = this.props.data
         var language = this.props.language
+        var buttonStyle = this.props.theme.button
+        var tableStyle = this.props.theme.popup.table
 
+        var data = [
+            {
+                header: "market",
+                value: tmp.mvMarketID
+            },
+            {
+                header: "stock",
+                value: tmp.mvStockCode
+            },
+            {
+                header: "stockName",
+                value: tmp.mvStockName
+            },
+            {
+                header: "price",
+                Cell: props => {
+                    return <span style={{fontWeight: "bold", fontSize: 15}}>{tmp.mvPrice}</span>
+                }
+            },
+            {
+                header: "volume",
+                Cell: props => {
+                    return <span style={{fontWeight: "bold", fontSize: 15}}>{tmp.mvVolume}</span>
+                }
+            }
+        ]
         return(
             <div>
                 <Modal.Body>
-                    <div className="table-responsive">
-                        <table className="table table-bordered table-odd-even">
-                            <tbody >
-                                <tr>
-                                    <th>{language.enterorder.header.stock} </th>
-                                    <td>{data.mvStockCode}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.popup.stockname} </th>
-                                    <td>{data.mvStockName}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.header.price} </th>
-                                    <td>{data.mvPrice}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.header.volume} </th>
-                                    <td>{data.mvVolume}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.header.ordertype} </th>
-                                    <td>{data.mvOrderType}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.header.value} </th>
-                                    <td>{data.mvGrossAmt}</td>
-                                </tr>
-                                <tr>
-                                    <th>{language.enterorder.popup.expirydate} </th>
-                                    <td>{data.mvExpireChecked ? data.mvExpireDate : ''}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <PopupTable theme={this.props.theme} language={this.props.language.enterorder.header} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
                 
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.submit.bind(this)}> {language.button.submit}</button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide} style={buttonStyle.cancel}>
+                        {language.button.cancel}
+                    </button>
+                    <button className="hks-btn btn-submit" onClick={this.submit.bind(this)} 
+                        style={ data.mvBS == "B" ? buttonStyle.buy : buttonStyle.sell }>
+                        {language.button.submit}
+                    </button>
                 </Modal.Footer>
             </div>
         )

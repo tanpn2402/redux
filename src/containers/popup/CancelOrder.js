@@ -6,10 +6,12 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import TableData from '../commons/DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
+import PopupTable from '../commons/PopupTable';
 
 class CancelOrder extends Component {
     constructor(props) {
         super(props)
+        let {language} = this.props
         this.columns = [{
             id: 'mvStockID',
             Header: this.props.language.orderjournal.header.stockid,
@@ -21,6 +23,9 @@ class CancelOrder extends Component {
             Header: this.props.language.orderjournal.header.buysell,
             accessor: 'mvBS',
             width: 80,
+            Cell: props => {
+                return <span>{language.global.bs[props.original["mvBSValue"]]}</span>
+            }
         },
         {
             id: 'mvPrice',
@@ -44,31 +49,80 @@ class CancelOrder extends Component {
         this.props.onCancelSubmit(this.props.data, authParams, this.props.language)
         this.props.onHide()
     }
-    render() {
+
+
+    _renderForOneOrder(props, language) {
+        var tmp = props.data.data[0]
+        var data = [
+            {
+                header: "market",
+                value: tmp.mvMarketID
+            },
+            {
+                header: "stockid",
+                value: tmp.mvStockID
+            },
+            {
+                header: "stockName",
+                value: tmp.mvStockName
+            },
+            {
+                header: "buysell",
+                value: language.global.bs[tmp.mvBSValue]
+            },
+            {
+                header: "price",
+                value: tmp.mvPriceValue
+            },
+            {
+                header: "quantity",
+                value: tmp.mvQtyValue
+            }
+        ]
+
+        return <PopupTable theme={props.theme} language={language.orderjournal.header} data={data} />
+    }
+
+    _renderForMultiOrder(props, language) {
         var data = this.props.data.data
+        
+        return (
+            <TableData
+                theme={props.theme}
+                id={this.id + "-table"}
+                language={language}
+
+                columns={this.columns}
+                pageSize={15}
+                maxRows={5}
+                tableData={data}
+                searchEnable={false}
+                footerEnable={false}
+            />
+        )
+    }
+    render() {
         var language = this.props.language
+        var buttonStyle = this.props.theme.button
         return (
             <div>
                 <Modal.Body>
-                    <TableData
-                        theme={this.props.theme}
-                        id={this.id + "-table"}
-                        language={language}
-
-                        columns={this.columns}
-                        pageSize={15}
-                        maxRows={5}
-                        tableData={data}
-                        searchEnable={false}
-                        footerEnable={false}
-                    />
+                    {
+                        this.props.data.data.length > 1 ?
+                            this._renderForMultiOrder(this.props, language)
+                        : this.props.data.data.length == 1 ?
+                            this._renderForOneOrder(this.props, language)
+                        : null
+                    }
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />
 
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.onCancelSubmit.bind(this)}> {language.button.confirmCancel}</button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide} style={buttonStyle.cancel}>
+                        {language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" onClick={this.onCancelSubmit.bind(this)} style={buttonStyle.confirm}>
+                        {language.button.confirmCancel}</button>
                 </Modal.Footer>
 
             </div>

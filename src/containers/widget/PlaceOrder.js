@@ -602,7 +602,7 @@ class PlaceOrder extends React.Component {
             // focus to mvVol
             this.mvVol.focus()
         }
-        if(this.state.mvOrderTypeList.length === 0)
+        //if(this.state.mvOrderTypeList.length === 0)
             this.getOrderTypeList(nextProps.genEnterOrderData)
     }
 
@@ -1277,13 +1277,14 @@ class PlaceOrder extends React.Component {
             mvBS: value.mvBS.slice(0, 1),
             language: this.props.language
         }
-        console.log(data)
+        // console.log(data)
         this.props.showOrderConfirm({
             data: data,
             title: this.props.language.enterorder.popup.title.replace('{0}', value.mvBS.slice(0, 1) === 'B' ?
                 this.props.language.enterorder.header.buy :
                 this.props.language.enterorder.header.sell),
             language: this.props.language,
+            theme: this.props.theme,
             id: 'enterorderconfirm',
             authcard: false
         })

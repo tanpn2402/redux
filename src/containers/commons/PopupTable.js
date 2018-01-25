@@ -1,15 +1,23 @@
 import React from 'react';
+import {getTheme} from "../../utils"
 
 export default class PopupTable extends React.Component {
     render() {
         //console.log(this.props)
         let language = this.props.language
+        let theme = this.props.theme
+        if(theme == undefined) {
+            theme = getTheme("light")
+        }
+        let popupTableStyle = theme.popup.table
         return (
             <div className={"popup-table " + this.props.className} ref={ref => this.Table = ref}>
                 {
                     this.props.data.map((d, index) => {
+                        let rowStyle = popupTableStyle.rowOdd
+                        if(index % 2 != 0) rowStyle = popupTableStyle.rowEven
                         return (
-                            <div key={index} className="--tr" style={d.style}>
+                            <div key={index} className="--tr" style={Object.assign({}, rowStyle, d.style)}>
                                 <div className="--th">
                                     {
                                         this.renderTHead(d, language)
@@ -44,6 +52,7 @@ export default class PopupTable extends React.Component {
     }
 
     renderTData(d) {
+        console.log(d)
         if(d.value === undefined) {
             if(d.Cell === undefined) {
                 return null

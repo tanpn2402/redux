@@ -45,7 +45,7 @@ export default function(state = initialState, action) {
 
         // add instrument to watch ( not to watchlist)
         case ActionTypes.ADDINSTRUMENTTOWATCH:
-            console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
+            // console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
             let listDataTmp1 = genDefaultData(state.listInstrumentData, [action.instrument])
             let tmp = state.listInstrumentToWatch
             if(action.instrument != null && state.listInstrumentInWatchList.indexOf(action.instrument) < 0
@@ -63,7 +63,7 @@ export default function(state = initialState, action) {
 
         // remove instrument from watch (not from watchlist)
         case ActionTypes.REMOVEINSTRUMENTFROMWATCH:
-            console.log("REMOVEINSTRUMENTFROMWATCH  REDUCERS", action)
+            // console.log("REMOVEINSTRUMENTFROMWATCH  REDUCERS", action)
             let tmp0 = state.listInstrumentToWatch.filter(e => e != action.instrument)
             config.cache.listInstrumentToWatch = tmp0
             return Object.assign({}, state, {
@@ -116,7 +116,7 @@ export default function(state = initialState, action) {
                     delete json[key]
                 }
             }
-            console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
+            // console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
 
            
             let dataTemp = state.listInstrumentData.slice(0)
@@ -148,7 +148,7 @@ export default function(state = initialState, action) {
             let tmp11 = [...new Set([...state.listInstrumentInWatchList, ...tmp9, ...tmp10 ])]
             config.cache.listInstrumentToWatch = tmp11
 
-            console.log(state, config.cache.listInstrumentToWatch)
+            // console.log(state, config.cache.listInstrumentToWatch)
             action.data.mvPortfolioBeanList = portfolioDataList
             return Object.assign({},state,{
                 portfolioData: action.data,
@@ -162,7 +162,7 @@ export default function(state = initialState, action) {
             let tmpIns = list.length > 0 ? list[0] : ""
             let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...list])]
             config.cache.listInstrumentToWatch = tmp12
-            console.log(state, config.cache.listInstrumentToWatch)
+            // console.log(state, config.cache.listInstrumentToWatch)
             return Object.assign({},state,{
                 instrument: tmpIns,
                 listInstrumentToWatch: tmp12,

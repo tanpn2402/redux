@@ -350,6 +350,7 @@ class OrderJournal extends Component {
                 data: { me: this, data: this.rowSelected },
                 title: this.props.language.orderjournal.popup.title.cancel,
                 language: this.props.language,
+                theme: this.props.theme,
                 id: 'cancelorder',
                 authcard: false
             })
@@ -368,6 +369,7 @@ class OrderJournal extends Component {
             data: { me: this, data: row },
             title: this.props.language.orderjournal.popup.title.cancel,
             language: this.props.language,
+            theme: this.props.theme,
             id: 'cancelorder',
             authcard: false
         })
@@ -381,6 +383,7 @@ class OrderJournal extends Component {
             data: { me: this, data: param },
             title: this.props.language.orderjournal.popup.title.modify,
             language: this.props.language,
+            theme: this.props.theme,
             id: 'modifyorder',
             authcard: false
         })
@@ -391,6 +394,7 @@ class OrderJournal extends Component {
             data: { me: this, data: param },
             title: this.props.language.orderjournal.popup.title.detail,
             language: this.props.language,
+            theme: this.props.theme,
             id: 'detailorder',
             authcard: false
         })

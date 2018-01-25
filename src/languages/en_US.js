@@ -45,6 +45,10 @@ export default
                     "B": "B",
                     "S": "S"
                 },
+                "bs": {
+                    "B": "Buy",
+                    "S": "Sell"
+                },
                 "ordertype": {
                     "L": "Normal",
                     "O": "ATO",

@@ -9,6 +9,7 @@ export function showPopup(params) {
         type: ActionTypes.POPUP,
         data: params.data,
         language: params.language,
+        theme: params.theme,
         title: params.title,
         id: params.id,
         authcard: params.authcard,

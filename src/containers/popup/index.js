@@ -70,15 +70,15 @@ function genPopupDesktop(props, onClose) {
 			break;
 
 		case 'enterorderconfirm':
-			return (<EnterOrderConfirm onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<EnterOrderConfirm onHide={onClose} {...props} />)
 			break;
 
 		case 'cancelorder':
-			return (<CancelOrder theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<CancelOrder onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 
 		case 'modifyorder':
-			return (<ModifyOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<ModifyOrder onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 		case 'detailorder':
 			return (<DetailOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)

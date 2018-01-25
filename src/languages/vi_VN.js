@@ -45,6 +45,10 @@ export default
                     "B": "B",
                     "S": "S"
                 },
+                "bs": {
+                    "B": "Mua",
+                    "S": "Bán"
+                },
                 "ordertype": {
                     "L": "Thường",
                     "O": "ATO",
@@ -287,9 +291,9 @@ export default
                     "tradeId": "Mã trao đổi",
                     "stockName": "Tên chứng khoán",
                     "buysell": "Mua/Bán",
-                    "initialPrice": "Giá khởi điểm",
+                    "initialPrice": "Giá ban đầu",
                     "newPrice": "Giá mới",
-                    "initialQuantity": "Số lượng khởi điểm",
+                    "initialQuantity": "Số lượng ban đầu",
                     "matchedQuantity": "Số lượng khớp",
                     "newQuantity": "Số lượng mới",
                     "totalCash": "Tổng tiền"

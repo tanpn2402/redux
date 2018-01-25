@@ -37,7 +37,7 @@ class PortfolioSmall extends React.Component {
         // console.log(nextProps)
         let _data = new Array()
         nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
-            console.log(e)
+            // console.log(e)
             let avgPrice = e.mvWAC
             let marketPrice = e.mvMarketPrice
             let pl = e.mvPL
@@ -45,9 +45,9 @@ class PortfolioSmall extends React.Component {
             
             if(stockRealtimeData.length > 0) {
                 marketPrice = stockRealtimeData[0].mvMatchPrice
-                pl = utils.round(utils.numUnFormat(e.mvTSettled) * ( marketPrice - avgPrice ), 1)
+                pl = utils.round(utils.numUnFormat(e.mvTSettled) * ( marketPrice - utils.numUnFormat(avgPrice) ), 1)
             }
-            console.log(stockRealtimeData)
+            // console.log(stockRealtimeData)
 
             _data.push({
                 "stockCode": e.mvStockID,
@@ -139,8 +139,8 @@ class PortfolioSmall extends React.Component {
             let avgPrice = rowData.mvAvgPrice
 
 
-            let price = rowData.mvMarketPrice
-            if(cellData.accessor == "mvAvgPrice") price = rowData.mvAvgPrice
+            let price = utils.numUnFormat(rowData.mvMarketPrice)
+            if(cellData.accessor == "mvAvgPrice") price = utils.numUnFormat(rowData.mvAvgPrice)
             
             let tmp = stock[0]
             this.props.setDefaultOrderParams({

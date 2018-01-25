@@ -10,6 +10,16 @@ export default {
             backgroundColor: '#FFF',
             color: '#000',
             borderColor: '#FFF'
+        },
+        buy: {
+            backgroundColor: "#4990e2",
+            color: "white",
+            border: "2px solid #4990e2"
+        },
+        sell: {
+            backgroundColor: "#f67522",
+            color: "white",
+            border: "2px solid #f67522"
         }
     },
     font: {
@@ -203,8 +213,16 @@ export default {
             color: "#FFF"
         },
         body: {
-            backgroundColor: "rgb(97, 97, 97)",
+            backgroundColor: "rgb(53,53,53)",
             color: "#FFF"
+        },
+        table: {
+            rowEven: {
+                backgroundColor: "rgb(35, 34, 34)"
+            },
+            rowOdd: {
+                backgroundColor: "rgb(53, 53, 53)"
+            }
         }
     },
     watchlist: {

@@ -10,6 +10,16 @@ export default {
             backgroundColor: '#999',
             color: '#FFFFFF',
             border: '2px solid #999'
+        },
+        buy: {
+            backgroundColor: "#4990e2",
+            color: "white",
+            border: "2px solid #4990e2"
+        },
+        sell: {
+            backgroundColor: "#f67522",
+            color: "white",
+            border: "2px solid #f67522"
         }
     },
     font:{
@@ -223,14 +233,22 @@ export default {
         background: ""
     },
     popup: {
-      header: {
-        backgroundColor: "#FFF",
-        color: "#000"
-      },
-      body: {
-        backgroundColor: "#FFF",
-        color: "#000"
-      }
+        header: {
+            backgroundColor: "#FFF",
+            color: "#000"
+        },
+        body: {
+            backgroundColor: "#FFF",
+            color: "#000"
+        },
+        table: {
+            rowEven: {
+                backgroundColor: "#FFF"
+            },
+            rowOdd: {
+                backgroundColor: "rgb(241,241,241)"
+            }
+        }
     },
     watchlist: {
         up: {

@@ -147,7 +147,7 @@ export function updateWatchlistData(json) {
 
     // console.log("UPDATE", data)
 
-    console.log("REALTIME DATA = ", json)
+    // console.log("REALTIME DATA = ", json)
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
         data: data

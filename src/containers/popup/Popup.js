@@ -28,7 +28,7 @@ class Popup extends Component {
         let widgetHeader = this.props.theme.popup.header
         let widgetBody = this.props.theme.popup.body
         let font = this.props.theme.font.sub1
-        console.log("AAAA", widgetBody)
+        // console.log("AAAA", widgetBody)
         
         if (this.state.show) {
             return (

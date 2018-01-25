@@ -3,6 +3,8 @@ import {Modal} from 'react-bootstrap';
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
+import PopupTable from '../commons/PopupTable';
+import Input from '../commons/Input';
 
 class ModifyOrder extends Component {
     constructor(props) {
@@ -57,6 +59,15 @@ class ModifyOrder extends Component {
         this.props.genModifyOrder(this.paramGenModifyOrder)
     }
 
+    onPriceChange(value) {
+        
+        
+    }
+    onQtyChange(value) {
+        
+        
+    }
+
     render() {
         var data = this.props.data.data
         var mvGenModifyOrderBean = this.props.genModifyOrderData.mvGenModifyOrderBean
@@ -65,50 +76,72 @@ class ModifyOrder extends Component {
         try{
             price = parseInt(data.mvPrice)
         }catch(e){}
+        var tmp = this.props.data.data
+        
+        var data = [
+            {
+                header: "market",
+                value: tmp.mvMarketID
+            },
+            {
+                header: "stockid",
+                value: tmp.mvStockID
+            },
+            {
+                header: "stockName",
+                value: tmp.mvStockName
+            },
+            {
+                header: "buysell",
+                value: this.props.language.global.bs[tmp.mvBSValue]
+            },
+            {
+                header: "initialPrice",
+                value: tmp.mvPriceValue
+            },
+            {
+                header: "newPrice",
+                Cell: props => {
+                    return (
+                        <Input key="newPrice" type="number" ref={ref => this.mvNewPrice =  ref} step={10}
+                            defaultValue={tmp.mvPriceValue}
+                            onChange={this.onPriceChange.bind(this)}/>
+                    )
+                }
+            },
+            {
+                header: "initialQuantity",
+                value: tmp.mvQtyValue
+            },
+            {
+                header: "newQuantity",
+                Cell: props => {
+                    return <Input key="newQuantity" type="number" ref={ref => this.mvNewQuantity =  ref} step={100}
+                        defaultValue={tmp.mvQtyValue}
+                        onChange={this.onQtyChange.bind(this)}/>
+                }
+            }
+        ]
+
+        // console.log(this.props.theme)
+        var buttonStyle = this.props.theme.button
+        var tableStyle = this.props.theme.popup.table
         
         return (
             <div >
                 <Modal.Body>
-                    <table className="table table-bordered no-border" >
-                        <tbody >
-                            <tr className="modalbody">
-                                <th>{this.props.language.orderjournal.header.stockid}</th>
-                                <td>
-                                    <input type='text' className='form-control'value={data.mvStockID} disabled />
-                                </td>
-                            </tr>
-                            <tr className="modalbody">
-                                <th>{this.props.language.orderjournal.header.price}</th>
-                                <td>
-                                    <input ref={e => this.mvPrice = e} type='number' className='form-control' defaultValue={price} />
-                                </td>
-                            </tr>
-                            <tr className="modalbody">
-                                <th>{this.props.language.orderjournal.header.quantity}</th>
-                                <td>
-                                    <input ref={e => this.mvQty = e} type='number' className='form-control' defaultValue={data.mvQty}/>
-                                </td>
-                            </tr>
-                            <tr className="modalbody">
-                                <th>Floor/Ceil: </th>
-                                <td>
-                                    <font color='#3399CC'>
-                                        <b>
-                                            {mvGenModifyOrderBean.floor}
-                                        </b>
-                                    </font>
-                                    <font color='#FF66CC'><b>/{mvGenModifyOrderBean.ceiling}</b></font>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <PopupTable theme={this.props.theme} language={this.props.language.orderjournal.header} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
 
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.onModifySubmit.bind(this)}> {language.button.confirmModify}</button>
+                    <button className="hks-btn btn-cancel" onClick={this.props.onHide} style={buttonStyle.cancel}>
+                        {language.button.cancel}
+                    </button>
+                    <button className="hks-btn btn-submit" onClick={this.onModifySubmit.bind(this)} style={buttonStyle.confirm}>
+                        {language.button.confirmModify}
+                    </button>
                 </Modal.Footer>
             </div>
         )
