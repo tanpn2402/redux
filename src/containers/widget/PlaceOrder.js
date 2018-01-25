@@ -1285,7 +1285,7 @@ class PlaceOrder extends React.Component {
                 this.props.language.enterorder.header.sell),
             language: this.props.language,
             id: 'enterorderconfirm',
-            authcard: true
+            authcard: false
         })
     }
 

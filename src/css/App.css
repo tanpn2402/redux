@@ -235,7 +235,7 @@ select {
 }
 .table-odd-even > tbody > tr > th {
     min-width: 150px;
-    background-color: #e8e8e8;
+    background-color: inherit;
 }
 /*remove the red border in a required form input in FIREFOX*/
 
@@ -1356,7 +1356,7 @@ label {
     padding-left: 8px;
     padding-right: 8px;
     font-size: 12px;
-    border-radius: 15px;
+    border-radius: 4px;
     min-width: 80px;
 }
 

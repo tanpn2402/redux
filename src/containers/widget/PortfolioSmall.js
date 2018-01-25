@@ -5,6 +5,7 @@ import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import config from "../../core/config"
 import Component from "../commons/Component"
+import * as utils from "../../utils"
 
 class PortfolioSmall extends React.Component {
     constructor(props) {
@@ -15,48 +16,45 @@ class PortfolioSmall extends React.Component {
                 
             ]
         }
-        
-
-        this.balance = 0.3654
-
-        this.balance = {
-            "change": 0.356,
-            "volume": 0.555,
-            "price": 0.666
-        }
     }
 
     fillColor(props, accessor) {
         
         let theme = this.props.theme.bindingdata
-        let style = theme.normal
+        let style = theme.nochange
 
-        if(props[accessor] < 0) {
-            style = theme.down
-        } else if (props[accessor] > 0 ) {
+        if(props["mvPL"] > 0) {
             style = theme.up
+        } else if(props["mvPL"] < 0) {
+            style = theme.down
         }
+
         let child = <span style={style}>{props[accessor]}</span>
-        // if(props[accessor] > this.balance[accessor]) {
-        //     child = <span style={{color: "#ea0070"}}>{props[accessor]}</span>
-        // }
-        // else {
-        //     child = <span style={{color: "#70a800"}}>{props[accessor]}</span>
-        // }
         return child
     }
 
     componentWillReceiveProps(nextProps) {
-        
+        // console.log(nextProps)
         let _data = new Array()
         nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
-            // console.log(e)
+            console.log(e)
+            let avgPrice = e.mvWAC
+            let marketPrice = e.mvMarketPrice
+            let pl = e.mvPL
+            let stockRealtimeData = nextProps.listInstrumentData.filter(el => el.mvStockCode == e.mvStockID)
+            
+            if(stockRealtimeData.length > 0) {
+                marketPrice = stockRealtimeData[0].mvMatchPrice
+                pl = utils.numUnFormat(e.mvTSettled) * ( marketPrice - avgPrice )
+            }
+            console.log(stockRealtimeData)
+
             _data.push({
                 "stockCode": e.mvStockID,
                 "mvTSettled": e.mvTSettled,
-                "mvAvgPrice": e.mvAvgPrice,
-                "mvMarketPrice": e.mvMarketPrice,
-                "mvPL": e.mvPL
+                "mvAvgPrice": avgPrice,
+                "mvMarketPrice": marketPrice,
+                "mvPL": pl
                 
             })
         })
@@ -99,16 +97,14 @@ class PortfolioSmall extends React.Component {
                 title: language.mvMarketPrice,
                 style: {width: "18%", textAlign: "right"},
                 bodyStyle: {width: "18%", textAlign: "right"},
-                accessor: "mvMarketPrice",
-                // cell: props => {
-                //     return this.fillColor(props, "mvMarketPrice")
-                // }
+                cell: props => {
+                    return this.fillColor(props, "mvMarketPrice")
+                }
             },
             {
                 title: language.mvPL,
                 style: {width: "28%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "28%", textAlign: "right"},
-                accessor: "mvPL",
                 cell: props => {
                     return this.fillColor(props, "mvPL")
                 }

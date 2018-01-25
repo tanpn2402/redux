@@ -3,11 +3,13 @@ export default {
     button: {
         confirm: {
             backgroundColor: '#c40909',
-            color: '#FFFFFF'
+            color: '#FFF',
+            borderColor: "#c40909"
         },
         cancel: {
-            backgroundColor: '#999',
-            color: '#FFFFFF'
+            backgroundColor: '#FFF',
+            color: '#000',
+            borderColor: '#FFF'
         }
     },
     font: {

@@ -8,7 +8,7 @@ import * as sessionApi from '../api/sessionApi';
 import * as FetchAPI from '../api/serverconfig';
 import {getLanguage} from '../utils'
 import config from '../core/config'
-import Select from "../containers/commons/Select"
+import Select from "../containers/commons/Selector"
 
 const OptionComponent = ({ option }) => {
     //console.log(option)
