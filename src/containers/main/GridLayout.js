@@ -3,6 +3,7 @@ import $ from 'jquery'
 import generateWindow from '../widget'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import config from "../../core/config"
 
 var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin')
 var _ = require('lodash')
@@ -10,7 +11,7 @@ var WidthProvider = require('react-grid-layout').WidthProvider
 var ResponsiveReactGridLayout  = require('react-grid-layout').Responsive
 ResponsiveReactGridLayout  = WidthProvider(ResponsiveReactGridLayout )
 
-const HEIGHT = 55
+const HEIGHT = config.gridHeight
 
 
 class GridLayout extends React.Component {
@@ -41,8 +42,8 @@ class GridLayout extends React.Component {
                     hei = ele.offsetHeight - 60
                 }
                 else hei = ele.offsetHeight - 60 - 30
-                let heightToFit = hei - y*(HEIGHT + 10)
-                col = Math.floor(heightToFit / (HEIGHT + 10))
+                let heightToFit = hei - y*(HEIGHT + 5)
+                col = Math.floor(heightToFit / (HEIGHT + 5))
 
                 col = col > layout["maxH"] ? layout["maxH"] : col < layout["minH"] ? layout["minH"] : col
             } catch(ex) {
@@ -86,7 +87,6 @@ class GridLayout extends React.Component {
             identifyLayout = this.props.identifyLayout
         }
         return (
-
             <ResponsiveReactGridLayout className="layout" cols={identifyLayout} rowHeight={HEIGHT} width={1320} 
                 margin={this.props.margin} useCSSTransforms={false}
                 >

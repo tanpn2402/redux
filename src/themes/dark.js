@@ -21,6 +21,9 @@ export default {
         },
         sub2: {
             color: '#fff'
+        },
+        sub3: {
+            color: "#afafaf"
         }
     },
     page: {
@@ -51,7 +54,7 @@ export default {
     },
     widget: {
         widgetBackground: {
-            backgroundColor: 'rgb(71, 71, 71)'
+            backgroundColor: 'rgb(24, 24, 24)'
         },
         widgetHeader: {
             backgroundColor: '#FF8000',
@@ -76,11 +79,11 @@ export default {
             // backgroundColor: '#262626'
         },
         rowOdd: {
-            backgroundColor: '#3F3E3E',
+            backgroundColor: '#000',
             color: "#FFF"
         },
         rowEven: {
-            backgroundColor: '#474747',
+            backgroundColor: 'rgb(2, 2, 2)',
             color: "#FFF"
         },
         filterRow: {
@@ -237,7 +240,7 @@ export default {
     placeorder: {
         tabBS: {
             active: {
-                backgroundColor: "rgb(71, 71, 71)",
+                backgroundColor: "#000",
                 color: "#FFF",
                 fontWeight: 700,
             },
@@ -249,25 +252,29 @@ export default {
         },
         background: {
             buy: {
-                backgroundColor: "rgb(71, 71, 71)"
+                backgroundColor: "#000"
             },
             sell: {
-                backgroundColor: "rgb(71, 71, 71)"
+                backgroundColor: "#000"
             }
         }
     },
     bindingdata: {
         up: {
-            color: "rgb(0, 227, 57)"
+            color: "rgb(0, 227, 57)",
+            fontWeight: "bold"
         },
         down: {
-            color: "rgb(255, 0, 0)"
+            color: "rgb(255, 0, 0)",
+            fontWeight: "bold"
         },
         normal: {
-            color: "#FFF"
+            color: "#FFF",
+            fontWeight: "bold"
         },
         nochange: {
-            color: "#EFFB00"
+            color: "#EFFB00",
+            fontWeight: "bold"
         }
     }
 }

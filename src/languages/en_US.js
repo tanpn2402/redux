@@ -1348,6 +1348,10 @@ export default
                     "bymarket": "BY MARKET",
                     "bycompany": "BY COMPANY"
                     
+                },
+                "status": {
+                    "STATUS_0": "Trading"
+                    
                 }
             },
             "messagebox": {

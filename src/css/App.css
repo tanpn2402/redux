@@ -2122,7 +2122,7 @@ label {
 
 /* CLIENT SUMARY */
 .client-sum {
-    padding-top: 15px;
+    padding-top: 10px;
 }
 .client-sum-control {
     padding-left: 12px;
@@ -2219,7 +2219,7 @@ label {
     font-family: fontawesome;
     font-style: normal;
     font-weight: normal;
-    color: green;
+    /* color: green; */
     font-size: 1.5em;
     margin: 0 5px;
     top: 7px;
@@ -2231,7 +2231,7 @@ label {
     font-family: fontawesome;
     font-style: normal;
     font-weight: normal;
-    color: red;
+    /* color: red; */
     font-size: 1.5em;
     margin: 0 5px;
     top: -1px;
@@ -2243,7 +2243,7 @@ label {
     font-family: fontawesome;
     font-style: normal;
     font-weight: normal;
-    color: #dcdcdc;
+    /* color: #dcdcdc; */
     font-size: 1.5em;
     margin: 0 5px;
     top: 3px;
@@ -2800,6 +2800,7 @@ label {
 .select-control .PowerSelect__TriggerInput {
     padding-left: 4px;
     padding-right: 4px;
+    border-radius: 99px;
 }
 .PowerSelect__Options {
     max-height: 200px;
@@ -3417,7 +3418,7 @@ label {
     /* END WATLIST */
 
     /*watchlsit cell format*/
-    .value{
+    .value-binding{
         width: 100%;
         /* font-weight: bold; */
     }
@@ -3445,6 +3446,7 @@ label {
         background-color: #cccccc4d;
         animation: status-changed ease-out 0.75s;
         animation-fill-mode: forwards;
+        width: 100%;
     }
     .unchange {
         /* color: white; */
@@ -3737,15 +3739,36 @@ label {
 /* END TRADE BODY */
 
 /* BID ASK TABLE */
+.bidask-control {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    position: relative;
+    top: 4px;
+    left: 1px;
+}
+.bidask-control .select-control {
+    width: 120px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 22px;
+    border-radius: 0px;
+}
+.bidask-control .trd-control-watch {
+    margin: 0 5px;
+    color: yellow;
+    cursor: pointer;
+}
+.bidask-control .trd-instrument-name p{
+    margin: 0;
+}
 .bidask .stockname {
     position: absolute;
     right: 1px;
 }
 .bidask-table {
-    position: absolute;
+    position: relative;
+    top: 6px;
     width: 100%;
-    height: 100%;
-    padding-top: 20px;
 }
 .bidask-table table{
     width: 100%;
@@ -3767,7 +3790,7 @@ label {
     width: 100%;
 }
 .bidask-td span {
-    padding: 5px 0px;
+    padding: 2px 0px;
 }
 .bidask-td.left {
     width: calc(50% - 50px );
@@ -3803,7 +3826,7 @@ label {
     float: unset !important;
 }
 .bidask-td.mid > div {
-    padding: 5px 2px !important;
+    padding: 2px 2px !important;
     display: block;
 }
 .bidask-td.green {
@@ -3823,6 +3846,19 @@ label {
 }
 .bidask-td.vl-right .bidask-value {
     float: right;
+}
+.bidask-td.core {
+    width: 110px !important;
+}
+.bidask-td.status {
+    width: 105px !important;
+}
+.bidask-td.status .match-price {
+    font-size: 30px;
+    font-weight: bold;
+}
+.bidask-td.status .trading-status {
+    margin-top: 5px;
 }
 /* END BID ASK TABLE */
 

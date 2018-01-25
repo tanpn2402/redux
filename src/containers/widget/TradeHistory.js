@@ -110,8 +110,8 @@ class TradeLogTable extends React.Component {
         let _data = this.state.data
         _data.unshift({
             "price": utils.round(10 + parseFloat(Math.random().toFixed(1)), 1),
-            "vol": utils.randomInt(1000000),
-            "totalvol": utils.randomInt(1000000) + utils.randomInt(1000),
+            "vol": utils.randomInt(1000),
+            "totalvol": utils.randomInt(1000) + utils.randomInt(500),
             "time": moment().format("HH:mm:ss")
         })
 

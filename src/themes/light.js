@@ -46,6 +46,11 @@ export default {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         sub2:{
             color: '#000'
+        },
+
+        // userd in trading status
+        sub3: {
+            color: "#5f5f5f"
         }
     },
     page: {

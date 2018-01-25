@@ -45,7 +45,7 @@ class PortfolioSmall extends React.Component {
             
             if(stockRealtimeData.length > 0) {
                 marketPrice = stockRealtimeData[0].mvMatchPrice
-                pl = utils.numUnFormat(e.mvTSettled) * ( marketPrice - avgPrice )
+                pl = utils.round(utils.numUnFormat(e.mvTSettled) * ( marketPrice - avgPrice ), 1)
             }
             console.log(stockRealtimeData)
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import DataTable from './DataTable'
 import * as utils from '../../utils'
+import config from "../../core/config"
 
 class WatchListTable extends React.Component {
     constructor(props) {
@@ -345,7 +346,8 @@ class WatchListTable extends React.Component {
             pageIndex: 1,
             disableRemove: true,
             watchStockList: [],
-            mvInstrument: null
+            mvInstrument: null,
+            realtimeData: config.cache.watchlistData
         }
 
         this.balance = {
@@ -771,6 +773,28 @@ class WatchListTable extends React.Component {
                 checkboxes[i].checked = false;
             }
         }
+
+        let {listInstrumentData, listInstrumentInWatchList, instrumentData} = nextProps
+        let {realtimeData} = this.state
+        
+        // check if instrutment data already in realtimeData[]
+        let tmp = realtimeData.filter(e => e.mvStockCode == instrumentData.mvStockCode)
+        if(tmp.length > 0) {
+            // compare value
+
+            Object.assign(tmp, instrumentData)
+            config.cache.watchlistData = realtimeData
+            this.setState({
+                realtimeData: realtimeData
+            })
+
+        } else if(listInstrumentInWatchList.indexOf(instrumentData.mvStockCode) > -1) {
+            realtimeData.push(instrumentData)
+            config.cache.watchlistData = realtimeData
+            this.setState({
+                realtimeData: realtimeData
+            })
+        }
     }
 
     componentDidMount() {
@@ -778,18 +802,18 @@ class WatchListTable extends React.Component {
     }
 
     componentDidUpdate(){
-        let classList = document.querySelector(".value")
+        let classList = document.querySelector(".value-binding")
         if(classList != null) {
             let className = classList.className
             let newClassName = className.replace(" value-change", "")
-            document.querySelector(".value").className = newClassName
-            document.querySelectorAll(".value").forEach(div => {
+            document.querySelector(".value-binding").className = newClassName
+            document.querySelectorAll(".value-binding").forEach(div => {
                 div.className = div.className.replace(" value-change", "")
             })
             window.requestAnimationFrame(time => {
                 window.requestAnimationFrame(time => {
                     // document.querySelector(".value").className = newClassName + " value-change"
-                    document.querySelectorAll(".value").forEach(div => {
+                    document.querySelectorAll(".value-binding").forEach(div => {
                         div.className = div.className + " value-change"
                     })
                 })
@@ -812,25 +836,21 @@ class WatchListTable extends React.Component {
 
     render() {
 
-        let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
-        let data = listInstrumentData.filter(stock => {
-            if(listInstrumentInWatchList.indexOf(stock.mvStockCode) > -1) {
-                return stock
-            }
-        })
-        // console.log(this.props.language)
+        
+
+
         return (
             <DataTable
                 theme={this.props.theme}
                 id="watchlist"
                 columns={this.state.columns}
-                tableData={data}
+                tableData={this.state.realtimeData}
                 onRowSelected={(param) => this.onRowSelected(param)}
                 language={this.props.language}
                 onCellClick={this.onCellClick.bind(this)}
 
                 pageIndex={this.state.pageIndex}
-                totalPage={Math.ceil(data.length/15)}
+                totalPage={Math.ceil(this.props.listInstrumentInWatchList.length/15)}
                 onPageChange={this.onPageChange.bind(this)}
 
                 searchActions={[]}
@@ -893,44 +913,14 @@ class WatchListTable extends React.Component {
                 value = utils.currencyShowFormatter(value)
             }
 
-            return <div className="value value-change" style={style}>{value}</div>
+            let className = "value-static"
+            if(data["mvStockCode"] == this.props.instrumentData.mvStockCode) {
+                className = "value-binding"
+            }
+
+            className += " value-change"
+            return <div className={className} style={style}>{value}</div>
         }
-        
-
-
-
-        
-
-
-        // let data = row.original
-        // let color = this.props.theme.watchlist
-        // let bindingStyle = this.props.theme.bindingdata
-        
-        // if (accessor == "mvCeiling") {
-        //     return <div className="value-ceil" style={color.ceil}>{data[accessor]}</div>
-        // }
-        // else if (accessor == "mvFloor") {
-        //     return <div className="value-floor" style={color.floor}>{data[accessor]}</div>
-        // }
-        // else if (accessor == "mvReferences") {
-        //     return <div className="value-ref" style={color.ref}>{data[accessor]}</div>            
-        // }
-
-        // if(data[accessor] == null) {
-        //     return <div className="value unchange" style={bindingStyle.normal}>-</div>
-        // } else {
-        //     let state = data["mvMatchPrice"] > data["mvReferences"] ? "up" : 
-        //         data["mvMatchPrice"] < data["mvReferences"] ? "down" : "normal"
-        //     let content = data[accessor]
-
-        //     if(accessor == "mvMatchUpDown" || accessor == "mvMatchUpDown") {
-        //         let className = ("glyphicon glyphicon-triangle-") + (state == "up" ? "top" : "bottom")
-        //         content = <span><span className={className}></span>{data[accessor]}</span>
-        //     }
-
-        //     return <div className="value value-change" style={bindingStyle[state]}>{content}</div>
-                
-        // }
 
     }
 
@@ -940,7 +930,7 @@ class WatchListTable extends React.Component {
         let matchPrice = props.original["mvMatchPrice"]
         
         let changeValue = Math.abs(utils.round(refPrice - matchPrice, 1))
-        console.log(changeValue, refPrice, matchPrice)
+        // console.log(changeValue, refPrice, matchPrice)
         let style = this.props.theme.bindingdata.nochange
         let className = "glyphicon glyphicon-triangle-";
         if(refPrice > matchPrice) {
@@ -951,9 +941,14 @@ class WatchListTable extends React.Component {
             className += "top"
         }
 
+        let classNameBinding = "value-static"
+        if(props.original["mvStockCode"] == this.props.instrumentData.mvStockCode) {
+            classNameBinding = "value-binding"
+        }
+        classNameBinding += " value-change"
 
         return (
-            <div className="value value-change" style={style}>
+            <div className={classNameBinding} style={style}>
                 <span><span className={className}></span>{changeValue}</span>
             </div> 
         )
@@ -975,9 +970,14 @@ class WatchListTable extends React.Component {
             className += "top"
         }
 
+        let classNameBinding = "value-static"
+        if(props.original["mvStockCode"] == this.props.instrumentData.mvStockCode) {
+            classNameBinding = "value-binding"
+        }
+        classNameBinding += " value-change"
 
         return (
-            <div className="value value-change" style={style}>
+            <div className={classNameBinding} style={style}>
                 <span><span className={className}></span>{percentChange + "%"}</span>
             </div> 
         )
@@ -991,8 +991,9 @@ class WatchListTable extends React.Component {
 const mapStateToProps = (state) => {
     return {
         listInstrumentData: state.trading.listInstrumentData,
-        listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+
+        instrumentData: state.trading.instrumentData
     }
 }
 

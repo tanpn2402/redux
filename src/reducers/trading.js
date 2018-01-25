@@ -21,7 +21,10 @@ const initialState = {
         totalPL: '',
         totalPLPercent: '',
         totalWACValue: ''
-    }
+    },
+
+
+    instrumentData: {}
 };
 
 export default function(state = initialState, action) {
@@ -131,7 +134,8 @@ export default function(state = initialState, action) {
             }
             
             return Object.assign({}, state, {
-                listInstrumentData: dataTemp
+                listInstrumentData: dataTemp,
+                instrumentData: json
             });
 
 

@@ -1318,6 +1318,10 @@ export default
                     "time": "Thời gian",
                     "bymarket": "Theo thị trường",
                     "bycompany": "Theo công ty",
+                },
+                "status": {
+                    "STATUS_0": "Đang giao dịch"
+                    
                 }
             },
             "messagebox": {

@@ -110,7 +110,7 @@ class CustomGridLayout extends React.Component {
         const layout = this.props.layout
         this.state.list = []
         return (
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320}
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={config.gridHeight} width={1320}
                 onResizeStop={this.onResizeStop.bind(this)}
                 onDragStop={this.onDragStop.bind(this)}
                 margin={[3, 3]}
