@@ -124,19 +124,19 @@ export function statusRenderer(text, status) {
             )
         case 'CAN': // canceled
             return (
-                <div style={{ backgroundColor: '#ffbedc', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffbedc', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'REJ': // rejected 
             return (
-                <div style={{ backgroundColor: '#f09191', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#f09191', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FEX'://
             return (
-                <div style={{ backgroundColor: '#1b5041', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#1b5041', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
@@ -172,13 +172,13 @@ export function statusRenderer(text, status) {
             )
         case 'WM':
             return (
-                <div style={{ backgroundColor: '#6b5a19', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#6b5a19', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'IAT':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
@@ -190,13 +190,13 @@ export function statusRenderer(text, status) {
             )
         case 'EXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
@@ -208,7 +208,7 @@ export function statusRenderer(text, status) {
             )
         case 'CPD':
             return (
-                <div style={{ backgroundColor: '#6320ee', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#6320ee', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )

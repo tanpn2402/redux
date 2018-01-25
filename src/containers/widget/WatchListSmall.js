@@ -196,7 +196,7 @@ class WatchListA extends React.Component {
 
         let refPrice = props["mvReferences"]
         let matchPrice = props["mvMatchPrice"]
-        let percent = utils.round( (refPrice - matchPrice) / refPrice * 100, 1)
+        let percent = Math.abs(utils.round( (refPrice - matchPrice) / refPrice * 100, 1))
         let change = Math.abs(utils.round(refPrice - matchPrice, 1))
         
 

@@ -3724,7 +3724,7 @@ label {
     width: 100%;
 }
 .bidask-td span {
-    padding: 2px 0px;
+    padding: 5px 0px;
 }
 .bidask-td.left {
     width: calc(50% - 50px );
@@ -3760,7 +3760,7 @@ label {
     float: unset !important;
 }
 .bidask-td.mid > div {
-    padding: 2px 2px !important;
+    padding: 5px 2px !important;
     display: block;
 }
 .bidask-td.green {

@@ -6,7 +6,7 @@ import moment from "moment"
 import Select from "../commons/Select"
 import config from '../../core/config'
 import Component from "../commons/Component"
-
+import * as utils from '../../utils'
 
 class TradeLogTable extends React.Component {
 
@@ -20,7 +20,7 @@ class TradeLogTable extends React.Component {
         }
 
         this.balance = {
-            "price": 0.235
+            "price": 10.6
         }
     }
 
@@ -28,11 +28,14 @@ class TradeLogTable extends React.Component {
         let theme = this.props.theme.bindingdata
         
         let child = <span style={theme.normal}>{props[accessor]}</span>
+
+        let content = accessor.includes("vol") ? utils.currencyShowFormatter(props[accessor]) : props[accessor]
+        
         if(props["price"] > this.balance["price"]) {
-            child = <span style={theme.up}>{props[accessor]}</span>
+            child = <span style={theme.up}>{content}</span>
         }
         else {
-            child = <span style={theme.down}>{props[accessor]}</span>
+            child = <span style={theme.down}>{content}</span>
         }
         return child
     }
@@ -46,14 +49,14 @@ class TradeLogTable extends React.Component {
             
             {
                 title: language.time,
-                style: {width: "25%", textAlign: "center"},
-                bodyStyle: {width: "25%", textAlign: "center"},
+                style: {width: "20%", textAlign: "center"},
+                bodyStyle: {width: "20%", textAlign: "center"},
                 accessor: "time"
             },
             {
                 title: language.price.replace("{0}", ""),
-                style: {width: "25%", textAlign: "right"},
-                bodyStyle: {width: "25%", textAlign: "right"},
+                style: {width: "20%", textAlign: "right"},
+                bodyStyle: {width: "20%", textAlign: "right"},
                 accessor: "price",
                 cell: props => {
                     return this.fillColor(props, "price")
@@ -61,8 +64,8 @@ class TradeLogTable extends React.Component {
             },
             {
                 title: language.vol,
-                style: {width: "25%", textAlign: "center"},
-                bodyStyle: {width: "25%", textAlign: "right"},
+                style: {width: "30%", textAlign: "right"},
+                bodyStyle: {width: "30%", textAlign: "right"},
                 accessor: "vol",
                 cell: props => {
                     return this.fillColor(props, "vol")
@@ -70,8 +73,8 @@ class TradeLogTable extends React.Component {
             },
             {
                 title: language.totalvol,
-                style: {width: "25%", textAlign: "right"},
-                bodyStyle: {width: "25%", textAlign: "right"},
+                style: {width: "30%", textAlign: "right"},
+                bodyStyle: {width: "30%", textAlign: "right"},
                 accessor: "totalvol",
                 cell: props => {
                     return this.fillColor(props, "totalvol")
@@ -106,9 +109,9 @@ class TradeLogTable extends React.Component {
         // console.log("adssddsdsd")
         let _data = this.state.data
         _data.unshift({
-            "price": Math.random().toFixed(4) + 10,
-            "vol": Math.random().toFixed(4),
-            "totalvol": Math.random().toFixed(4),
+            "price": utils.round(10 + parseFloat(Math.random().toFixed(1)), 1),
+            "vol": utils.randomInt(1000000),
+            "totalvol": utils.randomInt(1000000) + utils.randomInt(1000),
             "time": moment().format("HH:mm:ss")
         })
 

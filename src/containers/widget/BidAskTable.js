@@ -7,6 +7,25 @@ import config from "../../core/config"
 import Component from "../commons/Component"
 import * as utils from "../../utils"
 
+const backgroundStyles = {
+    "dark": {
+        "bid": {
+            backgroundColor: "#0d2b00"
+        },
+        "ask": {
+            backgroundColor: "#de9240"
+        }
+    },
+    "light": {
+        "bid": {
+            backgroundColor: "#edf6e9"
+        },
+        "ask": {
+            backgroundColor: "#feeff1"
+        }
+    }
+}
+
 class BidAskTable extends React.Component {
     constructor(props) {
         super(props)
@@ -14,17 +33,20 @@ class BidAskTable extends React.Component {
         this.state = {
             data : {}
         }
+        
     }
 
     _renderValue(accessor) {
-        if(accessor == "") {
-            return {}
-        }
+
+       
 
         let theme = this.props.theme.bindingdata
         let style = theme.normal
-        
-        if(this.state.data[accessor] > this.state.data["mvReferences"] ) {
+
+        if(accessor == "") {
+            style = theme.normal
+        }
+        else if(this.state.data[accessor] > this.state.data["mvReferences"] ) {
             style = theme.up
         } else if(this.state.data[accessor] < this.state.data["mvReferences"]) {
             style = theme.down
@@ -74,25 +96,20 @@ class BidAskTable extends React.Component {
                 <div className="bidask-table">
                     <table>
                         <tbody>
+                            
                             <tr className="bidask-row align-center header">
+                                <td className="bidask-td core"></td>
                                 <td className="bidask-td left">
-                                    <div>
-                                    </div>
+                                    <div><span style={theme.font.main}>{header.BestBid}</span></div>
                                 </td>
-                                <td className="bidask-td mid pink">
-                                    <div><span style={theme.font.main} className=""></span></div>
+                                <td className="bidask-td mid"></td>
+                                <td className="bidask-td right">
+                                    <div><span style={theme.font.main}>{header.BestAsk}</span></div>
                                 </td>
-                                <td className="bidask-td right pink vl-left">
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.total}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvTotalAskVol)}
-                                        </span>
-                                    </div>
-                                </td>
+                                
                             </tr>
                             <tr className="bidask-row">
-                                <td className="bidask-td left">
+                                <td className="bidask-td core" rowSpan="3">
                                     <div>
                                         <span style={theme.font.main} className="bidask-title">{header.openprice}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
@@ -111,78 +128,6 @@ class BidAskTable extends React.Component {
                                             {(data.mvLow)}
                                         </span>
                                     </div>
-                                </td>
-                                <td className="bidask-td mid pink">
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice1")}>
-                                        {(data.mvBidPrice1)}</span>
-                                    </div>
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice2")}>
-                                        {(data.mvBidPrice2)}</span>
-                                    </div>
-                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice3")}>
-                                        {(data.mvBidPrice3)}</span>
-                                    </div>
-                                </td>
-                                <td className="bidask-td right pink vl-left">
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestBid + " 1"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvBidVol1)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestBid + " 2"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvBidVol2)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestBid + " 3"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvBidVol3)}
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="bidask-row">
-                                <td className="bidask-td left green vl-right">
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 1"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvOfferVol1)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 2"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvOfferVol2)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 3"}</span>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                            {utils.currencyShowFormatter(data.mvOfferVol3)}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td className="bidask-td mid green">
-                                    <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice1")}>
-                                            {(data.mvOfferPrice1)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice2")}>
-                                            {(data.mvOfferPrice2)}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice3")}>
-                                            {(data.mvOfferPrice3)}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td className="bidask-td right vl-right">
                                     <div>
                                         <span style={theme.font.main} className="bidask-title">{header.cell}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
@@ -201,11 +146,89 @@ class BidAskTable extends React.Component {
                                             {(data.mvReferences)}
                                         </span>
                                     </div>
+                                    <div style={{height: "27px"}}></div>
+                                </td>
+                                <td className="bidask-td left">
+                                    <div>
+                                        {<span style={theme.font.main} className="bidask-title">{header.total}</span>}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvTotalAskVol)}
+                                        </span>
+                                    </div>
+
+                                </td>
+                                <td className="bidask-td mid pink" style={backgroundStyles[theme.title].ask}>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice1")}>
+                                        {(data.mvBidPrice1)}</span>
+                                    </div>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice2")}>
+                                        {(data.mvBidPrice2)}</span>
+                                    </div>
+                                    <div><span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvBidPrice3")}>
+                                        {(data.mvBidPrice3)}</span>
+                                    </div>
+                                </td>
+                                <td className="bidask-td right pink vl-left" style={backgroundStyles[theme.title].ask}>
+                                    <div>
+                                        {/* {<span style={theme.font.main} className="bidask-title">{header.BestAsk + " 1"}</span>} */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvOfferVol1)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 2"}</span> */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvOfferVol2)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 3"}</span> */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvOfferVol3)}
+                                        </span>
+                                    </div>
                                 </td>
                             </tr>
-
                             <tr className="bidask-row">
-                                <td className="bidask-td left green vl-right">
+                                <td className="bidask-td left green vl-right" style={backgroundStyles[theme.title].bid}>
+                                    <div>
+                                        {/* {<span style={theme.font.main} className="bidask-title">{header.BestBid + " 1"}</span>} */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvBidVol1)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 2"}</span> */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvBidVol2)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 3"}</span> */}
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                            {utils.currencyShowFormatter(data.mvBidVol3)}
+                                        </span>
+                                    </div>
+                                    
+                                </td>
+                                <td className="bidask-td mid green" style={backgroundStyles[theme.title].bid}>
+                                    <div>
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice1")}>
+                                            {(data.mvOfferPrice1)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice2")}>
+                                            {(data.mvOfferPrice2)}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("mvOfferPrice3")}>
+                                            {(data.mvOfferPrice3)}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="bidask-td right vl-right">
                                     <div>
                                         <span style={theme.font.main} className="bidask-title">{header.total}</span>
                                         <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
@@ -213,13 +236,8 @@ class BidAskTable extends React.Component {
                                         </span>
                                     </div>
                                 </td>
-                                <td className="bidask-td mid green">
-                                    <div><span className=""></span></div>
-                                </td>
-                                <td className="bidask-td right">
-                                    <div><span className=""></span></div>
-                                </td>
                             </tr>
+
                             <tr className="bidask-row align-center">
                                 <td className="bidask-td left">
                                     <div><span className="binding" onClick={e => this.onClick()} style={this._renderValue("")}>

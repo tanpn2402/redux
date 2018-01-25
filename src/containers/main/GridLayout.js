@@ -43,6 +43,8 @@ class GridLayout extends React.Component {
                 else hei = ele.offsetHeight - 60 - 30
                 let heightToFit = hei - y*(HEIGHT + 10)
                 col = Math.floor(heightToFit / (HEIGHT + 10))
+
+                col = col > layout["maxH"] ? layout["maxH"] : col < layout["minH"] ? layout["minH"] : col
             } catch(ex) {
                 col = 4
             }
