@@ -16,7 +16,8 @@ class FavouriteBar extends React.Component {
         this.showTooltip = this.showTooltip.bind(this)
 
         this.state = {
-            needShowToolTip: false
+            needShowToolTip: false,
+            onFavHover: false
         }
     }
 
@@ -49,8 +50,11 @@ class FavouriteBar extends React.Component {
                     return(
                         <OverlayTrigger placement="top" overlay={this.showTooltip(this.props.language.menu[el])} >
                             <div id={'fav-tab-' + index} className="fav-tab" ref={r => this.listFavcompoment.push(r)}
-                                onClick={e => this.gotoResultTab(el, this.props.language)}>
+                            onClick={e => this.gotoResultTab(el, this.props.language)}>
+                                <div tabIndex="0" className="glyphicon glyphicon-remove"
+                                onClick={e => this.props.onFavClick(e, el)}></div>
                                 {this.props.language.menu[el]}
+                                
                             </div>
                         </OverlayTrigger>
                     )
@@ -196,7 +200,7 @@ class StatusBar extends React.Component {
                                                 onMouseOut={e => this.setState({onFav: -1})}>
                                                     {this.props.language.menu[el.id]}
                             
-                                                    <span style={{visibility: (el.id == this.state.onFav || this.state.currentlySelectedItemIndex == index) ?"visible" : "hidden", 
+                                                    <span style={{visibility: (el.id == this.state.onFav || this.state.currentlySelectedItemIndex == index || this.isFav(el.id) >= 0) ?"visible" : "hidden", 
                                                         color: this.isFav(el.id) >= 0 ? "yellow" : "white"}} 
                                                         onClick={e => this.onFavClick(e, el.id)}
                                                         tabIndex='0' 
@@ -240,7 +244,7 @@ class StatusBar extends React.Component {
                 </div>
                 
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
-                    gotoResultTab={(e, la) => this.gotoResultTab(e, la)}/>
+                    gotoResultTab={(e, la) => this.gotoResultTab(e, la)} onFavClick={(e, id) => this.onFavClick(e, id)}/>
             </div>
 
         )

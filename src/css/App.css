@@ -892,14 +892,38 @@ label {
     outline: none;
 }
 
+#fav-tab-container{
+    width: calc(100% - 430px);
+    float: left;
+    
+}
+
 .fav-tab{
-    padding: 4px 7px 2px 7px;
+    padding: 4px 2px 2px 25px;
     color: white;
     box-sizing: border-box;
 	float:left;
 	border-right: 1px solid white;
 	cursor: pointer;
-    
+    /* width: 12.5%; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.fav-tab > div{
+    cursor: pointer;
+    float: right;
+    visibility: hidden;
+    margin-left: 8px;
+    box-sizing: border-box;
+    padding-top: 0px;
+    top: 4px;
+}
+
+.fav-tab:hover div{
+    visibility: visible;
 }
 
 .widget-search input {
