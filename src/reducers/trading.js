@@ -38,6 +38,11 @@ export default function(state = initialState, action) {
                 listInstrumentToWatchTMPX = [...listInstrumentToWatchTMPX, action.instrument]
                 config.cache.listInstrumentToWatch = listInstrumentToWatchTMPX
             }
+
+            // check if previous instrument in listInstrumentToWatch
+            // if(listInstrumentToWatchTMPX.indexOf(action))
+
+  
             return Object.assign({}, state, {
                 instrument: action.instrument,
                 listInstrumentToWatch: listInstrumentToWatchTMPX
@@ -47,7 +52,7 @@ export default function(state = initialState, action) {
         // add instrument to watch ( not to watchlist)
         case ActionTypes.ADDINSTRUMENTTOWATCH: {
             // console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
-            let listDataTmp1 = genDefaultData(state.listInstrumentData, [action.instrument])
+            let listDataTmp1 = genDefaultData(state.listInstrumentData, [{mvStockCode: action.instrument, mvMarket: action.market }])
             let tmp = state.listInstrumentToWatch
             if(action.instrument != null && state.listInstrumentInWatchList.indexOf(action.instrument) < 0
                 && tmp.indexOf(action.instrument) < 0)
@@ -75,7 +80,7 @@ export default function(state = initialState, action) {
 
         // add instrument to watchlist ( to db also )
         case ActionTypes.ADDINSTRUMENTTOWATCHLIST: {
-            let listDataTmp2 = genDefaultData(state.listInstrumentData, [action.instrument])
+            let listDataTmp2 = genDefaultData(state.listInstrumentData, [{mvStockCode: action.instrument, mvMarket: action.market }] )
             let tmp1 = state.listInstrumentInWatchList
             let listInstrumentToWatchTMP1 = state.listInstrumentToWatch
             if(action.instrument != null) {
@@ -104,9 +109,12 @@ export default function(state = initialState, action) {
 
             config.cache.listInstrumentToWatch = listInstrumentToWatchTMP2
 
+            let listInstrumentDataTMPX10 = state.listInstrumentData.filter(e => e.mvStockCode != action.instrument)
+
             return Object.assign({}, state, {
                 listInstrumentInWatchList: state.listInstrumentInWatchList.filter(e => e != action.instrument),
-                listInstrumentToWatch: listInstrumentToWatchTMP2
+                listInstrumentToWatch: listInstrumentToWatchTMP2,
+                listInstrumentData: listInstrumentDataTMPX10
             });
         }
         
@@ -163,6 +171,7 @@ export default function(state = initialState, action) {
 
         case ActionTypes.GETLISTSTOCKINWATCHLIST: {
             let list = action.list
+            // list = [{mvStockCode: XXX, mvMarket: YYY}, {....}, ....]
             let listDataTmp3 = genDefaultData(state.listInstrumentData, list)
             let tmpIns = list.length > 0 ? list[0] : ""
             let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...list])]
@@ -183,11 +192,11 @@ export default function(state = initialState, action) {
 
 function genDefaultData(listInstrumentData, listStock) {
     console.log(listInstrumentData, listStock)
-    listStock.map(stockCode => {
-        if(listInstrumentData.filter(e => e.mvStockCode == stockCode).length < 1) {
+    listStock.map(stock => {
+        if(listInstrumentData.filter(e => e.mvStockCode == stock.mvStockCode && e.mvMarket == stock.mvMarket).length < 1) {
             let data = {
-                mvStockCode: stockCode,
-                mvMarket: "---",
+                mvStockCode: stock.mvStockCode,
+                mvMarket: stock.mvMarket,
 
                 mvCeiling: "---",
                 mvFloor:"---",

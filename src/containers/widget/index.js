@@ -60,7 +60,7 @@ import MarginLoanStatement from './MarginLoanStatement'
 import AvailableMargin from './AvailableMargin'
 import TransactionHistory from './TransactionHistory'
 
-import BidAskTable from './BidAskTable'
+import BidAskTable from './BidAsk'
 import TradeHistory from './TradeHistory'
 import WatchListSmall from './WatchListSmall'
 import TradeHeader from './TradeHeader'
@@ -71,31 +71,6 @@ import PortfolioSmall from './PortfolioSmall'
 export default function (menuid, props){
 	// console.log(menuid)
 	switch(menuid){
-		// case 'management':
-		// 	return(
-		// 		<Management language={props.language} stockList={props.stockList} theme={props.theme}  tabID={props.tabID}/>
-		// 	)
-		// case 'trading':
-		// 	return(
-		// 		<Trading language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-		// 	)
-		// case 'portfoliotab':
-		// 	return(
-		// 		<PortfolioTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-		// 	)
-		// case 'orderjournaltab':
-		// 	return(
-		// 		<OrderJournalTab language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-		// 	)
-		// case 'transhistory':
-		// 	return(
-		// 		<TransHistory language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
-		// 	)
-		// case 'customization':
-		// 	return (
-		// 		<Customization language={props.language} stockList={props.stockList}/>
-		// 	)
-
 		case 'entitlement':
 			return (
 				<Entitlement language={props.language} theme={props.theme} stockList={props.stockList}/>

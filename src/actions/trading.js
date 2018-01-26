@@ -6,11 +6,17 @@ import * as utils from '../utils'
 
 const {ActionTypes} = require('../core/constants');
 
-export function changeInstrument(ins) {
-    
+export function changeInstrument(ins, market) {
+    if(market == undefined) {
+        let tmp = config.cache.stockList.filter(e => e.stockCode == ins)
+        if(tmp.length > 0) {
+            market = tmp[0].mvMarketID
+        }
+    }
     return {
         type: ActionTypes.CHANGEINSTRUMENT,
         instrument: ins, // ex: AVC, VNM
+        market: market
     }
 }
 
@@ -36,6 +42,7 @@ export function addInstrumentToWatch(ins, market) {
     return {
         type: ActionTypes.ADDINSTRUMENTTOWATCH,
         instrument: ins, // ex: AVC, VNM
+        market: market
     }
     // return (dispatch) => {
     //     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, function(res) {
@@ -53,6 +60,7 @@ export function removeInstrumentFromWatch(ins, market) {
     return {
         type: ActionTypes.REMOVEINSTRUMENTFROMWATCH,
         instrument: ins, // ex: AVC, VNM
+        market: market
     }
 }
 
@@ -79,6 +87,7 @@ export function addInstrumentToWatchList(ins, market) {
     return {
         type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
         instrument: ins, // ex: AVC, VNM
+        market: market
     }
     
     // return (dispatch) => {
@@ -96,6 +105,7 @@ export function removeInstrumentFromWatchList(ins, market) {
     return {
         type: ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST,
         instrument: ins, // ex: AVC, VNM
+        market: market
     }
 }
 
@@ -105,11 +115,15 @@ export function removeInstrumentFromWatchList(ins, market) {
 export function updateWatchlistData(json) {
     let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
     let stockCode = config.cache.listInstrumentToWatch[marIndex]
-
+    let tmp = config.cache.stockList.filter(e => e.stockCode == stockCode)
+    let market = "HO"
+    if(tmp.length > 0) {
+        market = tmp[0].mvMarketID
+    }
     
         let data = {
             mvStockCode: stockCode,
-            mvMarket: "AC",
+            mvMarket: market,
 
             mvCeiling: 80.2,
             mvFloor: 70.3,
