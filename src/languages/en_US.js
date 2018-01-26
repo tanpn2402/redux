@@ -144,7 +144,8 @@ export default
                 "assetallocationchart": 'Asset Allocation Chart',
                 "stockinfo": "Stock Info",
                 "daytrade": "Day Trade",
-                "tradehistory": "Trade Log"
+                "tradehistory": "Trade Log",
+                "recommendation": "Recommendation"
             },
             "searchbar": {
                 "search": "Search",
@@ -229,6 +230,9 @@ export default
                 "MARKET_HKEX": "HKEX",
                 "MARKET_MAMK": "MAMK",
                 "MARKET_SZMK": "SZMK",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_OTC": "OTC",
 
                 "BS_ALL": "ALL",
                 "BS_B": "BUY",
@@ -938,7 +942,8 @@ export default
                     "change": "+/-",
                     "percent": "%",
                     "offer": "Offer",
-                    "bid": "Bid"
+                    "bid": "Bid",
+                    "signal": "Signal"
                 }
             },
             "personalprofile": {

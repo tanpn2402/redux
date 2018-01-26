@@ -53,7 +53,7 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'ordershistory',
+					id: 'orderHistory',
 					text: 'ordershistory',
 					link: ''
 				},
@@ -77,11 +77,11 @@ const config = {
 					text: 'marginloan',
 					link: ''
 				},
-				{
-					id: 'personalprofile',
-					text: 'personalprofile',
-					link: ''
-				}
+				// {
+				// 	id: 'personalprofile',
+				// 	text: 'personalprofile',
+				// 	link: ''
+				// }
 			]
 		},
 		{
@@ -367,26 +367,26 @@ const config = {
 	],
 
 	widget: [
-		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 6, minW: 2, minH: 6, maxW: 3, maxH: 6, isDraggable: true, isResizable: false },
-		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'cashTransHistory', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true},
-		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true},
-		{ i: 'portfolio', 				smW: 8, smH: 10, lgW: 8, lgH: 14, minW: 6, minH: 10, maxW: 8, maxH: 14, isDraggable: true, isResizable: true},
-		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'stockmarketinform', 		smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 3, maxH: 9, isDraggable: true, isResizable: false },
-		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 10, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'fundTransfer', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 5, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'advancePayment', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'marginloan', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'available', 				smW: 8, smH: 8, lgW: 8, lgH: 9, minW: 4, minH: 6, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'accountinfo', 			smW: 3, smH: 6, lgW: 3, lgH: 6, minW: 3, minH: 6, maxW: 8, maxH: 8, isDraggable: true, isResizable: false },
-		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 6, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minH: 8, maxW: 8, maxH: 9, isDraggable: true, isResizable: true },
-		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 4, lgH: 12, minW: 4, minH: 6, maxW: 4, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 9, minW: 8, minW: 6, minW: 8, maxH: 9, isDraggable: true, isResizable: true },
+		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 12, minW: 2, minH: 12, maxW: 3, maxH: 12, isDraggable: true, isResizable: false },
+		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 5, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'cashTransHistory', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true},
+		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true},
+		{ i: 'portfolio', 				smW: 8, smH: 10, lgW: 8, lgH: 28, minW: 6, minH: 20, maxW: 8, maxH: 28, isDraggable: true, isResizable: true},
+		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'stockmarketinform', 		smW: 3, smH: 6, lgW: 3, lgH: 12, minW: 3, minH: 12, maxW: 3, maxH: 18, isDraggable: true, isResizable: false },
+		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minH: 20, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'fundTransfer', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 5, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'advancePayment', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'marginloan', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'available', 				smW: 8, smH: 8, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'accountinfo', 			smW: 3, smH: 6, lgW: 3, lgH: 16, minW: 3, minH: 12, maxW: 8, maxH: 16, isDraggable: true, isResizable: false },
+		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 4, lgH: 24, minW: 4, minH: 12, maxW: 4, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minW: 12, minW: 8, maxH: 18, isDraggable: true, isResizable: true },
 
 	],
 
@@ -438,7 +438,7 @@ const config = {
 			title: "orderjournal",
 			enabled: true,
 			widget: [
-				{ i: 'orderjournal', x: 0, y: 0, w: 8, isDraggable: false, isResizable: false }
+				{ i: 'orderjournal', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -446,8 +446,8 @@ const config = {
 			title: "transhistory",
 			enabled: true,
 			widget: [
-				{ i: 'orderHistory', x: 0, y: 0, w: 8,  isDraggable: false, isResizable: false, tab:1 },
-				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  isDraggable: false, isResizable: false, tab:1 }
+				{ i: 'orderHistory', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
+				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
 			]
 		},
 		{
@@ -481,10 +481,10 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 10, isDraggable: false, isResizable: false },
+				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 15, isDraggable: false, isResizable: false },
 				// { i: 'assetallocation-lite', x: 0, y: 10, w: 8, h: 3, isDraggable: false, isResizable: false},
-				{ i: 'stockinfo', x: 0, y: 13, w: 8, h: 11, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 0, y: 30, w: 8, h: 16, minW: 8, maxW: 8, minH: 16, maxH: 16, isDraggable: false, isResizable: false }
+				{ i: 'stockinfo', x: 0, y: 13, w: 8, h: 24, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 0, y: 30, w: 8, h: 20, minW: 8, maxW: 8, minH: 16, maxH: 16, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -494,7 +494,7 @@ const config = {
 			widget: [
 				// { i: 'assetallocation', x: 0, y: 0, w: 8, h: 4, isDraggable: false, isResizable: false},
 				// { i: 'accountbalance', x: 0, y: 0, w: 8, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 18, minW: 8, maxW: 8, minH: 18, maxH: 20, isDraggable: false, isResizable: false },
+				{ i: 'portfolio', x: 0, y: 5, w: 8, h: 24, minW: 8, maxW: 8, minH: 18, maxH: 20, isDraggable: false, isResizable: false },
 				//{ i: 'sumary', x: 0, y: 0, w: 8, h: 5, isDraggable: false, isResizable: false },
 			]
 		},
@@ -503,7 +503,7 @@ const config = {
 			title: "daytrade",
 			enabled: true,
 			widget: [
-				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false }
+				{ i: 'orderjournal', x: 0, y: 0, w: 8, h: 24, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -511,7 +511,7 @@ const config = {
 			title: "transhistory",
 			enabled: true,
 			widget: [
-				{ i: 'transactionhistory', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false }
+				{ i: 'transactionhistory', x: 0, y: 0, w: 8, h: 24, isDraggable: false, isResizable: false }
 			]
 		},
 		{
@@ -519,7 +519,7 @@ const config = {
 			title: "orderhistory",
 			enabled: true,
 			widget: [
-				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
+				{ i: 'orderHistory', x: 0, y: 0, w: 8, h: 24, isDraggable: false, isResizable: false },
 			]
 		}
 	],

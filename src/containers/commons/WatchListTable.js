@@ -920,8 +920,14 @@ class WatchListTable extends React.Component {
             })
         }
 
-        this.props.onDesktopTabClick("tradepage", "placeorder")
-
+        //this.props.onDesktopTabClick("tradepage", "placeorder")
+        this.props.showPlaceOrder({
+            theme: this.props.theme,
+            language: this.props.language,
+            data: {},
+            title: this.props.language.menu.placeorder,
+            id: 'quickorder',
+        })
     }
 
     render() {
@@ -1092,6 +1098,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
     onDesktopTabClick: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID));
+    },
+    showPlaceOrder: (param) => {
+        dispatch(actions.showPopup(param))
     },
 })
 

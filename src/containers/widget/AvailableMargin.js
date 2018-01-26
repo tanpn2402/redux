@@ -109,7 +109,6 @@ class AvaibleMarginList extends Component {
                         searchActions={[]}
                         searchParams={['mvStockId', 'mvMarket', 'mvLending']}
                         searchData={{stockList: this.stockList}}
-                        searchEnable={data.list.length > 0}
                     />
                 </Body>
             </div>

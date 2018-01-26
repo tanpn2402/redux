@@ -7,14 +7,12 @@ import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal,
 import config from "../../core/config"
 import Component from "../commons/Component"
 import * as utils from "../../utils"
-import {TabControl, TabItem} from "../commons/TabControl"
-import RecommendTable from "./RecommendTable"
 
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 const MODE_PERCENT = "percent"
 
-class WatchListA extends React.Component {
+class RecommentTable extends React.Component {
     constructor(props) {
         super(props)
 
@@ -24,40 +22,12 @@ class WatchListA extends React.Component {
             ],
             modeView: MODE_CHANGE,
             stockSelected: this.props.instrument,
-            listStock: this.props.listInstrumentInWatchList.slice(0),
-
-            activeKey: 1
+            listStock: this.props.listInstrumentInWatchList.slice(0)
         }
-
-        this.balance = {
-            "mvMatchUpDown": 1.35,
-            "mvMatchPercent": 0.555,
-            "mvMatchVol": 569.2,
-            "mvMatchPrice": 86.56
-        }
-
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            stockSelected: nextProps.instrument
-        })
-        this.onStockChange(nextProps.listInstrumentInWatchList)
-        
-    }
-
-    changeModeView(mode) {
-        this.setState({
-            modeView: this.state.modeView == MODE_PERCENT ? MODE_CHANGE : MODE_PERCENT
-        })
-    }
-
-    onTabChange(key) {
-        this.setState({activeKey: key})
     }
 
     showTooltip(props) {
+        console.log(props)
         return (
             <Tooltip id="tooltip">
                 {"MUA NHANH - BÁN NHANH"}
@@ -66,21 +36,13 @@ class WatchListA extends React.Component {
         
     }
 
-    _renderTitle(title, i) {
-        let theme = this.props.theme.font
-        let font = this.state.activeKey == i ? theme.main : theme.disable
-        return <div style={font} className="wl-sm-tab-title">{title}</div>
-    }
-
     render() {
-        let currency = "VND"
         let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
         let data = listInstrumentData.filter(stock => {
             if(listInstrumentInWatchList.indexOf(stock.mvStockCode) > -1) {
                 return stock
             }
         })
-
         let language = this.props.language.watchlist.header
         let header = [
             {
@@ -143,7 +105,7 @@ class WatchListA extends React.Component {
                 cell: props => {
                     return (
                         <OverlayTrigger overlay={this.showTooltip(props)} >
-                            <span style={{color: "#009900"}} className="glyphicon glyphicon-arrow-up"></span>
+                            <span className="glyphicon glyphicon-eur"></span>
                          </OverlayTrigger>
                     )
                 }
@@ -151,58 +113,26 @@ class WatchListA extends React.Component {
         ]
        
         let theme = this.props.theme
-        
-        return (
-            <Component className="wl-small" theme={theme}>
-                <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
-                    <TabItem eventKey={1} title={this._renderTitle(this.props.language.menu.watchlist, 1)} >
-                        <div className="wl-sm-table">
-                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme}
-                                getTRowProps={(data) => {
-                                    if(data.mvStockCode == this.state.stockSelected) {
-                                        return {
-                                            style: {
-                                                backgroundColor: "rgba(244,186,17,0.4)",
-                                                fontWeight: "900"
-                                            }
-                                        }
-                                    } else {
-                                        return {
-                                            style: {}
-                                        }
-                                    }
-                                    
-                                }}
-                                onRowClick={(e, props) => this.onRowClick(e, props) }
-                            />
-                        </div>
-                    </TabItem>
-                    <TabItem eventKey={2} title={this._renderTitle(this.props.language.menu.recommendation, 2)} >
-                        <div className="wl-sm-table">
-                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme}
-                                getTRowProps={(data) => {
-                                    if(data.mvStockCode == this.state.stockSelected) {
-                                        return {
-                                            style: {
-                                                backgroundColor: "rgba(244,186,17,0.4)",
-                                                fontWeight: "900"
-                                            }
-                                        }
-                                    } else {
-                                        return {
-                                            style: {}
-                                        }
-                                    }
-                                    
-                                }}
-                                onRowClick={(e, props) => this.onRowClick(e, props) }
-                            />
-                        </div>
 
-                    </TabItem>
-                </TabControl>
-              
-            </Component>
+        return (
+            <TTLTable className="watchlist-small" data={data} header={header} theme={theme}
+                getTRowProps={(data) => {
+                    if(data.mvStockCode == this.state.stockSelected) {
+                        return {
+                            style: {
+                                backgroundColor: "rgba(244,186,17,0.4)",
+                                fontWeight: "900"
+                            }
+                        }
+                    } else {
+                        return {
+                            style: {}
+                        }
+                    }
+                    
+                }}
+                onRowClick={(e, props) => this.onRowClick(e, props) }
+            />
         )
     }
 
@@ -230,9 +160,9 @@ class WatchListA extends React.Component {
     onStockChange(listStock) {
     }
 
-    handleViewModeChange(mode) {
+    changeModeView(mode) {
         this.setState({
-            modeView: mode
+            modeView: this.state.modeView == MODE_PERCENT ? MODE_CHANGE : MODE_PERCENT
         })
     }
 
@@ -269,27 +199,6 @@ class WatchListA extends React.Component {
         
         return child
     }
-
-    componentDidMount() {
-
-    }
-
 }
 
-const mapStateToProps = (state) => {
-    return {
-        instrument: state.trading.instrument,
-        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
-        portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
-        listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
-        listInstrumentData: state.trading.listInstrumentData
-    }
-}
-
-const mapDispatchToProps = (dispatch, props) => ({
-    changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
-
-    setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(WatchListA)
+export default RecommentTable

@@ -85,7 +85,7 @@ export default class SearchBar extends React.Component {
                 data={this.StockList} prefix="" default={state.default["mvStockId"]}/> ,
             'mvStartDate': (id, props)  => <SearchDate ref={r => this.ref.mvStartDate = r} {...props} id={id} prefix="" /> ,
             'mvEndDate': (id, props)    => <SearchDate ref={r => this.ref.mvEndDate = r} {...props} id={id} prefix="" /> ,
-            'mvLending': (id, props)    => <div></div> ,
+            'mvLending': (id, props)    => <LendingControl ref={r => this.ref.mvLending = r} {...props} id={id} /> ,
             'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix=""/> 
         }
 
@@ -366,4 +366,33 @@ class SearchDate extends React.Component {
             date: _date
         });
     }
+}
+
+class LendingControl extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            value: ""
+        }
+    }
+
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let language = this.props.language
+        let font3 = this.props.theme.font.sub2.color
+        return (
+            <FormGroup bsClass="form-group lending" key={id} >
+                <input ref={r => this.input = r} defaultValue={this.state.value}/>
+                {'   '}
+                <ControlLabel style={{ color: font3 }}>{language["persentlength"]}</ControlLabel>
+            </FormGroup>
+        )
+    }
+
+    getValue() {
+        this.state.value = this.input.value
+        return this.input.value
+    }
+
 }

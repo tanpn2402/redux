@@ -34,6 +34,10 @@ export default {
         },
         sub3: {
             color: "#afafaf"
+        },
+        disable: {
+            color: "#6B6B6B",
+            fontWeight: "normal"
         }
     },
     page: {

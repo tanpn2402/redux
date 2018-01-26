@@ -372,6 +372,24 @@ class PlaceOrder extends React.Component {
                                 />
                             </Col>
                         </div>
+
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5}></Col>
+                            <Col xs={7}>
+                                <div className="group-btn-action form-submit-action" style={{}}>
+                                    
+                                        <button type="submit" className="hks-btn btn-submit"
+                                            onClick={this.handleSubmit.bind(this)}>
+                                            {this.state.mvBS}
+                                        </button>
+                                        <button type="reset" className="hks-btn btn-cancel"
+                                            onClick={this.handleResetForm.bind(this)}>
+                                            {this.props.language.button.reset}
+                                        </button>
+                                    
+                                </div>
+                            </Col>
+                        </div>
                         
                     </div>
                     {/* End Left Column */}
@@ -508,18 +526,7 @@ class PlaceOrder extends React.Component {
                         </div> */}
                     </div>
                     {/* End Right Column */}
-                    <div className="group-btn-action form-submit-action" style={{}}>
-                        <span>
-                            <button type="submit" className="hks-btn btn-submit"
-                                onClick={this.handleSubmit.bind(this)}>
-                                {this.state.mvBS}
-                            </button>
-                            <button type="reset" className="hks-btn btn-cancel"
-                                onClick={this.handleResetForm.bind(this)}>
-                                {this.props.language.button.reset}
-                            </button>
-                        </span>
-                    </div>
+                    
                 </div>
         
             </Component>
@@ -837,6 +844,7 @@ class PlaceOrder extends React.Component {
     //--------------------------------------
 
     getStockInfo(stockCode, marketID, bsValue) {
+        // console.log("get stock info", stockCode, marketID, bsValue)
         var me = this
         var showBP = true;
         var mvEnableGetStockInfo = "N";
@@ -1277,7 +1285,7 @@ class PlaceOrder extends React.Component {
             mvBS: value.mvBS.slice(0, 1),
             language: this.props.language
         }
-        // console.log(data)
+        console.log(data)
         this.props.showOrderConfirm({
             data: data,
             title: this.props.language.enterorder.popup.title.replace('{0}', value.mvBS.slice(0, 1) === 'B' ?

@@ -61,6 +61,10 @@ export default {
         // userd in trading status
         sub3: {
             color: "#5f5f5f"
+        },
+        disable: {
+            color: "#B3B3B3",
+            fontWeight: "normal"
         }
     },
     page: {

@@ -66,12 +66,20 @@ class TabItem extends React.Component {
         this.props.onTabChange(key)
     }
 
+    _renderTitle(props) {
+        if(typeof props === "function") {
+            return props()
+        } else {
+            return <div>{props}</div>
+        }
+    }
+
     render() {
         return (
 
             <li className={"tab-item " + (this.props.actived ? "actived" : "")} style={{ width: (this.props.width + "%") }}
                 onClick={e => this.onClick(this.props.eventKey)}>
-                <div>{this.props.title}</div>
+                {this._renderTitle(this.props.title)}
             </li>
         )
 

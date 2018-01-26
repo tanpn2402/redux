@@ -16,8 +16,8 @@ class Input extends React.Component {
         if(type === 'number') {
             return (
                 <div className={'input-control ' + type + " " + this.props.className} ref={ r => this.rInputControl = r } >
-                    <span className='input-group-btn' style={{ zIndex: '0' }} >
-                        <button type="button" className="btn btn-default" 
+                    <span className='input-group-btn' style={{ zIndex: '1', left: "1px" }} >
+                        <button type="button" className="btn btn-default"  tabIndex="-1"
                             onClick={() => this.handleButtonInputClick((-1)*step)} ref={r => this.rButton1 = r} >
                             <span className="glyphicon glyphicon-minus"></span>    
                         </button>
@@ -29,8 +29,8 @@ class Input extends React.Component {
                         type='number'
                         min='0'
                         />
-                    <span className='input-group-btn' style={{ zIndex: '0' }}>
-                        <button type="button" className="btn btn-default" 
+                    <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
+                        <button type="button" className="btn btn-default" tabIndex="-1"
                             onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>
                             <span className="glyphicon glyphicon-plus"></span>    
                         </button>

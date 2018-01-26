@@ -145,7 +145,8 @@ export default
                 "assetallocationchart": 'Đồ thị phân bổ tài sản',
                 "stockinfo": "Thông tin chứng khoán",
                 "daytrade": "Day Trade",
-                "tradehistory": "Khớp lệnh theo thời gian"
+                "tradehistory": "Khớp lệnh theo thời gian",
+                "recommendation": "Đề nghị"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -228,6 +229,9 @@ export default
                 "MARKET_HKEX": "HKEX",
                 "MARKET_MAMK": "MAMK",
                 "MARKET_SZMK": "SZMK",
+                "MARKET_HO": "HO",
+                "MARKET_HA": "HA",
+                "MARKET_OTC": "OTC",
 
                 "BS_ALL": "Tất cả",
                 "BS_B": "Mua",
@@ -909,7 +913,8 @@ export default
                     "change": "+/-",
                     "percent": "%",
                     "offer": "Dư bán",
-                    "bid": "Dư mua"
+                    "bid": "Dư mua",
+                    "signal": "Tín hiệu"
                 }
             },
             "personalprofile": {

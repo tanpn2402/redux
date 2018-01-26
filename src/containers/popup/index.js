@@ -17,6 +17,7 @@ import EnterOrderSuccessMobile from './mobile/EnterOrderSuccess'
 import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
 import Setting from './mobile/Setting'
+import QuickOrder from './QuickOrder'
 
 export default function (verion, props, onClose) {
 	if (verion === "mobile") {
@@ -86,6 +87,10 @@ function genPopupDesktop(props, onClose) {
 
 		case 'enterordersuccess':
 			return (<EnterOrderSuccessMobile onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
+			break;
+
+		case 'quickorder':
+			return (<QuickOrder onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 	}
 
