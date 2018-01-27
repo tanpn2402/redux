@@ -5,6 +5,7 @@ import * as actions from '../../actions'
 import GridLayout from '../main/GridLayout.js'
 import config from '../../core/config'
 import Component from "../commons/Component"
+import * as utils from "../../utils"
 
 class ClientSumary extends React.Component {
     constructor(props) {
@@ -48,17 +49,32 @@ class ClientSumary extends React.Component {
                         </div>
                     </li>
                     <li>
-                        <div className="cl-profit-loss">
-                            <h4 style={theme.font.sub1} class="trd-binding">{header.profitLoss}</h4>
-                            <strong className="">{this._render("profitLoss")}</strong>
-                            <span style={{whiteSpace: "pre"}}>{"   "}</span>
-                            <strong className="">{this._render("PLPercent")}</strong>
-                        </div>
+                        {
+                            this._renderProfit(header, theme)
+                        }
                     </li>
                 </ul>
                 
                 
             </Component>
+        )
+    }
+    _renderProfit(header, theme) {
+        let style = theme.bindingdata.normal
+        let props = this.props.data.mvPortfolioAccSummaryBean
+        
+        if(utils.numUnFormat(props["PLPercent"]) > 0) {
+            style = theme.bindingdata.up
+        } else if(utils.numUnFormat(props["PLPercent"]) < 0) {
+            style = theme.bindingdata.down
+        }
+        return (
+            <div className="cl-profit-loss">
+                <h4 style={theme.font.sub1} class="trd-binding">{header.profitLoss}</h4>
+                <strong className=""><span style={style}>{props["profitLoss"]}</span></strong>
+                <span style={{whiteSpace: "pre"}}>{"   "}</span>
+                <strong className=""><span style={style}>{props["PLPercent"] + "%"}</span></strong>
+            </div>
         )
     }
 
@@ -75,6 +91,8 @@ class ClientSumary extends React.Component {
         } else {
             if(accessor == "PLPercent") {
                 tmp += "%"
+            } else {
+                tmp = utils.currencyShowFormatter(tmp)
             }
             return <span style={style}>{tmp}</span>
         }

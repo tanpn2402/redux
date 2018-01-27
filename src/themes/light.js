@@ -310,7 +310,7 @@ export default {
     },
     bindingdata: {
         up: {
-            color: "#70a800"
+            color: "green"
         },
         down: {
             color: "#ea0070"

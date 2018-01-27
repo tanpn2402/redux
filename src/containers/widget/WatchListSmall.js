@@ -14,7 +14,7 @@ const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 const MODE_PERCENT = "percent"
 
-class WatchListA extends React.Component {
+class WatchListSmall extends React.Component {
     constructor(props) {
         super(props)
 
@@ -94,7 +94,7 @@ class WatchListA extends React.Component {
                 style: {width: "16%", textAlign: "right"},
                 bodyStyle: {width: "16%", textAlign: "right"},
                 cell: props => {
-                    return this.fillColor(props, "mvMatchPrice")
+                    return this.fillColor(props, "mvMatchPrice", "price")
                 }
             },
             {
@@ -102,7 +102,7 @@ class WatchListA extends React.Component {
                 style: {width: "22%", textAlign: "right"},
                 bodyStyle: {width: "22%", textAlign: "right"},
                 cell: props => {
-                    return this.fillColor(props, "mvMatchVol", true)
+                    return this.fillColor(props, "mvMatchVol", "quantity")
                 }
             },
             {
@@ -110,7 +110,7 @@ class WatchListA extends React.Component {
                 style: {width: "22%", textAlign: "right"},
                 bodyStyle: {width: "22%", textAlign: "right"},
                 cell: props => {
-                    return this.fillColor(props, "mvMatchVolTotal", true)
+                    return this.fillColor(props, "mvMatchVolTotal", "quantity")
                 }
             },
             {
@@ -236,6 +236,16 @@ class WatchListA extends React.Component {
         })
     }
 
+    format(unit, value) {
+        if(unit == "price") { return value
+            // return utils.currencyShowFormatter(value)
+        } else if(unit == "quantity") {
+            return utils.quantityShowFormatter(value)
+        } else {
+            return value
+        }
+    }
+
     fillColor(props, accessor, isFormated) {
 
         let refPrice = props["mvReferences"]
@@ -251,8 +261,8 @@ class WatchListA extends React.Component {
                 child = <span style={theme.down}>{"-" + change }</span>
             else if(accessor == "mvMatchPercent")
                 child = <span style={theme.down}>{percent + "%"}</span>
-            else if(isFormated != undefined && isFormated)
-                child = <span style={theme.down}>{utils.currencyShowFormatter(props[accessor])}</span>
+            else if(isFormated != undefined)
+                child = <span style={theme.down}>{this.format(isFormated, props[accessor])}</span>
             else 
                 child = <span style={theme.down}>{props[accessor]}</span>
         }
@@ -261,8 +271,8 @@ class WatchListA extends React.Component {
                 child = <span style={theme.up}>{"+" + change }</span>
             else if(accessor == "mvMatchPercent")
                 child = <span style={theme.up}>{percent + "%"}</span>
-            else if(isFormated != undefined && isFormated)
-                child = <span style={theme.up}>{utils.currencyShowFormatter(props[accessor])}</span>
+            else if(isFormated != undefined)
+                child = <span style={theme.up}>{this.format(isFormated, props[accessor])}</span>
             else 
                 child = <span style={theme.up}>{props[accessor]}</span>
         }
@@ -292,4 +302,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WatchListA)
+export default connect(mapStateToProps, mapDispatchToProps)(WatchListSmall)

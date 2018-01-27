@@ -47,7 +47,7 @@ export function sendMessage(msgObject) {
 
 export function subscribe(clientID, callback) {
     request.url = request.url + clientID
-    console.log(request.url)
+    console.log("Atmosphere at URL: " + request.url)
     request.onMessage = function (response) {
         var message = response.responseBody
         try {

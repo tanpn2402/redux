@@ -53,7 +53,7 @@ class Home extends Component {
     componentDidMount() {
         this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
-        // this.props.getListStockInWatchList()
+        this.props.getListStockInWatchList()
     }
 
     componentWillUnmount() {
@@ -67,27 +67,26 @@ class Home extends Component {
 
     onSubscribeToServer() {
         console.log("Prepare to subcribe")
-        localStorage.setItem("socketID","C080001")
-        
-        let socketID = localStorage.getItem("socketID")
+        let socketID = localStorage.getItem("clientID")
+        socketID = "C080001"
         if (socketID == null) {
             console.log("No WebSocketID")
         } else {
             console.log("Start subcribe on clientId = " + socketID + ", but i use C080001 to test :v")
-            // atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
-            //     if (stockJsonResponse != null) {
+            atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
+                if (stockJsonResponse != null) {
                     
-            //         this.props.updateWatchlistData(stockJsonResponse)
-            //     }
-            // }).bind(this))
-            setInterval(this.interval, 2000)
+                    this.props.updateWatchlistData(stockJsonResponse)
+                }
+            }).bind(this))
+            // setInterval(this.interval, 4000)
         }
     }
 
     onUnSubcribe() {
         console.log("Socket will be unsubscribed")
-        // atmosphereAPI.unsubscribe()
-        clearInterval(this.interval)
+        atmosphereAPI.unsubscribe()
+        // clearInterval(this.interval)
     }
 
     interval() {

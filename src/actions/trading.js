@@ -112,64 +112,88 @@ export function removeInstrumentFromWatchList(ins, market) {
 
 
 // UPDATE WATLIST DATA
-export function updateWatchlistData(json) {
-    let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
+export function updateWatchlistData(data) {
+    /*let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
     let stockCode = config.cache.listInstrumentToWatch[marIndex]
     let tmp = config.cache.stockList.filter(e => e.stockCode == stockCode)
     let market = "HO"
     if(tmp.length > 0) {
         market = tmp[0].mvMarketID
     }
-    
-        let data = {
-            mvStockCode: stockCode,
-            mvMarket: market,
 
-            mvCeiling: 80.2,
-            mvFloor: 70.3,
-            mvReferences: 80.5,
+    data = {
+        mvStockCode: stockCode,
+        mvMarket: market,
 
-            mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
-            mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
-            mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+        mvCeiling: 80.2,
+        mvFloor: 70.3,
+        mvReferences: 80.5,
 
-            mvBidVol1: utils.randomInt(1000),
-            mvBidVol2: utils.randomInt(1000),
-            mvBidVol3: utils.randomInt(1000),
+        mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
+        mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
+        mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
 
-            mvMatchPrice: utils.round(80+ parseFloat(Math.random().toFixed(2)), 1),
-            mvMatchVol: utils.randomInt(1000),
-            mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
-            mvMatchVolTotal: utils.randomInt(1000),
+        mvBidVol1: utils.randomInt(1000),
+        mvBidVol2: utils.randomInt(1000),
+        mvBidVol3: utils.randomInt(1000),
 
-            mvOfferPrice1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
-            mvOfferPrice2: utils.round(87 + parseFloat(Math.random().toFixed(2)), 1),
-            mvOfferPrice3: utils.round(97 + parseFloat(Math.random().toFixed(2)), 1),
-            mvOfferVol1: utils.randomInt(1000),
-            mvOfferVol2: utils.randomInt(1000),
-            mvOfferVol3: utils.randomInt(1000),
+        mvMatchPrice: utils.round(80+ parseFloat(Math.random().toFixed(2)), 1),
+        mvMatchVol: utils.randomInt(1000),
+        mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
+        mvMatchVolTotal: utils.randomInt(1000),
 
-            mvOpen: utils.round(80 + parseFloat(Math.random().toFixed(2)), 1),
-            mvHigh: utils.round(70 + parseFloat(Math.random().toFixed(2)), 1),
-            mvLow: utils.round(60 + parseFloat(Math.random().toFixed(2)), 1),
-            mvNomial: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1),
+        mvOfferPrice1: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+        mvOfferPrice2: utils.round(87 + parseFloat(Math.random().toFixed(2)), 1),
+        mvOfferPrice3: utils.round(97 + parseFloat(Math.random().toFixed(2)), 1),
+        mvOfferVol1: utils.randomInt(1000),
+        mvOfferVol2: utils.randomInt(1000),
+        mvOfferVol3: utils.randomInt(1000),
 
-            mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
-            mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
-            mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
-        }
+        mvOpen: utils.round(80 + parseFloat(Math.random().toFixed(2)), 1),
+        mvHigh: utils.round(70 + parseFloat(Math.random().toFixed(2)), 1),
+        mvLow: utils.round(60 + parseFloat(Math.random().toFixed(2)), 1),
+        mvNomial: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1),
+
+        mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
+        mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
+        mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
+    }*/
 
     // console.log("UPDATE", data)
 
-    // console.log("REALTIME DATA = ", json)
+    // console.log("REALTIME DATA = ", data)
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
         data: data
     }
 }
 
+// export function getListStockInWatchList() {
+
+//     let insList = "ACB,"
+//     let marketList = "HA,"
+
+//     let insArray = insList.split(",")
+//     let marketArr = marketList.split(",")
+//     insArray.splice(-1,1)
+    
+//     let list = insArray.map((e, i)=> {
+//         return {
+//             mvStockCode: e,
+//             mvMarket: marketArr[i]
+//         }
+//     })
+
+//     return {
+//         type: ActionTypes.GETLISTSTOCKINWATCHLIST,
+//         list: list
+//     }
+
+// }
+
 export function getListStockInWatchList() {
     let cliendID = localStorage.getItem("clientID")
+    cliendID = "C080001"
     if(cliendID == undefined) {
         console.log("Not find clientId in localstorage")
         return {
@@ -182,6 +206,25 @@ export function getListStockInWatchList() {
             itradeapi.mdsGET(url, {} , dispatch,
                 function (response) {
                     console.log(response)
+
+                    let insList = response.mvInstrumentList
+                    let marketList = response.mvMarketList
+
+                    let insArray = insList.split(",")
+                    let marketArr = marketList.split(",")
+                    insArray.splice(-1,1)
+                    
+                    let list = insArray.map((e, i)=> {
+                        return {
+                            mvStockCode: e,
+                            mvMarket: marketArr[i]
+                        }
+                    })
+
+                    return {
+                        type: ActionTypes.GETLISTSTOCKINWATCHLIST,
+                        list: list
+                    }
                     
                 },
                 function (err) {

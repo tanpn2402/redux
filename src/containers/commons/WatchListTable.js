@@ -364,7 +364,8 @@ class WatchListTable extends React.Component {
             disableRemove: true,
             watchStockList: [],
             mvInstrument: null,
-            realtimeData: config.cache.watchlistData
+            realtimeData: config.cache.watchlistData,
+            oldInstrumentData: null
         }
 
         this.balance = {
@@ -780,7 +781,7 @@ class WatchListTable extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.theme.title != this.props.theme.title) {
-            this.reloadColumTable(nextProps)
+            this.reloadColumTable(nextProps, this.props)
         }
 
         if(nextProps.listInstrumentInWatchList.length != this.props.listInstrumentInWatchList.length) {
@@ -798,18 +799,20 @@ class WatchListTable extends React.Component {
         let tmp = realtimeData.filter(e => e.mvStockCode == instrumentData.mvStockCode)
         if(tmp.length > 0) {
             // compare value
-
-            Object.assign(tmp, instrumentData)
+            let oldData = Object.assign({}, tmp[0])
+            Object.assign(tmp[0], instrumentData)
             config.cache.watchlistData = realtimeData
             this.setState({
-                realtimeData: realtimeData
+                realtimeData: realtimeData,
+                oldInstrumentData: oldData
             })
 
         } else if(listInstrumentInWatchList.indexOf(instrumentData.mvStockCode) > -1) {
             realtimeData.push(instrumentData)
             config.cache.watchlistData = realtimeData
             this.setState({
-                realtimeData: realtimeData
+                realtimeData: realtimeData,
+                oldInstrumentData: null
             })
         }
     }
@@ -1005,15 +1008,28 @@ class WatchListTable extends React.Component {
                 style = bindingStyle.up
             }
             let value  = data[accessor]
-            if(accessor.includes("Vol")) {
-                value = utils.currencyShowFormatter(value)
-            }
-
+            
             let className = "value-static"
             if(data["mvStockCode"] == this.props.instrumentData.mvStockCode) {
-                className = "value-binding"
+                
+                let {oldInstrumentData} = this.state
+                console.log(oldInstrumentData)
+                if(oldInstrumentData == null) {
+                    className = "value-binding"
+                }
+                else if(oldInstrumentData.mvStockCode == data["mvStockCode"]) {
+                    if(value == oldInstrumentData[accessor]) {
+                        className = "value-static"
+                    } else {
+                        className = "value-binding"
+                    }
+                }
             }
 
+            if(accessor.includes("Vol")) {
+                value = utils.quantityShowFormatter(value)
+            }
+            console.log(value)
             className += " value-change"
             return <div className={className} style={style}>{value}</div>
         }

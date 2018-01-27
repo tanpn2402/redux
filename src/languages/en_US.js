@@ -10,7 +10,7 @@ export default
                 "daytrade": "Day Trade",
                 "orderjournal": "Order Journal",
                 "transhistory": "Transaction History",
-                "management": "Management",
+                "management": "Services",
                 "customization": "My Page",
                 "mobile": "mobile",
                 "orderhistory": "Order History"
@@ -559,6 +559,7 @@ export default
                     "marginposition": "Margin position",
                     "cash": "Cash",
                     "stock": "Stock",
+                    "mvStockName": "Stock Name",
                     "mvStockID": "Stock",
                     "mvTradableQty": "Total volume",
                     "mvTSettled": "Usable",
@@ -696,7 +697,8 @@ export default
                     "grossAmt": "Gross Amt",
                     "netAmt": "Net Amt",
                     "availQty": "Avail Qty",
-                    "commissionFees": "Commission Fees"
+                    "commissionFees": "Commission Fees",
+                    "usable": "Usable"
                 },
                 "data": {
                     "Buy": "Buy",

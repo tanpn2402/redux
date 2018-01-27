@@ -36,7 +36,7 @@ class PlaceOrder extends React.Component {
             },
             mvOrderTypeSelected: [],
             mvLending: 0,
-
+            mvUsable: 0,
             mvExpireChecked: false,
             mvExpireDate: moment(),
             // other paras support for view
@@ -67,6 +67,7 @@ class PlaceOrder extends React.Component {
             mvVol: 0,
             mvFeeRate: "",
             mvLending: "",
+            mvUsable: 0,
             mvBuyPower: "",
             mvGrossAmt: 0,
             mvMaxQty: 0,
@@ -412,8 +413,20 @@ class PlaceOrder extends React.Component {
                                     />
                             </Col>
                         </div> */}
+
+                        {/* Usable */}
+                        <div style={{display: "table", width: "100%"}}>
+                            <Col xs={5} style={{color: tColor}}>
+                                {header.usable}
+                            </Col>
+                            <Col xs={7}>
+                                <Input key="mvUsable" className="showOnly"  defaultValue={"---"}
+                                    ref={ref => this.mvUsable = ref} readOnly value={this.value.mvUsable}  
+                                    style={{color: tColor, textAlign: "right"}} tabIndex={-1}/>
+                            </Col>
+                        </div>
                         
-                        {/* % Lending */}
+                        {/* % Margin */}
                         <div style={{display: "table", width: "100%"}}>
                             <Col xs={5} style={{color: tColor}}>
                                 {header.lending}
@@ -421,7 +434,7 @@ class PlaceOrder extends React.Component {
                             <Col xs={7}>
                                 <Input key="mvLending" className="showOnly"  defaultValue={"---"}
                                     ref={ref => this.mvLending = ref} readOnly value={this.value.mvLending}  
-                                    style={{color: tColor, textAlign: "right"}}/>
+                                    style={{color: tColor, textAlign: "right"}} tabIndex={-1}/>
                             </Col>
                         </div>
 
@@ -433,7 +446,7 @@ class PlaceOrder extends React.Component {
                             <Col xs={7}>
                                 <Input key="mvBuyingPower" className="showOnly"  defaultValue={"---"}
                                     ref={ref => this.mvBuyingPower = ref} readOnly value={this.value.mvBuyingPower}  
-                                    style={{color: tColor, textAlign: "right"}}/>
+                                    style={{color: tColor, textAlign: "right"}} tabIndex={-1}/>
                             </Col>
                         </div>
 
@@ -445,7 +458,7 @@ class PlaceOrder extends React.Component {
                             <Col xs={7}>
                                 <Input key="mvGrossAmt" className="showOnly"  defaultValue={"---"}
                                     ref={ref => this.mvGrossAmt = ref} readOnly value={this.value.mvGrossAmt} 
-                                    style={{color: tColor, textAlign: "right"}}/>
+                                    style={{color: tColor, textAlign: "right"}} tabIndex={-1}/>
                             </Col>
                         </div>
 
@@ -465,7 +478,7 @@ class PlaceOrder extends React.Component {
                             <Col xs={7} style={{color: tColor}}>
                                 <Input key="mvNetFee" className="showOnly"  defaultValue={"---"}
                                     ref={ref => this.mvNetFee = ref} readOnly value={this.value.mvNetFee} 
-                                    style={{color: tColor, textAlign: "right"}}/>
+                                    style={{color: tColor, textAlign: "right"}} tabIndex={-1}/>
                             </Col>
                         </div>
 
@@ -534,6 +547,8 @@ class PlaceOrder extends React.Component {
     }
     componentDidMount() {
         this.props.genEnterOrder()
+        this.props.getAccountBalance({key: (new Date()).getTime()})
+
         console.log("componentDidMount", this.props)
         let orderDefault = this.props.orderDefault
         if(orderDefault !== null) {
@@ -568,7 +583,14 @@ class PlaceOrder extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.orderDefault)
+        // console.log(nextProps.orderDefault)
+        
+        if(nextProps.accountBalance.mvList.length > 0) {
+            let accountData = nextProps.accountBalance.mvList[0]
+            this.state.mvUsable = accountData.mvBuyingPowerd
+            this.mvUsable.value(Utils.currencyShowFormatter(this.state.mvUsable, ",", this.lang))
+        }
+
         let orderDefault = nextProps.orderDefault
         if(orderDefault !== null) {
             this.state.mvBS = orderDefault.mvBS
@@ -610,11 +632,7 @@ class PlaceOrder extends React.Component {
             this.mvVol.focus()
         }
         //if(this.state.mvOrderTypeList.length === 0)
-            this.getOrderTypeList(nextProps.genEnterOrderData)
-    }
-
-    componentDidMount() {
-        this.props.genEnterOrder()
+        this.getOrderTypeList(nextProps.genEnterOrderData)
     }
 
     handleSubmit(e) {
@@ -1049,7 +1067,7 @@ class PlaceOrder extends React.Component {
         
         if (this.store.stockInfoBean !== null) {
             var marginPercentage = Utils.numUnFormat(this.store.stockInfoBean.mvMarginPercentage);
-            var buyingPowerd = 0;
+            let buyingPowerd = 0;
             
             if (this.value.mvSettlementAccSelected !== null) {
                 marginPercentage = 0;
@@ -1063,9 +1081,10 @@ class PlaceOrder extends React.Component {
             if (buyingPowerd < 0) {
                 buyingPowerd = 0;
             }
+
             
-            console.log(Log.LOG, "buyingPowerd = " + buyingPowerd)
-            var buyingPowerExpected = buyingPowerd / (1 - marginPercentage / 100);
+            // console.log(Log.LOG, "buyingPowerd = " + buyingPowerd)
+            let buyingPowerExpected = buyingPowerd / (1 - marginPercentage / 100);
             this.state.mvBuyingPower = (Utils.currencyShowFormatter(buyingPowerExpected.toFixed(3), ",", this.lang));
             this.state.mvLending = (Utils.quantityShowFormatter(marginPercentage, ",", this.lang));
 
@@ -1308,7 +1327,8 @@ const listPercentage=percentages.map((percentage)=>
 const mapStateToProps = (state) => {
     return {
         genEnterOrderData: state.enterOrder.genEnterOrder,
-        orderDefault: state.enterOrder.orderDefaultParams
+        orderDefault: state.enterOrder.orderDefaultParams,
+        accountBalance: state.accountinfo.accountBalance,
     }
 }
 
@@ -1328,6 +1348,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     setStockInfo: (param) => {
         dispatch(actions.sendStockToStockMarketInfoWidget(param))
     },
+	getAccountBalance: (cashbankparams) => {
+		dispatch(actions.getAccountBalance(cashbankparams))
+	},
 
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
 

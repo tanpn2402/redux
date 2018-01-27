@@ -28,6 +28,7 @@ class Input extends React.Component {
                         onKeyPress={this.handleKeyPress} 
                         type='number'
                         min='0'
+                        tabIndex={this.props.tabIndex}
                         />
                     <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
                         <button type="button" className="btn btn-default" tabIndex="-1"
@@ -47,6 +48,7 @@ class Input extends React.Component {
                         defaultValue={defaultValue}
                         readOnly={this.props.readOnly}
                         style={this.props.style}
+                        tabIndex={this.props.tabIndex}
                     />
                 
                 </div>
@@ -56,6 +58,10 @@ class Input extends React.Component {
     }
 
     componentDidMount() {
+        // if(this.rInputControl && this.props.tabIndex != undefined) {
+        //     this.rInputControl.tabIndex = this.props.tabIndex
+        // }
+
         if(this.rInputControl && this.rButton1 && this.rButton2) {
             this.rButton1.style.width = this.rInputControl.offsetHeight - 2 + "px"
             this.rButton1.style.height = this.rInputControl.offsetHeight - 2 + "px"

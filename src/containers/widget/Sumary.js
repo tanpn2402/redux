@@ -9,6 +9,7 @@ import PieChart from '../commons/PieChart'
 import AssetAllocationChart from './AssetAllocationChart'
 import Component from "../commons/Component"
 import Select from "../commons/InputSelect"
+import * as utils from "../../utils"
 
 class Sumary extends React.Component {
     constructor(props) {
@@ -36,97 +37,97 @@ class Sumary extends React.Component {
         this.data = [
             {
                 name: this.props.language.portfolio.header.totalAsset,
-                value: d.totalAsset
+                value: utils.currencyShowFormatter(d.totalAsset)
             }, {
                 name: this.props.language.portfolio.header.equity,
-                value: d.equity
+                value: utils.currencyShowFormatter(d.equity)
             }, {
                 name: this.props.language.portfolio.header.stockValue,
-                value: d.stockValue
+                value: utils.currencyShowFormatter(d.stockValue)
             }, {
                 name: this.props.language.portfolio.header.profitLoss,
-                value: d.profitLoss
+                value: utils.currencyShowFormatter(d.profitLoss)
             }, {
                 name: this.props.language.portfolio.header.PLPercent,
-                value: d.PLPercent
+                value: d.PLPercent + "%"
             }
         ]
         var data2 = [
             {
                 name: this.props.language.portfolio.header.cashBalance,
-                value: d.cashBalance
+                value: utils.currencyShowFormatter(d.cashBalance)
             }, {
                 name: this.props.language.portfolio.header.mvAvailAdvanceMoney,
-                value: d.mvAvailAdvanceMoney
+                value: utils.currencyShowFormatter(d.mvAvailAdvanceMoney)
             }, {
                 name: this.props.language.portfolio.header.mvBuyHoldAmount,
-                value: d.mvBuyHoldAmount
+                value: utils.currencyShowFormatter(d.mvBuyHoldAmount)
             }, {
                 name: this.props.language.portfolio.header.mvHoldAmount,
-                value: d.mvHoldAmount
+                value: utils.currencyShowFormatter(d.mvHoldAmount)
             }, {
                 name: this.props.language.portfolio.header.CPendingWithdrawal,
-                value: d.CPendingWithdrawal
+                value: utils.currencyShowFormatter(d.CPendingWithdrawal)
             }, {
                 name: this.props.language.portfolio.header.soldT0,
-                value: d.soldT0
+                value: utils.currencyShowFormatter(d.soldT0)
             }, {
                 name: this.props.language.portfolio.header.soldT1,
-                value: d.soldT1
+                value: utils.currencyShowFormatter(d.soldT1)
             }, {
                 name: this.props.language.portfolio.header.soldT2,
-                value: d.soldT2
+                value: utils.currencyShowFormatter(d.soldT2)
             }
         ]
         var data3 = [
             {
                 name: this.props.language.portfolio.header.equityMar,
-                value: d.equityMar
+                value: utils.currencyShowFormatter(d.equityMar)
             }, {
                 name: this.props.language.portfolio.header.totalAssetMaintenance,
-                value: d.totalAssetMaintenance
+                value: utils.currencyShowFormatter(d.totalAssetMaintenance)
             }, {
                 name: this.props.language.portfolio.header.stockMaintenance,
-                value: d.stockMaintenance
+                value: utils.currencyShowFormatter(d.stockMaintenance)
             }, {
                 name: this.props.language.portfolio.header.cashMaintenance,
-                value: d.cashMaintenance
+                value: utils.currencyShowFormatter(d.cashMaintenance)
             }, {
                 name: this.props.language.portfolio.header.mvOutstandingLoan,
-                value: d.mvOutstandingLoan
+                value: utils.currencyShowFormatter(d.mvOutstandingLoan)
             }, {
                 name: this.props.language.portfolio.header.debtIncByPurchase,
-                value: d.debtIncByPurchase
+                value: utils.currencyShowFormatter(d.debtIncByPurchase)
             }, {
                 name: this.props.language.portfolio.header.debitAccruedInterest,
-                value: d.debitAccruedInterest
+                value: utils.currencyShowFormatter(d.debitAccruedInterest)
             }, {
                 name: this.props.language.portfolio.header.mvCreditLimit,
-                value: d.mvCreditLimit
+                value: utils.currencyShowFormatter(d.mvCreditLimit)
             }
         ]
         var data4 = [
             {
                 name: this.props.language.portfolio.header.lendableValue,
-                value: d.lendableValue
+                value: utils.currencyShowFormatter(d.lendableValue)
             }, {
                 name: this.props.language.portfolio.header.minMarginReq,
-                value: d.minMarginReq
+                value: utils.currencyShowFormatter(d.minMarginReq)
             }, {
                 name: this.props.language.portfolio.header.curLiqMargin,
-                value: d.curLiqMargin
+                value: utils.currencyShowFormatter(d.curLiqMargin)
             }, {
                 name: this.props.language.portfolio.header.marginableBalf,
-                value: d.marginableBalf
+                value: utils.currencyShowFormatter(d.marginableBalf)
             }, {
                 name: this.props.language.portfolio.header.cashDeposit,
-                value: d.cashDeposit
+                value: utils.currencyShowFormatter(d.cashDeposit)
             }, {
                 name: this.props.language.portfolio.header.sellStkInMarPort,
-                value: d.sellStkInMarPort
+                value: utils.currencyShowFormatter(d.sellStkInMarPort)
             }, {
                 name: this.props.language.portfolio.header.sellStkNotInMarPort,
-                value: d.sellStkNotInMarPort
+                value: utils.currencyShowFormatter(d.sellStkNotInMarPort)
             }
         ]
         let theme = this.props.theme

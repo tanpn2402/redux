@@ -3,11 +3,11 @@ import config from '../core/config';
 const {ActionTypes} = require('../core/constants');
 
 const initialState = {
-    instrument: "ACB",     // current stock user is watching in tranding page, it affect to WatchlistSmall, PlaceOrder,
+    instrument: "",     // current stock user is watching in tranding page, it affect to WatchlistSmall, PlaceOrder,
     // TradeHistory(TradeLog), BidAskTable
-    listInstrumentToWatch: ["ACB", "VNM"],  // list stock includes: list stock in watchlist and stock user choosed
+    listInstrumentToWatch: [],  // list stock includes: list stock in watchlist and stock user choosed
     listInstrumentData: [], // list stock and its data
-    listInstrumentInWatchList: ["ACB", "VNM"],  // list stock in watchlist table
+    listInstrumentInWatchList: [],  // list stock in watchlist table
 
     listInstrumentInPortfolio: [],
     portfolioData: {        // portfolio data bean, it affect to Portfolio Widget
@@ -103,13 +103,15 @@ export default function(state = initialState, action) {
         // remove instrument from watchlist (from db also )
         case ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST: {
             let listInstrumentToWatchTMP2 = state.listInstrumentToWatch
-            if(listInstrumentToWatchTMP2.indexOf(action.instrument) > -1 && state.instrument != action.instrument) {
+            let listInstrumentDataTMPX10 = state.listInstrumentData
+            // neu trong ds watch co ins nay && ins nay khac voi ins truoc do && trong ds portfolio khong co ins nay
+            if(listInstrumentToWatchTMP2.indexOf(action.instrument) > -1 && state.instrument != action.instrument &&
+                state.portfolioData.mvPortfolioBeanList.filter(e => e.mvStockID == action.instrument).length < 1) {
+
                 listInstrumentToWatchTMP2 = listInstrumentToWatchTMP2.filter(e => e != action.instrument)
+                listInstrumentDataTMPX10 = state.listInstrumentData.filter(e => e.mvStockCode != action.instrument)
+                config.cache.listInstrumentToWatch = listInstrumentToWatchTMP2
             }
-
-            config.cache.listInstrumentToWatch = listInstrumentToWatchTMP2
-
-            let listInstrumentDataTMPX10 = state.listInstrumentData.filter(e => e.mvStockCode != action.instrument)
 
             return Object.assign({}, state, {
                 listInstrumentInWatchList: state.listInstrumentInWatchList.filter(e => e != action.instrument),
@@ -128,7 +130,7 @@ export default function(state = initialState, action) {
                     delete json[key]
                 }
             }
-            // console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
+            console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
 
            
             let dataTemp = state.listInstrumentData.slice(0)
@@ -171,16 +173,17 @@ export default function(state = initialState, action) {
 
         case ActionTypes.GETLISTSTOCKINWATCHLIST: {
             let list = action.list
+            let listAAA = list.map(e => { return e.mvStockCode })
             // list = [{mvStockCode: XXX, mvMarket: YYY}, {....}, ....]
             let listDataTmp3 = genDefaultData(state.listInstrumentData, list)
-            let tmpIns = list.length > 0 ? list[0] : ""
-            let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...list])]
+            let tmpIns = listAAA.length > 0 ? listAAA[0] : ""
+            let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...listAAA])]
             config.cache.listInstrumentToWatch = tmp12
             // console.log(state, config.cache.listInstrumentToWatch)
             return Object.assign({},state,{
                 instrument: tmpIns,
                 listInstrumentToWatch: tmp12,
-                listInstrumentInWatchList: list,
+                listInstrumentInWatchList: listAAA,
                 listInstrumentData: listDataTmp3
             });
         }

@@ -447,7 +447,8 @@ const config = {
 			enabled: true,
 			widget: [
 				{ i: 'orderHistory', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
-				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
+				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
+				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 10, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
 			]
 		},
 		{
@@ -457,9 +458,9 @@ const config = {
 			widget: [
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false },
+				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
 				{ i: 'oddLot', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
 				{ i: 'loanrefund',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
 
@@ -666,7 +667,7 @@ const config = {
 		lang: 'vi_VN',
 		theme: 'light',
 		favourite: [],
-		listInstrumentToWatch: ["ACB", "VNM"],
+		listInstrumentToWatch: [],
 		watchlistData: []
 	},
 	maxFav: 1000,
