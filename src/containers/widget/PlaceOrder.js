@@ -277,7 +277,7 @@ class PlaceOrder extends React.Component {
                                 </Col>
                                 <Col xs={6}>
                                     <Input key="refMarket" type="text" ref={ref => this.refMarketID =  ref} 
-                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                                        className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}} tabIndex={-1}/>
                                 </Col>
                             
                             </Col>
@@ -309,7 +309,7 @@ class PlaceOrder extends React.Component {
                             </Col>
                             <Col xs={7}>
                                 <Input key="refStockName" type="text" ref={ref => this.refStockName =  ref} 
-                                    className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}}/>
+                                    className="readOnly" readOnly defaultValue={""} style={{textAlign: "left"}} tabIndex={-1}/>
                             </Col>
                         </div>
 
@@ -1326,7 +1326,7 @@ class PlaceOrder extends React.Component {
     showAccBalance() {
         this.props.showOrderConfirm({
             data: {},
-            title: this.props.language.menu.accountbalance,
+            title: "",
             language: this.props.language,
             theme: this.props.theme,
             id: 'accountbalance',

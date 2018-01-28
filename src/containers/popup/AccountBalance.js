@@ -10,7 +10,7 @@ export default class AccountBalancePopup extends React.Component {
     render() {
         return (
             <div>  
-                <div className="modal-body" style={{height: "244px", padding: "2px"}}>
+                <div className="modal-body" style={{height: "300px", padding: "2px"}}>
                     <AccountBalance {...this.props} />
                 </div>
             </div>

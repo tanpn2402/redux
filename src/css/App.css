@@ -2664,7 +2664,7 @@ label {
 .tab-chooser {
     position: absolute;
     width: 100%;
-    padding: 10px 0;
+    padding: 5px 0;
     user-select: none;
 }
 .tab-wrapper {
@@ -2685,8 +2685,8 @@ label {
     display: inline-block;
     text-align: center;
     cursor: pointer;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     color: #9b9b9b;
 }
 .tab-control > .tab-item > div{
@@ -2698,6 +2698,7 @@ label {
 }
 .tab-control > .tab-item.actived > div{
     border-bottom: 4px solid #055899;
+    font-size: 12px;
 }
 /* END TABCONTROL */
 /* INPUT CONTROL */
@@ -3295,6 +3296,18 @@ label {
 }
 /* END FOOTER */
 
+/* ACCOUNT BALACNCE POPUP */
+.modal-body #accountinfo .widget-header {
+    right: 0 !important;
+    left: 0 !important;
+}
+.modal-body #accountinfo .widget-body {
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+}
+/* END ACCOUNT BALACNCE POPUP */
 
 /* FOR DESKTOP */
 .maincontent-desktop .pagecontent {

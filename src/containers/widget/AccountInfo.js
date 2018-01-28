@@ -37,14 +37,17 @@ class AccountInfo extends Component {
 					show: true,
 				},
 				{
+					id: 'tradeinday',
 					Header: this.props.language.accountinfo.header.tradeinday,
 					headerClassName: this.props.language.accountinfo.header.tradeinday,
 					columns: [{
-						Header: this.props.language.accountinfo.header.bought,
+                        id: 'bought',
+                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodayBuy',
 					}, {
-						Header: this.props.language.accountinfo.header.sold,
+                        id: 'sold',
+                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodaySell'
 					}]
@@ -452,14 +455,17 @@ class AccountInfo extends Component {
 					show: true,
 				},
 				{
+					id: 'tradeinday',
 					Header: language.accountinfo.header.tradeinday,
 					headerClassName: language.accountinfo.header.tradeinday,
 					columns: [{
-						Header: language.accountinfo.header.bought,
+                        id: 'bought',
+                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodayBuy',
 					}, {
-						Header: language.accountinfo.header.sold,
+                        id: 'sold',
+                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodaySell'
 					}]
@@ -582,7 +588,6 @@ class AccountInfo extends Component {
 								pageIndex={this.state.pageIndex}
 								onPageChange={this.onPageChange.bind(this)}
 								totalPage={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
-								onExportExcel={() => {}}
 
 								searchParams={[]}
 								searchActions={[]}
