@@ -3984,6 +3984,12 @@ label {
     color: #FFF;
     background: #2159a0;
 }
+.pl-sub-account .info-icon {
+    position: relative;
+    left: 4px;
+    /* top: 2px; */
+    cursor: pointer;
+}
 /* END PLACE ORDER */
 /* Slider Format */
 .headSlider, .logo{

@@ -143,6 +143,8 @@ class BidAsk extends React.Component {
             </Component>
         )
     }
+
+    
 }
 const mapStateToProps = (state) => {
     return {
@@ -162,6 +164,9 @@ const mapDispatchToProps = (dispatch, props) => ({
 
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
     setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
+    showAccBalance: (param) => {
+        dispatch(actions.showPopup(param))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BidAsk)

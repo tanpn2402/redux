@@ -237,7 +237,12 @@ class PlaceOrder extends React.Component {
                         className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
                         onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
                     <div className="pl-sub-account">
-                        <div style={theme.font.main} className="account-name"><span>Trading Account</span></div>
+                        <div style={theme.font.main} className="account-name">
+                            <span>Trading Account</span>
+                            <span className="info-icon">
+                                <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance()}></span>
+                            </span>
+                        </div>
                         <Select
                             key="rSubAccSelector"
                             ref={r => this.rSubAccSelector = r}
@@ -1313,6 +1318,18 @@ class PlaceOrder extends React.Component {
             language: this.props.language,
             theme: this.props.theme,
             id: 'enterorderconfirm',
+            authcard: false
+        })
+    }
+
+    //-------------------
+    showAccBalance() {
+        this.props.showOrderConfirm({
+            data: {},
+            title: this.props.language.menu.accountbalance,
+            language: this.props.language,
+            theme: this.props.theme,
+            id: 'accountbalance',
             authcard: false
         })
     }

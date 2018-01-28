@@ -18,6 +18,7 @@ import ModifyOrderMobile from './mobile/ModifyOrder'
 import CancelOrderMobile from './mobile/CancelOrder'
 import Setting from './mobile/Setting'
 import QuickOrder from './QuickOrder'
+import AccountBalance from './AccountBalance'
 
 export default function (verion, props, onClose) {
 	if (verion === "mobile") {
@@ -91,6 +92,10 @@ function genPopupDesktop(props, onClose) {
 
 		case 'quickorder':
 			return (<QuickOrder onHide={onClose} authcard={props.authcard} {...props} />)
+			break;
+
+		case 'accountbalance':
+			return (<AccountBalance onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 	}
 
