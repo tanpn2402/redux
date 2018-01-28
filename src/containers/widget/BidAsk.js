@@ -32,6 +32,7 @@ class BidAsk extends React.Component {
             } else {
                 // watch
                 this.props.addInstrumentToWatchList(this.state.instrument, this.state.mvStockSelected.mvMarketID)
+                this.props.getTradeLogDataOfStock(this.state.instrument, this.state.mvStockSelected.mvMarketID)
             }
             
             this.setState({
@@ -167,6 +168,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     showAccBalance: (param) => {
         dispatch(actions.showPopup(param))
     },
+
+    getTradeLogDataOfStock: (stockCode, market) => { dispatch(actions.getTradeLogDataOfStock(stockCode, market)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BidAsk)

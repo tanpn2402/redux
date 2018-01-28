@@ -258,6 +258,10 @@ export function round(number, precision) {
     return Math.round(number * factor) / factor;
 }
 
-export function randomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+export function randomInt(min, max) {
+    if(max == undefined) {
+        return Math.floor(Math.random() * Math.floor(min));
+    } else {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+}

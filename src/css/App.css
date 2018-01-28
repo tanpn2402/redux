@@ -2231,7 +2231,7 @@ label {
     padding: 5px 15px 5px 0;
     position: relative;
     color: white;
-    width: 120px;
+    /* width: 120px; */
     margin-right: 80px;
     box-sizing: border-box;
     line-height: 100%;

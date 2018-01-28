@@ -113,7 +113,7 @@ export function removeInstrumentFromWatchList(ins, market) {
 
 // UPDATE WATLIST DATA
 export function updateWatchlistData(data) {
-    /*let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
+    let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
     let stockCode = config.cache.listInstrumentToWatch[marIndex]
     let tmp = config.cache.stockList.filter(e => e.stockCode == stockCode)
     let market = "HO"
@@ -157,7 +157,7 @@ export function updateWatchlistData(data) {
         mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
         mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
         mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
-    }*/
+    }
 
     // console.log("UPDATE", data)
 

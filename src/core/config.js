@@ -668,14 +668,18 @@ const config = {
 		theme: 'light',
 		favourite: [],
 		listInstrumentToWatch: [],
-		watchlistData: []
+		watchlistData: [],
+		chartData: {}
 	},
 	maxFav: 1000,
 	tableColReorder: [],
 	tableColWidth: [],
 	websockID: null,
 	defaultWatchlist: ["ACB", "VNM"],
-	gridHeight: 22
+	gridHeight: 22,
+	marketStartTime: "9:00",
+	marketEndTime: "15:00",
+	defaultMarketData: ["VN-INDEX", "VN30-INDEX", "HNX-INDEX", "HXN30-INDEX", "UPCOM-INDEX", "VNX-ALLSHARE"]
 }
 
 export default config

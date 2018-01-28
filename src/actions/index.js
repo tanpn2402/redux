@@ -45,6 +45,9 @@ import { changeInstrument, removeInstrumentFromWatch, addInstrumentToWatch,
   removeInstrumentFromWatchList, addInstrumentToWatchList, updateWatchlistData,
   getListStockInWatchList } from './trading'
 
+import {updateTradeLog, getTradeLogData, getTradeLogDataOfStock } from './tradelog'
+import { updateMarketData, getMarketData } from './marketdata'
+
 export {
   reloadCustom,
   getSavedContentLayout,
@@ -195,5 +198,15 @@ export {
   addInstrumentToWatchList,
   removeInstrumentFromWatchList,
   updateWatchlistData,
-  getListStockInWatchList
+  getListStockInWatchList,
+
+  // trade log
+  updateTradeLog,
+  getTradeLogData,
+  getTradeLogDataOfStock,
+  
+  // market data 
+  updateMarketData,
+  getMarketData,
+  
 };

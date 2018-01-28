@@ -51,6 +51,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.props.getTradeLogData()
+        this.props.getMarketData()
+        this.props.addInstrumentToWatchList("ACB", "HO")
+        this.props.addInstrumentToWatchList("VNM", "HO")
+        this.props.getTradeLogDataOfStock("ACB", "HO")
+        this.props.getTradeLogDataOfStock("VNM", "HO")
+        
         this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
         this.props.getListStockInWatchList()
@@ -73,24 +80,26 @@ class Home extends Component {
             console.log("No WebSocketID")
         } else {
             console.log("Start subcribe on clientId = " + socketID + ", but i use C080001 to test :v")
-            atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
-                if (stockJsonResponse != null) {
+            // atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
+            //     if (stockJsonResponse != null) {
                     
-                    this.props.updateWatchlistData(stockJsonResponse)
-                }
-            }).bind(this))
-            // setInterval(this.interval, 4000)
+            //         this.props.updateWatchlistData(stockJsonResponse)
+            //     }
+            // }).bind(this))
+            setInterval(this.interval, 4000)
         }
     }
 
     onUnSubcribe() {
         console.log("Socket will be unsubscribed")
-        atmosphereAPI.unsubscribe()
-        // clearInterval(this.interval)
+        // atmosphereAPI.unsubscribe()
+        clearInterval(this.interval)
     }
 
     interval() {
         this.props.updateWatchlistData()
+        this.props.updateTradeLog()
+        this.props.updateMarketData()
     }
 }
 
@@ -108,6 +117,16 @@ const mapDispatchToProps = (dispatch, props) => ({
 
     updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) },
     getListStockInWatchList: () => {dispatch(actions.getListStockInWatchList()) },
+    updateTradeLog: (json) => { dispatch(actions.updateTradeLog(json)) },
+    getTradeLogData: () => { dispatch(actions.getTradeLogData()) },
+    
+    updateMarketData: (json) => { dispatch(actions.updateMarketData(json)) },
+    getMarketData: () => { dispatch(actions.getMarketData()) },
+
+
+    // test
+    getTradeLogDataOfStock: (stockCode, market) => { dispatch(actions.getTradeLogDataOfStock(stockCode, market)) },
+    addInstrumentToWatchList: (ins, market) => { dispatch(actions.addInstrumentToWatchList(ins, market)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

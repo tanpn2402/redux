@@ -14,12 +14,15 @@ class Header extends React.Component {
 	}
 
 	onLogoClick() {
-		console.log("AAAAAAAAAAAAAAAAAA", {
+		console.log("WatchList data", {
 			instrument: this.props.instrument,
 			listInstrumentData: this.props.listInstrumentData,
 			listInstrumentInWatchList: this.props.listInstrumentInWatchList,
 			listInstrumentToWatch: this.props.listInstrumentToWatch,
 			portfolioData: this.props.portfolioData
+		})
+		console.log("TRADE LOG DATA", {
+			tradeLog: this.props.tradeLogData
 		})
 	}
 
@@ -49,7 +52,8 @@ const mapStateToProps = (state) => {
         listInstrumentToWatch: state.trading.listInstrumentToWatch,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
 		portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
-		listInstrumentData: state.trading.listInstrumentData
+		listInstrumentData: state.trading.listInstrumentData,
+		tradeLogData: state.tradelog.tradeLogData
     }
 }
 
