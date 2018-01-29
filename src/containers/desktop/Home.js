@@ -53,10 +53,10 @@ class Home extends Component {
     componentDidMount() {
         this.props.getTradeLogData()
         this.props.getMarketData()
-        this.props.addInstrumentToWatchList("ACB", "HO")
-        this.props.addInstrumentToWatchList("VNM", "HO")
-        this.props.getTradeLogDataOfStock("ACB", "HO")
-        this.props.getTradeLogDataOfStock("VNM", "HO")
+        // this.props.addInstrumentToWatchList("ACB", "HO")
+        // this.props.addInstrumentToWatchList("VNM", "HO")
+        // this.props.getTradeLogDataOfStock("ACB", "HO")
+        // this.props.getTradeLogDataOfStock("VNM", "HO")
         
         this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()

@@ -46,8 +46,9 @@ export default function(state = initialState, action) {
         case ActionTypes.UPDATETRADELOG: {
             
             let tradeLog = state.tradeLogData
-            console.log(moment("1990-01-01 " + action.data.time) <= moment("1990-01-01 15:00"))
-            if( moment("1990-01-01 " + action.data.time) <= moment("1990-01-01 15:00") ) {
+            let timeTmp0 = moment("1990-01-01 " + action.data.time)
+
+            if( moment("1990-01-01 09:00" ) <= timeTmp0 && timeTmp0 <= moment("1990-01-01 15:00") ) {
                 let tmp = tradeLog.filter(e=> e.mvStockCode == action.data.mvStockCode && e.mvMarket == action.data.mvMarket)
                 if(tmp.length > 0) {
                     tmp[0].data.push(action.data)

@@ -39,12 +39,14 @@ export function getTradeLogData() {
         
         let tmp = []
         let time = moment("1990-01-01 09:00")
+        let endTime = moment("1990-01-01 15:00")
+        let now = moment("1990-01-01 " + moment().format("HH:mm"))
         for(let i = 0; ; i++) {
-            let lvTime = time.add(2, "minutes").format("HH:mm")
-            if(lvTime == "15:02" || lvTime == moment().add(2, "minutes").format("HH:mm") ) break;
+            let lvTime = time.add(2, "minutes")
+            if( lvTime > now || lvTime > endTime) break;
             let updown = utils.randomInt(2) % 2
             tmp.push( {
-                time: lvTime,
+                time: lvTime.format("HH:mm"),
                 mvStockCode: stock,
                 mvMarket: "HA",
                 mvTotalVol: utils.randomInt(50000, 52000),
@@ -71,12 +73,14 @@ export function getTradeLogData() {
 export function getTradeLogDataOfStock(stockCode, market) {
     let tmp = []
     let time = moment("1990-01-01 09:00")
+    let endTime = moment("1990-01-01 15:00")
+    let now = moment("1990-01-01 " + moment().format("HH:mm"))
     for(let i = 0; ; i++) {
-        let lvTime = time.add(2, "minutes").format("HH:mm")
-        if(lvTime == "15:02" || lvTime == moment().add(2, "minutes").format("HH:mm") ) break;
+        let lvTime = time.add(2, "minutes")
+        if( lvTime > now || lvTime > endTime ) break;
         let updown = utils.randomInt(2) % 2
         tmp.push( {
-            time: lvTime,
+            time: lvTime.format("HH:mm"),
             mvStockCode: stockCode,
             mvMarket: market,
             mvTotalVol: utils.randomInt(50000, 52000),

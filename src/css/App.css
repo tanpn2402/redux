@@ -2237,7 +2237,12 @@ label {
     line-height: 100%;
     vertical-align: middle;
 }
-
+.stockMarquee ._marqueeitem._stock {
+    min-width: 200px;
+}
+.stockMarquee ._marqueeitem._market {
+    min-width: 510px;
+}
 .increase:after {
     content: "\f0de";
     font-family: fontawesome;

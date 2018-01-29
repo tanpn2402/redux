@@ -51,7 +51,7 @@ class MarqueeItem extends React.Component {
 
         return (
             <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
-                <li className="marquee-overlay" >
+                <li className="marquee-overlay _marqueeitem _market" >
                     <strong className="title">{data.mvMarket}</strong>
                     <span className={status} style={Object.assign({}, bindingStyle, {fontWeight: "bold"})} >&nbsp;{data.mvIndex}</span>
                     <span className="percent" style={Object.assign({}, bindingStyle, {fontWeight: "bold"})}>
@@ -94,7 +94,7 @@ class MarqueeItem extends React.Component {
       
         return (
             <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.genPopover(data)} onEnter={() => this.props.onPause()} onExit={() => this.props.onResume()}>
-                <li className="marquee-overlay" >
+                <li className="marquee-overlay _marqueeitem _stock" >
                     <strong className="title">{data.mvStockCode}</strong>
                     <span className={status} style={Object.assign({}, bindingStyle, {fontWeight: "bold"})} >&nbsp;{data.mvMatchPrice}</span>
                     <span className="percent" style={Object.assign({}, bindingStyle, {fontWeight: "bold"})}>
