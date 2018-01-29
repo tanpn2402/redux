@@ -47,7 +47,7 @@ class EntitlementPanel extends Component {
                         <FormGroup>
                             <Table responsive >
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
                                         <td>
                                             <SelectControl
@@ -60,37 +60,40 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashbalance}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="cashBalance"
                                                 ref={e => this.cashBalance = e}
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.cashavailable}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="cashAvailable"
                                                 ref={e => this.cashAvailable = e}
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.buyingpower}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="buyingPower"
                                                 ref={e => this.buyingPower = e}
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.stockcode}</th>
                                         <td>
                                             <SelectControl
@@ -102,10 +105,11 @@ class EntitlementPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.availableqty}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="txtStockExistQty"
                                                 ref={e => this.txtStockExistQty = e}
@@ -113,10 +117,11 @@ class EntitlementPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.registerqty}</th>
                                         <td style={{ color: 'black' }}>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input border"
                                                 id="txtTradeQty"
                                                 ref={e => this.txtTradeQty = e}
@@ -125,20 +130,22 @@ class EntitlementPanel extends Component {
                                                 required />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.actionprice}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 id="txtPrice"
                                                 className="hks-input read-only"
                                                 ref={e => this.txtPrice = e}
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.amountVND}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 id="txtAmount"
                                                 className="hks-input read-only"
                                                 ref={e => this.txtAmount = e}

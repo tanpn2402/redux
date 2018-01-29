@@ -38,10 +38,11 @@ class LoanTrans extends Component {
                         <FormGroup>
                             <Table responsive>
                                 <tbody>
-                                    <tr style={{backgroundColor: rowOdd, color: font2}}>
+                                    <tr style={{ color: font2}}>
                                         <th>{this.props.language.loanrefund.form.beginningloan}</th>
                                         <td >
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only" 
                                                 id="txtBeginLoan"
                                                 readOnly
@@ -51,10 +52,11 @@ class LoanTrans extends Component {
                                             
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowEven, color: font2}}>
+                                    <tr style={{ color: font2}}>
                                         <th>{this.props.language.loanrefund.form.availablecashforrefund}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only" 
                                                 id="txtCashAvailable"
                                                 readOnly
@@ -67,10 +69,11 @@ class LoanTrans extends Component {
                                                         
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowOdd, color: font2}}>
+                                    <tr style={{ color: font2}}>
                                         <th>{this.props.language.loanrefund.form.cashadvanceable}</th>
                                         <td >
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only" 
                                                 id="txtAdvanceAvailable"
                                                 readOnly
@@ -80,17 +83,18 @@ class LoanTrans extends Component {
                                             
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowEven, color: font2}}>
+                                    <tr style={{ color: font2}}>
                                         <th>{this.props.language.loanrefund.form.loanrefundamount}</th>
                                         <td style={{color: 'black'}}>
                                             <input 
+                                                style={{textAlign: "right"}}
                                                 className="hks-input border" 
                                                 id="txtRefundAmt" 
                                                 required type="number" min="0" step="any" 
                                                 ref={el => this.txtRefundAmt = el} />
                                         </td>
                                     </tr>
-                                    <tr style={{backgroundColor: rowOdd, color: font2}}>
+                                    <tr style={{ color: font2}}>
                                         <th>{this.props.language.loanrefund.form.remark}</th>
                                         <td style={{color: 'black'}}>
                                             <input 

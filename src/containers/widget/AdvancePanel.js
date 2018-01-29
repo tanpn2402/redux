@@ -40,10 +40,11 @@ class AdvancePanel extends Component {
                         <FormGroup>
                             <Table theme={this.props.theme} responsive>
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
+                                    <tr style={{ color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="advanceFee"
                                                 ref={e => this.txtAdFee = e}
@@ -51,10 +52,11 @@ class AdvancePanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }} >
+                                    <tr style={{ color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="advanceFee"
                                                 ref={e => this.txtAdFee = e}
@@ -62,10 +64,11 @@ class AdvancePanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }} >
+                                    <tr style={{ color: font2 }} >
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input border"
                                                 type="number" name="volume" min="0"
                                                 onChange={this.onAdvancePaymentChange.bind(this)}

@@ -279,7 +279,7 @@ class DataTable extends React.Component {
 						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
 							return {
 								style: {
-									background: rowInfo.index % 2 == 0 ? rowEven : rowOdd,
+									background: rowInfo.index % 2 == 1 ? rowEven : rowOdd,
 									color: font2,
 								}
 							}

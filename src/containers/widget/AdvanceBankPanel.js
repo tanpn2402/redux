@@ -42,7 +42,7 @@ class AdBankPanel extends Component {
                         <FormGroup>
                             <Table responsive>
                                 <tbody >
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.cashadvancebank.header.bankaccount}</th>
                                         <td>
                                             <Select
@@ -55,10 +55,11 @@ class AdBankPanel extends Component {
                                             />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.cashadvanceavailable}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="advanceAvailable"
                                                 value={Utils.currencyShowFormatter(this.props.data.cTovalValue, ",", this.lang)}
@@ -66,10 +67,11 @@ class AdBankPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowOdd, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advancefee}</th>
                                         <td>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input read-only"
                                                 id="advanceAvailable"
                                                 ref={e => this.txtAdvanceFee = e}
@@ -77,10 +79,11 @@ class AdBankPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
-                                    <tr style={{ backgroundColor: rowEven, color: font2 }}>
+                                    <tr style={{  color: font2 }}>
                                         <th>{this.props.language.cashadvance.header.advanceamount}</th>
                                         <td style={{ color: 'black' }}>
                                             <input
+                                                style={{textAlign: "right"}}
                                                 className="hks-input border"
                                                 type="number" name="volume" min="0"
                                                 disabled={this.props.data.cTovalValue == '0'}

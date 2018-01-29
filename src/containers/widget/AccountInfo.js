@@ -512,7 +512,7 @@ class AccountInfo extends Component {
 								this.hasBank ?
 								(
 									
-									<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+									<div className="table-responsive" style={{ height: '100%' }}>
 										<table className="table">
 											<tbody >
 												{
@@ -542,7 +542,7 @@ class AccountInfo extends Component {
 								) :
 								(
 									
-									<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+									<div className="table-responsive" style={{ height: '100%' }}>
 										<table className="table">
 											<tbody >
 												{
@@ -626,7 +626,7 @@ class AccountInfo extends Component {
                         <TabItem eventKey={3} title={language.accountinfo.title.overduedebt} disabled>
                             
 							
-							<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+							<div className="table-responsive" style={{ height: '100%' }}>
 								<table className="table">
 									<tbody >
 										{
@@ -658,7 +658,7 @@ class AccountInfo extends Component {
                         <TabItem eventKey={4} title={language.accountinfo.title.upcomingduedebt} disabled>
                             
 				
-							<div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+							<div className="table-responsive" style={{ height: '100%' }}>
 								<table className="table">
 									<tbody >
 										{
