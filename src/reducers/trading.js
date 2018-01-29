@@ -124,13 +124,11 @@ export default function(state = initialState, action) {
         case ActionTypes.UPDATEWATCHLISTDATA: {
             let json = action.data
             for(let key in json) {
-                if(json[key] == null) {
-                
-                } else if(json[key] == "-" || json[key] == "0" || json[key] == 0) {
+                if(json[key] == null || json[key] == "-" || json[key] == "0" || json[key] == 0) {
                     delete json[key]
                 }
             }
-            console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
+            // console.log("UPDATEWATCHLISTDATA   aaaaaaaaaaa", json)
 
            
             let dataTemp = state.listInstrumentData.slice(0)

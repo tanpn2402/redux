@@ -16,6 +16,7 @@ class PortfolioSmall extends React.Component {
                 
             ]
         }
+        this.pivot = "mvMarketID"
     }
 
     fillColor(props, accessor) {
@@ -54,8 +55,8 @@ class PortfolioSmall extends React.Component {
                 "mvTSettled": e.mvTSettled,
                 "mvAvgPrice": avgPrice,
                 "mvMarketPrice": marketPrice,
-                "mvPL": pl
-                
+                "mvPL": pl,
+                "mvMarketID": e.mvMarketID
             })
         })
         this.setState({
@@ -97,6 +98,7 @@ class PortfolioSmall extends React.Component {
                 title: language.mvMarketPrice,
                 style: {width: "18%", textAlign: "right"},
                 bodyStyle: {width: "18%", textAlign: "right"},
+                accessor: "mvMarketPrice",
                 cell: props => {
                     return this.fillColor(props, "mvMarketPrice")
                 }
@@ -105,6 +107,7 @@ class PortfolioSmall extends React.Component {
                 title: language.mvPL,
                 style: {width: "28%", textAlign: "right", paddingRight: "10px"},
                 bodyStyle: {width: "28%", textAlign: "right"},
+                accessor: "mvPL",
                 cell: props => {
                     return this.fillColor(props, "mvPL")
                 }
@@ -117,10 +120,20 @@ class PortfolioSmall extends React.Component {
             <Component className="trd-body" theme={theme}>
                 <label style={theme.font.main}>{this.props.language.menu.portfolio}</label>
                 <div className="por-sm-table">
-                    <TTLTable data={this.state.data} header={header} theme={this.props.theme}
+                    <TTLTable data={this.state.data} header={header} theme={this.props.theme} pivot={this.pivot}
                         getTHeaderProps={(theader)=> {
                             // console.log(theader)
 
+                        }}
+                        getGroupHeaderProps={(data) => {
+                            return {
+                                style:{
+                                    backgroundColor: "#2159a0",
+                                    width: "100%",
+                                    color: "white",
+                                    paddingLeft: '10px'  
+                                }
+                            }
                         }}
                         onCellClick={(e, rowData, cellData)=> this.onRowClick(e, rowData, cellData)}
                     />

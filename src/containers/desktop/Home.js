@@ -7,6 +7,7 @@ import MainContent from './MainContent'
 import config from '../../core/config'
 import {getLanguage, getTheme } from '../../utils'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
+import * as marketData from '../../api/marketdata'
 
 class Home extends Component {
     /*
@@ -75,29 +76,42 @@ class Home extends Component {
     onSubscribeToServer() {
         console.log("Prepare to subcribe")
         let socketID = localStorage.getItem("clientID")
-        socketID = "C080001"
+        // socketID = "C080001"
         if (socketID == null) {
             console.log("No WebSocketID")
         } else {
-            console.log("Start subcribe on clientId = " + socketID + ", but i use C080001 to test :v")
-            // atmosphereAPI.subscribe("C080001", ((stockJsonResponse) => {
+            console.log("Start subcribe on clientId = " + socketID )
+
+            atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+                if (stockJsonResponse != null) {
+                    
+                    this.props.updateWatchlistData(stockJsonResponse)
+                }
+            }).bind(this))
+
+
+            // marketData.subscribe(socketID, ((stockJsonResponse) => {
             //     if (stockJsonResponse != null) {
                     
-            //         this.props.updateWatchlistData(stockJsonResponse)
+            //         this.props.updateMarketData(stockJsonResponse)
             //     }
             // }).bind(this))
+
+
             setInterval(this.interval, 4000)
         }
     }
 
     onUnSubcribe() {
         console.log("Socket will be unsubscribed")
-        // atmosphereAPI.unsubscribe()
+        atmosphereAPI.unsubscribe()
+        // marketData.unsubscribe()
+        
         clearInterval(this.interval)
     }
 
     interval() {
-        this.props.updateWatchlistData()
+        // this.props.updateWatchlistData()
         this.props.updateTradeLog()
         this.props.updateMarketData()
     }
@@ -115,11 +129,13 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.checkSession(handleCheckSessionID)) 
     },
 
+    //watchlist data
     updateWatchlistData: (json) => { dispatch(actions.updateWatchlistData(json)) },
     getListStockInWatchList: () => {dispatch(actions.getListStockInWatchList()) },
     updateTradeLog: (json) => { dispatch(actions.updateTradeLog(json)) },
     getTradeLogData: () => { dispatch(actions.getTradeLogData()) },
     
+    // market data
     updateMarketData: (json) => { dispatch(actions.updateMarketData(json)) },
     getMarketData: () => { dispatch(actions.getMarketData()) },
 

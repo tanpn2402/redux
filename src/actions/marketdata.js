@@ -24,6 +24,9 @@ export function updateMarketData(data) {
         mvChangePercent: updown % 2 == 1 ? 1 * Math.random().toFixed(2) : (-1)*Math.random().toFixed(2)
     }
 
+
+    // console.log("MARKET DATA", data)
+
     return {
         type: ActionTypes.UPDATEMARKETDATA,
         data: data

@@ -59,7 +59,7 @@ class MarqueeItem extends React.Component {
                     </span>
                     <span className="vol-value">
                         &nbsp;
-                        <span>&nbsp;&nbsp;Totol Vol:&nbsp;{utils.quantityShowFormatter(data.mvTotalVol)}</span>
+                        <span>&nbsp;&nbsp;Total Vol:&nbsp;{utils.quantityShowFormatter(data.mvTotalVol)}</span>
                     
                         <span>&nbsp;&nbsp;Total VaLue:&nbsp;{utils.quantityShowFormatter(data.mvTotalValue)}</span>
                     </span>
@@ -70,7 +70,7 @@ class MarqueeItem extends React.Component {
 
 
     _renderStockIndex() {
-        console.log(this.props)
+        // console.log(this.props)
         let {stock, market, listInstrumentData} = this.props
         let tmp = listInstrumentData.filter(e=> e.mvStockCode == stock /*&& e.mvMarket == market*/)
         let data = {}

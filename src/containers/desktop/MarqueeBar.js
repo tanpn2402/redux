@@ -68,7 +68,7 @@ class MarqueeBar extends React.Component {
     componentWillReceiveProps(nextProps) {
         let {listInstrumentInWatchList} = nextProps
 
-        console.log(nextProps)
+        // console.log(nextProps)
 
         let tmp = this.defaultMarket.slice(0)
         listInstrumentInWatchList.map(stock => {

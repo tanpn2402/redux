@@ -35,8 +35,6 @@ class WatchListSmall extends React.Component {
             "mvMatchVol": 569.2,
             "mvMatchPrice": 86.56
         }
-
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -60,7 +58,7 @@ class WatchListSmall extends React.Component {
     showTooltip(props) {
         return (
             <Tooltip id="tooltip">
-                {"MUA NHANH - BÁN NHANH"}
+                {"QUICK BUY - QUICK SELL"}
             </Tooltip>
         )
         
@@ -80,7 +78,7 @@ class WatchListSmall extends React.Component {
                 return stock
             }
         })
-
+        config.cache.watchlistData = data
         let language = this.props.language.watchlist.header
         let header = [
             {
@@ -93,6 +91,7 @@ class WatchListSmall extends React.Component {
                 title: language.price,
                 style: {width: "16%", textAlign: "right"},
                 bodyStyle: {width: "16%", textAlign: "right"},
+                accessor: "mvMatchPrice",
                 cell: props => {
                     return this.fillColor(props, "mvMatchPrice", "price")
                 }
@@ -101,6 +100,7 @@ class WatchListSmall extends React.Component {
                 title: language.volume,
                 style: {width: "22%", textAlign: "right"},
                 bodyStyle: {width: "22%", textAlign: "right"},
+                accessor: "mvMatchVol",
                 cell: props => {
                     return this.fillColor(props, "mvMatchVol", "quantity")
                 }
@@ -109,6 +109,7 @@ class WatchListSmall extends React.Component {
                 title: language.totalvol,
                 style: {width: "22%", textAlign: "right"},
                 bodyStyle: {width: "22%", textAlign: "right"},
+                accessor: "mvMatchVolTotal",
                 cell: props => {
                     return this.fillColor(props, "mvMatchVolTotal", "quantity")
                 }
@@ -157,7 +158,7 @@ class WatchListSmall extends React.Component {
                 <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
                     <TabItem eventKey={1} title={this._renderTitle(this.props.language.menu.watchlist, 1)} >
                         <div className="wl-sm-table">
-                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme}
+                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme} n={this.n} 
                                 getTRowProps={(data) => {
                                     if(data.mvStockCode == this.state.stockSelected) {
                                         return {

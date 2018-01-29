@@ -1013,7 +1013,7 @@ class WatchListTable extends React.Component {
             if(data["mvStockCode"] == this.props.instrumentData.mvStockCode) {
                 
                 let {oldInstrumentData} = this.state
-                console.log(oldInstrumentData)
+                // console.log(oldInstrumentData)
                 if(oldInstrumentData == null) {
                     className = "value-binding"
                 }
@@ -1029,7 +1029,7 @@ class WatchListTable extends React.Component {
             if(accessor.includes("Vol")) {
                 value = utils.quantityShowFormatter(value)
             }
-            console.log(value)
+            // console.log(value)
             className += " value-change"
             return <div className={className} style={style}>{value}</div>
         }
@@ -1055,7 +1055,18 @@ class WatchListTable extends React.Component {
 
         let classNameBinding = "value-static"
         if(props.original["mvStockCode"] == this.props.instrumentData.mvStockCode) {
-            classNameBinding = "value-binding"
+            let {oldInstrumentData} = this.state
+            // console.log(oldInstrumentData)
+            if(oldInstrumentData == null) {
+                className = "value-binding"
+            }
+            else if(oldInstrumentData.mvStockCode == props.original["mvStockCode"]) {
+                if(matchPrice == oldInstrumentData["mvMatchPrice"]) {
+                    className = "value-static"
+                } else {
+                    className = "value-binding"
+                }
+            }
         }
         classNameBinding += " value-change"
 

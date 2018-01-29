@@ -1,8 +1,8 @@
 import $ from 'jquery'
 import atmosphere from 'atmosphere.js'
 import {SERVER} from '../api/serverconfig';
-// const SERVER = "http://localhost:8089/"
-const SUBSCRIBE_URL = "ITradePushServer/StockInfo/"
+
+const SUBSCRIBE_URL = "ITradePushServer/MarketInfo/"
 
 var isSubsribed = false;
 var logged = false;
@@ -12,7 +12,7 @@ var transport = 'websocket';
 var callback;
 
 var request = {
-    url: SERVER + SUBSCRIBE_URL,
+    url: "http://localhost:8089/" + SUBSCRIBE_URL,
     contentType: "application/json",
     trackMessageLength: true,
     transport: transport,
@@ -47,7 +47,7 @@ export function sendMessage(msgObject) {
 
 export function subscribe(clientID, callback) {
     request.url = request.url + clientID
-    console.log("Atmosphere at URL: " + request.url)
+    console.log("Market Data Listener at URL: " + request.url)
     request.onMessage = function (response) {
         var message = response.responseBody
         try {
@@ -61,7 +61,7 @@ export function subscribe(clientID, callback) {
 
     subSocket = socket.subscribe(request)
     //New request to notify server sending data by WSprotocol
-        window.fetch(SERVER + SUBSCRIBE_URL + clientID)
+        // window.fetch(SERVER + SUBSCRIBE_URL + clientID)
 }
 
 export function unsubscribe() {

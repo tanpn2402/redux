@@ -99,3 +99,14 @@ export  function mdsGET(url, param, dispatch, successHandler, failHandler) {
 		return error
 	})
 };
+
+export  function mdsPOST(url, param, dispatch, successHandler, failHandler) {
+	return (FetchAPI(url, param, "MDSPOST")).then(response => response).then(parseData => {
+		dispatch(successHandler(parseData))
+		return parseData
+	}).catch(error => {
+		if (failHandler)
+			failHandler(error)
+		return error
+	})
+};

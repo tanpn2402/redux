@@ -32,36 +32,73 @@ export function addInstrumentToWatch(ins, market) {
         }
     }
 
-    let params = {
-        mvTimelyUpdate: "Y",
-        mvAddOrRemove: "View",
-        mvCategory: 1,
-        mvStockCode: ins,
-        mvMarketID: market         
+
+    let cliendID = localStorage.getItem("clientID")
+    // cliendID = "C080001"
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.WATCHLISTADD.replace("{clientID}", cliendID).replace("{stockCode}", ins).replace("{marketID}", market)
+        return (dispatch) => {
+        
+            itradeapi.mdsGET(url, {} , dispatch,
+                function (response) {
+                    console.log("addInstrumentToWatch", response)
+                    return {
+                        type: ActionTypes.ADDINSTRUMENTTOWATCH,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                
+                },
+                function (err) {
+                    console.log("addInstrumentToWatch", err)
+                    return {
+                        type: ActionTypes.ADDINSTRUMENTTOWATCH,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                })
+        }
     }
-    return {
-        type: ActionTypes.ADDINSTRUMENTTOWATCH,
-        instrument: ins, // ex: AVC, VNM
-        market: market
-    }
-    // return (dispatch) => {
-    //     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, function(res) {
-    //         console.log(res)
-    //         return {
-    //             type: ActionTypes.ADDINSTRUMENTTOWATCH,
-    //             instrument: ins, // ex: AVC, VNM
-    //         }
-    //     })
-    // }
 }
 
 export function removeInstrumentFromWatch(ins, market) {
-    console.log(ins)
-    return {
-        type: ActionTypes.REMOVEINSTRUMENTFROMWATCH,
-        instrument: ins, // ex: AVC, VNM
-        market: market
-    }
+    
+    let cliendID = localStorage.getItem("clientID")
+    // cliendID = "C080001"
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.WATCHLISTREMOVE.replace("{clientID}", cliendID).replace("{stockCode}", ins)
+        return (dispatch) => {
+        
+            itradeapi.mdsGET(url, {} , dispatch,
+                function (response) {
+                    console.log("removeInstrumentFromWatch", response)
+                    return {
+                        type: ActionTypes.REMOVEINSTRUMENTFROMWATCH,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                
+                },
+                function (err) {
+                    console.log("removeInstrumentFromWatch", err)
+                    return {
+                        type: ActionTypes.REMOVEINSTRUMENTFROMWATCH,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                })
+        }
+    }          
 }
 
 /*
@@ -78,42 +115,97 @@ export function addInstrumentToWatchList(ins, market) {
 
     let params = {
         mvTimelyUpdate: "Y",
-        mvAddOrRemove: "Add",
+        mvAddOrRemove: "ADD",
         mvCategory: 1,
         mvStockCode: ins,
         mvMarketID: market         
     }
 
-    return {
-        type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
-        instrument: ins, // ex: AVC, VNM
-        market: market
+    let cliendID = localStorage.getItem("clientID")
+    // cliendID = "C080001"
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
+        return (dispatch) => {
+            
+            itradeapi.mdsPOST(url, params , dispatch,
+                function (response) {
+                    console.log("addInstrumentToWatchList", response)
+                    return {
+                        type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                },
+                function(err) {
+                    console.log("addInstrumentToWatchList", err)
+                    return {
+                        type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                }
+            )
+        }
     }
-    
-    // return (dispatch) => {
-    //     api.get(ACTION.ADDORREMOVEACTION, params, dispatch, function(res) {
-    //         console.log(res)
-    //         return {
-    //             type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
-    //             instrument: ins, // ex: AVC, VNM
-    //         }
-    //     })
-    // }
+
+        
 }
 
 export function removeInstrumentFromWatchList(ins, market) {
-    return {
-        type: ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST,
-        instrument: ins, // ex: AVC, VNM
-        market: market
+
+    let params = {
+        mvTimelyUpdate: "Y",
+        mvAddOrRemove: "REMOVE",
+        mvCategory: 1,
+        mvStockCode: ins,
+        mvMarketID: market         
     }
+
+    let cliendID = localStorage.getItem("clientID")
+    // cliendID = "C080001"
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
+        return (dispatch) => {
+            
+            itradeapi.mdsPOST(url, params , dispatch,
+                function (response) {
+                    console.log("removeInstrumentFromWatchList", response)
+                    return {
+                        type: ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                },
+                function(err) {
+                    console.log("removeInstrumentFromWatchList", err)
+                    return {
+                        type: ActionTypes.REMOVEINSTRUMENTFROMWATCHLIST,
+                        instrument: ins, // ex: AVC, VNM
+                        market: market
+                    }
+                })
+        }
+    }
+
+        
+            
 }
 
 
 
 // UPDATE WATLIST DATA
 export function updateWatchlistData(data) {
-    let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
+    /*let marIndex = utils.randomInt(config.cache.listInstrumentToWatch.length)
     let stockCode = config.cache.listInstrumentToWatch[marIndex]
     let tmp = config.cache.stockList.filter(e => e.stockCode == stockCode)
     let market = "HO"
@@ -157,10 +249,10 @@ export function updateWatchlistData(data) {
         mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
         mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
         mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
-    }
+    }*/
 
     // console.log("UPDATE", data)
-
+    // data["mvMarket"] = data["mvMarket"] == "HN" ? "HA" : "HO"
     // console.log("REALTIME DATA = ", data)
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
@@ -170,8 +262,9 @@ export function updateWatchlistData(data) {
 
 // export function getListStockInWatchList() {
 
-//     let insList = "ACB,"
-//     let marketList = "HA,"
+//     let insList = "ACB,ALT,AVS,B82,CCM,EID,SHB,VNM,"
+    
+//     let marketList = "HA,HA,HA,HA,HA,HA,HA,HO,"
 
 //     let insArray = insList.split(",")
 //     let marketArr = marketList.split(",")
@@ -191,9 +284,10 @@ export function updateWatchlistData(data) {
 
 // }
 
+
 export function getListStockInWatchList() {
     let cliendID = localStorage.getItem("clientID")
-    cliendID = "C080001"
+    // cliendID = "C080001"
     if(cliendID == undefined) {
         console.log("Not find clientId in localstorage")
         return {
@@ -203,7 +297,7 @@ export function getListStockInWatchList() {
         let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
         return (dispatch) => {
             
-            itradeapi.mdsGET(url, {} , dispatch,
+            itradeapi.mdsPOST(url, {} , dispatch,
                 function (response) {
                     console.log(response)
 
@@ -212,8 +306,8 @@ export function getListStockInWatchList() {
 
                     let insArray = insList.split(",")
                     let marketArr = marketList.split(",")
+                    // marketArr = marketArr.map(e =>  e == "HN" ? "HA" : "HO")
                     insArray.splice(-1,1)
-                    
                     let list = insArray.map((e, i)=> {
                         return {
                             mvStockCode: e,

@@ -181,7 +181,10 @@ class StatusBar extends React.Component {
                         
                         return (
                             <div className="search-block">
-                                <label className="search-re-header">{this.props.language.menu[menu.id]}</label>
+                         
+                                <label data-toggle="collapse" data-target={'#' + menu.id} className="search-re-header">{this.props.language.menu[menu.id]}</label>
+                     
+                                <div id={menu.id} className="nav nav-list tree setting-item collapse in" aria-expanded="true">
                                 {
                                     
                                     menu.subitems.map(el => {
@@ -211,6 +214,7 @@ class StatusBar extends React.Component {
                                         )
                                     })
                                 }
+                                </div>
                             </div>
                         )
                     })

@@ -897,12 +897,13 @@ label {
     cursor: pointer;
 }
 .widget-search-result .search-item {
-    padding: 6px 0 6px 10px;
+    padding: 6px 0 6px 30px;
     position: relative;
 }
 .widget-search-result .search-re-header {
     padding-left: 10px;
     padding-bottom: 5px;
+    width: 100%;
 }
 .widget-search-result .search-block {
     padding-top: 14px;
@@ -3570,6 +3571,10 @@ label {
 }
 .ttl-table .ttl-cell {
     display: inline-block;
+}
+.ttl-table .ttl-cell .glyphicon {
+    font-size: 9px;
+    padding-left: 1px;
 }
 .ttl-table .ttl-tbody .ttl-cell:hover {
     font-weight: 900;

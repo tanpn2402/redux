@@ -50,12 +50,31 @@ export async function FetchAPI(id, JsonData, method) {
         // url += '?' + formData
         // window.location.href = url
 
-    } if(method === 'MDSGET') {
-        console.log("MDS API IN FETCH API")
+    } else if(method === 'MDSGET') {
+        console.log("MDS GET API IN FETCH API")
         return new Promise((resolve, reject) => {
             var response = window.fetch(id, {
                 method: GET,
                 headers: HEADERSCK
+            })
+
+            response.then(res => {
+                if (res.ok) {
+                    res.json().then(resolve).catch(reject)
+                } else {
+                    reject(res)
+                }
+            })
+                .catch(reject)
+        })
+    } else if(method === 'MDSPOST') {
+        console.log("MDS POST API IN FETCH API")
+        return new Promise((resolve, reject) => {
+            var response = window.fetch(id, {
+                method: POST,
+                headers: HEADERSCK,
+                credentials: 'include',
+                body: datajson
             })
 
             response.then(res => {

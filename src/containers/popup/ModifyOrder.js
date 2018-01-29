@@ -47,7 +47,7 @@ class ModifyOrder extends Component {
         var authParams = this.auth.getParam()
 
         this.props.onModifySubmit(this.props.genModifyOrderData.mvGenModifyOrderBean, 
-            this.mvPrice.value, this.mvQty.value, authParams, this.props.language, this.props.data.me)
+            this.mvNewPrice.getValue(), this.mvNewQuantity.getValue(), authParams, this.props.language, this.props.data.me)
 
         this.props.onHide()
     }
