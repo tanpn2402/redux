@@ -5,6 +5,7 @@ import HomeMobile from '../containers/mobile/Home';
 import { browserHistory } from 'react-router';
 import config from '../core/config';
 import * as actions from '../actions/index';
+import * as utils from "../utils"
 
 class App extends React.Component {
 
@@ -17,7 +18,7 @@ class App extends React.Component {
     render() {
         
         if( this.props.loginStatus === "SUCCESS" ){
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            if( utils.checkIfMobile() ) {
                 return (
                     <HomeMobile/>
                 )

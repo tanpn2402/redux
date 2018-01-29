@@ -112,7 +112,8 @@ export default {
             color: "#000"
         },
         tableFooter: {
-            //     backgroundColor: '#262626'
+                backgroundColor: '#FFF',
+                color: '#000'
         },
         tableBody: {
     

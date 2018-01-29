@@ -42,7 +42,7 @@ export default class PageContent extends React.Component {
                     </ul>
 
                     <ul>
-                        <li style={{fontSize: "12px"}}>© 2016 Geminis Securities Limited - Copyrignt - All right reserved</li>
+                        <li style={{fontSize: "12px"}}>©TTL 2018 Transaction Technology Services Limited - Copyrignt - All right reserved</li>
                     </ul>
                 </div>
             </div>

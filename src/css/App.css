@@ -2469,7 +2469,7 @@ label {
     letter-spacing: 4px;
 
 }
-.header-search {
+.header-search, .header-account {
     font-size: 24px;
     padding-top: 10px;
     color: #666;
@@ -2508,11 +2508,14 @@ label {
     .sidemenu-wrapper {
         position: absolute;
         height: 100%;
-        padding-top: 50px;
+        padding-top: 0px;
         padding-bottom: 107px;
         background-color: #fff;
         /* -webkit-box-shadow: 4px 0 4px -2px #888;
         box-shadow: 4px 0 4px -2px #888; */
+    }
+    .sidemenu-wrapper .header-logo {
+        padding: 10px;
     }
     .sidemenu-outer {
         position: absolute;
@@ -2525,6 +2528,7 @@ label {
         height: 100%;
         width: 100%;
         overflow-y: auto;
+        padding-top: 50px;
     }
     .sidemenu-footer {
         position: absolute;
@@ -2704,7 +2708,7 @@ label {
 }
 .tab-control > .tab-item.actived > div{
     border-bottom: 4px solid #055899;
-    font-size: 12px;
+    font-size: 14px;
 }
 /* END TABCONTROL */
 /* INPUT CONTROL */
@@ -3076,9 +3080,9 @@ label {
     padding: 4px 0px;
 }
 .listview-control > .rt-lv > .lv-tbody > .lv-tbody-b  .lv-tr-group {
-    background-color: #fff;
+    background-color: inherit;
     /* padding-bottom: 10px; */
-    border-bottom: 2px dotted #d8d8d8;
+    /* border-bottom: 2px dotted #d8d8d8; */
 }
 .listview-control > .rt-lv .lv-expand-icon {
     font-size: 30px;
@@ -3227,7 +3231,10 @@ label {
     display: block;
 }
 .stock-info-table {
-    padding: 0 10px;
+    padding: 0px;
+}
+.stock-info-table .--tr {
+    padding: 5px 0px !important;
 }
 .stockinfo-detail {
     padding: 10px;

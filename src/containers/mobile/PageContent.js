@@ -17,11 +17,13 @@ class PageContent extends React.Component {
 
     render() {
         let background = this.props.theme.page.background
+        console.log(this.state)
         return (
             <div style={background} id="pagecontent" className={"pagecontent mobile"}>
                 <div id="page-wrapper" className="pagecontent-wrapper" style={{width: "100%", overflowY: "auto"}} 
                     ref={r=> this.Wrapper = r}>
                     <GridLayout 
+                        key={"grid" + new Date()}
                         language={this.props.language}
                         layout={ this.state.layout}
                         stockList={this.props.stockList} 
@@ -59,7 +61,7 @@ class PageContent extends React.Component {
         }
         else{
             this.setState({
-                layout: config.mobileTab.filter(el => el.id === "trading" )
+                layout: config.mobileTab.filter(el => el.id === "trading" ).widget
             })
         }
         if(nextProps.reloadTrigger === this.state.reloadTrigger && this.Wrapper !== null)

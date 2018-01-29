@@ -78,6 +78,9 @@ class SideMenu extends Component {
             <div className={"sidemenu " + (this.props.openMenu ? 'open' : 'hide')}>
                 <div className="sidemenu-outer" onClick={e => this.onCloseMenu()}> </div>
                 <div className="sidemenu-wrapper">
+                    <div className="header-logo">
+                        TTL
+                    </div>
                     {
                         <div className="sidemenu-body" ref={ref => this.Body = ref}>
                             {

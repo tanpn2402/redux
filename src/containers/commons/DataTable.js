@@ -6,10 +6,11 @@ import Config from '../../core/config'
 import ListView from './ListView'
 import Pagination from './Pagination'
 import SearchBar from './SearchBar'
+import {checkIfMobile} from "../../utils"
 
 export default class Table extends React.Component {
 	render() {
-		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		if ( checkIfMobile() ) {
 			// mobile render to ListView
 			return (
 				<ListView  {...this.props} />

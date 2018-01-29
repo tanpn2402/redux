@@ -53,7 +53,7 @@ class EnterOrderConfirm extends Component{
         return(
             <div>
                 <Modal.Body>
-                    <PopupTable language={this.props.language.enterorder.header} data={data} />
+                    <PopupTable theme={this.props.theme} language={this.props.language.enterorder.header} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={false} ref={e => this.auth = e} language={language}/>

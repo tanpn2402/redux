@@ -110,7 +110,7 @@ class ModifyOrder extends Component {
             },
             {
                 header: "newPrice",
-                cell: props => {
+                Cell: props => {
                     return <Input key="newPrice" type="number" ref={ref => this.mvNewPrice =  ref} step={10}
                         defaultValue={tmp.mvPriceValue}
                         onChange={this.onPriceChange.bind(this)}/>
@@ -126,7 +126,7 @@ class ModifyOrder extends Component {
             },
             {
                 header: "newQuantity",
-                cell: props => {
+                Cell: props => {
                     return <Input key="newQuantity" type="number" ref={ref => this.mvNewQuantity =  ref} step={100}
                         defaultValue={tmp.mvQtyValue}
                         onChange={this.onQtyChange.bind(this)}/>
@@ -134,7 +134,7 @@ class ModifyOrder extends Component {
             },
             {
                 header: "totalCash",
-                cell: props => {
+                Cell: props => {
                     return <Input key="mvGrossAmt" className="showOnly"
                         ref={ref => this.mvGrossAmt = ref} readOnly value={0}/>
                 }
@@ -147,7 +147,7 @@ class ModifyOrder extends Component {
         return (
             <div >
                 <Modal.Body>
-                    <PopupTable language={this.props.language.orderjournal.header} data={data} />
+                    <PopupTable theme={this.props.theme} language={this.props.language.orderjournal.header} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>

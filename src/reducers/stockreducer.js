@@ -24,10 +24,10 @@ export default function (state = initialState, action) {
 
     case ActionTypes.STOCKSEARCH:
       return Object.assign({}, state, {
-        mvIsEnableMultiMarket: action.stockList.mvIsEnableMultiMarket,
-        mvResult: action.stockList.mvResult,
-        stockList: action.stockList.stockSearchList,
-        language: action.language,
+          mvIsEnableMultiMarket: action.stockList.mvIsEnableMultiMarket,
+          mvResult: action.stockList.mvResult,
+          stockList: action.stockList.stockSearchList,
+          language: action.language,
       });
 
     case ActionTypes.STOCKWATCHDATAUPDATE:

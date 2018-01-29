@@ -668,7 +668,8 @@ export default
                     "grossAmt": "Gross Amount",
                     "netAmt": "Net Amt",
                     "availQty": "Avail Qty",
-                    "commissionFees": "Commission Fees"
+                    "commissionFees": "Commission Fees",
+                    "usable": "Tài sản"
                 },
                 "data": {
                     "Buy": "Buy",
@@ -777,7 +778,9 @@ export default
                     "cell": "Trần",
                     "ref": "TC",
                     "foreigner": "NN",
-                    "total": "Tổng"
+                    "total": "Tổng",
+                    "Nominal": "Nominal",
+                    "netchange": "Thay đổi"
                 }
             },
             "avaiblemarginlist": {

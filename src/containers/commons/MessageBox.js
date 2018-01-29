@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import {checkIfMobile} from "../../utils"
 
 class MessageBox extends Component {
 
@@ -14,7 +15,7 @@ class MessageBox extends Component {
             lastMessageID: 1,
         }
         this.version = "desktop"
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if( checkIfMobile() ) {
             this.version = "mobile"
         }
     }

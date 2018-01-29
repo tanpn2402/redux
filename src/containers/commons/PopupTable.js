@@ -18,12 +18,12 @@ export default class PopupTable extends React.Component {
                         if(index % 2 != 0) rowStyle = popupTableStyle.rowEven
                         return (
                             <div key={index} className="--tr" style={Object.assign({}, rowStyle, d.style)}>
-                                <div className="--th">
+                                <div className="--th" style={theme.font.main}>
                                     {
                                         this.renderTHead(d, language)
                                     }
                                 </div>
-                                <div className="--td">
+                                <div className="--td" style={theme.font.main}>
                                     {
                                         
                                         this.renderTData(d)

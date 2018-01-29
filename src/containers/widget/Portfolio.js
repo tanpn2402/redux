@@ -49,7 +49,8 @@ class Portfolio extends Component {
                             width: 250,
                             Aggregated: () => {
                                 return null
-                            }
+                            },
+                            mobile: false
                         }
                     ]
                 },

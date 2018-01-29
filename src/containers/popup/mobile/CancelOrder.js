@@ -57,7 +57,7 @@ class CancelOrder extends Component {
         return (
             <div>
                 <Modal.Body>
-                    <PopupTable language={this.props.language.orderjournal.header} data={data} />
+                    <PopupTable theme={this.props.theme} language={this.props.language.orderjournal.header} data={data} />
                 </Modal.Body>
 
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language} />

@@ -17,6 +17,7 @@ class LVRow extends React.Component {
         let { col, addCol, language, action, maxWid } = this.props.dataObject
         let rowId = this.props.rowId
         let d = this.props.d
+
         return (
             <div className="lv-tr-group">
                 <div data-toggle="collapse" data-target={"#" + rowId} className="lv-tr odd" onClick={e => this.props.onClick(rowId)}>
@@ -70,8 +71,10 @@ class LVFooter extends React.Component {
         let pageIndex = this.props.pageIndex
         if (this.props.totalPage == 0)
             pageIndex = 0
+
+        let tableStyle = this.props.theme.table
         return (
-            <div className="lv-tfooter">
+            <div className="lv-tfooter" style={tableStyle.tableFooter}>
                 <div className="-btn-prev" onClick={() => this.onPageChange(-1)}>
                     <button ref={r => this.refBtnPre = r}>
                         {"< Prev"}
@@ -161,10 +164,13 @@ class LVBody extends React.Component {
                     <div style={{height: "100%"}} ref={ref => this.props.setRefBodyWrapper(ref)}>
                     </div>
                     {
-                        data.map(d => {
+                        data.map((d, index) => {
+                            
                             if(isPivot){
                                 return (d.list.map((stock, i) => {
                                     let rowId = "r-" + rowStamp + "-" + (row++)
+                                    let rowStyle = this.props.theme.table.rowOdd
+                                    if(i % 2 == 0) rowStyle =  this.props.theme.table.rowEven
                                     return (
                                         <div key={rowId}>
                                             {
@@ -175,15 +181,22 @@ class LVBody extends React.Component {
                                                     :<div className='lv-pivot-group'><strong>{d.pivotID}</strong></div>
                                                 )
                                             }
-                                            <LVRow d={stock} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                            <div style={rowStyle}>
+                                                <LVRow d={stock} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                            </div>
                                         </div>
                                     )
                                 }))
                             }else{
                                 let rowId = "r-" + rowStamp + "-" + (row++)
+                                let rowStyle = this.props.theme.table.rowOdd
+                                if(index % 2 == 0) rowStyle =  this.props.theme.table.rowEven
                                 return (
-                                    <div key={rowId}>
-                                        <LVRow d={d} rowId={rowId} dataObject={this.props.dataObject} onClick={rowId => this.props.onClick(rowId)} />
+                                    <div key={rowId} style={rowStyle}>
+                                        <LVRow theme={this.props.theme}
+                                            d={d} index={index} rowId={rowId} 
+                                            dataObject={this.props.dataObject} 
+                                            onClick={rowId => this.props.onClick(rowId)} />
                                     </div>
                                 )
                             }
@@ -406,7 +419,7 @@ export default class ListView extends React.Component {
         }
         return (
             <div className="listview-control" ref={node => this.lv = node}>
-                <SearchListView ref={ref => this.lvSearch = ref} language={this.props.language.searchbar}
+                <SearchListView ref={ref => this.lvSearch = ref} theme={this.props.theme} language={this.props.language.searchbar}
                     searchParams={this.props.searchMobileParams} searchDefaultValues={this.props.searchDefaultValues}
                     onChange={this.onSearchChange.bind(this)} />
                 {
@@ -416,7 +429,8 @@ export default class ListView extends React.Component {
                                 <LVHeader setRefHeader={ref => this.refTHead = ref} language={language} col={col} />
                                 <LVBody dataObject={dataObject} setRefBody={ref => this.refTBody = ref}
                                     setRefBodyWrapper={ref => this.refTBodyWrapper = ref} onClick={rowId => this.onClick(rowId)}
-                                    getPivotRowProps={this.props.getPivotRowProps}/>
+                                    getPivotRowProps={this.props.getPivotRowProps}
+                                    theme={this.props.theme}/>
                                 <LVFooter {...this.props} />
                             </div>
                         )
@@ -474,43 +488,43 @@ class SearchListView extends React.Component {
 
                 {
                     this.props.searchParams.map(e => {
-                        return this.renderElement(e, language)
+                        return this.renderElement(e, language, this.props.theme)
                     })
                 }
             </div>
         )
     }
 
-    renderElement(id, language) {
+    renderElement(id, language, theme) {
         switch (id) {
             case Contants.searchElement.STARTDATE:
             case Contants.searchElement.ENDDATE:
                 return (
-                    <SearchDate key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <SearchDate key={id} id={id} ref={ref => this.ref[id] = ref} theme={theme} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} />
                 )
                 break
             case Contants.searchElement.TRADETYPE:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} theme={theme} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.transtype} />
                 )
                 break
             case Contants.searchElement.STATUS:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} theme={theme} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.orderstatus} />
                 )
                 break
             case Contants.searchElement.MARKET:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} theme={theme} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.marketid} />
                 )
                 break
             case Contants.searchElement.CURRENCY:
                 return (
-                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} language={language} onChange={this.onChange}
+                    <Selector key={id} id={id} ref={ref => this.ref[id] = ref} theme={theme} language={language} onChange={this.onChange}
                         default={this.props.searchDefaultValues[id]} data={config.currency} />
                 )
                 break
@@ -546,13 +560,14 @@ class TransType extends React.Component {
         }
     }
     render() {
+        let theme = this.props.theme
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default !== undefined ? this.props.default : ""
 
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
                 <div className="col-xs-5" style={{ textAlign: "left" }}>
-                    <label>{this.props.language[this.props.id]}</label>
+                    <label style={theme.font.main}>{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
 
@@ -592,13 +607,14 @@ class Selector extends React.Component {
         }
     }
     render() {
+        let theme = this.props.theme
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default !== undefined ? this.props.default : ""
         let data = this.props.data
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
                 <div className="col-xs-5" style={{ textAlign: "left" }}>
-                    <label>{this.props.language[this.props.id]}</label>
+                    <label style={theme.font.main}>{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
 
@@ -640,12 +656,13 @@ class SearchDate extends React.Component {
         }
     }
     render() {
+        let theme = this.props.theme
         let id = this.props.id + "-" + new Date().getTime()
         let defaultValue = this.props.default != undefined ? moment(this.props.default, 'DD/MM/YYYY') : moment()
         return (
             <div className="" key={id} style={{ display: "table", width: "100%", marginBottom: "5px" }}>
                 <div className="col-xs-5" style={{ textAlign: "left" }}>
-                    <label>{this.props.language[this.props.id]}</label>
+                    <label style={theme.font.main} >{this.props.language[this.props.id]}</label>
                 </div>
                 <div className="col-xs-7">
                     <Calendar selected={defaultValue} onChange={this.handleDateChange.bind(this)} id={id}

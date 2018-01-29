@@ -19,6 +19,7 @@ import CancelOrderMobile from './mobile/CancelOrder'
 import Setting from './mobile/Setting'
 import QuickOrder from './QuickOrder'
 import AccountBalance from './AccountBalance'
+import AccountInfo from './mobile/AccountInfo'
 
 export default function (verion, props, onClose) {
 	if (verion === "mobile") {
@@ -104,16 +105,16 @@ function genPopupDesktop(props, onClose) {
 function genPopupMobile(props, onClose) {
 	switch (props.id) {
 		case 'enterorderconfirm':
-			return (<EnterOrderConfirmMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<EnterOrderConfirmMobile onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 
 
 		case 'modifyorder':
-			return (<ModifyOrderMobile onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<ModifyOrderMobile onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 
 		case 'cancelorder':
-			return (<CancelOrderMobile theme={props.theme} onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<CancelOrderMobile theme={props.theme} onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
 
 		case 'savelayout':
@@ -127,5 +128,14 @@ function genPopupMobile(props, onClose) {
 		case 'enterordersuccess':
 			return (<EnterOrderSuccessMobile onHide={onClose} authcard={props.authcard} language={props.language} data={props.data} />)
 			break;
+
+		case 'accountbalance':
+			return (<AccountBalance onHide={onClose} authcard={props.authcard} {...props} />)
+			break;
+
+		case 'accountinfo':
+			return (<AccountInfo onHide={onClose} authcard={props.authcard} {...props} />)
+			break;
+
 	}
 }

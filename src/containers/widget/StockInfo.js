@@ -11,20 +11,21 @@ import Table from '../commons/PopupTable'
 import Chart from "../commons/chart/index"
 class BalanceBar extends React.Component {
     render() {
-        
+        let theme = this.props.theme
+
         return (
             <div className="balance-bar">
                 <div className="balance-title">
                     <div className="-left">
-                        <span style={{marginRight: "5px"}}>{this.props.left.label}</span>
-                        <span>{this.props.left.value}</span>
+                        <span style={Object.assign({marginRight: "5px"}, theme.font.main)}>{this.props.left.label}</span>
+                        <span style={theme.font.main}>{this.props.left.value}</span>
                     </div>
                     <div className="-middle">
-                        <span>{this.props.title}</span>
+                        <span style={theme.font.main}>{this.props.title}</span>
                     </div>
                     <div className="-right">
-                        <span>{this.props.right.value}</span>
-                        <span style={{marginLeft: "5px"}}>{this.props.right.label}</span>
+                        <span style={theme.font.main}>{this.props.right.value}</span>
+                        <span style={Object.assign({marginLeft: "5px"}, theme.font.main)}>{this.props.right.label}</span>
                     </div>
                 </div>
                 <div className="balance-outer" ref={r => this.Outer = r} 
@@ -40,10 +41,10 @@ class BalanceBar extends React.Component {
                         <div className="balance-index">
                             <div>
                                 <div className="index-icon" ref={r => this.IndexIcon = r} style={{height: "12px"}}>
-                                    <span className="glyphicon glyphicon-triangle-top"></span>
+                                    <span className="glyphicon glyphicon-triangle-top" style={theme.font.main}></span>
                                 </div>
                                 <div className="index-value" ref={r => this.IndexValue = r}>
-                                    <span ref={r => this.Value = r}>{this.props.indexValue}</span>
+                                    <span ref={r => this.Value = r} style={theme.font.main}>{this.props.indexValue}</span>
                                 </div>
                             </div>
                         </div>
@@ -184,6 +185,8 @@ class StockStatistis extends React.Component {
             }
         ]
         console.log(this.props)
+        let theme = this.props.theme
+        let language = this.props.language.stockmarketinform
 
         let stockName = "-"
         let stockCode = "-"
@@ -219,18 +222,18 @@ class StockStatistis extends React.Component {
         return (
             <div className="stock-statistis">
                 <div className="-title">
-                    <label >{stockName}</label>
-                    <label >{stockCode}</label>
+                    <label style={theme.font.main}>{stockName}</label>
+                    <label style={theme.font.main}>{stockCode}</label>
                 </div>
                 <div style={{display: "table", width: "100%"}}>
                     <Col xs={8}>
-                        <p>Nominal</p>
+                        <p style={theme.font.main}>{language.header.nominal}</p>
                         <div>
-                            <label style={{fontSize: "30px", color: "#48c15c"}}>{nominalValue}</label>
+                            <label style={Object.assign({fontSize: "30px", color: "#48c15c"}, theme.font.main)}>{nominalValue}</label>
                         </div>
                     </Col>
                     <Col xs={4}>
-                        <p>Net Change</p>
+                        <p style={theme.font.main}>{language.header.netchange}</p>
                         <div>
                             <div style={{color: "#48c15c"}}>{netChangeStatus + " " + netChangeValue}</div>
                             <div style={{color: "#48c15c"}}>{netChangeStatus + " (" + netChangeValue + "%)"}</div>
@@ -253,9 +256,11 @@ class StockStatistis extends React.Component {
                 {/* <BalanceBar left={{label: "Buy", value: "45%"}} right={{label: "Sell", value: "55%"}}
                     title="Volume" percent={0.45}/> */}
 
-                <BalanceBar left={{label: "Low", value: lowValue}} right={{label: "Hight", value: hightValue}}
+                <BalanceBar 
+                    left={{label: language.header.lowprice, value: lowValue}} 
+                    right={{label: language.header.highprice, value: hightValue}}
                     title="Today" percent={ percent }
-                    background={["#f5a621", "#d8d8d8"]} indexValue={indexValue} hasIndex={true}/>
+                    background={["#f5a621", "#d8d8d8"]} indexValue={indexValue} hasIndex={true} theme={this.props.theme}/>
 
 
                 {/* <div style={{display: "table", width: "100%"}}>
@@ -361,36 +366,37 @@ class StockInfoDetail1 extends React.Component {
     render() {
         let header = this.props.language.stockmarketinform.header
         // console.log(this.props, header)
+        let theme = this.props.theme
 		let data = [
 				{
-					Header: props => <div>{header.Current}</div>,
+					Header: props => <div style={theme.font.main}>{header.Current}</div>,
 					value: this.props.stockWatchInfo.mvStockInfoBean.mvNomial,
 				}, {
-					Header: props => <div>{header.ChangeRate}</div>,
+					Header: props => <div style={theme.font.main}>{header.ChangeRate}</div>,
 					value: 0.0,
 				}, {
-					Header: props => <div>{header.Ref}</div>,
+					Header: props => <div style={theme.font.main}>{header.Ref}</div>,
 					value: this.props.stockWatchInfo.mvStockInfoBean.mvReferencePrice,
 				}, {
-					Header: props => <div>{header.FloorCell}</div>,
+					Header: props => <div style={theme.font.main}>{header.FloorCell}</div>,
 					value: this.props.stockWatchInfo.mvStockInfoBean.mvFloor + "/" + this.props.stockWatchInfo.mvStockInfoBean.mvCeiling,
 				}, {
-					Header: props => <div>{header.LowHigh}</div>,
+					Header: props => <div style={theme.font.main}>{header.LowHigh}</div>,
 					value: this.props.stockWatchInfo.mvStockInfoBean.mvLow + "/" + this.props.stockWatchInfo.mvStockInfoBean.mvHigh,
 				}, {
-					Header: props => <div>{header.Open}</div>,
+					Header: props => <div style={theme.font.main}>{header.Open}</div>,
 					value: this.props.stockWatchInfo.mvStockInfoBean.mvDayOpen,
 				}, {
-					Header: props => <div>{header.Avg}</div>,
+					Header: props => <div style={theme.font.main}>{header.Avg}</div>,
 					value: "-",
 				}, {
-					Header: props => <div>{header.Volume}</div>,
+					Header: props => <div style={theme.font.main}>{header.Volume}</div>,
 					value: "-",
 				}, {
-					Header: props => <div>{header.Total}</div>,
+					Header: props => <div style={theme.font.main}>{header.Total}</div>,
 					value: '-',
 				}, {
-					Header: props => <div>{header.ForBuySell}</div>,
+					Header: props => <div style={theme.font.main}>{header.ForBuySell}</div>,
 					value: '/',
 				},
 				{
@@ -402,7 +408,7 @@ class StockInfoDetail1 extends React.Component {
         
         return (
             <div className="stock-info-table">
-                <Table language={this.props.language.stockmarketinform.header} data={data} className="border-line"/>
+                <Table theme={this.props.theme} language={this.props.language.stockmarketinform.header} data={data} className=""/>
             </div>
         )
     }

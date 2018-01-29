@@ -482,10 +482,10 @@ const config = {
 			title: "trading",
 			enabled: true,
 			widget: [
-				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 15, isDraggable: false, isResizable: false },
+				{ i: 'enterorder', x: 0, y: 0, w: 8, h: 14, isDraggable: false, isResizable: false },
 				// { i: 'assetallocation-lite', x: 0, y: 10, w: 8, h: 3, isDraggable: false, isResizable: false},
-				{ i: 'stockinfo', x: 0, y: 13, w: 8, h: 24, isDraggable: false, isResizable: false },
-				{ i: 'orderjournal', x: 0, y: 30, w: 8, h: 20, minW: 8, maxW: 8, minH: 16, maxH: 16, isDraggable: false, isResizable: false }
+				{ i: 'stockinfo', x: 0, y: 15, w: 8, h: 21, isDraggable: false, isResizable: false },
+				{ i: 'orderjournal', x: 0, y: 37, w: 8, h: 20, minW: 8, maxW: 8, minH: 16, maxH: 16, isDraggable: false, isResizable: false }
 			]
 		},
 		{

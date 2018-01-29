@@ -3,6 +3,48 @@ import { Row, Col, Table, Button, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import * as actions from '../../actions/index'
+
+
+const styles = {
+    "light": {
+        background: {
+            backgroundColor: "rgb(240, 240, 240)",
+            borderBottom: "1px solid #dddddd"
+        },
+        logo: {
+            backgroundColor: "#FFF",
+            color: "#bc0000"
+        },
+        menuicon: {
+            backgroundColor: "transparent",
+            color: "#bc0000"
+        },
+        searchicon: {
+            backgroundColor: "transparent",
+            color: "#666"
+        }
+    },
+    "dark": {
+        background: {
+            backgroundColor: "rgb(31, 31, 31)",
+            borderBottom: "0px"
+        },
+        logo: {
+            backgroundColor: "#000",
+            color: "#FFF"
+        },
+        menuicon: {
+            backgroundColor: "transparent",
+            color: "#FFF"
+        },
+        searchicon: {
+            backgroundColor: "transparent",
+            color: "#FFF"
+        }
+    }
+}
+
+
 class Header extends React.Component {
 	constructor() {
 		super()
@@ -13,19 +55,29 @@ class Header extends React.Component {
 	}
 
 	render() {
-		let pageHeader = this.props.theme.page.pageHeader
+        let pageHeader = this.props.theme.page.pageHeader
+        
+        let theme = this.props.theme
+        let style = styles[theme.title]
+        if(style == undefined) {
+            style = styles["light"]
+        }
+
+
 		return (
-			<div id="pageheader" style={pageHeader} className="header-mobi">
+			<div id="pageheader" style={Object.assign({}, pageHeader, style.background)} className="header-mobi">
             
-                <div className="header-logo">
-                    GSL
+                <div className="header-logo" style={style.logo}>
+                    TTL
                 </div>
-				<div className="header-menu">
+				<div className="header-menu" style={style.menuicon}>
                     <span className={this.props.openMenu ? this.closeIcon : this.menuIcon} onClick={e => this.onOpenMenu()}></span>
 				</div>
-
-                <div className="header-search">
+                <div className="header-search" style={style.searchicon}>
                     <span className="glyphicon glyphicon-search" onClick={e => this.onOpenSearch()}></span>
+                </div>
+                <div className="header-account" style={style.searchicon}>
+                    <span className="glyphicon glyphicon-user" onClick={e => this.onOpenAccountInfo()}></span>
                 </div>
                 
 			</div>
@@ -40,6 +92,18 @@ class Header extends React.Component {
     onOpenSearch() {
         this.props.onOpenSearch()
         this.props.onOpenMenu(false)
+    }
+    onOpenAccountInfo() {
+        this.props.showAccountInfo({
+            data: {
+                theme: this.props.theme,
+                language: this.props.language
+            },
+            title: "Account Info",
+            id: "accountinfo",
+            theme: this.props.theme,
+            language: this.props.language
+        })
     }
 }
 
@@ -56,6 +120,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onOpenSearch: (open) => { 
         dispatch(actions.openSearch(open)) 
+    },
+    showAccountInfo: (param) => {
+        dispatch(actions.showPopup(param))
     },
 
 })

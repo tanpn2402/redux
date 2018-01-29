@@ -808,7 +808,9 @@ export default
                     "cell": "Ceil",
                     "ref": "Ref",
                     "foreigner": "Foreigner",
-                    "total": "Total"
+                    "total": "Total",
+                    "Nominal": "Nominal",
+                    "netchange": "Net Change"
                 }
             },
             "avaiblemarginlist": {

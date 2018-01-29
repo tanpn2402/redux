@@ -3,6 +3,7 @@ import { Button, Modal, } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import generatePopup from './index'
+import {checkIfMobile} from "../../utils"
 
 class Popup extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class Popup extends Component {
             lastPopup: 1,
         }
         this.version = "desktop"
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if ( checkIfMobile() ) {
             this.version = "mobile"
         }
     }

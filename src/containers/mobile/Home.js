@@ -15,7 +15,7 @@ class Home extends Component {
     render() {
         let theme = getTheme(config.cache.theme)
         let lang = getLanguage(config.cache.lang)
-
+        // console.log("THEMEEEEEE")
         return (
             <div>
                 <Header 
