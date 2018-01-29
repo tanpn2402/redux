@@ -13,14 +13,14 @@ class StockStatement extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
-
+        this.defaultPageSize = 18
         this.params = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'TRANSACTIONHISTORY',
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),
             mvEndDate: moment(new Date()).format("DD/MM/YYYY"),
             start: 0,
-            limit: 15,
+            limit: this.defaultPageSize,
             timePeriod: 'Customize',
             key: (new Date()).getTime()
         }
@@ -195,7 +195,7 @@ class StockStatement extends Component {
                         searchActions={[]}
                         searchData={{ stockList: this.stockList }}
                         searchParams={['mvStartDate', 'mvEndDate']}
-                        searchEnable={data.list.length > 0}
+                        searchEnable={true}
                     />
                 </Body>
             </div>

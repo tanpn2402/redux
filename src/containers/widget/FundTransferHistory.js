@@ -100,13 +100,13 @@ class FundTransHistory extends Component {
             pageIndex: 1,
             filterable: false
         }
-
+        this.defaultPageSize = 19
         this.paramshkscashtranhis = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'FUNDTRANSFER',
             tradeType: 'FUND',
             start: '0',
-            limit: '15',
+            limit: this.defaultPageSize,
             key: new Date(),
         }
     }

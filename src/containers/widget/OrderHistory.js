@@ -114,11 +114,11 @@ class OrderHistory extends Component {
 
         this.id = "ordershistory"
         this.pageIndex = 1
-        this.defaultPageSize = 15
+        this.defaultPageSize = 19
 
         this.params = {
             start: 0,
-            limit: 15,
+            limit: this.defaultPageSize,
             mvBS: "A",
             mvInstrumentID: "ALL",
             mvStatus: "ALL",

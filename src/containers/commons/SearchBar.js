@@ -284,12 +284,12 @@ class SelectorStock extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log("AAAAAA",nextProps )
+        console.log("AAAAAA",nextProps )
         if(nextProps.data.length > 0)
         {
             if(nextProps.default != undefined) {
                 this.state.value = nextProps.default
-            } else {
+            } else if( Object.keys(this.state.value).length == 0 ) {
                 this.state.value = nextProps.data[0]
             }
         }

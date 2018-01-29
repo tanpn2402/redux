@@ -263,7 +263,7 @@ class OrderJournal extends Component {
 
         this.rowSelected = []
         this.id = 'orderjournal'
-        this.defaultPageSize = 15
+        this.defaultPageSize = 20
 
         this.param = {
             mvStatus: "ALL",

@@ -15,7 +15,7 @@ class CashTransHistory extends Component {
         this.pageIndex = 1
         this.rowSelected = []
         this.id = 'cashtransaction'
-        this.defaultPageSize = 15
+        this.defaultPageSize = 19
 
         this.params = {
             tradeType: 'ALL',

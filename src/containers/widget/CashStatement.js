@@ -126,7 +126,7 @@ class CashStatement extends Component {
                         searchActions={[]}
                         searchParams={['mvStartDate', 'mvEndDate']}
                         searchData={{stockList: this.stockList}}
-                        searchEnable={data.list.length > 0}
+                        searchEnable={true}
                     />
                 </Body>
             </div>
