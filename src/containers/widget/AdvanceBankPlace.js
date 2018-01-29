@@ -163,7 +163,7 @@ class AdvanceBankPlace extends React.Component {
 
     render () {
         return (
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={53} width={1320}
+            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={23} width={1320}
                 useCSSTransforms={false} margin={[3, 2]}>
                 { this.generatePanel() }
                 { this.generateMatchOrder() }

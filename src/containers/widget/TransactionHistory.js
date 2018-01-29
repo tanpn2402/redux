@@ -202,12 +202,12 @@ class TransactionHistory extends Component {
     render() {
         
         return (
-            <div style={{ height: "100%", position: "relative" }}>
+            <div style={{ height: "100%", position: "relative" }} className="trans-history">
                 <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}>
-                    <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+                    <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}  theme={this.props.theme}>
                         <TabItem eventKey={1} title="Order History" >
                             {
                                 this.state.activeKey == 1 ? 

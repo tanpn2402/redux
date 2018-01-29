@@ -124,6 +124,16 @@ export default {
             color: 'white'
         }
     },
+    tabcontrol: {
+        normal: {
+            backgroundColor: '#cccc',
+            color: "#000000"
+        },
+        active: {
+            backgroundColor: '#181818',
+            color: '#FFF'
+        }
+    },
     setting: {
         settingTitle: {
             backgroundColor: '#1B1D1C'
@@ -268,8 +278,8 @@ export default {
                 fontWeight: 700,
             },
             normal: {
-                backgroundColor: "rgb(247, 247, 247)",
-                color: "#999",
+                backgroundColor: '#cccc',
+                color: "#000000",
                 fontWeight: 500,
             }
         },

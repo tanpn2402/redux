@@ -152,6 +152,16 @@ export default {
             // color: '#555'
         }
     },
+    tabcontrol:{
+        normal:{
+            backgroundColor: '#eaeaea',
+            // color: "#9b9b9b"
+        },
+        active:{
+            // backgroundColor: '#FFF',
+            // color: "#000"
+        }
+    },
     setting: {
         settingTitle: {
             //backgroundColor: '#02407D'

@@ -2674,7 +2674,7 @@ label {
 .tab-chooser {
     position: absolute;
     width: 100%;
-    padding: 5px 0;
+    padding-top: 5px;
     user-select: none;
 }
 .tab-wrapper {
@@ -2686,6 +2686,7 @@ label {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    padding-top: 1px;
 }
 .tab-control {
     margin: 0;
@@ -2695,20 +2696,33 @@ label {
     display: inline-block;
     text-align: center;
     cursor: pointer;
-    padding-left: 10px;
-    padding-right: 10px;
     color: #9b9b9b;
+    position: relative;
+    top: 1px;
+    border: 1px solid #ccc;
+    border-bottom: 0px;
+    padding: 4px 20px;
 }
 .tab-control > .tab-item > div{
-    border-bottom: 4px solid #e2e2e2;
-    padding-bottom: 5px;
+    /* border-bottom: 4px solid #e2e2e2;
+    padding-bottom: 5px; */
 }
 .tab-control > .tab-item.actived {
+    background-color: #FFF;
+    border-bottom: 0px;
     color: #000;
+    z-index: 1;
 }
 .tab-control > .tab-item.actived > div{
-    border-bottom: 4px solid #055899;
-    font-size: 14px;
+    /* border-bottom: 4px solid #055899;
+    font-size: 14px; */
+}
+.tab-chooser .seperate {
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    position: relative;
+    top: 0px;
 }
 /* END TABCONTROL */
 /* INPUT CONTROL */
@@ -3659,9 +3673,11 @@ label {
 .wl-small .tab-control > .tab-item {
     padding-left: 0px !important;
     padding-right: 10px !important;
+    padding-top: 0px !important;
+    padding-bottom: 1px !important;
     width: unset !important;
     min-width: 100px;
-    text-align: left;
+    text-align: center;
 }
 .wl-small .tab-control > .tab-item > div {
     padding-bottom: 0px;
@@ -4005,6 +4021,7 @@ label {
     top: 4px;
     font-size: 12px;
     font-weight: bold;
+    width: calc(100% - 112px);
 }
 .pl-sub-account > .select-control {
     border-radius: 0 !important;
@@ -4016,9 +4033,9 @@ label {
 }
 .pl-sub-account .info-icon {
     position: relative;
-    left: 4px;
-    /* top: 2px; */
     cursor: pointer;
+    float: right;
+    right: 4px;
 }
 /* END PLACE ORDER */
 /* Slider Format */
@@ -4185,4 +4202,24 @@ input[type=number] {
 }
 .table-responsive thead th, .table-responsive thead td {
     font-weight: bold !important;
+}
+
+
+/* TRANSACTION HISTORY MOBILE */
+.trans-history .tab-chooser {
+    padding-top: 0px;
+}
+.trans-history .tab-item {
+    width: 50%;
+}
+
+/* ACCOUNT BALANCE POPUP */
+#accountbalance-popup .widget-header {
+    display: none;
+}
+#accountbalance-popup .widget-wrapper {
+    padding-top: 0px;
+}
+#accountbalance-popup .tab-chooser {
+    padding-top: 0px;
 }

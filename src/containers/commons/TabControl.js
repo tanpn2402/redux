@@ -10,14 +10,20 @@ class TabControl extends React.Component {
     }
 
     render() {
+        let tabStyle = this.props.theme.tabcontrol
+        let itemStyle = tabStyle.normal
+
+
+
         let activeKey = this.props.activeKey
-        let itemWidth = (1 / this.props.children.length) * 100
+        // let itemWidth = (1 / this.props.children.length) * 100
         let children = this.props.children.map(function (item, i) {
             var isActived = item.props.eventKey === activeKey
             return React.cloneElement(item, {
                 actived: isActived,
+                style: isActived ? tabStyle.active : tabStyle.normal,
                 key: item.props.eventKey,
-                width: itemWidth,
+                width: "auto",
                 onTabChange: this.onTabChange.bind(this)
             });
         }, this);
@@ -31,6 +37,7 @@ class TabControl extends React.Component {
                     <ul className="tab-control">
                         {children}
                     </ul>
+                    <div className="seperate"></div>
                 </div>
 
                 <div className="tab-wrapper" ref={ref => this.refWrapper = ref}>
@@ -77,7 +84,7 @@ class TabItem extends React.Component {
     render() {
         return (
 
-            <li className={"tab-item " + (this.props.actived ? "actived" : "")} style={{ width: (this.props.width + "%") }}
+            <li className={"tab-item " + (this.props.actived ? "actived" : "")} style={this.props.style}
                 onClick={e => this.onClick(this.props.eventKey)}>
                 {this._renderTitle(this.props.title)}
             </li>

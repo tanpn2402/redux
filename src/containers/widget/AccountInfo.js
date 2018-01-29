@@ -505,7 +505,7 @@ class AccountInfo extends Component {
 				</Title>
 
 				<Body theme={this.props.theme}>
-					<TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+					<TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
                         <TabItem eventKey={1} title={language.accountinfo.title.cash} >
                             
 							{

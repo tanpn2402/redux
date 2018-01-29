@@ -155,7 +155,7 @@ class WatchListSmall extends React.Component {
         
         return (
             <Component className="wl-small" theme={theme}>
-                <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)}>
+                <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
                     <TabItem eventKey={1} title={this._renderTitle(this.props.language.menu.watchlist, 1)} >
                         <div className="wl-sm-table">
                             <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme} n={this.n} 
