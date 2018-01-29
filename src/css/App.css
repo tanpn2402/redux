@@ -1581,9 +1581,14 @@ label {
         height: 100%;
         color: #005aa0;
         border-radius: 2px;
+        padding-left: 10px;
     }
     .hks-btn.btn-save-layout:hover {
         background-color: #dcdcdc;
+    }
+    .hks-btn.btn-save-layout .glyphicon {
+        top: 2px;
+        right: 2px;
     }
     
     /* end scrolling in tabbar */

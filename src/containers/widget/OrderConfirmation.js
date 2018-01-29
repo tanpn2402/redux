@@ -188,7 +188,7 @@ class OrderConfirmation extends Component {
                         searchActions={buttonAction}
                         searchData={{ stockList: this.stockList }}
                         searchParams={['mvMarket', 'mvStockId', 'mvOrderType', 'mvBuysell', 'mvStartDate', 'mvEndDate']}
-                        searchEnable={data.mvOrderBeanList.length > 0}
+                        searchEnable={true}
                     />
                 </Body>
             </div>

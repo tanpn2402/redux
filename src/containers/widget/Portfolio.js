@@ -446,23 +446,45 @@ class Portfolio extends Component {
         switch(column.id) {
             case "mvStockID":
                 this.props.setDefaultOrderParams({
-                    mvBS: "BUY",
+                    mvBS: "SELL",
                     mvMarketID: rowInfo.original.mvMarketID,
                     mvStockName: rowInfo.original.mvStockName,
-                    mvStockCode: rowInfo.original.mvStockID
+                    mvStockCode: rowInfo.original.mvStockID,
+                    mvQty: rowInfo.original["mvTSettled"],
+                    mvPrice: rowInfo.original["mvMarketPrice"]
                 })
                 // this.props.onDesktopTabClick("trading", "placeorder")
                 break;
             case "mvTradableQty":
                 this.props.setDefaultOrderParams({
-                    mvBS: "BUY",
+                    mvBS: "SELL",
                     mvMarketID: rowInfo.original.mvMarketID,
                     mvStockName: rowInfo.original.mvStockName,
-                    mvStockCode: rowInfo.original.mvStockID
+                    mvStockCode: rowInfo.original.mvStockID,
+                    mvQty: rowInfo.original["mvTSettled"],
+                    mvPrice: rowInfo.original["mvMarketPrice"]
                 })
                 // this.props.onDesktopTabClick("trading", "placeorder")
                 break;
+            default: 
+                this.props.setDefaultOrderParams({
+                    mvBS: "SELL",
+                    mvMarketID: rowInfo.original.mvMarketID,
+                    mvStockName: rowInfo.original.mvStockName,
+                    mvStockCode: rowInfo.original.mvStockID,
+                    mvQty: rowInfo.original["mvTSettled"],
+                    mvPrice: rowInfo.original["mvMarketPrice"]
+                })
+                break;
         }
+
+        this.props.showPlaceOrder({
+            theme: this.props.theme,
+            language: this.props.language,
+            data: {},
+            title: this.props.language.menu.placeorder,
+            id: 'quickorder',
+        })
     }
 
     onToggleFilter(value) {
@@ -532,6 +554,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onDesktopTabClick: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID));
+    },
+    showPlaceOrder: (param) => {
+        dispatch(actions.showPopup(param))
     },
 })
 
