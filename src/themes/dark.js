@@ -285,10 +285,10 @@ export default {
         },
         background: {
             buy: {
-                backgroundColor: "#000"
+                backgroundColor: "rgb(0, 19, 33)"
             },
             sell: {
-                backgroundColor: "#000"
+                backgroundColor: "rgb(82, 40, 11)"
             }
         }
     },

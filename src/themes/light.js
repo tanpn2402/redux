@@ -299,9 +299,9 @@ export default {
     },
     placeorder: {
         tabBS: {
-            avtive: {
-                backgroundColor: "#f7f7f7",
-                color: "#e8b342",
+            active: {
+                backgroundColor: "rgba(0, 88, 153, 0.5)",
+                color: "#000",
                 fontWeight: 700,
             },
             normal: {
@@ -312,10 +312,10 @@ export default {
         },
         background: {
             buy: {
-                backgroundColor: "#f7f7f7"
+                backgroundColor: "#7fabcc"
             },
             sell: {
-                backgroundColor: "#f7f7f7"
+                backgroundColor: "rgb(224, 181, 152)"
             }
         }
     },

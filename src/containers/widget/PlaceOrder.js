@@ -225,15 +225,22 @@ class PlaceOrder extends React.Component {
 
         let theme = this.props.theme
         let BS = this.state.mvBS
+        console.log(this.props)
+        let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
+        console.log(placeOrderBg)
+        let tabActivedStyle = theme.placeorder.tabBS.active
+        console.log(tabActivedStyle)
+        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
+        console.log(tabActivedStyle)    
         return (
             <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
 
                 {/* PLACE ORDER CONTROL */}
                 <div className="pl-tab-control">
-                    <span style={BS=="BUY"?theme.placeorder.tabBS.active:theme.placeorder.tabBS.normal} 
+                    <span style={BS=="BUY"?tabActivedStyle:theme.placeorder.tabBS.normal} 
                         className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
                         onClick={e => this.handleBSTabChange("BUY")}>{header.buy}</span>
-                    <span style={BS=="SELL"?theme.placeorder.tabBS.active:theme.placeorder.tabBS.normal} 
+                    <span style={BS=="SELL"?tabActivedStyle:theme.placeorder.tabBS.normal} 
                         className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
                         onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
                     <div className="pl-sub-account">
@@ -254,7 +261,7 @@ class PlaceOrder extends React.Component {
                     </div>
                 </div>
                 <div className={"enterorder-form " + BS.toLowerCase()}
-                    style={Object.assign({}, {height: "calc(100% - 28px)"}, theme.placeorder.background[BS.toLowerCase()] )}>
+                    style={Object.assign({}, {height: "calc(100% - 28px)"}, placeOrderBg )}>
                     {/* Column Left */}
                     <div className="placeorder-col-left" style={{display: "table-cell"}}>
                         {/* MARKET */}
