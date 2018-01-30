@@ -238,10 +238,16 @@ class WatchListSmall extends React.Component {
     }
 
     format(unit, value) {
+        if(value == "") {
+            return "---"
+        }
         if(unit == "price") { return value
             // return utils.currencyShowFormatter(value)
         } else if(unit == "quantity") {
-            return utils.quantityShowFormatter(value)
+            value = utils.numUnFormat(value)
+            value = utils.round(value, 0)
+            value = utils.quantityShowFormatter(value)
+            return (value)
         } else {
             return value
         }
@@ -257,25 +263,26 @@ class WatchListSmall extends React.Component {
 
         let theme = this.props.theme.bindingdata
         let child = <span style={theme.normal}>{props[accessor]}</span>
+
         if(refPrice > matchPrice) {
             if(accessor == "mvMatchUpDown")
-                child = <span style={theme.down}>{"-" + change }</span>
+                child = <span style={theme.down}>{matchPrice != "" ? "-" + change : "---" }</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={theme.down}>{percent + "%"}</span>
+                child = <span style={theme.down}>{matchPrice != "" ? percent + "%" : "---"}</span>
             else if(isFormated != undefined)
                 child = <span style={theme.down}>{this.format(isFormated, props[accessor])}</span>
             else 
-                child = <span style={theme.down}>{props[accessor]}</span>
+                child = <span style={theme.down}>{props[accessor] == "" ? "---" : props[accessor]}</span>
         }
         else if(refPrice < matchPrice) {
             if(accessor == "mvMatchUpDown")
-                child = <span style={theme.up}>{"+" + change }</span>
+                child = <span style={theme.up}>{matchPrice != "" ? "+" + change : "---" }</span>
             else if(accessor == "mvMatchPercent")
-                child = <span style={theme.up}>{percent + "%"}</span>
+                child = <span style={theme.up}>{matchPrice != "" ? percent + "%" : "---"}</span>
             else if(isFormated != undefined)
                 child = <span style={theme.up}>{this.format(isFormated, props[accessor])}</span>
             else 
-                child = <span style={theme.up}>{props[accessor]}</span>
+                child = <span style={theme.up}>{props[accessor] == "" ? "---" : props[accessor]}</span>
         }
         
         return child

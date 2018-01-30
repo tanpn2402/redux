@@ -47,19 +47,24 @@ export function addInstrumentToWatch(ins, market) {
             itradeapi.mdsGET(url, {} , dispatch,
                 function (response) {
                     console.log("addInstrumentToWatch", response)
+                    let stockData = response.mvData.length > 0 ? response.mvData : (genDefaultData([ins], [market]))
+                    stockData = convertFromItradeVarToMDS(stockData[0])
                     return {
                         type: ActionTypes.ADDINSTRUMENTTOWATCH,
                         instrument: ins, // ex: AVC, VNM
-                        market: market
+                        market: market,
+                        stockData: stockData
                     }
                 
                 },
                 function (err) {
                     console.log("addInstrumentToWatch", err)
+                    let stockData = convertFromItradeVarToMDS(genDefaultData([ins], [market])[0])
                     return {
                         type: ActionTypes.ADDINSTRUMENTTOWATCH,
                         instrument: ins, // ex: AVC, VNM
-                        market: market
+                        market: market,
+                        stockData: stockData
                     }
                 })
         }
@@ -135,18 +140,23 @@ export function addInstrumentToWatchList(ins, market) {
             itradeapi.mdsPOST(url, params , dispatch,
                 function (response) {
                     console.log("addInstrumentToWatchList", response)
+                    // let stockData = response.mvData == undefined ? (genDefaultData(ins, market)) : response.mvData.length > 0 ? response.mvData : (genDefaultData(ins, market))
+                    // stockData = convertFromItradeVarToMDS(stockData[0])
                     return {
                         type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
                         instrument: ins, // ex: AVC, VNM
-                        market: market
+                        market: market,
+                        // stockData: stockData
                     }
                 },
                 function(err) {
                     console.log("addInstrumentToWatchList", err)
+                    // let stockData = convertFromItradeVarToMDS(genDefaultData(ins, market)[0])
                     return {
                         type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
                         instrument: ins, // ex: AVC, VNM
-                        market: market
+                        market: market,
+                        // stockData: stockData
                     }
                 }
             )
@@ -253,23 +263,30 @@ export function updateWatchlistData(data) {
 
     // console.log("UPDATE", data)
     // data["mvMarket"] = data["mvMarket"] == "HN" ? "HA" : "HO"
-    // console.log("REALTIME DATA = ", data)
+    console.log("REALTIME DATA = ", data)
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
         data: data
     }
 }
 
+// this action for test
 // export function getListStockInWatchList() {
 
 //     let insList = "ACB,ALT,AVS,B82,CCM,EID,SHB,VNM,"
     
 //     let marketList = "HA,HA,HA,HA,HA,HA,HA,HO,"
-
+    
 //     let insArray = insList.split(",")
 //     let marketArr = marketList.split(",")
 //     insArray.splice(-1,1)
-    
+//     console.log(insArray)
+//     let tmp = genDefaultData(insArray, marketArr )
+//     console.log(tmp)
+//     let stockData  = tmp.map(e => {
+//         return convertFromItradeVarToMDS(e)
+//     })
+//     console.log(stockData)
 //     let list = insArray.map((e, i)=> {
 //         return {
 //             mvStockCode: e,
@@ -279,7 +296,8 @@ export function updateWatchlistData(data) {
 
 //     return {
 //         type: ActionTypes.GETLISTSTOCKINWATCHLIST,
-//         list: list
+//         list: list,
+//         stockData: stockData
 //     }
 
 // }
@@ -303,10 +321,13 @@ export function getListStockInWatchList() {
 
                     let insList = response.mvInstrumentList
                     let marketList = response.mvMarketList
+                    let stockData = response.mvStockData.map(e => {
+                        return convertFromItradeVarToMDS(e)
+                    })
 
                     let insArray = insList.split(",")
                     let marketArr = marketList.split(",")
-                    // marketArr = marketArr.map(e =>  e == "HN" ? "HA" : "HO")
+                    
                     insArray.splice(-1,1)
                     let list = insArray.map((e, i)=> {
                         return {
@@ -317,7 +338,8 @@ export function getListStockInWatchList() {
 
                     return {
                         type: ActionTypes.GETLISTSTOCKINWATCHLIST,
-                        list: list
+                        list: list,
+                        stockData: stockData
                     }
                     
                 },
@@ -325,5 +347,94 @@ export function getListStockInWatchList() {
                     console.log(err)
                 })
         }
+    }
+}
+
+function genDefaultData(listStock, listMarket) {
+    let list = []
+    listStock.map((stock, index) => {
+        
+            let data = {
+                mvSymbol: stock,
+                mvMarketID: listMarket[index],
+
+                mvCeilingPrice: "---",
+                mvFloorPrice:"---",
+                mvReferencePrice: "---",
+
+                mvBestBid1Price: "---",
+                mvBestBid2Price: "---",
+                mvBestBid3Price: "---",
+
+                mvBestBid1Volume: "---",
+                mvBestBid2Volume: "---",
+                mvBestBid3Volume: "---",
+
+                mvMatchPrice: "---",
+                mvMatchQty: "---",
+                mvMatchUpDown: "---",
+                mvTotalTradingQty: "---",
+
+                mvBestOffer1Price: "---",
+                mvBestOffer2Price: "---",
+                mvBestOffer3Price: "---",
+                mvBestOffer1Volume: "---",
+                mvBestOffer2Volume: "---",
+                mvBestOffer3Volume: "---",
+
+                mvOpenPrice: "---",
+                mvHighPrice: "---",
+                mvLowPrice: "---",
+                mvNominalPrice: "---",
+
+                mvBuyForeignQty: "---",
+                mvSellForeignQty: "---",
+                mvCurrentRoom: "---"
+            }
+            list.push(data)
+        
+    })
+
+    return list
+}
+
+function convertFromItradeVarToMDS(e) {
+    return {
+        mvStockCode: e.mvSymbol,
+        mvMarket: e.mvMarketID,
+
+        mvCeiling: e.mvCeilingPrice,
+        mvFloor: e.mvFloorPrice,
+        mvReferences: e.mvReferencePrice,
+
+        mvBidPrice1: e.mvBestBid1Price,
+        mvBidPrice2: e.mvBestBid2Price,
+        mvBidPrice3: e.mvBestBid3Price,
+
+        mvBidVol1: e.mvBestBid1Volume,
+        mvBidVol2: e.mvBestBid2Volume,
+        mvBidVol3: e.mvBestBid3Volume,
+
+        mvMatchPrice: e.mvMatchPrice,
+        mvMatchVol: e.mvMatchQty,
+        mvMatchUpDown: 0,
+        mvMatchVolTotal: e.mvTotalTradingQty,
+
+        mvOfferPrice1: e.mvBestOffer1Price,
+        mvOfferPrice2: e.mvBestOffer2Price,
+        mvOfferPrice3: e.mvBestOffer3Price,
+
+        mvOfferVol1: e.mvBestOffer1Volume,
+        mvOfferVol2: e.mvBestOffer2Volume,
+        mvOfferVol3: e.mvBestOffer3Volume,
+
+        mvOpen: e.mvOpenPrice,
+        mvHigh: e.mvHighPrice,
+        mvLow: e.mvLowPrice,
+        mvNomial: e.mvNominalPrice,
+
+        mvForeignForBuy: e.mvBuyForeignQty,
+        mvForeignForSell: e.mvSellForeignQty,
+        mvForeignForRoom: e.mvCurrentRoom
     }
 }

@@ -42,6 +42,10 @@ class UserDetail extends React.Component {
         this.props.showUserDetail(false)
     }
 
+    onFollowClicked() {
+        
+    }
+
     render() {
         let header = this.props.language.social.header
 

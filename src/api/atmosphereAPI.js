@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import atmosphere from 'atmosphere.js'
-import {SERVER} from '../api/serverconfig';
-// const SERVER = "http://localhost:8089/"
+// import {SERVER} from '../api/serverconfig';
+const SERVER = "http://192.168.150.199:3000/"
 const SUBSCRIBE_URL = "ITradePushServer/StockInfo/"
 
 var isSubsribed = false;

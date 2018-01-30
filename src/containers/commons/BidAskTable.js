@@ -60,12 +60,18 @@ class BidAskTable extends React.Component {
 
         let refPrice = this.state.data["mvReferences"]
         let matchPrice = this.state.data["mvMatchPrice"]
+        
+        
 
         let percent = Math.abs( utils.round( (refPrice - matchPrice) / refPrice * 100, 1) )
         let change = Math.abs( utils.round(refPrice - matchPrice, 1) )
 
         let className = "nocrease"
-        if(refPrice > matchPrice) {
+        if(matchPrice == "") {
+            percent = <span style={{color: style.color}} className="trd-binding">---</span>
+            change = <span style={{color: style.color}} className="trd-binding">---</span>
+        } 
+        else if(refPrice > matchPrice) {
             style = theme.down
             percent = <span style={{color: style.color}} className="trd-binding">{"" + percent + "%"}</span>
             change = <span style={{color: style.color}} className="trd-binding">{"-" + change + ""}</span>
@@ -101,16 +107,18 @@ class BidAskTable extends React.Component {
         } else if(this.state.data["mvMatchPrice"] < this.state.data["mvReferences"]) {
             style = theme.down
         }
-        
-        return <div className="match-price" style={style} onClick={e => this.onClick("match")} >
-            {this.state.data["mvMatchPrice"]}</div>
+        let val = this.state.data["mvMatchPrice"]
+        if(val == "") {
+            val = "---"
+        }
+        return <div className="match-price" style={style} onClick={e => this.onClick("match")} >{val}</div>
     }
 
     getValue(data, accessor) {
         if(data[accessor] == null || data[accessor] == 0 || data[accessor] == "" || data[accessor] == "-") {
             return 0
         } else {
-            return data[accessor]
+            return utils.numUnFormat(data[accessor])
         }
     }
 
@@ -118,6 +126,7 @@ class BidAskTable extends React.Component {
         
         let data = []
         let {instrument} = this.props
+        console.log("BID ASKKKKKKKKKKKKK", this.props)
         this.state.mvStockSelected = instrument
         let _tmp = this.props.listInstrumentData.filter(e => e.mvStockCode == instrument.stockCode)
         if(_tmp.length > 0) {
@@ -125,6 +134,9 @@ class BidAskTable extends React.Component {
             this.state.data = data
             data["mvTotalAskVol"] = this.getValue(data, "mvOfferVol1") + this.getValue(data, "mvOfferVol2") + this.getValue(data, "mvOfferVol3")
             data["mvTotalBidVol"] = this.getValue(data, "mvBidVol1") + this.getValue(data, "mvBidVol2") + this.getValue(data, "mvBidVol3")
+            
+            data["mvTotalAskVol"] = utils.quantityShowFormatter(data["mvTotalAskVol"])
+            data["mvTotalBidVol"] = utils.quantityShowFormatter(data["mvTotalBidVol"])
             
         }
         
@@ -205,7 +217,7 @@ class BidAskTable extends React.Component {
                                 <div>
                                     {<span style={theme.font.main} className="bidask-title">{header.total}</span>}
                                     <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvTotalBidVol)}
+                                        {(data.mvTotalBidVol)}
                                     </span>
                                 </div>
 
@@ -225,19 +237,19 @@ class BidAskTable extends React.Component {
                                 <div>
                                     {/* {<span style={theme.font.main} className="bidask-title">{header.BestAsk + " 1"}</span>} */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("ask1")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvOfferVol1)}
+                                        {(data.mvOfferVol1)}
                                     </span>
                                 </div>
                                 <div>
                                     {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 2"}</span> */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("ask2")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvOfferVol2)}
+                                        {(data.mvOfferVol2)}
                                     </span>
                                 </div>
                                 <div>
                                     {/* <span style={theme.font.main} className="bidask-title">{header.BestAsk + " 3"}</span> */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("ask3")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvOfferVol3)}
+                                        {(data.mvOfferVol3)}
                                     </span>
                                 </div>
                             </td>
@@ -247,19 +259,19 @@ class BidAskTable extends React.Component {
                                 <div>
                                     {/* {<span style={theme.font.main} className="bidask-title">{header.BestBid + " 1"}</span>} */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("bid1")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvBidVol1)}
+                                        {(data.mvBidVol1)}
                                     </span>
                                 </div>
                                 <div>
                                     {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 2"}</span> */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("bid2")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvBidVol2)}
+                                        {(data.mvBidVol2)}
                                     </span>
                                 </div>
                                 <div>
                                     {/* <span style={theme.font.main} className="bidask-title">{header.BestBid + " 3"}</span> */}
                                     <span className="bidask-value binding" onClick={e => this.onClick("bid3")} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvBidVol3)}
+                                        {(data.mvBidVol3)}
                                     </span>
                                 </div>
                                 
@@ -285,7 +297,7 @@ class BidAskTable extends React.Component {
                                 <div>
                                     <span style={theme.font.main} className="bidask-title">{header.total}</span>
                                     <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
-                                        {utils.currencyShowFormatter(data.mvTotalAskVol)}
+                                        {(data.mvTotalAskVol)}
                                     </span>
                                 </div>
                             </td>
@@ -400,8 +412,8 @@ const mapStateToProps = (state) => {
     return {
         listInstrumentData: state.trading.listInstrumentData,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
-        portfolioData: state.trading.portfolioData.mvPortfolioBeanList
-        
+        portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
+        flag: state.trading.flag
     }
 }
 

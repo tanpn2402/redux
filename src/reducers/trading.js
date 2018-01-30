@@ -24,7 +24,8 @@ const initialState = {
     },
 
 
-    instrumentData: {}
+    instrumentData: {},
+    flag: true
 };
 
 export default function(state = initialState, action) {
@@ -52,7 +53,7 @@ export default function(state = initialState, action) {
         // add instrument to watch ( not to watchlist)
         case ActionTypes.ADDINSTRUMENTTOWATCH: {
             // console.log("ADDINSTRUMENTTOWATCH  REDUCERS", action)
-            let listDataTmp1 = genDefaultData(state.listInstrumentData, [{mvStockCode: action.instrument, mvMarket: action.market }])
+            let listDataTmp1 = genDefaultData(state.listInstrumentData, action)
             let tmp = state.listInstrumentToWatch
             if(action.instrument != null && state.listInstrumentInWatchList.indexOf(action.instrument) < 0
                 && tmp.indexOf(action.instrument) < 0)
@@ -64,7 +65,8 @@ export default function(state = initialState, action) {
 
             return Object.assign({}, state, {
                 listInstrumentToWatch: tmp,
-                listInstrumentData: listDataTmp1
+                listInstrumentData: listDataTmp1,
+                flag: !state.flag
             });
         }
         
@@ -80,7 +82,7 @@ export default function(state = initialState, action) {
 
         // add instrument to watchlist ( to db also )
         case ActionTypes.ADDINSTRUMENTTOWATCHLIST: {
-            let listDataTmp2 = genDefaultData(state.listInstrumentData, [{mvStockCode: action.instrument, mvMarket: action.market }] )
+            let listDataTmp2 = genDefaultData(state.listInstrumentData, action)
             let tmp1 = state.listInstrumentInWatchList
             let listInstrumentToWatchTMP1 = state.listInstrumentToWatch
             if(action.instrument != null) {
@@ -173,7 +175,7 @@ export default function(state = initialState, action) {
             let list = action.list
             let listAAA = list.map(e => { return e.mvStockCode })
             // list = [{mvStockCode: XXX, mvMarket: YYY}, {....}, ....]
-            let listDataTmp3 = genDefaultData(state.listInstrumentData, list)
+            let listDataTmp3 = action.stockData
             let tmpIns = listAAA.length > 0 ? listAAA[0] : ""
             let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...listAAA])]
             config.cache.listInstrumentToWatch = tmp12
@@ -191,50 +193,15 @@ export default function(state = initialState, action) {
     }
 };
 
-function genDefaultData(listInstrumentData, listStock) {
-    console.log(listInstrumentData, listStock)
-    listStock.map(stock => {
-        if(listInstrumentData.filter(e => e.mvStockCode == stock.mvStockCode && e.mvMarket == stock.mvMarket).length < 1) {
-            let data = {
-                mvStockCode: stock.mvStockCode,
-                mvMarket: stock.mvMarket,
-
-                mvCeiling: "---",
-                mvFloor:"---",
-                mvReferences: "---",
-
-                mvBidPrice1: "---",
-                mvBidPrice2: "---",
-                mvBidPrice3: "---",
-
-                mvBidVol1: "---",
-                mvBidVol2: "---",
-                mvBidVol3: "---",
-
-                mvMatchPrice: "---",
-                mvMatchVol: "---",
-                mvMatchUpDown: "---",
-                mvMatchVolTotal: "---",
-
-                mvOfferPrice1: "---",
-                mvOfferPrice2: "---",
-                mvOfferPrice3: "---",
-                mvOfferVol1: "---",
-                mvOfferVol2: "---",
-                mvOfferVol3: "---",
-
-                mvOpen: "---",
-                mvHigh: "---",
-                mvLow: "---",
-                mvNomial: "---",
-
-                mvForeignForBuy: "---",
-                mvForeignForSell: "---",
-                mvForeignForRoom: "---"
-            }
-            listInstrumentData.push(data)
+function genDefaultData(listInstrumentData, action) {
+    if(action.stockData != undefined) {
+        let tmp = listInstrumentData.filter(e => e.mvStockCode == action.instrument && e.mvMarket == action.market)
+        if(tmp.length > 0) {
+            Object.assign(tmp, action.stockData)
+        } else {
+            listInstrumentData.push(action.stockData)
         }
-    })
-
+    }
+    
     return listInstrumentData
 }
