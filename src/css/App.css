@@ -600,6 +600,14 @@ label {
     text-align: center;
     margin-bottom: 30px;
 }
+.login-body .select-control {
+    height: 26px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    position: relative;
+    top: 5px;
+}
 .login-form input {
     height: 40px;
     border: none !important;

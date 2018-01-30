@@ -43,6 +43,7 @@ export function doLogout(id) {
     localStorage.removeItem('lastSubTabID')
     localStorage.removeItem('favs')
     localStorage.removeItem('clientID')
+    localStorage.removeItem('accountType')
     clearInterval(id)
 
     return (dispatch) => {

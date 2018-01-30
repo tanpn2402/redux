@@ -50,10 +50,20 @@ class LoginForm extends Component {
             language: ''
         }
 
+        this.accountType = [
+            {
+                id: "virtual", text: "Virtual Account"
+            }, 
+            {
+                id: "real", text: "Real Account"
+            }
+        ]
+
         this.state = {
             language: "",
             mvLanguage: config.language[0],
-            watingLogin: false
+            watingLogin: false,
+            accountType: this.accountType[0],
         }
         this.params = {
             mvClientID: '',
@@ -66,6 +76,7 @@ class LoginForm extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.loginMethod = config.loginBy;
+        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,6 +96,12 @@ class LoginForm extends Component {
         config.cache.lang = option.id
         localStorage.setItem('lastLang', option.id)
     };
+
+    handleTypeChange(option) {
+        this.setState({
+            accountType : option
+        })
+    }
 
     componentWillMount() {
         
@@ -186,6 +203,20 @@ class LoginForm extends Component {
                                 
                             </FormGroup>
 
+                            <FormGroup style={{marginTop: "18px"}}>
+                                <div className="col-xs-4 title">
+                                    Trading Account
+                                </div>
+                                <Col xs={8}>
+                                    <Select 
+                                        options={this.accountType}
+                                        selected={this.state.accountType}
+                                        optionLabelPath={'text'}
+                                        handleChange={this.handleTypeChange.bind(this)}
+                                    />
+                                </Col>
+                                
+                            </FormGroup>
                             
                             <div className="login-message">
                                 {this.props.loginStatus === "ERROR"
@@ -252,7 +283,7 @@ class LoginForm extends Component {
             this.params['mvClientID'] = this.clientID.value
         }
         this.setState({watingLogin: true})
-
+        localStorage.setItem("accountType", this.state.accountType.id)
         this.params['mvPassword'] = this.password.value
         this.params['securitycode'] = this.securitycode.value
         this.props.login(this.params)
