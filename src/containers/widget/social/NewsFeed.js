@@ -48,12 +48,14 @@ export default class NewsFeed extends React.Component {
     render() {
         
         let header = this.props.language.social.header
-
+        let socialHeader = this.props.theme.social.socialHeader
+        let socialBody = this.props.theme.social.socialBody
+        let socialBG = this.props.theme.social.socialBG
 
         return (
             <Component className="newsfeed" style={{}} >
 
-                <div className="social-header">
+                <div className="social-header" theme = {this.props.theme} style={socialHeader}>
                     <div className="-title">
                         <label>{header.feed}</label>
                     </div>
@@ -63,18 +65,23 @@ export default class NewsFeed extends React.Component {
                 </div>
 
                 <div className="social-wrapper" onMouseDown={ e => e.stopPropagation() }>
-                    <div className="feed-list">
-                        <FeedBox theme={this.props.theme} language={this.props.language}/>
+                    <div className="feed-list" theme = {this.props.theme} style={socialBG}>
+                        <FeedBox language={this.props.language} theme={this.props.theme}/>
                         {
                             posts.map(e => {
                                 return (
-                                    <NewsPost username={e.username} date={e.date} content={e.content} image={e.image}/>
+                                    <NewsPost username={e.username}
+                                    theme={this.props.theme}
+                                    style={socialBody}
+                                    date={e.date}
+                                    content={e.content}
+                                    image={e.image}/>
                                 )
                             })
                         }
                     </div>
                 </div>
-                
+
             </Component>
         )
     }
@@ -86,13 +93,18 @@ class FeedBox extends React.Component {
     }
 
     render() {
+        let socialBody = this.props.theme.social.socialBody
         let {language, theme} = this.props
         return (
-            <div className="feedbox">
+            <div className="feedbox"
+            theme={this.props.theme}
+            style={socialBody}>
                 <div className="avt">
                     <img src={require("../../../assets/images/user.jpeg")} className="avt-img"/>
                 </div>
-                <div className="box">
+                <div className="box"
+                theme={this.props.theme}
+                style={socialBody}>
                     <textarea rows={3} placeholder={language.social.header.placeholder}/>
                 </div>
             </div>

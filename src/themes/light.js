@@ -332,5 +332,31 @@ export default {
         nochange: {
             color: "#005AA0"
         }
-    }
+    },
+
+
+        social:{
+                socialHeader: {
+                    backgroundColor: '#2159a0',
+                    color: "#FFF"
+                },
+                socialBody: {
+                    backgroundColor: '#FFF',
+
+                },
+                socialPostControl: {
+                    backgroundColor: '',
+                },
+                socialRank: {
+                    borderColor: ''
+                },
+                socialFol: {
+                    backgroundColor: "",
+                    color: ""
+                },
+                socialBG:{
+                    backgroundColor: '#f3f3f2'
+                }
+            }
+
 }

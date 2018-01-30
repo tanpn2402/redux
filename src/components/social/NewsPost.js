@@ -2,6 +2,7 @@ import React from "react"
 import {Icon} from 'react-fa'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
+import * as utils from "../../utils"
 
 class NewsPost extends React.Component {
     constructor(props) {
@@ -13,16 +14,17 @@ class NewsPost extends React.Component {
     }
 
     render() {
+        let socialBody = this.props.theme.social.socialBody
         let {username, date, content, image} = this.props
 
         return (
-            <div className="newspost">
-                
+            <div className="newspost" theme={this.props.theme} style={socialBody}>
+
                 <div className="wrapper">
                     <div className="avt" onClick={e => this.showUserDetail()}>
                         <img src={require("../../assets/images/user.jpeg")} className="avt-img"/>
                     </div>
-                    <div className="post">
+                    <div className="post"  theme={this.props.theme}>
                         <p className="usrname" onClick={e => this.showUserDetail()}>{username}</p>
                         <p className="date">{date}</p>
                         <p className="content">{content}</p>
@@ -36,13 +38,13 @@ class NewsPost extends React.Component {
                 
                 <div className="post-control">
                     <div className="col-xs-6">
-                        <div className="reaction">
+                        <div className="reaction"  theme={this.props.theme}>
                             <Icon size='1x' name="thumbs-o-up" />
                             <span className="like-counter">{100}</span>
                         </div>
                     </div>
                     <div className="col-xs-6">
-                        <div className="reaction">
+                        <div className="reaction"  theme={this.props.theme}>
                             <Icon size='1x' name="commenting" />
                             <span className="like-counter">{100}</span>
                         </div>

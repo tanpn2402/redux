@@ -480,9 +480,9 @@ const config = {
 			enabled: true,
 			widget: [
 				{ i: 'myfiles', x: 0, y: 0, w: 8, h: 2, minH: 10, maxH: 24, minW: 2, isDraggable: false, isResizable: false },
-				{ i: 'newsfeed', x: 2, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: true },
-				{ i: 'gameboard', x: 0, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: true },
-				// { i: 'userdetail', x: 4, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: false },
+				{ i: 'newsfeed', x: 2, y: 2, w: 2, h: 30, minH: 10, maxH: 34, minW: 2, isDraggable: true, isResizable: true },
+				{ i: 'gameboard', x: 0, y: 2, w: 2, h: 30, minH: 10, maxH: 34, minW: 2, isDraggable: true, isResizable: true },
+				// { i: 'userdetail', x: 4, y: 2, w: 2, h: 30, minH: 10, maxH: 34, minW: 2, isDraggable: true, isResizable: false },
 				
 			]
 		}

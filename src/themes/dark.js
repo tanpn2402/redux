@@ -309,5 +309,29 @@ export default {
             color: "#EFFB00",
             fontWeight: "bold"
         }
-    }
+    },
+
+    social:{
+            socialHeader: {
+                backgroundColor: '#ff8000',
+                color: "#FFF"
+            },
+            socialBody: {
+                backgroundColor: '#181818',
+                color: "#FFF"
+            },
+            socialRank: {
+                borderColor: "#ff8000",
+                color:"#ff8000"
+            },
+            socialFol: {
+                backgroundColor: "#ff8000",
+                color: "#FFF"
+            },
+            socialBG:{
+                backgroundColor: '#262626'
+            }
+
+        }
+
 }

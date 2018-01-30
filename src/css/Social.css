@@ -1,12 +1,12 @@
 /* new feed */
 .newsfeed {
     height: 100%;
+    background-color: inherit;
 }
 .newsfeed .social-header {
     height: 36px;
 }
 .newsfeed .social-wrapper{
-    background: #f2f2f2;
     height: calc(100% - 37px);
     overflow: auto;
 }
@@ -47,7 +47,6 @@
 .newspost .wrapper {
     display: flow-root;
     margin-bottom: 1px;
-    background-color: #FFF;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -88,7 +87,6 @@
 }
 .newspost .post-control {
     display: flow-root;
-    background-color: #FFF;
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -106,7 +104,7 @@
     transition: all 0.5ms;
 }
 .newspost .post-control .reaction:hover {
-    background: #e8e8e8;
+    background: #3a3a3a24;
 }
 .newspost .post-control .reaction .fa {
     margin: 0 2px;
@@ -259,6 +257,9 @@
     background: #2158a0;
     border: none;
 }
+.gameboard .tab-inner {
+    padding-top: 0px;
+}
 /* BOARD */
 .gameboard {
     height: 100%;
@@ -277,13 +278,13 @@
 /* FEED BOX */
 .feedbox {
     padding: 10px;
-    background: #FFF;
     margin-bottom: 2px;
 }
 .feedbox textarea {
     margin-left: 10px;
     width: calc(100% - 50px);
     border-color: #ccc;
+    color: #181818;
     padding: 5px;
     resize: none;
 }
@@ -399,6 +400,9 @@
     font-size: 14px;
     margin-bottom: 3px;
     margin-top: 2px;
+}
+.user-trade .tab-chooser {
+    padding-top: 0px;
 }
 .main-intro {
     font-weight: 600;

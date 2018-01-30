@@ -55,15 +55,29 @@ export default class GameBoard extends React.Component {
 
         let data = [1,2,3,4,5,6,7,8,9]
         let theme = this.clone(this.props.theme)
-        theme.tabcontrol.normal = {
-            backgroundColor: "rgb(33, 88, 160)",
-            border: "none",
-            color: "#FFF"
-        }
 
+        if(theme.title == "light") {
+            theme.tabcontrol.normal = {
+                backgroundColor: "rgb(33, 88, 160)",
+                border: "none",
+                color: "#FFF"
+            }
+        } else {
+            theme.tabcontrol.normal = {
+                backgroundColor: "rgb(247, 127, 0)",
+                border: "none",
+                color: "#FFF"
+            }
+        }
+            
+
+        let socialHeader = this.props.theme.social.socialHeader
+        let socialBody = this.props.theme.social.socialBody
+        let socialBG = this.props.theme.social.socialBG
+        let socialRank = this.props.theme.social.socialRank
         return (
             <Component className="gameboard" style={{}} >
-                <div className="social-header">
+                <div className="social-header"  theme = {this.props.theme} style={socialHeader}>
                     <div className="-title">
                         <label>{header.game}</label>
                     </div>
@@ -77,10 +91,10 @@ export default class GameBoard extends React.Component {
                     </div>
                 </div>
 
-                <div className="social-wrapper" onMouseDown={ e => e.stopPropagation() }>
+                <div className="social-wrapper" onMouseDown={ e => e.stopPropagation() } >
                     <TabControl key={"tab12"} activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={theme}>
                         <TabItem eventKey={1} title={header.top20} >
-                            <div className="board">
+                            <div className="board" theme = {this.props.theme} style={socialBG}>
                                 {
                                     data.map(e=> {
                                         return <GameBoardItem language={this.props.language} rank={e} theme={theme}/>
@@ -89,7 +103,7 @@ export default class GameBoard extends React.Component {
                             </div>
                         </TabItem>
                         <TabItem eventKey={2} title={header.bottom20} >
-                            <div className="board">
+                            <div className="board" theme = {this.props.theme} style={socialBG}>
                                 {
                                     data.map(e=> {
                                         return <GameBoardItem language={this.props.language} rank={e} theme={theme}/>
@@ -101,7 +115,7 @@ export default class GameBoard extends React.Component {
                 </div>
 
 
-                
+
 
 
 
@@ -120,17 +134,23 @@ class GameBoardItem extends React.Component {
         let header = this.props.language.social.header
         let username = "UserName 1"
         let date = "Created 2018-01-01"
-
+        let socialHeader = this.props.theme.social.socialHeader
+        let socialBody = this.props.theme.social.socialBody
+        let socialBG = this.props.theme.social.socialBG
         let bindingStyle = this.props.theme.bindingdata
+        let socialRank = this.props.theme.social.socialRank
+        let socialFol = this.props.theme.social.socialFol
         return (
-            <Component className="gameboard-item" style={{}} >
+            <Component className="gameboard-item" style={{}}
+            theme={this.props.theme}
+            style={socialBody}>
                 <div className="rank">
-                    <div className="rank-box">
+                    <div className="rank-box" theme={this.props.theme} style={socialRank}>
                         <span>{this.props.rank}</span>
                     </div>
                 </div>
-                <div className="fol-control">
-                    <button className="btn btn-primary" onClick={e => this.onFollowClicked()}>{header.follow}</button>
+                <div className="fol-control" >
+                    <button className="btn btn-primary" onClick={e => this.onFollowClicked()}theme={this.props.theme} style={socialFol}>{header.follow}</button>
                 </div>
                 <div className="user">
                     <div className="avt">

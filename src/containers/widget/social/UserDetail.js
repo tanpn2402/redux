@@ -53,7 +53,7 @@ class UserDetail extends React.Component {
 
         let username = "UserName 1"
         let date = "2018-01-01 10:10"
-        
+
         let bindingStyle = this.props.theme.bindingdata
 
         let data = [
@@ -70,6 +70,11 @@ class UserDetail extends React.Component {
                 value: 56.03
             }
         ]
+        let socialHeader = this.props.theme.social.socialHeader
+        let socialBody = this.props.theme.social.socialBody
+        let socialBG = this.props.theme.social.socialBG
+        let socialRank = this.props.theme.social.socialRank
+
 
         theme.tabcontrol.normal = {
             backgroundColor: "rgb(33, 88, 160)",
@@ -79,7 +84,7 @@ class UserDetail extends React.Component {
 
         return (
             <Component className="userdetail" style={{}} >
-                <div className="social-header">
+                <div className="social-header" theme ={this.props.theme} style={socialHeader}>
                     <div className="-title">
                         <label>{header.userdetail}</label>
                     </div>
@@ -88,10 +93,11 @@ class UserDetail extends React.Component {
                     </div>
                 </div>
 
-                <div className="social-wrapper"  onMouseDown={ e => e.stopPropagation() } ref={r => this.wrapper = r}>
-                    <div className="user-info" ref={r => this.userInfo = r}>
-                        <div className="fol-control">
-                            <button className="btn btn-primary" onClick={e => this.onFollowClicked()}>{header.following}</button>
+                <div className="social-wrapper"  onMouseDown={ e => e.stopPropagation() } ref={r => this.wrapper = r}
+                theme ={this.props.theme} style={socialBG}>
+                    <div className="user-info" ref={r => this.userInfo = r} theme ={this.props.theme} style={socialBody}>
+                        <div className="fol-control" >
+                            <button className="btn btn-primary" onClick={e => this.onFollowClicked()} theme={this.props.theme} style={socialRank}>{header.following}</button>
                         </div>
                         <div className="user">
                             <div className="avt">
@@ -122,27 +128,27 @@ class UserDetail extends React.Component {
                         </div>
                     </div>
 
-                    <div className="user-stat" ref={r => this.userStat = r}>
+                    <div className="user-stat" ref={r => this.userStat = r} theme ={this.props.theme} style={socialBody}>
                         <table>
                             <tbody>
                                 <tr>
                                     <th><h4>{header.daily}</h4></th>
-                                    <th><h4>{header.monthly}</h4></th> 
-                                    <th><h4>{header.netequity}</h4></th> 
+                                    <th><h4>{header.monthly}</h4></th>
+                                    <th><h4>{header.netequity}</h4></th>
                                     <th><h4>{header.grossprofitranking}</h4></th>
                                 </tr>
                                 <tr>
                                     <td><span style={bindingStyle.down}>-1.38%</span></td>
-                                    <td><span style={bindingStyle.up}>16</span></td> 
-                                    <td><span style={bindingStyle.normal}>1.21M</span></td> 
+                                    <td><span style={bindingStyle.up}>16</span></td>
+                                    <td><span style={bindingStyle.normal}>1.21M</span></td>
                                     <td><span style={bindingStyle.up}>Outperform 88%</span></td>
                                 </tr>
                             </tbody>
                         </table>
-                       
+
                     </div>
-                    
-                    <div className="user-trade" ref={r => this.userTrade = r}>
+
+                    <div className="user-trade" ref={r => this.userTrade = r} theme ={this.props.theme} style={socialBody}>
                         <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={theme}>
                             <TabItem eventKey={1} title={header.portfolio} >
                                 <div className="intro">
@@ -155,24 +161,24 @@ class UserDetail extends React.Component {
                                 </div>
                             </TabItem>
                             <TabItem eventKey={2} title={header.positions} >
-                                
+
                             </TabItem>
                             <TabItem eventKey={3} title={header.history} >
-                                
+
                             </TabItem>
                         </TabControl>
                     </div>
 
                 </div>
 
-                
+
             </Component>
         )
     }
 
     componentDidMount() {
         if(this.userInfo && this.userStat && this.userTrade && this.wrapper) {
-            this.userTrade.style.height = this.wrapper.offsetHeight - (this.userInfo.offsetHeight + this.userStat.offsetHeight + 4) + 36 + "px"
+            this.userTrade.style.height = this.wrapper.offsetHeight - (this.userInfo.offsetHeight + this.userStat.offsetHeight + 4) + "px"
         }
     }
 }

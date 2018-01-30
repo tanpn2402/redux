@@ -1,5 +1,15 @@
 import React from 'react'
 
+
+const style = {
+    "light": {
+        backgroundColor: "#2158a0"
+    },
+    "dark": {
+        backgroundColor: "rgb(255, 128, 0)"
+    }
+}
+
 class TabControl extends React.Component {
     constructor(props) {
         super(props)
@@ -29,11 +39,11 @@ class TabControl extends React.Component {
         }, this);
 
         let activedTab = this.props.children.filter(e => e.props.eventKey === activeKey)
-
+        let theme = this.props.theme
         return (
 
             <div className="tab-component">
-                <div className="tab-chooser" ref={ref => this.refChooser = ref}>
+                <div className="tab-chooser" ref={ref => this.refChooser = ref} style={style[theme.title]}>
                     <ul className="tab-control">
                         {children}
                     </ul>
