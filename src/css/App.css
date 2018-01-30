@@ -924,7 +924,7 @@ label {
 }
 
 #fav-tab-container{
-    width: calc(100% - 430px);
+    width: calc(100% - 520px);
     float: left;
     
 }
@@ -4179,6 +4179,27 @@ label {
     
 }
 
+.react-bootstrap-switch{
+    height: 22px;
+    float: right;
+    border-radius: 3px;
+    margin-top: 1px;
+}
+
+.bootstrap-switch-container > span{
+    font-size: 13px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    box-sizing: border-box !important;
+}
+
+.bootstrap-switch-handle-off {
+    background-color: #337ab7 !important;
+    color: white !important;
+}
+.bootstrap-switch {
+    border-color: transparent !important;
+}
 
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
 {    

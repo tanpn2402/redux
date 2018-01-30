@@ -139,8 +139,8 @@ class StatusBar extends React.Component {
 
     componentWillMount() {
         //f5 => restore config.cache.fav and state from localstorage
-        if(localStorage.getItem("accountType") != undefined )
-            config.accountType.defaultType = localStorage.getItem("accountType") == "virtual" ? true : false
+        // if(localStorage.getItem("accountType") != undefined )
+        //     config.accountType.defaultType = localStorage.getItem("accountType") == "virtual" ? true : false
         if(localStorage.getItem("favs") != undefined )
             config.cache.favourite = this.state.favList = JSON.parse(localStorage.getItem("favs"))
         else {
@@ -251,8 +251,9 @@ class StatusBar extends React.Component {
                     <Clock/>
                 </div>
                 
-                <div className="react-bootstrap-switch"><Switch onText='Virtual' offText='Real' bsSize='mini' 
-                    wrapperClass='react-bootstrap-switch' defaultValue={config.accountType.defaultType} />
+                <div className="react-bootstrap-switch">
+                    <Switch onText='Virtual' offText='Real' bsSize='mini' 
+                        wrapperClass='react-bootstrap-switch' defaultValue={true} />
                 </div>
 
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
