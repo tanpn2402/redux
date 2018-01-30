@@ -8,6 +8,7 @@ import AppRouter from './components/AppRouter'
 import * as actions from './actions'
 
 import './css/App.css';
+import './css/Social.css';
 
 require('react-grid-layout/css/styles.css')
 

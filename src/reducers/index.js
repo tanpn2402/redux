@@ -29,6 +29,7 @@ import flashpopup from './flashpopup'
 import popup from './popup'
 import trading from './trading'
 import tradelog from './tradelog'
+import social from './socialreducer'
 
 
 export default combineReducers({
@@ -63,4 +64,6 @@ export default combineReducers({
 
   trading,
   tradelog,
+
+  social,
 });

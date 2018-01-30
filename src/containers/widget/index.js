@@ -68,6 +68,12 @@ import TradingChart from './TradingChart'
 import PlaceOrder from './PlaceOrder'
 import PortfolioSmall from './PortfolioSmall'
 
+// social
+import NewsFeed from "./social/NewsFeed"
+import MyFiles from "./social/MyFiles"
+import GameBoard from "./social/GameBoard"
+import UserDetail from "./social/UserDetail"
+
 export default function (menuid, props){
 	// console.log(menuid)
 	switch(menuid){
@@ -305,6 +311,26 @@ export default function (menuid, props){
 		case 'portfolio-small':
 			return (
 				<PortfolioSmall stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+		// ---- SOCICAL
+		case 'newsfeed':
+			return (
+				<NewsFeed stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'myfiles':
+			return (
+				<MyFiles stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'gameboard':
+			return (
+				<GameBoard stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		case 'userdetail':
+			return (
+				<UserDetail stockList={props.stockList} language={props.language} theme={props.theme}/>
 			)
 
     }

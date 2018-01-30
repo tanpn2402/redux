@@ -1511,6 +1511,7 @@ label {
         font-weight: 600;
         user-select: none;
         display: inline-block;
+        text-align: center;
     }
     .scrolling-tabs-main.tab-bar .tabs-item:hover {
         /* opacity: 0.8; */

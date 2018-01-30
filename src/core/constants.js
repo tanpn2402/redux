@@ -175,7 +175,8 @@ export const ActionTypes = {
   UPDATEMARKETDATA: 'UPDATEMARKETDATA',
   GETMARKETDATA: 'GETMARKETDATA',
   
-  
+  // SOCIAL
+  SHOWUSERDETAIL: 'SHOWUSERDETAIL'
 }
 
 export const Contants = {

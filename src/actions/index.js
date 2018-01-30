@@ -48,6 +48,8 @@ import { changeInstrument, removeInstrumentFromWatch, addInstrumentToWatch,
 import {updateTradeLog, getTradeLogData, getTradeLogDataOfStock } from './tradelog'
 import { updateMarketData, getMarketData } from './marketdata'
 
+
+import { showUserDetail } from "./socialaction"
 export {
   reloadCustom,
   getSavedContentLayout,
@@ -208,5 +210,7 @@ export {
   // market data 
   updateMarketData,
   getMarketData,
+
+  showUserDetail,
   
 };

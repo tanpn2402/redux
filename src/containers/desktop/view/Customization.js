@@ -38,6 +38,7 @@ class Customization extends Component {
     render(){
         return(
             <GridLayout
+                id={"customization"}
                 language={this.props.language}
                 layout={this.state.layout}
                 stockList={this.props.stockList} 

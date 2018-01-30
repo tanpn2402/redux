@@ -28,14 +28,14 @@ export default class PieChart extends React.Component {
 
     handleMouseMove(chart, canvas, d, i) {
         d3.selectAll("g.mouse-data-g").remove()
-        let [x, y] = d3.mouse(canvas)
-        let infoTooltip = chart.append("g").attr("class", "mouse-data-g")
-        infoTooltip.append("rect").attr("width", 50).attr("height", 50/4).attr("x", x + 5)
-            .attr("y", y + 5).attr("rx", 2).attr("ry", 2)
-            .attr("fill", "gray").attr("opacity", 0.9)
-        let text = infoTooltip.append("text").attr("x", x + 10).attr("y", y + 10)
-        let name = text.append("tspan").text("Name: " + d.data.name).style("font-size", "4px")
-        let value = text.append("tspan").attr("x", x + 10).attr("y", y + 10).attr("dy", 5).style("font-size", "4px").text("Value: " + d.data.value)
+        // let [x, y] = d3.mouse(canvas)
+        // let infoTooltip = chart.append("g").attr("class", "mouse-data-g")
+        // infoTooltip.append("rect").attr("width", 50).attr("height", 50/4).attr("x", x + 5)
+        //     .attr("y", y + 5).attr("rx", 2).attr("ry", 2)
+        //     .attr("fill", "gray").attr("opacity", 0.9)
+        // let text = infoTooltip.append("text").attr("x", x + 10).attr("y", y + 10)
+        // let name = text.append("tspan").text("Name: " + d.data.name).style("font-size", "4px")
+        // let value = text.append("tspan").attr("x", x + 10).attr("y", y + 10).attr("dy", 5).style("font-size", "4px").text("Value: " + d.data.value)
     }
 
     handleMouseLeave(chart, canvas) {

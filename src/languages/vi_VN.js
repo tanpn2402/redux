@@ -13,7 +13,8 @@ export default
                 "management": "Dịch vụ khác",
                 "customization": "Trang của tôi",
                 "mobile": "mobile",
-                "orderhistory": "Lịch sử lệnh"
+                "orderhistory": "Lịch sử lệnh",
+                "social": "Social"
             },
             "setting": {
                 "language": {
@@ -1334,6 +1335,23 @@ export default
                 "status": {
                     "STATUS_0": "Đang giao dịch"
                     
+                }
+            },
+            "social": {
+                "header": {
+                    "top20": "Top 20",
+                    "bottom20": "Bottom 20",
+                    "game": "Game",
+                    "feed": "Feed",
+                    "userdetail": "User Detail",
+                    "follow": "Follow",
+                    "following": "Following",
+                    "grossprofit": "Gross Profit",
+                    "trades": "Trades",
+                    "followers": "Followers",
+                    "totalprofit": "My Total Profit",
+                    "rank": "Rank",
+                    "placeholder": "What's on your mind?"
                 }
             },
             "messagebox": {

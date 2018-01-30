@@ -91,13 +91,13 @@ class CustomGridLayout extends React.Component {
     }
 
     saveLayout() {
-        var tmp = config.tabbar.filter(e => e.id === 'customization')
+        var tmp = config.tabbar.filter(e => e.id === this.props.id)
         var index = 0
         for (var i = 0; i < config.tabbar.length; i++) {
-            if (config.tabbar[i].id === 'customization') break
+            if (config.tabbar[i].id === this.props.id) break
             else index++
         }
-
+        
         config.tabbar[index].widget = []
         for (var i = 0; i < this.state.list.length; i++) {
             config.tabbar[index].widget.push(this.state.layout[this.state.list[i]])

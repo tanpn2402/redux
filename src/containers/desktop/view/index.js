@@ -8,6 +8,7 @@ import Customization from './Customization'
 import TransHistory from './TransHistory'
 import OrderJournalTab from './OrderJournal'
 import TradePage from './TradePage'
+import Social from './Social'
 
 
 export default function (menuid, props){
@@ -42,6 +43,11 @@ export default function (menuid, props){
 	case 'tradepage':
 		return(
 			<TradePage language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+		)
+	
+	case 'social':
+		return(
+			<Social language={props.language} stockList={props.stockList} theme={props.theme} tabID={menuid}/>
 		)
 		
 	default: return

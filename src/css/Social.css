@@ -1,0 +1,425 @@
+/* new feed */
+.newsfeed {
+    height: 100%;
+}
+.newsfeed .social-header {
+    height: 36px;
+}
+.newsfeed .social-wrapper{
+    background: #f2f2f2;
+    height: calc(100% - 37px);
+    overflow: auto;
+}
+.newsfeed .nf-control {
+    display: flow-root;
+}
+.newsfeed .nf-control .-title {
+    float: left;
+}
+.newsfeed .nf-control .-ctl {
+    float: right;
+}
+.newsfeed .social-header .-ctl {
+    cursor: pointer;
+}
+.newsfeed .social-header .-ctl:hover {
+    color: #ccc;
+}
+
+/* AVATAR */
+
+.avt {
+    width: 40px;
+    float: left;
+}
+.avt-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+
+/* news post */
+.newspost {
+    margin-bottom: 4px;
+}
+.newspost .wrapper {
+    display: flow-root;
+    margin-bottom: 1px;
+    background-color: #FFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.newspost .avt {
+    float: left;
+    width: 54px;
+    text-align: center;
+    align-items: center;
+}
+.newspost .avt img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 999px;
+    cursor: pointer;
+}
+.newspost .post {
+    float: right;
+    width: calc(100% - 60px);
+    padding-right: 5px;
+}
+.newspost .post p {
+    margin-bottom: 3px;
+}
+.newspost .post .usrname {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.newspost .post .date {
+    font-size: 10px;
+    font-weight: 400;
+    color: #999;
+
+}
+.newspost .post img {
+    width: 100%;
+}
+.newspost .post-control {
+    display: flow-root;
+    background-color: #FFF;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.newspost .post-control .col-xs-6 {
+    text-align: center;
+    align-items: center;
+}
+.newspost .post-control .reaction {
+    cursor: pointer;
+    font-size: 14px;
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    height: 26px;
+    padding-top: 2px;
+    transition: all 0.5ms;
+}
+.newspost .post-control .reaction:hover {
+    background: #e8e8e8;
+}
+.newspost .post-control .reaction .fa {
+    margin: 0 2px;
+    font-size: 16px;
+}
+.newspost .post-control .reaction .like-counter {
+    font-size: 15px;
+}
+/* myfiles */
+.user-avt {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 999px;
+}
+.myfiles img {
+    position: relative;
+    top: 2px;
+    left: 4px;
+}
+.myfiles .myfiles-info {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+}
+.myfiles .myfiles-info ul {
+    padding: 0;
+    list-style: none;
+    font-weight: bold;
+}
+.myfiles .myfiles-info li {
+    display: inline;
+    min-width: 100px;
+    margin-right: 70px;
+    font-size: 14px;
+}
+.myfiles .myfiles-info h4 {
+    display: inline;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+/* GAME BOARD */
+.social-header {
+    display: flow-root;
+    padding: 2px;
+    background: #2159a0;
+    color: #FFF;
+    min-height: 36px;
+}
+.social-header .-ctl {
+    float: right;
+    height: 100%;
+}
+.social-header .-ctl .select-control  {
+    width: 140px;
+    border-radius: 0px;
+    height: 32px;
+    color: #000;
+}
+.social-header .-ctl .fa {
+    font-size: 22px;
+    margin-right: 5px;
+    top: 4px;
+    position: relative;
+}
+.social-header .-title {
+    float: left;
+    position: relative;
+    top: 5px;
+    left: 6px;
+}
+.social-header .-title label{
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+
+
+/* GAME BOARD ITEM */
+.gameboard-item {
+    padding: 10px;
+    background-color: #FFF;
+    margin-bottom: 4px;
+    position: relative;
+}
+.gameboard-item .rank {
+    width: 50px;
+    position: absolute;
+}
+.gameboard-item .rank-box {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2158a0;
+    text-align: center;
+    padding-top: 8px;
+    color: #2158a0;
+}
+.gameboard-item .user {
+    position: relative;
+    padding-left: 58px;
+}
+.gameboard-item .user .avt {
+    width: 40px;
+    float: left;
+}
+.gameboard-item .user .avt-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+}
+.gameboard-item .user .usrname {
+    font-size: 14px;
+    margin-bottom: 3px;
+    padding-left: 55px;
+    font-weight: bold;
+}
+.gameboard-item .user .date {
+    font-size: 12px;
+    color: #999;
+    padding-left: 55px;
+}
+.gameboard-item .acc-info ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+}
+.gameboard-item .acc-info li {
+    display: inline-block;
+    width: 33.33%;
+    text-align: right;
+}
+.gameboard-item .acc-info li h4 {
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+.gameboard-item .fol-control {
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+.gameboard-item .fol-control > button {
+    border-radius: 0;
+    background: #2158a0;
+    border: none;
+}
+/* BOARD */
+.gameboard {
+    height: 100%;
+}
+.gameboard .social-wrapper {
+    height: calc(100% - 37px);
+}
+.gameboard .board {
+    background: rgb(243, 243, 242);
+}
+.gameboard .tab-chooser {
+    background: #2158a0;
+}
+
+
+/* FEED BOX */
+.feedbox {
+    padding: 10px;
+    background: #FFF;
+    margin-bottom: 2px;
+}
+.feedbox textarea {
+    margin-left: 10px;
+    width: calc(100% - 50px);
+    border-color: #ccc;
+    padding: 5px;
+    resize: none;
+}
+
+
+/* USER DETAIL */
+.user-info {
+    padding: 10px;
+    background-color: #FFF;
+    margin-bottom: 2px;
+}
+.user-info  .fol-control {
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+.user-info  .fol-control > button {
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid #2158a0;
+    color: #2158a0;
+}
+
+.user-info .user {
+    position: relative;
+    display: flow-root;
+}
+.user-info .user .avt {
+    width: 70px;
+    float: left;
+}
+.user-info .user .avt-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+}
+.user-info .user .usrname {
+    font-size: 14px;
+    margin-bottom: 3px;
+    padding-left: 80px;
+    font-weight: bold;
+}
+.user-info .user .date {
+    font-size: 12px;
+    color: #999;
+    padding-left: 80px;
+}
+.user-info .acc-info {
+    width: calc(100% - 70px);
+    float: right;
+    position: relative;
+}
+.user-info .acc-info ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+}
+.user-info .acc-info li {
+    display: inline-block;
+    width: 33.33%;
+    text-align: right;
+}
+.user-info .acc-info li h4 {
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+.user-info .qoutes {
+    margin-top: 10px;
+}
+
+.user-stat {
+    background: #FFF;
+    margin-bottom: 2px;
+    display: flow-root;
+    text-align: center;
+}
+.user-stat table {
+    width: 100%;
+}
+.user-stat th {
+    width: 25%;
+}
+.user-stat th,
+.user-stat td {
+    text-align: center;
+    padding: 2px 5px;
+}
+.user-stat h4 {
+    font-size: 14px;
+    color: #909090;
+}
+.user-stat span {
+    font-weight: bold;
+}
+.user-trade {
+    background: #FFF;
+    display: flow-root;
+}
+.user-trade .tab-item {
+    width: 33.33%;
+    border: none;
+}
+.user-trade .intro {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.user-trade .intro h4 {
+    font-size: 14px;
+    margin-bottom: 3px;
+    margin-top: 2px;
+}
+.main-intro {
+    font-weight: 600;
+}
+.sub-intro {
+    color: #909090;
+}
+.user-trade .chart {
+    height: 100%;
+    font-size: 0 !important;
+}
+.userdetail .social-header .-ctl {
+    cursor: pointer;
+}
+.userdetail .social-header .-ctl:hover {
+    color: #ccc;
+}
+.userdetail .social-wrapper {
+    height: calc(100% - 37px);
+    background: rgb(243, 243, 242);
+}
+.userdetail {
+    height: 100%;
+}

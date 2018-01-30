@@ -473,6 +473,18 @@ const config = {
 			widget: [
 				{ i: 'watchlist', x: 0, y: 0, w: 8, h: 16, minH: 10, maxH: 24, minW: 4, isDraggable: true, isResizable: true }
 			]
+		},
+		{
+			id: 'social',
+			title: "social",
+			enabled: true,
+			widget: [
+				{ i: 'myfiles', x: 0, y: 0, w: 8, h: 2, minH: 10, maxH: 24, minW: 2, isDraggable: false, isResizable: false },
+				{ i: 'newsfeed', x: 2, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: true },
+				{ i: 'gameboard', x: 0, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: true },
+				// { i: 'userdetail', x: 4, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: false },
+				
+			]
 		}
 	],
 
@@ -554,7 +566,7 @@ const config = {
 		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false, tab: 1 },
 
 		fundTransfer: { i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 17, isDraggable: false, isResizable: false },
+		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 14, isDraggable: false, isResizable: false },
 		fundTransHistory: { i: 'fundTransHistory', x: 2, y: 0, w: 6, minH: 14, isDraggable: false, isResizable: false, tab: 1 },
 
 		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6, minH: 8,  isDraggable: false, isResizable: false, tab: 1 },

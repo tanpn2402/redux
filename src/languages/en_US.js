@@ -13,7 +13,8 @@ export default
                 "management": "Services",
                 "customization": "My Page",
                 "mobile": "mobile",
-                "orderhistory": "Order History"
+                "orderhistory": "Order History",
+                "social": "Social"
             },
             "setting": {
                 "language": {
@@ -1365,6 +1366,30 @@ export default
                 "status": {
                     "STATUS_0": "Trading"
                     
+                }
+            },
+            "social": {
+                "header": {
+                    "top20": "Top 20",
+                    "bottom20": "Bottom 20",
+                    "game": "Game",
+                    "feed": "Feed",
+                    "userdetail": "User Detail",
+                    "follow": "Follow",
+                    "following": "Following",
+                    "grossprofit": "Gross Profit",
+                    "trades": "Trades",
+                    "followers": "Followers",
+                    "totalprofit": "My Total Profit",
+                    "rank": "Rank",
+                    "placeholder": "What's on your mind?",
+                    "daily": "Daily",
+                    "monthly": "Monthly",
+                    "netequity": "Net Enquity",
+                    "grossprofitranking": "Gross Profit Ranking",
+                    "portfolio": "Portfolio",
+                    "positions": "Positions",
+                    "history": "History"
                 }
             },
             "messagebox": {
