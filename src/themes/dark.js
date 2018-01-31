@@ -126,8 +126,8 @@ export default {
     },
     tabcontrol: {
         normal: {
-            backgroundColor: '#cccc',
-            color: "#000000"
+            backgroundColor: 'rgb(84, 83, 83)',
+            color: "rgb(156, 156, 156)"
         },
         active: {
             backgroundColor: '#181818',

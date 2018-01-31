@@ -277,9 +277,9 @@ export default
                 "header": {
                     "cancelmodify": "Cancel/Modify",
                     "price": "Price",
-                    "quantity": "Vol",
-                    "pendingQty": "Pending Vol",
-                    "executedQty": "Executed Vol",
+                    "quantity": "Qty",
+                    "pendingQty": "Pending Qty",
+                    "executedQty": "Executed Qty",
                     "avgprice": "Avg Price",
                     "status": "Status",
                     "ordertype": "Type",
@@ -324,7 +324,7 @@ export default
                 "header": {
                     "cancelmodify": "Cancel/Modify",
                     "price": "Price",
-                    "quantity": "Vol",
+                    "quantity": "Qty",
                     "status": "Status",
                     "ordertype": "Type",
                     "stockid": "Stock ID",
@@ -341,8 +341,8 @@ export default
                     "buysell": "Buy/Sell",
                     "initialPrice": "Initial Price",
                     "newPrice": "New Price",
-                    "initialQuantity": "Initial Quantity",
-                    "matchedQuantity": "Matched Quantity",
+                    "initialQuantity": "Initial Qty",
+                    "matchedQuantity": "Matched Qty",
                     "newQuantity": "New Quantity",
                     "totalCash": "Total Money"
                 },

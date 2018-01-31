@@ -43,7 +43,7 @@ class TabControl extends React.Component {
         return (
 
             <div className="tab-component">
-                <div className="tab-chooser" ref={ref => this.refChooser = ref} style={style[theme.title]}>
+                <div className="tab-chooser" ref={ref => this.refChooser = ref}>
                     <ul className="tab-control">
                         {children}
                     </ul>

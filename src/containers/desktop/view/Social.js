@@ -24,7 +24,7 @@ class Social extends Component {
         if(nextProps.showUserDetail) {
             if(this.state.layout.filter(e => e.i == "userdetail").length < 1) {
                 let mtp = this.state.layout
-                mtp.push({ i: 'userdetail', x: 4, y: 2, w: 2, h: 30, minH: 10, maxH: 24, minW: 2, isDraggable: true, isResizable: false })
+                mtp.push({ i: 'userdetail', x: 4, y: 2, w: 2, h: 26, minH: 24, maxH: 24, minW: 2, isDraggable: true, isResizable: false })
                 this.setState({
                     layout: mtp
                 })

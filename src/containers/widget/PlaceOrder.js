@@ -110,29 +110,57 @@ class PlaceOrder extends React.Component {
     }
 
     handleStockChange(options) {
+        let {mvStockSelected} = this.state
+        let {listInstrumentInWatchList, portfolioData} = this.props
 
-        var marketID = options.mvMarketID
-        var stockCode = options.stockCode
-        var stockName = options.stockName
+        if( options.stockCode == mvStockSelected.stockCode && options.mvMarketID == mvStockSelected.mvMarketID ) {
+            // selected same instrument
+            return
+        } else {
+
+            // console.log(portfolioData)
+            // remove previous instrument if it not in watchlist and not in portfolio list
+            if(listInstrumentInWatchList.indexOf(mvStockSelected.stockCode) < 0 && 
+                portfolioData.filter(e => e.mvStockID == mvStockSelected.stockCode).length < 1) 
+            {
+                this.props.removeInstrumentFromWatch(mvStockSelected.stockCode, mvStockSelected.mvMarketID)
+            }
+
+            var marketID = options.mvMarketID
+            var stockCode = options.stockCode
+            var stockName = options.stockName
+            
+            var bsValue = this.value.mvBS.slice(0, 1)
+
+            this.setState({
+                mvStockSelected: options,
+                mvMarketID: marketID
+            })
+            this.setValue({
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: marketID
+            })
+            this.refStockName.value(stockName)
+            this.refMarketID.value(marketID)
+            this.getStockInfo(stockCode, marketID, bsValue)
+            this.props.setDefaultOrderParams(this.value)
+            this.getOrderTypeList(this.props.genEnterOrderData)
+
+            this.props.setStockInfo(options)
+    
+            // checkif instrument already in watchlist or portfolio list
+            if(listInstrumentInWatchList.indexOf(options.stockCode) > -1 || 
+                portfolioData.filter(e => e.mvStockID == options.stockCode).length > 0 )
+            {
+                // already in watchlist and portfolio list
+            } else {
+                // add new instrument is selected to watch  ( not watchlist )
+                this.props.addInstrumentToWatch(options.stockCode, options.mvMarketID)
+            }
+        }
+
         
-        var bsValue = this.value.mvBS.slice(0, 1)
-
-        this.setState({
-            mvStockSelected: options,
-            mvMarketID: marketID
-        })
-        this.setValue({
-            mvStockCode: stockCode,
-            mvStockName: stockName,
-            mvMarketID: marketID
-        })
-        this.refStockName.value(stockName)
-        this.refMarketID.value(marketID)
-        this.getStockInfo(stockCode, marketID, bsValue)
-        this.props.setDefaultOrderParams(this.value)
-        this.getOrderTypeList(this.props.genEnterOrderData)
-
-        this.props.setStockInfo(options)
         this.props.changeInstrument(options.stockCode)
     }
 
@@ -1353,6 +1381,9 @@ const mapStateToProps = (state) => {
         genEnterOrderData: state.enterOrder.genEnterOrder,
         orderDefault: state.enterOrder.orderDefaultParams,
         accountBalance: state.accountinfo.accountBalance,
+
+        listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+        portfolioData: state.trading.portfolioData.mvPortfolioBeanList
     }
 }
 
@@ -1377,6 +1408,8 @@ const mapDispatchToProps = (dispatch, props) => ({
 	},
 
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
+    addInstrumentToWatch: (ins, market) => { dispatch(actions.addInstrumentToWatch(ins, market)) },
+    removeInstrumentFromWatch: (ins, market) => { dispatch(actions.removeInstrumentFromWatch(ins, market)) },
 
 })
 
