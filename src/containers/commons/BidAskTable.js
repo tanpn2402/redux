@@ -67,7 +67,7 @@ class BidAskTable extends React.Component {
         let change = Math.abs( utils.round(refPrice - matchPrice, 1) )
 
         let className = "nocrease"
-        if(matchPrice == "") {
+        if(matchPrice == "" || matchPrice == undefined ) {
             percent = <span style={{color: style.color}} className="trd-binding">---</span>
             change = <span style={{color: style.color}} className="trd-binding">---</span>
         } 

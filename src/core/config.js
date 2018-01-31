@@ -566,7 +566,7 @@ const config = {
 		cashTransHistory: { i: 'cashTransHistory', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false, tab: 1 },
 
 		fundTransfer: { i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 14, isDraggable: false, isResizable: false },
+		fundTransPanel: { i: 'fundTransPanel', x: 0, y: 0, w: 2, h: 17, isDraggable: false, isResizable: false },
 		fundTransHistory: { i: 'fundTransHistory', x: 2, y: 0, w: 6, minH: 14, isDraggable: false, isResizable: false, tab: 1 },
 
 		loanRefundHistory: { i: 'loanRefundHistory', x: 2, y: 5, w: 6, minH: 8,  isDraggable: false, isResizable: false, tab: 1 },
