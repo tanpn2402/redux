@@ -288,13 +288,24 @@ export default {
             backgroundColor: "rgba(226, 226, 226, 0.4)",
             borderRight: "1px solid rgba(0, 0, 0, 0.1)",
             borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-            // textAlign: "left"
+            justifyContent:'flex-start',
+            alignItems:'center',
         },
         evenCol: {
             backgroundColor: "#FFF",
             borderRight: "1px solid rgba(0, 0, 0, 0.1)",
             borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-            // textAlign: "left"
+            justifyContent:'flex-start',
+            alignItems:'center',
+        }
+    },
+    number:{
+        col:{
+            justifyContent:'flex-end',
+        }, 
+        col2:{
+            alignItems:'center',
+            justifyContent:'flex-end',
         }
     },
     placeorder: {
@@ -312,10 +323,10 @@ export default {
         },
         background: {
             buy: {
-                backgroundColor: "#7fabcc"
+                backgroundColor: "#B1E69A"
             },
             sell: {
-                backgroundColor: "rgb(224, 181, 152)"
+                backgroundColor: "#FBD4D9"
             }
         }
     },

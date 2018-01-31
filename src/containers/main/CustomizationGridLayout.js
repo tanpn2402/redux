@@ -37,7 +37,8 @@ class CustomGridLayout extends React.Component {
                 data-grid={{
                     x: layout['x'], y: layout['y'], w: layout['w'], h: layout['h'], minW: layout['minW'], 
                     minH: layout['minH'], maxW: layout['maxW'], maxH: layout['maxH'], 
-                    isDraggable: layout['isDraggable'], isResizable: layout['isResizable']
+                    isDraggable: layout['isDraggable'], isResizable: layout['isResizable'],
+                    static: layout['static']
                 }}>
 
                 {

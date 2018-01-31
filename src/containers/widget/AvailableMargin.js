@@ -45,6 +45,7 @@ class AvaibleMarginList extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'psentlending',
@@ -52,6 +53,7 @@ class AvaibleMarginList extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
             ],
             filterable: false,

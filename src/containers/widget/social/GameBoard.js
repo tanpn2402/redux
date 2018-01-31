@@ -64,7 +64,7 @@ export default class GameBoard extends React.Component {
             }
         } else {
             theme.tabcontrol.normal = {
-                backgroundColor: "rgb(247, 127, 0)",
+                backgroundColor: "rgb(255, 128, 0)",
                 border: "none",
                 color: "#FFF"
             }
@@ -76,7 +76,7 @@ export default class GameBoard extends React.Component {
         let socialBG = this.props.theme.social.socialBG
         let socialRank = this.props.theme.social.socialRank
         return (
-            <Component className="gameboard" style={{}} >
+            <Component className={"gameboard " + theme.title} style={{}} >
                 <div className="social-header"  theme = {this.props.theme} style={socialHeader}>
                     <div className="-title">
                         <label>{header.game}</label>

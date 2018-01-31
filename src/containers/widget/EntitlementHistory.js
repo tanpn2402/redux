@@ -39,6 +39,7 @@ class EntitlementHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'actionprice',
@@ -53,6 +54,7 @@ class EntitlementHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'paiddate',

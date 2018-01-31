@@ -141,9 +141,9 @@ export function submitCashTransfer(data, authParams, language) {
     if (response) {
 
       if (response.mvReturnCode != 0) {
-        if (response.mvResult && response.mvResult.trim().length > 0) {
+        if (response.mvErrorResult && response.mvErrorResult.trim().length > 0) {
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, response.mvResult))
+            dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
           }
         } else {
           return (dispatch) => {
@@ -151,7 +151,7 @@ export function submitCashTransfer(data, authParams, language) {
           }
         }
       } else {
-        if (response.mvResult == "SUCCESS") {
+        if (response.mvErrorResult === "fail") {
           return (dispatch) => {
             dispatch(showMessageBox(language.messagebox.title.info, language.cashadvance.message.advancePaymentSuccessful))
           }
@@ -169,17 +169,17 @@ export function submitCashTransfer(data, authParams, language) {
     }
   }
 
-  var fee = Utils.numUnFormat(data.paramsTransfer.mvTransferFee)
-  var desBankInfo = data.paramsTransfer.inputBankName
-  desBankInfo = desBankInfo + "_+_" + data.paramsTransfer.inputBankBranch.trim()
+  var fee = Utils.numUnFormat(data.mvTransferFee)
+  var desBankInfo = data.inputBankName
+  desBankInfo = desBankInfo + "_+_" + data.inputBankBranch.trim()
 
   var params = {
-    ...data.paramsTransfer,
+    ...data,
     'mvTransferFee': fee,
   };
-
   return (dispatch) => {
-    WebApi.post(ACTION.DOFUNDTRANSFER, params, dispatch, responseSubmitCashTransfer)
+    WebApi.post(ACTION.DOFUNDTRANSFER, params, dispatch,responseSubmitCashTransfer )
+//    WebApi.post(ACTION.DOFUNDTRANSFER, data, dispatch, responseSubmitCashTransfer)
   }
 }
 

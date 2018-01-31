@@ -85,6 +85,7 @@ class WatchList extends Component {
                             optionLabelPath={'stockCode'}
                             handleChange={this.handleStockChange.bind(this)}
                             searchEnabled={true}
+                            stockSelector={true}
                         />
                         <button type="button" className="hks-btn btn-add-stock" style={button}
                             onClick={this.onAddStock.bind(this)}>

@@ -34,6 +34,7 @@ class OrderHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: "marketid",
@@ -46,6 +47,28 @@ class OrderHistory extends Component {
                     id: "buysell",
                     accessor: "mvBS",
                     width: 50,
+                    Cell: props => {
+                        
+                        if (props.aggregated) {
+                            
+                        } else {
+                            var value=props.original.mvBS.trim()
+                            if (value == this.props.language.ordershistory.buysell.S) {
+                                return (
+                                 <div style={{ backgroundColor: '#b5383e', color: '#fff', width: '100%' }}>
+                                        {this.props.language.searchbar.sell}
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    
+                                       <div style={{ backgroundColor: '#39b567', color: '#fff', width: '100%' }}>
+                                        {this.props.language.searchbar.buy}
+                                    </div>
+                                )
+                            }
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -55,6 +78,7 @@ class OrderHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: "filledprice",
@@ -62,6 +86,7 @@ class OrderHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: "filledquantity",
@@ -69,6 +94,7 @@ class OrderHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: "matchedvalue",
@@ -76,11 +102,23 @@ class OrderHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: "tradingtype",
                     accessor: "mvOrderTypeValue",
                     width: 80,
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.mvOrderTypeValue.trim()
+                            let text = this.props.language.ordershistory.trandtype[value]
+                            return (
+                                Utils.statusRenderer(text,value)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },
@@ -88,6 +126,17 @@ class OrderHistory extends Component {
                     id: "matchedorderstatus",
                     accessor: "mvStatus",
                     width: 100,
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.mvStatus.trim()
+                            let text = this.props.language.ordershistory.status[value]
+                            return (
+                                Utils.statusRenderer(text,value)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },

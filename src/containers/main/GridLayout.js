@@ -38,16 +38,17 @@ class GridLayout extends React.Component {
                 let tab = document.getElementById("management")
                 let hei = 0
                 if(layout['tab'] == undefined || layout['tab'] == 0) {
-                    
                     hei = ele.offsetHeight - 60
                 }
-                else hei = ele.offsetHeight - 60 - 30
-                let heightToFit = hei - y*(HEIGHT + 5)
-                col = Math.floor(heightToFit / (HEIGHT + 5))
+                else {
+                    hei = ele.offsetHeight - 60 - 30
+                }
+                let heightToFit = hei - y*(HEIGHT + 7)
+                col = Math.floor(heightToFit / (HEIGHT + 7))
 
                 col = col > layout["maxH"] ? layout["maxH"] : col < layout["minH"] ? layout["minH"] : col
             } catch(ex) {
-                col = 4
+                col = layout["minH"]
             }
         } else {
             col = layout['h']

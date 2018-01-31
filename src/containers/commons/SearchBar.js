@@ -312,6 +312,7 @@ class SelectorStock extends React.Component {
                     optionLabelPath={"stockCode"}
                     showClear={false}
                     searchEnabled={true}
+                    stockSelector={true}
                 />
             </FormGroup>
         )

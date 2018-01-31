@@ -34,6 +34,9 @@ class Sumary extends React.Component {
     render() {
         // console.log('SUMARY . . . .. . . .')
         var d = this.props.data.mvPortfolioAccSummaryBean
+        if(d == null) {
+            d = {}
+        }
         this.data = [
             {
                 name: this.props.language.portfolio.header.totalAsset,

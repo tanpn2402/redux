@@ -272,6 +272,11 @@
 }
 .gameboard .tab-chooser {
     background: #2158a0;
+    padding-top: 0px;
+}
+.gameboard.dark .tab-chooser {
+    background: #ff8001;
+    padding-top: 0px;
 }
 
 

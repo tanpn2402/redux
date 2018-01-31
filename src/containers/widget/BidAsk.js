@@ -129,6 +129,7 @@ class BidAsk extends React.Component {
                         optionLabelPath={'stockCode'}
                         handleChange={this.handleStockChange.bind(this)}
                         searchEnabled={true}
+                        stockSelector={true}
                     />
                     <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>

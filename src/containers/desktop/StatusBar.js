@@ -250,7 +250,7 @@ class StatusBar extends React.Component {
                     <span className="glyphicon glyphicon-log-out" onClick={this.logout} ></span>
                     <Clock/>
                 </div>
-                
+
                 <div className="react-bootstrap-switch">
                     <Switch onText='Virtual' offText='Real' bsSize='mini' 
                         wrapperClass='react-bootstrap-switch' defaultValue={true} />

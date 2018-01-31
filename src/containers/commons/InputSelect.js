@@ -1,6 +1,13 @@
 import React from 'react'
 import { TypeAhead } from 'react-power-select'
 
+
+const StockViewOption = ({ option }) =>
+    <div style={{ maxWidth: '100%' }}>
+        <span style={{fontWeight: "bold"}}>{option.stockCode}</span>
+        <small style={{ paddingLeft: '5px' }}> - {option.stockName}</small>
+    </div>
+
 class InputSelect extends React.Component {
     constructor(props) {
         super(props)
@@ -25,6 +32,7 @@ class InputSelect extends React.Component {
                     selected={this.props.selected}
                     onChange={this.handleValueChange.bind(this)}
                     optionLabelPath={this.props.optionLabelPath}
+                    optionComponent={this.props.stockSelector ? <StockViewOption /> : null}
                     selectedOptionComponent={this.props.selectedOptionComponent}
                     showClear={false}
                     searchEnabled={this.props.searchEnabled}
@@ -41,6 +49,7 @@ InputSelect.defaultProps = {
     optionComponent: null,
     selectedOptionComponent: null,
     searchEnabled: false,
-    className: ""
+    className: "",
+    stockSelector: false
 }
 export default InputSelect

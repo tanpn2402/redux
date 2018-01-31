@@ -36,6 +36,7 @@ class AdditionSharesInfo extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'rightrate',
@@ -43,6 +44,7 @@ class AdditionSharesInfo extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'actionrate',
@@ -57,6 +59,7 @@ class AdditionSharesInfo extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'actionprice',

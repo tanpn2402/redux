@@ -277,9 +277,9 @@ export default
                 "header": {
                     "cancelmodify": "Cancel/Modify",
                     "price": "Price",
-                    "quantity": "Vol",
-                    "pendingQty": "Pending Vol",
-                    "executedQty": "Executed Vol",
+                    "quantity": "Qty",
+                    "pendingQty": "Pending Qty",
+                    "executedQty": "Executed Qty",
                     "avgprice": "Avg Price",
                     "status": "Status",
                     "ordertype": "Type",
@@ -324,7 +324,7 @@ export default
                 "header": {
                     "cancelmodify": "Cancel/Modify",
                     "price": "Price",
-                    "quantity": "Vol",
+                    "quantity": "Qty",
                     "status": "Status",
                     "ordertype": "Type",
                     "stockid": "Stock ID",
@@ -341,8 +341,8 @@ export default
                     "buysell": "Buy/Sell",
                     "initialPrice": "Initial Price",
                     "newPrice": "New Price",
-                    "initialQuantity": "Initial Quantity",
-                    "matchedQuantity": "Matched Quantity",
+                    "initialQuantity": "Initial Qty",
+                    "matchedQuantity": "Matched Qty",
                     "newQuantity": "New Quantity",
                     "totalCash": "Total Money"
                 },
@@ -469,8 +469,39 @@ export default
                     "avgprice": "Avg. Price",
                     "ordertype": "Order Type",
                     "inputtime": "Input Time"
-
-                }
+                },
+                 "buysell": {
+                    "B": "Buy",
+                    "S": "Sell"
+                },
+                "status": {
+                    "NEW":"New",
+                    "REJ":"Rejected",
+                    "WA":"Waiting",
+                    "CAN":"Cancelled",
+                    "FEX":"Fully Executed",
+                    "PEX":"Partially Filled",
+                    "Q": "Queued",
+                    "WC":"Waiting Cancel",
+                    "WM":"Waiting Modify",
+                    "IAT":"Inactive",
+                    "SND":"Sending",
+                    "EXP":"Expired",
+                    "TRIG":"Trigger Order",
+                    "CPD":"Completed",
+                    "PXP":"Partially Expired",
+                    "FLL":"Fully Filled",
+                },
+                "trandtype":{
+                    "L":"Normal",
+                    "O":"ATO",
+                    "C":"ATC",
+                    "P":"Put Throught",
+                    "M":"MP",
+                    "B":"MOK",
+                    "Z":"MAK",
+                    "R":"MTL"
+            },
             },
             "oddlottrading": {
                 "header": {
@@ -506,6 +537,9 @@ export default
                 "status": {
                     "approve": "Approved",
                     "waiting": "Waiting approval"
+                },
+                "message":{
+                    wrongQty:"Error"
                 }
             },
             "accountinfo": {
@@ -843,7 +877,9 @@ export default
                     "date": "Date",
                     "cancel": "Cancel",
                     "localaccount": "Local account",
-                    "bankaccount": "Banking account"
+                    "bankaccount": "Banking account",
+                    "External":"External",
+                    "Internal":"Internal",
                 },
                 "error": {
                     "transtype": "Choose transfer type",
@@ -852,9 +888,10 @@ export default
                     "branch": "Bank branch is unavailable"
                 },
                 "status": {
-                    "pending": "Pending",
-                    "approve": "Approved",
-                    "rejected": "Rejected"
+                    "P": "Pending",
+                    "A": "Approved",
+                    "R": "Rejected",
+                    "D": 'Deleted',
                 },
                 "message": {
                     "notenoughmoney": "Your amount is not enough to transfer.",
@@ -868,6 +905,12 @@ export default
                     "message": "Do you want to do this action?",
                     "ok": "OK",
                     "cancel": "Cancel"
+                },
+                "transtype":{
+                    "Fund Transfer":"Fund Transfer",
+                    "External":"External",
+                    "Internal":"Internal",
+                    "Withdraw/Internal":"Withdraw/Internal"
                 }
             },
             "cashadvance": {
@@ -1167,6 +1210,10 @@ export default
                     "status": "Status",
                     "transdate": "Trans Date",
                     "approvedate": "Approve Date"
+                },
+                "status":{
+                    "H":"Approved",
+                    "D":"Waiting Approval"
                 }
             },
             "loanRefundHistory":{

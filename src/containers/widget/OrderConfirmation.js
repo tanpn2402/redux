@@ -74,6 +74,7 @@ class OrderConfirmation extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                background: props.theme.number.col
                 },
                 {
                     id: 'price',
@@ -81,6 +82,7 @@ class OrderConfirmation extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                background: props.theme.number.col
                 },
                 {
                     id: 'status',
@@ -96,6 +98,7 @@ class OrderConfirmation extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                background: props.theme.number.col
                 },
                 {
                     id: 'filledprice',
@@ -103,6 +106,7 @@ class OrderConfirmation extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                background: props.theme.number.col
                 },
                 {
                     id: 'cancelquantity',

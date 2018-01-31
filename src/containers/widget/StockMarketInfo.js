@@ -69,7 +69,8 @@ class StockMarketInfo extends Component {
 						skip: false,
 						show: true,
 						sortable: false,
-						skip: true
+						skip: true,
+						background: props.theme.number.col
 					},
 					{
 						id: 'Volume',
@@ -79,7 +80,8 @@ class StockMarketInfo extends Component {
 						skip: false,
 						show: true,
 						sortable: false,
-						skip: true
+						skip: true,
+                        background: props.theme.number.col
 					},
 					{
 						id: 'Total',
@@ -89,7 +91,8 @@ class StockMarketInfo extends Component {
 						skip: false,
 						show: true,
 						sortable: false,
-						skip: true
+						skip: true,
+                        background: props.theme.number.col
 					}
 				]
 			}],

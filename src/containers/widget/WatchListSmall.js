@@ -66,7 +66,7 @@ class WatchListSmall extends React.Component {
 
     _renderTitle(title, i) {
         let theme = this.props.theme.font
-        let font = this.state.activeKey == i ? theme.main : theme.disable
+        let font = this.state.activeKey == i ? {fontWeight: "bold"} : {fontWeight: "normal"}
         return <div style={font} className="wl-sm-tab-title">{title}</div>
     }
 

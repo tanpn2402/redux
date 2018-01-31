@@ -441,7 +441,39 @@ export default
                     "ordertype": "Loại lệnh",
                     "stockid": "Mã CK",
                     "buysell": "Mua/Bán"
-                }
+                },
+                 "buysell": {
+                    "B": "Buy",
+                    "S": "Sell"
+                },
+                "status": {
+                    "NEW": "Chờ xử lý",
+                    "CAN": "Đã huỷ",
+                    "REJ": "Không hợp lệ",
+                    "WA": "Chờ xác nhận",
+                    "FEX": "Khớp toàn bộ",
+                    "PEX": "Khớp một phần",
+                    "Q": "Chờ khớp",
+                    "WC": "Chờ huỷ",
+                    "WM": "Chờ sửa",
+                    "IAT": "Không hiệu lực",
+                    "SND": "Đang gửi",
+                    "EXP": "Hết hiệu lực",
+                    "TRIG": "Lệnh điều kiện",
+                    "CPD": "Khớp toàn bộ",
+                    "PXP": "Hết hiệu lực một phần",
+                    "FLL": "Khớp toàn bộ"
+                },
+                "trandtype":{
+                    "L":"Thông dụng",
+                    "O":"ATO",
+                    "C":"ATC",
+                    "P":"Thoả thuận",
+                    "M":"MP",
+                    "B":"MOK",
+                    "Z":"MAK",
+                    "R":"MTL"
+            },
             },
             "oddlottrading": {
                 "header": {
@@ -813,7 +845,9 @@ export default
                     "date": "Ngày GD",
                     "cancel": "Hủy GD",
                     "localaccount": "Tài khoản nội bộ",
-                    "bankaccount": "Tài khoản ngân hàng"
+                    "bankaccount": "Tài khoản ngân hàng",
+                    "External":"Ngân Hàng",
+                    "Internal":"Nội Bộ",
                 },
                 "error": {
                     "transtype": "Chọn loại gửi",
@@ -822,9 +856,10 @@ export default
                     "branch": "Không tìm thấy nhánh của ngân hàng"
                 },
                 "status": {
-                    "pending": "Đang chờ",
-                    "approve": "Duyệt",
-                    "rejected": "Hủy"
+                    "P": "Đang chờ",
+                    "A": "Xác Nhận",
+                    "R": "Từ Chối Duyệt",
+                    "D": 'Xoá',
                 },
                 "message": {
                     "notenoughmoney": "Quý khách không còn đủ tiền để thực hiện giao dịch này.",
@@ -838,6 +873,12 @@ export default
                     "message": "Bạn có chắc muốn thực hiện ?",
                     "ok": "OK",
                     "cancel": "Cancel"
+                },
+                "transtype":{
+                    "Fund Transfer":"Chuyển tiền",
+                    "External":"Chuyển khoản ra ngoài",
+                    "Internal":"Chuyển tiền nội bộ",
+                    "Withdraw/Internal":"Rút tiền/Chuyển tiền nội bộ",
                 }
             },
             "cashadvance": {
@@ -1137,6 +1178,10 @@ export default
                     "status": "Trạng thái",
                     "transdate": "Ngày GD",
                     "approvedate": "Ngày xác nhận"
+                },
+                "status":{
+                    "H":"chưa xác nhận",
+                    "D":"Đã xác nhận"
                 }
             },
             "loanRefundHistory": {

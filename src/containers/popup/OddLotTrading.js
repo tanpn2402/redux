@@ -7,12 +7,14 @@ import * as actions from '../../actions'
 import DataTable from '../commons/DataTable'
 import CheckAuthenticationModal from './CheckAuthenticationModal'
 import Select from '../commons/Select'
-
+import Input from "../commons/Input"
 
 class OddLotSubmit extends Component {
     constructor(props) {
         super(props)
-
+        this.state={
+            bankname:''
+        }
         this.params = {
             mvOddList: '',
             annoucementId: '',
@@ -54,8 +56,11 @@ class OddLotSubmit extends Component {
                 accessor: 'oddLotQty',
                 Cell: props => {
                     return (
-                        <input id={props.original.stockCode + '-qty'} type="number" defaultValue={props.original.oddLotQty}
-                            min="0" max={props.original.oddLotQty} />
+                          <Input key={props.original.stockCode + '-qty'} type="number" 
+                                step={1}
+                                defaultValue={props.original.oddLotQty}
+                                maxValue={props.original.oddLotQty}
+                                    />
                     )
                 },
                 width: 200,

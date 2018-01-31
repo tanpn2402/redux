@@ -69,6 +69,7 @@ class CashTransHistory extends Component {
                     skip: false,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'status',
@@ -86,7 +87,7 @@ class CashTransHistory extends Component {
                 {
                     id: 'notes',
                     accessor: 'remark',
-                    width: 150,
+                    width: 400,
                     skip: false,
                     show: true,
                 },

@@ -48,6 +48,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'ratecash',
@@ -57,6 +58,7 @@ class ActionRightList extends Component {
                     width: 150,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'rate',
@@ -64,6 +66,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'pervalue',
@@ -73,6 +76,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {   // SL CK
                     id: 'recievecash',
@@ -83,6 +87,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'receivedstock',

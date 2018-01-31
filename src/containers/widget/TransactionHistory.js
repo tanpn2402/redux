@@ -38,6 +38,7 @@ class TransactionHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "marketid",
@@ -59,6 +60,7 @@ class TransactionHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "filledprice",
@@ -73,6 +75,7 @@ class TransactionHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "matchedvalue",
@@ -80,6 +83,7 @@ class TransactionHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "tradingtype",
@@ -129,7 +133,8 @@ class TransactionHistory extends Component {
                     skip: false,
                     skip: false,
                     show: true,
-                    style: {textAlign: "right"}
+                    style: {textAlign: "right"},
+                    background: props.theme.number.col
                 },
                 {
                     id: 'datetrans',

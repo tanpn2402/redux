@@ -126,8 +126,8 @@ export default {
     },
     tabcontrol: {
         normal: {
-            backgroundColor: '#cccc',
-            color: "#000000"
+            backgroundColor: 'rgb(84, 83, 83)',
+            color: "rgb(156, 156, 156)"
         },
         active: {
             backgroundColor: '#181818',
@@ -268,6 +268,15 @@ export default {
             backgroundColor: "#000000",
             borderRight: "1px solid #424040",
             borderBottom: "1px solid #424040",
+        }
+    },
+     number:{
+        col:{
+            justifyContent:'flex-end',
+        }, 
+        col2:{
+            alignItems:'center',
+            justifyContent:'flex-end',
         }
     },
     placeorder: {

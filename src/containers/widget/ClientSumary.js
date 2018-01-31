@@ -19,15 +19,16 @@ class ClientSumary extends React.Component {
         let header = this.props.language.portfolio.header
         let clientData = this.props.clientData
         let theme = this.props.theme
+        let personalProfile = clientData.mvPersonnalProfileBean == null ? {} : clientData.mvPersonnalProfileBean
         return (
             <Component className="client-sum" theme={theme} style={{ height: "100%", position: "relative" }}>
                 <ul className="client-sum-control">
                     <li>
                         <div className="cl-info"  >
                             <span style={theme.font.main} className="cl-account">
-                                <label>{clientData.mvPersonnalProfileBean.mvAccountNumber}</label>
+                                <label>{personalProfile.mvAccountNumber}</label>
                             </span>
-                            <span style={theme.font.main} className="cl-name">{clientData.mvPersonnalProfileBean.mvName}</span>
+                            <span style={theme.font.main} className="cl-name">{personalProfile.mvName}</span>
                         </div>
                     </li>
                     <li>
@@ -62,6 +63,7 @@ class ClientSumary extends React.Component {
     _renderProfit(header, theme) {
         let style = theme.bindingdata.normal
         let props = this.props.data.mvPortfolioAccSummaryBean
+        props = props == null ? {} : props
         
         if(utils.numUnFormat(props["PLPercent"]) > 0) {
             style = theme.bindingdata.up
@@ -80,7 +82,7 @@ class ClientSumary extends React.Component {
 
     _render(accessor) {
         let props = this.props.data.mvPortfolioAccSummaryBean
-
+        props = props == null ? {} : props
         let theme = this.props.theme.bindingdata
         let style = theme.normal
 
