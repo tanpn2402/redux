@@ -68,6 +68,7 @@ class MatchOrderList extends Component {
                     show: true,
                     skip: false,
                     width: 150,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'value',
@@ -77,6 +78,7 @@ class MatchOrderList extends Component {
                     show: true,
                     skip: false,
                     width: 150,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'fee',
@@ -86,6 +88,7 @@ class MatchOrderList extends Component {
                     show: true,
                     skip: false,
                     width: 150,
+                    background: props.theme.number.col
                 }
             ],
             filterable: false

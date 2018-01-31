@@ -69,6 +69,7 @@ class CashTransHistory extends Component {
                     skip: false,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'status',

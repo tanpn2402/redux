@@ -61,6 +61,7 @@ class CashStatement extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'debitamount',
@@ -68,6 +69,7 @@ class CashStatement extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'endingbalance',
@@ -75,6 +77,7 @@ class CashStatement extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
             ],
             pageIndex: 1,

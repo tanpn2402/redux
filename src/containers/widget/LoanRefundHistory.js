@@ -57,6 +57,7 @@ class LoanTrans extends Component {
                     width: 140,
                     show: true,
                     skip: false,
+                    background: props.theme.number.col
                 }, {
                     id: 'type',
                     accessor: this.accessor[3],

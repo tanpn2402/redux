@@ -75,6 +75,7 @@ class StockStatement extends Component {
                             width: 80,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'avgprice',
@@ -82,6 +83,7 @@ class StockStatement extends Component {
                             width: 80,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'amt',
@@ -89,6 +91,7 @@ class StockStatement extends Component {
                             width: 100,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                     ]
                 },
@@ -103,6 +106,7 @@ class StockStatement extends Component {
                             width: 80,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'avgprice',
@@ -110,6 +114,7 @@ class StockStatement extends Component {
                             width: 80,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'amt',
@@ -117,6 +122,7 @@ class StockStatement extends Component {
                             width: 100,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                     ]
                 },
@@ -131,6 +137,7 @@ class StockStatement extends Component {
                             width: 80,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'percentage',
@@ -138,6 +145,7 @@ class StockStatement extends Component {
                             width: 60,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                     ]
                 },

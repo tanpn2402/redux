@@ -29,7 +29,8 @@ class FundTransPanel extends Component {
         this.state = {
             isExternalFilter: true,
             receivers: [],
-            destClientID: ''
+            destClientID: '',
+            isShow:false
         }
 
         this.handleInputChange = this
@@ -69,6 +70,16 @@ class FundTransPanel extends Component {
         })
 
     }
+     handleInputChange= ({option }) =>  {
+         var beniAccount = option.receiverAccID
+         this.setState({ destClientID: option });
+        this.bankName.value=option.receiverBankName
+        this.beneficiaryfullname.value = option.receiverName
+         this.transferAmount.value=option.transferFee
+        
+     }
+
+
 
     render() {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
@@ -123,7 +134,7 @@ class FundTransPanel extends Component {
                                                     this.transferAmount.value = ""
                                                     this.remark.value = ""
                                                 })}>
-                                                <div className="Radiobox">External</div>
+                                                <div className="Radiobox">{this.props.language.cashtransfer.header.External}</div>
                                             </Radio>
                                             <Radio
                                                 name="radioGroup"
@@ -144,7 +155,7 @@ class FundTransPanel extends Component {
                                                     this.transferAmount.value = ""
                                                     this.remark.value = ""
                                                 })}>
-                                                <div className="Radiobox">Internal</div>
+                                                <div className="Radiobox">{this.props.language.cashtransfer.header.Internal}</div>
                                             </Radio>
                                         </td>
                                     </tr>
@@ -203,6 +214,7 @@ class FundTransPanel extends Component {
                                                 className="hks-input border"
                                                 type="number"
                                                 ref={e => this.transferAmount = e}
+                                                style={{textAlign:'right'}}
                                                 required />
                                         </td>
                                     </tr>
@@ -238,35 +250,25 @@ class FundTransPanel extends Component {
 
     //
     //Update paramsfund on user's input change
-    handleInputChange(e) {
-        if (e) {
-            console.log(this.destClientID)
-            if (e.receiverAccID == "")
-                return;
-            var curReciever = this.state.receivers.find((reciever) => {
-                return e.receiverAccID == reciever.receiverAccID
-            })
-            this.bankName.value = curReciever.receiverBankName
-            this.beneficiaryfullname.value = curReciever.receiverName
-            this.setState({ destClientID: e.receiverAccID })
-        } else {
-            this.setState({ destClientID: '' })
-            this.beneficiaryfullname.value = ''
-            this.bankName.value = ''
-        }
-    }
+    
 
     handleSubmit(e) {
         e.preventDefault()
+        var checkType=0;
+        if(this.state.isExternalFilter){
+            checkType=1;
+        }else{
+            checkType=0;
+        }
         var params = {
             mvBankId: 'VDSC',
-            mvDestClientID: this.state.destClientID,
+            mvDestClientID: this.state.destClientID.receiverAccID,
             mvDestBankID: '',
             inputBankName: this.bankName.value,
             inputBankBranch: this.bankBranch.value,
             mvDestAccountName: this.beneficiaryfullname.value,
             mvAmount: this.transferAmount.value,
-            mvTransferType: this.state.isExternalFilter,
+            mvTransferType: checkType,
             mvRemark: this.remark.value,
             mvSeriNo: '[5,A][4,f]',
             mvAnswer: '7|4',
@@ -276,15 +278,15 @@ class FundTransPanel extends Component {
             mvAvaiableAmt: this.withdrawAmt.innerHTML,
             mvTransferFee: '0'
         }
-        // this.setState({ isShow: true }) let advPayment =
-        // document.getElementById('txtAdvancePayment').value
-        // this.props.beforeSubmit(advPayment, this.props.LocalAdvance.mvAdvanceBean,
-        // this.props.language) check if transfer amount is over available amount
-        // if(this.props.datagenfundtransfer.transferamount >
-        // this.props.datagenfundtransfer.mvAvaiableAmt){}
-        this
-            .props
-            .beforeSubmit(params, this.props.datagenfund, this.props.language)
+         var defaultParam = {
+            matrixKey01: '[5,A]',
+            matrixKey02: '[4,F]',
+            matrixValue01: '7',
+            matrixValue02: '4',
+            savedAuthen: true,
+        }
+        this.props.beforeSubmit(params, this.props.datagenfund, this.props.language)
+          this.props.submit(params, defaultParam , this.props.language)
     }
 
     componentDidMount() {
@@ -317,6 +319,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     beforeSubmit: (paramsTransfer, mvTransferBean, language) => {
         dispatch(actions.beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language))
+    },
+     submit: (data, authParams, language) => {
+        dispatch(actions.submitCashTransfer(data, authParams, language))
     }
 })
 

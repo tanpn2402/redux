@@ -30,13 +30,26 @@ class OddLotHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'exepriceH',
                     accessor: 'price',
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.price.trim()
+                            if(!isNaN(value) && value.toString().indexOf('.') != -1)
+                                return value;
+                            else
+                            return 0;          
+                        }
+                    },
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'fee',
@@ -45,6 +58,7 @@ class OddLotHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
 
                 {
@@ -53,11 +67,23 @@ class OddLotHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'status',
                     accessor: 'status',
                     width: 120,
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.status.trim()
+                            let text = this.props.language.oddlotHistory.status[value]
+                            return (
+                                Utils.statusRenderer(text,value)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },

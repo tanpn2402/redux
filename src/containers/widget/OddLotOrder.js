@@ -47,6 +47,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'oddlotquantity',
@@ -54,6 +55,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'currentprice',
@@ -61,6 +63,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'exeprice',

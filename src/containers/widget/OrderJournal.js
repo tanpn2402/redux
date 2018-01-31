@@ -151,7 +151,8 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
-                    style: { textAlign: "right" }
+                    background: props.theme.number.col2
+                        
                 },
                 {
                     id: 'quantity',
@@ -159,6 +160,7 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: 'pendingQty',
@@ -166,6 +168,7 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: 'executedQty',
@@ -173,6 +176,7 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: 'avgprice',
@@ -180,6 +184,7 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: 'status',
@@ -207,14 +212,37 @@ class OrderJournal extends Component {
                 },
                 {
                     id: 'feetax',
-                    accessor: 'a',
                     width: 90,
                     skip: false,
+                    Cell: props => {
+                        var result=0
+                        if (props.aggregated) {
+
+                        } else {
+                             if (props.original.mvBSValue == this.props.language.global.buysell.B)
+                                result=props.original.mvNetAmtValue - props.original.mvGrossAmt
+                             
+                            else
+                                result=props.original.mvGrossAmt - props.original.mvNetAmtValue
+                            return   Math.round(result*1000)/1000
+                        }
+                    },
                     show: true,
+                    background: props.theme.number.col2
                 },
                 {
                     id: 'bankid',
                     accessor: 'mvBankID',
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            let text = props.original.mvBankID
+                        if(text === null){
+                            return ''
+                        }
+                        }
+                    },
                     width: 80,
                     skip: false,
                     show: true,
@@ -230,6 +258,13 @@ class OrderJournal extends Component {
                     id: 'rejectreason',
                     accessor: 'mvRejectReason',
                     width: 80,
+                    Cell: props => {
+                        return (
+                            <div className='rejectReason' style={{color:'blue'}} onClick={this.handleReject}>
+                                 {props.original.mvRejectReason}   
+                            </div>
+                        )
+                    },
                     skip: false,
                     show: true,
                     mobile: false
@@ -284,6 +319,9 @@ class OrderJournal extends Component {
     onModifyOrder(order) {
         this.handleModifyOrder(order)
         console.log(order)
+    }
+    handleReject(){
+        
     }
 
 

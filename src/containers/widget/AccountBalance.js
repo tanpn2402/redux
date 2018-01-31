@@ -54,7 +54,7 @@ class AccountBalance extends Component {
                     width: 200,
                     skip: false,
                     show: true,
-                    style: {textAlign: "right"}
+                    background: props.theme.number.col
                 },
                 {
                     id: "exrate",
@@ -69,6 +69,7 @@ class AccountBalance extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "withdrawable",
@@ -76,6 +77,7 @@ class AccountBalance extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: "settledbalance",
@@ -83,6 +85,7 @@ class AccountBalance extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 }
             ],
             pageIndex: 1,

@@ -49,6 +49,7 @@ class AdvanceHistory extends Component {
                     show: true,
                     skip: false,
                     width: 120,
+                    background: props.theme.number.col
 
                 },
                 {
@@ -59,6 +60,7 @@ class AdvanceHistory extends Component {
                     show: true,
                     skip: false,
                     width: 120,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'processingstatus',

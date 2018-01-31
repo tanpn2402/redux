@@ -35,14 +35,15 @@ class AccountInfo extends Component {
 					width: 70,
 					skip: false,
 					show: true,
+                    			background: props.theme.number.col
 				},
 				{
 					id: 'tradeinday',
 					Header: this.props.language.accountinfo.header.tradeinday,
 					headerClassName: this.props.language.accountinfo.header.tradeinday,
 					columns: [{
-                        id: 'bought',
-                        parent: 'tradeinday',
+			                        id: 'bought',
+			                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodayBuy',
 					}, {
@@ -459,13 +460,13 @@ class AccountInfo extends Component {
 					Header: language.accountinfo.header.tradeinday,
 					headerClassName: language.accountinfo.header.tradeinday,
 					columns: [{
-                        id: 'bought',
-                        parent: 'tradeinday',
+			                        id: 'bought',
+			                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodayBuy',
 					}, {
-                        id: 'sold',
-                        parent: 'tradeinday',
+			                        id: 'sold',
+			                        parent: 'tradeinday',
 						width: 150,
 						accessor: 'mvTTodaySell'
 					}]
