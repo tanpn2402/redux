@@ -270,6 +270,15 @@ export default {
             borderBottom: "1px solid #424040",
         }
     },
+     number:{
+        col:{
+            justifyContent:'flex-end',
+        }, 
+        col2:{
+            alignItems:'center',
+            justifyContent:'flex-end',
+        }
+    },
     placeorder: {
         tabBS: {
             active: {

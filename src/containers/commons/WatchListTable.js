@@ -24,11 +24,12 @@ class WatchListTable extends React.Component {
                         },
                         sortable: false,
                         skip: true,
-                        background: this.props.theme.watchlist.evenCol,
+                        
                     }],
                     skip: true,
                     show: true,
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
+                    background: this.props.theme.watchlist.evenCol,
                 },
                 {
                     id: 'reference',
