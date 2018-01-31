@@ -20,6 +20,17 @@ class FundTransHistory extends Component {
                     accessor: 'action',
                     width: 150,
                     skip: false,
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.action.trim()
+                            let text = this.props.language.cashtransfer.transtype[value]
+                            return (
+                                Utils.statusRenderer(text,value)
+                            )
+                        }
+                    },
                     show: true,
                 },
                 {
@@ -28,6 +39,7 @@ class FundTransHistory extends Component {
                     width: 150,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
                 {
                     id: 'beneficiaryaccount',
@@ -61,6 +73,17 @@ class FundTransHistory extends Component {
                     id: 'status',
                     accessor: 'status',
                     width: 80,
+                    Cell: props => {
+                        if (props.aggregated) {
+            
+                        } else {
+                            var value=props.original.status.trim()
+                            let text = this.props.language.cashtransfer.status[value]
+                            return (
+                                Utils.statusRenderer(text,value)
+                            )
+                        }
+                    },
                     skip: false,
                     show: true,
                 },

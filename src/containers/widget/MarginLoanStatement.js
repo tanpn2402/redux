@@ -68,6 +68,7 @@ class MarginLoanStatement extends Component {
                             width: 100,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'payment',
@@ -75,6 +76,7 @@ class MarginLoanStatement extends Component {
                             width: 100,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                         {
                             id: 'finaldept',
@@ -82,6 +84,7 @@ class MarginLoanStatement extends Component {
                             width: 100,
                             skip: false,
                             show: true,
+                            background: props.theme.number.col
                         },
                     ]
                 },
@@ -98,6 +101,7 @@ class MarginLoanStatement extends Component {
                     width: 250,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
             ],
             pageIndex: 1,

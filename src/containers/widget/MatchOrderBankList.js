@@ -84,12 +84,14 @@ class MatchOrderBankList extends Component {
                     id: 'price',
                     show: true,
                     skip: false,
+                    background: props.theme.number.col
                 },
                 {
                     accessor: this.accessor[6],
                     id: 'quantity',
                     show: true,
                     skip: false,
+                    background: props.theme.number.col
                 },
                 {
                     accessor: this.accessor[7],
@@ -99,6 +101,7 @@ class MatchOrderBankList extends Component {
                     id: 'value',
                     show: true,
                     skip: false,
+                    background: props.theme.number.col
                 }
             ],
             filterable: false

@@ -36,13 +36,14 @@ class AdBankHistory extends Component {
                     id: 'advanceamount',
                     show: true,
                     skip: false,
-
+                    background: props.theme.number.col
                 },
                 {
                     accessor: 'advancefee',
                     id: 'advancefee',
                     show: true,
                     skip: false,
+                    background: props.theme.number.col
                 },
                 {
                     accessor: 'processingstatus',

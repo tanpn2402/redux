@@ -28,6 +28,7 @@ class Input extends React.Component {
                         onKeyPress={this.handleKeyPress} 
                         type='number'
                         min='0'
+			            max={this.props.maxValue}
                         tabIndex={this.props.tabIndex}
                         />
                     <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
@@ -74,7 +75,9 @@ class Input extends React.Component {
     handleButtonInputClick(value) {
         if(!this.readOnly) {
             let number = parseFloat( this.rInput.value )
-            this.rInput.value = isNaN(number) ? 0 : (number + value) < 0 ? 0 : (number + value)
+            let maxNumber = parseFloat( this.props.maxValue )
+
+            this.rInput.value = isNaN(number) ? 0 : (number + value) < 0 ? 0 :(number + value)>maxNumber ? maxNumber : (number + value)
 
             if( this.props.onChange && !isNaN(this.rInput.value)) {
                 this.props.onChange(this.rInput.value)
@@ -86,13 +89,18 @@ class Input extends React.Component {
         var decimalvalidate = /^[0-9][0-9]*$/;
         if (!decimalvalidate.test(e.key)) {
             let number = parseFloat( this.rInput.value );
+            let maxNumber = parseFloat( this.props.maxValue );
             e.preventDefault();
             if (e.key === 'Enter' && this.props.onKeyPress != undefined) {
                 this.props.onKeyPress(e)
 
             }
             else if(e.key==='+'){
-                this.rInput.value=number + this.props.step;
+                if(number >=maxNumber ){
+                    return
+                } else {
+                	this.rInput.value=number + this.props.step;
+		}
             } else if(e.key==='-' && number !== 0) {
                 this.rInput.value = (number - this.props.step) > 0 ? number - this.props.step : 0;
             }
@@ -137,6 +145,7 @@ Input.defaultProps = {
     defaultValue: 0,
     step: 1,
     type: 'text',
-    className: ""
+    className: "",
+    maxValue: 10000000
 }
 export default Input
