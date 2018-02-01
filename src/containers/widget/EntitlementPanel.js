@@ -37,6 +37,8 @@ class EntitlementPanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
+
+        let formStyle = this.props.theme.form
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}>
@@ -170,11 +172,11 @@ class EntitlementPanel extends Component {
                             <div className="group-btn-action form-submit-action">
                                 <span>
                                     <button className="btn btn-default" type="button" className="hks-btn btn-cancel"
-                                        onClick={this.handleResetForm.bind(this)}>
+                                        onClick={this.handleResetForm.bind(this)} style={formStyle.button.clear} >
                                         {this.props.language.button.cancel}
                                     </button>
                                     <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
-                                        onClick={this.submitEntitlement.bind(this)}>
+                                        onClick={this.submitEntitlement.bind(this)} style={formStyle.button.submit} >
                                         {this.props.language.button.submit}
                                     </button>
                                 </span>

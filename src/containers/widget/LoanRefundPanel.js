@@ -27,7 +27,9 @@ class LoanTrans extends Component {
         let font2 = this.props.theme.font.sub1.color
 		let tableFooter = this.props.theme.table.tableFooter
 		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
-		let rowEven = this.props.theme.table.rowEven.backgroundColor
+        let rowEven = this.props.theme.table.rowEven.backgroundColor
+        
+        let formStyle = this.props.theme.form
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
@@ -109,10 +111,11 @@ class LoanTrans extends Component {
                             <div className="group-btn-action form-submit-action">
                                 <span>
                                     <button className="btn btn-default" type="reset" className="hks-btn btn-cancel"
-                                        onClick={e => this.handleResetLoanRefundForm()}>
+                                        onClick={e => this.handleResetLoanRefundForm()} style={formStyle.button.clear} >
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" >
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" 
+                                        style={formStyle.button.submit} >
                                         {this.props.language.button.submit}
                                     </button>
                                 </span>

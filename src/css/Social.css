@@ -278,6 +278,10 @@
     background: #ff8001;
     padding-top: 0px;
 }
+.gameboard.virtual .tab-chooser {
+    background: #ed514d;
+    padding-top: 0px;
+}
 
 
 /* FEED BOX */

@@ -253,13 +253,25 @@ class PlaceOrder extends React.Component {
 
         let theme = this.props.theme
         let BS = this.state.mvBS
-        console.log(this.props)
+        // console.log(this.props)
         let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
-        console.log(placeOrderBg)
+        // console.log(placeOrderBg)
         let tabActivedStyle = theme.placeorder.tabBS.active
-        console.log(tabActivedStyle)
+        // console.log(tabActivedStyle)
         tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
-        console.log(tabActivedStyle)    
+        // console.log(tabActivedStyle)    
+
+        let selectorStyles = {
+            background: "#2159a0",
+            color: "#FFF"
+        } 
+        if(this.props.theme.title == "virtual") {
+            selectorStyles = {
+                background: "#ee514c",
+                color: "#FFF"
+            } 
+        }
+
         return (
             <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
 
@@ -279,6 +291,7 @@ class PlaceOrder extends React.Component {
                             </span>
                         </div>
                         <Select
+                            style={selectorStyles}
                             key="rSubAccSelector"
                             ref={r => this.rSubAccSelector = r}
                             options={this.state.mvListSubAcc}

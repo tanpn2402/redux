@@ -62,9 +62,15 @@ export default class GameBoard extends React.Component {
                 border: "none",
                 color: "#FFF"
             }
-        } else {
+        } else if(theme.title == "dark") {
             theme.tabcontrol.normal = {
                 backgroundColor: "rgb(255, 128, 0)",
+                border: "none",
+                color: "#FFF"
+            }
+        } else if(theme.title == "virtual") {
+            theme.tabcontrol.normal = {
+                backgroundColor: "#ed514d",
                 border: "none",
                 color: "#FFF"
             }
@@ -150,7 +156,8 @@ class GameBoardItem extends React.Component {
                     </div>
                 </div>
                 <div className="fol-control" >
-                    <button className="btn btn-primary" onClick={e => this.onFollowClicked()}theme={this.props.theme} style={socialFol}>{header.follow}</button>
+                    <button className="btn btn-primary" onClick={e => this.onFollowClicked()}
+                        style={socialFol}>{header.follow}</button>
                 </div>
                 <div className="user">
                     <div className="avt">

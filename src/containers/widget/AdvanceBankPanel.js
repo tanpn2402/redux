@@ -32,6 +32,8 @@ class AdBankPanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
+
+        let formStyle = this.props.theme.form
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme}>
@@ -98,11 +100,11 @@ class AdBankPanel extends Component {
                             <div className="group-btn-action form-submit-action">
                                 <span>
                                     <button className="btn btn-default" type="button" className="hks-btn btn-cancel"
-                                        onClick={e => this.handleResetForm(this.props.paymentSelected)}>
+                                        onClick={e => this.handleResetForm(this.props.paymentSelected)} style={formStyle.button.clear} >
                                         {this.props.language.button.cancel}
                                     </button>
                                     <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
-                                        onClick={this.handleSubmit.bind(this)}>
+                                        onClick={this.handleSubmit.bind(this)} style={formStyle.button.submit} >
                                         {this.props.language.button.submit}
                                     </button>
                                 </span>

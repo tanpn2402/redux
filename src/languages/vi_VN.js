@@ -1396,7 +1396,14 @@ export default
                     "followers": "Followers",
                     "totalprofit": "My Total Profit",
                     "rank": "Rank",
-                    "placeholder": "What's on your mind?"
+                    "placeholder": "What's on your mind?",
+                    "daily": "Daily",
+                    "monthly": "Monthly",
+                    "netequity": "Net Enquity",
+                    "grossprofitranking": "Gross Profit Ranking",
+                    "portfolio": "Portfolio",
+                    "positions": "Positions",
+                    "history": "History"
                 }
             },
             "messagebox": {

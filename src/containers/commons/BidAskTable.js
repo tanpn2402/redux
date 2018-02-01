@@ -24,6 +24,14 @@ const backgroundStyles = {
         "ask": {
             backgroundColor: "#feeff1"
         }
+    },
+    "virtual": {
+        "bid": {
+            backgroundColor: "#edf6e9"
+        },
+        "ask": {
+            backgroundColor: "#feeff1"
+        }
     }
 }
 

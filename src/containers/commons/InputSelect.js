@@ -26,7 +26,7 @@ class InputSelect extends React.Component {
             options = this.props.options
         this.tmpValue = !this.tmpValue
         return (
-            <div className={"select-control " + this.props.className}>
+            <div className={"select-control " + this.props.className} style={this.props.style}>
                 <TypeAhead
                     options={options}
                     selected={this.props.selected}
@@ -50,6 +50,7 @@ InputSelect.defaultProps = {
     selectedOptionComponent: null,
     searchEnabled: false,
     className: "",
-    stockSelector: false
+    stockSelector: false,
+    style: {}
 }
 export default InputSelect

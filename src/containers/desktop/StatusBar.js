@@ -251,9 +251,10 @@ class StatusBar extends React.Component {
                     <Clock/>
                 </div>
 
-                <div className="react-bootstrap-switch">
+                <div className={"react-bootstrap-switch " + this.props.theme.title}>
                     <Switch onText='Virtual' offText='Real' bsSize='mini' 
-                        wrapperClass='react-bootstrap-switch' defaultValue={true} />
+                        onChange={(el, state) => this.handleSwitch(el, state)}
+                        wrapperClass='react-bootstrap-switch' defaultValue={false} />
                 </div>
 
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
@@ -262,6 +263,16 @@ class StatusBar extends React.Component {
 
         )
         
+    }
+
+    handleSwitch(elem, state) {
+        if(state) {
+            // virtual
+            this.props.switchTheme("virtual")
+        } else {
+            // real
+            this.props.switchTheme("light")
+        }
     }
 
     onFavClick(e, id){
@@ -500,6 +511,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     showDialog: (param) => {
         dispatch(actions.showPopup(param))
+    },
+    switchTheme: (theme) => { 
+        dispatch(actions.switchTheme(theme)) 
     }
 })
 

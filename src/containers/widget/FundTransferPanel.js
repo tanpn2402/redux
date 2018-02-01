@@ -83,6 +83,8 @@ class FundTransPanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
+
+        let formStyle = this.props.theme.form
         return (
             <div
                 style={{
@@ -227,10 +229,12 @@ class FundTransPanel extends Component {
                             </Table>
                             <div className="group-btn-action form-submit-action">
                                 <span>
-                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel" >
+                                    <button className="btn btn-default" type="reset" className="hks-btn btn-cancel"
+                                        style={formStyle.button.clear} >
                                         {this.props.language.button.cancel}
                                     </button>
-                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit" >
+                                    <button className="btn btn-default" type="submit" className="hks-btn btn-submit"
+                                        style={formStyle.button.submit} >
                                         {this.props.language.button.submit}
                                     </button>
                                 </span>

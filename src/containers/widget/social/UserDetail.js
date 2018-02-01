@@ -70,16 +70,24 @@ class UserDetail extends React.Component {
                 value: 56.03
             }
         ]
+        let socialStyle = this.props.theme.social
         let socialHeader = this.props.theme.social.socialHeader
         let socialBody = this.props.theme.social.socialBody
         let socialBG = this.props.theme.social.socialBG
         let socialRank = this.props.theme.social.socialRank
 
-
-        theme.tabcontrol.normal = {
-            backgroundColor: "rgb(33, 88, 160)",
-            border: "none",
-            color: "#FFF"
+        if(this.props.theme.title == "virtual") {
+            theme.tabcontrol.normal = {
+                backgroundColor: "#ed514d",
+                border: "none",
+                color: "#FFF"
+            }
+        } else {
+            theme.tabcontrol.normal = {
+                backgroundColor: "rgb(33, 88, 160)",
+                border: "none",
+                color: "#FFF"
+            }
         }
 
         return (
@@ -97,7 +105,8 @@ class UserDetail extends React.Component {
                 theme ={this.props.theme} style={socialBG}>
                     <div className="user-info" ref={r => this.userInfo = r} theme ={this.props.theme} style={socialBody}>
                         <div className="fol-control" >
-                            <button className="btn btn-primary" onClick={e => this.onFollowClicked()} theme={this.props.theme} style={socialRank}>{header.following}</button>
+                            <button className="btn btn-primary" onClick={e => this.onFollowClicked()} 
+                                theme={this.props.theme} style={socialStyle.socialFollowed}>{header.following}</button>
                         </div>
                         <div className="user">
                             <div className="avt">

@@ -1,5 +1,5 @@
 export default {
-    title: 'light',
+    title: 'virtual',
     button: {
         confirm: {
             backgroundColor: '#c40909',
@@ -75,7 +75,7 @@ export default {
             backgroundColor: '#f2f2f2'
         },
         pageMenuNav: {
-            backgroundColor: '#005aa0'
+            backgroundColor: '#ed514d'
         },
         pageMainContent:{
             
@@ -84,22 +84,22 @@ export default {
     searchbar: {
         default: {
             button:{
-                backgroundColor: "#337AB7",
-                color: "#FFFAFA",
-                borderColor: "#2E6DA4"
+                backgroundColor: "#ed514d",
+                color: "#FFF",
+                borderColor: "#ed514d"
             }
         }
     },
     statusbar: {
-        backgroundColor: '#005aa0'
+        backgroundColor: '#ed514d'
     },
     widget: {
         widgetBackground: {
             backgroundColor: '#FFFFFF'
         },
         widgetHeader: {
-            backgroundColor: '#FFFFFF',
-            color: "#000"
+            backgroundColor: '#ed514d',
+            color: "#FFF"
         },
         widgetBody: {
             // border: '1.75px solid #FFFFFF'
@@ -153,11 +153,11 @@ export default {
     },
     tab:{
         normal:{
-            // backgroundColor: '#286CAE'
+            backgroundColor: '#ed514d'
         },
         active:{
-            // backgroundColor: '#fff',
-            // color: '#555'
+            backgroundColor: '#fff',
+            color: '#555'
         }
     },
     tabcontrol:{
@@ -250,15 +250,15 @@ export default {
     },
     scrolling: {
         button: {
-            backgroundColor: "#f5f5f5",
-            color: "#005aa0",
+            backgroundColor: "#FFF",
+            color: "#ed514d",
         },
         background: ""
     },
     popup: {
         header: {
-            backgroundColor: "#FFF",
-            color: "#000"
+            backgroundColor: "#ed514d",
+            color: "#FFF"
         },
         body: {
             backgroundColor: "#FFF",
@@ -356,7 +356,7 @@ export default {
 
     social:{
         socialHeader: {
-            backgroundColor: '#2159a0',
+            backgroundColor: '#ed514d',
             color: "#FFF"
         },
         socialBody: {
@@ -370,13 +370,13 @@ export default {
             borderColor: ''
         },
         socialFol: {
-            backgroundColor: "",
-            color: ""
+            backgroundColor: "#ed514d",
+            color: "#FFF"
         },
         socialFollowed: {
             backgroundColor: "#FFF",
-            borderColor: "#2158a0",
-            color: "#2158a0"
+            borderColor: "#ed514d",
+            color: "#ed514d"
         },
         socialBG:{
             backgroundColor: '#f3f3f2'
@@ -385,13 +385,13 @@ export default {
     form: {
         button: {
             submit: {
-                border: "2px solid #005899",
+                border: "2px solid #ed514d",
                 color: "#FFF",
-                backgroundColor: "#005899"
+                backgroundColor: "#ed514d"
             },
             clear: {
-                border: "2px solid #005899",
-                color: "#005899",
+                border: "2px solid #ed514d",
+                color: "#ed514d",
                 backgroundColor: "#FFF"
             }
         }

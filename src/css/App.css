@@ -2202,7 +2202,7 @@ label {
     border-radius: 0 !important;
     width: 100px;
     font-size: 12px;
-    background-color: #2159a0 !important;
+    background-color: #2159a0;
     color: #FFF;
 }
 .sum-control {
@@ -4189,6 +4189,7 @@ label {
     margin-top: 1px;
 }
 
+
 .bootstrap-switch-container > span{
     font-size: 13px !important;
     padding-top: 1px !important;
@@ -4203,6 +4204,16 @@ label {
 .bootstrap-switch {
     border-color: transparent !important;
 }
+
+.react-bootstrap-switch.virtual .bootstrap-switch-handle-on {
+    background-color: #FFF !important;
+    color: #000 !important;
+}
+.react-bootstrap-switch.virtual  .bootstrap-switch-label {
+    background-color: #ccc;
+    color: #000;
+}
+
 
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
 {    

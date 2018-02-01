@@ -114,6 +114,17 @@ class BidAsk extends React.Component {
         } else {
             this.state.watched = false
         }
+
+        let selectorStyles = {
+            background: "#2159a0",
+            color: "#FFF"
+        } 
+        if(this.props.theme.title == "virtual") {
+            selectorStyles = {
+                background: "#ee514c",
+                color: "#FFF"
+            } 
+        }
         
         return (
 
@@ -121,6 +132,7 @@ class BidAsk extends React.Component {
                 style={{width: "100%", height: "100%"}}>
                 <div className="bidask-control">
                     <InputSelect
+                        style={selectorStyles}
                         className="stock-selector"
                         key="rStockSelector-header"
                         ref={r => this.rStockSelector = r}

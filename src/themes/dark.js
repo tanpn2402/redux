@@ -327,26 +327,45 @@ export default {
     },
 
     social:{
-            socialHeader: {
-                backgroundColor: '#ff8000',
-                color: "#FFF"
-            },
-            socialBody: {
-                backgroundColor: '#181818',
-                color: "#FFF"
-            },
-            socialRank: {
-                borderColor: "#ff8000",
-                color:"#ff8000"
-            },
-            socialFol: {
-                backgroundColor: "#ff8000",
-                color: "#FFF"
-            },
-            socialBG:{
-                backgroundColor: '#262626'
-            }
-
+        socialHeader: {
+            backgroundColor: '#ff8000',
+            color: "#FFF"
+        },
+        socialBody: {
+            backgroundColor: '#181818',
+            color: "#FFF"
+        },
+        socialRank: {
+            borderColor: "#ff8000",
+            color:"#ff8000"
+        },
+        socialFol: {
+            backgroundColor: "#ff8000",
+            color: "#FFF"
+        },
+        socialFollowed: {
+            backgroundColor: "transparent",
+            borderColor: "#ff8000",
+            color: "#ff8000"
+        },
+        socialBG:{
+            backgroundColor: '#262626'
         }
+
+    },
+    form: {
+        button: {
+            submit: {
+                border: "2px solid #005899",
+                color: "#FFF",
+                backgroundColor: "#005899"
+            },
+            clear: {
+                border: "2px solid #005899",
+                color: "#005899",
+                backgroundColor: "#FFF"
+            }
+        }
+    }
 
 }

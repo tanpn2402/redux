@@ -167,6 +167,18 @@ class Sumary extends React.Component {
                 value: 92.18,
             }
         ]
+
+        let selectorStyles = {
+            background: "#2159a0",
+            color: "#FFF"
+        } 
+        if(this.props.theme.title == "virtual") {
+            selectorStyles = {
+                background: "#FFF",
+                color: "#ee514c"
+            } 
+        }
+
         return (
             <Component style={{ height: "100%", position: "relative" }}>
                 <div className="sum-control" style={widgetHeader} >
@@ -176,6 +188,7 @@ class Sumary extends React.Component {
                     <div className="col-xs-10 sum-subaccount">
                         <div className="account-name"><span>Trading Account</span></div>
                         <Select
+                            style={selectorStyles}
                             key="rSubAccSelector"
                             ref={r => this.rSubAccSelector = r}
                             options={this.state.mvListSubAcc}
