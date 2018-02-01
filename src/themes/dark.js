@@ -115,28 +115,30 @@ export default {
             color: '#FFFFFF'
         },
         colNumber: {
-            textAlign: "left"
+            // textAlign: "right",
+            justifyContent: "flex-end"
         },
         colText: {
-            textAlign: "right"
+            // textAlign: "left",
+            justifyContent: "flex-start"
         }
     },
     tab: {
         normal: {
-            backgroundColor: '#545353'
+            backgroundColor: '#343434'
         },
         active: {
-            backgroundColor: '#343434',
+            backgroundColor: '#8C8C8C',
             color: 'white'
         }
     },
     tabcontrol: {
         normal: {
-            backgroundColor: 'rgb(84, 83, 83)',
+            backgroundColor: '#343434',
             color: "rgb(156, 156, 156)"
         },
         active: {
-            backgroundColor: '#181818',
+            backgroundColor: '#8C8C8C',
             color: '#FFF'
         }
     },

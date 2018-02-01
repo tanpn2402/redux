@@ -32,7 +32,8 @@ export default
                     "light": "Trắng",
                     "dark": "Tối",
                     "blue": "Xanh",
-                    "brown": "Nâu"
+                    "brown": "Nâu",
+                    "virtual": "Virtual"
                 },
                 "user": {
                     "title": "Tài khoản"

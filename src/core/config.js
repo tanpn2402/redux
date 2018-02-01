@@ -603,6 +603,7 @@ const config = {
 				//'blue',
 				'dark',
 				// 'brown'
+				// 'virtual'
 			]
 		},
 		{

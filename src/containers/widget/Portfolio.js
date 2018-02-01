@@ -316,6 +316,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }]
                 },
@@ -371,7 +372,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
-                        background: props.theme.table.colNumber,
+                        background: Object.assign({}, props.theme.table.colNumber, {paddingRight: "12px"}),
                         mobile: false,
                     }]
                 },

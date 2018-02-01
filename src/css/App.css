@@ -3868,14 +3868,14 @@ label {
     display: inline-flex;
     display: -ms-inline-flexbox;
     position: relative;
-    top: 4px;
+    top: 3px;
     left: 1px;
 }
 .bidask-control .select-control {
     width: 120px;
     font-size: 14px;
     font-weight: bold;
-    height: 22px;
+    height: 24px;
     border-radius: 0px;
     background-color: #2159a0;
     color: #FFF;
@@ -3884,6 +3884,10 @@ label {
     margin: 0 5px;
     color: #ffcc00;
     cursor: pointer;
+    padding-top: 3px;
+}
+.bidask-control .trd-instrument-name {
+    padding-top: 2px;
 }
 .bidask-control .trd-instrument-name p{
     margin: 0;

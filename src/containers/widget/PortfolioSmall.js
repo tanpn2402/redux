@@ -47,7 +47,7 @@ class PortfolioSmall extends React.Component {
         let _data = new Array()
         nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
             // console.log(e)
-            let avgPrice = e.mvWAC
+            let avgPrice = e.mvAvgPrice
             let marketPrice = e.mvMarketPrice
             let pl = e.mvPL
             let stockRealtimeData = nextProps.listInstrumentData.filter(el => el.mvStockCode == e.mvStockID)
@@ -60,10 +60,10 @@ class PortfolioSmall extends React.Component {
 
             _data.push({
                 "stockCode": e.mvStockID,
-                "mvTSettled": e.mvTSettled,
-                "mvAvgPrice": avgPrice,
+                "mvTSettled": utils.formatQty(e.mvTSettled),
+                "mvAvgPrice": utils.formatCurrency(avgPrice),
                 "mvMarketPrice": marketPrice,
-                "mvPL": pl,
+                "mvPL": utils.formatCurrency(pl),
                 "mvMarketID": e.mvMarketID
             })
         })

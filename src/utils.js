@@ -298,7 +298,7 @@ export function formatCurrency(num, q){
     }
   	num = num.toString()
   	if(num.indexOf(',') > 0){
-     	num = parseFloat(num.replace(/\,/g, '')) / 1000
+     	num = parseFloat(num.replace(/\,/g, ''))
       	if(!q)
       		num = parseFloat(num).toFixed(parseInt(2)).toString()
   		else if(q && !isNaN(parseInt(q))){

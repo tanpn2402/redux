@@ -32,7 +32,8 @@ export default
                     "light": "Light",
                     "dark": "Dark",
                     "blue": "Blue",
-                    "brown": "Brown"
+                    "brown": "Brown",
+                    "virtual": "Virtual"
                 },
                 "user": {
                     "title": "User"
@@ -604,7 +605,7 @@ export default
                     "mvTDueBuy": "T2 buy",
                     "mvTMortgageQty": "Mortgage",
                     "mvTManualHold": "Hold",
-                    "mvTEntitlementQty": "Pend.entitlement",
+                    "mvTEntitlementQty": "Pending entitlement",
                     "mvTAwaitingTraceCert": "Await trading",
                     "mvTAwaitingDepositCert": "Await deposit",
                     "mvTAwaitingWithdrawalCert": "Await withdraw",
