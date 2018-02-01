@@ -39,7 +39,8 @@ class Portfolio extends Component {
                             width: 70,
                             Aggregated: () => {
                                 return null
-                            }
+                            },
+                            background: props.theme.table.colText
                         },
                         {
                             id: 'mvStockName',
@@ -50,6 +51,7 @@ class Portfolio extends Component {
                             Aggregated: () => {
                                 return null
                             },
+                            background: props.theme.table.colText,
                             mobile: false
                         }
                     ]
@@ -86,6 +88,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         style: {textAlign: "right"}
                     }, {
                         id: 'mvTSettled',
@@ -96,7 +99,8 @@ class Portfolio extends Component {
                         width: 65,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        background: props.theme.table.colNumber
                     }, {
                         id: 'mvHoldingAmt',
                         parent: 'mvVolume',
@@ -107,6 +111,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvQueuingBuy',
@@ -118,6 +123,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTT1UnsettleBuy',
@@ -129,6 +135,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTDueBuy',
@@ -140,6 +147,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTMortgageQty',
@@ -151,6 +159,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTManualHold',
@@ -161,7 +170,8 @@ class Portfolio extends Component {
                         width: 60,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        background: props.theme.table.colNumber,
                     }, {
                         id: 'mvTEntitlementQty',
                         parent: 'mvVolume',
@@ -172,6 +182,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTAwaitingTraceCert',
@@ -183,6 +194,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTAwaitingDepositCert',
@@ -194,6 +206,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvTAwaitingWithdrawalCert',
@@ -205,6 +218,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }]
                 },
@@ -221,7 +235,8 @@ class Portfolio extends Component {
                         width: 80,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        background: props.theme.table.colNumber
                     }, {
                         id: 'mvMarketPrice',
                         parent: 'mvPrice',
@@ -231,7 +246,8 @@ class Portfolio extends Component {
                         width: 90,
                         Aggregated: () => {
                             return null
-                        }
+                        },
+                        background: props.theme.table.colNumber
                     }]
                 },
                 {
@@ -248,6 +264,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvMarketValue',
@@ -259,6 +276,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvPL',
@@ -270,6 +288,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvPLPercent',
@@ -298,6 +317,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'mvMartginValue',
@@ -309,6 +329,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'maintenancePercentage',
@@ -320,6 +341,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }, {
                         id: 'maintenanceValue',
@@ -331,6 +353,7 @@ class Portfolio extends Component {
                         Aggregated: () => {
                             return null
                         },
+                        background: props.theme.table.colNumber,
                         mobile: false,
                     }]
                 },

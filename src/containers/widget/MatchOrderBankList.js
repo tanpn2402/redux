@@ -76,8 +76,10 @@ class MatchOrderBankList extends Component {
                 {
                     accessor: this.accessor[4],
                     id: 'stockid',
+                    width: 60,
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 },
                 {
                     accessor: this.accessor[5],

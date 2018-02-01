@@ -70,6 +70,7 @@ class AdvanceHistory extends Component {
                     show: true,
                     skip: false,
                     width: 120,
+                    background: props.theme.table.colText
                 },
                 {
                     accessor: this.accessor[6],
@@ -87,6 +88,7 @@ class AdvanceHistory extends Component {
                     show: true,
                     skip: false,
                     width: 300,
+                    background: props.theme.table.colText
                 }
             ],
             filterable: false

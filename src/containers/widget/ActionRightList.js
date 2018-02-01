@@ -26,6 +26,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'actiontype',
@@ -33,6 +34,7 @@ class ActionRightList extends Component {
                     width: 200,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'recorddate',

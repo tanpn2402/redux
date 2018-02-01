@@ -37,9 +37,10 @@ class OddLotOrder extends Component {
                 {
                     id: 'stockid',
                     accessor: 'stockCode',
-                    width: 120,
+                    width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'tradingquantity',
@@ -71,6 +72,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.number.col
                 },
             ],
             filterable: false

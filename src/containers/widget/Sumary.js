@@ -191,7 +191,7 @@ class Sumary extends React.Component {
                             marginTop: '-35px', paddingTop: '40px'}}>
                             <PieChart theme={this.props.theme} colors={[]} data={data}/>
                         </div>
-                        <div className="col-xs-10" >
+                        <div className="col-xs-10 acc-sum-info" >
                             <div className="col-sm-3" style={{height: '100%',
                                 marginTop: '-35px', paddingTop: '40px'}}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>

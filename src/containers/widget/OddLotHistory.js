@@ -20,9 +20,10 @@ class OddLotHistory extends Component {
                 {
                     id: 'stockid',
                     accessor: 'instrumentId',
-                    width: 120,
+                    width: 60,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'oddlotquantityH',
@@ -86,6 +87,7 @@ class OddLotHistory extends Component {
                     },
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'transdate',

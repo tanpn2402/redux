@@ -27,6 +27,15 @@ class OrderHistory extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
+                },
+                {
+                    id: "marketid",
+                    accessor: "mvMarketID",
+                    width: 50,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: "price",
@@ -35,13 +44,6 @@ class OrderHistory extends Component {
                     skip: false,
                     show: true,
                     background: props.theme.number.col2
-                },
-                {
-                    id: "marketid",
-                    accessor: "mvMarketID",
-                    width: 50,
-                    skip: false,
-                    show: true,
                 },
                 {
                     id: "buysell",
@@ -107,7 +109,7 @@ class OrderHistory extends Component {
                 {
                     id: "tradingtype",
                     accessor: "mvOrderTypeValue",
-                    width: 80,
+                    width: 100,
                     Cell: props => {
                         if (props.aggregated) {
             
@@ -121,6 +123,7 @@ class OrderHistory extends Component {
                     },
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: "matchedorderstatus",
@@ -150,7 +153,7 @@ class OrderHistory extends Component {
                 {
                     id: "tradetime",
                     accessor: "mvInputTime",
-                    width: 100,
+                    width: 200,
                     skip: false,
                     show: true,
                 },

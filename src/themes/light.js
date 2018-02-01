@@ -141,6 +141,14 @@ export default {
         noDataDisplay: {
             backgroundColor: 'transparent',
             color: '#000000'
+        },
+        colNumber: {
+            textAlign: "right",
+            justifyContent: "flex-end"
+        },
+        colText: {
+            textAlign: "left",
+            justifyContent: "flex-start"
         }
     },
     tab:{

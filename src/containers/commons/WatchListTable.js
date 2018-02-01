@@ -45,7 +45,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.oddCol
+                            background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'ce',
                             Cell: row => {  
@@ -54,7 +54,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.oddCol
+                            background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'fl',
                             Cell: row => {
@@ -63,7 +63,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.oddCol
+                            background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -81,7 +81,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     }, {
                         id: 'vol3',
                         accessor_tmp: 'mvBidVol3',
@@ -91,7 +91,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     },
                     {
                         id: 'pri2',
@@ -102,7 +102,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     }, {
                         id: 'vol2',
                         accessor_tmp: 'mvBidVol2',
@@ -112,7 +112,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     }, {
                         id: 'pri1',
                         accessor_tmp: 'mvBidPrice1',
@@ -122,7 +122,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     }, {
                         id: 'vol1',
                         accessor_tmp: 'mvBidVol1',
@@ -132,7 +132,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                     }
                     ],
                     skip: false,
@@ -166,7 +166,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'volume',
                         accessor: 'mvMatchVol',
@@ -176,7 +176,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'totalvol',
                         accessor: 'mvMatchVolTotal',
@@ -186,7 +186,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'percent',
                         accessor: 'mvMatchUpDown',
@@ -197,7 +197,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'change',
                         accessor: 'mvMatchUpDown',
@@ -207,7 +207,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -226,7 +226,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'vol1',
                             accessor_tmp: 'mvOfferVol1',
@@ -236,7 +236,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         },
                         {
                             id: 'pri2',
@@ -247,7 +247,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'vol2',
                             accessor_tmp: 'mvOfferVol2',
@@ -257,7 +257,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'pri3',
                             accessor_tmp: 'mvOfferPrice3',
@@ -267,7 +267,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         }, {
                             id: 'vol3',
                             accessor_tmp: 'mvOfferVol3',
@@ -277,7 +277,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: this.props.theme.watchlist.evenCol
+                            background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -295,7 +295,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'high',
                         Cell: row => {
@@ -304,7 +304,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'low',
                         Cell: row => {
@@ -313,7 +313,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'avg',
                         Cell: row => {
@@ -322,7 +322,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.oddCol,
+                        background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -338,7 +338,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol,
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'forsell',
                         Cell: row => {
@@ -347,7 +347,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol,
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'forroom',
                         Cell: row => {
@@ -356,7 +356,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: this.props.theme.watchlist.evenCol,
+                        background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -445,7 +445,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.oddCol
+                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }, {
                             id: 'ce',
                             Cell: row => {  
@@ -454,7 +454,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.oddCol
+                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }, {
                             id: 'fl',
                             Cell: row => {
@@ -463,7 +463,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.oddCol
+                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -480,7 +480,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol3',
                         Cell: row => {
@@ -489,7 +489,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     },
                     {
                         id: 'pri2',
@@ -499,7 +499,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol2',
                         Cell: row => {
@@ -508,7 +508,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'pri1',
                         Cell: row => {
@@ -517,7 +517,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol1',
                         Cell: row => {
@@ -526,7 +526,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }
                     ],
                     skip: false,
@@ -542,14 +542,14 @@ class WatchListTable extends React.Component {
                         width: 45,
                         show: true,
                         skip: false,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'market',
                         accessor: 'mvMarket',
                         width: 45,
                         show: true,
                         skip: false,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     },
                     {
                         id: 'price',
@@ -559,7 +559,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'volume',
                         Cell: row => {
@@ -568,7 +568,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'totalvol',
                         Cell: row => {
@@ -577,7 +577,7 @@ class WatchListTable extends React.Component {
                         width: 100,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'percent',
                         Header: '%',
@@ -587,7 +587,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'change',
                         Cell: row => {
@@ -596,7 +596,7 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -614,7 +614,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol1',
                             Cell: row => {
@@ -623,7 +623,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         },
                         {
                             id: 'pri2',
@@ -633,7 +633,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol2',
                             Cell: row => {
@@ -642,7 +642,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'pri3',
                             Cell: row => {
@@ -651,7 +651,7 @@ class WatchListTable extends React.Component {
                             width: 48,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol3',
                             Cell: row => {
@@ -660,7 +660,7 @@ class WatchListTable extends React.Component {
                             width: 100,
                             skip: false,
                             show: true,
-                            background: props.theme.watchlist.evenCol
+                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -678,7 +678,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'high',
                         Cell: row => {
@@ -687,7 +687,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'low',
                         Cell: row => {
@@ -696,7 +696,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'avg',
                         Cell: row => {
@@ -705,7 +705,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.oddCol,
+                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -721,7 +721,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol,
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }, {
                         id: 'forsell',
                         Cell: row => {
@@ -730,7 +730,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol,
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }, {
                         id: 'forroom',
                         Cell: row => {
@@ -739,7 +739,7 @@ class WatchListTable extends React.Component {
                         width: 48,
                         skip: false,
                         show: true,
-                        background: props.theme.watchlist.evenCol,
+                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -1047,7 +1047,12 @@ class WatchListTable extends React.Component {
         // console.log(changeValue, refPrice, matchPrice)
         let style = this.props.theme.bindingdata.nochange
         let className = "glyphicon glyphicon-triangle-";
-        if(refPrice > matchPrice) {
+        if(matchPrice == "" || matchPrice == undefined ) {
+            changeValue = 0
+            style = this.props.theme.bindingdata.nochange
+            className += "---"
+        } 
+        else if(refPrice > matchPrice) {
             style = this.props.theme.bindingdata.down
             className += "bottom"
         } else if(refPrice < matchPrice) {
@@ -1087,7 +1092,12 @@ class WatchListTable extends React.Component {
 
         let style = this.props.theme.bindingdata.nochange
         let className = "glyphicon glyphicon-triangle-";
-        if(props.original["mvReferences"] > props.original["mvMatchPrice"]) {
+        if(matchPrice == "" || matchPrice == undefined ) {
+            percentChange = 0
+            style = this.props.theme.bindingdata.nochange
+            className += "---"
+        } 
+        else if(props.original["mvReferences"] > props.original["mvMatchPrice"]) {
             style = this.props.theme.bindingdata.down
             className += "bottom"
         } else if(props.original["mvReferences"] < props.original["mvMatchPrice"]) {
@@ -1118,7 +1128,8 @@ const mapStateToProps = (state) => {
         listInstrumentData: state.trading.listInstrumentData,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
 
-        instrumentData: state.trading.instrumentData
+        instrumentData: state.trading.instrumentData,
+        reloadWatchlist: state.trading.reloadWatchlist
     }
 }
 

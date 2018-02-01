@@ -60,7 +60,8 @@ class MatchOrderList extends Component {
                     id: 'stock',
                     show: true,
                     skip: false,
-                    width: 150,
+                    width: 60,
+                    background: props.theme.table.colText
                 },
                 {
                     accessor: this.accessor[4],

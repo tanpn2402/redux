@@ -28,12 +28,14 @@ class AdBankHistory extends Component {
                 {
                     accessor: 'date',
                     id: 'date',
+                    width: 120,
                     show: true,
                     skip: false,
                 },
                 {
                     accessor: 'advanceamount',
                     id: 'advanceamount',
+                    width: 100,
                     show: true,
                     skip: false,
                     background: props.theme.number.col
@@ -41,6 +43,7 @@ class AdBankHistory extends Component {
                 {
                     accessor: 'advancefee',
                     id: 'advancefee',
+                    width: 120,
                     show: true,
                     skip: false,
                     background: props.theme.number.col
@@ -48,20 +51,25 @@ class AdBankHistory extends Component {
                 {
                     accessor: 'processingstatus',
                     id: 'processingstatus',
+                    width: 200,
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 },
                 {
                     accessor: 'lastupdate',
                     id: 'lastupdate',
+                    width: 150,
                     show: true,
                     skip: false,
                 },
                 {
                     accessor: 'note',
                     id: 'note',
+                    width: 220,
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 }
             ],
             filterable: false

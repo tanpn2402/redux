@@ -56,6 +56,7 @@ class StockStatement extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'action',
@@ -63,6 +64,7 @@ class StockStatement extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'credit',
@@ -155,6 +157,7 @@ class StockStatement extends Component {
                     width: 200,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
             ],
             pageIndex: 1,

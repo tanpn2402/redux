@@ -118,6 +118,7 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     reorderable: false,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'buysell',
@@ -208,7 +209,8 @@ class OrderJournal extends Component {
                     accessor: 'mvOrderType',
                     width: 80,
                     skip: false,
-                    show: true
+                    show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'feetax',

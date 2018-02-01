@@ -33,6 +33,7 @@ class FundTransHistory extends Component {
                         }
                     },
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'transferamount',
@@ -55,6 +56,7 @@ class FundTransHistory extends Component {
                     width: 150,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'bankname',
@@ -62,6 +64,7 @@ class FundTransHistory extends Component {
                     width: 130,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'bankbranch',
@@ -69,6 +72,7 @@ class FundTransHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'status',
@@ -85,6 +89,7 @@ class FundTransHistory extends Component {
                             )
                         }
                     },
+                    background: props.theme.table.colText,
                     skip: false,
                     show: true,
                 },

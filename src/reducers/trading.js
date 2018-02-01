@@ -25,7 +25,8 @@ const initialState = {
 
 
     instrumentData: {},
-    flag: true
+    flag: true,
+    reloadWatchlist: true
 };
 
 export default function(state = initialState, action) {
@@ -98,7 +99,8 @@ export default function(state = initialState, action) {
             return Object.assign({}, state, {
                 listInstrumentInWatchList: tmp1,
                 listInstrumentToWatch: listInstrumentToWatchTMP1,
-                listInstrumentData: listDataTmp2
+                listInstrumentData: listDataTmp2,
+                reloadWatchlist: !state.reloadWatchlist
             });
         }
 
@@ -118,7 +120,8 @@ export default function(state = initialState, action) {
             return Object.assign({}, state, {
                 listInstrumentInWatchList: state.listInstrumentInWatchList.filter(e => e != action.instrument),
                 listInstrumentToWatch: listInstrumentToWatchTMP2,
-                listInstrumentData: listInstrumentDataTMPX10
+                listInstrumentData: listInstrumentDataTMPX10,
+                reloadWatchlist: !state.reloadWatchlist
             });
         }
         

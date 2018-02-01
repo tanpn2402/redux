@@ -321,7 +321,7 @@ class DataTable extends React.Component {
 					getTheadThProps={(state, rowInfo, column, instance) => {
 						let style = {}
 						if(column.background != undefined) {
-							style = Object.assign(style, column.background)
+							style = Object.assign(style, column.background, {textAlign: "center"})
 						}
 						// console.log(state, rowInfo, column, instance)
 						return {

@@ -61,6 +61,7 @@ class CashTransHistory extends Component {
                     sortable: false,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'amount',
@@ -83,6 +84,7 @@ class CashTransHistory extends Component {
                     sortable: true,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'notes',
@@ -90,6 +92,7 @@ class CashTransHistory extends Component {
                     width: 400,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'lastupdate',

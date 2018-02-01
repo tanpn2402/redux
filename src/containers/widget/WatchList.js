@@ -61,10 +61,37 @@ class WatchList extends Component {
         this.rowSelected = row
     }
 
-    handleStockChange(options) {
-        this.setState({ 
-            mvInstrument: options
-        })
+    handleStockChange(option) {
+        let {mvInstrument} = this.state
+        let {listInstrumentInWatchList, portfolioData} = this.props
+
+        if(option.stockCode == mvInstrument.stockCode) {
+            // selected same instrument
+            return
+        }
+        else {
+            // console.log(portfolioData)
+            // remove previous instrument if it not in watchlist and not in portfolio list
+            if(listInstrumentInWatchList.indexOf(mvInstrument.stockCode) < 0 && 
+                portfolioData.filter(e => e.mvStockID == mvInstrument.stockCode).length < 1) 
+            {
+                this.props.removeInstrumentFromWatch(mvInstrument.stockCode, mvInstrument.mvMarketID)
+            }
+
+            this.setState({ 
+                mvInstrument: option
+            })
+    
+            // checkif instrument already in watchlist or portfolio list
+            if(listInstrumentInWatchList.indexOf(option.stockCode) > -1 || 
+                portfolioData.filter(e => e.mvStockID == option.stockCode).length > 0 )
+            {
+                // already in watchlist and portfolio list
+            } else {
+                // add new instrument is selected to watch  ( not watchlist )
+                this.props.addInstrumentToWatch(option.stockCode, option.mvMarketID)
+            }
+        } 
     }
 
     render() {
@@ -117,6 +144,7 @@ const mapStateToProps = (state) => {
     return {
         listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
+        portfolioData: state.trading.portfolioData.mvPortfolioBeanList
     }
 }
 
@@ -128,6 +156,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
     },
+    addInstrumentToWatch: (ins, market) => { dispatch(actions.addInstrumentToWatch(ins, market)) },
+    removeInstrumentFromWatch: (ins, market) => { dispatch(actions.removeInstrumentFromWatch(ins, market)) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchList)

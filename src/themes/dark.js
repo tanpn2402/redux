@@ -113,6 +113,12 @@ export default {
         noDataDisplay: {
             backgroundColor: 'transparent',
             color: '#FFFFFF'
+        },
+        colNumber: {
+            textAlign: "left"
+        },
+        colText: {
+            textAlign: "right"
         }
     },
     tab: {

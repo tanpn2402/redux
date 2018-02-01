@@ -2181,6 +2181,9 @@ label {
     margin-bottom: 4px;
     padding: 0;
 }
+.acc-sum-info td {
+    text-align: right;
+}
 /* END CLIENT SUMARY */
 
 /* SUMARY COMPONENT */
@@ -4161,9 +4164,8 @@ label {
     height: 100%;
 }
 #fav-tab-container{
-    width: calc(100% - 430px);
+    width: calc(100% - 530px);
     float: left;
-    
 }
 
 .fav-tab{

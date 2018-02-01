@@ -32,6 +32,7 @@ class EntitlementHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'volume',
