@@ -368,7 +368,7 @@ class PlaceOrder extends React.Component {
                                 {header.price}
                             </Col>
                             <Col xs={7}>
-                                <Input key="mvPrice" type="number" ref={ref => this.mvPrice =  ref} step={10}
+                                <Input key="mvPrice" type="currency" ref={ref => this.mvPrice =  ref} step={10}
                                     onChange={this.onPriceChange.bind(this)}
                                     onKeyPress={this.handleSubmit.bind(this)}
                                     />

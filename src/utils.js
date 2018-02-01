@@ -256,8 +256,9 @@ export function importAll(r){
 
 export function round(number, precision) {
     var factor = Math.pow(10, precision);
-    return Math.round(number * factor) / factor;
+    return parseFloat(Number(Math.round(number * factor) / factor).toFixed(precision));
 }
+
 
 export function randomInt(min, max) {
     if(max == undefined) {

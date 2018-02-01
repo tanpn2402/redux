@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, FormControl } from 'react-bootstrap'
+import * as utils from "../../utils"
 
 class Input extends React.Component {
     constructor(props) {
@@ -31,6 +32,32 @@ class Input extends React.Component {
 			            max={this.props.maxValue}
                         tabIndex={this.props.tabIndex}
                         />
+                    <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
+                        <button type="button" className="btn btn-default" tabIndex="-1"
+                            onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>
+                            <span className="glyphicon glyphicon-plus"></span>    
+                        </button>
+                    </span>
+                </div>
+            )
+        } else if(type === "currency") {
+            return (
+                <div className={'input-control number' + this.props.className} ref={ r => this.rInputControl = r } >
+                    <span className='input-group-btn' style={{ zIndex: '1', left: "1px" }} >
+                        <button type="button" className="btn btn-default"  tabIndex="-1"
+                            onClick={() => this.handleButtonInputClick((-1)*step)} ref={r => this.rButton1 = r} >
+                            <span className="glyphicon glyphicon-minus"></span>    
+                        </button>
+                    </span>
+                   
+                    <input type="text" 
+                        ref={ref => this.rInput = ref}
+                        onKeyPress={this.keyPress.bind(this)}
+                        type='text'
+                        min="0" max={this.props.maxValue}
+                        tabIndex={this.props.tabIndex}
+                        class="form-control" 
+                        onChange={this.handleChange} defaultValue={this.props.defaultValue} />
                     <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
                         <button type="button" className="btn btn-default" tabIndex="-1"
                             onClick={() => this.handleButtonInputClick(step)} ref={r => this.rButton2 = r}>
@@ -74,10 +101,12 @@ class Input extends React.Component {
 
     handleButtonInputClick(value) {
         if(!this.readOnly) {
-            let number = parseFloat( this.rInput.value )
+            let number = utils.round(parseFloat( this.rInput.value ), 1);
             let maxNumber = parseFloat( this.props.maxValue )
 
-            this.rInput.value = isNaN(number) ? 0 : (number + value) < 0 ? 0 :(number + value)>maxNumber ? maxNumber : (number + value)
+            let v = isNaN(number) ? 0 : (number + value) < 0 ? 0 :(number + value)>maxNumber ? maxNumber : (number + value)
+
+            this.rInput.value = utils.round(v, 2)
 
             if( this.props.onChange && !isNaN(this.rInput.value)) {
                 this.props.onChange(this.rInput.value)
@@ -85,10 +114,45 @@ class Input extends React.Component {
         }
     }
 
+    keyPress(e) {
+        console.log("key press")
+        var decimalvalidate = /^[0-9][0-9]*$/;
+        if (!decimalvalidate.test(e.key)) {
+            let number =  utils.round(parseFloat( this.rInput.value ), 1);
+            let maxNumber = parseFloat( this.props.maxValue );
+            if(e.key == "." ) {
+                if(this.rInput.value.includes(".") ){
+                    e.preventDefault()
+                    return
+                } else {
+                    this.rInput.value += '.'
+                    e.preventDefault()
+                    return
+                }
+            }
+            e.preventDefault();
+            if (e.key === 'Enter' && this.props.onKeyPress != undefined) {
+                this.props.onKeyPress(e)
+
+            }
+            else if(e.key==='+'){
+                if(number >=maxNumber ){
+                    return
+                } else {
+                    let v=number + this.props.step;
+                    this.rInput.value = utils.round(v, 2)
+		        }
+            } else if(e.key==='-' && number !== 0) {
+                let v = (number - this.props.step) > 0 ? number - this.props.step : 0;
+                this.rInput.value = utils.round(v, 2)
+            }
+        } 
+    }
+    
     handleKeyPress(e){
         var decimalvalidate = /^[0-9][0-9]*$/;
         if (!decimalvalidate.test(e.key)) {
-            let number = parseFloat( this.rInput.value );
+            let number = Math.ceil(parseFloat( this.rInput.value ));
             let maxNumber = parseFloat( this.props.maxValue );
             e.preventDefault();
             if (e.key === 'Enter' && this.props.onKeyPress != undefined) {
