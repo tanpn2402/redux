@@ -176,6 +176,8 @@ class StatusBar extends React.Component {
         let index = -1
         if(this.state.subMenuArray.length > 0)
             this.state.subMenuArray = []
+
+            let accountType = localStorage.getItem("accountType")
         let searchResultBox = (
             <div tabIndex="0" className="widget-search-result"
                 id="widget-search-result"
@@ -254,7 +256,7 @@ class StatusBar extends React.Component {
                 <div className={"react-bootstrap-switch " + this.props.theme.title}>
                     <Switch onText='Virtual' offText='Real' bsSize='mini' 
                         onChange={(el, state) => this.handleSwitch(el, state)}
-                        wrapperClass='react-bootstrap-switch' defaultValue={false} />
+                        wrapperClass='react-bootstrap-switch' defaultValue={accountType == "virtual"} />
                 </div>
 
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
@@ -269,9 +271,11 @@ class StatusBar extends React.Component {
         if(state) {
             // virtual
             this.props.switchTheme("virtual")
+            localStorage.setItem("accountType", "virtual")
         } else {
             // real
             this.props.switchTheme("light")
+            localStorage.setItem("accountType", "real")
         }
     }
 

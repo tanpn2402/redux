@@ -228,7 +228,7 @@ class TTLMainChart extends React.Component {
                     {this.props.mainSeries}
                 
                     <OHLCTooltip margin={{left: 100}} xDisplayFormat={MouseCoordinateX_displayFormat} 
-                        fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, -8]}/>
+                        fontSize={chartLayout.tooltip_fontSize} origin={[chartLayout.tooltip_startx, -7]}/>
                     
                     {inChartList}
                     

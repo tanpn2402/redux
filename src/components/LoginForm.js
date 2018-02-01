@@ -284,6 +284,12 @@ class LoginForm extends Component {
         }
         this.setState({watingLogin: true})
         localStorage.setItem("accountType", this.state.accountType.id)
+
+        if(this.state.accountType.id == "virtual") {
+            localStorage.setItem('lastTheme', "virtual")
+            config.cache.theme = "virtual"
+            config.cache.accountType = this.state.accountType.id 
+        }
         this.params['mvPassword'] = this.password.value
         this.params['securitycode'] = this.securitycode.value
         this.props.login(this.params)
