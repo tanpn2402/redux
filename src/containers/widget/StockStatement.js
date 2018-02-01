@@ -74,6 +74,7 @@ class StockStatement extends Component {
                         {
                             id: 'quantity',
                             accessor: 'buyQty',
+                            Cell: props =>  Utils.formatQty(props.value),
                             width: 80,
                             skip: false,
                             show: true,
@@ -82,6 +83,7 @@ class StockStatement extends Component {
                         {
                             id: 'avgprice',
                             accessor: 'buyPrice',
+                            Cell: props =>  Utils.formatCurrency(props.value),
                             width: 80,
                             skip: false,
                             show: true,
@@ -105,6 +107,7 @@ class StockStatement extends Component {
                         {
                             id: 'quantity',
                             accessor: 'sellQty',
+                            Cell: props =>  Utils.formatQty(props.value),
                             width: 80,
                             skip: false,
                             show: true,
@@ -113,6 +116,7 @@ class StockStatement extends Component {
                         {
                             id: 'avgprice',
                             accessor: 'sellPrice',
+                            Cell: props =>  Utils.formatCurrency(props.value),
                             width: 80,
                             skip: false,
                             show: true,
@@ -121,6 +125,7 @@ class StockStatement extends Component {
                         {
                             id: 'amt',
                             accessor: 'sellAmount',
+                            Cell: props =>  Utils.formatCurrency(props.value),
                             width: 100,
                             skip: false,
                             show: true,
@@ -136,6 +141,7 @@ class StockStatement extends Component {
                         {
                             id: 'value',
                             accessor: 'fee',
+                            Cell: props =>  Utils.formatCurrency(props.value),
                             width: 80,
                             skip: false,
                             show: true,

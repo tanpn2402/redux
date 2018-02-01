@@ -272,3 +272,48 @@ export function checkIfMobile() {
     var mobile = windowWidth <= smallestScreenSize
     return mobile
 }
+
+
+export function formatQty(num){
+	if(!num || num.toString().length == 0){
+      	return "0"
+    }
+  	num = num.toString()
+  	if(num.indexOf(',') < 0){
+      	let m = /(\d+)(?:(\.\d+)|)/.exec(num)
+        let x = m[1].length > 3 ? m[1].length % 3 : 0;
+    	let v = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',');
+      	return v
+    }
+    let dot = num.indexOf('.')
+    if(dot > 0){
+       	num = num.replace(num.substring(dot, num.length), '')
+    }
+  	return num
+}
+
+export function formatCurrency(num, q){
+	if(!num || num.toString().length == 0){
+      return "0.00"
+    }
+  	num = num.toString()
+  	if(num.indexOf(',') > 0){
+     	num = parseFloat(num.replace(/\,/g, '')) / 1000
+      	if(!q)
+      		num = parseFloat(num).toFixed(parseInt(2)).toString()
+  		else if(q && !isNaN(parseInt(q))){
+      		num = parseFloat(num).toFixed(parseInt(q)).toString()
+    	}
+     	let m = /(\d+)(?:(\.\d+)|)/.exec(num + "")
+        let x = m[1].length > 3 ? m[1].length % 3 : 0;
+    	num = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',') + m[2];
+      	
+    }else{
+    	if(!q)
+      		num = parseFloat(num).toFixed(parseInt(2)).toString()
+  		else if(q && !isNaN(parseInt(q))){
+      		num = parseFloat(num).toFixed(parseInt(q)).toString()
+    	}
+    }
+  	return num
+}

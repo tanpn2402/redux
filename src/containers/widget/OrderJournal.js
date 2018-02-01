@@ -149,6 +149,7 @@ class OrderJournal extends Component {
                 {
                     id: 'price',
                     accessor: 'mvPrice',
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -158,6 +159,7 @@ class OrderJournal extends Component {
                 {
                     id: 'quantity',
                     accessor: 'mvQty',
+                    Cell: props =>  Utils.formatQty(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -166,6 +168,7 @@ class OrderJournal extends Component {
                 {
                     id: 'pendingQty',
                     accessor: 'mvPendingQty',
+                    Cell: props =>  Utils.formatQty(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -174,6 +177,7 @@ class OrderJournal extends Component {
                 {
                     id: 'executedQty',
                     accessor: 'mvPendingQty',
+                    Cell: props =>  Utils.formatQty(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -182,6 +186,7 @@ class OrderJournal extends Component {
                 {
                     id: 'avgprice',
                     accessor: 'mvAvgPriceValue',
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -226,7 +231,7 @@ class OrderJournal extends Component {
                              
                             else
                                 result=props.original.mvGrossAmt - props.original.mvNetAmtValue
-                            return   Math.round(result*1000)/1000
+                            return  Utils.formatCurrency( Math.round(result*1000)/1000 )
                         }
                     },
                     show: true,

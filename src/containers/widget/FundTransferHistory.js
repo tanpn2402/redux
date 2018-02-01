@@ -38,6 +38,7 @@ class FundTransHistory extends Component {
                 {
                     id: 'transferamount',
                     accessor: 'totalLendingAmt',
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 150,
                     skip: false,
                     show: true,

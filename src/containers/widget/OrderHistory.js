@@ -40,6 +40,7 @@ class OrderHistory extends Component {
                 {
                     id: "price",
                     accessor: "mvPrice",
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -77,6 +78,7 @@ class OrderHistory extends Component {
                 {
                     id: "quantity",
                     accessor: "mvQty",
+                    Cell: props =>  Utils.formatQty(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -85,6 +87,7 @@ class OrderHistory extends Component {
                 {
                     id: "filledprice",
                     accessor: "mvFilledPrice",
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -93,6 +96,7 @@ class OrderHistory extends Component {
                 {
                     id: "filledquantity",
                     accessor: "mvFilledQty",
+                    Cell: props =>  Utils.formatQty(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -101,6 +105,7 @@ class OrderHistory extends Component {
                 {
                     id: "matchedvalue",
                     accessor: "mvAvgPriceValue",
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 80,
                     skip: false,
                     show: true,

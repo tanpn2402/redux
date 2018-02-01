@@ -66,6 +66,7 @@ class CashTransHistory extends Component {
                 {
                     id: 'amount',
                     accessor: 'totalLendingAmt',
+                    Cell: props =>  Utils.formatCurrency(props.value),
                     width: 150,
                     skip: false,
                     skip: false,

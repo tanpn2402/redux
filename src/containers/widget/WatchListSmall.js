@@ -241,12 +241,10 @@ class WatchListSmall extends React.Component {
         if(value == "") {
             return "---"
         }
-        if(unit == "price") { return value
-            // return utils.currencyShowFormatter(value)
+        if(unit == "price") {
+            return utils.formatCurrency(value)
         } else if(unit == "quantity") {
-            value = utils.numUnFormat(value)
-            value = utils.round(value, 0)
-            value = utils.quantityShowFormatter(value)
+            value = utils.formatQty(value)
             return (value)
         } else {
             return value

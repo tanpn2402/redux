@@ -30,7 +30,15 @@ class PortfolioSmall extends React.Component {
             style = theme.down
         }
 
-        let child = <span style={style}>{props[accessor]}</span>
+        let content = props[accessor]
+        if(accessor == "mvAvgPrice" || accessor == "mvMarketPrice" || accessor == "mvPL") {
+            content = utils.formatCurrency(content)
+        } else if(accessor == "mvTSettled" ) {
+            content = utils.formatQty(content)
+        }
+
+
+        let child = <span style={style}>{content}</span>
         return child
     }
 
