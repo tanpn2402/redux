@@ -2,9 +2,9 @@ export default {
     title: 'virtual',
     button: {
         confirm: {
-            backgroundColor: '#c40909',
+            backgroundColor: '#ed514d',
             color: '#FFFFFF',
-            border: '2px solid #c40909'
+            border: '2px solid #ed514d'
         },
         cancel: {
             backgroundColor: '#999',
@@ -17,9 +17,9 @@ export default {
             border: "2px solid #4990e2"
         },
         sell: {
-            backgroundColor: "#f67522",
+            backgroundColor: "#ed514d",
             color: "white",
-            border: "2px solid #f67522"
+            border: "2px solid #ed514d"
         }
     },
     font:{

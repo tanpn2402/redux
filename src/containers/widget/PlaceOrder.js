@@ -672,8 +672,8 @@ class PlaceOrder extends React.Component {
             }
             if(orderDefault.mvPrice != undefined) {
                 this.state.mvPrice = orderDefault.mvPrice
-                this.setValue({ mvPrice: Math.ceil(this.state.mvPrice) })
-                this.mvPrice.value(Math.ceil(this.state.mvPrice))
+                this.setValue({ mvPrice: this.state.mvPrice })
+                this.mvPrice.value(this.state.mvPrice)
             }
 
             this.refStockName.value(orderDefault.mvStockName)
