@@ -151,6 +151,9 @@ class BidAsk extends React.Component {
                         <span style={Object.assign({}, theme.font.main, {margin: "0 10px"})}>{"-"}</span>
                         <span style={theme.font.main} className="trd-instrument-code">{stock.mvMarketID}</span>
                     </div>
+                    <span className="info-icon">
+                        <span className="glyphicon glyphicon-info-sign" onClick={e => this.viewMarketDetail()}></span>
+                    </span>
                     
                 </div>
                 <BidAskTable theme={theme} language={this.props.language} instrument={this.state.mvStockSelected} />
@@ -158,6 +161,9 @@ class BidAsk extends React.Component {
         )
     }
 
+    viewMarketDetail() {
+        this.props.onDesktopTabClick("marketinfo", "markettrading")
+    }
     
 }
 const mapStateToProps = (state) => {
@@ -182,7 +188,11 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.showPopup(param))
     },
 
-    getTradeLogDataOfStock: (stockCode, market) => { dispatch(actions.getTradeLogDataOfStock(stockCode, market)) }
+    getTradeLogDataOfStock: (stockCode, market) => { dispatch(actions.getTradeLogDataOfStock(stockCode, market)) },
+
+    onDesktopTabClick: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID));
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BidAsk)

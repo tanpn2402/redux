@@ -74,6 +74,13 @@ import MyFiles from "./social/MyFiles"
 import GameBoard from "./social/GameBoard"
 import UserDetail from "./social/UserDetail"
 
+
+// market information
+
+import MarketTrading from "./marketinfo/Trading"
+import MarketFinance from "./marketinfo/Finance"
+import MarketNews from "./marketinfo/News"
+
 export default function (menuid, props){
 	// console.log(menuid)
 	switch(menuid){
@@ -331,6 +338,22 @@ export default function (menuid, props){
 		case 'userdetail':
 			return (
 				<UserDetail stockList={props.stockList} language={props.language} theme={props.theme}/>
+			)
+
+		// ---- MARKET INFO
+		case 'markettrading':
+			return (
+				<MarketTrading stockList={props.stockList} language={props.language} theme={props.theme} {...props} tabID={menuid}/>
+			)
+
+		case 'marketnews':
+			return (
+				<MarketNews stockList={props.stockList} language={props.language} theme={props.theme} tabID={menuid}/>
+			)
+
+		case 'marketfinance':
+			return (
+				<MarketFinance stockList={props.stockList} language={props.language} theme={props.theme} tabID={menuid}/>
 			)
 
     }

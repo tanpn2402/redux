@@ -14,7 +14,8 @@ export default
                 "customization": "My Page",
                 "mobile": "mobile",
                 "orderhistory": "Order History",
-                "social": "Social"
+                "social": "Social",
+                "marketinfo": "Market Information"
             },
             "setting": {
                 "language": {
@@ -147,7 +148,10 @@ export default
                 "stockinfo": "Stock Info",
                 "daytrade": "Day Trade",
                 "tradehistory": "Trade Log",
-                "recommendation": "Recommendation"
+                "recommendation": "Recommendation",
+                "markettrading": "Trading",
+                "marketnews": "News",
+                "marketfinance": "Finance"
             },
             "searchbar": {
                 "search": "Search",

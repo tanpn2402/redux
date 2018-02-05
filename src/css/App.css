@@ -3733,11 +3733,11 @@ label {
     position: absolute;
     top: -10px;
     width: 300px;
-    left: 125px;
+    left: 10px;
 }
 .trd-header-control {
     position: absolute;
-    top: 16px;
+    top: 0px;
     left: 2px;
 }
 .trd-header-control > .select-control {
@@ -3870,6 +3870,7 @@ label {
     position: relative;
     top: 3px;
     left: 1px;
+    width: 100%;
 }
 .bidask-control .select-control {
     width: 120px;
@@ -3891,6 +3892,12 @@ label {
 }
 .bidask-control .trd-instrument-name p{
     margin: 0;
+}
+.bidask-control .info-icon {
+    padding-top: 3px;
+    position: absolute;
+    right: 4px;
+    cursor: pointer;
 }
 .bidask .stockname {
     position: absolute;
@@ -4047,6 +4054,7 @@ label {
     cursor: pointer;
     float: right;
     right: 4px;
+    font-size: 14px;
 }
 /* END PLACE ORDER */
 /* Slider Format */

@@ -143,11 +143,11 @@ export default {
             color: '#000000'
         },
         colNumber: {
-            // textAlign: "right",
+            textAlign: "right",
             justifyContent: "flex-end"
         },
         colText: {
-            // textAlign: "left",
+            textAlign: "left",
             justifyContent: "flex-start"
         }
     },

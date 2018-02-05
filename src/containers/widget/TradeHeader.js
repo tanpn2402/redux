@@ -124,7 +124,7 @@ class TradeHeader extends React.Component {
         return (
             <Component className="trd-header" theme={theme}>
                 <div className="trd-header-control">
-                    <InputSelect
+                    {/* <InputSelect
                         className="stock-selector"
                         key="rStockSelector-header"
                         ref={r => this.rStockSelector = r}
@@ -136,7 +136,7 @@ class TradeHeader extends React.Component {
                     />
                     <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>
-                    </span>
+                    </span> */}
                     <div className="trd-instrument-name" ref={r => this.StockName = r}>
                         <p style={theme.font.main} className="trd-instrument-code">{instrumentName}</p>
                     </div>
@@ -150,9 +150,9 @@ class TradeHeader extends React.Component {
     componentDidMount() {
         if(this.StockName != undefined) {
             if(this.StockName.offsetHeight < 46) {
-                this.StockName.style.paddingTop = "10px"
+                this.StockName.style.paddingTop = "20px"
             } else {
-                this.StockName.style.paddingTop = "0px"
+                this.StockName.style.paddingTop = "10px"
             }
         }
         
@@ -162,9 +162,9 @@ class TradeHeader extends React.Component {
     componentDidUpdate() {
         if(this.StockName != undefined) {
             if(this.StockName.offsetHeight < 46) {
-                this.StockName.style.paddingTop = "10px"
+                this.StockName.style.paddingTop = "20px"
             } else {
-                this.StockName.style.paddingTop = "0px"
+                this.StockName.style.paddingTop = "10px"
             }
         }
     }

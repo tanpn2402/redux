@@ -9,10 +9,12 @@ import TransHistory from './TransHistory'
 import OrderJournalTab from './OrderJournal'
 import TradePage from './TradePage'
 import Social from './Social'
+import MarketInformation from './MarketInformation'
 
 
 export default function (menuid, props){
 	menuid = menuid == "mobile" ? "trading" : menuid
+	console.log(menuid)
 	switch(menuid){
 		case 'management':
 		return(
@@ -48,6 +50,12 @@ export default function (menuid, props){
 	case 'social':
 		return(
 			<Social language={props.language} stockList={props.stockList} theme={props.theme} tabID={menuid}/>
+		)
+	
+	case 'marketinfo':
+		return(
+			<MarketInformation language={props.language} stockList={props.stockList} theme={props.theme} 
+				tabID={menuid} subTab={props.subTabID}/>
 		)
 		
 	default: return

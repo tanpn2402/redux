@@ -14,7 +14,8 @@ export default
                 "customization": "Trang của tôi",
                 "mobile": "mobile",
                 "orderhistory": "Lịch sử lệnh",
-                "social": "Social"
+                "social": "Social",
+                "marketinfo": "Market Information"
             },
             "setting": {
                 "language": {
@@ -148,7 +149,10 @@ export default
                 "stockinfo": "Thông tin chứng khoán",
                 "daytrade": "Day Trade",
                 "tradehistory": "Khớp lệnh theo thời gian",
-                "recommendation": "Đề nghị"
+                "recommendation": "Đề nghị",
+                "markettrading": "Giao dịch",
+                "marketnews": "Tin tức",
+                "marketfinance": "Tài chính"
             },
             "searchbar": {
                 "search": "Tìm kiếm",

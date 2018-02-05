@@ -408,14 +408,40 @@ const config = {
 			enabled: true,
 			widget: [
 				// { i: 'tradeheader', x: 0, y: 0, w: 8, h: 1, isDraggable: false, isResizable: false },
-				{ i: 'bidask', x: 2, y: 0, w: 4, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'tradehistory', x: 6, y: 10, w: 2, h: 6, isDraggable: false, isResizable: false },
-				{ i: 'watchlist-small', x: 0, y: 0, w: 2, h: 8, isDraggable: false, isResizable: false },
-				{ i: 'portfolio-small', x: 0, y: 9, w: 2, h: 9, isDraggable: false, isResizable: false },
-				{ i: 'placeorder', x: 2, y: 8, w: 4, h: 9, isDraggable: false, isResizable: false },
-				{ i: 'tradingchart', x: 6, y: 0, w: 2, h: 11, isDraggable: false, isResizable: false },
+				{ i: 'bidask', x: 5, y: 0, w: 4, h: 8, isDraggable: false, isResizable: false },
+				// { i: 'tradehistory', x: 6, y: 10, w: 2, h: 6, isDraggable: false, isResizable: false },
+				{ i: 'watchlist-small', x: 0, y: 0, w: 4, h: 8, isDraggable: false, isResizable: false },
+				{ i: 'portfolio-small', x: 0, y: 9, w: 4, h: 9, isDraggable: false, isResizable: false },
+				{ i: 'placeorder', x: 5, y: 8, w: 4, h: 9, isDraggable: false, isResizable: false },
+				// { i: 'tradingchart', x: 6, y: 0, w: 2, h: 11, isDraggable: false, isResizable: false },
 				{ i: 'orderjournal', x: 0, y: 17, w: 8, minH: 8, maxH: 20, isDraggable: false, isResizable: false },
 				// { i: 'orderHistory', x: 4, y: 11, w: 4, h:6, isDraggable: false, isResizable: false },
+			]
+		},
+		{
+			id: 'marketinfo',
+			title: "marketinfo",
+			enabled: true,
+			widget: [
+				{ 
+					i: 'markettrading', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
+					component: [
+						{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
+						{ i: 'tradingchart', x: 0, y: 2, w: 6, h: 16, isDraggable: false, isResizable: false },
+						{ i: 'tradehistory', x: 6, y: 2, w: 2, h: 16, isDraggable: false, isResizable: false },
+					]
+				},
+				{ i: 'marketnews', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
+					component: [
+						
+					]
+				},
+				// { i: 'marketfinance', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
+				// 	component: [
+						
+				// 	]
+				// },
+				
 			]
 		},
 		{

@@ -115,11 +115,11 @@ export default {
             color: '#FFFFFF'
         },
         colNumber: {
-            // textAlign: "right",
+            textAlign: "right",
             justifyContent: "flex-end"
         },
         colText: {
-            // textAlign: "left",
+            textAlign: "left",
             justifyContent: "flex-start"
         }
     },
