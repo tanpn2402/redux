@@ -53,12 +53,16 @@ class TabLayout extends Component {
         let layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
 
         let background = this.props.theme.page.background
-        let scrollBtnStyle = this.props.theme.scrolling.button
+        let scrollStyle = this.props.theme.scrolling
+
+        let tabStyles = this.props.theme.tabcontrol
+        console.log(tabStyles)
+
         return (
             <div style={{height: "100%"}}>
-                <div className="scrolling-tabs-main tab-layout" style={background}>
+                <div className="scrolling-tabs-main tab-layout" style={scrollStyle.background}>
                     {/* <div className="scrolling-tabs-left">
-                        <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollBtnStyle}>
+                        <button className="hks-btn btn-tab-prev" onClick={e => this.onTabSlideClick(1)} style={scrollStyle.button}>
                             <span className="glyphicon glyphicon-menu-left"></span>
                         </button>
                     </div> */}
@@ -70,7 +74,8 @@ class TabLayout extends Component {
                                         
                                         return ( 
                                             <div key={tab.id} className={'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')}
-                                                onClick={e=> this.onTabClick(tab.i)}>
+                                                onClick={e=> this.onTabClick(tab.i)}
+                                                style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
                                             
                                                     {language.menu[tab.i]}
                                                     
@@ -83,12 +88,12 @@ class TabLayout extends Component {
                         </div>
                     </div>
                     {/* <div className="scrolling-tabs-right">
-                        <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollBtnStyle}>
+                        <button className="hks-btn btn-tab-next" onClick={e => this.onTabSlideClick(2)} style={scrollStyle.button}>
                             <span className="glyphicon glyphicon-menu-right"></span>
                         </button>
                     </div> */}
                 </div>
-                <div className="tab-content" id="management">
+                <div className="tab-content" id={this.props.tabID}>
                     <GridLayout 
                         language={this.props.language}
                         layout={layout}

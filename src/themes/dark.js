@@ -228,7 +228,9 @@ export default {
             backgroundColor: "rgb(66, 64, 64)",
             color: "#ffffff",
         },
-        background: ""
+        background: {
+            backgroundColor: "#000"
+        }
     },
     popup: {
         header: {

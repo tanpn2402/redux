@@ -1604,7 +1604,7 @@ label {
 
     /* scrolling in tab-layout */
     .scrolling-tabs-main.tab-layout { 
-        height: 26px;
+        height: 30px;
         margin: 0;
         background-color: #fff;
         z-index: 2;
@@ -1612,17 +1612,21 @@ label {
         -webkit-box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
         box-shadow: 0 4px 2px -2px rgba(0,0,0,0.15);
     }
-    .scrolling-tabs-main.tab-layout .tabs-item{ 
+    .scrolling-tabs-main.tab-layout .tabs-item { 
         font-size: 14px;
-        padding: 0 5px;
-        margin: 0 2px;
-        height: 100%;
-        line-height: inherit;
-        min-width: 130px;
-        cursor: pointer;
-        font-weight: 550;
-        user-select: none;
         display: inline-block;
+        text-align: center;
+        cursor: pointer;
+        color: #9b9b9b;
+        position: relative;
+        top: 1px;
+        border: 1px solid #cccccc63 !important;
+        padding: 4px 20px;
+        padding-top: 3px !important;
+        width: unset !important;
+        height: 100%;
+        min-width: 110px;
+        text-align: center;
     }
     .scrolling-tabs-main.tab-layout .tabs-item:hover {
         opacity: 0.8;
@@ -1634,14 +1638,20 @@ label {
         
     }
     .scrolling-tabs-main.tab-layout .tabs-item.actived{ 
-        border-top: 2px solid #E49242;
+        /* border-top: 2px solid #E49242;
         background-color: #E8E8E8;
-        color: #555;
+        color: #555; */
+
+        background-color: #FFF;
+        border-bottom: 0px !important;
+        color: #000;
+        z-index: 1;
+        font-weight: bold;
     }
     .scrolling-tabs-main.tab-layout .tabs-item.disabled{
-        background-color: #eee1e2;
+        /* background-color: #eee1e2;
         color: #c5b3b3;
-        cursor: not-allowed;
+        cursor: not-allowed; */
     }
     .hks-btn.btn-tab-reload {
         padding: 0 5px;
@@ -2136,8 +2146,19 @@ label {
     height: 100%;
     padding-top: 24px;
 }
+#transhistory {
+    width: 100%;
+    height: 100%;
+    padding-top: 27px;
+}
+#marketinfo {
+    width: 100%;
+    height: 100%;
+    padding-top: 24px;
+}
 /* END MANAGEMENT WIDGET */
 
+/* END MANAGEMENT WIDGET */
 /* TRANS HISTORY WIDGET */
     .ttlchart-control {
         position: absolute;

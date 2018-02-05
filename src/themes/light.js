@@ -253,7 +253,9 @@ export default {
             backgroundColor: "#f5f5f5",
             color: "#005aa0",
         },
-        background: ""
+        background: {
+            backgroundColor: "#FFF"
+        }
     },
     popup: {
         header: {
