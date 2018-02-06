@@ -152,7 +152,10 @@ export default
                 "recommendation": "Đề nghị",
                 "markettrading": "Giao dịch",
                 "marketnews": "Tin tức",
-                "marketfinance": "Tài chính"
+                "marketfinance": "Tài chính",
+                "marketreports": "Reports",
+                "markettechnical": "Technical",
+                "intraday": "In Trade Day"
             },
             "searchbar": {
                 "search": "Tìm kiếm",

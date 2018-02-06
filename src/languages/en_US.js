@@ -151,7 +151,10 @@ export default
                 "recommendation": "Recommendation",
                 "markettrading": "Trading",
                 "marketnews": "News",
-                "marketfinance": "Finance"
+                "marketfinance": "Finance",
+                "marketreports": "Reports",
+                "markettechnical": "Technical",
+                "intraday": "In Trade Day"
             },
             "searchbar": {
                 "search": "Search",

@@ -4560,8 +4560,17 @@ input[type=number] {
     float: left;
 }
 .market-info-page .page-container .tab-container {
+    float: left;
+    width: calc(100% - 100px - 300px);
+    height: 100%;
+    background: #FFF;
+}
+.market-info-page .page-container .tradelog-container {
     float: right;
-    width: calc(100% - 100px);
+    width: 300px;
+    padding-top: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
     height: 100%;
     background: #FFF;
 }
@@ -4577,17 +4586,18 @@ input[type=number] {
     font-weight: 600;
 }
 
-
+.mk-trading-tab {
+    height: 100%;
+}
 .mk-trading-tab .trade-log-container {
     float: right;
     width: 300px;
     padding-left: 20px;
     padding-right: 20px
 }
-.mk-trading-tab .history-chart-container {
-    float: left;
-    width: calc(100% - 250px);
-    height: 100%;
+.mk-trading-tab .tradeday-chart-container {
+    width: 100%;
+    padding: 5px;
 }
 .mk-technical-tab {
     width: 100%;
@@ -4596,8 +4606,40 @@ input[type=number] {
 .mk-technical-tab .chart-container {
     width: 100%;
     height: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-top: 10px;
+    padding: 2px;
+    padding-top: 0px;
+}
+
+.mk-news-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.mk-news-table th {
+    height: 30px;
+    background-color: #005AA0;
+    color: #FFF;
+    font-weight: normal;
+    border: 1px solid transparent;
+}
+.mk-news-table td {
+    border: 1px solid transparent;
+}
+.mk-news-table tr {
+    height: 30px;
+}
+.mk-news-table .news-day {
+    text-align: center;
+}
+.mk-news-table .news-intro {
+    padding-left: 15px;
+}
+.mk-news-table .news-type {
+    padding-left: 15px;
+    width: 200px;
+}
+.mk-news-table .news-intro span {
+    cursor: pointer;
+}
+.mk-news-table .news-intro span:hover {
+    font-weight: 500;
 }

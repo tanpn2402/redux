@@ -5,24 +5,51 @@ import config from '../../../core/config'
 import TradeHeader from '../../../containers/widget/TradeHeader'
 import TradingChart from '../../../containers/widget/TradingChart'
 import TradeHistory from '../../../containers/widget/TradeHistory'
+import ComposedChart from '../../commons/ComposedChart'
 
 
 class MarketTrading extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            toRender: false,
+            chartWidth: 0
+        }
     }
 
     render() {
+        let background = this.props.theme.widget.widgetBackground
+        let dataObject = {
+            width: this.state.chartWidth,
+            height: 250,
+            theme: this.props.theme.chart.popoverChart,
+        }
+        console.log(dataObject)
+        let type = "MARKET"
+        let stock = "VN-INDEX"
+        let market = "VN-INDEX"
         return (
-            <div className="mk-trading-tab">
-                <div className="history-chart-container">
-
-                </div>
-                <div className="trade-log-container">
-                    <TradeHistory {...this.props} />
+            <div className="mk-trading-tab" style={background}>
+                <div className="tradeday-chart-container" ref={e => this.main = e} 
+                    style={background}>
+                    <label style={this.props.theme.font.main}>{this.props.language.menu.intraday}</label>
+                    {
+                        this.state.toRender ? (
+                            <ComposedChart dataObject={dataObject} stock={stock} market={market} type={type} key={new Date().getTime()}/>
+                        ) :
+                        null
+                    }
                 </div>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.setState({
+            toRender: !this.state.toRender,
+            chartWidth: this.main.offsetWidth - 20
+        })
     }
 }
 
@@ -32,11 +59,54 @@ class MarketNews extends React.Component {
     }
 
     render() {
-        return (
-            <div>
+        let background = this.props.theme.widget.widgetBackground
+        let tableStyles = this.props.theme.table
 
+        let news = [
+            {
+                day: "15/01/2018",
+                type: "Correlative Company",
+                intro: "An Overview on Brokerage Firms in 9M2017"
+            },
+            {
+                day: "22/01/2018",
+                type: "Correlative Company",
+                intro: "HCM: Quick Comments on 9M 2017 Earnings Results"
+            },
+            {
+                day: "28/01/2018",
+                type: "Correlative Company",
+                intro: "HCM - 2017 AGM Updates"
+            }
+        ]
+        return (
+            <div className="mk-trading-tab" style={background}>
+                <table className="mk-news-table">
+                    <thead>
+                        <th className="news-day" style={{width: "90px", textAlign: "center"}}>Day</th>
+                        <th className="news-intro">Intro</th>
+                    </thead>
+                    <tbody>
+                        {
+                            news.map((e, i) => {
+                                return (
+                                    <tr style={i%2 ==0 ? tableStyles.rowOdd : tableStyles.rowEven}>
+                                        <td className="news-day">{e.day}</td>
+                                        <td className="news-intro">
+                                            <span onClick={e => this.onNewsClick()}>{e.intro}</span>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         )
+    }
+
+    onNewsClick() {
+
     }
 }
 
@@ -62,11 +132,56 @@ class MarketReports extends React.Component {
     }
 
     render() {
-        return (
-            <div>
+        let background = this.props.theme.widget.widgetBackground
+        let tableStyles = this.props.theme.table
 
+        let news = [
+            {
+                day: "23/01/2018",
+                type: "Correlative Company",
+                intro: "An Overview on Brokerage Firms in 9M2017"
+            },
+            {
+                day: "26/01/2018",
+                type: "Correlative Company",
+                intro: "HCM: Quick Comments on 9M 2017 Earnings Results"
+            },
+            {
+                day: "29/01/2018",
+                type: "Correlative Company",
+                intro: "HCM - 2017 AGM Updates"
+            }
+        ]
+        return (
+            <div className="mk-trading-tab" style={background}>
+                <table className="mk-news-table">
+                    <thead>
+                        <th className="news-day" style={{width: "90px", textAlign: "center"}}>Day</th>
+                        <th className="news-type">Type</th>
+                        <th className="news-intro">Intro</th>
+                    </thead>
+                    <tbody>
+                        {
+                            news.map((e, i) => {
+                                return (
+                                    <tr style={i%2 ==0 ? tableStyles.rowOdd : tableStyles.rowEven}>
+                                        <td className="news-day">{e.day}</td>
+                                        <td className="news-type">{e.type}</td>
+                                        <td className="news-intro">
+                                            <span onClick={e => this.onNewsClick()}>{e.intro}</span>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         )
+    }
+
+    onNewsClick() {
+
     }
 }
 
@@ -112,7 +227,7 @@ export default class MarketInformation extends React.Component {
                 child = <MarketNews {...this.props} />
                 break;
             case "reports": 
-                child = <MarketNews {...this.props} />
+                child = <MarketReports {...this.props} />
                 break;
             case "technical": 
                 child = <MarketTechnical {...this.props} />
@@ -124,7 +239,7 @@ export default class MarketInformation extends React.Component {
         }
 
         let tabStyle = this.props.theme.tabcontrol
-
+        let language = this.props.language
         return(
             <div className="market-info-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
                 <div className="row trade-header-container">
@@ -141,32 +256,36 @@ export default class MarketInformation extends React.Component {
                             <li className={"tab-item " + (activeKey === "trading" ? "actived" : "")}
                                 style={activeKey == "trading" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "trading"})}>
-                                <span>Trading</span>
+                                <span>{language.menu.markettrading}</span>
                             </li>
-                            <li className={"tab-item " + (activeKey === "finance" ? "actived" : "")}
+                            {/* <li className={"tab-item " + (activeKey === "finance" ? "actived" : "")}
                                 style={activeKey == "finance" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "finance"})}>
                                 <span>Finance</span>
-                            </li>
+                            </li> */}
                             <li className={"tab-item " + (activeKey === "news" ? "actived" : "")}
                                 style={activeKey == "news" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "news"})}>
-                                <span>News</span>
+                                <span>{language.menu.marketnews}</span>
                             </li>
                             <li className={"tab-item " + (activeKey === "reports" ? "actived" : "")}
                                 style={activeKey == "reports" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "reports"})}>
-                                <span>Reports</span>
+                                <span>{language.menu.marketreports}</span>
                             </li>
                             <li className={"tab-item " + (activeKey === "technical" ? "actived" : "")}
                                 style={activeKey == "technical" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "technical"})}>
-                                <span>Technical</span>
+                                <span>{language.menu.markettechnical}</span>
                             </li>
                         </ul>
                     </div>
                     <div className="tab-container" style={{backgroundColor: background.backgroundColor}}>
                         { child }
+                    </div>
+
+                    <div className="tradelog-container" style={{backgroundColor: background.backgroundColor}}>
+                        <TradeHistory {...this.props} />
                     </div>
                 </div>
             </div>

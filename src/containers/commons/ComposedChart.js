@@ -26,14 +26,16 @@ class ComposedChart extends React.Component {
         this.yAxisLineAccessor = "mvIndex"
         this.yAxisAreaAccessor = "mvTotalVol"
         
-        console.log(this.props)
+        // console.log(this.props)
+        this.className = "composedChart" + new Date().getTime()
+        this.id = "composedChartSVG" + new Date().getTime()
         
     }
 
     render(){
-        console.log("RENDER CHAR")
-        return(
-            <div className="composedChart" style={{ background: this.theme.backgroundColor}} ></div>
+        console.log("char")
+        return (
+            <div className={this.className} style={{ background: this.theme.backgroundColor}} ></div>
         )
     }
 
@@ -66,25 +68,61 @@ class ComposedChart extends React.Component {
                 { offset: this.colorBreak, color: '#ff0000' },
                 { offset: "100%", color: '#ff0000' }
             ]).enter().append("stop").attr("offset", d => d.offset).attr("stop-color", d => d.color)
+        
+        // k biet -> area
         this.canvas.append("path")
             .attr("d", this.areaRender(data))
             .attr("fill", "steelblue");
+
+
+        // line
         this.canvas.append("path")
             .attr("d", this.lineRender(data))
             .attr("stroke", "url(#line-gradient)")
             .attr("fill", "none")
             .attr("stroke-width", 2)
-        this.canvas.append("g").attr("transform", "translate(0, " + (this.props.dataObject.height - 20) + ")").attr("stroke", this.theme.color).call(this.xAxis)
-        this.canvas.append("g").attr("transform", "translate(40, 0)").attr("stroke", this.theme.color).call(this.yAxisIndex)
-        this.canvas.append("g").attr("transform", "translate(" + (this.props.dataObject.width - 40) + ", 0)").attr("stroke", this.theme.color).call(this.yAxisVolume)
-        this.canvas.selectAll(".domain").attr("fill", "white")
-        this.canvas.append("line").attr("x1", 40).attr("y1", this.yScaleIndex(110)).attr("x2", 460).attr("y2", this.yScaleIndex(110))
+
+            
+        // truc x ( o duoi)
+        this.canvas.append("g")
+            .attr("transform", "translate(0, " + (this.props.dataObject.height - 20) + ")")
+            .attr("stroke", this.theme.color)
+            .attr("class", "axis")
+            .call(this.xAxis)
+            // .select(".domain")
+            // .attr("fill", "#FFF")
+
+        // truc y (left)
+        this.canvas.append("g")
+            .attr("transform", "translate(40, 0)")
+            .attr("stroke", this.theme.color)
+            .attr("class", "axis")
+            .call(this.yAxisIndex)
+            // .select(".domain")
+            // .remove()
+        
+        // truc y (right)
+        this.canvas.append("g")
+            .attr("transform", "translate(" + (this.props.dataObject.width - 40) + ", 0)")
+            .attr("stroke", this.theme.color)
+            .attr("class", "axis")
+            .call(this.yAxisVolume)
+            // .select(".domain")
+            // .remove()
+
+        // this.canvas.selectAll(".domain").attr("fill", "white")
+
+        // duong trnug binh (ref price)
+        this.canvas.append("line").attr("x1", 40).attr("y1", this.yScaleIndex(110)).attr("x2", this.props.dataObject.width - 45).attr("y2", this.yScaleIndex(110))
             .attr("stroke", this.theme.referenceLine.color).attr("stroke-width", 2).attr("stroke-dasharray", "5, 5")
+        
         this.canvas
             .on("mousemove", () => this.handleMouseMove(this, this.canvas.node()))
             .on("mouseleave", () => this.handleMouseLeave(this, this.canvas.node()))
-        this.canvas.selectAll("path.domain").attr("fill", "none")
-        this.canvas.selectAll("g.tick line").attr("stroke", "white")
+
+        // this.canvas.selectAll("path.domain").attr("fill", "none")
+        this.canvas.selectAll("g.tick line").attr("stroke", "#000")
+        this.canvas.selectAll("axisaa").attr("stroke", "#FFF")
     }
 
     handleMouseMove(chart, canvas) {
@@ -116,7 +154,7 @@ class ComposedChart extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        d3.select("svg#composedChartSVG").remove()
+        d3.select("svg#" + this.id).remove()
     }
 
     componentDidUpdate() {
@@ -135,31 +173,38 @@ class ComposedChart extends React.Component {
         this.timeParse = d3.timeParse("%H:%M")
         this.timeFormat = d3.timeFormat("%H:%M")
         this.canvas = d3
-            .select(".composedChart")
+            .select("." + this.className)
             .append("svg")
-            .attr("id", "composedChartSVG")
+            .attr("id", this.id)
             .attr("width", this.props.dataObject.width)
             .attr("height", this.props.dataObject.height)
+
         this.xScale = d3.scaleTime()
             .domain([this.timeParse("09:00"), this.timeParse("15:00")])
             .nice(d3.timeHour)
             .range([40, this.props.dataObject.width - 40])
+
         this.yScaleIndex = d3.scaleLinear()
             .domain([109, 111])
             .range([this.props.dataObject.height - 20, 20]);
+
         this.yScaleVolume = d3.scaleLinear()
             .domain([50000, 52000])
             .range([this.props.dataObject.height - 20, 20]);
+
         this.colorBreak = (d3.scaleLinear().domain([109, 111]).range([1, 0]))(110)
+
+        //
         this.xAxis = d3.axisBottom(this.xScale).ticks(d3.timeHour, 1).tickFormat(this.timeFormat)
         this.yAxisIndex = d3.axisLeft(this.yScaleIndex).ticks(4)
         this.yAxisVolume = d3.axisRight(this.yScaleVolume).ticks(3)
+        
         this.lineRender = d3.line()
             .x(d => this.xScale(d[this.xAxisAccessor]))
             .y(d => this.yScaleIndex(d[this.yAxisLineAccessor]))
+
         this.areaRender = d3.area()
             .x(d => this.xScale(this.xAxisAccessor))
-            .y0(230)
             .y1(d => this.yScaleVolume(d[this.yAxisAreaAccessor]))
 
 

@@ -116,7 +116,7 @@ class MarqueeItem extends React.Component {
 
     genPopover(data) {
         let {type, stock, market} = this.props
-     
+            console.log(stock, type, market)
             let background = this.props.theme.chart.popoverChart.backgroundColor
 
             const dataObject = {
