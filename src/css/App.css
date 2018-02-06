@@ -3986,6 +3986,7 @@ label {
 }
 .bidask-row .bidask-value {
     float: right;
+    font-weight: 600;
 }
 .bidask-row .binding:hover {
     font-weight: 900;

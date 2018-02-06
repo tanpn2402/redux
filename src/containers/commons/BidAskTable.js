@@ -191,20 +191,20 @@ class BidAskTable extends React.Component {
                                     </span>
                                 </div>
                                 <div>
-                                    <span style={theme.font.main} className="bidask-title">{header.cell}</span>
-                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                    <span style={theme.font.ceil} className="bidask-title">{header.cell}</span>
+                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={theme.font.ceil}>
                                         {utils.formatCurrency(data.mvCeiling)}
                                     </span>
                                 </div>
                                 <div>
-                                    <span style={theme.font.main} className="bidask-title">{header.floor}</span>
-                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                    <span style={theme.font.floor} className="bidask-title">{header.floor}</span>
+                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={theme.font.floor}>
                                         {utils.formatCurrency(data.mvFloor)}
                                     </span>
                                 </div>
                                 <div>
-                                    <span style={theme.font.main} className="bidask-title">{header.ref}</span>
-                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={this._renderValue("")}>
+                                    <span style={theme.font.ref} className="bidask-title">{header.ref}</span>
+                                    <span className="bidask-value binding" onClick={e => this.onClick()} style={theme.font.ref}>
                                         {utils.formatCurrency(data.mvReferences)}
                                     </span>
                                 </div>

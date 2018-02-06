@@ -243,11 +243,11 @@ class WatchListSmall extends React.Component {
         }
         if(unit == "price") {
             value = utils.formatCurrency(Number(value).toFixed(2))
-            console.log("PRICE " , value)
-            return 
-        } else if(unit == "-------------------quantity") {
+            // console.log("-------------PRICE " , value)
+            return value
+        } else if(unit == "quantity") {
             value = utils.formatQty(Number(Math.ceil(value)).toFixed(0))
-            console.log("-------------quantity " , value)
+            // console.log("-------------quantity " , value)
             return value
         } else {
             return value
@@ -278,6 +278,15 @@ class WatchListSmall extends React.Component {
         else if(refPrice < matchPrice) {
             if(accessor == "mvMatchUpDown")
                 child = <span style={theme.up}>{matchPrice != "" ? "+" + change : "---" }</span>
+            else if(accessor == "mvMatchPercent")
+                child = <span style={theme.up}>{matchPrice != "" ? percent + "%" : "---"}</span>
+            else if(isFormated != undefined)
+                child = <span style={theme.up}>{this.format(isFormated, props[accessor])}</span>
+            else 
+                child = <span style={theme.up}>{props[accessor] == "" ? "---" : props[accessor]}</span>
+        } else {
+            if(accessor == "mvMatchUpDown")
+                child = <span style={theme.up}>{matchPrice != "" ? "" + change : "---" }</span>
             else if(accessor == "mvMatchPercent")
                 child = <span style={theme.up}>{matchPrice != "" ? percent + "%" : "---"}</span>
             else if(isFormated != undefined)
