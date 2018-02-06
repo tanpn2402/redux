@@ -100,7 +100,8 @@ export default function(state = initialState, action) {
                 listInstrumentInWatchList: tmp1,
                 listInstrumentToWatch: listInstrumentToWatchTMP1,
                 listInstrumentData: listDataTmp2,
-                reloadWatchlist: !state.reloadWatchlist
+                reloadWatchlist: !state.reloadWatchlist,
+                instrumentData: action.stockData
             });
         }
 
@@ -117,8 +118,9 @@ export default function(state = initialState, action) {
                 config.cache.listInstrumentToWatch = listInstrumentToWatchTMP2
             }
 
+            let tmpAAA = state.listInstrumentInWatchList.filter(e => e != action.instrument)
             return Object.assign({}, state, {
-                listInstrumentInWatchList: state.listInstrumentInWatchList.filter(e => e != action.instrument),
+                listInstrumentInWatchList: tmpAAA,
                 listInstrumentToWatch: listInstrumentToWatchTMP2,
                 listInstrumentData: listInstrumentDataTMPX10,
                 reloadWatchlist: !state.reloadWatchlist

@@ -3,6 +3,7 @@ import * as mdsapi from '../api/mdsapi'
 import * as ACTION from '../api/action_name'
 import config from "../core/config"
 import * as utils from '../utils'
+import {showMessageBox} from './notification'
 
 const {ActionTypes} = require('../core/constants');
 
@@ -142,11 +143,39 @@ export function addInstrumentToWatchList(ins, market) {
                     console.log("addInstrumentToWatchList", response)
                     // let stockData = response.mvData == undefined ? (genDefaultData(ins, market)) : response.mvData.length > 0 ? response.mvData : (genDefaultData(ins, market))
                     // stockData = convertFromItradeVarToMDS(stockData[0])
-                    return {
-                        type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
-                        instrument: ins, // ex: AVC, VNM
-                        market: market,
-                        // stockData: stockData
+                    // return {
+                    //     type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
+                    //     instrument: ins, // ex: AVC, VNM
+                    //     market: market,
+                    //     // stockData: stockData
+                    // }
+
+                    return (dispatch) => {
+                        
+                        itradeapi.mdsPOST( ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID), {} , dispatch,
+                            function (response) {
+                                console.log("get ins in watchlis and it data ", response)
+                                let stockData = response.mvStockData.filter(e => e.mvSymbol == ins && e.mvMarketID == market)
+                                stockData = stockData.map(e => {
+                                    return convertFromItradeVarToMDS(e)
+                                })
+                                
+                                return {
+                                    type: ActionTypes.ADDINSTRUMENTTOWATCHLIST,
+                                    instrument: ins, // ex: AVC, VNM
+                                    market: market, // ex: HO, HA
+                                    stockData: stockData.length > 0 ? stockData[0] : null  // ex: {...}
+                                }
+                                
+                                
+                            },
+                            function (err) {
+                                return (dispatch) => {
+                                    dispatch(showMessageBox("Error", 
+                                        "Appear error while add symbol to Watchlist"
+                                    ))
+                                }
+                            })
                     }
                 },
                 function(err) {
@@ -263,7 +292,7 @@ export function updateWatchlistData(data) {
 
     // console.log("UPDATE", data)
     // data["mvMarket"] = data["mvMarket"] == "HN" ? "HA" : "HO"
-    console.log("REALTIME DATA = ", data)
+    // console.log("REALTIME DATA = ", data)
     return {
         type: ActionTypes.UPDATEWATCHLISTDATA,
         data: data
@@ -438,3 +467,7 @@ function convertFromItradeVarToMDS(e) {
         mvForeignForRoom: e.mvCurrentRoom
     }
 }
+
+
+// WEBPACK FOOTER //
+// ./src/actions/trading.js

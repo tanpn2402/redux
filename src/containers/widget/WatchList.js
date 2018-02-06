@@ -51,9 +51,16 @@ class WatchList extends Component {
     onRemoveStock() {
         // let rowSelected = this.watchListTable.rowSelected
         // console.log(this.rowSelected)
-        this.rowSelected.map(stock => {
-            this.props.removeInstrumentFromWatchList(stock.mvStockCode, stock.mvMarket)
-        })
+        if(this.rowSelected.length < 1) {
+            let language = this.props.language
+            this.props.onShowMessageBox(language.messagebox.title.info, 
+                language.messagebox.message.notChoosenStock)
+        } else {
+            this.rowSelected.map(stock => {
+                this.props.removeInstrumentFromWatchList(stock.mvStockCode, stock.mvMarket)
+            })
+            this.rowSelected = []
+        }
     }
 
     onRowSelected(row) {

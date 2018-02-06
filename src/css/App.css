@@ -4542,3 +4542,62 @@ input[type=number] {
     padding-top: 4px;
     padding-bottom: 0px;
 }
+
+.market-info-page .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.market-info-page .trade-header-container {
+    height: 48px;
+    padding: 2px;
+}
+.market-info-page .page-container {
+    height: calc(100% - 48px);
+    padding: 2px;
+}
+.market-info-page .page-container .tab-side {
+    width: 100px;
+    float: left;
+}
+.market-info-page .page-container .tab-container {
+    float: right;
+    width: calc(100% - 100px);
+    height: 100%;
+    background: #FFF;
+}
+.market-info-page .page-container .tab-control > .tab-item {
+    display: block;
+    width: 95px;
+    height: 95px;
+    padding: 0;
+    text-align: center;
+    padding-top: 35px;
+}
+.market-info-page .page-container .tab-control > .tab-item.actived {
+    font-weight: 600;
+}
+
+
+.mk-trading-tab .trade-log-container {
+    float: right;
+    width: 300px;
+    padding-left: 20px;
+    padding-right: 20px
+}
+.mk-trading-tab .history-chart-container {
+    float: left;
+    width: calc(100% - 250px);
+    height: 100%;
+}
+.mk-technical-tab {
+    width: 100%;
+    height: 100%;
+}
+.mk-technical-tab .chart-container {
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}

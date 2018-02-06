@@ -18,11 +18,16 @@ class WatchListTable extends React.Component {
                             onChange={() => this.onRowSelected('ALL')} />,
                         width: 40,
                         Cell: props => {
-                            return (<input type='checkbox' className={this.id + "-row-checkbox"}
-                                onChange={() => { this.onRowSelected(props.original) }} />
+                            return (
+                                <div style={{width: "100%", height: "100%"}}>
+                                    <input type='checkbox' className={this.id + "-row-checkbox"}
+                                        style={{position: "relative", top: "3px"}}
+                                        onChange={() => { this.onRowSelected(props.original) }} />
+                                </div>
                             )
                         },
                         sortable: false,
+                        accessor_tmp: 'cb',
                         skip: true,
                         background: this.props.theme.watchlist.evenCol,
                         
@@ -370,43 +375,6 @@ class WatchListTable extends React.Component {
             oldInstrumentData: null
         }
 
-        this.balance = {
-            mvOpen: 80.4,
-            mvHigh: 70.5,
-            mvLow: 60.5,
-            mvNomial: 11.5,
-
-            mvCeiling: 80.216,
-            mvFloor: 70.135,
-            mvReferences: 80.235,
-
-            mvBidPrice1: 85.56,
-            mvBidPrice2: 75.26,
-            mvBidPrice3: 65.85,
-
-            mvBidVol1: 75.76,
-            mvBidVol2: 47.52,
-            mvBidVol3: 96.67,
-
-            mvMatchPrice: 86.2,
-            mvMatchVol: 569.6,
-            mvMatchUpDown: 1.5,
-            mvMatchVolTotal: 469.56,
-
-
-            mvOfferPrice1: 65.26,
-            mvOfferPrice2: 87.12,
-            mvOfferPrice3: 97.45,
-
-            mvOfferVol1: 65.56,
-            mvOfferVol2: 97.34,
-            mvOfferVol3: 65.6,
-
-            mvForeignForBuy: 56.5,
-            mvForeignForSell: 69.3,
-            mvForeignForRoom: 11.6
-        }
-
         this.rowSelected = []
     }
 
@@ -418,13 +386,18 @@ class WatchListTable extends React.Component {
                         id: 'cb',
                         // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
                         //     onChange={() => this.onRowSelected('ALL')} />,
-                        width: 30,
+                        width: 40,
                         Cell: props => {
-                            return (<input type='checkbox' className={this.id + "-row-checkbox"}
-                                onChange={() => { this.onRowSelected(props.original) }} />
+                            return (
+                                <div style={{width: "100%", height: "100%"}}>
+                                    <input type='checkbox' className={this.id + "-row-checkbox"}
+                                        style={{position: "relative", top: "3px"}}
+                                        onChange={() => { this.onRowSelected(props.original) }} />
+                                </div>
                             )
                         },
                         sortable: false,
+                        accessor_tmp: 'cb',
                         skip: true,
                         background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     }],
@@ -800,6 +773,8 @@ class WatchListTable extends React.Component {
         // check if instrutment data already in realtimeData[]
         let tmp = realtimeData.filter(e => e.mvStockCode == instrumentData.mvStockCode)
         if(tmp.length > 0) {
+            // console.log("CASE UPDATE")
+
             // compare value
             let oldData = Object.assign({}, tmp[0])
             Object.assign(tmp[0], instrumentData)
@@ -810,12 +785,27 @@ class WatchListTable extends React.Component {
             })
 
         } else if(listInstrumentInWatchList.indexOf(instrumentData.mvStockCode) > -1) {
+            console.log("CASE ADD")
             realtimeData.push(instrumentData)
             config.cache.watchlistData = realtimeData
             this.setState({
                 realtimeData: realtimeData,
                 oldInstrumentData: null
             })
+        } else if(nextProps.listInstrumentInWatchList.length < this.props.listInstrumentInWatchList.length) {
+            // case REMOVE STOCK
+            console.log("CASE REMOVE")
+            let oldList = this.props.listInstrumentInWatchList
+            let newList = nextProps.listInstrumentInWatchList
+
+            let diff = oldList.filter(x => !newList.includes(x))
+            let newData = realtimeData.filter(x => !diff.includes(x.mvStockCode))
+            console.log("diff", diff, "new Data:", newData, "old data:", realtimeData)
+
+            this.setState({
+                realtimeData: newData,
+            })
+
         }
     }
 
@@ -914,6 +904,8 @@ class WatchListTable extends React.Component {
                 mvQty: data["mvOfferVol3"],
                 mvPrice: data["mvOfferPrice3"]
             })
+        }if(accessor == "cb") {
+            return
         } else {
             this.props.setDefaultOrderParams({
                 mvBS: "BUY",
