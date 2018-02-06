@@ -2139,6 +2139,13 @@ label {
     width: 50%;
     font-weight: 400 !important;
 }
+.widget-form input:focus,
+.widget-form textarea:focus {
+    background-color: #cec69f;
+}
+.widget-form .select-control input:focus {
+    background-color: unset;
+}
 /* END WIDGET HEADER */
 /* MANAGEMENT WIDGET */
 #management {
