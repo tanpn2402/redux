@@ -30,14 +30,14 @@ class AdvancePanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
-
+        let background = this.props.theme.form.background
         let formStyle = this.props.theme.form
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={this.props.theme}  style={background}>
                     <Form onSubmit={this.handleSubmit} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
                             <Table theme={this.props.theme} responsive>
@@ -74,6 +74,7 @@ class AdvancePanel extends Component {
                                                 className="hks-input border"
                                                 type="number" name="volume" min="0"
                                                 onChange={this.onAdvancePaymentChange.bind(this)}
+                                                ref={e => this.txtAdAmount = e}
                                                 id="txtAdvancePayment" required />
                                         </td>
                                     </tr>
@@ -103,6 +104,7 @@ class AdvancePanel extends Component {
 
     componentDidMount() {
         this.props.getLocalAdvanceCreation(this.querySoldOrdersParams)
+        this.txtAdAmount.focus()
     }
 
     handleSubmit(e) {

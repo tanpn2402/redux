@@ -32,14 +32,14 @@ class AdBankPanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
-
+        let background = this.props.theme.form.background
         let formStyle = this.props.theme.form
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={this.props.theme}  style={background}>
                     <Form onSubmit={this.handleSubmit.bind(this)} id={this.id} className="widget-form">
                         <FormGroup>
                             <Table responsive>

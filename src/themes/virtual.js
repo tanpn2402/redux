@@ -65,6 +65,15 @@ export default {
         disable: {
             color: "#B3B3B3",
             fontWeight: "normal"
+        },
+        ceil: {
+            color: '#ff00ff'
+        },
+        floor: {
+            color: '#66ccff'
+        },
+        ref: {
+            color: '#ffcc00'
         }
     },
     page: {
@@ -385,6 +394,9 @@ export default {
         }
     },
     form: {
+        background:{
+            backgroundColor: '#b1e69a'
+        },
         button: {
             submit: {
                 border: "2px solid #ed514d",

@@ -28,14 +28,14 @@ class LoanTrans extends Component {
 		let tableFooter = this.props.theme.table.tableFooter
 		let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
-        
+        let background = this.props.theme.form.background
         let formStyle = this.props.theme.form
         return (
             <div>
                 <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={this.props.theme} style={background}>
                     <Form onSubmit={this.beforeSubmitLoanRefund.bind(this)} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
                             <Table responsive>
@@ -131,6 +131,7 @@ class LoanTrans extends Component {
 
     componentDidMount() {
         this.props.getLocalRefundCreation(this.localLoanRefundCreationParams)
+        this.txtRefundAmt.focus()
     }
 
     // submit loan refund

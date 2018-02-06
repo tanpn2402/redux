@@ -38,6 +38,15 @@ export default {
         disable: {
             color: "#6B6B6B",
             fontWeight: "normal"
+        },
+        ceil: {
+            color: '#ff00ff'
+        },
+        floor: {
+            color: '#66ccff'
+        },
+        ref: {
+            color: '#ffcc00'
         }
     },
     page: {
@@ -358,6 +367,9 @@ export default {
 
     },
     form: {
+        background:{
+            backgroundColor: '#001321'
+        },
         button: {
             submit: {
                 border: "2px solid #005899",

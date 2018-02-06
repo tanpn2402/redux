@@ -37,17 +37,17 @@ class EntitlementPanel extends Component {
         let rowOdd = this.props.theme.table.rowOdd.backgroundColor
         let rowEven = this.props.theme.table.rowEven.backgroundColor
         let font2 = this.props.theme.font.sub1.color
-
+        let background = this.props.theme.form.background
         let formStyle = this.props.theme.form
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title language={this.props.language} theme={this.props.theme}>
                     {this.props.language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={this.props.theme}  style={background}>
                     <Form onSubmit={this.submitEntitlement.bind(this)} id={"form-" + this.id} className="widget-form">
                         <FormGroup>
-                            <Table responsive >
+                            <Table responsive>
                                 <tbody >
                                     <tr style={{  color: font2 }}>
                                         <th>{this.props.language.entitlement.header.bankaccount}</th>
@@ -199,6 +199,8 @@ class EntitlementPanel extends Component {
                 mvBankACID: ""
             }
         })
+
+        this.txtTradeQty.focus()
     }
 
     handleResetForm(e) {

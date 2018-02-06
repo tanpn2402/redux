@@ -7,19 +7,7 @@ export default class WidgetBody extends Component {
 
 
     render() {
-        let themee = this.props.theme.title
-		
-				let bg = "";
-				let tColor= "";
-		
-				if(themee == "dark") {
-					bg = "#474747"
-					tColor = "#FFF"
-				} else {
-					bg = "#FFF"
-					tColor = "#000"
-		
-                }
+       
                 
         let widgetBackground = this.props.theme.widget.widgetBackground.backgroundColor
         if(this.props.chart!= undefined){
@@ -34,7 +22,7 @@ export default class WidgetBody extends Component {
             return (
                 <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{background: widgetBackground}} 
                     ref={ref => this.Body = ref}>
-                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref} style={{backgroundColor: widgetBackground}}>
+                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref} style={Object.assign({backgroundColor: widgetBackground}, this.props.style)}>
                         {this.props.children}
                     </div>
                 </div>
@@ -43,4 +31,8 @@ export default class WidgetBody extends Component {
         
 
     }
+}
+
+WidgetBody.defaultProps= {
+    style: {}
 }
