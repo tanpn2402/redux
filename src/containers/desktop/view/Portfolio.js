@@ -1,51 +1,35 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import * as actions from '../../../actions'
-import GridLayout from '../../main/GridLayout.js'
-import config from '../../../core/config'
+import React from 'react'
+import ClientSumary from "../../widget/ClientSumary"
+import Portfolio from "../../widget/Portfolio"
+import Sumary from "../../widget/Sumary"
 
 
-class Portfolio extends Component {
+
+export default class PortfolioPage extends React.Component {
     constructor(props) {
         super(props)
-
-        var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
-        if(tabs.length > 0){
-            this.layout = tabs[0].widget
-    
-        }
-        else{
-            this.layout = []
-
-        }
     }
 
-    componentWillReceiveProps(nextProps){
-    }   
-
     render(){
-        return(
-            <GridLayout 
-                language={this.props.language}
-                layout={this.layout}
-                stockList={this.props.stockList} 
-                theme={this.props.theme}
-                margin={[4, 4]}
-                >
-            </GridLayout>
+        let background = this.props.theme.page.background
+        
+        return (
+            <div className="portfolio-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                <div className="row portfolio-header-container">
+                    <ClientSumary {...this.props} />
+                </div>
+                <div className="row sumary-container">
+                    <Sumary {...this.props} />
+                </div>
+                <div className="row portfolio-container">
+                    <Portfolio {...this.props} />
+                </div>
+            </div>
         )
     }
 
-    componentDidMount() {
-    }
+  
 }
 
-const mapStateToProps = (state) => {
-    return {
-    }
-}
 
-const mapDispatchToProps = (dispatch, props) => ({
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)

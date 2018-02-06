@@ -13,7 +13,7 @@ class StockStatement extends Component {
     constructor(props) {
         super(props)
         this.stockList = config.cache.stockList
-        this.defaultPageSize = 18
+        this.defaultPageSize = props.defaultPageSize
         this.params = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'TRANSACTIONHISTORY',
@@ -280,7 +280,9 @@ class StockStatement extends Component {
         this.props.onExportExcel(this.exportParams)
     }
 }
-
+StockStatement.defaultProps = {
+    defaultPageSize: 19
+}
 const mapStateToProps = (state) => {
     return {
         data: state.stockstatement.data,

@@ -305,7 +305,7 @@ class OrderJournal extends Component {
 
         this.rowSelected = []
         this.id = 'orderjournal'
-        this.defaultPageSize = 20
+        this.defaultPageSize = props.defaultPageSize
 
         this.param = {
             mvStatus: "ALL",
@@ -550,6 +550,10 @@ class OrderJournal extends Component {
     }
 
 
+}
+
+OrderJournal.defaultProps = {
+    defaultPageSize: 15
 }
 
 function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {

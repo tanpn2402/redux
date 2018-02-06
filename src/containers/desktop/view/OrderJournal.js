@@ -1,53 +1,37 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import * as actions from '../../../actions'
-import GridLayout from '../../main/GridLayout.js'
-import config from '../../../core/config'
+import React from 'react'
+import OrderJournal from "../../widget/OrderJournal"
 
 
-class OrderJournal extends Component {
+export default class OrderJournalPage extends React.Component {
 	constructor(props) {
         super(props)
-
-        var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
-        if(tabs.length > 0){
-            this.layout = tabs[0].widget
-    
+        this.state = {
+            defaultPageSize: 0
         }
-        else{
-            this.layout = []
-
-        }
-        
     }
 
-    componentWillReceiveProps(nextProps){
-    }	
-
     render(){
+        let background = this.props.theme.page.background
 
         return(
-            <GridLayout 
-                language={this.props.language}
-                layout={ this.layout}
-                stockList={this.props.stockList} 
-                theme={this.props.theme}
-                margin={[4, 4]}
-                >
-            </GridLayout>
+            <div ref={r => this.main = r} className="orderjournal-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                <div className="row orderjournal-container">
+                    {
+                        this.state.defaultPageSize != 0 ? (
+                            <OrderJournal {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                        ) : null
+                    }
+                </div>
+            </div>
         )
     }
 
     componentDidMount() {
+        if(this.main) {
+            console.log(Math.floor((this.main.offsetHeight - 76) / 26))
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 76) / 26)
+            })
+        }
     }
 }
-
-const mapStateToProps = (state) => {
-  	return {
-  	}
-}
-
-const mapDispatchToProps = (dispatch, props) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderJournal)

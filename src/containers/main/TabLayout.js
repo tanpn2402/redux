@@ -6,6 +6,161 @@ import * as actions from '../../actions'
 import { connect } from 'react-redux'
 import $ from 'jquery'
 
+import AdPaymentPage from "../desktop/view/AdPaymentPage"
+import BankAdPaymentPage from "../desktop/view/BankAdPaymentPage"
+import EntitlementPage from "../desktop/view/EntitlementPage"
+import FundTransferPage from "../desktop/view/FundTransferPage"
+import LoanRefundPage from "../desktop/view/LoanRefundPage"
+import OddLotPage from "../desktop/view/OddLotPage"
+
+import CashTransHistory from "../widget/CashTransHistory"
+import OrderHistory from "../widget/OrderHistory"
+import StockStatement from "../widget/StockStatement"
+
+class CashTransHistoryContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            defaultPageSize: 0
+        }
+    }
+
+    render() {
+        let background = this.props.theme.page.background
+        return (
+            <div ref={r => this.main = r} className="trans-history-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                {
+                    this.state.defaultPageSize != 0 ? (
+                        <CashTransHistory {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                    ) : null
+                }
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        if(this.main) {
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 110) / 26)
+            })
+        }
+    }
+}
+
+class StockStatementContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            defaultPageSize: 0
+        }
+    }
+
+    render() {
+        let background = this.props.theme.page.background
+        return (
+            <div ref={r => this.main = r} className="trans-history-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                {
+                    this.state.defaultPageSize != 0 ? (
+                        <StockStatement {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                    ) : null
+                }
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        if(this.main) {
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 110) / 26)
+            })
+        }
+    }
+}
+class OrderHistoryContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            defaultPageSize: 0
+        }
+    }
+
+    render() {
+        let background = this.props.theme.page.background
+        return (
+            <div ref={r => this.main = r} className="trans-history-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                {
+                    this.state.defaultPageSize != 0 ? (
+                        <OrderHistory {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                    ) : null
+                }
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        if(this.main) {
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 110) / 26)
+            })
+        }
+    }
+}
+
+
+
+class ServicePageContainer extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        let {tabID, subTabID, theme} = this.props
+
+        let child = null
+        switch(subTabID) {
+            case "fundTransfer": 
+                child = <FundTransferPage {...this.props}/>
+                break;
+            case "advancePaymentBank": 
+                child = <BankAdPaymentPage {...this.props}/>
+                break;
+            case "advancePayment": 
+                child = <AdPaymentPage {...this.props}/>
+                break;
+            case "entitlement": 
+                child = <EntitlementPage {...this.props}/>
+                break;
+            case "oddLot": 
+                child = <OddLotPage {...this.props}/>
+                break;
+            case "loanrefund": 
+                child = <LoanRefundPage {...this.props}/>
+                break;
+
+
+            case "cashTransHistory": 
+                child = <CashTransHistoryContainer {...this.props} />
+                break;
+            case "orderHistory": 
+                child = <OrderHistoryContainer {...this.props} />
+                break;
+            case "stockstatement": 
+                child = <StockStatementContainer {...this.props} />
+                break;
+
+            default: 
+                child = <FundTransferPage {...this.props}/>
+                break;
+        }
+        
+        return child
+        
+    }
+}
+
 class TabLayout extends Component {
     constructor(props){
         super(props)
@@ -56,7 +211,7 @@ class TabLayout extends Component {
         let scrollStyle = this.props.theme.scrolling
 
         let tabStyles = this.props.theme.tabcontrol
-        console.log(tabStyles)
+        // console.log(tabStyles)
 
         return (
             <div style={{height: "100%"}}>
@@ -94,15 +249,7 @@ class TabLayout extends Component {
                     </div> */}
                 </div>
                 <div className="tab-content" id={this.props.tabID}>
-                    <GridLayout 
-                        language={this.props.language}
-                        layout={layout}
-                        stockList={this.props.stockList} 
-                        theme={this.props.theme}
-                        margin={[4, 4]}
-                        >
-                    </GridLayout>
-
+                    <ServicePageContainer {...this.props} id={this.state.subTabID}/>
                 </div>
             </div>   
         )

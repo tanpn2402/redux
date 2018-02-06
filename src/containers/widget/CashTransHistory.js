@@ -15,7 +15,7 @@ class CashTransHistory extends Component {
         this.pageIndex = 1
         this.rowSelected = []
         this.id = 'cashtransaction'
-        this.defaultPageSize = 19
+        this.defaultPageSize = props.defaultPageSize
 
         this.params = {
             tradeType: 'ALL',
@@ -223,6 +223,11 @@ class CashTransHistory extends Component {
     }
 
 }
+
+CashTransHistory.defaultProps = {
+    defaultPageSize: 19
+}
+
 const mapStateToProps = (state) => {
     return {
         cashTransHistory: state.cashtranshistory.cashTransHistory

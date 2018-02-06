@@ -130,7 +130,7 @@ class FundTransHistory extends Component {
             pageIndex: 1,
             filterable: false
         }
-        this.defaultPageSize = 19
+        this.defaultPageSize = 25
         this.paramshkscashtranhis = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'FUNDTRANSFER',

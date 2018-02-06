@@ -14,7 +14,7 @@ class LoanTrans extends Component {
         super(props)
         this.id = 'loanRefundHistory'
         this.idParent = 'loanrefund'
-        this.defaultPageSize = 15
+        this.defaultPageSize = 20
 
         this.loanRefundHistoryParams = {
             mvStartDate: moment(new Date()).format("DD/MM/YYYY"),

@@ -119,97 +119,97 @@ export function statusRenderer(text, status) {
     switch (status) {
         case 'NEW': // new
             return (
-                <div style={{ backgroundColor: '#30d6b4', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#30d6b4', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CAN': // canceled
             return (
-                <div style={{ backgroundColor: '#ffbedc', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#de6fa2', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'REJ': // rejected 
             return (
-                <div style={{ backgroundColor: '#f09191', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#da5555', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
-        case 'FEX'://
+        case 'FEX'://Fully Executed
             return (
-                <div style={{ backgroundColor: '#1b5041', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#1b5041', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PEX':  // 
             return (
-                <div style={{ backgroundColor: '#49dcb1', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#49dcb1', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FLL': // fully filled
             return (
-                <div style={{ backgroundColor: '#96ff96', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#96ff96', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WA':  // waiting
             return (
-                <div style={{ backgroundColor: '#e6e8e6', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#a0a0a0', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'Q':   // queue
             return (
-                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WC':  // waiting cancle
             return (
-                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WM':
             return (
-                <div style={{ backgroundColor: '#6b5a19', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#6b5a19', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'IAT':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'SND':
             return (
-                <div style={{ backgroundColor: '#aafac8', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#aafac8', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'EXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'TRIG':
             return (
-                <div style={{ backgroundColor: '#95c623', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#95c623', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CPD':
             return (
-                <div style={{ backgroundColor: '#6320ee', color: '#000', width: '100%' }}>
+                <div style={{ backgroundColor: '#c3772e', color: '#FFF', width: '100%' }}>
                     {text}
                 </div>
             )
@@ -298,23 +298,16 @@ export function formatCurrency(num, q){
       return "0.00"
     }
   	num = num.toString()
-  	if(num.indexOf(',') > 0){
-     	num = parseFloat(num.replace(/\,/g, ''))
-      	if(!q)
-      		num = parseFloat(num).toFixed(parseInt(2)).toString()
-  		else if(q && !isNaN(parseInt(q))){
-      		num = parseFloat(num).toFixed(parseInt(q)).toString()
-    	}
-     	let m = /(\d+)(?:(\.\d+)|)/.exec(num + "")
-        let x = m[1].length > 3 ? m[1].length % 3 : 0;
-    	num = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',') + m[2];
-      	
-    }else{
-    	if(!q)
-      		num = parseFloat(num).toFixed(parseInt(2)).toString()
-  		else if(q && !isNaN(parseInt(q))){
-      		num = parseFloat(num).toFixed(parseInt(q)).toString()
-    	}
+  	if(num.indexOf(',') > 0 || num.indexOf('.') < 0){
+     	num = parseFloat(num.replace(/\,/g, '')) / 1000
+    }  	
+    if(!q)
+      	num = parseFloat(num).toFixed(parseInt(2)).toString()
+  	else if(q && !isNaN(parseInt(q))){
+      	num = parseFloat(num).toFixed(parseInt(q)).toString()
     }
-  	return num
+    let m = /(\d+)(?:(\.\d+)|)/.exec(num + "")
+    let x = m[1].length > 3 ? m[1].length % 3 : 0;
+   	num = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',') + m[2];
+    return num
 }

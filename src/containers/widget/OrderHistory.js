@@ -171,7 +171,7 @@ class OrderHistory extends Component {
 
         this.id = "ordershistory"
         this.pageIndex = 1
-        this.defaultPageSize = 19
+        this.defaultPageSize = props.defaultPageSize
 
         this.params = {
             start: 0,
@@ -291,6 +291,9 @@ class OrderHistory extends Component {
     }
 
 
+}
+OrderHistory.defaultProps = {
+    defaultPageSize: 15
 }
 const mapStateToProps = (state) => {
     return {

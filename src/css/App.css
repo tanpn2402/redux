@@ -2149,7 +2149,7 @@ label {
 #transhistory {
     width: 100%;
     height: 100%;
-    padding-top: 27px;
+    padding-top: 32px;
 }
 #marketinfo {
     width: 100%;
@@ -4342,7 +4342,7 @@ input[type=number] {
     height: 230px;
     padding-top: 0px;
 }
-.orderjournal-container {
+.trd-orderjournal-container {
     height: calc(100% - 204px - 230px);
     min-height: 250px;
     padding: 2px;
@@ -4360,3 +4360,177 @@ input[type=number] {
     }
 }
 /* END TRADING PAGE */
+
+/* PORTFOLIO PAGE */
+.portfolio-page {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+}
+.portfolio-page .row {
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 100%;
+}
+.portfolio-header-container {
+    height: 50px;
+    padding: 2px;
+}
+.sumary-container {
+    height: 256px;
+    padding: 2px;
+    padding-top: 0px;
+}
+.portfolio-container {
+    height: calc(100% - 50px - 256px);
+    padding: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+/* END PORTFOLIO PAGE */
+
+/* ORDER JOURNAL PAGE */
+.orderjournal-page {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+}
+.orderjournal-page .row {
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 100%;
+}
+.orderjournal-container {
+    height: 100%;
+    padding: 2px;
+    padding-bottom: 0px;
+}
+/* END ORDER JOURNAL PAGE */
+
+
+.services-page {
+    width: 100%;
+    height: 100%;
+}
+.services-page .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.services-page .panel-container {
+    float: left;
+    width: 400px;
+    position: relative;
+    padding: 2px;
+    padding-right: 0px;
+}
+.services-page .table-container {
+    float: right;
+    width: calc(100% - 400px);
+    padding: 2px;
+    padding-bottom: 0px;
+}
+
+.fundtransfer-page {
+    padding-top: 5px;
+}
+.fundtransfer-page .panel-container {
+    height: 464px;
+}
+.fundtransfer-page .table-container {
+    height: 100%;
+}
+
+.ad-payment-page {
+    padding-top: 5px;
+}
+.ad-payment-page .panel-container {
+    height: 256px;
+}
+.ad-payment-page .table-container {
+    height: 256px;
+    padding-left: 4px;
+}
+.ad-payment-page .history-panel {
+    height: calc(100% - 256px);
+    padding-left: 2px;
+    padding-top: 4px;
+    padding-right: 2px;    
+}
+
+.entitlement-page {
+    padding-top: 5px;
+}
+.entitlement-page .panel-container {
+    height: 412px;
+}
+.entitlement-page .table-container {
+    height: 100%;
+}
+.entitlement-page .action-right-list-container {
+    height: 33%;
+}
+.entitlement-page .add-share-info-container {
+    height: 33%;
+}
+.entitlement-page .history-container {
+    height: 34%;
+}
+
+.loan-refund-page {
+    padding-top: 5px;
+}
+.loan-refund-page .loan-panel {
+    height: 256px;
+}
+.loan-refund-page .ad-payment-panel {
+    height: 256px;
+}
+.loan-refund-page .status-table {
+    height: 256px;
+}
+.loan-refund-page .history-container {
+    height: calc(100% - 256px);
+    padding-top: 2px;
+}
+.loan-refund-page .history-table {
+    height: 100%;
+    min-height: 300px;
+}
+.loan-refund-page .status-table,
+.loan-refund-page .history-table {
+    padding-left: 4px;
+}
+
+.oddlot-page {
+    padding-top: 5px;
+}
+.oddlot-page .oddlot-order {
+    height: 45%;
+}
+.oddlot-page .oddlot-history {
+    height: 55%;
+    padding: 2px;
+    padding-top: 0px;
+}
+.oddlot-page .oddlot-order-container {
+    height: 100%;
+    padding: 2px;
+    width: calc(100% - 00px);
+    float: left;
+}
+.bank-ad-payment-page {
+    padding-top: 5px;
+}
+.bank-ad-place .panel-container,
+.bank-ad-place .table-container {
+    height: 256px;
+}
+.bank-ad-place .table-container {
+    padding-left: 4px;
+}
+.bank-ad-payment-page .history-container {
+    height: calc(100% - 256px);
+    padding: 2px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+}

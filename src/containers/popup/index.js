@@ -50,6 +50,7 @@ function genPopupDesktop(props, onClose) {
 			break;
 
 		case 'cashadvance':
+			console.log(props, onClose)
 			return (<CashAdvancePopup onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
 

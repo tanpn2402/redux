@@ -162,12 +162,29 @@ class AdvanceBankPlace extends React.Component {
     }
 
     render () {
+        let background = this.props.theme.page.background
+        
         return (
-            <ResponsiveReactGridLayout className="layout" cols={this.layoutCols} rowHeight={23} width={1320}
-                useCSSTransforms={false} margin={[3, 2]}>
-                { this.generatePanel() }
-                { this.generateMatchOrder() }
-            </ResponsiveReactGridLayout>
+            <div className="services-page bank-ad-place" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                <div className="panel-container">
+                    <AdvanceBankPanel 
+                        ref={e => this.adPanel = e}
+                        language={this.props.language} 
+                        theme={this.props.theme}
+                        bankInfo={this.props.bankInfo}
+                        data={this.state.panelData}
+                        getAdvanceOrderData={this.getAdvanceOrderData.bind(this)}
+                        />
+                </div>
+                <div className="table-container">
+                    <MatchOrderBankList 
+                        language={this.props.language} 
+                        theme={this.props.theme}
+                        rowSelected={this.rowSelected}
+                        selectAll={this.selectAll}
+                        onPaymentChange={this.onPaymentChange.bind(this)}/>
+                </div>
+            </div>
         )
     }
 }

@@ -44,7 +44,7 @@ class CashAdvancePopup extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenFail: state.checkAuthen.isAuthenFail,
+
     };
 }
 

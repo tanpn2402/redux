@@ -11,7 +11,7 @@ class AdBankHistory extends Component {
         super(props)
         this.id = 'advanceBankHistory'
         this.idParent = 'cashadvancebank'
-        this.defaultPageSize = 15
+        this.defaultPageSize = 20
 
         this.getCashAdvanceHistoryParams = {
             key: (new Date()).getTime(),
@@ -106,7 +106,7 @@ class AdBankHistory extends Component {
                         totalPage={Math.ceil(cashAdvanceHistory.totalCount / this.defaultPageSize)}
                         onPageChange={this.onPageChange.bind(this)}
 
-                        searchEnable={data.length > 0}
+                        searchEnable={false}
                     />
                 </Body>
             </div>

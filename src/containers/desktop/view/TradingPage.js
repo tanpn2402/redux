@@ -41,7 +41,7 @@ class Trading extends React.Component {
                         <PortfolioSmall {...this.props} />
                     </div>
                 </div>
-                <div className="row row-3 orderjournal-container">
+                <div className="row row-3 trd-orderjournal-container">
                     <OrderJournal {...this.props} />
                 </div>
             </div>

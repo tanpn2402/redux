@@ -13,7 +13,7 @@ class AdvanceHistory extends Component {
         this.id = 'advanceHistory'
         this.idParent = 'cashadvance'
         this.lang = config.cache.lang
-        this.defaultPageSize = 15
+        this.defaultPageSize = 20
         this.cashAdHisPageIndex = 1
 
         this.accessor = [
