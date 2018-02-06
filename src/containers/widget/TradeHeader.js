@@ -16,7 +16,9 @@ class TradeHeader extends React.Component {
             data : [
                 
             ],
-            mvStockSelected: {},
+            mvStockSelected: {
+                stockCode: props.instrument
+            },
             watched: false,
             instrument: this.props.instrument
         }
@@ -124,7 +126,7 @@ class TradeHeader extends React.Component {
         return (
             <Component className="trd-header" theme={theme}>
                 <div className="trd-header-control">
-                    {/* <InputSelect
+                    <InputSelect
                         className="stock-selector"
                         key="rStockSelector-header"
                         ref={r => this.rStockSelector = r}
@@ -133,8 +135,9 @@ class TradeHeader extends React.Component {
                         optionLabelPath={'stockCode'}
                         handleChange={this.handleStockChange.bind(this)}
                         searchEnabled={true}
+                        stockSelector={true}
                     />
-                    <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
+                    {/* <span className="trd-control-watch" onClick={e => this.onWatchClick()}>
                         <span className={className}></span>
                     </span> */}
                     <div className="trd-instrument-name" ref={r => this.StockName = r}>

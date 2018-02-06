@@ -165,7 +165,7 @@ export default
                 "type": "Type",
                 "buysell": "Buy/Sell",
                 "exchange": "Exchange",
-                "stock": "Stock",
+                "stock": "Symbol",
                 "persentlength": "% Length",
                 "totalfeetax": "Total (Fee+Tax): ",
                 "all": "ALL",
@@ -213,7 +213,7 @@ export default
                 "mvBuysell": "B/S",
                 "mvTrade": "Trans Type",
                 "mvOrderType": "Order Type",
-                "mvStockId": "Stock ID",
+                "mvStockId": "Symbol",
                 "mvLending": "% Lending",
                 "mvActionType": "Action Type",
                 "mvStartDate": "Start Date",
@@ -275,7 +275,7 @@ export default
                 "status": "Status",
                 "price": "Price",
                 "value": "Value",
-                "volume": "Volume",
+                "volume": "Qty",
                 "advance": "Advance"
             },
             "orderjournal": {
@@ -293,21 +293,21 @@ export default
                     "expirydate": "Expiry Date",
                     "rejectreason": "Reject Reason",
                     "time": "Time",
-                    "stockid": "Stock ID",
+                    "stockid": "Symbol",
                     "buysell": "B/S",
                     "orderID": "Order ID",
 
                     // for popup table
                     "market": "Market",
                     "tradeId": "Trade Code",
-                    "stockName": "Stock Name",
+                    "stockName": "Symbol Name",
                     "buysell": "Buy/Sell",
                     "initialPrice": "Initial Price",
                     "newPrice": "New Price",
-                    "initialQuantity": "Initial Quantity",
-                    "matchedQuantity": "Matched Quantity",
-                    "newQuantity": "New Quantity",
-                    "totalCash": "Total Money"
+                    "initialQuantity": "Initial Qty",
+                    "matchedQuantity": "Matched Qty",
+                    "newQuantity": "New Qty",
+                    "totalCash": "Total Amount"
                 },
                 "popup": {
                     "title": {
@@ -332,24 +332,24 @@ export default
                     "quantity": "Qty",
                     "status": "Status",
                     "ordertype": "Type",
-                    "stockid": "Stock ID",
+                    "stockid": "Symbol",
                     "buysell": "BS",
                     "currency": "Currency",
                     "filled": "Filled",
                     "triggerprice": "Trigger Price",
                     "gtd": "GTD",
-                    "orderNo": "Order No.",
+                    "orderNo": "Order ID",
                     // for popup table
                     "market": "Market",
                     "tradeId": "Trade Code",
-                    "stockName": "Stock Name",
+                    "stockName": "Symbol Name",
                     "buysell": "Buy/Sell",
                     "initialPrice": "Initial Price",
                     "newPrice": "New Price",
                     "initialQuantity": "Initial Qty",
                     "matchedQuantity": "Matched Qty",
-                    "newQuantity": "New Quantity",
-                    "totalCash": "Total Money"
+                    "newQuantity": "New Qty",
+                    "totalCash": "Total Amount"
                 },
                 "popup": {
                     "title": {
@@ -376,12 +376,12 @@ export default
             },
             "cashtransaction": {
                 "header": {
-                    "transid": "Trans ID",
-                    "datetrans": "Trans date",
-                    "transtype": "Trans type",
-                    "stockcode": "Stock Code",
-                    "stockname": "Stock Name",
-                    "amount": "Amount (VND)",
+                    "transid": "ID",
+                    "datetrans": "Date",
+                    "transtype": "Type",
+                    "stockcode": "Symbol",
+                    "stockname": "Symbol Name",
+                    "amount": "Amount",
                     "status": "Status",
                     "notes": "Notes",
                     "lastupdate": "Last Update"
@@ -395,11 +395,11 @@ export default
             },
             "transactionhistory": {
                 "header": {
-                    "transid": "Trans ID",
-                    "transdate": "Transaction date",
-                    "transtype": "Transaction type",
-                    "stockcode": "Stock Code",
-                    "stockname": "Stock Name",
+                    "transid": "ID",
+                    "transdate": "Date",
+                    "transtype": "Type",
+                    "stockcode": "Symbol",
+                    "stockname": "Symbol Name",
                     "quantity": "Qty",
                     "price": "Price",
                     "currency": "CCY",
@@ -414,8 +414,8 @@ export default
             },
             "fundTransHistory": {
                 "header": {
-                    "transfertype": "Trans type",
-                    "transferamount": "Amount (VND)",
+                    "transfertype": "Type",
+                    "transferamount": "Amount",
                     "beneficiaryaccount": "Beneficiary Account",
                     "beneficiaryfullname": "Beneficiary Fullname",
                     "bankname":"Bank Name",
@@ -427,16 +427,16 @@ export default
             },
             "orderconfirmation": {
                 "header": {
-                    "tradetime": "Trade Time",
+                    "tradetime": "Time",
                     "marketid": "Market",
                     "price": "Price",
-                    "quantity": "Quantity",
+                    "quantity": "Qty",
                     "filledquantity": "Filled Qty",
                     "filledprice": "Filled Price",
                     "cancelquantity": "Canceled Qty",
                     "status": "Status",
                     "ordertype": "Order Type",
-                    "stockid": "Stock ID",
+                    "stockid": "Symbol",
                     "buysell": "Buy/Sell"
                 },
                 "popup": {
@@ -452,26 +452,25 @@ export default
             },
             "ordershistory": {
                 "header": {
-                    "ordergroupid": "Order No.",
+                    "ordergroupid": "Order ID",
                     "matcheddate": "Matched Date",
                     "matchedorderstatus": "Matched Status",
-                    "tradingtype": "Trand type",
+                    "tradingtype": "Trading Type",
                     "matchedvalue": "Matched Qty",
                     "tradetime": "Trade Time",
                     "marketid": "Market",
                     "price": "Price",
-                    "quantity": "Quantity",
+                    "quantity": "Qty",
                     "filledquantity": "Filled Qty",
                     "filledprice": "Filled Price",
                     "cancelquantity": "Cancel Qty",
                     "status": "Status",
                     "ordertype": "Order Type",
-                    "stockid": "Stock Code",
+                    "stockid": "Symbol",
                     "buysell": "B/S",
-                    "instuction": "Instruction",
                     "quantity": "Qty",
                     "filled": "Filled",
-                    "avgprice": "Avg. Price",
+                    "avgprice": "Avg Price",
                     "ordertype": "Order Type",
                     "inputtime": "Input Time"
                 },
@@ -510,22 +509,20 @@ export default
             },
             "oddlottrading": {
                 "header": {
-                    "stockid": "Stock",
-                    "tradingquantity": "Trading quantity",
-                    "oddlotquantity": "Odd lot quantity",
+                    "stockid": "Symbol",
+                    "tradingquantity": "Trading Qty",
+                    "oddlotquantity": "Odd Lot Qty",
                     "currentprice": "Current Price",
-                    "exeprice": "Exe Price",
-                    "transdate": "Trans Date",
+                    "exeprice": "Execution Price",
+                    "transdate": "Transaction Date",
                     "approvedate": "Approve Date",
-                    "oddlotquantityH": "Odd lot quantity",
-                    "exepriceH": "Exe Price",
+                    "oddlotquantityH": "Odd Lot Qty",
+                    "exepriceH": "Execution Price",
                     "type": "Type",
                     "tax": "Tax",
                     "fee": "Fee",
                     "value": "Value",
                     "status": "Status",
-                    "oddlotorder": "ODD LOT ORDER",
-                    "oddlotransactionhistory": "ODD LOT TRANSACTION HISTORY",
                     "register": "Register",
                     "notes": "Notes",
                     "notesinfo": "-  MAS buys odd-lot shares on working days of the second week of every month.  -  MAS makes odd-lot shares transfer procedures with the State Agency and makes payment on Clientï¿½s trading account after odd-lot transaction has been approved by the State Agency."
@@ -544,7 +541,7 @@ export default
                     "waiting": "Waiting approval"
                 },
                 "message":{
-                    wrongQty:"Error"
+                    "wrongQty":"Error"
                 }
             },
             "accountinfo": {
@@ -557,7 +554,7 @@ export default
                 },
                 "header": {
                     "cashbank": "Cash-Bank",
-                    "stock": "Stock",
+                    "stock": "Symbol",
                     "buyingpower": "Buying Power",
                     "cashblance": "Cash balance(withdrawable)",
                     "availableadvance": "Available advance",
@@ -571,7 +568,7 @@ export default
                     "margincall": "Margin call (By Options)",
                     "cashdeposit": "Cash Deposit",
                     "sellstkinmarport": "Selling stock in margin fortfolio",
-                    "vol": "Volume",
+                    "vol": "Qty",
                     "tradeinday": "Trade in day",
                     "bought": "Bought",
                     "sold": "Sold",
@@ -592,16 +589,16 @@ export default
                 "header": {
                     "mvMarketID": "Market",
                     "sumary": "Sumary",
-                    "valuevnd": "Value (VND)",
+                    "valuevnd": "Value",
                     "value": "Value",
                     "cashinfo": "Cash information",
                     "portfolioassessment": "Portfolio assessment",
                     "marginposition": "Margin position",
                     "cash": "Cash",
-                    "stock": "Stock",
+                    "stock": "Symbol",
                     "mvStockName": "Stock Name",
-                    "mvStockID": "Stock",
-                    "mvTradableQty": "Total volume",
+                    "mvStockID": "Symbol",
+                    "mvTradableQty": "Total qty",
                     "mvTSettled": "Usable",
                     "mvHoldingAmt": "Hold in day",
                     "mvQueuingBuy": "T0 buy",
@@ -651,7 +648,7 @@ export default
                     "cashDeposit": "Cash deposit",
                     "sellStkInMarPort": "Selling stock in margin portfolio",
                     "sellStkNotInMarPort": "Selling stock not in margin portfolio",
-                    "mvVolume": "Volume",
+                    "mvVolume": "Qty",
                     "mvPrice": "Price",
                     "PortfolioAssessment": "Portfolio Assessment",
                     "mvMargin": "Margin"
@@ -680,13 +677,13 @@ export default
             },
             "stockstatement": {
                 "header": {
-                    "order": "Ord",
+                    "order": "Order No",
                     "transactiondate": "TransDate",
-                    "stockcode": "Stock",
+                    "stockcode": "Symbol",
                     "action": "Action",
                     "credit": "Credit",
                     "debit": "Debit",
-                    "quantity": "Quantity",
+                    "quantity": "Qty",
                     "avgprice": "Avg Price",
                     "amt": "Amt",
                     "feetax": "Fee + Tax",
@@ -716,8 +713,8 @@ export default
                     "sellAll": "Sell All",
                     "buysell": "Buy/Sell",
                     "buysellall": "Buy all/Sell all",
-                    "stock": "Stock",
-                    "stockCode": "Stock",
+                    "stock": "Symbol",
+                    "stockCode": "Symbol",
                     "stockName": "Stock Name",
                     "quantity": "Quantity",
                     "type": "Type",
@@ -727,7 +724,7 @@ export default
                     "lending": "Margin",
                     "buyingpower": "Buying Power",
                     "ordertype": "Order Type",
-                    "volume": "Volume",
+                    "volume": "Quantity",
                     "price": "Price",
                     "triggerPrice": "Trigger Price",
                     "value": "Value",
@@ -830,7 +827,7 @@ export default
                     "LowHigh": "Low/High",
                     "Open": "Open",
                     "Avg": "Average Price",
-                    "Volume": "Volume",
+                    "Volume": "Qty",
                     "Total": "Total",
                     "ForBuySell": "ForBuy/Sell",
                     "Room": "Room",
@@ -839,8 +836,7 @@ export default
                     "MatchingOrderInfo": "Matching Order Info",
                     "Time": "Time",
                     "Price": "Price",
-                    "Volume": "Volume",
-                    "TotalVol": "Total Volume",
+                    "TotalVol": "Total Qty",
                     "openprice": "Open",
                     "lowprice": "Low",
                     "highprice": "High",
@@ -856,7 +852,7 @@ export default
             "avaiblemarginlist": {
                 "header": {
                     "No": "No.",
-                    "Stockcode": "Stock code",
+                    "Stockcode": "Symbol",
                     "Fullname": "Fullname",
                     "Exchange": "Exchange",
                     "psentlending": "% Lending"
@@ -935,8 +931,8 @@ export default
                     "id": "ID",
                     "matchingdate": "Matching Date",
                     "paymentdate": "Payment Date",
-                    "stock": "Stock",
-                    "volume": "Volume",
+                    "stock": "Symbol",
+                    "volume": "Qty",
                     "value": "Value",
                     "fee": "Fee+Tax"
                 },
@@ -960,8 +956,8 @@ export default
             },
             "watchlist": {
                 "toolbar": {
-                    "addstock": "Add stock",
-                    "removestock": "Remove stock"
+                    "addstock": "Add",
+                    "removestock": "Remove"
                 },
                 "header": {
                     "name": "Name",
@@ -971,7 +967,7 @@ export default
                     "bestask": "Best Ask",
                     "pricehistory": "Price history",
                     "foreigninvestment": "Foreigner",
-                    "stock": "Stock",
+                    "stock": "Symbol",
                     "market": "Market",
                     "ce": "Ceil",
                     "fl": "Flr",
@@ -1043,19 +1039,19 @@ export default
             "entitlement": {
                 "header": {
                     "bankaccount": "Bank Account",
-                    "cashbalance": "Cash balance",
-                    "cashavailable": "Cash available",
-                    "buyingpower": "Buying power",
-                    "stockcode": "Stock code",
+                    "cashbalance": "Cash Balance",
+                    "cashavailable": "Cash Available",
+                    "buyingpower": "Buying Power",
+                    "stockcode": "Symbol",
                     "availableqty": "Available Qty",
                     "registerqty": "Register Qty",
-                    "actionprice": "Action price",
-                    "amountVND": "Amount VND",
-                    "stock": "Stock",
-                    "actiontype": "Action type",
-                    "recorddate": "Record date",
-                    "owningvolume": "Owning volume",
-                    "ratecash": "Rate Cash(VND/Share)",
+                    "actionprice": "Action Price",
+                    "amountVND": "Amount",
+                    "stock": "Symbol",
+                    "actiontype": "Action Type",
+                    "recorddate": "Record Date",
+                    "owningvolume": "Owning Qty",
+                    "ratecash": "Rate Cash",
                     "rate": "Rate (Stock)",
                     "pervalue": "Per value",
                     "recievecash": "Recieved Cash",
@@ -1063,13 +1059,13 @@ export default
                     "status": "Status",
                     "payabledate": "Payable Date",
                     "paiddate": "Paid Date",
-                    "rightrate": "Right rate",
-                    "actionrate": "Action rate",
+                    "rightrate": "Right Rate",
+                    "actionrate": "Action Rate",
                     "startdate": "Start Date",
                     "transferdeadline": "Transfer Deadline",
                     "registerdeadline": "Register Deadline",
-                    "registerdate": "Register date",
-                    "volume": "Volume",
+                    "registerdate": "Register Date",
+                    "volume": "Qty",
                     "amount": "Amount",
                     "entitlementplace": "Entitlement Place",
                     "corporateactionlist": "Corporate Action List",
@@ -1114,10 +1110,10 @@ export default
             },
             "actionRightList":{
                 "header":{
-                    "stock": "Stock",
+                    "stock": "Symbol",
                     "actiontype": "Action Type",
                     "recorddate": "Record Date",
-                    "owningvolume": "Owning Volume",
+                    "owningvolume": "Owning Qty",
                     "ratecash": "Rate Cash",
                     "rate": "Rate",
                     "pervalue": "Per Value",
@@ -1130,7 +1126,7 @@ export default
             },
             "additionSharesInfo": {
                 "header":{
-                    "stock": "Stock",
+                    "stock": "Symbol",
                     "recorddate": "Record Date",
                     "owningvolume": "Owning Value",
                     "rightrate": "Right Rate",
@@ -1145,8 +1141,8 @@ export default
             "entitlementHistory":{
                 "header":{
                     "registerdate": "Register Date",
-                    "stock": "Stock",
-                    "volume": "Volume",
+                    "stock": "Symbol",
+                    "volume": "Qty",
                     "actionprice": "Action Price",
                     "amount": "Amount",
                     "paiddate": "Paid Date",
@@ -1159,9 +1155,9 @@ export default
                     "orderid": "Order ID",
                     "settlementdate": "Settlement Date",
                     "tradedate": "Trade Date",
-                    "stockid": "Stock ID",
+                    "stockid": "Symbol",
                     "price": "Price",
-                    "quantity": "Quantity",
+                    "quantity": "Qty",
                     "value": "Value"
                 }
             },
@@ -1180,8 +1176,8 @@ export default
                     "id": "ID",
                     "matchingdate": "Matching Date",
                     "paymentdate": "Payment Date",
-                    "stock": "Stock",
-                    "volume": "Volume",
+                    "stock": "Symbol",
+                    "volume": "Qty",
                     "value": "Value",
                     "fee": "Fee+Tax"
                 }
@@ -1198,7 +1194,7 @@ export default
             },
             "oddLotOrder":{
                 "header":{
-                    "stockid": "Stock",
+                    "stockid": "Symbol",
                     "tradingquantity": "Trading Qty",
                     "oddlotquantity": "Oddlot Qty",
                     "currentprice": "Current Price",
@@ -1207,7 +1203,7 @@ export default
             },
             "oddlotHistory":{
                 "header":{
-                    "stockid": "Stock",
+                    "stockid": "Symbol",
                     "oddlotquantityH": "Oddlot Qty",
                     "exepriceH": "Exe Price",
                     "fee": "Tax",
@@ -1303,9 +1299,9 @@ export default
                     "orderid": "Order ID",
                     "settlementdate": "Settlement Date",
                     "tradedate": "Trade Date",
-                    "stockid": "Stock ID",
+                    "stockid": "Symbol",
                     "price": "Price",
-                    "quantity": "Quantity",
+                    "quantity": "Qty",
                     "value": "Value",
                     "date": "Date",
                     "processingstatus": "Processing Status",
@@ -1408,8 +1404,8 @@ export default
                     "qty": "Qty{0}",
                     "amount": "Amount{0}",
                     "total": "Total{0}",
-                    "vol": "Volume",
-                    "totalvol": "Total Volume",
+                    "vol": "Qty",
+                    "totalvol": "Total Qty",
                     "time": "Time",
                     "bymarket": "BY MARKET",
                     "bycompany": "BY COMPANY"

@@ -34,7 +34,7 @@ class OddLotHistory extends Component {
                     background: props.theme.number.col
                 },
                 {
-                    id: 'exepriceH',
+                    id: 'exeprice',
                     accessor: 'price',
                     Cell: props => {
                         if (props.aggregated) {

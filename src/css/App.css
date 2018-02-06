@@ -752,7 +752,7 @@ label {
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.2);
-    border-radius: 6px;
+    border-radius: 8px;
     outline: 0;
     top: -30px;
     -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
@@ -3754,7 +3754,7 @@ label {
     position: absolute;
     top: -10px;
     width: 300px;
-    left: 10px;
+    left: 110px;
 }
 .trd-header-control {
     position: absolute;
@@ -3764,6 +3764,9 @@ label {
 .trd-header-control > .select-control {
     width: 90px;
     display: inline-block;
+    position: relative;
+    top: 10px;
+    left: 4px;
 }
 .trd-header-control > span {
     margin: 0 8px;

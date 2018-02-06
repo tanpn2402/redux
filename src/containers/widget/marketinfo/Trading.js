@@ -21,6 +21,7 @@ class Trading extends React.Component {
 
 
     render() {
+        console.log(this.props)
         return (
             <GridLayout 
                 language={this.props.language}

@@ -423,19 +423,22 @@ const config = {
 			title: "marketinfo",
 			enabled: true,
 			widget: [
-				{ 
-					i: 'markettrading', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
-					component: [
-						{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
-						{ i: 'tradingchart', x: 0, y: 2, w: 6, h: 16, isDraggable: false, isResizable: false },
-						{ i: 'tradehistory', x: 6, y: 2, w: 2, h: 16, isDraggable: false, isResizable: false },
-					]
-				},
-				{ i: 'marketnews', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
-					component: [
+				{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
+				{ i: 'marketinfo', x: 0, y: 2, w: 8, h: 24, isDraggable: false, isResizable: false },
+
+				// { 
+				// 	i: 'markettrading', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
+				// 	component: [
+				// 		{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
+				// 		{ i: 'tradingchart', x: 0, y: 2, w: 6, h: 16, isDraggable: false, isResizable: false },
+				// 		{ i: 'tradehistory', x: 6, y: 2, w: 2, h: 16, isDraggable: false, isResizable: false },
+				// 	]
+				// },
+				// { i: 'marketnews', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
+				// 	component: [
 						
-					]
-				},
+				// 	]
+				// },
 				// { i: 'marketfinance', x: 0, y: 0, w: 8, minH: 10, maxH: 30,isDraggable: false, isResizable: false,
 				// 	component: [
 						
