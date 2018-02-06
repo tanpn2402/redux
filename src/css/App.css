@@ -4307,3 +4307,56 @@ input[type=number] {
 #canceloddlot-popup-table .input-control {
     width: 110px !important;
 }
+
+
+
+
+/* TRADING PAGE */
+.trading-page {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+}
+.trading-page .row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.bidask-container, .wl-sm-container,
+.placeorder-container, .portfolio-sm-container {
+    padding: 2px;
+}
+.bidask-container, .placeorder-container {
+    width: 550px;
+    float: left;
+}
+.wl-sm-container, .portfolio-sm-container {
+    float: right;
+    width: calc(100% - 550px);
+    position: relative;
+    padding-left: 0px;
+}
+.bidask-container, .wl-sm-container {
+    height: 204px;
+}
+.placeorder-container, .portfolio-sm-container {
+    height: 230px;
+    padding-top: 0px;
+}
+.orderjournal-container {
+    height: calc(100% - 204px - 230px);
+    min-height: 250px;
+    padding: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+@media (max-width: 820px) {
+    .bidask-container, .placeorder-container {
+        float: unset;
+        width: 100%;
+    }
+    .wl-sm-container, .portfolio-sm-container {
+        float: unset;
+        width: 100%;
+    }
+}
+/* END TRADING PAGE */

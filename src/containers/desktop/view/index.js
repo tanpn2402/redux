@@ -12,6 +12,9 @@ import Social from './Social'
 import MarketInformation from './MarketInformation'
 
 
+import TradingPage from './TradingPage'
+
+
 export default function (menuid, props){
 	menuid = menuid == "mobile" ? "trading" : menuid
 	console.log(menuid)
@@ -44,7 +47,7 @@ export default function (menuid, props){
 		)
 	case 'tradepage':
 		return(
-			<TradePage language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
+			<TradingPage language={props.language} stockList={props.stockList} theme={props.theme} tabID={props.tabID}/>
 		)
 	
 	case 'social':

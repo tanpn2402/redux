@@ -971,8 +971,8 @@ class WatchListTable extends React.Component {
         let color = this.props.theme.watchlist
         let bindingStyle = this.props.theme.bindingdata
         let style = bindingStyle.nochange
+        let fontColor= this.props.theme.font
 
-        
 
         let accessorToCompare = null
         
@@ -1001,7 +1001,22 @@ class WatchListTable extends React.Component {
         }
 
         if(accessorToCompare == null) {
-            return <div className="value-ceil" style={bindingStyle.normal}>{data[accessor]}</div>
+            let style = bindingStyle.normal
+            if(accessor == "mvCeiling"){
+                style = Object.assign({}, style, fontColor)
+                return <div className="value-ceil" style={fontColor.ceil}>{data[accessor]}</div>
+            }
+            else if(accessor == "mvFloor"){
+                style = Object.assign({}, style, fontColor)
+                return <div className="value-floor" style={fontColor.floor}>{data[accessor]}</div>
+            }
+            else if(accessor == "mvReferences"){
+                style = Object.assign({}, style, fontColor)
+                return <div className="value-ref" style={fontColor.ref}>{data[accessor]}</div>
+            }
+
+
+
         } else {
             if(refPrice > data[accessorToCompare]) {
                 // down
