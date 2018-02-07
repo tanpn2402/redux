@@ -110,7 +110,19 @@ class AdvancePanel extends Component {
     handleSubmit(e) {
         e.preventDefault()
         let advPayment = document.getElementById('txtAdvancePayment').value
-        this.props.beforeSubmit(advPayment, this.props.localAdCreation.mvAdvanceBean, this.props.language)
+        this.props.beforeSubmit(advPayment, this.props.localAdCreation.mvAdvanceBean, this.props.language, this.props.theme, () => {
+            console.log("callback")
+
+            let getCashAdvanceHistoryParams = {
+                key: (new Date()).getTime(),
+                mvLastAction: 'OTHERSERVICES',
+                mvChildLastAction: 'ADVANCEPAYMENT',
+                start: '0',
+                limit: 20,
+                page: '1'
+            }
+            this.props.getCashAdvance(getCashAdvanceHistoryParams)
+        })
     }
 
     handleResetForm() {
@@ -177,11 +189,14 @@ const mapDispatchToProps = (dispatch, props) => ({
         // this action in loanrefund.js
         dispatch(actions.getLocalAdvanceCreation(params))
     },
-    beforeSubmit: (advPayment, mvAdvanceBean, language) => {
-        dispatch(actions.beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language))
+    beforeSubmit: (advPayment, mvAdvanceBean, language, theme, callback) => {
+        dispatch(actions.beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language, theme, callback))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
+    },
+    getCashAdvance: (params) => {
+        dispatch(actions.getCashAdvance(params))
     },
 })
 

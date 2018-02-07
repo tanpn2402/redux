@@ -50,11 +50,11 @@ function genPopupDesktop(props, onClose) {
 			break;
 
 		case 'cashadvance':
-			return (<CashAdvancePopup onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<CashAdvancePopup onHide={onClose} authcard={props.authcard} data={props.data} {...props} />)
 			break;
 
 		case 'cashadvancebank':
-			return (<CashAdvanceBank onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
+			return (<CashAdvanceBank onHide={onClose} authcard={props.authcard} data={props.data} {...props} />)
 			break;
 
 		case 'loanrefund':

@@ -927,8 +927,8 @@ export default
                     "fee": "Phí+Thuế"
                 },
                 "popup": {
-                    "title": "Ứng trước tiền chứng khoán",
-                    "message": "Ban co chac chan muon thuc hien ?",
+                    "title": "Xác nhận ứng trước tiền chứng khoán",
+                    "message": "Bạn có muốn thực hiện?",
                 },
                 "status": {
                     "authorized": "Xác nhận",

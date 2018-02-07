@@ -6,7 +6,7 @@ import {showPopup} from './popup'
 
 const { ActionTypes } = require('../core/constants')
 
-export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language) {
+export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language, theme, callback) {
     
     let advAvailable = Utils.numUnFormat(mvAdvanceBean.advAvailable) - Utils.numUnFormat(mvAdvanceBean.advPending)
     
@@ -22,31 +22,33 @@ export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language) {
         }
     }
     else{ 
-        var responseCheckAdvPaymentTime = function (response) {
-          var msg = response.mvResult
+        // var responseCheckAdvPaymentTime = function (response) {
+          // var msg = response.mvResult
           var data={
             advancePayment: advPayment, 
-            advanceAvailable: advAvailable
+            advanceAvailable: advAvailable,
+            callback: callback
           }
-          if (msg.trim() == "") {
+          // if (msg.trim() == "") {
               return (dispatch) => {
               dispatch(showPopup({
                 data: data,
                 title: language.cashadvance.popup.title,
                 language: language,
+                theme: theme,
                 id: 'cashadvance',
                 authcard: false
               }))
             }
-          } else {
-            return (dispatch) => {
-              dispatch(showMessageBox(language.messagebox.title.error, msg.trim()))
-            }
-          }
-        }
-        return (dispatch) => {
-            WebApi.post(ACTION.CHECKADVANCEPAYMENTTIME, [], dispatch, responseCheckAdvPaymentTime)
-        }
+          // } else {
+          //   return (dispatch) => {
+          //     dispatch(showMessageBox(language.messagebox.title.error, msg.trim()))
+          //   }
+          // }
+        // }
+        // return (dispatch) => {
+        //     WebApi.post(ACTION.CHECKADVANCEPAYMENTTIME, {}, dispatch, responseCheckAdvPaymentTime)
+        // }
     }
 }
 

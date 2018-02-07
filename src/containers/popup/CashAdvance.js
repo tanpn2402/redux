@@ -13,6 +13,8 @@ class CashAdvancePopup extends Component {
 
     render() {
         var language = this.props.language
+        var buttonStyle = this.props.theme.button
+
         return (
             <div>  
                 <Modal.Body>
@@ -24,8 +26,8 @@ class CashAdvancePopup extends Component {
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={language}/>
 
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.submit.bind(this)}> {language.button.submit}</button>
+                    <button className="hks-btn btn-cancel" style={buttonStyle.cancel} onClick={this.props.onHide}>{language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" style={buttonStyle.confirm} onClick={this.submit.bind(this)}> {language.button.submit}</button>
                 </Modal.Footer>
             </div>
         );
@@ -37,6 +39,7 @@ class CashAdvancePopup extends Component {
         var authParams = this.auth.getParam()
         this.props.submit(this.props.data, authParams , this.props.language)
         this.props.onHide()
+        setTimeout(() => this.props.data.callback, 1000)
     }
 
     
