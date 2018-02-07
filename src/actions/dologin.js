@@ -92,7 +92,7 @@ export function checkAuth() {
 
                     // -> get user saved data
                     return (dispatch) => {
-                        api.get(ACTION.UICFGMANAGEMENT, { mvAction: 'QUERYDEFAULT' }, dispatch, function (responseForGetUserData) {
+                        api.post(ACTION.UICFGMANAGEMENT, { mvAction: 'QUERYDEFAULT' }, dispatch, function (responseForGetUserData) {
                             // get user saved data SUCCESS
                             // console.log('asdads', config.tabbar)
                             // save to config
@@ -181,7 +181,7 @@ export function checkAuth() {
                             }
                             // -> get customer service
                             return (dispatch) => {
-                                api.get(ACTION.GETCUSTOMERSERVICE, {}, dispatch, function (responseForGetCustomerService) {
+                                api.post(ACTION.GETCUSTOMERSERVICE, {}, dispatch, function (responseForGetCustomerService) {
                                     // get customer service SUCCESS
                                     return {
                                         type: ActionTypes.CHECKAUTH,

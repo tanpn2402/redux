@@ -48,6 +48,7 @@ class EntitlementHistory extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colNumber
                 },
                 {
                     id: 'amount',
@@ -70,6 +71,7 @@ class EntitlementHistory extends Component {
                     width: 200,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 }]
         }
         this.defaultPageSize = 15
@@ -92,7 +94,7 @@ class EntitlementHistory extends Component {
 
 
     render() {
-        let stockList = this.props.stockList
+        let stockList = this.props.stockList == undefined ? config.cache.stockList : this.props.stockList.lenght
         let entitlementHistory = this.props.entitlementHistory
 
         return (
@@ -124,7 +126,7 @@ class EntitlementHistory extends Component {
                         searchActions={[]}
                         searchData={{stockList: stockList}}
                         searchParams={['mvStockId', 'mvStartDate', 'mvEndDate']}
-                        searchEnable={entitlementHistory.historyList.length > 0}
+                        searchEnable={true}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
                     />

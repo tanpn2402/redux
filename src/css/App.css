@@ -2977,6 +2977,9 @@ label {
 .ReactTable .rt-tr-group .rt-tr .-odd:hover {
     background-color: #000 !important;
 }
+.ReactTable .rt-resizer {
+    z-index: 2 !important;
+}
 /* end reorder column */
 .enterorder-form {
     padding: 0 10px;

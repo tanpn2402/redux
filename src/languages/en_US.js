@@ -267,7 +267,27 @@ export default
                 "TXNTYPE_WARRANT": "WARRANT",
                 "TXNTYPE_CONVERSION": "CONVERSION",
                 "TXNTYPE_IPO": "IPO",
-                "TXNTYPE_OTHERS": "OTHERS"
+                "TXNTYPE_OTHERS": "OTHERS",
+
+                "ACTIONLIST_ISSUE_ALL": "ALL",
+                "ACTIONLIST_ISSUE_1": "Cash Dividend",
+                "ACTIONLIST_ISSUE_2": "Cash Dividend",
+                "ACTIONLIST_ISSUE_3": "Cash Dividend",
+                "ACTIONLIST_ISSUE_4": "Cash Dividend",
+                "ACTIONLIST_ISSUE_5": "Cash Dividend",
+                "ACTIONLIST_ISSUE_6": "Interim Dividend",
+                "ACTIONLIST_ISSUE_7": "Final Dividend",
+                "ACTIONLIST_ISSUE_8": "Special Dividend",
+                "ACTIONLIST_ISSUE_9": "Special Interim Dividend",
+                "ACTIONLIST_ISSUE_A": "Scrip Option",
+                "ACTIONLIST_ISSUE_B": "Bonus Share",
+                "ACTIONLIST_ISSUE_C": "Bonus Warrant",
+                "ACTIONLIST_ISSUE_D": "Additional Issuance",
+                "ACTIONLIST_ISSUE_E": "Bonus Others",
+                "ACTIONLIST_ISSUE_G": "Cash Offer",
+                "ACTIONLIST_ISSUE_H": "Stock Offer",
+                "ACTIONLIST_ISSUE_I": "Stock Dividend"
+
             },
             "marqueebar": {
                 "status": "Status",

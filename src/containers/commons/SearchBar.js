@@ -86,7 +86,7 @@ export default class SearchBar extends React.Component {
             'mvStartDate': (id, props)  => <SearchDate ref={r => this.ref.mvStartDate = r} {...props} id={id} prefix="" /> ,
             'mvEndDate': (id, props)    => <SearchDate ref={r => this.ref.mvEndDate = r} {...props} id={id} prefix="" /> ,
             'mvLending': (id, props)    => <LendingControl ref={r => this.ref.mvLending = r} {...props} id={id} /> ,
-            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix=""/> 
+            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix="ACTIONLIST_ISSUE_"/> 
         }
 
         this.ref = {}

@@ -214,7 +214,7 @@ export default
                 "mvOrderType": "Loại lệnh",
                 "mvStockId": "Mã CK",
                 "mvLending": "% cho vay",
-                "mvActionType": "Action Type",
+                "mvActionType": "Loại",
                 "mvStartDate": "Từ ngày",
                 "mvEndDate": "Đến ngày",
                 "tradeType": "Loại GD",
@@ -222,7 +222,7 @@ export default
                 "mvMarket": "Sàn",
                 "mvCurrency": "Đơn vị tiền tệ",
                 
-                "CURRENCY_ALL": "ALL",
+                "CURRENCY_ALL": "Tất cả",
                 "CURRENCY_HKD": "HKS",
                 "CURRENCY_CVY": "CVY",
                 "CURRENCY_EUR": "EUR",
@@ -251,7 +251,7 @@ export default
                 "ORDERTYPE_Z": "MAK",
                 "ORDERTYPE_R": "MTL",
 
-                "TXNTYPE_ALL": "ALL",
+                "TXNTYPE_ALL": "Tất cả",
                 "TXNTYPE_ORDER": "ORDER",
                 "TXNTYPE_DW": "DW",
                 "TXNTYPE_TRADE": "TRADE",
@@ -266,7 +266,27 @@ export default
                 "TXNTYPE_WARRANT": "WARRANT",
                 "TXNTYPE_CONVERSION": "CONVERSION",
                 "TXNTYPE_IPO": "IPO",
-                "TXNTYPE_OTHERS": "OTHERS"
+                "TXNTYPE_OTHERS": "OTHERS",
+                
+                "ACTIONLIST_ISSUE_ALL": "Tất cả",
+                "ACTIONLIST_ISSUE_1": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_2": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_3": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_4": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_5": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_6": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_7": "Chia cổ tức bằng tiền",
+                "ACTIONLIST_ISSUE_8": "Tiền cổ phiếu lẻ",
+                "ACTIONLIST_ISSUE_9": "Special Interim Dividend",
+                "ACTIONLIST_ISSUE_A": "Scrip Option",
+                "ACTIONLIST_ISSUE_B": "Chia cổ phiếu thưởng",
+                "ACTIONLIST_ISSUE_C": "Bonus Warrant",
+                "ACTIONLIST_ISSUE_D": "Quyền mua",
+                "ACTIONLIST_ISSUE_E": "Bonus Others",
+                "ACTIONLIST_ISSUE_G": "Cash Offer",
+                "ACTIONLIST_ISSUE_H": "Stock Offer",
+                "ACTIONLIST_ISSUE_I": "Chia cổ tức bằng cổ phiếu"
+                
             },
             "marqueebar": {
                 "status": "Trạng thái",

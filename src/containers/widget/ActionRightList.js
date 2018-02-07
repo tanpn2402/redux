@@ -97,6 +97,7 @@ class ActionRightList extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colNumber
                 },
                 {
                     id: 'status',
@@ -104,6 +105,7 @@ class ActionRightList extends Component {
                     width: 200,
                     skip: false,
                     show: true,
+                    background: props.theme.table.colText
                 },
                 {
                     id: 'payabledate',
@@ -132,13 +134,7 @@ class ActionRightList extends Component {
             limit: this.defaultPageSize,
         }
 
-        this.actionTypeStore = [
-            { text: 'ALL', value: 'ALL' },
-            { text: this.props.language.entitlement.issueType.ISSUE_1, value: '1' },
-            { text: this.props.language.entitlement.issueType.ISSUE_I, value: 'I' },
-            { text: this.props.language.entitlement.issueType.ISSUE_B, value: 'B' },
-            { text: this.props.language.entitlement.issueType.ISSUE_D, value: 'D' },
-        ]
+        this.actionTypeStore = [ "ALL", "1", "I", "B", "D" ]
     }
 
     getEntitlementStatus(language, status) {
@@ -197,8 +193,8 @@ class ActionRightList extends Component {
                         onSearch={this.onSearch.bind(this)}
                         searchActions={[]}
                         searchData={{ stockList: this.stockList, actionType: this.actionTypeStore }}
-                        searchParams={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate', 'dropdown']}
-                        searchEnable={allRightList.rightList.length > 0}
+                        searchParams={['mvActionType', 'mvStockId', 'mvStartDate', 'mvEndDate']}
+                        searchEnable={true}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
                     />

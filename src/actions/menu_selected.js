@@ -5,7 +5,7 @@ import config from '../core/config';
 import { showMessageBox } from '../actions/notification'
 
 export function onTabClick(tabID, subTabID){
-    // console.log(tabID, subTabID)
+    
     //Save tabID into localstorage
     if (tabID != null) {
         localStorage.setItem('lastTabID',tabID)
@@ -25,7 +25,7 @@ export function onTabClick(tabID, subTabID){
     } else {
         localStorage.removeItem('lastSubTabID')
     }
-
+    
     return {
         type: ActionTypes.TABCLICKEVENT,
         tabID: tabID,
@@ -89,13 +89,18 @@ export function saveDefaultTab(groupId, language) {
     config.savedContent.defaultTab = config.cache.defaultTab
     config.cache.defaultSubTab = ''
     config.savedContent.defaultSubTab = config.cache.defaultSubTab
-    let params = Array()
+    let params = {}
     params['mvGroupName'] = 'User1'
     params['mvIsDefault'] = 'Y'
     params['mvGroupType'] = 'U'
     params['mvGroupID'] = groupId
     params['mvSavedContent'] =  JSON.stringify(config.savedContent)
     params['mvAction'] = 'MODIFY'
+    if(groupId == undefined) {
+        let title = language.messagebox.title.failed
+        let message = language.messagebox.message.saveLayoutFail
+        return (dispatch) => dispatch(showMessageBox(title, message))
+    }
     return (dispatch) => {
         api.post(ACTION.UICFGMANAGEMENT, params, dispatch)
     }
@@ -113,7 +118,7 @@ export function saveLayout(groupId, language) {
         defaultTab: config.cache.defaultTab,
         defaultSubTab: config.cache.defaultSubTab,
     }
-    let params = Array()
+    let params = {}
     params['mvGroupName'] = 'User1'
     params['mvIsDefault'] = 'Y'
     params['mvGroupType'] = 'U'
@@ -121,6 +126,12 @@ export function saveLayout(groupId, language) {
     params['mvSavedContent'] =  JSON.stringify(savedContent)
     params['mvAction'] = 'MODIFY'
 
+    if(groupId == undefined) {
+        let title = language.messagebox.title.failed
+        let message = language.messagebox.message.saveLayoutFail
+        return (dispatch) => dispatch(showMessageBox(title, message))
+    }
+    
     return (dispatch) => {
         const savedLayoutWithLanguage = (data) => { savedLayout(data, language, dispatch) }
         api.post(ACTION.UICFGMANAGEMENT, params, dispatch, savedLayoutWithLanguage , 

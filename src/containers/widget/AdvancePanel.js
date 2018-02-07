@@ -103,7 +103,7 @@ class AdvancePanel extends Component {
     }
 
     componentDidMount() {
-        this.props.getLocalAdvanceCreation(this.querySoldOrdersParams)
+        this.props.getLocalAdvanceCreation(this.getLocalAdvanceCreationParam)
         this.txtAdAmount.focus()
     }
 

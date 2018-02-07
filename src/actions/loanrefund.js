@@ -15,7 +15,7 @@ export function getLocalRefundCreation(params) {
         }
     }
     return (dispatch) => {
-        api.get(ACTION.GETLOCALLOANREFUNDCREATION, params, dispatch, callback)
+        api.post(ACTION.GETLOCALLOANREFUNDCREATION, params, dispatch, callback)
     }
 }
 
@@ -29,7 +29,7 @@ export function getLocalAdvanceCreation(params) {
         }
     }
     return (dispatch) => {
-        api.get(ACTION.GETLOCALADVANCECREATION, params, dispatch, callback)
+        api.post(ACTION.GETLOCALADVANCECREATION, params, dispatch, callback)
     }
 }
 
@@ -53,7 +53,7 @@ export function getLoanRefundHistory(params) {
         }
     }
     return (dispatch) => {
-        api.get(ACTION.GETLOANREFUNDHISTORY, params, dispatch, callback)
+        api.post(ACTION.GETLOANREFUNDHISTORY, params, dispatch, callback)
     }
 }
 

@@ -165,7 +165,7 @@ class LoanTrans extends Component {
     }
 
     componentDidMount() {
-        this.props.getLoanRefundStatus(this.loanRefundDataParams)
+        this.props.getLoanRefundStatus(this.loanRefundStatusParams)
     }
 
     onSearch(param) {

@@ -65,6 +65,7 @@ class LoanTrans extends Component {
                     width: 130,
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 }, {
                     id: 'status',
                     accessor: this.accessor[4],
@@ -72,6 +73,7 @@ class LoanTrans extends Component {
                     Cell: props => this.getStatus(props.original.status, this.props.language.loanrefund.status),
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 }, {
                     id: 'remark',
                     accessor: this.accessor[5],
@@ -79,6 +81,7 @@ class LoanTrans extends Component {
                     width: 250,
                     show: true,
                     skip: false,
+                    background: props.theme.table.colText
                 }, {
                     id: 'lastupdate',
                     accessor: this.accessor[6],
@@ -156,7 +159,7 @@ class LoanTrans extends Component {
                         searchActions={[]}
                         searchData={{ stockList: [] }}
                         searchParams={['mvStartDate', 'mvEndDate']}
-                        searchEnable={loanRefundHistory.loanrefundhistoryList.length > 0}
+                        searchEnable={true}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
                     />
