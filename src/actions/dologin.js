@@ -99,7 +99,7 @@ export function checkAuth() {
                             if (responseForGetUserData && responseForGetUserData.mvCfgList.length > 0) {
                                 try {
                                     var savedContent = $.parseJSON(responseForGetUserData.mvCfgList[0].SAVEDCONTENT)
-                                    
+                                    config.savedContent = savedContent
                                     if (savedContent.layout) {
                                         config.tabbar = Object.assign(config.tabbar, savedContent.layout)
                                         // config.tabbar = savedContent.layout
@@ -160,6 +160,17 @@ export function checkAuth() {
                                     }
                                     if(savedContent.favourite){
                                         config.cache.favourite = savedContent.favourite
+                                    }
+                                    if(savedContent.defaultTab){
+                                        config.cache.defaultTab = savedContent.defaultTab
+                                        localStorage.setItem("lastTabID", savedContent.defaultTab)
+                                    }else{
+                                        config.cache.defaultTab = 'tradepage'
+                                        localStorage.setItem("lastTabID", 'tradepage')
+                                    }
+                                    if(savedContent.defaultSubTab){
+                                        config.cache.defaultSubTab = savedContent.defaultSubTab
+                                        localStorage.setItem("lastSubTabID", savedContent.defaultSubTab)
                                     }
                                 }
                                 catch (ex) {

@@ -9,6 +9,7 @@ export function onTabClick(tabID, subTabID){
     //Save tabID into localstorage
     if (tabID != null) {
         localStorage.setItem('lastTabID',tabID)
+        config.cache.defaultTab = tabID
     }
     //Save subTabID into localstorage (Default widget[0])
     if (subTabID==null) {
@@ -20,6 +21,7 @@ export function onTabClick(tabID, subTabID){
 
     if (subTabID!=null) {
         localStorage.setItem('lastSubTabID',subTabID)
+        config.cache.defaultSubTab = subTabID
     } else {
         localStorage.removeItem('lastSubTabID')
     }
@@ -83,7 +85,21 @@ function getSavedLayout(savedcontent) {
     }
 }
 
-
+export function saveDefaultTab(groupId, language) {
+    config.savedContent.defaultTab = config.cache.defaultTab
+    config.cache.defaultSubTab = ''
+    config.savedContent.defaultSubTab = config.cache.defaultSubTab
+    let params = Array()
+    params['mvGroupName'] = 'User1'
+    params['mvIsDefault'] = 'Y'
+    params['mvGroupType'] = 'U'
+    params['mvGroupID'] = groupId
+    params['mvSavedContent'] =  JSON.stringify(config.savedContent)
+    params['mvAction'] = 'MODIFY'
+    return (dispatch) => {
+        api.post(ACTION.UICFGMANAGEMENT, params, dispatch)
+    }
+}
 
 export function saveLayout(groupId, language) {
     let savedContent = {
@@ -93,7 +109,9 @@ export function saveLayout(groupId, language) {
         tableColWidth: config.tableColWidth,
         tableColReorder: config.tableColReorder,
         technicalAnalysisSetting: config.technical_analysis_setting,
-        favourite: config.cache.favourite
+        favourite: config.cache.favourite,
+        defaultTab: config.cache.defaultTab,
+        defaultSubTab: config.cache.defaultSubTab,
     }
     let params = Array()
     params['mvGroupName'] = 'User1'

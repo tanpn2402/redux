@@ -1136,6 +1136,15 @@ label {
 .setting-panel span {
     font-size: 25px;
 }
+.default-tab-chooser {
+    float: right;
+    width: 160px;
+    max-width: none;
+    border-radius: 0px;
+    height: 28px;
+    position: relative;
+    top: -4px;
+}
 /*END SETTING NAV*/
 
 /*PROFILE NAV*/

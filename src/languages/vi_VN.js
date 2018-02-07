@@ -26,7 +26,8 @@ export default
                     "zh_TW": "Traditional Chinese"
                 },
                 "preference": {
-                    "title": "Cấu hình"
+                    "title": "Cấu hình",
+                    "defaultTab": "Trang mặc định",
                 },
                 "appearance": {
                     "title": "Giao diện",

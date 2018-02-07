@@ -1,6 +1,7 @@
 import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
 import { onTabClick, onMobileTabClick, getSavedContentLayout, 
-    saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent } from './menu_selected'
+    saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent,
+    saveDefaultTab } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
@@ -54,7 +55,8 @@ export {
   reloadCustom,
   getSavedContentLayout,
   saveLayout,
-
+  saveDefaultTab,
+  
   // doLogin
   doLogin,
   doLogout,

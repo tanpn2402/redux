@@ -40,14 +40,32 @@ class SettingNav extends Component {
                                         <ul id={e.id} className="nav nav-list tree setting-item collapse" aria-expanded="true">
                                             {
                                                 e.value.map(v => {
-                                                    return (
-                                                        <li ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
-                                                            {this.props.language.page.setting[e.id][v]}
-                                                            {
-                                                                v === actived[e.id] ? <i className="material-icons md-18 selected">check_box</i> : ""
-                                                            }
-                                                        </a></li>
-                                                    )
+                                                    if(e.id == 'preference'){
+                                                        return (
+                                                            <li><a id={v} >
+                                                                {this.props.language.page.setting[e.id][v]}
+                                                                <select className="default-tab-chooser" onChange={e => this.onDefaultTabChange(e)}>
+                                                                    {
+                                                                        config.tabbar.map(el => {
+                                                                            if(el.id == config.cache.defaultTab)
+                                                                                return <option value={el.id} selected='true'>{this.props.language.page.tab[el.title]}</option>
+                                                                            else
+                                                                                return <option value={el.id} >{this.props.language.page.tab[el.title]}</option>
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </a></li>
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            <li ><a onClick={() => { this.onChangeConfig(e.id, v) }} id={v} >
+                                                                {this.props.language.page.setting[e.id][v]}
+                                                                {
+                                                                    v === actived[e.id] ? <i className="material-icons md-18 selected">check_box</i> : ""
+                                                                }
+                                                            </a></li>
+                                                        )
+                                                    }
                                                 })
                                             }
                                         </ul>
@@ -81,9 +99,19 @@ class SettingNav extends Component {
                 break;
         }
     }
+
+    onDefaultTabChange(e){
+        config.cache.defaultTab = e.target.value;
+        let userSavedData = this.props.userSavedData
+        if(userSavedData && userSavedData.mvCfgList.length > 0) {
+            let groupId = userSavedData.mvCfgList[0].GROUPID
+            this.props.saveDefaultTab(groupId, this.props.language.page)
+        }
+    }
 }
 
 const mapStateToProps = state => ({
+    userSavedData: state.dologin.userSavedData,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -92,7 +120,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     switchTheme: (theme) => { 
         dispatch(actions.switchTheme(theme)) 
-    }
+    },
+    saveDefaultTab: (params, language) => {
+        dispatch(actions.saveDefaultTab(params, language))
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingNav)

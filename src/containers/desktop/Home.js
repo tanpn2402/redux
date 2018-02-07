@@ -23,6 +23,13 @@ class Home extends Component {
         this.interval = this.interval.bind(this)
     }
 
+    componentWillMount(){
+        if(config.cache.defaultSubTab != '')
+            this.props.changeTab(localStorage.getItem('lastTabID'), localStorage.getItem('lastSubTabID'))
+        else
+            this.props.changeTab(localStorage.getItem('lastTabID'))
+    }
+
     render() {
         // we do not use state at here
         // we use state to reload this component
@@ -143,6 +150,11 @@ const mapDispatchToProps = (dispatch, props) => ({
     // test
     getTradeLogDataOfStock: (stockCode, market) => { dispatch(actions.getTradeLogDataOfStock(stockCode, market)) },
     addInstrumentToWatchList: (ins, market) => { dispatch(actions.addInstrumentToWatchList(ins, market)) },
+
+    //setDefaultTab
+    changeTab: (tabID, subTabID) => {
+        dispatch(actions.onTabClick(tabID, subTabID))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

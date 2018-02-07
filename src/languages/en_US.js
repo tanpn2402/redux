@@ -26,7 +26,8 @@ export default
                     "zh_TW": "Traditional Chinese"
                 },
                 "preference": {
-                    "title": "Preferences"
+                    "title": "Preferences",
+                    "defaultTab": "Default Page"
                 },
                 "appearance": {
                     "title": "Appearence",

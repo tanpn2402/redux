@@ -622,7 +622,7 @@ const config = {
 		{
 			id: 'preference',
 			icon: 'settings_applications',
-			value: []
+			value: ['defaultTab']
 		},
 		{
 			id: 'appearance',
@@ -711,7 +711,9 @@ const config = {
 		favourite: [],
 		listInstrumentToWatch: [],
 		watchlistData: [],
-		chartData: {}
+		chartData: {},
+		defaultTab: '',
+		defaultSubTab: '',
 	},
 	maxFav: 1000,
 	tableColReorder: [],
@@ -721,7 +723,8 @@ const config = {
 	gridHeight: 22,
 	marketStartTime: "9:00",
 	marketEndTime: "15:00",
-	defaultMarketData: ["VN-INDEX", "VN30-INDEX", "HNX-INDEX", "HXN30-INDEX", "UPCOM-INDEX", "VNX-ALLSHARE"]
+	defaultMarketData: ["VN-INDEX", "VN30-INDEX", "HNX-INDEX", "HXN30-INDEX", "UPCOM-INDEX", "VNX-ALLSHARE"],
+	savedContent: {},
 }
 
 export default config
