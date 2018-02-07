@@ -123,10 +123,23 @@ class TradeHeader extends React.Component {
 
         let className = "glyphicon glyphicon-star" + tmp
         let theme = this.props.theme
+
+        let selectorStyles = {
+            background: "#2159a0",
+            color: "#FFF"
+        } 
+        if(theme.title == "virtual") {
+            selectorStyles = {
+                background: "#ee514c",
+                color: "#FFF"
+            }
+        }
+
         return (
             <Component className="trd-header" theme={theme}>
                 <div className="trd-header-control">
                     <InputSelect
+                        style={selectorStyles}
                         className="stock-selector"
                         key="rStockSelector-header"
                         ref={r => this.rStockSelector = r}

@@ -181,18 +181,18 @@ export default {
     },
     setting: {
         settingTitle: {
-            //backgroundColor: '#02407D'
+            backgroundColor: '#ed514d'
         },
         settingPanel: {
-            //backgroundColor: '#F0F0F0'
+            // backgroundColor: '#F0F0F0'
         }
     },
     profile: {
         profileTitle: {
-            //backgroundColor: '#02407D'
+            backgroundColor: '#ed514d'
         },
         profilePanel: {
-            //backgroundColor: '#F0F0F0'
+            // backgroundColor: '#F0F0F0'
         }
     },
     chart: {

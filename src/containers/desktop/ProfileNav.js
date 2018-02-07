@@ -34,6 +34,7 @@ class ProfileNav extends Component {
         let profileTitle = this.props.theme.profile.profileTitle
         let profilePanel = this.props.theme.profile.profilePanel
         
+        let buttonStyle = this.props.theme.form.button.submit
         this.doResponseMapping()
         return (
             <div id="profilenav" className="profilenav">
@@ -57,7 +58,7 @@ class ProfileNav extends Component {
                                                     if (e.id === 'changepassword' && v === 'save') {
                                                         return (
                                                             <div style={{textAlign: "center"}} >
-                                                                <button className='hks-btn btn-submit'
+                                                                <button className='hks-btn btn-submit' style={buttonStyle}
                                                                     onClick={() => this.onChangePassword()}>
                                                                     {personalProfile[e.id][v]}
                                                                 </button>

@@ -205,7 +205,7 @@ export default class MarketInformation extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            activeKey: "trading"
+            activeKey: "technical"
         }
     } 
 
@@ -254,16 +254,21 @@ export default class MarketInformation extends React.Component {
                                 onClick={() => this.setState({activeKey: "fundamental"})}>
                                 <span>Fundamental</span>
                             </li> */}
-                            <li className={"tab-item " + (activeKey === "trading" ? "actived" : "")}
+                            {/* <li className={"tab-item " + (activeKey === "trading" ? "actived" : "")}
                                 style={activeKey == "trading" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "trading"})}>
                                 <span>{language.tab.markettrading}</span>
-                            </li>
+                            </li> */}
                             {/* <li className={"tab-item " + (activeKey === "finance" ? "actived" : "")}
                                 style={activeKey == "finance" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "finance"})}>
                                 <span>Finance</span>
                             </li> */}
+                            <li className={"tab-item " + (activeKey === "technical" ? "actived" : "")}
+                                style={activeKey == "technical" ? tabStyle.active : tabStyle.normal}
+                                onClick={() => this.setState({activeKey: "technical"})}>
+                                <span>{language.tab.markettechnical}</span>
+                            </li>
                             <li className={"tab-item " + (activeKey === "news" ? "actived" : "")}
                                 style={activeKey == "news" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "news"})}>
@@ -273,11 +278,6 @@ export default class MarketInformation extends React.Component {
                                 style={activeKey == "reports" ? tabStyle.active : tabStyle.normal}
                                 onClick={() => this.setState({activeKey: "reports"})}>
                                 <span>{language.tab.marketreports}</span>
-                            </li>
-                            <li className={"tab-item " + (activeKey === "technical" ? "actived" : "")}
-                                style={activeKey == "technical" ? tabStyle.active : tabStyle.normal}
-                                onClick={() => this.setState({activeKey: "technical"})}>
-                                <span>{language.tab.markettechnical}</span>
                             </li>
                         </ul>
                     </div>
