@@ -1,12 +1,8 @@
 import * as WebApi from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
 import * as Utils from '../utils'
-import {
-  showMessageBox
-} from './notification'
-import {
-  showPopup
-} from './popup'
+import {showMessageBox} from './notification'
+import {showPopup} from './popup'
 const {
   ActionTypes
 } = require('../core/constants')
@@ -25,13 +21,6 @@ export function getFundtransfer(params) {
 }
 
 function responsegenfundtransfer(response, language) {
-  
-  // if (response.mvErrorCode > 0){
-  //   return (dispatch) => {
-  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
-  //   }
-  // }
-
   return {
     type: ActionTypes.GENFUNDTRANSFER,
     data: response
@@ -46,36 +35,18 @@ export function getGenfundtransfer(params, language) {
 }
 
 function responsehksCachTranHis(response) {
-  // if (response.list == null){
-  //   return (dispatch) => {
-  //     dispatch(showMessageBox(language.messagebox.title.error, response.mvMessage))
-  //   }
-  // }
   return {
     type: ActionTypes.HKSCASHTRANHIS,
     data: response
   }
 }
 
-export function gethksCachTranHis(params, language) {
-  // var response = (params) => responsehksCachTranHis(params, language)
+export function gethksCachTranHis(params) {
   return (dispatch) => {
     WebApi.post(ACTION.HKSCASHTRANHIS, params, dispatch, responsehksCachTranHis)
   }
 }
 
-// function responseCancelfundtransfer(response) {
-//   return {
-//     type: ActionTypes.CANCELFUNDTRANSFER,
-//     data: response
-//   }
-// }
-
-// export function getCancelfundtransfer(params) {
-//   return (dispatch) => {
-//     WebApi.post(ACTION.CANCELFUNDTRANSFER, params, dispatch, responseCancelfundtransfer)
-//   }
-// }
 function validateParamsTransfer(paramsTransfer, language, mvTransferBean) {
   //check if Available Balance is positive
   if (paramsTransfer.mvAvaiableAmt <= 0) {
@@ -101,8 +72,8 @@ function validateParamsTransfer(paramsTransfer, language, mvTransferBean) {
   return true;
 }
 
-export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language) {
-  let validateRes = validateParamsTransfer(paramsTransfer, language, mvTransferBean)
+export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language, theme, callback) {
+  let validateRes = validateParamsTransfer(paramsTransfer, language, theme, mvTransferBean)
   if (validateRes==true){
     var responseCheckFundTransTime = function (response) {
 
@@ -116,12 +87,14 @@ export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, languag
           dispatch(showPopup({
             data: {
               paramsTransfer: paramsTransfer,
-              mvTransferBean: mvTransferBean
+              mvTransferBean: mvTransferBean,
+              'callback': callback
             },
             title: language.cashtransfer.popup.title,
             language: language,
+            theme: theme,
             id: 'cashtransfer',
-            authcard: true
+            authcard: false
           }))
         }
 
@@ -129,7 +102,7 @@ export function beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, languag
     }
 
     return (dispatch) => {
-      WebApi.post(ACTION.CHECKFUNDTRANSFERTIME, [], dispatch, responseCheckFundTransTime)
+      WebApi.post(ACTION.CHECKFUNDTRANSFERTIME, {}, dispatch, responseCheckFundTransTime)
     }
   }else{
     return validateRes
@@ -143,7 +116,7 @@ export function submitCashTransfer(data, authParams, language) {
       if (response.mvReturnCode != 0) {
         if (response.mvErrorResult && response.mvErrorResult.trim().length > 0) {
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, response.mvErrorResult))
+            dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.transferFail))
           }
         } else {
           return (dispatch) => {
@@ -151,27 +124,28 @@ export function submitCashTransfer(data, authParams, language) {
           }
         }
       } else {
-        if (response.mvErrorResult === "fail") {
+        if (response.mvFundTransferResult === "") {
+             
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.info, language.cashadvance.message.advancePaymentSuccessful))
+            dispatch(showMessageBox(language.messagebox.title.info, language.messagebox.message.transferSuccessful))
           }
         } else {
           return (dispatch) => {
-            dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.advancePaymentFailed))
+            dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.transferFail))
           }
         }
 
       }
     } else {
       return (dispatch) => {
-        dispatch(showMessageBox(language.messagebox.title.error, language.cashadvance.message.advancePaymentFailed))
+        dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.transferFail))
       }
     }
   }
 
   var fee = Utils.numUnFormat(data.mvTransferFee)
-  var desBankInfo = data.inputBankName
-  desBankInfo = desBankInfo + "_+_" + data.inputBankBranch.trim()
+  // var desBankInfo = data.inputBankName
+  // desBankInfo = desBankInfo + "_+_" + data.inputBankBranch.trim()
 
   var params = {
     ...data,
@@ -179,11 +153,11 @@ export function submitCashTransfer(data, authParams, language) {
   };
   return (dispatch) => {
     WebApi.post(ACTION.DOFUNDTRANSFER, params, dispatch,responseSubmitCashTransfer )
-//    WebApi.post(ACTION.DOFUNDTRANSFER, data, dispatch, responseSubmitCashTransfer)
   }
 }
 
-export function beforeCancelFundTransfer(tranID, status, language, callback) {
+export function beforeCancelFundTransfer(tranID, status, language, theme, callback) {
+  console.log(theme)
   return (dispatch) => {
     dispatch(showPopup({
       data: {
@@ -192,6 +166,7 @@ export function beforeCancelFundTransfer(tranID, status, language, callback) {
         'callback': callback
       },
       title: language.cashtransfer.popup.title,
+      theme: theme,
       language: language,
       id: 'cancelcashtransfer',
       authcard: false
@@ -215,8 +190,8 @@ export function CancelCashtransfer(data, language) {
           }
         }
       } else {
-        if (response.mvResult == "SUCCESS") {
-          data.callback()
+        if (response.mvFundTransferResult === "SUCCESS") {
+           
           return (dispatch) => {
             dispatch(showMessageBox(language.messagebox.title.info, language.cashtransfer.message.cancelSuccess))
           }

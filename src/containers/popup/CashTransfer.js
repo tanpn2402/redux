@@ -8,21 +8,11 @@ import * as actions from '../../actions/index';
 class CashTransferPopup extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.checkAuthentication = this.checkAuthentication.bind(this);
-    }
-
-    checkAuthentication(e) {
-        // Prevent from reloading page when submit
-        e.preventDefault();
-        const code1 = document.getElementById("code1").innerText;
-        const code2 = document.getElementById("code2").innerText;
-        const input1 = document.getElementById("input1").value;
-        const input2 = document.getElementById("input2").value;
-        this.props.checkAuthen(code1, code2, input1, input2, this.props.language.matrixcard);
+        this.state = {}
     }
 
     render() {
+        var buttonStyle = this.props.theme.button
         return (
             <div>
                 <Modal.Body>
@@ -32,8 +22,8 @@ class CashTransferPopup extends Component {
                 </Modal.Body>
                 <CheckAuthenticationModal authType={this.props.authcard} ref={e => this.auth = e} language={this.props.language} />
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{this.props.language.cashtransfer.popup.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.submit.bind(this)}> {this.props.language.cashtransfer.popup.ok}</button>
+                    <button className="hks-btn btn-cancel" style={buttonStyle.cancel} onClick={this.props.onHide}>{this.props.language.cashtransfer.popup.cancel}</button>
+                    <button className="hks-btn btn-submit" style={buttonStyle.confirm} onClick={this.submit.bind(this)}> {this.props.language.cashtransfer.popup.ok}</button>
                 </Modal.Footer>
             </div>
         );
@@ -50,14 +40,10 @@ class CashTransferPopup extends Component {
             savedAuthen: true,
         }
 
-        // let authParams = {
-        //     matrixKey01: document.getElementById("matrix-key01").value,
-        //     matrixKey02: document.getElementById("matrix-key02").value,
-        //     matrixValue01: document.getElementById("matrix-value01").value,
-        //     matrixValue02: document.getElementById("matrix-value02").value,
-        //     savedAuthen: document.getElementById("matrix-save-authen").checked,
-        // }
-        this.props.submit(this.props.data, defaultParam , this.props.language)
+        this.props.submit(this.props.data.paramsTransfer, defaultParam , this.props.language)
+        this.props.onHide()
+        
+        this.props.data.callback()
     }
 
 
@@ -65,7 +51,6 @@ class CashTransferPopup extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenFail: state.checkAuthen.isAuthenFail,
     };
 }
 

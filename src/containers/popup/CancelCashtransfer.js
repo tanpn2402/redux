@@ -17,10 +17,7 @@ class CancelCashtransfer extends Component{
         this.id = 'Cancelcashtrans'
         this.submitCancelCashTransfer = this.submitCancelCashTransfer.bind(this);
     }
-    getOddLotSubmit() {
-        this.props.getOddLotSubmit(this.props.rowSelected)
-        this.props.onHide()
-    }
+    
 
     checkAuthentication(e) {
         // Prevent from reloading page when submit
@@ -34,6 +31,8 @@ class CancelCashtransfer extends Component{
 
     render(){
         let language = this.props.language
+        var buttonStyle = this.props.theme.button
+
         return(
             <div>
                 <Modal.Body>
@@ -45,8 +44,10 @@ class CancelCashtransfer extends Component{
                 <CheckAuthenticationModal language={this.props.language}/>
                 </div>
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{language.button.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.submitCancelCashTransfer.bind(this)}>{language.button.confirmCancel}</button>
+                    <button className="hks-btn btn-cancel" style={buttonStyle.cancel} onClick={this.props.onHide}>
+                        {language.button.cancel}</button>
+                    <button className="hks-btn btn-submit" style={buttonStyle.confirm} onClick={this.submitCancelCashTransfer.bind(this)}>
+                        {language.button.confirmCancel}</button>
                 </Modal.Footer>
             </div>
         )
@@ -54,12 +55,14 @@ class CancelCashtransfer extends Component{
 
     submitCancelCashTransfer() {
         this.props.submitCancelCashTransfer(this.props.data, this.props.language)
+        this.props.onHide()
+        this.props.data.callback()
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenFail: state.checkAuthen.isAuthenFail,
+        
     };
 }
 

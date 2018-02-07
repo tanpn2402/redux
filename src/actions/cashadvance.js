@@ -22,24 +22,27 @@ export function beforeSubmitCashAdvance(advPayment, mvAdvanceBean, language) {
         }
     }
     else{ 
-        var responseCheckAdvPaymentTime = function(response){
-            var msg = response.mvResult
-            if(msg && msg.trim().length > 0){
-                return (dispatch) => {
-                    dispatch(showMessageBox(language.messagebox.title.error, msg))
-                }
+        var responseCheckAdvPaymentTime = function (response) {
+          var msg = response.mvResult
+          var data={
+            advancePayment: advPayment, 
+            advanceAvailable: advAvailable
+          }
+          if (msg.trim() == "") {
+              return (dispatch) => {
+              dispatch(showPopup({
+                data: data,
+                title: language.cashadvance.popup.title,
+                language: language,
+                id: 'cashadvance',
+                authcard: false
+              }))
             }
-            else{
-                return (dispatch) => {
-                    dispatch(showPopup({
-                        data: {advancePayment: advPayment, advanceAvailable: advAvailable},
-                        title: language.cashadvance.popup.title,
-                        language: language,
-                        id: 'cashadvance',
-                        authcard: false
-                    }))
-                }
+          } else {
+            return (dispatch) => {
+              dispatch(showMessageBox(language.messagebox.title.error, msg.trim()))
             }
+          }
         }
         return (dispatch) => {
             WebApi.post(ACTION.CHECKADVANCEPAYMENTTIME, [], dispatch, responseCheckAdvPaymentTime)

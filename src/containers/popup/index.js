@@ -50,7 +50,6 @@ function genPopupDesktop(props, onClose) {
 			break;
 
 		case 'cashadvance':
-			console.log(props, onClose)
 			return (<CashAdvancePopup onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;
 
@@ -63,11 +62,11 @@ function genPopupDesktop(props, onClose) {
 			break;
 
 		case 'cancelcashtransfer':
-			return (<CancelCashtransfer data={props.data} onHide={onClose} rowSelected={props.rowSelected} language={props.language} />)
+			return (<CancelCashtransfer data={props.data} onHide={onClose} rowSelected={props.rowSelected} {...props} />)
 			break;
 
 		case 'cashtransfer':
-			return (<CashTransfer onHide={onClose} data={props.data} rowSelected={props.rowSelected} language={props.language} />)
+			return (<CashTransfer onHide={onClose} data={props.data} rowSelected={props.rowSelected} {...props} />)
 
 		case 'savelayout':
 			return (<SaveLayout language={props.language} theme={props.theme} checkSessionID={props.checkSessionID} config={props.config} />)
@@ -84,6 +83,7 @@ function genPopupDesktop(props, onClose) {
 		case 'modifyorder':
 			return (<ModifyOrder onHide={onClose} authcard={props.authcard} {...props} />)
 			break;
+
 		case 'detailorder':
 			return (<DetailOrder onHide={onClose} authcard={props.authcard} data={props.data} language={props.language} />)
 			break;

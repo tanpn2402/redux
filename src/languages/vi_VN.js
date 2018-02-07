@@ -1553,6 +1553,7 @@ export default
                     "noAmount": "Xin vui lòng nhập số tiền.",
                     "overTransfer": "Số tiền cần chuyển lớn hơn số tiền bạn có.",
                     "transferSuccessful": "Chuyển tiền thành công. Vui lòng chờ xác nhận.",
+                    "transferFail": "Chuyển tiền thất bại. Vui lòng thử lại.",
                     "orderNotSelectToSend": "Vui lòng chọn ít nhất 1 lệnh để gửi",
                     "notAnnouncement": "Hiện tại Chúng tôi không đăng ký mua cổ phiếu lô lẻ.",
                     "notChoosenStock": "Quý khách vui lòng chọn một chứng khoán để đặt lệnh.",

@@ -23,6 +23,7 @@ export function getOddlotHistory(params) {
 export function submitOddLot(params) {
   var mvOddList;
   var oddLotData = params.oddLotData
+  var maxValue = params.maxValue
   var annoucementId = params.annoucementId
   var authParams = params.authParams
   var mvInterfaceSeq = params.mvInterfaceSeq
@@ -35,6 +36,7 @@ export function submitOddLot(params) {
     for (var i = 0; i < oddLotData.length; i++) {
         var data = oddLotData[i]
         mvOddList[i] = data.marketId + "|" + data.stockCode + "|" + data.location + "|" + data.oddLotQty;
+        data.oddLotQty = maxValue[i] - data.oddLotQty;
     }
   }
 
@@ -60,8 +62,6 @@ export function submitOddLot(params) {
               dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.mvReturnCode]))
             }
           }
-         
-          //oddLotConfirmWin.resetWindow();
       }
       else {
         popup.closePopup()
@@ -126,7 +126,7 @@ export function beforeRegisterOddLot(params){
             title: language.oddlottrading.popup.title,
             language: language,
             id: 'oddlottrading',
-            authcard: false
+            authcard: true,
           }))
         }
     }

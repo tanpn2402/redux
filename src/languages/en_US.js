@@ -1582,6 +1582,7 @@ export default
                     "noAmount": "Amount should not be blank",
                     "overTransfer": "Your amount is not enough",
                     "transferSuccessful": "Transfer successfully. Waiting for approval.",
+                    "transferFail": "Transfer fail. Please try again.",
                     "orderNotSelectToSend": "Please select at least one order to send",
                     "notAnnouncement": "We do not register to buy odd-lot stock now",
                     "notChoosenStock": "Please choose one stock at least.",

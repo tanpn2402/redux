@@ -68,13 +68,13 @@ class FundTransPanel extends Component {
 
     }
      handleInputChange(option) {
-         console.log(option)
+        //  console.log(option)
          var beniAccount = option.receiverAccID
          this.setState({ destClientID: option });
         this.bankName.value=option.receiverBankName
         this.beneficiaryfullname.value = option.receiverName
          this.transferAmount.value=option.transferFee
-        
+         this.transferAmount.focus()
      }
 
 
@@ -280,32 +280,17 @@ class FundTransPanel extends Component {
             mvAvaiableAmt: this.withdrawAmt.innerHTML,
             mvTransferFee: '0'
         }
-         var defaultParam = {
-            matrixKey01: '[5,A]',
-            matrixKey02: '[4,F]',
-            matrixValue01: '7',
-            matrixValue02: '4',
-            savedAuthen: true,
-        }
-        this.props.beforeSubmit(params, this.props.datagenfund, this.props.language)
-          this.props.submit(params, defaultParam , this.props.language)
+
+        this.props.beforeSubmit(params, this.props.datagenfund, this.props.language, this.props.theme, () => {
+            // reload
+            console.log("haha callback")
+        })
     }
 
     componentDidMount() {
-        this
-            .props
-            .getgenfundtransfer(this.paramsgenfund, this.props.language);
-            this.beneficiaryfullname.focus() 
+        this.props.getgenfundtransfer(this.paramsgenfund, this.props.language);
+        this.beneficiaryfullname.focus() 
     }
-
-    // getranSubmit() {
-    //     this
-    //         .props
-    //         .gettranSubmit()
-    // }
-
-    // handleSubmit(e) {     e.preventDefault();     this.setState({ isShow: true })
-    // }
 
 }
 const mapStateToProps = (state) => {
@@ -319,8 +304,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     getgenfundtransfer: (paramsgenfund, language) => {
         dispatch(actions.getGenfundtransfer(paramsgenfund, language))
     },
-    beforeSubmit: (paramsTransfer, mvTransferBean, language) => {
-        dispatch(actions.beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language))
+    beforeSubmit: (paramsTransfer, mvTransferBean, language, theme, callback) => {
+        dispatch(actions.beforeSubmitCashTransfer(paramsTransfer, mvTransferBean, language, theme, callback))
     },
      submit: (data, authParams, language) => {
         dispatch(actions.submitCashTransfer(data, authParams, language))

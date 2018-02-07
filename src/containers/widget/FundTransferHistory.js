@@ -25,7 +25,6 @@ class FundTransHistory extends Component {
             
                         } else {
                             var value=props.original.action.trim()
-                            console.log(this.props.language)
                             let text = this.props.language.cashtransfer.transtype[value]
                             return (
                                 Utils.statusRenderer(text,value)
@@ -112,13 +111,17 @@ class FundTransHistory extends Component {
                     id: 'cancel',
                     accessor: 'status',
                     Cell: props => {
-                        if (props.original.status === 'P')
+                        if (props.aggregated){
+                            
+                        }else{
+                             var value=props.original.tranID
+                             var valueStatus=props.original.status.trim()
+                             if(valueStatus === 'P'){
                             return (
-                                <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall"
-                                    onClick={this.openCanceltransfer.bind(this)}>
-                                    <span className="glyphicon glyphicon-remove"></span>
+                                <Button bsClass="hks-btn btn-orderjournal" bsSize="xsmall" style={{color:'red'}}
+                                    onClick={() => this.openCanceltransfer(props.original.tranID)}>    <span className="glyphicon glyphicon-remove"></span>
                                 </Button>
-                            )
+                            )}}
                     },
                     width: 80,
                     sortable: false,
@@ -131,6 +134,7 @@ class FundTransHistory extends Component {
             filterable: false
         }
         this.defaultPageSize = 25
+        this.pageIndex = 1
         this.paramshkscashtranhis = {
             mvLastAction: 'ACCOUNT',
             mvChildLastAction: 'FUNDTRANSFER',
@@ -166,7 +170,7 @@ class FundTransHistory extends Component {
                         tableData={data}
 
                         pageIndex={this.state.pageIndex}
-                        totalPage={this.props.data.mvTotalOrders}
+                        totalPage={Math.ceil(this.props.data.totalCount / this.defaultPageSize)}
                         onPageChange={this.onPageChange.bind(this)}
 
                         searchEnable={false}
@@ -176,7 +180,13 @@ class FundTransHistory extends Component {
                 </Body>
             </div>
         )
+    }
 
+    onPageChange(page) {
+        this.state.pageIndex = page
+        this.paramshkscashtranhis["page"] = this.state.pageIndex
+        this.paramshkscashtranhis["start"] = (this.state.pageIndex - 1) * this.paramshkscashtranhis["limit"]
+        this.props.gethkscashtranhis(this.paramshkscashtranhis)
     }
 
     onToggleFilter(value) {
@@ -193,44 +203,28 @@ class FundTransHistory extends Component {
         const id = e.target.id
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
-        });
+        })
     }
-
-    onPageChange(pageIndex) {
-        this.setState({ pageIndex: pageIndex });
-    }
-
-    // Opencanceltransfer(tranID) {
-    //     this.setState({
-    //                   lgShow: true
-    //           });
-    //           this.title = "CancelTransfer"
-    //           this.popupType = 'CANCELCASHTRANFER'
-    //   }
-
     openCanceltransfer(tranID) {
-        // this.setState({lgShow: true});
-        // this.title = "CancelTransfer"
-        // this.popupType = 'CANCELCASHTRANFER'
-        //var targetTxn = this.props.data.list.find(x => x.tranID == tranID);
-
-        //this.props.beforeCancelFundTransfer(targetTxn.tranID, targetTxn.status, this.props.language, this.onReloadPage)
-
+        let pageIndex = this.state.pageIndex
+        var targetTxn = this.props.data.list.find(x => x.tranID == tranID);
+        this.props.beforeCancelFundTransfer(targetTxn.tranID, targetTxn.status, this.props.language, this.props.theme, 
+            () => setTimeout(this.onPageChange(pageIndex), 1000) )                                   
     }
+    
 }
 const mapStateToProps = (state) => {
     return {
         data: state.cashtransfer.datahkscashtranhis,
-
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    gethkscashtranhis: (paramshkscashtranhis, language) => {
-        dispatch(actions.gethksCachTranHis(paramshkscashtranhis, language))
+    gethkscashtranhis: (paramshkscashtranhis) => {
+        dispatch(actions.gethksCachTranHis(paramshkscashtranhis))
     },
-    beforeCancelFundTransfer: (tranID, status, language, callback) => {
-        dispatch(actions.beforeCancelFundTransfer(tranID, status, language, callback))
+    beforeCancelFundTransfer: (tranID, status, language, theme, callback) => {
+        dispatch(actions.beforeCancelFundTransfer(tranID, status, language, theme, callback))
     },
 })
 
