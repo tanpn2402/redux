@@ -114,6 +114,7 @@ function responseOddlotHistory(response){
 export function beforeRegisterOddLot(params){
   var language = params.language
   var data = params.data
+  var theme = params.theme
 
   var process = function(response){
     
@@ -125,6 +126,7 @@ export function beforeRegisterOddLot(params){
             data: data,
             title: language.oddlottrading.popup.title,
             language: language,
+            theme: theme,
             id: 'oddlottrading',
             authcard: true,
           }))

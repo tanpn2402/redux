@@ -31,6 +31,7 @@ class Input extends React.Component {
                         min='0'
 			            max={this.props.maxValue}
                         tabIndex={this.props.tabIndex}
+                        id={this.props.idInput}
                         />
                     <span className='input-group-btn' style={{ zIndex: '1', right: "1px" }}>
                         <button type="button" className="btn btn-default" tabIndex="-1"
@@ -210,6 +211,7 @@ Input.defaultProps = {
     step: 1,
     type: 'text',
     className: "",
-    maxValue: 10000000
+    maxValue: 10000000,
+    idInput: ""
 }
 export default Input

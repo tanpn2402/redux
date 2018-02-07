@@ -31,6 +31,7 @@ class OddLotHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => Utils.formatQty(props.original.appliedQty.trim()),
                     background: props.theme.number.col
                 },
                 {
@@ -42,9 +43,9 @@ class OddLotHistory extends Component {
                         } else {
                             var value=props.original.price.trim()
                             if(!isNaN(value) && value.toString().indexOf('.') != -1)
-                                return value;
+                                return Utils.formatCurrency(value);
                             else
-                            return 0;          
+                                return 0;          
                         }
                     },
                     width: 120,
@@ -68,6 +69,7 @@ class OddLotHistory extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => Utils.formatCurrency(props.original.settleAmt.trim()),
                     background: props.theme.number.col
                 },
                 {

@@ -48,6 +48,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => Utils.formatQty(props.original.settledBal.trim()),
                     background: props.theme.number.col
                 },
                 {
@@ -56,6 +57,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => Utils.formatQty(props.original.oddLotQty.trim()),
                     background: props.theme.number.col
                 },
                 {
@@ -64,6 +66,7 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => Utils.formatCurrency(props.original.nominalPrice.trim()),
                     background: props.theme.number.col
                 },
                 {
@@ -72,6 +75,14 @@ class OddLotOrder extends Component {
                     width: 120,
                     skip: false,
                     show: true,
+                    Cell: props => {
+                        let value = props.original.collectionPrice
+                        if(isNaN(value) || value == "") {
+                            return 0
+                        } else {
+                            return value
+                        }
+                    },
                     background: props.theme.number.col
                 },
             ],
@@ -202,6 +213,7 @@ class OddLotOrder extends Component {
         if (this.rowSelected.length > 0) {
             this.props.beforeRegisterOddLot({
                 language: this.props.language,
+                theme: this.props.theme,
                 data: { rowSelected: this.rowSelected, me: this }
             })
         }
@@ -211,9 +223,17 @@ class OddLotOrder extends Component {
     }
 
     reloadData() {
-        this.paramsOddLotHisEnquiry['key'] = (new Date()).getTime()
-        this.props.onshowenquiry(this.paramsEnquiryOddLot)
-        this.props.onshowhistory(this.paramsOddLotHisEnquiry)
+        let paramsOddLotHisEnquiry = {
+            mvLastAction: 'OTHERSERVICES',
+            mvChildLastAction: 'ODDLOT',
+            key: (new Date()).getTime(),
+            start: '0',
+            page: 1,
+            limit: 15,
+        }
+
+        this.props.oddLotEnquiry(this.paramsEnquiryOddLot)
+        this.props.oddLotHisEnquiry(paramsOddLotHisEnquiry)
     }
 
 }
@@ -226,6 +246,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     oddLotEnquiry: (param) => {
         dispatch(actions.getOddlotEnquiry(param))
+    },
+    oddLotHisEnquiry: (param) => {
+        dispatch(actions.getOddlotHistory(param))
     },
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))

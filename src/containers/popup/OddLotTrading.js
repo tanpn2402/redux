@@ -56,10 +56,11 @@ class OddLotSubmit extends Component {
                 accessor: 'oddLotQty',
                 Cell: props => {
                     return (
-                          <Input key={props.original.stockCode + '-qty'} type="number" 
+                          <Input  type="number" 
                                 step={1}
                                 defaultValue={props.original.oddLotQty}
                                 maxValue={props.original.oddLotQty}
+                                idInput={props.original.stockCode + '-qty'}
                                     />
                     )
                 },
@@ -114,8 +115,10 @@ class OddLotSubmit extends Component {
 
         let data = this.props.data.rowSelected
         let language = this.props.language
-
-        let overQty = false
+         var MaxValue=data.map(e=>{
+             return e.oddLotQty
+         }) 
+       let overQty = false
         data.map(e => {
             let qty = document.getElementById(e.stockCode + '-qty').value
             if (qty <= 0) {
@@ -131,18 +134,9 @@ class OddLotSubmit extends Component {
 
         if (!overQty) {
 
-            if (this.props.authcard) {
-                this.authParams = {
-                    matrixKey01: document.getElementById("matrix-key01").value,
-                    matrixKey02: document.getElementById("matrix-key02").value,
-                    matrixValue01: document.getElementById("matrix-value01").value.toUpperCase(),
-                    matrixValue02: document.getElementById("matrix-value02").value.toUpperCase(),
-                    savedAuthen: document.getElementById("matrix-save-authen").checked,
-                }
-            }
-
             this.props.submitOddLot({
                 oddLotData: data,
+                maxValue:MaxValue,
                 annoucementId: this.props.data.annoucementId,
                 mvInterfaceSeq: this.mvInterfaceSeq,
                 authParams: this.authParams,
@@ -150,7 +144,8 @@ class OddLotSubmit extends Component {
                 me: this.props.data.me,
                 popup: this
             })
-            //this.props.onHide()
+            this.props.onHide()
+            setTimeout(() => this.props.data.me.reloadData, 1000)
         }
         else {
             this.props.onShowMessageBox(language.messagebox.title.error, language.oddlottrading.message.wrongQty)
@@ -178,13 +173,16 @@ class OddLotSubmit extends Component {
 
     render() {
         var bankinfo = this.props.bankinfo
-        console.log(bankinfo.mvBankInfoList)
+        var buttonStyle = this.props.theme.button
+        
         return (
             <div style={{ textAlign: 'center' }}>
                 <Modal.Body>
-                    <div className="oddlotdropdownlist">
+                    <div className="oddlotdropdownlist" style={{padding: "5px"}}>
                         <span>
-                            <div className="oddlotaccount">{this.props.language.oddlottrading.popup.bankaccount}</div>
+                            <div className="oddlotaccount" style={{marginRight: "4px", display: "inline-block"}}>
+                                {this.props.language.oddlottrading.popup.bankaccount}
+                            </div>
                             <select onChange={this.handleChange.bind(this)}>
                                 {
                                     bankinfo.mvBankInfoList.map(e => {
@@ -214,8 +212,8 @@ class OddLotSubmit extends Component {
                 }
 
                 <Modal.Footer>
-                    <button className="hks-btn btn-cancel" onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</button>
-                    <button className="hks-btn btn-submit" onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</button>
+                    <button className="hks-btn btn-cancel" style={buttonStyle.cancel} onClick={this.props.onHide}>{this.props.language.oddlottrading.popup.cancel}</button>
+                    <button className="hks-btn btn-submit" style={buttonStyle.confirm} onClick={this.submitOddLot.bind(this)}>{this.props.language.oddlottrading.popup.submit}</button>
                 </Modal.Footer>
             </div>
         )
