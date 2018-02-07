@@ -151,11 +151,12 @@ class TradeHeader extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.StockName.offsetHeight)
         if(this.StockName != undefined) {
-            if(this.StockName.offsetHeight < 46) {
-                this.StockName.style.paddingTop = "20px"
-            } else {
+            if(this.StockName.offsetHeight < 56) {
                 this.StockName.style.paddingTop = "10px"
+            } else {
+                this.StockName.style.paddingTop = "0px"
             }
         }
         
@@ -163,11 +164,12 @@ class TradeHeader extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log(this.StockName.offsetHeight)
         if(this.StockName != undefined) {
-            if(this.StockName.offsetHeight < 46) {
-                this.StockName.style.paddingTop = "20px"
-            } else {
+            if(this.StockName.offsetHeight < 56) {
                 this.StockName.style.paddingTop = "10px"
+            } else {
+                this.StockName.style.paddingTop = "0px"
             }
         }
     }

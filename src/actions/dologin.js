@@ -65,10 +65,10 @@ export function checkAuth() {
         key: (new Date()).getTime()
     }
 
-    return {
-        type: ActionTypes.CHECKAUTH,
-        status: "SUCCESS",
-    }
+    // return {
+    //     type: ActionTypes.CHECKAUTH,
+    //     status: "SUCCESS",
+    // }
 
     return (dispatch) => {
         api.post(ACTION.CHECKSESSION, params, dispatch,

@@ -148,13 +148,7 @@ export default
                 "stockinfo": "Stock Info",
                 "daytrade": "Day Trade",
                 "tradehistory": "Trade Log",
-                "recommendation": "Recommendation",
-                "markettrading": "Trading",
-                "marketnews": "News",
-                "marketfinance": "Finance",
-                "marketreports": "Reports",
-                "markettechnical": "Technical",
-                "intraday": "In Trade Day"
+                "recommendation": "Recommendation"
             },
             "searchbar": {
                 "search": "Search",
@@ -1441,6 +1435,21 @@ export default
                     "portfolio": "Portfolio",
                     "positions": "Positions",
                     "history": "History"
+                }
+            },
+            "marketinfo": {
+                "header": {
+                    "day": "Day",
+                    "intro": "Intro",
+                    "type": "Type",
+                    "intraday": "In Trade Day"
+                },
+                "tab": {
+                    "markettrading": "Trading",
+                    "marketnews": "News",
+                    "marketfinance": "Finance",
+                    "marketreports": "Reports",
+                    "markettechnical": "Technical",
                 }
             },
             "messagebox": {

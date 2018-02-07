@@ -200,7 +200,7 @@ export default {
             //   backgroundColor: '#EEECEC'
         },
         popoverChart: {
-            backgroundColor: '#F2F2F2',
+            backgroundColor: '#FFF',
             color: '#000',
             referenceLine:{
                 color: '#26547C'

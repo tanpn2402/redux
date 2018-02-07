@@ -3759,7 +3759,7 @@ label {
 }
 .trd-header .trd-instrument-name {
     position: absolute;
-    top: -10px;
+    top: 0px;
     width: 300px;
     left: 110px;
 }
@@ -4548,11 +4548,11 @@ input[type=number] {
     margin-right: 0;
 }
 .market-info-page .trade-header-container {
-    height: 48px;
+    height: 52px;
     padding: 2px;
 }
 .market-info-page .page-container {
-    height: calc(100% - 48px);
+    height: calc(100% - 52px);
     padding: 2px;
 }
 .market-info-page .page-container .tab-side {
@@ -4615,7 +4615,7 @@ input[type=number] {
     border-collapse: collapse;
 }
 .mk-news-table th {
-    height: 30px;
+    height: 26px;
     background-color: #005AA0;
     color: #FFF;
     font-weight: normal;
@@ -4625,7 +4625,7 @@ input[type=number] {
     border: 1px solid transparent;
 }
 .mk-news-table tr {
-    height: 30px;
+    height: 28px;
 }
 .mk-news-table .news-day {
     text-align: center;

@@ -149,13 +149,7 @@ export default
                 "stockinfo": "Thông tin chứng khoán",
                 "daytrade": "Day Trade",
                 "tradehistory": "Khớp lệnh theo thời gian",
-                "recommendation": "Đề nghị",
-                "markettrading": "Giao dịch",
-                "marketnews": "Tin tức",
-                "marketfinance": "Tài chính",
-                "marketreports": "Reports",
-                "markettechnical": "Technical",
-                "intraday": "In Trade Day"
+                "recommendation": "Đề nghị"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -1412,6 +1406,21 @@ export default
                     "portfolio": "Portfolio",
                     "positions": "Positions",
                     "history": "History"
+                }
+            },
+            "marketinfo": {
+                "header": {
+                    "day": "Ngày",
+                    "intro": "Tin",
+                    "type": "Loại",
+                    "intraday": "Giao dịch trong ngày"
+                },
+                "tab": {
+                    "markettrading": "Giao dịch",
+                    "marketnews": "Tin tức",
+                    "marketfinance": "Tài chính",
+                    "marketreports": "Báo cáo",
+                    "markettechnical": "Kỹ thuật"
                 }
             },
             "messagebox": {
