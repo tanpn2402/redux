@@ -23,7 +23,7 @@ class AdBankPanel extends Component {
 
     render() {
         var queryBankInfo = this.props.bankInfo
-        if (queryBankInfo.mvBankInfoList.length > 0) {
+        if (queryBankInfo.mvBankInfoList.length > 0 && this.state.mvSettlementAccount == "") {
             this.state.mvSettlementAccount = {
                 mvSettlementAccountDisplayName: queryBankInfo.mvBankInfoList[0].mvSettlementAccountDisplayName
             }
@@ -50,7 +50,7 @@ class AdBankPanel extends Component {
                                             <Select
                                                 options={queryBankInfo.mvBankInfoList}
                                                 selected={this.state.mvSettlementAccount}
-                                                onChange={this.getAdvanceOrderData.bind(this)}
+                                                handleChange={this.getAdvanceOrderData.bind(this)}
                                                 optionLabelPath={'mvSettlementAccountDisplayName'}
                                                 showClear={false}
                                                 searchEnabled={false}
@@ -176,15 +176,12 @@ class AdBankPanel extends Component {
 
     }
 
-    getAdvanceOrderData = ({ option }) => {
-        if (option) {
-            this.setState({ mvSettlementAccount: option })
-            var bank = option.mvBankID
-            if (bank) {
-                this.props.getAdvanceOrderData(bank)
-            }
+    getAdvanceOrderData( option ) {
+        this.setState({ mvSettlementAccount: option })
+        var bank = option.mvBankID
+        if (bank) {
+            this.props.getAdvanceOrderData(bank)
         }
-
     }
 
 }

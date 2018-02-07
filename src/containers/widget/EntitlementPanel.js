@@ -55,7 +55,7 @@ class EntitlementPanel extends Component {
                                             <SelectControl
                                                 options={bankInfoList}
                                                 selected={this.state.mvSettlementAccount}
-                                                onChange={this.onSettlementAccountChange.bind(this)}
+                                                handleChange={this.onSettlementAccountChange.bind(this)}
                                                 optionLabelPath={'mvSettlementAccountDisplayName'}
                                                 showClear={false}
                                                 searchEnabled={false}
@@ -231,11 +231,9 @@ class EntitlementPanel extends Component {
         this.getEntitlementData(record)
     }
 
-    onSettlementAccountChange = ({ option }) => {
-        if (option) {
+    onSettlementAccountChange(option) {
             this.setState({ mvSettlementAccount: option })
             this.getAccountBalance(option)
-        }
     }
     // setValue
     setCashBalanceValue(value) {
