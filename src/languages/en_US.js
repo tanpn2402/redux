@@ -128,10 +128,12 @@ export default
                 "accountsumary": "Account Sumary",
                 "clientsumary": "Client Sumary",
                 "oddLotOrder": "Odd Lot Order",
+                "oddLotHistory": "Odd Lot Transaction History",
                 "oddlotHistory": "Odd Lot Transaction History",
                 "matchOrderBankList": "Order Matching List",
                 "advanceBankHistory": "Cash Advance Transaction",
                 "advanceBankPanel": "Cash Advance Place",
+                "advanceBankPlace": "Bank Cash Advance Place",
                 "matchOrderList": "Order Matching List",
                 "advanceHistory": "Cash Advance Transaction",
                 "advancePanel": "Cash Advance Place",
@@ -1633,7 +1635,8 @@ export default
                 "confirmModify": "Confirm Modify",
                 "confirmCancel": "Confirm Cancel",
                 "close": "Close",
-                "complete": "Complete"
+                "complete": "Complete",
+                "addWidget": "Add Widget"
             },
             "login": {
                 "title": "TRADING ONLINE",

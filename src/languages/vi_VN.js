@@ -130,6 +130,7 @@ export default
                 "clientsumary": "Thông tin tài khoản",
                 "oddLotOrder": "Đặt lệnh giao dịch lô lẻ",
                 "oddlotHistory": "Lịch sử giao dịch chứng khoán lô lẻ",
+                "oddLotHistory": "Lịch sử giao dịch chứng khoán lô lẻ",
                 "matchOrderBankList": "Danh sách lệnh khớp",
                 "advanceBankHistory": "Giao dịch ứng trước trong ngày",
                 "advanceBankPanel": "Thực hiện ứng trước",
@@ -1603,7 +1604,8 @@ export default
                 "sure": "Sure",
                 "confirmModify": "Đồng ý sửa",
                 "confirmCancel": "Đồng ý hủy",
-                "close": "Đóng"
+                "close": "Đóng",
+                "addWidget": "Thêm cửa sổ"
             },
             "login": {
                 "title": "GIAO DỊCH TRỰC TUYẾN",

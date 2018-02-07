@@ -101,6 +101,7 @@ class EntitlementHistory extends Component {
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
                     columns={this.state.columns}
+                    widgetID= 'entitlementHistory'
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}
                     onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}

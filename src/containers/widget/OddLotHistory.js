@@ -132,6 +132,7 @@ class OddLotHistory extends Component {
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} language={this.props.language} theme={this.props.theme}
                     columns={this.state.columns}
+                    widgetID= 'oddLotHistory'
                     onChangeStateColumn={this.onChangeOddLotTransStateColumn.bind(this)}
                     onToggleFilter={e => this.onToggleFilter(e)} >
                     {this.props.language.menu[this.id]}

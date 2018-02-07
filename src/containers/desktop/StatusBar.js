@@ -152,12 +152,19 @@ class StatusBar extends React.Component {
 
     handleBaseBlur(e) {
         var target = e.target.className
-        console.log(e.target.className)
-        if ( target.includes('search-trigger') ||
-            target.includes('glyphicon-th-large') || target.includes("search-re-header") ||
-            target.includes("search-block") || target.includes("widget-search-result")) {
+        try {
+            if ( target.includes('search-trigger') ||
+                target.includes('glyphicon-th-large') || target.includes("search-re-header") ||
+                target.includes("search-block") || target.includes("widget-search-result")) {
 
-        } else {
+            } else {
+                this.setState({
+                    showSearchBox: false
+                })
+                window.removeEventListener("click", this.handleBaseBlur, false)
+            }
+        } catch(e) {
+            // in case user click to chart
             this.setState({
                 showSearchBox: false
             })

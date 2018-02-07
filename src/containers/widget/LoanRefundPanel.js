@@ -32,7 +32,7 @@ class LoanTrans extends Component {
         let formStyle = this.props.theme.form
         return (
             <div>
-                <Title language={this.props.language} theme={this.props.theme} widgetID={this.id}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID= 'loanRefundPanel'>
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme} style={background}>

@@ -136,23 +136,33 @@ const config = {
 	],
 	menu_items: [
 		{
-			id: 'tradingplatform',
-			text: 'tradingplatform',
+			id: 'trading',
+			text: 'trading',
 			link: '',
 			subitems: [
 				{
-					id: 'enterorder',
-					text: 'enterorder',
+					id: 'placeorder',
+					text: 'placeorder',
+					link: ''
+				},
+				{
+					id: 'stockmarketinform',
+					text: 'stockmarketinform',
+					link: ''
+				},
+				{
+					id: 'watchlist',
+					text: 'watchlist',
+					link: ''
+				},
+				{
+					id: 'tradehistory',
+					text: 'tradehistory',
 					link: ''
 				},
 				// {
-				// 	id: 'stockmarketinform',
-				// 	text: 'stockmarketinform',
-				// 	link: ''
-				// },
-				// {
-				// 	id: 'watchlist',
-				// 	text: 'watchlist',
+				// 	id: 'tradingchart',
+				// 	text: 'tradingchart',
 				// 	link: ''
 				// },
 				{
@@ -160,11 +170,11 @@ const config = {
 					text: 'orderjournal',
 					link: ''
 				},
-				// {
-				// 	id: 'accountinfo',
-				// 	text: 'accountinfo',
-				// 	link: ''
-				// },
+				{
+					id: 'accountinfo',
+					text: 'accountinfo',
+					link: ''
+				},
 				{
 					id: 'portfolio',
 					text: 'portfolio',
@@ -175,16 +185,43 @@ const config = {
 					text: "techanalysis",
 					link: ''
 				},
-				// {
-				// 	id: "orderconfirmation",
-				// 	text: "orderconfirmation",
-				// 	link: ''
-				// },
 				{
-					id: 'transactionhistory',
-					text: 'transactionhistory',
+					id: "orderconfirmation",
+					text: "orderconfirmation",
 					link: ''
-				}
+				},
+			]
+		},
+		{
+			id: 'account',
+			text: 'account',
+			link: '',
+			subitems: [
+				{
+					id: 'orderHistory',
+					text: 'ordershistory',
+					link: ''
+				},
+				{
+					id: 'cashTransHistory',
+					text: 'cashTransHistory',
+					link: ''
+				},
+				{
+					id: 'cashstatement',
+					text: 'cashstatement',
+					link: ''
+				},
+				{
+					id: 'stockstatement',
+					text: 'stockstatement',
+					link: ''
+				},
+				{
+					id: 'marginloan',
+					text: 'marginloan',
+					link: ''
+				},
 			]
 		},
 		{
@@ -193,33 +230,116 @@ const config = {
 			link: '',
 			subitems: [
 				{
-					id: 'fundTransfer',
-					text: 'cashtransfer',
+					id: 'fundTransPanel',
+					text: 'fundTransPanel',
 					link: ''
 				},
 				{
-					id: 'advancePayment',
-					text: 'cashadvance',
+					id: 'fundTransHistory',
+					text: 'fundTransHistory',
 					link: ''
 				},
 				// {
-				// 	id: 'cashadvancebank',
+				// 	id: 'advancePayment',
+				// 	text: 'cashadvance',
+				// 	link: ''
+				// },
+				{
+					id: 'advancePanel',
+					text: 'advancePanel',
+					link: ''
+				},
+				{
+					id: 'matchOrderList',
+					text: 'matchOrderList',
+					link: ''
+				},
+				{
+					id: 'advanceHistory',
+					text: 'advanceHistory',
+					link: ''
+				},
+				// {
+				// 	id: 'advancePaymentBank',
 				// 	text: 'cashadvancebank',
 				// 	link: ''
 				// },
 				{
-					id: 'oddLot',
-					text: 'oddLot',
+					id: 'advanceBankPlace',
+					text: 'advanceBankPlace',
 					link: ''
 				},
 				{
-					id: 'entitlement',
-					text: 'entitlement',
+					id: 'advanceBankHistory',
+					text: 'advanceBankHistory',
+					link: ''
+				},
+				// {
+				// 	id: 'oddLot',
+				// 	text: 'oddLot',
+				// 	link: ''
+				// },
+				{
+					id: 'oddLotOrder',
+					text: 'oddLotOrder',
 					link: ''
 				},
 				{
-					id: 'loanrefund',
-					text: 'loanrefund',
+					id: 'oddLotHistory',
+					text: 'oddLotHistory',
+					link: ''
+				},
+				// {
+				// 	id: 'entitlement',
+				// 	text: 'entitlement',
+				// 	link: ''
+				// },
+				{
+					id: 'entitlementPanel',
+					text: 'entitlementPanel',
+					link: ''
+				},
+				{
+					id: 'actionRightList',
+					text: 'actionRightList',
+					link: ''
+				},
+				{
+					id: 'additionSharesInfo',
+					text: 'additionSharesInfo',
+					link: ''
+				},
+				{
+					id: 'entitlementHistory',
+					text: 'entitlementHistory',
+					link: ''
+				},
+				// ,
+				{
+					id: 'loanRefundPanel',
+					text: 'loanRefundPanel',
+					link: ''
+				},
+				{
+					id: 'loanRefundStatus',
+					text: 'loanRefundStatus',
+					link: ''
+				},
+				{
+					id: 'loanRefundHistory',
+					text: 'loanRefundHistory',
+					link: ''
+				},
+			]
+		},
+		{
+			id: 'help',
+			text: 'help',
+			link: '',
+			subitems: [
+				{
+					id: 'available',
+					text: 'available',
 					link: ''
 				}
 			]
@@ -367,27 +487,54 @@ const config = {
 	],
 
 	widget: [
+		{ i: 'placeorder', 				smW: 3, smH: 6, lgW: 3, lgH: 12, minW: 2, minH: 12, maxW: 3, maxH: 12, isDraggable: true, isResizable: false },
 		{ i: 'enterorder', 				smW: 2, smH: 6, lgW: 2, lgH: 12, minW: 2, minH: 12, maxW: 3, maxH: 12, isDraggable: true, isResizable: false },
-		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 5, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'orderjournal', 			smW: 8, smH: 9, lgW: 6, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'cashTransHistory', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true},
-		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true},
+		{ i: 'orderconfirmation', 		smW: 8, smH: 9, lgW: 6, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true},
 		{ i: 'portfolio', 				smW: 8, smH: 10, lgW: 8, lgH: 28, minW: 6, minH: 20, maxW: 8, maxH: 28, isDraggable: true, isResizable: true},
-		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'orderHistory', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'stockstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'cashstatement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'watchlist', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'stockmarketinform', 		smW: 3, smH: 6, lgW: 3, lgH: 12, minW: 3, minH: 12, maxW: 3, maxH: 18, isDraggable: true, isResizable: false },
-		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minH: 20, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'fundTransfer', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 5, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'advancePayment', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'marginloan', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'available', 				smW: 8, smH: 8, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'marginloan', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'available', 				smW: 8, smH: 8, lgW: 3, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'accountinfo', 			smW: 3, smH: 6, lgW: 3, lgH: 16, minW: 3, minH: 12, maxW: 8, maxH: 16, isDraggable: true, isResizable: false },
-		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 6, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'loanrefund', 				smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'entitlement', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 		{ i: 'techanalysis', 			smW: 8, smH: 9, lgW: 4, lgH: 24, minW: 4, minH: 12, maxW: 4, maxH: 18, isDraggable: true, isResizable: true },
-		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 8, minW: 12, minW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'advancePaymentBank', 		smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'advancePayment', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
 
+		{ i: 'fundTransfer', 			smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'fundTransPanel', 			smW: 2, smH: 9, lgW: 2, lgH: 18, minW: 2, minH: 12, maxW: 3, maxH: 18, isDraggable: true, isResizable: false },
+		{ i: 'fundTransHistory', 		smW: 8, smH: 9, lgW: 6, lgH: 18, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+				
+		{ i: 'advancePanel', 			smW: 2, smH: 6, lgW: 2, lgH: 12, minW: 4, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: false },
+		{ i: 'matchOrderList', 			smW: 8, smH: 8, lgW: 4, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'advanceHistory', 			smW: 8, smH: 7, lgW: 4, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		
+		{ i: 'advanceBankPlace', 		smW: 8, smH: 6, lgW: 8, lgH: 10, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: false },
+		{ i: 'advanceBankHistory', 		smW: 8, smH: 7, lgW: 4, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'matchOrderBankList', 		smW: 8, smH: 8, lgW: 4, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		
+		{ i: 'oddLot', 					smW: 8, smH: 9, lgW: 8, lgH: 18, minW: 4, minH: 20, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'oddLotOrder', 			smW: 8, smH: 7, lgW: 4, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'oddLotHistory', 			smW: 8, smH: 7, lgW: 4, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		
+		{ i: 'entitlementPanel', 		smW: 2, smH: 8, lgW: 2, lgH: 16, minW: 4, minH: 16, maxW: 8, maxH: 18, isDraggable: true, isResizable: false },
+		{ i: 'actionRightList', 		smW: 8, smH: 6, lgW: 4, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'additionSharesInfo', 		smW: 8, smH: 6, lgW: 5, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'entitlementHistory', 		smW: 8, smH: 6, lgW: 5, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		
+		{ i: 'loanRefundPanel', 		smW: 2, smH: 6, lgW: 2, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'loanRefundStatus', 		smW: 8, smH: 6, lgW: 5, lgH: 12, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+		{ i: 'loanRefundHistory', 		smW: 8, smH: 6, lgW: 5, lgH: 14, minW: 4, minH: 12, maxW: 8, maxH: 18, isDraggable: true, isResizable: true },
+
+		{ i: 'tradehistory', 			smW: 8, smH: 6, lgW: 2, lgH: 14, minW: 1, minH: 12, maxW: 4, maxH: 24, isDraggable: true, isResizable: true },
+		{ i: 'tradingchart', 			smW: 8, smH: 6, lgW: 4, lgH: 16, minW: 1, minH: 16, maxW: 8, maxH: 16, isDraggable: true, isResizable: true },
+		
 	],
 
 	tabbar: [

@@ -41,7 +41,7 @@ class EntitlementPanel extends Component {
         let formStyle = this.props.theme.form
         return (
             <div style={{ height: '100%', position: 'relative' }}>
-                <Title language={this.props.language} theme={this.props.theme}>
+                <Title language={this.props.language} theme={this.props.theme} widgetID= 'entitlementPanel' >
                     {this.props.language.menu[this.id]}
                 </Title>
                 <Body theme={this.props.theme}  style={background}>
