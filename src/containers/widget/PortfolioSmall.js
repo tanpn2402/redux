@@ -126,7 +126,7 @@ class PortfolioSmall extends React.Component {
 
         return (
             <Component className="trd-body" theme={theme}>
-                <label style={theme.font.main}>{this.props.language.menu.portfolio}</label>
+                <label style={theme.font.main} className="por-sm-title">{this.props.language.menu.portfolio}</label>
                 <div className="por-sm-table">
                     <TTLTable data={this.state.data} header={header} theme={this.props.theme} pivot={this.pivot}
                         getTHeaderProps={(theader)=> {

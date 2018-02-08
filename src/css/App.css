@@ -2136,7 +2136,7 @@ label {
     position: absolute;
 }
 .widget-body .table-main {
-    padding-top: 28px;
+    padding-top: 26px;
     padding-bottom: 27px;
     height: 100%;
     width: 100%;
@@ -2182,6 +2182,9 @@ label {
     background-color: #cec69f;
 }
 .widget-form .select-control input:focus {
+    background-color: unset;
+}
+.widget-form input.read-only:focus {
     background-color: unset;
 }
 /* END WIDGET HEADER */
@@ -3895,7 +3898,10 @@ label {
     padding-left: 1px;
 
 }
-
+.por-sm-title {
+    padding-top: 4px !important;
+    padding-bottom: 3px !important;
+}
 /* END PORTFOLIO SM */
 
 /* TRADE LOG */
