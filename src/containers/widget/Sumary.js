@@ -167,7 +167,10 @@ class Sumary extends React.Component {
                 value: 92.18,
             }
         ]
-
+        let pieSize={
+          width:270,
+          height:270,
+        }
         let selectorStyles = {
             background: "#2159a0",
             color: "#FFF"
@@ -201,9 +204,9 @@ class Sumary extends React.Component {
                 </div>
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
-                        <div className="col-xs-2" style={{height: '100%',
-                            marginTop: '-35px', paddingTop: '40px'}}>
-                            <PieChart theme={this.props.theme} colors={[]} data={data}/>
+                        <div className="col-xs-2" style={{height: '100%' ,
+                            marginTop: '-35px', paddingTop: '14px'}}>
+                            <PieChart theme={this.props.theme} colors={[]} data={data} pieSize={pieSize}/>
                         </div>
                         <div className="col-xs-10 acc-sum-info" >
                             <div className="col-sm-3" style={{height: '100%',

@@ -3659,7 +3659,11 @@ label {
 #pieChartSVG{
     margin-top: 30px;
 }
-
+.pieValues {
+    font-size: 5px;
+    font-weight: bold;
+    z-index: 999;
+}
 
 .ttl-table {
     font-size: 12px;
