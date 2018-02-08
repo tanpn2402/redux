@@ -87,3 +87,6 @@ export const STOCKWATCHDATAUPDATE = 'getStockWatchInfo.action';
 export const GETLISTSTOCKINWATCHLIST = 'ITradePushServer/WatchList/{clientID}';
 export const WATCHLISTADD = 'ITradePushServer/WatchListAdd/{clientID}/{stockCode}/{marketID}';
 export const WATCHLISTREMOVE = 'ITradePushServer/WatchListRemove/{clientID}/{stockCode}';
+
+// TRADING ACCOUNT
+export const GETTRADINGACCLIST = 'getTradingAccList.action';

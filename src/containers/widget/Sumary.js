@@ -18,8 +18,8 @@ class Sumary extends React.Component {
         
         this.state = {
             //sub account
-            mvListSubAcc: ["C08000011", "C08000012"],
-            mvSubAccSelected: "C08000011",
+            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
+            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
         }
 
     }
@@ -186,10 +186,11 @@ class Sumary extends React.Component {
                         <label>{this.props.language.menu[this.id]}</label>
                     </div>
                     <div className="col-xs-10 sum-subaccount">
-                        <div className="account-name"><span>Trading Account</span></div>
+                        <div className="account-name"><span>{this.state.mvSubAccSelected.subAccountName}</span></div>
                         <Select
                             style={selectorStyles}
                             key="rSubAccSelector"
+                            optionLabelPath={'subAccountID'}
                             ref={r => this.rSubAccSelector = r}
                             options={this.state.mvListSubAcc}
                             selected={this.state.mvSubAccSelected}
@@ -367,6 +368,8 @@ class Sumary extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.trading.portfolioData,
+        
+        tradingAccount: state.dologin.tradingAccount
     }
 }
 

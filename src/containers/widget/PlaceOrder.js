@@ -48,8 +48,8 @@ class PlaceOrder extends React.Component {
             mvSettlementAccSelected: null,
 
             //sub account
-            mvListSubAcc: ["C08000011", "C08000012"],
-            mvSubAccSelected: "C08000011",
+            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
+            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
         }
 
         this.store = {
@@ -77,7 +77,7 @@ class PlaceOrder extends React.Component {
             mvBankID: null,
 
             mvSettlementAccSelected: null,
-            mvSubAccSelected: "C08000011"
+            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0]
         }
         
     }
@@ -285,7 +285,7 @@ class PlaceOrder extends React.Component {
                         onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
                     <div className="pl-sub-account">
                         <div style={theme.font.main} className="account-name">
-                            <span>Trading Account</span>
+                            <span>{this.state.mvSubAccSelected.subAccountName}</span>
                             <span className="info-icon">
                                 <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance()}></span>
                             </span>
@@ -293,6 +293,7 @@ class PlaceOrder extends React.Component {
                         <Select
                             style={selectorStyles}
                             key="rSubAccSelector"
+                            optionLabelPath={'subAccountID'}
                             ref={r => this.rSubAccSelector = r}
                             options={this.state.mvListSubAcc}
                             selected={this.state.mvSubAccSelected}
@@ -1397,7 +1398,9 @@ const mapStateToProps = (state) => {
         accountBalance: state.accountinfo.accountBalance,
 
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
-        portfolioData: state.trading.portfolioData.mvPortfolioBeanList
+        portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
+
+        tradingAccount: state.dologin.tradingAccount
     }
 }
 

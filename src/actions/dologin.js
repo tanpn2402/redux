@@ -179,19 +179,39 @@ export function checkAuth() {
 
                                 // console.log(config.cache, savedContent, localStorage.getItem("lastLang"))
                             }
-                            // -> get customer service
+
+                            // -> get client trading account
                             return (dispatch) => {
-                                api.post(ACTION.GETCUSTOMERSERVICE, {}, dispatch, function (responseForGetCustomerService) {
-                                    // get customer service SUCCESS
-                                    return {
-                                        type: ActionTypes.CHECKAUTH,
-                                        userSavedData: responseForGetUserData,
-                                        userService: responseForGetCustomerService,
-                                        status: "SUCCESS",
-                                    }
-                                },
+                                api.post(ACTION.GETTRADINGACCLIST, {}, dispatch, 
+                                    function (responseForTradingAcc) {
+                                        // get trading account SUCCESS
+
+                                        // -> get customer service
+                                        return (dispatch) => {
+                                            api.post(ACTION.GETCUSTOMERSERVICE, {}, dispatch, 
+                                                function (responseForGetCustomerService) {
+                                                    // get customer service SUCCESS
+                                                    return {
+                                                        type: ActionTypes.CHECKAUTH,
+                                                        userSavedData: responseForGetUserData,
+                                                        userService: responseForGetCustomerService,
+                                                        tradingAccount: responseForTradingAcc,
+                                                        status: "SUCCESS",
+                                                    }
+                                                },
+                                                function (err) {
+                                                    // get customer service ERROR
+                                                    return {
+                                                        type: ActionTypes.CHECKAUTH,
+                                                        userSavedData: responseForGetUserData,
+                                                        tradingAccount: responseForTradingAcc,
+                                                        status: "SUCCESS",
+                                                    }
+                                                })
+                                        }
+                                    },
                                     function (err) {
-                                        // get customer service ERROR
+                                        // get trading account ERROR
                                         return {
                                             type: ActionTypes.CHECKAUTH,
                                             userSavedData: responseForGetUserData,
@@ -199,6 +219,9 @@ export function checkAuth() {
                                         }
                                     })
                             }
+
+                            
+                                        
                         },
                             function (err) {
                                 // get user saved data ERROR

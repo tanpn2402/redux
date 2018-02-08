@@ -294,20 +294,26 @@ export function formatQty(num){
 }
 
 export function formatCurrency(num, q){
-	if(!num || num.toString().length == 0){
-      return "0.00"
+    let tmp = num
+	try {
+        if(!num || num.toString().length == 0){
+            return "0.00"
+        }
+        num = num.toString()
+        if(num.indexOf(',') > 0 || num.indexOf('.') < 0){
+            num = parseFloat(num.replace(/\,/g, '')) / 1000
+        }  	
+        if(!q)
+            num = parseFloat(num).toFixed(parseInt(2)).toString()
+        else if(q && !isNaN(parseInt(q))) {
+            num = parseFloat(num).toFixed(parseInt(q)).toString()
+        }
+        let m = /(\d+)(?:(\.\d+)|)/.exec(num + "")
+        let x = m[1].length > 3 ? m[1].length % 3 : 0;
+        num = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',') + m[2];
+        return num
+    } catch(e) {
+        return tmp
     }
-  	num = num.toString()
-  	if(num.indexOf(',') > 0 || num.indexOf('.') < 0){
-     	num = parseFloat(num.replace(/\,/g, '')) / 1000
-    }  	
-    if(!q)
-      	num = parseFloat(num).toFixed(parseInt(2)).toString()
-  	else if(q && !isNaN(parseInt(q))){
-      	num = parseFloat(num).toFixed(parseInt(q)).toString()
-    }
-    let m = /(\d+)(?:(\.\d+)|)/.exec(num + "")
-    let x = m[1].length > 3 ? m[1].length % 3 : 0;
-   	num = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',') + m[2];
-    return num
+    
 }

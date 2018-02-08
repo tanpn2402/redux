@@ -17,6 +17,10 @@ const initialState = {
     userService: {
         mvListCustServiceBean: [],
         mvListDefaultServiceBean: []
+    },
+
+    tradingAccount: {
+        tradingAccountSelection: []
     }
 }
 export default function(state = initialState, action) {
@@ -30,7 +34,9 @@ export default function(state = initialState, action) {
             return Object.assign({}, state, {
                 loginStatus: action.status,
                 userSavedData: action.userSavedData,
-                userService: action.userService
+                userService: action.userService,
+
+                tradingAccount: action.tradingAccount == undefined ? state.tradingAccount : action.tradingAccount.mvTradingAccountBean
             });
 
         case ActionTypes.CHECKSESSION:
