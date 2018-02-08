@@ -333,6 +333,17 @@ export default
                         "cancel": "Hủy lệnh",
                     }
                 },
+                "ordertype":{
+                    "L":"Thường",
+                    "O":"ATO",
+                    "C":"ATC",
+                    "P":"Thoả thuận",
+                    "M":"MP",
+                    "B":"MOK",
+                    "Z":"MAK",
+                    "R":"MTL"
+                },
+                "reject":"Chi Tiết",
                 "action": {
                     "cancelorder": "Hủy lệnh"
                 },

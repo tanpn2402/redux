@@ -317,7 +317,8 @@ class AccountInfo extends Component {
 				this.disableOverDueDebtTab = false
 				this.state.tabList[2].cls = 'normal'
 
-				var forceSellDays = data.forceSellDays + " " + language.overdueDebt.days
+				var forceSellDays = data.forceSellDays == undefined ? 0 : data.forceSellDays + " " + 
+					language.overdueDebt.header.days
 				this.setState({
 					overdueDebt : [
 						{
@@ -656,7 +657,7 @@ class AccountInfo extends Component {
 							
                             
                         </TabItem>
-                        <TabItem eventKey={4} title={language.accountinfo.title.upcomingduedebt} disabled>
+                        {/* <TabItem eventKey={4} title={language.accountinfo.title.upcomingduedebt} disabled>
                             
 				
 							<div className="table-responsive" style={{ height: '100%' }}>
@@ -687,7 +688,7 @@ class AccountInfo extends Component {
 							</div>
 							
                             
-                        </TabItem>
+                        </TabItem> */}
                     </TabControl>
 				</Body>
 			</div>

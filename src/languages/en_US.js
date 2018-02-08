@@ -335,6 +335,18 @@ export default
                         "cancel": "Confirm Cancel"
                     }
                 },
+                "ordertype":{
+                  "L":"Normal",
+                  "All":"ALL",
+                  "O": "ATO",
+                  "C": "ATC",
+                  "P": "Put through",
+                  "M": "MP",
+                  "B": "MOK",
+                  "Z": "MAK",
+                  "R": "MTL",
+                },
+                "reject":"Detail",
                 "action": {
                     "cancelorder": "Cancel"
                 },

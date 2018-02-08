@@ -212,6 +212,14 @@ class OrderJournal extends Component {
                 {
                     id: 'ordertype',
                     accessor: 'mvOrderType',
+                    Cell: props => {
+                        if (props.aggregated) {
+
+                        } else {
+                            let text = this.props.language.orderjournal.ordertype[props.original.mvOrderTypeValue]
+                            return text == undefined ? props.original.mvOrderType : text
+                        }
+                    },
                     width: 80,
                     skip: false,
                     show: true,
@@ -266,11 +274,13 @@ class OrderJournal extends Component {
                     accessor: 'mvRejectReason',
                     width: 80,
                     Cell: props => {
-                        return (
-                            <div className='rejectReason' style={{color:'blue'}} onClick={this.handleReject}>
-                                 {props.original.mvRejectReason}   
-                            </div>
-                        )
+                      let text=this.props.language.orderjournal.reject
+                      if (props.original.mvRejectReason != "")
+                      return (
+                          <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(props.original.mvRejectReasonDetail)}>
+                            {text}
+                          </div>
+                      )
                     },
                     skip: false,
                     show: true,
@@ -325,10 +335,10 @@ class OrderJournal extends Component {
 
     onModifyOrder(order) {
         this.handleModifyOrder(order)
-        console.log(order)
     }
-    handleReject(){
-        
+
+    handleReject(detail) {
+        this.props.onShowMessageBox(this.props.language.messagebox.title.info, detail)        
     }
 
 

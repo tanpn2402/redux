@@ -1385,7 +1385,7 @@ class PlaceOrder extends React.Component {
     showAccBalance() {
         this.props.showOrderConfirm({
             data: {},
-            title: this.props.language.menu.accountbalance + " - " + this.value.mvSubAccSelected,
+            title: this.props.language.menu.accountbalance ,
             language: this.props.language,
             theme: this.props.theme,
             id: 'accountbalance',
