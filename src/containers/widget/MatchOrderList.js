@@ -94,6 +94,15 @@ class MatchOrderList extends Component {
             ],
             filterable: false
         }
+
+        this.querySoldOrdersParams = {
+            mvLastAction: "OTHERSERVICES",
+            mvChildLastAction: "ADVANCE",
+            key: new Date().getTime(),
+            start: 0,
+            limit: this.defaultPageSize,
+            page: 1,
+        }
     }
 
 
@@ -146,15 +155,9 @@ class MatchOrderList extends Component {
 
     componentDidMount() {
         this.props.getQuerySoldOrders(this.querySoldOrdersParams)
-
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.language !== undefined) {
-            this.setState({
-
-            })
-        }
     }
 
     onOrderMatchListChangeStateColumn(e) {
@@ -164,25 +167,17 @@ class MatchOrderList extends Component {
         });
     }
 
-    onOrderMatchListNextPage() {
-        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex + 1 });
-    }
-
-    onOrderMatchListPrevPage() {
-        this.setState({ orderMatchListPageIndex: this.state.orderMatchListPageIndex - 1 });
-    }
-
-    onOrderMatchListReloadPage() {
-
-    }
+  
     onOrderMatchListPageChange(pageIndex) {
-        this.setState({ orderMatchListPageIndex: pageIndex });
+        this.state.orderMatchListPageIndex = pageIndex
+        this.querySoldOrdersParams["page"] = pageIndex
+        this.querySoldOrdersParams["start"] = (pageIndex - 1) * this.querySoldOrdersParams["limit"]
+        this.props.getQuerySoldOrders(this.querySoldOrdersParams)
     }
 }
 const mapStateToProps = (state) => {
     return {
         soldOrders: state.cashadvance.soldOrders,
-
     }
 }
 

@@ -190,8 +190,13 @@ class EntitlementPanel extends Component {
     }
 
     componentDidMount() {
-        this.props.getqueryBankInfo(this.queryBankInfoParams)
-        this.props.getEntitlementStockList(this.getEntitlementStockListParams)
+        this.props.getqueryBankInfo({
+            key:new Date().getTime()
+        })
+        this.props.getEntitlementStockList({
+            mvLastAction: "OTHERSERVICES",
+            mvChildLastAction: "ENTITLEMENT"
+        })
         this.props.entitlementGetAccountBalance({
             me: this,
             bankInfo: {

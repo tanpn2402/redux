@@ -144,7 +144,7 @@ class EntitlementHistory extends Component {
     }
 
     componentDidMount() {
-        this.props.getHistorylist(this.params)
+        this.props.getHistorylist(this.paramshis)
     }
 
     componentWillReceiveProps(nextProps) {
