@@ -4,6 +4,8 @@ import * as actions from '../../actions'
 import TTLTable from "../commons/TTLTable"
 import moment from "moment"
 import Select from "../commons/Select"
+import Title from '../commons/WidgetTitle'
+import Body from '../commons/WidgetBody'
 import config from '../../core/config'
 import Component from "../commons/Component"
 import * as utils from '../../utils'
@@ -158,19 +160,11 @@ class TradeHistory extends Component {
     render() {
         let theme = this.props.theme
         return (
-            <Component className="trd-body" theme={theme}>
-                <div className="trd-log-control">
-                    <label style={theme.font.main}>{this.props.language.menu.tradehistory}</label>
-                    {/* <div className="trd-log-filter">
-                        <Select
-                            options={this.listFilter}
-                            selected={this.state.filterSelected}
-                            optionLabelPath={"text"}
-                            handleChange={this.handleFilterChange.bind(this)}
-                        />
-                    </div> */}
-                </div>
-                <TradeLogTable {...this.props} />
+            <Component className="trd-body" theme={theme} style={{position: "relative", width: '100%', height: '100%' }} >
+                <Title language={this.props.language} theme={theme} widgetID= 'tradehistory'> 
+                    {this.props.language.menu.tradehistory} 
+                </Title>
+                <Body theme={theme}><TradeLogTable {...this.props} /></Body>/>
             </Component>
         )
     }
@@ -181,6 +175,7 @@ class TradeHistory extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        tabID: state.menuSelected.tabID,
         instrument: state.trading.instrument
     }
 }

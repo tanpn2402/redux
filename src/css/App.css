@@ -1807,6 +1807,7 @@ label {
     border: 1px solid #dcdcdc;
     width: 55px;
     border-radius: 2px;
+    color: #000 !important;
 }
 
 .form-inline.search-bar .hks-input.page-input {
@@ -3118,6 +3119,9 @@ label {
     padding-top: 0px !important;
 }
 
+#enterorder .widget-wrapper.title {
+    padding-top: 20px !important;
+}
 /* Listview-control */
 .listview-control {
     width: 100%;
@@ -3910,7 +3914,7 @@ label {
 
 /* TRADE LOG */
 .trd-log-table {
-    height: calc(100% - 27px);
+    height: calc(100% - 5px);
     padding-right: 1px;
     padding-left: 1px;
 }
@@ -4667,10 +4671,10 @@ input[type=number] {
     border-collapse: collapse;
 }
 .mk-news-table th {
-    height: 26px;
-    background-color: #005AA0;
-    color: #FFF;
-    font-weight: normal;
+    height: 20px;
+    background-color: inherit;
+    color: inherit;
+    font-weight: 600;
     border: 1px solid transparent;
 }
 .mk-news-table td {

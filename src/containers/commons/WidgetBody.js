@@ -22,7 +22,7 @@ export default class WidgetBody extends Component {
             return (
                 <div className="widget-body" onMouseDown={ e => e.stopPropagation()} style={{background: widgetBackground}} 
                     ref={ref => this.Body = ref}>
-                    <div className="widget-wrapper" ref={ref => this.Wrapper = ref} style={Object.assign({backgroundColor: widgetBackground}, this.props.style)}>
+                    <div className={"widget-wrapper " + this.props.className} ref={ref => this.Wrapper = ref} style={Object.assign({backgroundColor: widgetBackground}, this.props.style)}>
                         {this.props.children}
                     </div>
                 </div>
@@ -34,5 +34,6 @@ export default class WidgetBody extends Component {
 }
 
 WidgetBody.defaultProps= {
-    style: {}
+    style: {},
+    className: ""
 }

@@ -62,6 +62,7 @@ class MarketNews extends React.Component {
         let background = this.props.theme.widget.widgetBackground
         let tableStyles = this.props.theme.table
         let language = this.props.language.marketinfo
+        let widgetStyle = this.props.theme.widget
 
         let news = [
             {
@@ -83,7 +84,7 @@ class MarketNews extends React.Component {
         return (
             <div className="mk-trading-tab" style={background}>
                 <table className="mk-news-table">
-                    <thead>
+                    <thead style={widgetStyle.widgetHeader}>
                         <th className="news-day" style={{width: "90px", textAlign: "center"}}>{language.header.day}</th>
                         <th className="news-intro">{language.header.intro}</th>
                     </thead>
@@ -136,6 +137,8 @@ class MarketReports extends React.Component {
         let background = this.props.theme.widget.widgetBackground
         let tableStyles = this.props.theme.table
         let language = this.props.language.marketinfo
+        let widgetStyle = this.props.theme.widget
+
         let news = [
             {
                 day: "28/01/2018",
@@ -156,7 +159,7 @@ class MarketReports extends React.Component {
         return (
             <div className="mk-trading-tab" style={background}>
                 <table className="mk-news-table">
-                    <thead>
+                    <thead style={widgetStyle.widgetHeader}>
                         <th className="news-day" style={{width: "90px", textAlign: "center"}}>{language.header.day}</th>
                         <th className="news-type">{language.header.type}</th>
                         <th className="news-intro">{language.header.intro}</th>
