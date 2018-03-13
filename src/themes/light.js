@@ -360,7 +360,7 @@ export default {
             color: "#000"
         },
         nochange: {
-            color: "#005AA0"
+            color: "#fc0"
         }
     },
 

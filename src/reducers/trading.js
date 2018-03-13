@@ -182,7 +182,7 @@ export default function(state = initialState, action) {
             let list = action.list
             let listAAA = list.map(e => { return e.mvStockCode })
             // list = [{mvStockCode: XXX, mvMarket: YYY}, {....}, ....]
-            let listDataTmp3 = action.stockData
+            let listDataTmp3 = action.stockData.concat(state.listInstrumentData)
             let tmpIns = listAAA.length > 0 ? listAAA[0] : ""
             let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...listAAA])]
             config.cache.listInstrumentToWatch = tmp12
@@ -218,7 +218,8 @@ export default function(state = initialState, action) {
             }
 
             return Object.assign({}, state, {
-                listInstrumentData: bbbtp
+                listInstrumentData: bbbtp,
+                instrumentData: action.data
             })
         }
 

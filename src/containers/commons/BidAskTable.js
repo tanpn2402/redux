@@ -421,7 +421,9 @@ const mapStateToProps = (state) => {
         listInstrumentData: state.trading.listInstrumentData,
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
         portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
-        flag: state.trading.flag
+        flag: state.trading.flag,
+
+        instrumentData: state.trading.instrumentData,
     }
 }
 

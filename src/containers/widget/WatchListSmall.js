@@ -385,6 +385,8 @@ const mapStateToProps = (state) => {
         listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
         listInstrumentData: state.trading.listInstrumentData,
 
+        instrumentData: state.trading.instrumentData,
+
         // derivative
         derivativeList: state.trading.derivativeList
     }
