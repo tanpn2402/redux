@@ -47,7 +47,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvReferences", "reference")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
@@ -56,7 +56,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {  
                                 return this.onRowStatusChange(row, "mvCeiling", "reference")    
                                 },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
@@ -65,7 +65,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvFloor", "reference")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber)
@@ -83,7 +83,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -93,7 +93,8 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol3", "bid3")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -104,7 +105,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -114,7 +115,8 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol2", "bid2")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -124,7 +126,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -134,7 +136,8 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol1", "bid1")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -150,14 +153,16 @@ class WatchListTable extends React.Component {
                     {
                         id: 'stock',
                         accessor: 'mvStockCode',
-                        width: 45,
+                        minWidth: 45,
+                        maxWidth: 90,
                         show: true,
                         skip: false,
                         background: this.props.theme.watchlist.oddCol,
                     }, {
                         id: 'market',
                         accessor: 'mvMarket',
-                        width: 45,
+                        minWidth: 45,
+                        maxWidth: 90,
                         show: true,
                         skip: false,
                         background: this.props.theme.watchlist.oddCol,
@@ -168,7 +173,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -178,7 +183,8 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVol", "matching")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -188,7 +194,8 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVolTotal", "matching")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -228,7 +235,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -238,7 +245,8 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol1", "offer1")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -249,7 +257,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -259,7 +267,8 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol2", "offer2")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -269,7 +278,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -279,7 +288,8 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol3", "offer3")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
                             background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber)
@@ -297,7 +307,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvOpen")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -306,7 +316,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvHigh")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -315,7 +325,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvLow")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -324,7 +334,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvNomial")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
@@ -340,7 +350,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForBuy", "foreigninvestment")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
@@ -349,7 +359,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForSell", "foreigninvestment")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
@@ -358,7 +368,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForRoom", "foreigninvestment")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({}, this.props.theme.watchlist.evenCol, this.props.theme.table.colNumber),
@@ -415,7 +425,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvReferences", "reference")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
@@ -424,7 +434,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {  
                                 return this.onRowStatusChange(row, "mvCeiling", "reference")    
                                 },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
@@ -433,7 +443,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvFloor", "reference")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
@@ -450,7 +460,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -469,7 +479,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -487,7 +497,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -512,24 +522,26 @@ class WatchListTable extends React.Component {
                     {
                         id: 'stock',
                         accessor: 'mvStockCode',
-                        width: 45,
+                        minWidth: 45,
+                        maxWidth: 90,
                         show: true,
                         skip: false,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({},props.theme.watchlist.oddCol),
                     }, {
                         id: 'market',
                         accessor: 'mvMarket',
-                        width: 45,
+                        minWidth: 45,
+                        maxWidth: 90,
                         show: true,
                         skip: false,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({},props.theme.watchlist.oddCol),
                     },
                     {
                         id: 'price',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
@@ -584,7 +596,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -603,7 +615,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -621,7 +633,7 @@ class WatchListTable extends React.Component {
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
-                            width: 48,
+                            minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
                             background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
@@ -648,7 +660,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvOpen")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
@@ -657,7 +669,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvHigh")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
@@ -666,7 +678,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvLow")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
@@ -675,7 +687,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvNomial")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
@@ -691,7 +703,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForBuy")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
@@ -700,7 +712,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForSell")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
@@ -709,7 +721,7 @@ class WatchListTable extends React.Component {
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvForeignForRoom")
                         },
-                        width: 48,
+                        minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
                         background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
@@ -1006,7 +1018,10 @@ class WatchListTable extends React.Component {
                 style = Object.assign({}, style, fontColor)
                 return <div className="value-ref" style={fontColor.ref}>{data[accessor]}</div>
             }
-
+            else {
+                style = Object.assign({}, style, fontColor)
+                return <div className="value-static" style={fontColor.ref}>{data[accessor]}</div>
+            }
 
 
         } else {

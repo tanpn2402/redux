@@ -44,7 +44,8 @@ import { showPopup } from './popup'
 
 import { changeInstrument, removeInstrumentFromWatch, addInstrumentToWatch,
   removeInstrumentFromWatchList, addInstrumentToWatchList, updateWatchlistData,
-  getListStockInWatchList } from './trading'
+  getListStockInWatchList, unSubcribeDerivativeInfo, subcribeDerivativeInfo, getDerivativeList,
+  updateDerivativeData } from './trading'
 
 import {updateTradeLog, getTradeLogData, getTradeLogDataOfStock } from './tradelog'
 import { updateMarketData, getMarketData } from './marketdata'
@@ -203,6 +204,10 @@ export {
   removeInstrumentFromWatchList,
   updateWatchlistData,
   getListStockInWatchList,
+  unSubcribeDerivativeInfo, 
+  subcribeDerivativeInfo, 
+  getDerivativeList,
+  updateDerivativeData,
 
   // trade log
   updateTradeLog,

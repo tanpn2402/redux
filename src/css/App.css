@@ -332,6 +332,7 @@ label {
 }
 .ReactTable .rt-thead.-headerGroups {
     border-bottom: none;
+    padding-right: 8px;
 }
 .ReactTable .rt-table>.rt-thead.-headerGroups>.rt-tr>.rt-th{
     border-right: 1px solid rgba(187, 186, 186, .3);
@@ -2998,6 +2999,7 @@ label {
 .ReactTable .rt-thead.-header {
     -webkit-box-shadow: none;
     box-shadow: none;
+    padding-right: 8px;
 
 }
 .ReactTable .rt-tr-group:hover {
@@ -3773,6 +3775,26 @@ label {
 }
 .wl-sm-tab-title {
     padding-left: 8px;
+}
+.wl-index {
+
+}
+.wl-index .fa {
+    font-size: 16px;
+    margin: 0 3px;
+}
+.wl-index .fa.fa-square {
+    font-size: 12px;
+}
+.wl-index .index-stat {
+    padding: 0 5px;
+}
+.wl-index .index-status {
+    padding: 0 5px;
+}
+.wl-index .index-name {
+    min-width: 110px;
+    display: inline-block;
 }
 /* end  */
 

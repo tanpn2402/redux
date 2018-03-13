@@ -9,6 +9,7 @@ import Component from "../commons/Component"
 import * as utils from "../../utils"
 import {TabControl, TabItem} from "../commons/TabControl"
 import RecommendTable from "./RecommendTable"
+import {Icon}   from "react-fa"
 
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
@@ -72,9 +73,18 @@ class WatchListSmall extends React.Component {
 
     render() {
         let currency = "VND"
-        let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio} = this.props
-        let data = listInstrumentData.filter(stock => {
-            if(listInstrumentInWatchList.indexOf(stock.mvStockCode) > -1) {
+        let {listInstrumentData, listInstrumentInWatchList, listInstrumentInPortfolio, derivativeList} = this.props
+        let data = []
+        
+        // combine: derivative + watchlist
+        let listStockCombined = []
+        if(this.state.activeKey == 1) {
+            listStockCombined = listInstrumentInWatchList.concat(derivativeList)
+        } else {
+            listStockCombined = listInstrumentInWatchList
+        }
+        data = listInstrumentData.filter(stock => {
+            if(listStockCombined.indexOf(stock.mvStockCode) > -1) {
                 return stock
             }
         })
@@ -82,15 +92,22 @@ class WatchListSmall extends React.Component {
         let language = this.props.language.watchlist.header
         let header = [
             {
+                title: language.market,
+                style: {width: "55px"},
+                bodyStyle: {width: "55px"},
+                accessor: "mvMarket",
+                cell: p => { return <span></span> }
+            },
+            {
                 title: language.stock,
-                style: {width: "10%"},
-                bodyStyle: {width: "10%"},
+                style: {width: "55px"},
+                bodyStyle: {width: "55px"},
                 accessor: "mvStockCode",
             },
             {
                 title: language.price,
-                style: {width: "16%", textAlign: "right"},
-                bodyStyle: {width: "16%", textAlign: "right"},
+                style: {width: "calc(16% - 30px)", textAlign: "right"},
+                bodyStyle: {width: "calc(16% - 30px)", textAlign: "right"},
                 accessor: "mvMatchPrice",
                 cell: props => {
                     return this.fillColor(props, "mvMatchPrice", "price")
@@ -98,8 +115,8 @@ class WatchListSmall extends React.Component {
             },
             {
                 title: language.volume,
-                style: {width: "22%", textAlign: "right"},
-                bodyStyle: {width: "22%", textAlign: "right"},
+                style: {width: "calc(22% - 25px)", textAlign: "right"},
+                bodyStyle: {width: "calc(22% - 25px)", textAlign: "right"},
                 accessor: "mvMatchVol",
                 cell: props => {
                     return this.fillColor(props, "mvMatchVol", "quantity")
@@ -107,8 +124,8 @@ class WatchListSmall extends React.Component {
             },
             {
                 title: language.totalvol,
-                style: {width: "22%", textAlign: "right"},
-                bodyStyle: {width: "22%", textAlign: "right"},
+                style: {width: "calc(22% - 25px)", textAlign: "right"},
+                bodyStyle: {width: "calc(22% - 25px)", textAlign: "right"},
                 accessor: "mvMatchVolTotal",
                 cell: props => {
                     return this.fillColor(props, "mvMatchVolTotal", "quantity")
@@ -116,8 +133,8 @@ class WatchListSmall extends React.Component {
             },
             {
                 // title:  this.state.modeView == MODE_CHANGE ? language.change : language.volume,
-                style: {width: "15%", textAlign: "right", paddingRight: "4px"},
-                bodyStyle: {width: "15%", textAlign: "right", paddingRight: "5px"},
+                style: {width: "calc(15% - 30px)", textAlign: "right", paddingRight: "4px"},
+                bodyStyle: {width: "calc(15% - 30px)", textAlign: "right", paddingRight: "5px"},
                 title: props => {
                     return (
                         <div>
@@ -158,7 +175,7 @@ class WatchListSmall extends React.Component {
                 <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
                     <TabItem eventKey={1} title={this._renderTitle(this.props.language.menu.watchlist, 1)} >
                         <div className="wl-sm-table">
-                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme} n={this.n} 
+                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme} pivot={"mvMarket"} 
                                 getTRowProps={(data) => {
                                     if(data.mvStockCode == this.state.stockSelected) {
                                         return {
@@ -174,13 +191,41 @@ class WatchListSmall extends React.Component {
                                     }
                                     
                                 }}
+                                getGroupHeaderProps={(data) => {
+                                    return {
+                                        style:{
+                                            backgroundColor: "#2159a0",
+                                            width: "100%",
+                                            color: "white",
+                                            paddingLeft: '10px'  
+                                        },
+                                        render: (props) => {
+                                            return (
+                                                <span className="wl-index">
+                                                    <span className="index-name">{props["mvMarket"]}</span>
+                                                    <span className="index-vl" style={theme.bindingdata.up}>
+                                                        <Icon name="caret-up" />
+                                                        <span >{props["mvMarket"] == "HO" ? "1,123.37 (2.92 0.26%)" : props["mvMarket"] == "HA" ? "1,564.71 (3.57 0.23%)" : "1,102.13 (4.84 0.44%)" }</span>
+                                                    </span>
+
+                                                    <span className="index-stat">
+                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 2 }</span></span>
+                                                        <span  style={theme.bindingdata.nochange}><Icon name="caret-down" /> <span>{props["mvMarket"] == "HO" ? 76 : props["mvMarket"] == "HA" ? 70 : 0 }</span></span>
+                                                        <span  style={theme.bindingdata.down}><Icon name="square" /> <span>{props["mvMarket"] == "HO" ? 202 : props["mvMarket"] == "HA" ? 88 : 2 }</span></span>                                         
+                                                    </span>
+                                                    <span className="index-status">Intermission</span>
+                                                </span>
+                                            )
+                                        }
+                                    }
+                                }}
                                 onRowClick={(e, props) => this.onRowClick(e, props) }
                             />
                         </div>
                     </TabItem>
                     <TabItem eventKey={2} title={this._renderTitle(this.props.language.menu.recommendation, 2)} >
                         <div className="wl-sm-table">
-                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme}
+                            <TTLTable className="watchlist-small" data={data} header={header} theme={this.props.theme} pivot={"mvMarket"} 
                                 getTRowProps={(data) => {
                                     if(data.mvStockCode == this.state.stockSelected) {
                                         return {
@@ -195,6 +240,34 @@ class WatchListSmall extends React.Component {
                                         }
                                     }
                                     
+                                }}
+                                getGroupHeaderProps={(data) => {
+                                    return {
+                                        style:{
+                                            backgroundColor: "#2159a0",
+                                            width: "100%",
+                                            color: "white",
+                                            paddingLeft: '10px'  
+                                        },
+                                        render: (props) => {
+                                            return (
+                                                <span className="wl-index">
+                                                    <span className="index-name">{props["mvMarket"]}</span>
+                                                    <span className="index-vl" style={theme.bindingdata.up}>
+                                                        <Icon name="caret-up" />
+                                                        <span >{props["mvMarket"] == "HO" ? "1,123.37 (2.92 0.26%)" : props["mvMarket"] == "HA" ? "1,564.71 (3.57 0.23%)" : "1,102.13 (4.84 0.44%)" }</span>
+                                                    </span>
+
+                                                    <span className="index-stat">
+                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 2 }</span></span>
+                                                        <span  style={theme.bindingdata.nochange}><Icon name="caret-down" /> <span>{props["mvMarket"] == "HO" ? 76 : props["mvMarket"] == "HA" ? 70 : 0 }</span></span>
+                                                        <span  style={theme.bindingdata.down}><Icon name="square" /> <span>{props["mvMarket"] == "HO" ? 202 : props["mvMarket"] == "HA" ? 88 : 2 }</span></span>                                         
+                                                    </span>
+                                                    <span className="index-status">Intermission</span>
+                                                </span>
+                                            )
+                                        }
+                                    }
                                 }}
                                 onRowClick={(e, props) => this.onRowClick(e, props) }
                             />
@@ -310,7 +383,10 @@ const mapStateToProps = (state) => {
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
         portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
         listInstrumentInPortfolio: state.trading.listInstrumentInPortfolio,
-        listInstrumentData: state.trading.listInstrumentData
+        listInstrumentData: state.trading.listInstrumentData,
+
+        // derivative
+        derivativeList: state.trading.derivativeList
     }
 }
 

@@ -10,7 +10,7 @@ export default class QuickOrder extends React.Component {
         return (
             <div>  
                 <div className="modal-body" style={{height: "244px", padding: "2px"}}>
-                    <PlaceOrder {...this.props} />
+                    <PlaceOrder showTitle={false} {...this.props} />
                 </div>
             </div>
         )

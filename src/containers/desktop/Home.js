@@ -69,6 +69,7 @@ class Home extends Component {
         this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
         this.props.getListStockInWatchList()
+        this.props.getDerivativeList()
     }
 
     componentWillUnmount() {
@@ -121,6 +122,7 @@ class Home extends Component {
         // this.props.updateWatchlistData()
         this.props.updateTradeLog()
         this.props.updateMarketData()
+        this.props.updateDerivativeData()
     }
 }
 
@@ -145,6 +147,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     // market data
     updateMarketData: (json) => { dispatch(actions.updateMarketData(json)) },
     getMarketData: () => { dispatch(actions.getMarketData()) },
+
+    // derivative
+    getDerivativeList: () => { dispatch(actions.getDerivativeList()) },
+    updateDerivativeData: () => { dispatch(actions.updateDerivativeData()) },
 
 
     // test

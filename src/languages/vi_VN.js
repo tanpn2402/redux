@@ -151,7 +151,8 @@ export default
                 "stockinfo": "Thông tin chứng khoán",
                 "daytrade": "Day Trade",
                 "tradehistory": "Khớp lệnh theo thời gian",
-                "recommendation": "Đề nghị"
+                "recommendation": "Đề nghị",
+                "derivatives": "Phái sinh"
             },
             "searchbar": {
                 "search": "Tìm kiếm",

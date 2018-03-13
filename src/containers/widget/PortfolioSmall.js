@@ -79,15 +79,22 @@ class PortfolioSmall extends React.Component {
         let language = this.props.language.portfolio.header
         let header = [
             {
+                title: language.mvMarketID,
+                style: {width: "55px"},
+                bodyStyle: {width: "55px"},
+                accessor: "mvMarket",
+                cell: p => { return <span></span> }
+            },
+            {
                 title: language.mvStockID,
-                style: {width: "12%"},
-                bodyStyle: {width: "12%"},
+                style: {width: "55px"},
+                bodyStyle: {width: "55px"},
                 accessor: "stockCode",
             },
             {
                 title: language.mvTSettled,
-                style: {width: "24%", textAlign: "right"},
-                bodyStyle: {width: "24%", textAlign: "right"},
+                style: {width: "calc(24% - 25px)", textAlign: "right"},
+                bodyStyle: {width: "calc(24% - 25px)", textAlign: "right"},
                 accessor: "mvTSettled",
                 // cell: props => {
                 //     return this.fillColor(props, "mvTSettled")
@@ -95,8 +102,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvAvgPrice,
-                style: {width: "18%", textAlign: "right"},
-                bodyStyle: {width: "18%", textAlign: "right"},
+                style: {width: "calc(18% - 25px)", textAlign: "right"},
+                bodyStyle: {width: "calc(18% - 25px)", textAlign: "right"},
                 accessor: "mvAvgPrice",
                 // cell: props => {
                 //     return this.fillColor(props, "mvAvgPrice")
@@ -104,8 +111,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvMarketPrice,
-                style: {width: "18%", textAlign: "right"},
-                bodyStyle: {width: "18%", textAlign: "right"},
+                style: {width: "calc(18% - 25px)", textAlign: "right"},
+                bodyStyle: {width: "calc(18% - 25px)", textAlign: "right"},
                 accessor: "mvMarketPrice",
                 cell: props => {
                     return this.fillColor(props, "mvMarketPrice")
@@ -113,8 +120,8 @@ class PortfolioSmall extends React.Component {
             },
             {
                 title: language.mvPL,
-                style: {width: "28%", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "28%", textAlign: "right"},
+                style: {width: "calc(28% - 35px)", textAlign: "right", paddingRight: "10px"},
+                bodyStyle: {width: "calc(28% - 35px)", textAlign: "right"},
                 accessor: "mvPL",
                 cell: props => {
                     return this.fillColor(props, "mvPL")

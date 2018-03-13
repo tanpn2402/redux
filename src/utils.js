@@ -276,21 +276,26 @@ export function checkIfMobile() {
 
 
 export function formatQty(num){
-	if(!num || num.toString().length == 0){
-      	return "0"
+    let tmp = num
+	try {
+        if(!num || num.toString().length == 0){
+                return "0"
+        }
+            num = num.toString()
+            if(num.indexOf(',') < 0){
+                let m = /(\d+)(?:(\.\d+)|)/.exec(num)
+            let x = m[1].length > 3 ? m[1].length % 3 : 0;
+            let v = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',');
+                return v
+        }
+        let dot = num.indexOf('.')
+        if(dot > 0){
+                num = num.replace(num.substring(dot, num.length), '')
+        }
+            return num
+    } catch(e) {
+        return tmp
     }
-  	num = num.toString()
-  	if(num.indexOf(',') < 0){
-      	let m = /(\d+)(?:(\.\d+)|)/.exec(num)
-        let x = m[1].length > 3 ? m[1].length % 3 : 0;
-    	let v = (x ? m[1].substr(0, x) + ',' : "") + m[1].substr(x).replace(/(\d{3})(?=\d)/g, "$1" + ',');
-      	return v
-    }
-    let dot = num.indexOf('.')
-    if(dot > 0){
-       	num = num.replace(num.substring(dot, num.length), '')
-    }
-  	return num
 }
 
 export function formatCurrency(num, q){

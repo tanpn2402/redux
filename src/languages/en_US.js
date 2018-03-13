@@ -151,7 +151,8 @@ export default
                 "stockinfo": "Stock Info",
                 "daytrade": "Day Trade",
                 "tradehistory": "Trade Log",
-                "recommendation": "Recommendation"
+                "recommendation": "Recommendation",
+                "derivatives": "Derivatives"
             },
             "searchbar": {
                 "search": "Search",

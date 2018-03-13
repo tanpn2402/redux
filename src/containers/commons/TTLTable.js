@@ -93,17 +93,25 @@ export default class TTLTable extends Component {
                             }
 
                             let groupHeaderStyle = {}
+                            let groupHeaderRender = null
                             if(this.props.getGroupHeaderProps != undefined) {
                                 groupHeaderStyle = this.props.getGroupHeaderProps(data).style
+                                groupHeaderRender = this.props.getGroupHeaderProps(data).render
                             }
                             let groupHeader = null
                             //Code for rendering group header
                             if(this.props.pivot != undefined && i == 0){
-                                groupHeader = <div className="ttl-tr-group-header" style={groupHeaderStyle}>{data[this.props.pivot]}</div>
+                                groupHeader = 
+                                    <div className="ttl-tr-group-header" style={groupHeaderStyle}>
+                                        {groupHeaderRender == null ? data[this.props.pivot] : groupHeaderRender(data)}
+                                    </div>
                             }
                             else{
                                 if(this.props.pivot != undefined && data[this.props.pivot] != this.state.dataArr[i - 1][this.props.pivot]){
-                                    groupHeader = <div className="ttl-tr-group-header" style={groupHeaderStyle}>{data[this.props.pivot]}</div>
+                                    groupHeader = 
+                                        <div className="ttl-tr-group-header" style={groupHeaderStyle}>
+                                            {groupHeaderRender == null ? data[this.props.pivot] : groupHeaderRender(data)}
+                                        </div>
                                 }
                             }
 

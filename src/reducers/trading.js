@@ -26,7 +26,9 @@ const initialState = {
 
     instrumentData: {},
     flag: true,
-    reloadWatchlist: true
+    reloadWatchlist: true,
+
+    derivativeList: []
 };
 
 export default function(state = initialState, action) {
@@ -191,6 +193,33 @@ export default function(state = initialState, action) {
                 listInstrumentInWatchList: listAAA,
                 listInstrumentData: listDataTmp3
             });
+        }
+
+        case ActionTypes.GETDERIVATIVELIST: {
+            console.log(state.listInstrumentData.concat(action.data))
+            return Object.assign({}, state, {
+                derivativeList: action.list,
+                listInstrumentData: state.listInstrumentData.concat(action.data),
+                listInstrumentToWatch: state.listInstrumentToWatch.concat(action.list)
+            })
+        }
+
+
+        case ActionTypes.UPDATEDERIVATIVEDATA: {
+            // console.log(state.listInstrumentData.concat(action.data))
+
+            let aaatp = state.listInstrumentData.filter(e => e.mvStockCode == action.symbol)
+            let bbbtp = state.listInstrumentData
+            if(aaatp.length > 0) {
+                // update
+                Object.assign(aaatp[0], action.data)
+            } else {
+                bbbtp.push(action.data)
+            }
+
+            return Object.assign({}, state, {
+                listInstrumentData: bbbtp
+            })
         }
 
         default:

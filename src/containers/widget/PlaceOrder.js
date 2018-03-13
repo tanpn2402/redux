@@ -272,17 +272,25 @@ class PlaceOrder extends React.Component {
             } 
         }
 
+        let showTi = false
+        if(this.props.tabID == "customization") {
+            showTi = true
+            if(this.props.showTitle != undefined) {
+                showTi =this.props.showTitle
+            }
+        }
+
         return (
 
             <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
                 {
-                    this.props.tabID == 'customization' ? 
+                    showTi ? 
                         <Title language={this.props.language} theme={theme} widgetID= 'placeorder'>
                             {this.props.language.menu['placeorder']}
                         </Title>
                         : null
                 }
-                <Body theme={theme} className={this.props.tabID == 'customization' ? 'title': 'no-title'}>
+                <Body theme={theme} className={showTi ? 'title': 'no-title'}>
 
                     {/* PLACE ORDER CONTROL */}
                     <div className="pl-tab-control">
