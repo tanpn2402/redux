@@ -8,6 +8,7 @@ import Component from "../commons/Component"
 import * as utils from "../../utils"
 import InputSelect from "../commons/InputSelect"
 import BidAskTable from "../commons/BidAskTable"
+import {TabControl, TabItem} from "../commons/TabControl"
 
 class BidAsk extends React.Component {
     constructor(props) {
@@ -18,7 +19,9 @@ class BidAsk extends React.Component {
             instrument: this.props.instrument,
             mvStockSelected: {},
             instrumentData: {},
-            watched: false
+            watched: false,
+
+            activeKey: 1
         }
         
     }
@@ -93,7 +96,7 @@ class BidAsk extends React.Component {
 
 
     render() {
-        let {listInstrumentInWatchList, listInstrumentData, instrument} = this.props
+        let {listInstrumentInWatchList, listInstrumentData, instrument, language} = this.props
         let { mvStockSelected } = this.state
 
         
@@ -156,9 +159,32 @@ class BidAsk extends React.Component {
                     </span>
                     
                 </div>
-                <BidAskTable theme={theme} language={this.props.language} instrument={this.state.mvStockSelected} />
+                <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
+                    <TabItem eventKey={1} title={this._renderTitle(header.order, 1)} >
+                        <BidAskTable theme={theme} language={this.props.language} instrument={this.state.mvStockSelected} />
+                    </TabItem>
+                    <TabItem eventKey={2} title={this._renderTitle(header.stockinfo, 2)} >
+                    </TabItem>
+
+                    <TabItem eventKey={3} title={this._renderTitle(header.brokersum, 3)} >
+                    </TabItem>
+                    <TabItem eventKey={4} title={this._renderTitle(header.tradebook, 4)} >
+                    </TabItem>
+                </TabControl>
+
+                    
             </Component>
         )
+    }
+
+    onTabChange(key) {
+        this.setState({activeKey: key})
+    }
+
+    _renderTitle(title, i) {
+        let theme = this.props.theme.font
+        let font = this.state.activeKey == i ? {fontWeight: "bold"} : {fontWeight: "normal"}
+        return <div style={font} className="wl-sm-tab-title">{title}</div>
     }
 
     viewMarketDetail() {

@@ -455,7 +455,7 @@ export function updateDerivativeData(data) {
         mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
     }
 
-    console.log("UPDATE", data)
+    // console.log("UPDATE", data)
     // data["mvMarket"] = data["mvMarket"] == "HN" ? "HA" : "HO"
     // console.log("REALTIME DATA = ", data)
     return {
@@ -526,7 +526,7 @@ export function unSubcribeDerivativeInfo() {
 function genDefaultData(listStock, listMarket) {
     let list = []
     listStock.map((stock, index) => {
-            console.log(stock)
+            // console.log(stock)
             let data = {
                 mvSymbol: stock,
                 mvMarketID: listMarket[index],

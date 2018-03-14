@@ -3964,6 +3964,7 @@ label {
 /* TRADE BODY */
 .trd-body {
     background-color: #FFF;
+    position: relative;
 }
 .trd-body > label {
     padding-top: 0px;
@@ -4422,7 +4423,7 @@ input[type=number] {
     padding-left: 0px;
 }
 .bidask-container, .wl-sm-container {
-    height: 204px;
+    height: 239px;
 }
 .placeorder-container, .portfolio-sm-container {
     height: 230px;

@@ -33,7 +33,7 @@ class ComposedChart extends React.Component {
     }
 
     render(){
-        console.log("char")
+        // console.log("char")
         return (
             <div className={this.className} style={{ background: this.theme.backgroundColor}} ></div>
         )
@@ -53,7 +53,7 @@ class ComposedChart extends React.Component {
 
     draw() {
         let data = this.state.data.map(data => Object.assign({}, data, { time: this.timeParse(data.time) }))
-        console.log(data)
+        // console.log(data)
         this.canvas.append("linearGradient")
             .attr("id", "line-gradient")
             .attr("gradientUnits", "userSpaceOnUse")

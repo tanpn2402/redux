@@ -134,7 +134,7 @@ class BidAskTable extends React.Component {
         
         let data = []
         let {instrument} = this.props
-        console.log("BID ASKKKKKKKKKKKKK", this.props)
+        // console.log("BID ASKKKKKKKKKKKKK", this.props)
         this.state.mvStockSelected = instrument
         let _tmp = this.props.listInstrumentData.filter(e => e.mvStockCode == instrument.stockCode)
         if(_tmp.length > 0) {

@@ -879,7 +879,11 @@ export default
                     "foreigner": "Foreigner",
                     "total": "Total",
                     "Nominal": "Nominal",
-                    "netchange": "Net Change"
+                    "netchange": "Net Change",
+                    "brokersum": "Broker Sum",
+                    "order": "Order",
+                    "tradebook": "Trade Book",
+                    "stockinfo": "Stock Info"
                 }
             },
             "avaiblemarginlist": {
