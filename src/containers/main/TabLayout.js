@@ -12,6 +12,7 @@ import EntitlementPage from "../desktop/view/EntitlementPage"
 import FundTransferPage from "../desktop/view/FundTransferPage"
 import LoanRefundPage from "../desktop/view/LoanRefundPage"
 import OddLotPage from "../desktop/view/OddLotPage"
+import DepositWithdrawIMPage from "../desktop/view/DepositWithdrawIMPage"
 
 import CashTransHistory from "../widget/CashTransHistory"
 import OrderHistory from "../widget/OrderHistory"
@@ -138,6 +139,9 @@ class ServicePageContainer extends React.Component {
                 break;
             case "loanrefund": 
                 child = <LoanRefundPage {...this.props}/>
+                break;
+            case "depositwithdraw": 
+                child = <DepositWithdrawIMPage {...this.props}/>
                 break;
 
 

@@ -152,7 +152,10 @@ export default
                 "daytrade": "Day Trade",
                 "tradehistory": "Trade Log",
                 "recommendation": "Recommendation",
-                "derivatives": "Derivatives"
+                "derivatives": "Derivatives",
+                "depositwithdraw": "Deposit/Withdraw IM",
+                "depositwithdrawstatus": "Money Transfer Status",
+                "depositwithdrawhistory": "Money Transfer History"
             },
             "searchbar": {
                 "search": "Search",
@@ -1490,6 +1493,29 @@ export default
                     "marketfinance": "Finance",
                     "marketreports": "Reports",
                     "markettechnical": "Technical",
+                }
+            },
+            "deposit": {
+                "header": {
+                    "type": "Type",
+                    "deposit": "Deposit",
+                    "withdraw": "Withdraw",
+                    "depositable": "Depositable",
+                    "withdrawable": "Withdrawable",
+                    "amount": "Amount",
+                    "remark": "Remark",
+
+                    "no": "No",
+                    "requesttime": "Request Time",
+                    "beneficiaryname": "Beneficiary",
+                    "beneficiaryaccount": "Beneficiary Account",
+                    "transferamount": "Transfer Amount",
+                    "transfertype": "Transfer Type",
+                    "transferfee": "Transfer Fee",
+                    "status": "Status",
+                    "detail": "Detail",
+                    "action": "Action"
+
                 }
             },
             "messagebox": {

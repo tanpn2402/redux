@@ -152,7 +152,10 @@ export default
                 "daytrade": "Day Trade",
                 "tradehistory": "Khớp lệnh theo thời gian",
                 "recommendation": "Đề nghị",
-                "derivatives": "Phái sinh"
+                "derivatives": "Phái sinh",
+                "depositwithdraw": "Deposit/Withdraw IM",
+                "depositwithdrawstatus": "Money Transfer Status",
+                "depositwithdrawhistory": "Money Transfer History"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -1455,6 +1458,29 @@ export default
                     "marketfinance": "Tài chính",
                     "marketreports": "Báo cáo",
                     "markettechnical": "Kỹ thuật"
+                }
+            },
+            "deposit": {
+                "header": {
+                    "type": "Type",
+                    "deposit": "Deposit",
+                    "withdraw": "Withdraw",
+                    "depositable": "Depositable",
+                    "withdrawable": "Withdrawable",
+                    "amount": "Amount",
+                    "remark": "Remark",
+
+                    "no": "No",
+                    "requesttime": "Request Time",
+                    "beneficiaryname": "Beneficiary",
+                    "beneficiaryaccount": "Beneficiary Account",
+                    "transferamount": "Transfer Amount",
+                    "transfertype": "Transfer Type",
+                    "transferfee": "Transfer Fee",
+                    "status": "Status",
+                    "detail": "Detail",
+                    "action": "Action"
+
                 }
             },
             "messagebox": {
