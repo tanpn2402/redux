@@ -389,8 +389,8 @@ const derivativeList = [
 const dataDe = {
     "VN30F1803": {
         ceil: 1189.6,
-        floor: 1034.0,
-        ref: 111.8
+        floor: 1034.1,
+        ref: 1111.8
     },
 
     "VN30F1804": {
@@ -408,14 +408,14 @@ const dataDe = {
     "VN30F1809": {
         ceil: 1229.4,
         floor: 1068.6,
-        ref: 1149.0
+        ref: 1149.1
     }
 }
 // UPDATE WATLIST DATA
 export function updateDerivativeData(data) {
     let marIndex = utils.randomInt(derivativeList.length)
     let stockCode = derivativeList[marIndex]
-    let market = "HOSE DERIVATIVE"
+    let market = "HOSE DERIVATIVES"
 
     data = {
         mvStockCode: stockCode,
@@ -425,18 +425,18 @@ export function updateDerivativeData(data) {
         mvFloor: dataDe[stockCode].floor,
         mvReferences: dataDe[stockCode].ref,
 
-        mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
-        mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
-        mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+        mvBidPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
+        mvBidPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
+        mvBidPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
 
         mvBidVol1: utils.randomInt(100),
         mvBidVol2: utils.randomInt(100),
         mvBidVol3: utils.randomInt(100),
 
         mvMatchPrice: utils.round(utils.randomInt(1060, 1200)+ parseFloat(Math.random().toFixed(2)), 1),
-        mvMatchVol: utils.randomInt(15000, 20000),
+        mvMatchVol: utils.randomInt(1, 100),
         mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
-        mvMatchVolTotal: utils.randomInt(15000, 20000),
+        mvMatchVolTotal: utils.randomInt(1, 100),
 
         mvOfferPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvOfferPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
@@ -468,12 +468,12 @@ export function updateDerivativeData(data) {
 export function getDerivativeList() {
 
     let list = derivativeList
-    // let _tmp = genDefaultData(list, ["HOSE DERIVATIVE", "HOSE DERIVATIVE", "HOSE DERIVATIVE", "HOSE DERIVATIVE"])
+    // let _tmp = genDefaultData(list, ["HOSE DERIVATIVES", "HOSE DERIVATIVES", "HOSE DERIVATIVES", "HOSE DERIVATIVES"])
 
     let data = list.map(e => {
         return {
             mvStockCode: e,
-            mvMarket: "HOSE DERIVATIVE",
+            mvMarket: "HOSE DERIVATIVES",
     
             mvCeiling: dataDe[e].ceil,
             mvFloor: dataDe[e].floor,
@@ -488,9 +488,9 @@ export function getDerivativeList() {
             mvBidVol3: utils.randomInt(100),
     
             mvMatchPrice: utils.round(utils.randomInt(1060, 1200)+ parseFloat(Math.random().toFixed(2)), 1),
-            mvMatchVol: utils.randomInt(15000, 20000),
+            mvMatchVol: utils.randomInt(1, 100),
             mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
-            mvMatchVolTotal: utils.randomInt(15000, 20000),
+            mvMatchVolTotal: utils.randomInt(1, 100),
     
             mvOfferPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvOfferPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),

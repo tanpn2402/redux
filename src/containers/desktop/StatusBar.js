@@ -6,6 +6,7 @@ import config from '../../core/config'
 import Popup from '../popup/Popup'
 import Clock from './Clock'
 import Switch from 'react-bootstrap-switch'
+import Select from "../commons/InputSelect"
 
 
 class FavouriteBar extends React.Component {
@@ -16,10 +17,10 @@ class FavouriteBar extends React.Component {
         this.container = null
 
         this.showTooltip = this.showTooltip.bind(this)
-
+        
         this.state = {
             needShowToolTip: false,
-            onFavHover: false
+            onFavHover: false,
         }
     }
 
@@ -126,7 +127,11 @@ class StatusBar extends React.Component {
             currentlySelectedItemIndex: 0,
             onFav: -1,
             favList: config.cache.favourite,
-            subMenuArray: []
+            subMenuArray: [],
+
+            //sub account
+            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
+            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
         }
         this.allWidget = config.widget
         this.onFocus = this.onFocus.bind(this)
@@ -179,12 +184,24 @@ class StatusBar extends React.Component {
     }
     
     render() {
-        let lgClose = () => { this.setState({ lgShow: false }) }
+        let {theme, language} = this.props
         let index = -1
         if(this.state.subMenuArray.length > 0)
             this.state.subMenuArray = []
 
-            let accountType = localStorage.getItem("accountType")
+        let accountType = localStorage.getItem("accountType")
+
+        let selectorStyles = {
+            background: "#2159a0",
+            color: "#FFF"
+        } 
+        if(theme.title == "virtual") {
+            selectorStyles = {
+                background: "#ee514c",
+                color: "#FFF"
+            } 
+        }
+
         let searchResultBox = (
             <div tabIndex="0" className="widget-search-result"
                 id="widget-search-result"
@@ -266,12 +283,40 @@ class StatusBar extends React.Component {
                         wrapperClass='react-bootstrap-switch' defaultValue={accountType == "virtual"} />
                 </div>
 
+                {/* <div className="status-subacc-control">
+                    <div className="pl-sub-account">
+                        <div style={theme.font.main} className="account-name">
+                            <span>{this.state.mvSubAccSelected.subAccountName}</span>
+                        </div>
+                        <Select
+                            style={selectorStyles}
+                            key="rSubAccSelector"
+                            optionLabelPath={'subAccountID'}
+                            ref={r => this.rSubAccSelector = r}
+                            options={this.state.mvListSubAcc}
+                            selected={this.state.mvSubAccSelected}
+                            handleChange={this.handleSubAccChange.bind(this)}
+                        />
+                        
+                    </div>
+                </div> */}
+
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
                     gotoResultTab={(e, la) => this.gotoResultTab(e, la)} onFavClick={(e, id) => this.onFavClick(e, id)}/>
             </div>
 
         )
         
+    }
+
+    handleSubAccChange(option) {
+        this.setState({
+            mvSubAccSelected: option
+        })
+
+        this.setValue({
+            mvSubAccSelected: option
+        })
     }
 
     handleSwitch(elem, state) {
@@ -508,6 +553,8 @@ const mapStateToProps = (state) => {
         load: state.menuSelected.load,
         tabID: state.menuSelected.tabID,
         widgetList: state.menuSelected.widgetList,
+
+        tradingAccount: state.dologin.tradingAccount
     }
 }
 

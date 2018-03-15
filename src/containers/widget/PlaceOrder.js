@@ -17,6 +17,11 @@ import * as Log from "../../logger/TTLLog"
 import Component from "../commons/Component"
 const { Contants } = require('../../core/constants')
 
+const TRADINGTYPE = {
+    NORMAL: "NORMAL",
+    DERIVATIVES: "DERIVATIVES"
+}
+
 class PlaceOrder extends React.Component {
     constructor(props) {
         super(props)
@@ -50,6 +55,8 @@ class PlaceOrder extends React.Component {
             //sub account
             mvListSubAcc: props.tradingAccount.tradingAccountSelection,
             mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+
+            tradingType: TRADINGTYPE.NORMAL,
         }
 
         this.store = {
@@ -77,7 +84,9 @@ class PlaceOrder extends React.Component {
             mvBankID: null,
 
             mvSettlementAccSelected: null,
-            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0]
+            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+
+            tradingType: TRADINGTYPE.NORMAL,
         }
         
     }
@@ -224,12 +233,18 @@ class PlaceOrder extends React.Component {
     }
 
     handleSubAccChange(option) {
+        let type = TRADINGTYPE.NORMAL
+        if(option.type == "DERIVATIVES") {
+            type = TRADINGTYPE.DERIVATIVES
+        } 
         this.setState({
-            mvSubAccSelected: option
+            mvSubAccSelected: option,
+            tradingType: type
         })
 
         this.setValue({
-            mvSubAccSelected: option
+            mvSubAccSelected: option,
+            tradingType: type
         })
     }
 
@@ -293,13 +308,7 @@ class PlaceOrder extends React.Component {
                 <Body theme={theme} className={showTi ? 'title': 'no-title'}>
 
                     {/* PLACE ORDER CONTROL */}
-                    <div className="pl-tab-control">
-                        <span style={BS=="BUY"?tabActivedStyle:theme.placeorder.tabBS.normal} 
-                            className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
-                            onClick={e => this.handleBSTabChange("BUY")}>{header.buy}</span>
-                        <span style={BS=="SELL"?tabActivedStyle:theme.placeorder.tabBS.normal} 
-                            className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
-                            onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
+                    <div className="pl-subacc-control">
                         <div className="pl-sub-account">
                             <div style={theme.font.main} className="account-name">
                                 <span>{this.state.mvSubAccSelected.subAccountName}</span>
@@ -318,9 +327,23 @@ class PlaceOrder extends React.Component {
                             />
                             
                         </div>
+                        <span style={theme.font.main} className="sep"></span>
+                        <div className="pl-pin">
+                            <span style={theme.font.main}>PIN</span>
+                            <Input key="refPIN" type="password" ref={ref => this.refPIN =  ref} 
+                                defaultValue={""} style={{textAlign: "center"}} tabIndex={-1}/>
+                        </div>
+                    </div>
+                    <div className="pl-tab-control">
+                        <span style={BS=="BUY"?tabActivedStyle:theme.placeorder.tabBS.normal} 
+                            className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
+                            onClick={e => this.handleBSTabChange("BUY")}>{header.buy}</span>
+                        <span style={BS=="SELL"?tabActivedStyle:theme.placeorder.tabBS.normal} 
+                            className={this.state.mvBS==="SELL"?"pl-tab active":"pl-tab" } id="tabSell" 
+                            onClick={e => this.handleBSTabChange("SELL")}>{header.sell}</span>
                     </div>
                     <div className={"enterorder-form " + BS.toLowerCase()}
-                        style={Object.assign({}, {height: "calc(100% - 28px)"}, placeOrderBg )}>
+                        style={Object.assign({}, {height: "calc(100% - 54px)"}, placeOrderBg )}>
                         {/* Column Left */}
                         <div className="placeorder-col-left" style={{display: "table-cell"}}>
                             {/* MARKET */}
@@ -700,6 +723,12 @@ class PlaceOrder extends React.Component {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
 
+            if(orderDefault.mvStockCode.length > 3) {
+                this.switchTradingAcc(true)
+            } else {
+                this.switchTradingAcc(false)
+            }
+
             // focus to mvVol
             this.mvVol.focus()
         }
@@ -707,8 +736,57 @@ class PlaceOrder extends React.Component {
         this.getOrderTypeList(nextProps.genEnterOrderData)
     }
 
+    switchTradingAcc(isDerivatives) {
+        if(isDerivatives) {
+            let tmp = this.state.mvListSubAcc.filter(e => e.type == "DERIVATIVES")
+            if(tmp.length > 0) {
+                this.setState({
+                    mvSubAccSelected: tmp[0],
+                    tradingType: TRADINGTYPE.DERIVATIVES
+                })
+            }
+        } else {
+            let tmp = this.state.mvListSubAcc.filter(e => e.type != "DERIVATIVES")
+            if(tmp.length > 0) {
+                this.setState({
+                    mvSubAccSelected: tmp[0],
+                    tradingType: TRADINGTYPE.NORMAL
+                })
+            }
+        }
+    }
+
+    submitDerivativeOrder() {
+
+        var state = this.state
+        var value = this.value
+        var store = this.store
+        var language = this.props.language
+    
+        if (value.mvStockCode == "") {
+            this.props.onShowMessageBox(language.messagebox.title.error,
+                language.messagebox.message.enterStockCode)
+
+            return
+        }
+
+        if (isNaN(value.mvVol) || parseInt(value.mvVol) == 0) {
+            this.props.onShowMessageBox(language.messagebox.title.note,
+                language.messagebox.message.enterQty)
+
+            this.mvVol.focus()
+            return
+        }
+        
+        this.showOrderConfirm()
+    }
+
     handleSubmit(e) {
         e.preventDefault()
+        if(this.state.tradingType == TRADINGTYPE.DERIVATIVES) {
+            this.submitDerivativeOrder()
+            return
+        }
         var state = this.state
         var value = this.value
         var store = this.store
@@ -1374,7 +1452,10 @@ class PlaceOrder extends React.Component {
             mvBankACID: value.mvBankACID,
             mvBankID: value.mvBankID,
             mvBS: value.mvBS.slice(0, 1),
-            language: this.props.language
+            language: this.props.language,
+            pin: this.refPIN.value,
+            tradingAccount: this.state.mvSubAccSelected,
+            tradingType: this.state.tradingType
         }
         console.log(data)
         this.props.showOrderConfirm({

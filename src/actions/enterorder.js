@@ -147,3 +147,57 @@ export function setDefaultOrderParams(params) {
         params: params
     }
 }
+
+
+// DERIVATE
+export function enterorderFS(language, params, pin, tradingAcc) {
+
+    params = Object.assign({
+        clientID: localStorage.getItem("clientID"),
+        tradingAccSeq: tradingAcc.accountSeq,
+        subAccountID: tradingAcc.subAccountID,
+        version: "",
+        language: "",
+        seessionID: "",
+        deviceID: "",
+        osVersion: "",
+        orderInfo: {
+            bs: "B",
+            marketId: "",
+            seriesId: "",
+            orderId: "",
+            orderGroupId: ""
+        },
+        price: 0,
+        position: "",   // O open, L liquidate, C close
+        qty: 0,
+        Inactive: "",
+        StopOrder: "",
+        AuctionOrder: "",
+        TPlus1: "",
+        minQty: "",
+        stopPrice: "",
+        stopType: "",
+        confirmExceedTradingLimit: "",
+        confirmExceedDerivation: "",
+        confirmMaxVolume: "",
+        confirmMarginCall: "",
+        confirmExceedDerivationForStopPrice: "",
+        confirmLowerDerivation: "",
+        confirmLowerDerivationForStopPrice: "",
+        confirmExceedPositionWarningLevel1: "",
+        confirmExceedPositionWarningLevel2: "",
+        confirmExceedOpenInterestWarningLevel1: "",
+        confirmExceedOpenInterestWarningLevel2: "",
+        validity: "",
+        orderType: "",      // L, M, A, C, K
+        validitydate: "",
+        checkLimitByPassWarning: ""
+    }, params)
+
+    console.log(params)
+
+    return function (dispatch) {
+        dispatch(showFlashPopup(language.messagebox.title.info, 'Order sent !'))
+    }
+}

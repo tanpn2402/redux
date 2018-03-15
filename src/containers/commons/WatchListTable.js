@@ -188,7 +188,7 @@ class WatchListTable extends React.Component {
                     {
                         id: 'stock',
                         accessor: 'mvStockCode',
-                        minWidth: 45,
+                        minWidth: 75,
                         maxWidth: 90,
                         show: true,
                         skip: false,
@@ -446,16 +446,39 @@ class WatchListTable extends React.Component {
         this.setState({
             columns: [
                 {
+                    id: "pivotz",
+                    Header: "",
+                    columns: [
+                        {
+                            id: 'market',
+                            accessor: 'mvMarket',
+                            minWidth: 80,
+                            maxWidth: 90,
+                            show: true,
+                            skip: false,
+                            // Pivot: props => {
+                            //     // console.log(props.value)
+                            //     return (
+                            //         <div><span>{props.value}</span></div>
+                            //     )
+                            // },
+                            background: props.theme.watchlist.oddCol,
+                            sortable: false,
+                        }
+                    ],
+                    
+                },
+                {
                     columns: [{
                         id: 'cb',
-                        // Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
-                        //     onChange={() => this.onRowSelected('ALL')} />,
+                        Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
+                            onChange={() => this.onRowSelected('ALL')} />,
                         width: 40,
                         Cell: props => {
                             return (
                                 <div style={{width: "100%", height: "100%"}}>
                                     <input type='checkbox' className={this.id + "-row-checkbox"}
-                                        style={{position: "relative", top: "3px"}}
+                                        style={{position: "relative", top: "0px"}}
                                         onChange={() => { this.onRowSelected(props.original) }} />
                                 </div>
                             )
@@ -463,15 +486,23 @@ class WatchListTable extends React.Component {
                         sortable: false,
                         accessor_tmp: 'cb',
                         skip: true,
-                        background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
+                        background: props.theme.watchlist.evenCol,
+                        
                     }],
                     skip: true,
                     show: true,
+                    background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     background: props.theme.watchlist.evenCol,
+                    Aggregated: props => {
+                        return <span></span>
+                    }
                 },
                 {
                     id: 'reference',
-                    Header: props.language.watchlist.header.reference,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
+                    Header: "",
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
@@ -482,7 +513,7 @@ class WatchListTable extends React.Component {
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }, {
                             id: 'ce',
                             Cell: row => {  
@@ -491,7 +522,7 @@ class WatchListTable extends React.Component {
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }, {
                             id: 'fl',
                             Cell: row => {
@@ -500,7 +531,7 @@ class WatchListTable extends React.Component {
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -508,62 +539,74 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'bid',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'pri3',
+                        accessor_tmp: 'mvBidPrice3',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice3", "bid3")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol3',
+                        accessor_tmp: 'mvBidVol3',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol3", "bid3")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     },
                     {
                         id: 'pri2',
+                        accessor_tmp: 'mvBidPrice2',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice2", "bid2")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol2',
+                        accessor_tmp: 'mvBidVol2',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol2", "bid2")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'pri1',
+                        accessor_tmp: 'mvBidPrice1',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidPrice1", "bid1")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }, {
                         id: 'vol1',
+                        accessor_tmp: 'mvBidVol1',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvBidVol1", "bid1")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                     }
                     ],
                     skip: false,
@@ -571,54 +614,67 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'matching',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                     {
                         id: 'stock',
                         accessor: 'mvStockCode',
-                        minWidth: 45,
+                        minWidth: 75,
                         maxWidth: 90,
                         show: true,
                         skip: false,
-                        background: Object.assign({},props.theme.watchlist.oddCol),
-                    }, {
-                        id: 'market',
-                        accessor: 'mvMarket',
-                        minWidth: 45,
-                        maxWidth: 90,
-                        show: true,
-                        skip: false,
-                        background: Object.assign({},props.theme.watchlist.oddCol),
-                    },
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: props.theme.watchlist.oddCol,
+                    }, 
                     {
                         id: 'price',
+                        accessor: 'mvMatchPrice',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchPrice", "matching")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'volume',
+                        accessor: 'mvMatchVol',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVol", "matching")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'totalvol',
+                        accessor: 'mvMatchVolTotal',
                         Cell: row => {
                             return this.onRowStatusChange(row, "mvMatchVolTotal", "matching")
                         },
-                        width: 70,
+                        minWidth: 70,
+                        maxWidth: 100,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'percent',
+                        accessor: 'mvMatchUpDown',
                         Header: '%',
                         Cell: row => {
                             return this._renderChangePercent(row, "mvMatchUpDown", "matching")
@@ -626,80 +682,99 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'change',
+                        accessor: 'mvMatchUpDown',
                         Cell: row => {
                             return this._renderChangeValue(row, "mvMatchUpDown", "matching")
                         },
                         width: 45,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        Aggregated: props => {
+                            return <span></span>
+                        },
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'offer',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Header: props.language.watchlist.header.bestask,
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
                             id: 'pri1',
+                            accessor_tmp: 'mvOfferPrice1',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice1", "offer1")
                             },
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol1',
+                            accessor_tmp: 'mvOfferVol1',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol1", "offer1")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         },
                         {
                             id: 'pri2',
+                            accessor_tmp: 'mvOfferPrice2',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice2", "offer2")
                             },
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol2',
+                            accessor_tmp: 'mvOfferVol2',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol2", "offer2")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'pri3',
+                            accessor_tmp: 'mvOfferPrice3',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferPrice3", "offer3")
                             },
                             minWidth: 48, maxWidth: 65,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }, {
                             id: 'vol3',
+                            accessor_tmp: 'mvOfferVol3',
                             Cell: row => {
                                 return this.onRowStatusChange(row, "mvOfferVol3", "offer3")
                             },
-                            width: 70,
+                            minWidth: 70,
+                            maxWidth: 100,
                             skip: false,
                             show: true,
-                            background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber)
+                            background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber)
                         }
                     ],
                     skip: false,
@@ -707,6 +782,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'pricehistory',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Header: props.language.watchlist.header.pricehistory,
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
@@ -717,7 +795,7 @@ class WatchListTable extends React.Component {
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'high',
                         Cell: row => {
@@ -726,7 +804,7 @@ class WatchListTable extends React.Component {
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'low',
                         Cell: row => {
@@ -735,7 +813,7 @@ class WatchListTable extends React.Component {
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }, {
                         id: 'avg',
                         Cell: row => {
@@ -744,41 +822,44 @@ class WatchListTable extends React.Component {
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.oddCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.oddCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
                 },
                 {
                     id: 'foreigninvestment',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, props.theme.watchlist.evenCol, {borderTop: props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'forbuy',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForBuy")
+                            return this.onRowStatusChange(row, "mvForeignForBuy", "foreigninvestment")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }, {
                         id: 'forsell',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForSell")
+                            return this.onRowStatusChange(row, "mvForeignForSell", "foreigninvestment")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }, {
                         id: 'forroom',
                         Cell: row => {
-                            return this.onRowStatusChange(row, "mvForeignForRoom")
+                            return this.onRowStatusChange(row, "mvForeignForRoom", "foreigninvestment")
                         },
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
-                        background: Object.assign({},props.theme.watchlist.evenCol, props.theme.table.colNumber),
+                        background: Object.assign({}, props.theme.watchlist.evenCol, props.theme.table.colNumber),
                     }],
                     skip: false,
                     show: true,
@@ -1011,9 +1092,10 @@ class WatchListTable extends React.Component {
                 getPivotRowProps={(props) => {
                     return {
                         style: {
-                            backgroundColor: "blue",
+                            backgroundColor: "rgb(6, 68, 168)",
                             borderLeft: "none",
-                            borderRight: "none"
+                            borderRight: "none",
+                            justifyContent: "left"
                         }
                     }
                 }}

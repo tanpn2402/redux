@@ -90,3 +90,7 @@ export const WATCHLISTREMOVE = 'ITradePushServer/WatchListRemove/{clientID}/{sto
 
 // TRADING ACCOUNT
 export const GETTRADINGACCLIST = 'getTradingAccList.action';
+
+
+// DERIVATIVE
+export const ENTERORDERFS = "enterOrder"

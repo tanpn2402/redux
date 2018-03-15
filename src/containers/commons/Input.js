@@ -74,6 +74,7 @@ class Input extends React.Component {
                     <input className={"form-control " + this.props.className}
                         ref={ref => this.rInput = ref}
                         onChange={this.handleChange}
+                        type={this.props.type}
                         defaultValue={defaultValue}
                         readOnly={this.props.readOnly}
                         style={this.props.style}

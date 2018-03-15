@@ -16,6 +16,7 @@ export function doLogin(params) {
             function (responseForLogin) {
                 if(responseForLogin && responseForLogin.success) {
                     localStorage.setItem("clientID", params.mvClientID.substring(3, params.mvClientID.length))
+                     
                 }
                 return {
                     type: ActionTypes.DOLOGINACTION,

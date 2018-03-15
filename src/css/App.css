@@ -3029,7 +3029,7 @@ label {
     /* width: 100%; */
 }
 .enterorder-form  .group-btn-action {
-    margin-top: 7px !important;
+    margin-top: 3px !important;
     width: 100% !important;
 }
 .enterorder-form.buy .btn-submit {
@@ -4101,7 +4101,7 @@ label {
     border-left-width: 0px !important;
 }
 .bidask-td.status {
-    width: 105px !important;
+    width: 125px !important;
     border-right-width: 0px !important;
 }
 .bidask-td.status .match-price {
@@ -4137,16 +4137,19 @@ label {
     font-weight: bold;
     border-bottom-width: 0px !important;
 }
+.pl-subacc-control {
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    display: flow-root;
+    padding: 2px 0;
+}
 .pl-sub-account {
-    position: absolute;
-    left: calc(50% + 10px);
-    top: 1px;
-    width: 150px;
+    float: left;
     width: calc(50% - 10px);
 }
 .pl-sub-account > .account-name {
-    position: absolute;
-    left: 112px;
+    position: relative;
+    float: right;
     top: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -4166,6 +4169,16 @@ label {
     float: right;
     right: 4px;
     font-size: 14px;
+}
+.pl-pin {
+    float: right;
+    width: calc(50% - 10px);
+
+}
+.pl-pin > .input-control {
+    display: inline-block;
+    width: 70px;
+    margin: 0 5px;
 }
 /* END PLACE ORDER */
 /* Slider Format */
@@ -4426,12 +4439,12 @@ input[type=number] {
     height: 239px;
 }
 .placeorder-container, .portfolio-sm-container {
-    height: 230px;
+    height: 250px;
     padding-top: 0px;
 }
 .trd-orderjournal-container {
-    height: calc(100% - 204px - 230px);
-    min-height: 250px;
+    height: calc(100% - 240px - 250px);
+    min-height: 180px;
     padding: 2px;
     padding-top: 0px;
     padding-bottom: 0px;

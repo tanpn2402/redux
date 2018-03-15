@@ -4,7 +4,7 @@ import { onTabClick, onMobileTabClick, getSavedContentLayout,
     saveDefaultTab } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
 import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit } from './orderjounal'
-import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams } from './enterorder'
+import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams, enterorderFS } from './enterorder'
 import { stockSearch, getStockWatchInfo, sendStockToStockMarketInfoWidget } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
 import { getPorfolio } from './porfolio'
@@ -86,6 +86,7 @@ export {
   enterOrderSubmit,
   checkAuthentication,
   setDefaultOrderParams, // created support for Portfolio mobile view
+  enterorderFS,
 
   // order confirmation
   onConfirmSubmit,

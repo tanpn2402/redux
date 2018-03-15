@@ -93,7 +93,22 @@ class EnterOrderConfirm extends Component{
 
         //console.log(params)
         var authParams = this.auth.getParam()
-        this.props.enterOrderSubmit(data.language, params, authParams)
+        
+        if(data.tradingType == "DERIVATIVES") {
+            this.props.enterDerivativeOrder(data.language, {
+                orderInfo: {
+                    bs: data.mvBS,
+                    marketId: "VNFE",
+                    seriesId: data.mvStockCode,
+                    // orderId: "",
+                    // orderGroupId: ""
+                },
+                price: data.mvPrice,
+                qty: data.mvVolume,
+            }, data.pin, data.tradingAccount)
+        } else {
+            this.props.enterOrderSubmit(data.language, params, authParams)
+        }
 
         this.props.onHide()
     }
@@ -109,7 +124,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     enterOrderSubmit: (lang, params, authParams) => {
         dispatch(actions.enterOrderSubmit(lang, params, authParams))
-    }
+    },
+    enterDerivativeOrder: (lang, params, pin, tradingAccount) => {
+        dispatch(actions.enterorderFS(lang, params, pin, tradingAccount))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrderConfirm)

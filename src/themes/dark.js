@@ -174,7 +174,7 @@ export default {
             backgroundColor: '#474747'
         },
         popoverChart: {
-            backgroundColor: 'transparent',
+            backgroundColor: '#000',
             color: '#FFF',
             referenceLine: {
                 color: '#FFB200'
