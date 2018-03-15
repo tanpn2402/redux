@@ -12,6 +12,29 @@ class WatchListTable extends React.Component {
         this.state = {
             columns: [
                 {
+                    id: "pivotz",
+                    Header: "",
+                    columns: [
+                        {
+                            id: 'market',
+                            accessor: 'mvMarket',
+                            minWidth: 80,
+                            maxWidth: 90,
+                            show: true,
+                            skip: false,
+                            // Pivot: props => {
+                            //     // console.log(props.value)
+                            //     return (
+                            //         <div><span>{props.value}</span></div>
+                            //     )
+                            // },
+                            background: this.props.theme.watchlist.oddCol,
+                            sortable: false,
+                        }
+                    ],
+                    
+                },
+                {
                     columns: [{
                         id: 'cb',
                         Header: props => <input id={this.id + "-cb-all"} type='checkbox' className="row-checkbox"
@@ -21,7 +44,7 @@ class WatchListTable extends React.Component {
                             return (
                                 <div style={{width: "100%", height: "100%"}}>
                                     <input type='checkbox' className={this.id + "-row-checkbox"}
-                                        style={{position: "relative", top: "3px"}}
+                                        style={{position: "relative", top: "0px"}}
                                         onChange={() => { this.onRowSelected(props.original) }} />
                                 </div>
                             )
@@ -36,10 +59,16 @@ class WatchListTable extends React.Component {
                     show: true,
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     background: this.props.theme.watchlist.evenCol,
+                    Aggregated: props => {
+                        return <span></span>
+                    }
                 },
                 {
                     id: 'reference',
-                    Header: this.props.language.watchlist.header.reference,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
+                    Header: "",
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                         {
@@ -76,6 +105,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'bid',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'pri3',
@@ -148,6 +180,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'matching',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
                     {
@@ -157,16 +192,11 @@ class WatchListTable extends React.Component {
                         maxWidth: 90,
                         show: true,
                         skip: false,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: this.props.theme.watchlist.oddCol,
-                    }, {
-                        id: 'market',
-                        accessor: 'mvMarket',
-                        minWidth: 45,
-                        maxWidth: 90,
-                        show: true,
-                        skip: false,
-                        background: this.props.theme.watchlist.oddCol,
-                    },
+                    }, 
                     {
                         id: 'price',
                         accessor: 'mvMatchPrice',
@@ -176,6 +206,9 @@ class WatchListTable extends React.Component {
                         minWidth: 48, maxWidth: 65,
                         skip: false,
                         show: true,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'volume',
@@ -187,6 +220,9 @@ class WatchListTable extends React.Component {
                         maxWidth: 100,
                         skip: false,
                         show: true,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'totalvol',
@@ -198,6 +234,9 @@ class WatchListTable extends React.Component {
                         maxWidth: 100,
                         skip: false,
                         show: true,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'percent',
@@ -209,6 +248,9 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }, {
                         id: 'change',
@@ -219,6 +261,9 @@ class WatchListTable extends React.Component {
                         width: 45,
                         skip: false,
                         show: true,
+                        Aggregated: props => {
+                            return <span></span>
+                        },
                         background: Object.assign({}, this.props.theme.watchlist.oddCol, this.props.theme.table.colNumber),
                     }],
                     skip: false,
@@ -226,6 +271,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'offer',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Header: this.props.language.watchlist.header.bestask,
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [
@@ -300,6 +348,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'pricehistory',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Header: this.props.language.watchlist.header.pricehistory,
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
@@ -344,6 +395,9 @@ class WatchListTable extends React.Component {
                 },
                 {
                     id: 'foreigninvestment',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: Object.assign({}, this.props.theme.watchlist.evenCol, {borderTop: this.props.theme.watchlist.evenCol.borderBottom }) ,
                     columns: [{
                         id: 'forbuy',
@@ -953,7 +1007,16 @@ class WatchListTable extends React.Component {
                 onRowSelected={(param) => this.onRowSelected(param)}
                 language={this.props.language}
                 onCellClick={this.onCellClick.bind(this)}
-
+                pivot={['market']}
+                getPivotRowProps={(props) => {
+                    return {
+                        style: {
+                            backgroundColor: "blue",
+                            borderLeft: "none",
+                            borderRight: "none"
+                        }
+                    }
+                }}
                 pageIndex={this.state.pageIndex}
                 totalPage={Math.ceil(this.props.listInstrumentInWatchList.length/15)}
                 onPageChange={this.onPageChange.bind(this)}
@@ -970,7 +1033,10 @@ class WatchListTable extends React.Component {
 
 
     onRowStatusChange(row, accessor, parent) {
+        
         let data = row.original
+        if(data == undefined) return
+
         let refPrice = data["mvReferences"]
         let color = this.props.theme.watchlist
         let bindingStyle = this.props.theme.bindingdata
@@ -1061,7 +1127,7 @@ class WatchListTable extends React.Component {
     }
 
     _renderChangeValue(props, accessor) {
-
+        if(props.original == undefined) return
         let refPrice = props.original["mvReferences"]
         let matchPrice = props.original["mvMatchPrice"]
         
@@ -1107,6 +1173,7 @@ class WatchListTable extends React.Component {
     }
 
     _renderChangePercent(props, accessor) {
+        if(props.original == undefined) return
         let refPrice = props.original["mvReferences"]
         let matchPrice = props.original["mvMatchPrice"]
         

@@ -51,6 +51,7 @@ class DesktopTable extends React.Component {
 						columns={this.props.columns}
 						filterable={this.props.filterable}
 						pivot={this.props.pivot}
+						getPivotRowProps={this.props.getPivotRowProps}
 						data={this.props.tableData}
 						language={language ? language.header : undefined}
 						onRowSelected={this.onRowSelected.bind(this)}
@@ -170,7 +171,9 @@ class DataTable extends React.Component {
 			mouseDownCol: null,
 			resized: [],
 			language: this.props.language,
-			sorted: []
+			sorted: [],
+
+			expandList: [1,2,3]
 		}
 
 		this.isHeaderRendered = false
@@ -275,22 +278,7 @@ class DataTable extends React.Component {
 						this.loadHeaderLanguage(this.props)
 						this.setState({ sorted: sorted })
 					}}
-					getTrProps={(state, rowInfo, column, instance) => {
-						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
-							return {
-								style: {
-									background: rowInfo.index % 2 == 1 ? rowEven : rowOdd,
-									color: font2,
-								}
-							}
-						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
-							return {
-								style: {...pivotRow}
-							}
-						} else {
-							return {}
-						}
-					}}
+					
 					getTheadFilterProps={(state, rowInfo, column, instance) => {
 						return {
 							style: {
@@ -348,13 +336,56 @@ class DataTable extends React.Component {
 						if(column.background != undefined) {
 							style = Object.assign(style, column.background)
 						}
-						return {
-							style: style,
-							onClick: e => {
-								
-									return this.onCellClick(state, rowInfo, column, instance)
-								
+
+						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
+							
+							return {
+								style: style,
+								onClick: e => {
+									
+										return this.onCellClick(state, rowInfo, column, instance)
+									
+								}
 							}
+						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
+							let a = this.props.getPivotRowProps(rowInfo)
+							
+							if( a != undefined && a.style != undefined ) {
+								style = Object.assign(style, a.style)
+							}
+							return {
+								style: style,
+								// onClick: e => {
+								// 	return this.onCellClick(state, rowInfo, column, instance)
+								// }	
+							}
+						} else {
+							return {}
+						}
+							
+					}}
+					getTrProps={(state, rowInfo, column, instance) => {
+						if (rowInfo != undefined && rowInfo.aggregated == undefined) {
+							return {
+								style: {
+									background: rowInfo.index % 2 == 1 ? rowEven : rowOdd,
+									color: font2,
+								}
+							}
+						} else if (rowInfo != undefined && rowInfo.aggregated != undefined) {
+							// aggregated (pivoted)
+							let style = {...pivotRow}
+							// console.log(this.props)
+							let a = this.props.getPivotRowProps(rowInfo)
+							
+							if( a != undefined && a.style != undefined ) {
+								style = Object.assign(style, a.style)
+							}
+							return {
+								style: style
+							}
+						} else {
+							return {}
 						}
 					}}
 					getNoDataProps={(state, rowInfo, column, instance) => {
@@ -362,7 +393,8 @@ class DataTable extends React.Component {
 							style: noDataDisplay
 						}
 					}}
-					expanded={expand(this.props.data)}
+					expanded={this.state.expandList}
+					onExpandedChange={(newExpanded, index, event) => this.handleExpand(newExpanded, index, event)}
 					pivotBy={this.props.pivot}
 					className={'datatable -striped'}
 					style={{ height: this.props.maxRows === undefined ? '100%' : height, }}
@@ -376,6 +408,26 @@ class DataTable extends React.Component {
 			</div>
 		)
 
+	}
+
+	handleExpand(newExpanded, index, e) {
+		let {expandList} = this.state
+		// console.log(Object.keys(a[b[0]]).length)
+		if (expandList[index[0]] == null) {
+			expandList[index[0]] = true
+			this.setState({
+				expandList: expandList
+			})
+
+			console.log(this.state.expandList)
+
+		} else {
+			console.log("aa")
+			expandList[index[0]] = !expandList[index[0]]
+			this.setState({
+				list: expandList
+			})
+		}
 	}
 
 	onCellClick(state, rowInfo, column, instance) {
@@ -706,7 +758,7 @@ class DataTable extends React.Component {
 						type='checkbox'
 						onChange={() => this.props.onRowSelected('ALL')}
 						className={"row-checkbox customCol" + (reorderable == false ? "" : " reorderable")}
-						style={{ position: 'relative', top: '2px' }}
+						style={{ position: 'relative', top: '0px' }}
 					/>
 				)
 			default:
@@ -728,7 +780,8 @@ class DataTable extends React.Component {
 //UTILS FUNCTIONS
 function expand(data) {
 	let rows = []
-	for (var i = 1; i <= data.length; i++) {
+	for (var i = 1; i <= data.length - 2; i++) {
+		console.log(rows)
 		rows = rows.concat(i)
 	}
 	return rows;
