@@ -83,9 +83,12 @@ export function onCancelSubmit(param, authParams, language) {
             // auth card matrix fail -> recreate card matrix serial number
         } else {                                        
             if(response.mvReturnResult == "success"){
-                me.updateView()
-                return function (dispatch) {
-                    dispatch(showFlashPopup(language.messagebox.title.info, language.orderjournal.message.cancelSuccess))
+                // me.updateView()
+                // return function (dispatch) {
+                //     dispatch(showFlashPopup(language.messagebox.title.info, language.orderjournal.message.cancelSuccess))
+                // }
+                return {
+                    type: 1
                 }
 
             }
@@ -187,21 +190,6 @@ export function onModifySubmit(param, newPrice, newQty, authParams, language, me
     var successHandler = function(response){
         if(response.returnCode != 0) {
 
-            // auth card matrix fail -> recreate card matrix serial number
-
-            // Ext.Msg.alert(OrsEntrustAuthenMsg.message.error, OrsEntrustAuthenMsg.message.returnError[mvJSON.returnCode]);
-            // cmdOk.disabled = false;
-            // serial1 = TTLUtils.createAuthenCardString();
-            // serial2 = TTLUtils.createAuthenCardString();
-                    
-            // newModifySerialNo = serial1 + "|" + serial2;
-                    
-            // seriNo1.innerHTML = '<b>['+ serial1.split('|')[0] +']</b>';
-            // seriNo2.innerHTML = '<b>['+ serial2.split('|')[0] +']</b>';
-                    
-            // answerNo1.setValue("");
-            // answerNo2.setValue("");
-
             return (dispatch) => {
                 dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.returnCode]))
             }
@@ -210,9 +198,12 @@ export function onModifySubmit(param, newPrice, newQty, authParams, language, me
             //console.log(language)                                 
             if(response.mvReturnResult == "success"){
                 // modify success
-                me.updateView()
-                return (dispatch) => {
-                    dispatch(showMessageBox(language.messagebox.title.info, language.orderjournal.message.modifySucces))
+                // me.updateView()
+                // return (dispatch) => {
+                //     dispatch(showMessageBox(language.messagebox.title.info, language.orderjournal.message.modifySucces))
+                // }
+                return {
+                    type: 1
                 }
                 
             }else if(response.mvReturnResult == "ModifyOrderFail"){
@@ -247,4 +238,21 @@ function getModifyOrderFailInfo(language){
             }
         )
     }    
+}
+
+function updateView() {
+    return {
+        type: ActionTypes.UPDATEORDERJOURNAL
+    }
+}
+
+export function updateOrder(data, language) {
+    let orderStatus = data.status
+    
+    return (dispatch) => {
+        dispatch(showFlashPopup(language.messagebox.title.info, 
+            language.orderjournal.message.updateOrder.replace("{orderid}", data.orderGroupID).replace("{status}", language.orderstatus[orderStatus]) ))
+
+        dispatch(updateView())
+    }
 }

@@ -11,7 +11,9 @@ const initialState = {
     mvGenModifyOrderBean: {},
     mvReturnResult: "",
     mvResult: null
-  }
+  },
+
+  updateOrderJournal: false
 };
 
 export default function (state = initialState, action) {
@@ -25,6 +27,11 @@ export default function (state = initialState, action) {
     case ActionTypes.GENMODIFYORDER:
       return Object.assign({}, state, {
         genmodifyorder: action.data
+      });
+
+    case ActionTypes.UPDATEORDERJOURNAL:
+      return Object.assign({}, state, {
+        updateOrderJournal: !state.updateOrderJournal
       });
 
     default:

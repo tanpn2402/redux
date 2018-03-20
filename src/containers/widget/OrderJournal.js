@@ -392,11 +392,11 @@ class OrderJournal extends Component {
 
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         columns: 
-    //     })
-    // }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.updateOrderJournal != this.props.updateOrderJournal) {
+            this.props.onSearch(this.param)
+        }
+    }
 
     handleCancelOrderChecked(e) {
 
@@ -587,6 +587,8 @@ const mapStateToProps = (state) => {
         data: state.orderjournal.enquiryorder,
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
+
+        updateOrderJournal: state.orderjournal.updateOrderJournal
 
     }
 }

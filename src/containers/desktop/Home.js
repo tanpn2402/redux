@@ -5,9 +5,13 @@ import Header from './Header'
 import MenuNav from './MenuNav'
 import MainContent from './MainContent'
 import config from '../../core/config'
-import {getLanguage, getTheme } from '../../utils'
+import {getLanguage, getTheme, replaceURL } from '../../utils'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
 import * as marketData from '../../api/marketdata'
+
+
+import * as broadCast from '../../api/broadcastapi'
+import {BROADCASTURL, BROADCASTTAG} from "../../api/broadcasturl"
 
 class Home extends Component {
     /*
@@ -21,6 +25,7 @@ class Home extends Component {
 
 
         this.interval = this.interval.bind(this)
+        this.broadCast = this.broadCast.bind(this)
     }
 
     componentWillMount(){
@@ -70,6 +75,9 @@ class Home extends Component {
         this.onSubscribeToServer()
         this.props.getListStockInWatchList()
         this.props.getDerivativeList()
+
+
+        this.broadCast()
     }
 
     componentWillUnmount() {
@@ -77,8 +85,8 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // this.onUnSubcribe()
-        // this.onSubscribeToServer()
+        
+        
     }
 
     onSubscribeToServer() {
@@ -124,6 +132,25 @@ class Home extends Component {
         this.props.updateMarketData()
         this.props.updateDerivativeData()
     }
+
+
+    broadCast() {
+        let me = this
+        let socket = broadCast.broadcast("http://192.168.1.226:3000" + 
+            replaceURL(BROADCASTURL.BROADCAST_UPDATE_ORDER, {"clientID": localStorage.getItem("clientID") })
+            , 
+            function(res){
+                // console.log(res, res.actionid, BROADCASTTAG.TOPIC_HKSFO_ORDER_ENQUIRY)
+
+                if(res != null) {
+                    switch(res.actionid) {
+                        case BROADCASTTAG.TOPIC_HKSFO_ORDER_ENQUIRY: 
+                            me.props.updateOrderJournal(res.data, getLanguage(config.cache.lang).page); break;
+                        default: break;
+                    }
+                }
+            })
+    }
 }
 
 const mapStateToProps = (state) => ({
@@ -161,6 +188,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     changeTab: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID))
     },
+
+    // update order journal
+    updateOrderJournal: (data, language) => {dispatch(actions.updateOrder(data, language))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

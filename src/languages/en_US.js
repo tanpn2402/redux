@@ -358,7 +358,8 @@ export default
                     "modifySucces": "Order is sent. Please check again in Order journal.",
                     "modifyFailed": "Modify order failed. Please see detail in Order journal.",
                     "cancelSuccess": "Order is sent. Please check again in Order journal",
-                    "cancelFailed": "Cancel order falied. Please contact to support team."
+                    "cancelFailed": "Cancel order falied. Please contact to support team.",
+                    "updateOrder": "Order {orderid} updated: {status}"
                 }
             },
             "daytrade": {
@@ -1517,6 +1518,33 @@ export default
                     "action": "Action"
 
                 }
+            },
+            "orderstatus": {
+                "SOI" : "Inactive Stop",
+                "IAV": "Inactive",
+                "SOR": "Stop",
+                "PAP": "Pending Approval",
+                "STB": "Sending",
+                "BIX": "Queue",
+                "PSB": "Ready To Send",
+                "WRN": "Price Warning",
+                "BPM": "Waiting",
+                "BMS": "Sending",
+                "BSS": "Sending",
+                "REJ": "Rejected",
+                "CAN": "Cancelled",
+                "KLL": "Rejected",
+                "FLL": "Fully Filled",
+                "CMO": "Created Modify",
+                "MPA": "Pending Approval",
+                "MPS": "Waiting Modify",
+                "MSD": "Sending",
+                "WRR": "Price Warning",
+                "CPD": "Completed",
+                "EXP": "Expired",
+                "PXP": "Partially Expired",
+                "PEX": "Partially Filled",
+                "CON": "Conditional Order"
             },
             "messagebox": {
                 "title": {

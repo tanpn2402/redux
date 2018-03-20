@@ -322,3 +322,16 @@ export function formatCurrency(num, q){
     }
     
 }
+
+
+export function replaceURL(url, param = {}) {
+
+    let tmp = url   
+    for (const key of Object.keys(param)) {
+        tmp = tmp.replace(":" + key, param[key])
+    }
+
+    return tmp
+}
+
+

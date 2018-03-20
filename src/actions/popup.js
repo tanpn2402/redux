@@ -4,7 +4,7 @@ import { ActionTypes } from '../core/constants';
 import moment from 'moment'
 
 export function showPopup(params) {
-    console.log(params)
+    
     return {
         type: ActionTypes.POPUP,
         data: params.data,

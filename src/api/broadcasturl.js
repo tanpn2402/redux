@@ -1,0 +1,7 @@
+export const BROADCASTURL = {
+    BROADCAST_UPDATE_ORDER: "/ITradePushServer/comet/:clientID"
+}
+
+export const BROADCASTTAG = {
+    TOPIC_HKSFO_ORDER_ENQUIRY: "TOPIC_HKSFO_ORDER_ENQUIRY"
+}

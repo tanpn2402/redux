@@ -52,7 +52,6 @@ export default class PopupTable extends React.Component {
     }
 
     renderTData(d) {
-        console.log(d)
         if(d.value === undefined) {
             if(d.Cell === undefined) {
                 return null

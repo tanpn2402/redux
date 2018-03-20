@@ -355,7 +355,8 @@ export default
                     "modifySucces": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "modifyFailed": "Chỉnh sửa thất bại. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
                     "cancelSuccess": "Lệnh đã được gửi. Vui lòng kiểm tra trong tra cứu lệnh giao dịch.",
-                    "cancelFailed": "Hủy lệnh thất bại. Vui lòng liên hệ bộ phận hỗ trợ."
+                    "cancelFailed": "Hủy lệnh thất bại. Vui lòng liên hệ bộ phận hỗ trợ.",
+                    "updateOrder": "Lệnh {orderid} được cập nhật: {status}"
                 }
             },
             "daytrade": {
@@ -1482,6 +1483,33 @@ export default
                     "action": "Action"
 
                 }
+            },
+            "orderstatus": {
+                "SOI" : "Inactive Stop",
+                "IAV": "Inactive",
+                "SOR": "Stop",
+                "PAP": "Pending Approval",
+                "STB": "Sending",
+                "BIX": "Queue",
+                "PSB": "Ready To Send",
+                "WRN": "Price Warning",
+                "BPM": "Waiting",
+                "BMS": "Sending",
+                "BSS": "Sending",
+                "REJ": "Rejected",
+                "CAN": "Cancelled",
+                "KLL": "Rejected",
+                "FLL": "Fully Filled",
+                "CMO": "Created Modify",
+                "MPA": "Pending Approval",
+                "MPS": "Waiting Modify",
+                "MSD": "Sending",
+                "WRR": "Price Warning",
+                "CPD": "Completed",
+                "EXP": "Expired",
+                "PXP": "Partially Expired",
+                "PEX": "Partially Filled",
+                "CON": "Conditional Order"
             },
             "messagebox": {
                 "title": {

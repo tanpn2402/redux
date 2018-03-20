@@ -46,9 +46,15 @@ export function enterOrderSubmit(language, params, authParams){
                 }
             } else {
                 // success
-                return function (dispatch) {
-                    dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
+                // return function (dispatch) {
+                //     dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
+                // }
+
+                return {
+                    type: 1
                 }
+
+                
                 // return function (dispatch) {
                 //     dispatch(showPopup({
                 //         data: response,
