@@ -324,6 +324,9 @@ label {
     height: 22px;
     background-color: transparent;
 }
+.ReactTable .rt-tr {
+    position: relative;
+}
 .ReactTable .rt-tr>.rt-resizable-header {
     padding: 5px 0;
     border-right: 1px solid rgba(187, 186, 186, .3);
@@ -3795,6 +3798,7 @@ label {
 .wl-index .index-name {
     min-width: 110px;
     display: inline-block;
+    text-align: left;
 }
 /* end  */
 

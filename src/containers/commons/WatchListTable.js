@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import DataTable from './DataTable'
+import DataTable from './table/index'
 import * as utils from '../../utils'
 import config from "../../core/config"
+import {Icon}   from "react-fa"
 
 class WatchListTable extends React.Component {
     constructor(props) {
@@ -22,12 +23,26 @@ class WatchListTable extends React.Component {
                             maxWidth: 90,
                             show: true,
                             skip: false,
-                            // Pivot: props => {
-                            //     // console.log(props.value)
-                            //     return (
-                            //         <div><span>{props.value}</span></div>
-                            //     )
-                            // },
+                            Pivot: p => {
+                                return (
+                                    <div className="watchlist-status" style={{height: "20px"}}>
+                                        <div className="wl-index" style={{position: "absolute"}}>
+                                            <span className="index-name">{p.value}</span>
+                                            <span className="index-vl" style={props.theme.bindingdata.up}>
+                                                <Icon name="caret-up" />
+                                                <span >{"1,123.37 (2.92 0.26%)"}</span>
+                                            </span>
+
+                                            <span className="index-stat">
+                                                <span  style={props.theme.bindingdata.up}><Icon name="caret-up" /> <span>103</span></span>
+                                                <span  style={props.theme.bindingdata.nochange}><Icon name="caret-down" />120</span>
+                                                <span  style={props.theme.bindingdata.down}><Icon name="square" />10</span>                                         
+                                            </span>
+                                            <span className="index-status">Intermission</span>
+                                        </div>
+                                    </div>
+                                )
+                            },
                             background: this.props.theme.watchlist.oddCol,
                             sortable: false,
                         }
@@ -456,12 +471,26 @@ class WatchListTable extends React.Component {
                             maxWidth: 90,
                             show: true,
                             skip: false,
-                            // Pivot: props => {
-                            //     // console.log(props.value)
-                            //     return (
-                            //         <div><span>{props.value}</span></div>
-                            //     )
-                            // },
+                            Pivot: p => {
+                                return (
+                                    <div className="watchlist-status" style={{height: "20px"}}>
+                                        <div className="wl-index" style={{position: "absolute"}}>
+                                            <span className="index-name">{p.value}</span>
+                                            <span className="index-vl" style={props.theme.bindingdata.up}>
+                                                <Icon name="caret-up" />
+                                                <span >{"1,123.37 (2.92 0.26%)"}</span>
+                                            </span>
+
+                                            <span className="index-stat">
+                                                <span  style={props.theme.bindingdata.up}><Icon name="caret-up" /> <span>103</span></span>
+                                                <span  style={props.theme.bindingdata.nochange}><Icon name="caret-down" />120</span>
+                                                <span  style={props.theme.bindingdata.down}><Icon name="square" />10</span>                                         
+                                            </span>
+                                            <span className="index-status">Intermission</span>
+                                        </div>
+                                    </div>
+                                )
+                            },
                             background: props.theme.watchlist.oddCol,
                             sortable: false,
                         }
@@ -1092,7 +1121,7 @@ class WatchListTable extends React.Component {
                 getPivotRowProps={(props) => {
                     return {
                         style: {
-                            backgroundColor: "rgb(6, 68, 168)",
+                            backgroundColor: "#969696",
                             borderLeft: "none",
                             borderRight: "none",
                             justifyContent: "left"
