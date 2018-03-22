@@ -8,6 +8,7 @@ import $ from 'jquery';
 import config from '../core/config';
 import { showMessageBox } from './notification';
 import { getLanguage } from '../utils';
+import * as fsAction from "./derivatives";
 
 export function doLogin(params) {
     console.log(params)
@@ -219,6 +220,9 @@ export function checkAuth() {
                                             status: "SUCCESS",
                                         }
                                     })
+                            
+                                // dispatch to derivates actions
+                                dispatch(fsAction.getFSSubAccount())
                             }
 
                             
@@ -240,6 +244,9 @@ export function checkAuth() {
                     status: "ERROR",
                 }
             })
+
+
+        
     }
 }
 

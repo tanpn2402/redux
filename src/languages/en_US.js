@@ -772,7 +772,9 @@ export default
                     "netAmt": "Net Amt",
                     "availQty": "Avail Qty",
                     "commissionFees": "Commission Fees",
-                    "usable": "Usable"
+                    "usable": "Usable",
+                    "subaccount": "Sub Acc. ID",
+                    "accname": "Name"
                 },
                 "data": {
                     "Buy": "Buy",

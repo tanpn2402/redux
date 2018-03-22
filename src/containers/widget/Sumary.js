@@ -18,8 +18,8 @@ class Sumary extends React.Component {
         
         this.state = {
             //sub account
-            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
-            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+            mvListSubAcc: props.tradingAccounts,
+            mvSubAccSelected: props.tradingAccounts[0],
         }
 
     }
@@ -372,7 +372,7 @@ const mapStateToProps = (state) => {
     return {
         data: state.trading.portfolioData,
         
-        tradingAccount: state.dologin.tradingAccount
+        tradingAccounts: state.dologin.tradingAccounts
     }
 }
 

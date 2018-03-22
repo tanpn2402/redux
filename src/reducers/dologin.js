@@ -19,9 +19,7 @@ const initialState = {
         mvListDefaultServiceBean: []
     },
 
-    tradingAccount: {
-        tradingAccountSelection: []
-    }
+    tradingAccounts: []
 }
 export default function(state = initialState, action) {
     switch (action.type) {
@@ -32,29 +30,23 @@ export default function(state = initialState, action) {
             
         case ActionTypes.CHECKAUTH:
             
-            let acctrading = action.tradingAccount == undefined ? state.tradingAccount : action.tradingAccount.mvTradingAccountBean
-            acctrading.tradingAccountSelection.push(
-                {
-                    "investorGroupID":"KOREAN",
-                    "aeID":"ALEX",
-                    "productID":"HKS",
-                    "subAccountName":"Derivatives Account",
-                    "subAccountID":"460487D",
-                    "enableMargin":"N",
-                    "tradingAccSeq":"1",
-                    "investorClassID":"NORMAL.01",
-                    "accountSeq":"1",
-                    "type": "DERIVATIVES"
-                }
-            )
-            
+            let acctradinglist = action.tradingAccount == undefined ? 
+                state.tradingAccounts : action.tradingAccount.mvTradingAccountBean.tradingAccountSelection
+                
             return Object.assign({}, state, {
                 loginStatus: action.status,
                 userSavedData: action.userSavedData,
                 userService: action.userService,
 
-                tradingAccount: acctrading
+                tradingAccounts: acctradinglist.concat(state.tradingAccounts)
             });
+
+        case ActionTypes.GETFSSUBACCOUNT:
+            let list = action.listAccounts == undefined ? [] : action.listAccounts
+            let acctrading1 = state.tradingAccounts.concat(list)
+            return Object.assign({}, state, {
+                tradingAccounts: acctrading1
+            })
 
         case ActionTypes.CHECKSESSION:
             return Object.assign({}, state, {

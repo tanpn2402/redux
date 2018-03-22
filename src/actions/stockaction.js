@@ -1,5 +1,5 @@
 import * as api from '../api/web_service_api'
-import config from '../core/config'
+import * as fsAction from "./derivatives"
 
 const { ActionTypes } = require('../core/constants');
 
@@ -23,8 +23,8 @@ export function stockSearch(param) {
                 return (dispath) => dispatch(stockSearch(param))
             } else {
                 let tmp = response
-                tmp.stockSearchList = tmp.stockSearchList.concat(derivativeList)
-                config.cache.stockList = tmp.stockSearchList
+                // tmp.stockSearchList = tmp.stockSearchList.concat(derivativeList)
+                
                 return {
                     type: ActionTypes.STOCKSEARCH,
                     stockList:tmp
@@ -35,6 +35,8 @@ export function stockSearch(param) {
             // console.log("FAILLLLLLLLLL STOCK SEARCHHHHH")
             return (dispatch) => dispatch(stockSearch(param))
         })
+
+        dispatch(fsAction.getFSSeries())
     }
 }
 

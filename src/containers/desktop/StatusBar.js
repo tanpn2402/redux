@@ -130,8 +130,8 @@ class StatusBar extends React.Component {
             subMenuArray: [],
 
             //sub account
-            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
-            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+            mvListSubAcc: props.tradingAccounts,
+            mvSubAccSelected: props.tradingAccounts[0],
         }
         this.allWidget = config.widget
         this.onFocus = this.onFocus.bind(this)
@@ -554,7 +554,7 @@ const mapStateToProps = (state) => {
         tabID: state.menuSelected.tabID,
         widgetList: state.menuSelected.widgetList,
 
-        tradingAccount: state.dologin.tradingAccount
+        tradingAccounts: state.dologin.tradingAccounts
     }
 }
 

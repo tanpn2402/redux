@@ -11,6 +11,10 @@ export const PORT = '9090'
 // export const PORT = window.location.port // "3000"
 export const SERVER = PROTOCOL + "//" + HOSTNAME + ":" + PORT + "/"
 
+export const FSSERVER = "FSServer/"
+export const iTradeSERVER = "Actions/"
+
+
 const HOST = 'mi-trade.masvn.com'
 const USER_AGENT = 'Mozilla/5.0'
 const ACCEPT_LANGUAGE = 'en-US,en;q=0.5'
