@@ -689,18 +689,14 @@ export default
                     "mvPrice": "Price",
                     "PortfolioAssessment": "Portfolio Assessment",
                     "mvMargin": "Margin"
+                },
+                "tab": {
+                    "cpdw": "CP Deposit and Withdraw",
+                    "openposition": "Open Position",
+                    "closeposition": "Close Position",
+                    "stockbalance": "Stock Balance",
+                    "stockmovement": "Stock Movement"
                 }
-                // "header": {
-                //     "InstrumentID": "Stock Code",
-                //     "InstrumentName": "Stock Name",
-                //     "MarketID": "Market",
-                //     "Currency": "Currency",
-                //     "LedgerBalance": "Ledger Balance",
-                //     "UsableBalance": "Usable Balance",
-                //     "RefPrice": "Ref.Price",
-                //     "RefMarketValue": "Ref.MarketValue",
-
-                // }
             },
             "assetallocation": {
                 "header": {

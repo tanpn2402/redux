@@ -9,7 +9,7 @@ import pagination from './pagination'
 import stock from './stockreducer'
 import cashtranshistory from './cashtranshistory'
 import orderconfirmation from './orderconfirmation'
-import porfolio from './porfolio'
+import portfolio from './portfolio'
 import orderhistory from './orderhistory'
 import stockstatement from './stockstatement'
 import cashstatement from './cashstatement'
@@ -43,7 +43,7 @@ export default combineReducers({
   stock,
   cashtranshistory,
   orderconfirmation,
-  porfolio,
+  portfolio,
   oddlottrading,
   orderhistory,
   stockstatement,

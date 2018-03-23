@@ -28,22 +28,10 @@ class Sumary extends React.Component {
         this.setState({
             mvSubAccSelected: option
         })
-
-        if(this.props.onSubAccountChange != undefined) {
-            this.props.onSubAccountChange(option)
-        }
     }
+
 
     render() {
-        return this._renderAccountSumary()
-    }
-
-    _renderAccountSumaryFS() {
-
-    }
-
-
-    _renderAccountSumary() {
         // console.log('SUMARY . . . .. . . .')
         var d = this.props.data.mvPortfolioAccSummaryBean
         if(d == null) {

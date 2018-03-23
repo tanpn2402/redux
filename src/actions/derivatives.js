@@ -568,7 +568,7 @@ export function queryClientInfoFS(params) {
 }
 
 export function clientPortfolioEnquiryFS(params) {
-    params = {
+    let p = {
         clientID : "",
         tradingAccSeq : "",
         subAccountID : "",
@@ -577,6 +577,23 @@ export function clientPortfolioEnquiryFS(params) {
         sessionID : "",
         deviceID : "",
         osVersion : "",
-        QuerySummary : "",
+        QuerySummary : true,
+    }
+    p = Object.assign(p, params)
+
+    return dispatch => {
+        api.post("clientPortfolioEnquiry", p, dispatch, 
+            function(res) {
+                // success
+                console.log(res)
+                return {
+                    type: ActionTypes.CLIENTPORTFOLIOENQUIRYFS,
+                    data: res
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
     }
 }
