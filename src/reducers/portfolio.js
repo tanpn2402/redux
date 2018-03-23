@@ -9,7 +9,9 @@ const initialState = {
         stockMovementList: null,
         closePositionList: null,
         openPositionList: null
-    }
+    },
+
+    accountBalanceInfoFS: [],
 };
 
 export default function (state = initialState, action) {
@@ -18,6 +20,13 @@ export default function (state = initialState, action) {
             return Object.assign({}, state, {
                 clientPortfolio: action.data,
             });
+
+        case ActionTypes.CASHBALANCEENQUIRYFS:
+        // console.log(action.data)
+            return Object.assign({}, state, {
+                accountBalanceInfoFS: action.data,
+            });
+
         default:
             return state;
     }

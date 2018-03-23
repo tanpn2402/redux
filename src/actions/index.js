@@ -68,7 +68,8 @@ import {
     orderEnquiryFS,
     queryClientInfoFS,
     clientPortfolioEnquiryFS,
-    getFSSubAccount
+    getFSSubAccount,
+    cashBalanceEnquiry
 } from "./derivatives"
 
 import {handleNMOrder} from "./handleNMOrder"
@@ -258,6 +259,7 @@ export {
     queryClientInfoFS,
     clientPortfolioEnquiryFS,
     getFSSubAccount,
+    cashBalanceEnquiry,
 
 
     handleNMOrder,

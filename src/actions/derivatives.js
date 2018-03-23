@@ -585,10 +585,49 @@ export function clientPortfolioEnquiryFS(params) {
         api.post("clientPortfolioEnquiry", p, dispatch, 
             function(res) {
                 // success
-                console.log(res)
+                // console.log(res)
                 return {
                     type: ActionTypes.CLIENTPORTFOLIOENQUIRYFS,
                     data: res
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}
+
+export function cashBalanceEnquiry(params) {
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        QuerySummary : true,
+    }
+
+    p = Object.assign(p, params)
+    // console.log(p)
+    
+    return dispatch => {
+        api.post("cashBalanceEnquiry", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                // console.log(res)
+                return {
+                    type: ActionTypes.CASHBALANCEENQUIRYFS,
+                    data: res.accountBalanceInfo
                 }
             },
             function(err) {

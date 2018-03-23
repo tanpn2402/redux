@@ -2293,6 +2293,26 @@ label {
     padding-left: 8px;
     padding-top: 2px;
 }
+
+.accsum-internal, .accsum-exchange {
+    display: inline;
+    width: 50%;
+}
+.accsum-exchange {
+    padding-left: 10px;
+    padding-right: 0px;
+}
+.accsum-internal {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+.accsum-piechart {
+    float: left;
+    width: 270px;
+}
+.acc-sum-info {
+    display: flow-root;
+}
 /* END SUMARY COMPONENT */
 
 /* MARQUEE */
