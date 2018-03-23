@@ -2,7 +2,7 @@ import { POST, PUT, GET, LOGIN, DELETE, FSSERVER, /*SERVER, */HEADERSCK } from '
 import { showMessageBox } from '../actions/notification'
 
 
-const SERVER = "http://localhost:3000/"
+const SERVER = "http://192.168.1.225:3000/"
 export function get(action, param, dispatch, successHandler, failHandler) {
 	return (fetchAPI(action, param, GET)).then(response => response).then(parseData => {
 		dispatch(successHandler(parseData))

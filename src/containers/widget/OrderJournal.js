@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import Table from '../commons/DataTable'
+import Table from '../commons/table/index'
 import * as Utils from '../../utils'
 import { button } from 'react-bootstrap'
 import moment from "moment"
@@ -13,6 +13,15 @@ class OrderJournal extends Component {
         super(props)
         this.state = {
             columns: [
+                {
+                    id: 'market',
+                    accessor: 'mvMarketID',
+                    minWidth: 80,
+                    maxWidth: 90,
+                    show: true,
+                    skip: false,
+                    
+                },
                 {
                     id: 'cb',
                     maxWidth: 50,
@@ -81,36 +90,6 @@ class OrderJournal extends Component {
                     skip: true,
                     mobile: false
                 },
-                // {
-                //     id: 'Detail',
-                //     maxWidth: 200,
-                //     width: 80,
-                //     sortable: false,
-                //     Cell: props => {
-                //         if (props.aggregated) {
-
-                //         } else {
-                //             var child = []
-                //             child.push(
-                //                 <button className="hks-btn sm btn-detail" type="button"
-                //                     onClick={() => this.handleDetailOrder(props.original)}>
-                //                     <span className="glyphicon glyphicon-folder-open"></span>
-                //                 </button>
-                //             )
-
-                //             return (
-                //                 <div style={{ display: "table", height: '100%', width: '100%' }}>
-                //                     <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
-                //                         {
-                //                             child
-                //                         }
-                //                     </div>
-                //                 </div>)
-                //         }
-                //     },
-                //     skip: true,
-                //     mobile: false
-                // },
                 {
                     id: 'stockid',
                     accessor: 'mvStockID',
@@ -118,12 +97,18 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     reorderable: false,
-                    background: props.theme.table.colText
+                    background: props.theme.table.colText,
+                    Aggregated: props => {
+                        return <span></span>
+                    }
                 },
                 {
                     id: 'buysell',
                     accessor: 'mvBS',
                     width: 60,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
                             
@@ -153,6 +138,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                         
                 },
@@ -163,6 +151,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -172,6 +163,9 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -181,6 +175,9 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -190,12 +187,18 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
                     id: 'status',
                     accessor: 'mvStatus',
                     width: 120,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
@@ -212,6 +215,9 @@ class OrderJournal extends Component {
                 {
                     id: 'ordertype',
                     accessor: 'mvOrderType',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
@@ -229,6 +235,9 @@ class OrderJournal extends Component {
                     id: 'feetax',
                     width: 90,
                     skip: false,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         var result=0
                         if (props.aggregated) {
@@ -248,14 +257,17 @@ class OrderJournal extends Component {
                 {
                     id: 'bankid',
                     accessor: 'mvBankID',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
                         } else {
                             let text = props.original.mvBankID
-                        if(text === null){
-                            return ''
-                        }
+                            if(text === null){
+                                return ''
+                            }
                         }
                     },
                     width: 80,
@@ -268,19 +280,30 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                 },
                 {
                     id: 'rejectreason',
                     accessor: 'mvRejectReason',
                     width: 80,
-                    Cell: props => {
-                      let text=this.props.language.orderjournal.reject
-                      if (props.original.mvRejectReason != "")
-                      return (
-                          <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(props.original.mvRejectReasonDetail)}>
-                            {text}
-                          </div>
-                      )
+                    Aggregated: props => {
+                        return <span></span>
+                    },
+                    Cell: p => {
+                        if (p.aggregated) {
+
+                        } else {
+                            let text=props.language.orderjournal.reject
+                            if (p.original.mvRejectReason != "")
+                                return (
+                                    <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(p.original.mvRejectReasonDetail)}>
+                                        {text}
+                                    </div>
+                                )
+                            else return <span></span>
+                        }
                     },
                     skip: false,
                     show: true,
@@ -292,20 +315,25 @@ class OrderJournal extends Component {
                     skip: true,
                     show: false,
                     Cell: props => {
-                        return (
-                            <div>
-                                <button className="hks-btn btn-cancel-order" onClick={e => this.onCancelOrder(props)}>
-                                    <span className="glyphicon glyphicon-remove"></span>
-                                    {this.props.language.button.cancel}
-                                </button>
-                                <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
-                                    <span className="glyphicon glyphicon-pencil"></span>
-                                    {this.props.language.button.modify}
-                                </button>
-                            </div>
-                        )
+                        if (props.aggregated) {
+
+                        } else {
+                            return (
+                                <div>
+                                    <button className="hks-btn btn-cancel-order" onClick={e => this.onCancelOrder(props)}>
+                                        <span className="glyphicon glyphicon-remove"></span>
+                                        {this.props.language.button.cancel}
+                                    </button>
+                                    <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
+                                        <span className="glyphicon glyphicon-pencil"></span>
+                                        {this.props.language.button.modify}
+                                    </button>
+                                </div>
+                            )
+                        }
                     }
                 }
+                
 
             ],
             pageIndex: 1,
@@ -368,7 +396,18 @@ class OrderJournal extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={this.props.data.mvOrderBeanList}
-
+                        pivot={['market']}
+                        getPivotRowProps={(props) => {
+                            return {
+                                style: {
+                                    backgroundColor: "#969696",
+                                    borderLeft: "none",
+                                    borderRight: "none",
+                                    justifyContent: "left"
+                                }
+                            }
+                        }}
+                        
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
                         totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
@@ -389,8 +428,8 @@ class OrderJournal extends Component {
 
     componentDidMount() {
         this.props.onSearch(this.param)
-
-    }
+        // this.props.orderEnquiryFS(this.param)
+    }   
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.updateOrderJournal != this.props.updateOrderJournal) {
@@ -455,29 +494,6 @@ class OrderJournal extends Component {
         })
     }
 
-
-    // handleOnMouseDown(e) { // begin dragging
-    //     let idA = e.target.id
-    //     let result = this.state.columns.findIndex((column) => {
-    //         return column.id == idA
-    //     })
-    //     this.indexA = result != -1 ? result : 0
-    // }
-
-    // handleOnMouseUp(e) { // end dragging
-    //     let idB = e.target.id
-    //     let result = this.state.columns.findIndex((column) => {
-    //         return column.id == idB
-    //     })
-    //     this.indexB = result != -1 ? result : 0
-    //     let arr = this.state.columns.slice()
-    //     let a = arr[this.indexA]
-    //     arr[this.indexA] = arr[this.indexB]
-    //     arr[this.indexB] = a
-    //     this.setState({
-    //         columns: arr
-    //     })
-    // }
 
     onRowSelected(param) {
         if (param === 'ALL') {
@@ -596,7 +612,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
 
     onSearch: (param, reload) => {
+        dispatch(actions.clearOrderEnquiryData())
         dispatch(actions.getEnquiry(param, reload))
+        dispatch(actions.orderEnquiryFS(param))
     },
     getStockInfo: (param) => {
         //dispatch(actions.getstockInfo(param))
@@ -606,6 +624,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     showPopup: (param) => {
         dispatch(actions.showPopup(param))
+    },
+    orderEnquiryFS: (param) => {
+        dispatch(actions.orderEnquiryFS(param))
     }
 
 })

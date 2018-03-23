@@ -256,3 +256,9 @@ export function updateOrder(data, language) {
         dispatch(updateView())
     }
 }
+
+export function clearOrderEnquiryData() {
+    return {
+        type: ActionTypes.RESETENQUIRYORDERDATA
+    }
+}

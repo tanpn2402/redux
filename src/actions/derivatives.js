@@ -190,8 +190,165 @@ export function cpCashDWTS(params) {
     }
 }
 
-export function orderHistoryEnquiryFS(params) {
-    params = {}
+export function orderHistoryEnquiryFS(data) {
+
+    data.tradingAccount = {}
+    data.tradingAccount.accountSeq = 1
+    data.tradingAccount.subAccountID = "100002"
+
+    let params = {
+        clientID : "100002",
+        tradingAccSeq: parseInt(data.tradingAccount.accountSeq),
+        subAccountID: data.tradingAccount.subAccountID,
+        version: "",
+        language: "",
+        sessionID: "",
+        sessionID: "",
+        osVersion: "",
+        Status : "", 
+        orderdate: "",
+    }
+
+    console.log(params)
+
+    return dispatch => {
+        api.post("orderHistoryEnquiry", params, dispatch, 
+        function(res) {
+            // success
+            console.log(res)
+
+            if(!res) {
+                return {
+                    type: 0
+                }
+            }
+
+            let list = res.orderEnquireInfoList
+            if(list.length > 0) {
+                let data = list.map(e => {
+                    return {
+                        "matchedDate": "08-12-2015",
+                        "mvAON": null,
+                        "mvAction": null,
+                        "mvActivationDate": null,
+                        "mvAllorNothing": "N",
+                        "mvApprovalReason": null,
+                        "mvApprovalRemark": null,
+                        "mvApprovalTime": null,
+                        "mvAvgPrice": "0.000",
+                        "mvAvgPriceValue": "0.000",
+                        "mvBS": "Buy",
+                        "mvBSValue": null,
+                        "mvBankACID": null,
+                        "mvBankID": null,
+                        "mvBranchID": null,
+                        "mvBrokerID": null,
+                        "mvCancelIcon": null,
+                        "mvCancelQty": null,
+                        "mvCancelQtyValue": null,
+                        "mvChannelID": "INT       ",
+                        "mvClientID": null,
+                        "mvClientRemarks": null,
+                        "mvContactPhone": null,
+                        "mvCreateTime": null,
+                        "mvCurrencyID": null,
+                        "mvDNSeq": null,
+                        "mvDateTime": null,
+                        "mvEntityID": null,
+                        "mvExceededAmt": null,
+                        "mvFilledPrice": "0.000",
+                        "mvFilledQty": "100",
+                        "mvGoodTillDate": null,
+                        "mvGrossAmt": null,
+                        "mvHedge": null,
+                        "mvHoldConfirmQty": null,
+                        "mvHostId": null,
+                        "mvInActive": null,
+                        "mvInputTime": "29/08/2016 15:54:53",
+                        "mvInstrumentId": null,
+                        "mvInstrumentShortName": null,
+                        "mvInvestorClassId": null,
+                        "mvInvestorGroupId": null,
+                        "mvIsManualTrade": null,
+                        "mvIsOddLot": null,
+                        "mvIsPostExecutedOrder": null,
+                        "mvIsPriceWarningResubmit": null,
+                        "mvIsReleased": null,
+                        "mvLastModifiedUserId": null,
+                        "mvLastTradeTime": null,
+                        "mvLotSize": 0,
+                        "mvMarketID": "HOSE",
+                        "mvModifiedDate": null,
+                        "mvModifiedDateTime": null,
+                        "mvModifiedTime": null,
+                        "mvModifyIcon": null,
+                        "mvModifyOrderID": null,
+                        "mvNetAmt": null,
+                        "mvNetAmtValue": null,
+                        "mvNotifiedFlag": null,
+                        "mvOSQty": null,
+                        "mvOSQtyValue": null,
+                        "mvOgackTime": null,
+                        "mvOrderBeanID": 0,
+                        "mvOrderGroupID": "10016561  ",
+                        "mvOrderID": "10019044  ",
+                        "mvOrderType": "Limit",
+                        "mvOrderTypeValue": "L",
+                        "mvOrigin": null,
+                        "mvPendAction": null,
+                        "mvPendingPrice": null,
+                        "mvPendingQty": null,
+                        "mvPrevtradeConsideration": null,
+                        "mvPrice": "46.150",
+                        "mvPriceValue": null,
+                        "mvQty": "100",
+                        "mvQtyValue": null,
+                        "mvRejectReason": "",
+                        "mvRejectReasonDetail": null,
+                        "mvRemark": null,
+                        "mvRepOrterGroupId": null,
+                        "mvReporTackTime": null,
+                        "mvReporTime": null,
+                        "mvSCRIP": null,
+                        "mvShortName": null,
+                        "mvShortsell": null,
+                        "mvShowCancelIcon": null,
+                        "mvShowModifyIcon": null,
+                        "mvStatus": "CAN       ",
+                        "mvStatusInternal": null,
+                        "mvStatusTarget": "CAN       _TARGET",
+                        "mvStatus_Internal": null,
+                        "mvStockID": "SSI                 ",
+                        "mvStockName": " - ",
+                        "mvStopOrderExpiryDate": null,
+                        "mvStopOrderType": null,
+                        "mvStopPrice": "No",
+                        "mvStopPriceValue": null,
+                        "mvStopTriggerTime": null,
+                        "mvStopType": null,
+                        "mvStopTypeValue": null,
+                        "mvSupervisorId": null,
+                        "mvSupervisorrejected": null,
+                        "mvTradeConsideration": null,
+                        "mvTradeTime": null,
+                        "mvUserID": null,
+                        "mvValidityDate": null,
+                        "price": null,
+                        "stockCode": null,
+                        "stockName": null
+                    }
+                })
+            }
+
+
+        },
+        function(err) {
+
+        }
+    )}
+
+
+
 }
 
 export function VNRP102ClosePositionEnquiry(params) {
@@ -209,17 +366,190 @@ export function VNRP102ClosePositionEnquiry(params) {
     }
 }
 
-export function orderEnquiryFS(params) {
-    params = {
-        clientID : "",
-        tradingAccSeq : "",
-        subAccountID : "",
+export function orderEnquiryFS(data) {
+    data.tradingAccount = {}
+    data.tradingAccount.accountSeq = 1
+    data.tradingAccount.subAccountID = "100002"
+    
+    let params = {
+        clientID : "100002",
+        tradingAccSeq: parseInt(data.tradingAccount.accountSeq),
+        subAccountID: data.tradingAccount.subAccountID,
         version : "",
         language : "",
         sessionID : "",
         deviceID : "",
         osVersion : "",
-        Status : "",
+        Status : "",   
+    }
+
+    /*
+    
+    Pending_Approval
+    Ready_To_Send
+    Outstanding
+    Sending
+    Notified
+    Rejected
+    Filled
+    Cancelled
+    Inactive
+    Killed
+    Fill_And_Kill
+    Queue
+    Stop_Ready
+    Stop_Sent
+    Stop_Failed
+    Stop_Inactive
+    AOC_Cancelled
+
+    */
+    console.log(params)
+
+    return dispatch => {
+        api.post("orderEnquiry", params, dispatch, 
+        function(res) {
+            // success
+            console.log(res)
+
+            if(!res) {
+                return {
+                    type: 0
+                }
+            }
+
+            console.log("orderEnquireInfoList FS", res.orderEnquireInfoList)
+            let orderEnquireInfoList = res.orderEnquireInfoList
+            if(orderEnquireInfoList.length > 0) {
+                let data = orderEnquireInfoList.map(e => {
+                    return {
+                        "matchedDate": "",
+                        "mvAON": "",
+                        "mvAction": "",
+                        "mvActivationDate": "2015-12-10",
+                        "mvAllorNothing": "N",
+                        "mvApprovalReason": "",
+                        "mvApprovalRemark": "",
+                        "mvApprovalTime": "",
+                        "mvAvgPrice": "",
+                        "mvAvgPriceValue": "",
+                        "mvBS": e.orderInfo.bs.value,
+                        "mvBSValue": e.orderInfo.bs.value,
+                        "mvBankACID": "",
+                        "mvBankID": "",
+                        "mvBranchID": "",
+                        "mvBrokerID": "",
+                        "mvCancelIcon": "",
+                        "mvCancelQty": "100",
+                        "mvCancelQtyValue": "100",
+                        "mvChannelID": "INT",
+                        "mvClientID": "C080001",
+                        "mvClientRemarks": "",
+                        "mvContactPhone": "",
+                        "mvCreateTime": "",
+                        "mvCurrencyID": "VND",
+                        "mvDNSeq": "",
+                        "mvDateTime": "",
+                        "mvEntityID": "",
+                        "mvExceededAmt": "",
+                        "mvFilledPrice": "",
+                        "mvFilledQty": e.filled,
+                        "mvGoodTillDate": "",
+                        "mvGrossAmt": "0.000",
+                        "mvHedge": "",
+                        "mvHoldConfirmQty": "",
+                        "mvHostId": "",
+                        "mvInActive": "",
+                        "mvInputTime": "08:59:33",
+                        "mvInstrumentId": "",
+                        "mvInstrumentShortName": "",
+                        "mvInvestorClassId": "",
+                        "mvInvestorGroupId": "",
+                        "mvIsManualTrade": "",
+                        "mvIsOddLot": "",
+                        "mvIsPostExecutedOrder": "",
+                        "mvIsPriceWarningResubmit": "",
+                        "mvIsReleased": "",
+                        "mvLastModifiedUserId": "",
+                        "mvLastTradeTime": "",
+                        "mvLotSize": 100,
+                        "mvMarketID": e.orderInfo.marketId,
+                        "mvModifiedDate": "",
+                        "mvModifiedDateTime": "",
+                        "mvModifiedTime": "08:59:38",
+                        "mvModifyIcon": "",
+                        "mvModifyOrderID": "",
+                        "mvNetAmt": "0.000",
+                        "mvNetAmtValue": "0.000",
+                        "mvNotifiedFlag": "",
+                        "mvOSQty": e.osqty,
+                        "mvOSQtyValue": e.osqty,
+                        "mvOgackTime": "",
+                        "mvOrderBeanID": 0,
+                        "mvOrderGroupID": e.orderInfo.orderGroupId,
+                        "mvOrderID": e.orderInfo.orderId,
+                        "mvOrderType": e.orderInfo.orderType.value,
+                        "mvOrderTypeValue": e.orderInfo.orderType.value,
+                        "mvOrigin": "",
+                        "mvPendAction": "",
+                        "mvPendingPrice": "0.000",
+                        "mvPendingQty": "0",
+                        "mvPrevtradeConsideration": "",
+                        "mvPrice": e.price,
+                        "mvPriceValue": e.price,
+                        "mvQty": e.qty,
+                        "mvQtyValue": e.qty,
+                        "mvRejectReason":"REJECTREASONDETAILS",
+                        "mvRejectReasonDetail":  e.rejectreason ,
+                        "mvRemark": "",
+                        "mvRepOrterGroupId": "",
+                        "mvReporTackTime": "",
+                        "mvReporTime": "",
+                        "mvSCRIP": "N",
+                        "mvShortName": "",
+                        "mvShortsell": "",
+                        "mvShowCancelIcon": e.isCancellable? "Y" : "N",
+                        "mvShowModifyIcon": e.isModifiable? "Y" : "N",
+                        "mvStatus": e.status,
+                        "mvStatusInternal": "",
+                        "mvStatusTarget": "CAN",
+                        "mvStatus_Internal": "",
+                        "mvStockID": e.orderInfo.seriesId,
+                        "mvStockName": e.orderInfo.seriesId,
+                        "mvStopOrderExpiryDate": "",
+                        "mvStopOrderType": "No",
+                        "mvStopPrice": e.stopPrice,
+                        "mvStopPriceValue": e.stopPrice,
+                        "mvStopTriggerTime": "",
+                        "mvStopType": e.stopType,
+                        "mvStopTypeValue": "N",
+                        "mvSupervisorId": "",
+                        "mvSupervisorrejected": "",
+                        "mvTradeConsideration": "",
+                        "mvTradeTime": null,
+                        "mvUserID": "",
+                        "mvValidityDate": e.orderInfo.validityDate,
+                        "price": e.price,
+                        "stockCode": e.orderInfo.seriesId,
+                        "stockName": e.orderInfo.seriesId
+                    }
+                })
+
+                console.log("orderEnquireInfoList FS", data)
+                return {
+                    type: ActionTypes.ORDERENQUIRYFS,
+                    data
+                }
+            }
+                
+        },
+        function(err) {
+            // error
+            console.log(err)
+            return {
+                type: 1
+            }
+        })
     }
 }
 

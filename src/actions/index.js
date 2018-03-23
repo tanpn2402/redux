@@ -3,7 +3,7 @@ import { onTabClick, onMobileTabClick, getSavedContentLayout,
     saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent,
     saveDefaultTab } from './menu_selected'
 import { switchLanguage, switchTheme } from './configurations'
-import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit, updateOrder } from './orderjounal'
+import { getEnquiry, genModifyOrder, onCancelSubmit, onModifySubmit, updateOrder, clearOrderEnquiryData } from './orderjounal'
 import { genEnterOrder, enterOrderSubmit, checkAuthentication, setDefaultOrderParams, enterOrder } from './enterorder'
 import { stockSearch, getStockWatchInfo, sendStockToStockMarketInfoWidget } from './stockaction'
 import { onConfirmSubmit, getOrderCofirm, exportOrderConfirm } from './confirmorder'
@@ -139,6 +139,7 @@ export {
     onCancelSubmit,
     onModifySubmit,
     updateOrder,
+    clearOrderEnquiryData,
 
     // margin loan
     enquiryMarginLoan,
