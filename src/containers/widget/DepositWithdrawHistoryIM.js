@@ -6,6 +6,7 @@ import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
 import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
+import moment from "moment"
 
 class DepositWithdrawHistory extends Component {
     constructor(props) {
@@ -132,7 +133,7 @@ class DepositWithdrawHistory extends Component {
                         totalPage={1}
                         onPageChange={this.onPageChange.bind(this)}
 
-                        searchParams={['mvStartDate', 'mvEndDate']}
+                        searchParams={['mvStartDate']}
                         searchEnable={true}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
@@ -155,10 +156,12 @@ class DepositWithdrawHistory extends Component {
     componentDidMount() {
         let {currentTrdAccount, language} = this.props
         if(currentTrdAccount.investorType == "DERIVATIVES") {
-            // this.props.cashTransferEnquiryFS({
-            //     tradingAccSeq : parseInt(currentTrdAccount.tradingAccSeq),
-            //     subAccountID : currentTrdAccount.subAccountID,
-            // })
+            this.props.cpCashDWenquiryFS({
+                tradingAccSeq : parseInt(currentTrdAccount.tradingAccSeq),
+                subAccountID : currentTrdAccount.subAccountID,
+                clientID: currentTrdAccount.subAccountID,
+                tranDate: moment().format("DD/MM/YYYY")
+            })
         }
     }
 
@@ -181,7 +184,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    // cashTransferEnquiryFS: (params) => {dispatch(actions.cashTransferEnquiryFS(params))}
+    cpCashDWenquiryFS: (params) => {dispatch(actions.cpCashDWenquiryFS(params))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DepositWithdrawHistory)

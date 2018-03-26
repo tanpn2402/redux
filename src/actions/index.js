@@ -1,4 +1,4 @@
-import { doLogin, doLogout, checkAuth, checkSession } from './dologin'
+import { doLogin, doLogout, checkAuth, checkSession, switchAccount } from './dologin'
 import { onTabClick, onMobileTabClick, getSavedContentLayout, 
     saveLayout, reloadCustom, openSideMenu, openSearch, onMobileMenuSelect, onReloadPageContent,
     saveDefaultTab } from './menu_selected'
@@ -69,7 +69,12 @@ import {
     queryClientInfoFS,
     clientPortfolioEnquiryFS,
     getFSSubAccount,
-    cashBalanceEnquiry
+    cashBalanceEnquiry,
+    submitCPCashDWFS,
+    submitCashDWFS,
+    deleteCashDWFS,
+    cashTransferEnquiryFS,
+    cpCashDWenquiryFS
 } from "./derivatives"
 
 import {handleNMOrder} from "./handleNMOrder"
@@ -86,6 +91,7 @@ export {
     doLogout,
     checkAuth,
     checkSession,
+    switchAccount,
 
     // menu selected
     onTabClick,
@@ -260,6 +266,11 @@ export {
     clientPortfolioEnquiryFS,
     getFSSubAccount,
     cashBalanceEnquiry,
+    submitCPCashDWFS,
+    submitCashDWFS,
+    deleteCashDWFS,
+    cashTransferEnquiryFS,
+    cpCashDWenquiryFS,
 
 
     handleNMOrder,

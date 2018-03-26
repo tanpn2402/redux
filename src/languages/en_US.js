@@ -153,7 +153,8 @@ export default
                 "tradehistory": "Trade Log",
                 "recommendation": "Recommendation",
                 "derivatives": "Derivatives",
-                "depositwithdraw": "Deposit/Withdraw IM",
+                "depositwithdraw": "Deposit/Withdraw",
+                "depositwithdrawim": "Deposit/Withdraw IM",
                 "depositwithdrawstatus": "Money Transfer Status",
                 "depositwithdrawhistory": "Money Transfer History"
             },
@@ -795,6 +796,37 @@ export default
                     "csettled":"CSettled",
                     "otherType":"Other Type",
                     "movementID":"Movement ID",
+
+                    //Derivatives Account
+                    "accountbalance":"Account Balance",
+                    "commission":"Commission",
+                    "fee":"Free",
+                    "interest":"Interest",
+                    "extloan":"Ext. Loan",
+                    "deliveryamt":"Delivery Amount",
+                    "floatingpl":"Floating",
+                    "tradingpl":"Trading",
+                    "totalpl":"Total P/L",
+                    "reserv":"Min Reserv",
+                    "marginable":"Max Reserv",
+                    "rccall":"RC Call",
+                    "noncash":"Non-Cash",
+                    
+                    //assetDataArr
+                    "validnoncash":"Valid Non-Cash",
+                    "totalvalue":"Total Value",
+                    "maxvalidnoncash":"Max Valid Non-Cash",
+                    "cashwithdraw":"Cash Withdrawal",
+                    "ee":"EE",
+                
+                    //marginDataArr
+                    "initialmargin":"Initial Margin",
+                    "spreadmargin":"Spread Margin",
+                    "deliverymargin":"Delivery Margin",
+                    "marginreq":"Margin Req",
+                    "accountratio":"Account Ratio",
+                    "warning":"Warning 1/2/3",
+                    "margincall":"Margin Call",
 
                 },
                 "tab": {
@@ -1610,7 +1642,7 @@ export default
                     "withdrawable": "Withdrawable",
                     "amount": "Amount",
                     "remark": "Remark",
-
+                    "firmbankaccount": "Firm's Bank Account",
                     "no": "No",
                     "requesttime": "Request Time",
                     "beneficiaryname": "Beneficiary",
@@ -1758,6 +1790,7 @@ export default
                     "invalidAccountToTransfer": "Target account is invalid",
                     "notEnoughMoney": "Your amount is not enough to transfer",
                     "noAmount": "Amount should not be blank",
+                    "wrongAmount": "Wrong amount!",
                     "overTransfer": "Your amount is not enough",
                     "transferSuccessful": "Transfer successfully. Waiting for approval.",
                     "transferFail": "Transfer fail. Please try again.",

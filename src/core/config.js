@@ -635,6 +635,7 @@ const config = {
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
 				{ i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
+				{ i: 'depositwithdrawim',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },

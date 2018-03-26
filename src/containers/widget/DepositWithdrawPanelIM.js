@@ -8,7 +8,7 @@ import SelectControl from '../commons/Select'
 import { PowerSelect } from 'react-power-select'
 import * as utils from "../../utils"
 
-class DepositWithdrawPanel extends Component {
+class DepositWithdrawIMPanel extends Component {
     constructor(props) {
         super(props)
 
@@ -19,7 +19,17 @@ class DepositWithdrawPanel extends Component {
             depositable: 0,
             withdrawable: 0,
 
-            type: "D"
+            type: "D",
+            firmBankAcc: {
+                accountCode: "VSDVDSCXX.R",
+                bankid: "VTB"
+            },
+            firmBankAccList: [
+                {
+                    accountCode: "VSDVDSCXX.R",
+                    bankid: "VTB"
+                }
+            ]
         }
 
         this.checkIfHasFSAccount = this.checkIfHasFSAccount.bind(this)
@@ -90,6 +100,12 @@ class DepositWithdrawPanel extends Component {
         }
     }
 
+    handleFirmBankChange(opt) {
+        this.setState({
+            firmBankAcc: opt
+        })
+    }
+
     render() {
         let {accountBalanceInfoFS, language, theme} = this.props
         let rowOdd = theme.table.rowOdd.backgroundColor
@@ -154,6 +170,19 @@ class DepositWithdrawPanel extends Component {
                                                 readOnly />
                                         </td>
                                     </tr>
+
+                                     <tr  style={{  color: font2 }}>
+                                        <th style={{ color: font2 }}>{header.firmbankaccount}</th>
+                                        <td>
+                                            <input
+                                                style={{textAlign: "right"}}
+                                                className="hks-input read-only"
+                                                id="withdrawable"
+                                                ref={e => this.firmbankaccount = e}
+                                                defaultValue={this.state.firmBankAcc.bankid + " - (" + this.state.firmBankAcc.accountCode + ")"}
+                                                readOnly />
+                                        </td>
+                                    </tr>
                                  
                                     <tr>
                                         <th style={{ color: font2 }}>{header.amount}</th>
@@ -168,7 +197,7 @@ class DepositWithdrawPanel extends Component {
                                         </td>
                                     </tr>
                                     
-                                    <tr  >
+                                    <tr>
                                         <th style={{ color: font2 }}>{header.remark}</th>
                                         <td>
                                             <textarea ref={e => this.txtRemark = e} className="hks-input border"
@@ -229,7 +258,7 @@ class DepositWithdrawPanel extends Component {
     submit(e) {
         e.preventDefault()
         let {currentTrdAccount, language} = this.props
-        let {type} = this.state
+        let {type, firmBankAcc} = this.state
 
         let amt = 0
         try {
@@ -241,13 +270,15 @@ class DepositWithdrawPanel extends Component {
                 this.props.showMsg(language.messagebox.title.error, language.messagebox.message.wrongAmount)
             } else {
                 if(currentTrdAccount.investorType == "DERIVATIVES") {
-                    this.props.submitCashDWFS({
+                    this.props.submitCPCashDWFS({
                         amount : amt,
                         remarks : this.txtRemark.value,
                         DW: type,
                         tradingAccSeq : parseInt(currentTrdAccount.tradingAccSeq),
                         subAccountID : currentTrdAccount.subAccountID,
-                        currencyid: "VND"
+                        bankid: firmBankAcc.bankid,
+                        accountCode: firmBankAcc.accountCode,
+                        CounterPartyAC: "005C0055558"
                     })
                 }
             }
@@ -265,8 +296,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     cashBalanceEnquiry: (params) => {dispatch( actions.cashBalanceEnquiry(params) )},
-    submitCashDWFS: (params) => {dispatch( actions.submitCashDWFS(params) )},
+    submitCPCashDWFS: (params) => {dispatch( actions.submitCPCashDWFS(params) )},
     showMsg: (title, mes) => {dispatch(actions.showMessageBox(title, mes))}
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DepositWithdrawPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(DepositWithdrawIMPanel)

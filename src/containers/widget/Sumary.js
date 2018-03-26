@@ -10,6 +10,7 @@ import AssetAllocationChart from './AssetAllocationChart'
 import Component from "../commons/Component"
 import Select from "../commons/InputSelect"
 import * as utils from "../../utils"
+import AccountSelector from "../commons/selector/AccountSelector"
 
 class Sumary extends React.Component {
     constructor(props) {
@@ -25,20 +26,28 @@ class Sumary extends React.Component {
     }
 
     handleSubAccChange(option) {
-        this.setState({
-            mvSubAccSelected: option
-        })
 
         if(this.props.onSubAccountChange != undefined) {
             this.props.onSubAccountChange(option)
         }
 
-        if(option.investorType == "DERIVATIVES") { 
+        if(option.investorType == "DERIVATIVES" ) {
             this.props.cashBalanceEnquiry({
                 tradingAccSeq : parseInt(option.accountSeq),
                 subAccountID : option.subAccountID
             })
         }
+    }
+
+    componentWillMount() {
+        let {currentTrdAccount} = this.props
+        if(currentTrdAccount.investorType == "DERIVATIVES") {
+            this.props.cashBalanceEnquiry({
+                tradingAccSeq : parseInt(currentTrdAccount.accountSeq),
+                subAccountID : currentTrdAccount.subAccountID
+            })
+        }
+            
     }
 
     render() {
@@ -56,6 +65,8 @@ class Sumary extends React.Component {
             } 
         }
 
+        
+
 
         return (
             <Component style={{ height: "100%", position: "relative" }}>
@@ -64,16 +75,11 @@ class Sumary extends React.Component {
                         <label>{language.menu[this.id]}</label>
                     </div>
                     <div className="col-xs-10 sum-subaccount">
-                        <div className="account-name"><span>{this.state.mvSubAccSelected.subAccountName}</span></div>
-                        <Select
+                        <AccountSelector theme={theme} language={language} 
+                            showDetail={false}
                             style={selectorStyles}
-                            key="rSubAccSelector"
-                            optionLabelPath={'subAccountID'}
-                            ref={r => this.rSubAccSelector = r}
-                            options={this.state.mvListSubAcc}
-                            selected={this.state.mvSubAccSelected}
-                            handleChange={this.handleSubAccChange.bind(this)}
-                        />
+                            handleChange={opt => this.handleSubAccChange(opt)}
+                            ref={n => this.tradingAccount = n} />
                     </div>
                     
                 </div>
@@ -84,8 +90,8 @@ class Sumary extends React.Component {
     }
 
     _renderAdapter() {
-        let {mvSubAccSelected} = this.state
-        if(mvSubAccSelected.investorType == "DERIVATIVES") {
+        let {currentTrdAccount} = this.props
+        if(currentTrdAccount.investorType == "DERIVATIVES") {
             return this._renderAccountSumaryFS()
         } else {
             return this._renderAccountSumary()
@@ -751,7 +757,7 @@ const mapStateToProps = (state) => {
     return {
         data: state.trading.portfolioData,
         
-        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount,
 
         accountBalanceInfoFS: state.portfolio.accountBalanceInfoFS
     }

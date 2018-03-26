@@ -2991,6 +2991,30 @@ label {
 .tether-element {
     z-index: 5;
 }
+
+.trd-account {
+    position: relative;
+}
+.trd-account .select-control.account-selector {
+    max-width: 110px;
+    border-radius: 0px;
+    background-color: #ef514b;
+    color: #fff;
+    float: left;    
+    z-index: 1;
+    position: relative;
+}
+.trd-account .account-name {
+    position: relative;
+    top: 2px;
+    left: 4px;
+}
+.trd-account .info-icon {
+    position: relative;
+    top: 1px;
+    left: 10px;
+    cursor: pointer;
+}
 /* END SELECT CONTROL */
 
 /* Table-dragNdrop */
@@ -4167,32 +4191,9 @@ label {
     display: flow-root;
     padding: 2px 0;
 }
-.pl-sub-account {
+.pl-subacc-control .trd-account {
     float: left;
     width: calc(50% - 10px);
-}
-.pl-sub-account > .account-name {
-    position: relative;
-    float: right;
-    top: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    width: calc(100% - 112px);
-}
-.pl-sub-account > .select-control {
-    border-radius: 0 !important;
-    width: 107px;
-    font-size: 12px;
-    height: 24px;
-    color: #FFF;
-    background: #2159a0;
-}
-.pl-sub-account .info-icon {
-    position: relative;
-    cursor: pointer;
-    float: right;
-    right: 4px;
-    font-size: 14px;
 }
 .pl-pin {
     float: right;
@@ -4579,12 +4580,26 @@ input[type=number] {
     float: right;
     width: calc(100% - 400px);
     padding: 2px;
+    height: 100%;
 }
 .depositwithdraw-page .row.history-panel {
     height: calc(100% - 300px);
 }
-.depositwithdraw-page .table-history-container {
-    
+
+.depositwithdrawim-page {
+    padding-top: 5px;
+}
+
+.depositwithdrawim-page .panel-container {
+    float: left;
+    width: 400px;
+    height: 350px;
+}
+.depositwithdrawim-page .table-status-container {
+    float: right;
+    width: calc(100% - 400px);
+    padding: 2px;
+    height: 100%;
 }
 
 .ad-payment-page {

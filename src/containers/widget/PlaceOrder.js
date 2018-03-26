@@ -18,6 +18,9 @@ import Component from "../commons/Component"
 import {handleNMOrder} from "../../actions/handleNMOrder"
 
 
+import AccountSelector from "../commons/selector/AccountSelector"
+
+
 
 const { Contants } = require('../../core/constants')
 
@@ -58,7 +61,7 @@ class PlaceOrder extends React.Component {
 
             //sub account
             mvListSubAcc: props.tradingAccounts,
-            mvSubAccSelected: props.tradingAccounts[0],
+            mvSubAccSelected: props.currentTrdAccount,
 
             tradingType: TRADINGTYPE.NORMAL,
         }
@@ -88,7 +91,7 @@ class PlaceOrder extends React.Component {
             mvBankID: null,
 
             mvSettlementAccSelected: null,
-            mvSubAccSelected: props.tradingAccounts[0],
+            mvSubAccSelected: props.currentTrdAccount,
 
             tradingType: TRADINGTYPE.NORMAL,
         }
@@ -308,7 +311,8 @@ class PlaceOrder extends React.Component {
     }
 
     render() {
-        let header = this.props.language.enterorder.header
+        let {theme, language} = this.props
+        let header = language.enterorder.header
         this.stockList = config.cache.stockList
 
         let themee = this.props.theme.title
@@ -325,7 +329,7 @@ class PlaceOrder extends React.Component {
 
         }
 
-        let theme = this.props.theme
+        
         let BS = this.state.mvBS
         // console.log(this.props)
         let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
@@ -368,24 +372,10 @@ class PlaceOrder extends React.Component {
 
                     {/* PLACE ORDER CONTROL */}
                     <div className="pl-subacc-control">
-                        <div className="pl-sub-account">
-                            <div style={theme.font.main} className="account-name">
-                                <span>{this.state.mvSubAccSelected.subAccountName}</span>
-                                <span className="info-icon">
-                                    <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance()}></span>
-                                </span>
-                            </div>
-                            <Select
-                                style={selectorStyles}
-                                key="rSubAccSelector"
-                                optionLabelPath={'subAccountID'}
-                                ref={r => this.rSubAccSelector = r}
-                                options={this.state.mvListSubAcc}
-                                selected={this.state.mvSubAccSelected}
-                                handleChange={this.handleSubAccChange.bind(this)}
-                            />
-                            
-                        </div>
+                        <AccountSelector theme={theme} 
+                            selected={this.state.mvSubAccSelected}
+                            language={language} ref={n => this.tradingAccount = n} 
+                            handleChange={opt => this.handleSubAccChange(opt)}/>
                         <span style={theme.font.main} className="sep"></span>
                         <div className="pl-pin">
                             <span style={theme.font.main}>PIN</span>
@@ -1277,6 +1267,7 @@ const mapStateToProps = (state) => {
         portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
 
         tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount,
     }
 }
 

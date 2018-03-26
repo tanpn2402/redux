@@ -13,6 +13,7 @@ import FundTransferPage from "../desktop/view/FundTransferPage"
 import LoanRefundPage from "../desktop/view/LoanRefundPage"
 import OddLotPage from "../desktop/view/OddLotPage"
 import DepositWithdrawIMPage from "../desktop/view/DepositWithdrawIMPage"
+import DepositWithdrawPage from "../desktop/view/DepositWithdrawPage"
 
 import CashTransHistory from "../widget/CashTransHistory"
 import OrderHistory from "../widget/OrderHistory"
@@ -141,6 +142,9 @@ class ServicePageContainer extends React.Component {
                 child = <LoanRefundPage {...this.props}/>
                 break;
             case "depositwithdraw": 
+                child = <DepositWithdrawPage {...this.props}/>
+                break;
+            case "depositwithdrawim": 
                 child = <DepositWithdrawIMPage {...this.props}/>
                 break;
 
@@ -170,6 +174,7 @@ class TabLayout extends Component {
         super(props)
         
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
+        console.log(tabs)
         if(tabs.length > 0){
             this.tabbar = tabs[0].widget
             

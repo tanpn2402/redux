@@ -636,3 +636,223 @@ export function cashBalanceEnquiry(params) {
         )
     }
 }
+
+export function submitCPCashDWFS(params) { // DW to VSD
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        CounterPartyAC : "",  //Y
+        bankid : "",  //Y
+        accountCode : "",  //Y
+        currencyid : "",  //Y
+        cashDWChannel : "",  //Y
+        DW : "",  //Y -> D/W
+        amount : "",  //Y
+        remarks : "",
+        otherType : "",
+        isTransfer : "",
+        toCounterPartyAC : "",
+        toBankid : "",  
+        toAccountCode : "",
+        chequeNumber : ""
+    }
+
+    p = Object.assign(p, params)
+    console.log(p)
+    return dispatch => {
+        api.post("CPCashDW", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                console.log(res)
+                return {
+                    type: ActionTypes.SUBMITCPCASHDWFS,
+                    
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}
+
+export function submitCashDWFS(params) { // DW internal
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        InputChannelID : "",
+        Agent : "",
+        TranType : "",
+        currencyid : "",
+        Amount : "",
+        CashDWChannel : "",
+        BankID : "",
+        AccountCode : "",
+        ClientBankID : "",
+        ClientBankACCode : "",
+        Remark : "",
+        Reference : "",
+        SettleCashBy : ""
+    }
+
+    p = Object.assign(p, params)
+    console.log(p)
+    return dispatch => {
+        api.post("CashDW", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                console.log(res)
+                return {
+                    type: ActionTypes.SUBMITCASHDWFS,
+                    
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}
+
+export function deleteCashDWFS(params) {
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        TranID : "",
+
+    }
+
+    p = Object.assign(p, params)
+    console.log(p)
+    return dispatch => {
+        api.post("DeleteCashDW", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                console.log(res)
+                return {
+                    type: ActionTypes.DELETECASHDWFS,
+                    
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}
+
+export function cashTransferEnquiryFS(params) {
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        valuedate : "",
+        creatorDepartmentID : ""
+    }
+
+    p = Object.assign(p, params)
+    console.log(p)
+    return dispatch => {
+        api.post("cashTransferEnquiry", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                console.log(res)
+                return {
+                    type: ActionTypes.CASHTRANSFERENQUIRYFS,
+                    
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}
+
+export function cpCashDWenquiryFS(params) {
+    let p = {
+        clientID : "",
+        tradingAccSeq : "",
+        subAccountID : "",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        counterPartyAC : "005C0055558", // string
+        tranDate : "",  // date  --> dd/MM/yyyy
+        transactionID : "",
+        status : ""
+    }
+
+    p = Object.assign(p, params)
+    console.log(p)
+    return dispatch => {
+        api.post("cpCashDWenquiry", p, dispatch, 
+            function(res) {
+                // success
+               
+                if(!res) {
+                    return {
+                        type: 0
+                    }
+                }
+                console.log(res)
+                return {
+                    type: ActionTypes.CPCASHDWENQUIRYFS,
+                    
+                }
+            },
+            function(err) {
+                // error
+            }
+        )
+    }
+}

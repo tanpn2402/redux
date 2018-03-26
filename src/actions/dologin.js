@@ -325,3 +325,11 @@ function responseCheckSession(response, id) {
         }
     }
 }
+
+
+export function switchAccount(account) {
+    return {
+        type: ActionTypes.SWITCHACCOUNT,
+        account
+    }
+}

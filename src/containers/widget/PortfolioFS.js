@@ -951,12 +951,15 @@ class PortfolioFS extends Component {
 
     getData() {
         let {clientPortfolio} = this.props
+        console.log(clientPortfolio)
         let get = () => {
             let data = []
+            let tmp = []
             switch(this.state.activeKey) {
-                case 1: return clientPortfolio.counterPartyDWList
+                case 1: return clientPortfolio.counterPartyDWList == null ? [] : clientPortfolio.counterPartyDWList
                 case 2: 
-                    data = clientPortfolio.openPositionSummaryList.map(e => {
+                    tmp = clientPortfolio.openPositionSummaryList == null ? [] : clientPortfolio.openPositionSummaryList
+                    data = tmp.map(e => {
                         for (var key in e.orderInfo) {
                             if (e.orderInfo.hasOwnProperty(key)) {
                                 e[key] = e.orderInfo[key]
@@ -968,7 +971,8 @@ class PortfolioFS extends Component {
                     })
                     return data
                 case 3: 
-                    data = clientPortfolio.closePositionSummaryList.map(e => {
+                    tmp = clientPortfolio.closePositionSummaryList == null ? [] : clientPortfolio.closePositionSummaryList
+                    data = tmp.map(e => {
                         for (var key in e.orderInfo) {
                             if (e.orderInfo.hasOwnProperty(key)) {
                                 e[key] = e.orderInfo[key]
@@ -979,8 +983,8 @@ class PortfolioFS extends Component {
                         return e
                     })
                     return data
-                case 4: return clientPortfolio.stockBalanceList
-                case 5: return clientPortfolio.stockMovementList
+                case 4: return clientPortfolio.stockBalanceList == null ? [] : clientPortfolio.stockBalanceList
+                case 5: return clientPortfolio.stockMovementList == null ? [] : clientPortfolio.stockMovementList
                 
             }
         }

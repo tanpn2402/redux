@@ -19,7 +19,9 @@ const initialState = {
         mvListDefaultServiceBean: []
     },
 
-    tradingAccounts: []
+    tradingAccounts: [],
+
+    currentTrdAccount: {}
 }
 export default function(state = initialState, action) {
     switch (action.type) {
@@ -38,6 +40,7 @@ export default function(state = initialState, action) {
                 userSavedData: action.userSavedData,
                 userService: action.userService,
 
+                currentTrdAccount: acctradinglist[0],
                 tradingAccounts: acctradinglist.concat(state.tradingAccounts)
             });
 
@@ -51,6 +54,11 @@ export default function(state = initialState, action) {
         case ActionTypes.CHECKSESSION:
             return Object.assign({}, state, {
                 sessionState: action.sessionState
+            })
+
+        case ActionTypes.SWITCHACCOUNT:
+            return Object.assign({}, state, {
+                currentTrdAccount: action.account
             })
         default:
             return state;

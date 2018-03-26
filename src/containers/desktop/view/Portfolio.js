@@ -13,7 +13,7 @@ class PortfolioPage extends React.Component {
         super(props)
 
         this.state = {
-            subAccount: props.tradingAccounts[0]
+            subAccount: props.currentTrdAccount
         }
     }
 
@@ -51,7 +51,8 @@ class PortfolioPage extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        tradingAccounts: state.dologin.tradingAccounts
+        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount
     }
 }
 
