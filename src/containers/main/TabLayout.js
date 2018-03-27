@@ -169,6 +169,21 @@ class ServicePageContainer extends React.Component {
     }
 }
 
+
+const DERIVATIVES_FUNCTION = [
+    "depositwithdraw",
+    "depositwithdrawim"
+]
+
+const NORMAL_FUNCTION = [
+    "fundTransfer",
+    "advancePaymentBank",
+    "advancePayment",
+    "entitlement",
+    "oddLot",
+    "loanrefund"
+]
+
 class TabLayout extends Component {
     constructor(props){
         super(props)
@@ -212,15 +227,21 @@ class TabLayout extends Component {
 
 
     render() {
-        let language = this.props.language
+        let {language, theme, currentTrdAccount} = this.props
         let activeTab = this.state.activeTab
         let layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
 
-        let background = this.props.theme.page.background
-        let scrollStyle = this.props.theme.scrolling
+        let background = theme.page.background
+        let scrollStyle = theme.scrolling
 
-        let tabStyles = this.props.theme.tabcontrol
-        // console.log(tabStyles)
+        let tabStyles = theme.tabcontrol
+        
+
+        let accountType = "N"
+        if(currentTrdAccount.investorType == "DERIVATIVES") {
+            accountType = "FS"
+        }
+        
 
         return (
             <div style={{height: "100%"}}>
@@ -235,16 +256,32 @@ class TabLayout extends Component {
                             <nav className='vertical-align-middle'>
                                 {
                                     this.tabbar.map(tab => {
-                                        
-                                        return ( 
-                                            <div key={tab.id} className={'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')}
-                                                onClick={e=> this.onTabClick(tab.i)}
-                                                style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                        console.log(tab)
+                                        let className = 'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')
+                                        if(accountType == "FS") {
+                                            className += (DERIVATIVES_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                            return ( 
+                                                <div key={tab.id} className={className}
+                                                    onClick={e=> this.onTabClick(tab.i, e)}
+                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                
+                                                        {language.menu[tab.i]}
+                                                        
+                                                </div>
+                                            )
+                                        } else {
+                                            className += (NORMAL_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                            return ( 
+                                                <div key={tab.id} className={className}
+                                                    onClick={e=> this.onTabClick(tab.i, e)}
+                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                
+                                                        {language.menu[tab.i]}
+                                                        
+                                                </div>
+                                            )
+                                        }
                                             
-                                                    {language.menu[tab.i]}
-                                                    
-                                            </div>
-                                        )
                                     })
                                 }
                                 
@@ -264,11 +301,18 @@ class TabLayout extends Component {
         )
     }
 
-    onTabClick(subTabID){
-        this.props.onTabClick(this.props.tabID, subTabID)
-        this.setState({
-            activeTab: subTabID
-        })
+    onTabClick(subTabID, e){
+        if(e.target.classList.contains("disabled")) {
+            let {currentTrdAccount, language} = this.props
+            this.props.showMsg(this.props.language.messagebox.title.info, 
+                ("Please switch to " + ( (currentTrdAccount.investorType == "DERIVATIVES") ? "Nornal" : "DERIVATIVES") + " Account!"))
+        } else {
+            this.props.onTabClick(this.props.tabID, subTabID)
+            this.setState({
+                activeTab: subTabID
+            })
+        }
+            
     }
 
     onTabSlideClick(i){
@@ -285,12 +329,14 @@ class TabLayout extends Component {
 const mapStateToProps = (state) => {
     return {
         subTabID: state.menuSelected.subTabID,
+        currentTrdAccount: state.dologin.currentTrdAccount,
     }
 }
 const mapDispatchToProps = (dispatch, props) => ({
     onTabClick: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID));
-    }
+    },
+    showMsg: (title, msg) => {dispatch(actions.showMessageBox(title, msg))},
 })
 
 

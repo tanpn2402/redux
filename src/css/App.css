@@ -1034,7 +1034,46 @@ label {
     bottom: 30px;
 }
 
-
+.subacc-select {
+    position: relative;
+    width: 210px;
+    border-radius: 2px;
+    font-size: 14px;
+    float: right;
+    top: 3px;
+}
+.subacc-input {
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: inherit;
+    border: none;
+    
+}
+.subacc-list {
+    position: absolute;
+    width: 100%;
+    background-color: #FFF;
+    box-shadow: 2px 2px 2px 0px #0000006e;
+    border: 1px solid #ccc;
+}
+.subacc-item {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    justify-content: left;
+    padding-left: 4px;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.subacc-item:hover {
+    background-color: #0000006e;
+    cursor: pointer;
+}
 /*END STATUS BAR*/
 /*HEADER*/
 #pageheader {
@@ -1692,8 +1731,8 @@ label {
     }
     .scrolling-tabs-main.tab-layout .tabs-item.disabled{
         /* background-color: #eee1e2;
-        color: #c5b3b3;
-        cursor: not-allowed; */
+        color: #c5b3b3; */
+        cursor: not-allowed;
     }
     .hks-btn.btn-tab-reload {
         padding: 0 5px;
@@ -2295,16 +2334,17 @@ label {
 }
 
 .accsum-internal, .accsum-exchange {
-    display: inline;
-    width: 50%;
+    display: inline-block;
 }
 .accsum-exchange {
     padding-left: 10px;
     padding-right: 0px;
+    min-width: 100px;
 }
 .accsum-internal {
     padding-left: 0px;
-    padding-right: 10px;
+    /* padding-right: 10px; */
+    min-width: 100px;
 }
 .accsum-piechart {
     float: left;

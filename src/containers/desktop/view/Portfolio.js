@@ -34,7 +34,9 @@ class PortfolioPage extends React.Component {
                     <ClientSumary {...this.props} />
                 </div>
                 <div className="row sumary-container">
-                    <Sumary {...this.props} onSubAccountChange={v => this.onSubAccountChange(v)}/>
+                    <Sumary {...this.props} 
+                        onSubAccountChange={v => this.onSubAccountChange(v)} 
+                        tradingAccount={this.state.subAccount}/>
                 </div>
                 <div className="row portfolio-container">
                     {

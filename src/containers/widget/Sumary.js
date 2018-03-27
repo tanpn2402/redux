@@ -40,11 +40,11 @@ class Sumary extends React.Component {
     }
 
     componentWillMount() {
-        let {currentTrdAccount} = this.props
-        if(currentTrdAccount.investorType == "DERIVATIVES") {
+        let {tradingAccount} = this.props
+        if(tradingAccount.investorType == "DERIVATIVES") {
             this.props.cashBalanceEnquiry({
-                tradingAccSeq : parseInt(currentTrdAccount.accountSeq),
-                subAccountID : currentTrdAccount.subAccountID
+                tradingAccSeq : parseInt(tradingAccount.accountSeq),
+                subAccountID : tradingAccount.subAccountID
             })
         }
             
@@ -90,8 +90,8 @@ class Sumary extends React.Component {
     }
 
     _renderAdapter() {
-        let {currentTrdAccount} = this.props
-        if(currentTrdAccount.investorType == "DERIVATIVES") {
+        let {tradingAccount} = this.props
+        if(tradingAccount.investorType == "DERIVATIVES") {
             return this._renderAccountSumaryFS()
         } else {
             return this._renderAccountSumary()
@@ -302,10 +302,10 @@ class Sumary extends React.Component {
                                 marginTop: '-35px', paddingTop: '40px'}}> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
-                                        <thead>
-                                            <tr style={tableHeader} >
-                                                <th>{this.props.language.portfolio.header.sumary}</th>
-                                                <td>{this.props.language.portfolio.header.value}</td>
+                                        <thead style={tableHeader}>
+                                            <tr>
+                                                <th>{header.sumary}</th>
+                                                <td></td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -347,11 +347,15 @@ class Sumary extends React.Component {
                                 marginTop: '-35px', paddingTop: '40px' }}>
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+                                    <div style={tableHeader}>{header.cashinfo}</div>
                                     <table className="table">
-                                        <thead>
-                                            <tr style={tableHeader} >
-                                                <th>{this.props.language.portfolio.header.cashinfo}</th>
-                                                <td>{this.props.language.portfolio.header.value}</td>
+                                        <thead style={tableHeader}>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div className="accsum-internal"><span>{header.internal}</span></div>
+                                                    <div className="accsum-exchange"><span>{header.exchange}</span></div>
+                                                </td>
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -393,11 +397,15 @@ class Sumary extends React.Component {
                                 marginTop: '-35px', paddingTop: '40px'}}>
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
+                                    <div style={tableHeader}>{header.portfolioassessment}</div>
                                     <table className="table">
-                                        <thead>
-                                            <tr style={tableHeader} >
-                                                <th>{this.props.language.portfolio.header.portfolioassessment}</th>
-                                                <td>{this.props.language.portfolio.header.value}</td>
+                                        <thead style={tableHeader}>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div className="accsum-internal"><span>{header.internal}</span></div>
+                                                    <div className="accsum-exchange"><span>{header.exchange}</span></div>
+                                                </td>
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -756,8 +764,6 @@ class Sumary extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.trading.portfolioData,
-        
-        currentTrdAccount: state.dologin.currentTrdAccount,
 
         accountBalanceInfoFS: state.portfolio.accountBalanceInfoFS
     }

@@ -14,7 +14,9 @@ class AccountSelector extends React.Component {
     }
 
     handleValueChange = ({ option }) => {
-        this.props.switchAccount(option)
+        if(this.props.global) {
+            this.props.switchAccount(option)
+        }
         if(this.props.handleChange && option && option !== "---") {
             this.props.handleChange(option)
         }
@@ -51,7 +53,7 @@ class AccountSelector extends React.Component {
                 </div>
                 <div style={theme.font.main} className="account-name">
                     {
-                        showName ? <span>{currentTrdAccount.subAccountName}</span> : null
+                        showName ? <span>{selected.subAccountName}</span> : null
                     }
                     {
                         showDetail ? <span className="info-icon">
@@ -84,7 +86,8 @@ AccountSelector.defaultProps = {
     showName: true,
     showDetail: true,
     className: "",
-    selected: null
+    selected: null,
+    global: false
 }
 
 const mapStateToProps = (state) => {

@@ -109,6 +109,116 @@ class FavouriteBar extends React.Component {
     }
 }
 
+class AccountSelector extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            open: false,
+            list: props.tradingAccounts.slice(0),
+            selected: props.currentTrdAccount
+        }
+
+        this.onClick = this.onClick.bind(this)
+    }
+
+    render() {
+        let {currentTrdAccount, tradingAccounts} = this.props
+        let {open, list, selected} = this.state
+        return (
+            <div className="subacc-select">
+                <input  key={selected.subAccountID} className="subacc-input"
+                        onClick={e => this.openChooser()}
+                        onChange={e => this.onChange(e.target.value)}
+                        defaultValue={selected.subAccountID + " - [" + selected.subAccountName + "]"}
+                        type="text"
+                        ref={e => this.input = e}
+                    />
+                {
+                    !open ? null :
+                    (
+                        <div className="subacc-list click-trigger" ref={e => this.list = e}>
+                            {
+                                list.map((e, i) => {
+                                    return (
+                                        <div id={i} className="subacc-item click-trigger"
+                                            onClick={evt => this.onItemClick(e)}>
+                                            {e.subAccountID + " - [" + e.subAccountName + "]"}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                }
+                
+            </div>
+        )
+    }
+
+    componentDidUpdate() {
+        let {open, list} = this.state
+
+        if(open && list.length > 0) {
+            this.list.style.top = (-1)*list.length*30 - 2 + "px"
+        }
+    }
+    
+    onItemClick(acc) {
+        let subAccountID = acc.subAccountID
+        this.setState({
+            selected: acc,
+            open: false
+        })
+        document.body.removeEventListener("click", this.onClick, false)
+
+        if(this.props.onChange) {
+            this.props.onChange(acc)
+        }
+    }
+
+    onClick(e) {
+        let {open, selected} = this.state
+        let targetClasslist = e.target.className
+        
+        if(open && !targetClasslist.includes("click-trigger")) {
+            this.setState({open: false})
+            document.body.removeEventListener("click", this.onClick, false)
+        }
+        this.input.value = selected.subAccountID + " - [" + selected.subAccountName + "]"
+    }
+
+    onChange(value) {
+        let {currentTrdAccount, tradingAccounts} = this.props
+        var matchesFilter = new RegExp(value, "i")
+
+        var tmp = tradingAccounts.filter(e => {
+            if(matchesFilter.test(e.subAccountID))
+                return true
+        })
+
+        this.setState({
+            list: tmp
+        })
+    }
+
+    openChooser() {
+        let {open, selected} = this.state
+        let {tradingAccounts} = this.props
+        if(!open) {
+            this.setState({
+                open: true,
+                list: tradingAccounts.slice(0)
+            })
+            this.input.value = selected.subAccountID
+            document.body.addEventListener("click", this.onClick, false)
+        } else {
+            this.setState({open: false})
+            document.body.removeEventListener("click", this.onClick, false)
+        }
+    }
+}
+
 class StatusBar extends React.Component {
     constructor(props) {
         super(props)
@@ -301,6 +411,9 @@ class StatusBar extends React.Component {
                     </div>
                 </div> */}
 
+
+                <AccountSelector onChange={s => this.handleSubAccChange(s)} {...this.props} />
+
                 <FavouriteBar language={this.props.language} favList={this.state.favList} 
                     gotoResultTab={(e, la) => this.gotoResultTab(e, la)} onFavClick={(e, id) => this.onFavClick(e, id)}/>
             </div>
@@ -310,13 +423,7 @@ class StatusBar extends React.Component {
     }
 
     handleSubAccChange(option) {
-        this.setState({
-            mvSubAccSelected: option
-        })
-
-        this.setValue({
-            mvSubAccSelected: option
-        })
+        this.props.switchAccount(option)
     }
 
     handleSwitch(elem, state) {
@@ -554,7 +661,8 @@ const mapStateToProps = (state) => {
         tabID: state.menuSelected.tabID,
         widgetList: state.menuSelected.widgetList,
 
-        tradingAccounts: state.dologin.tradingAccounts
+        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount
     }
 }
 
@@ -572,7 +680,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     switchTheme: (theme) => { 
         dispatch(actions.switchTheme(theme)) 
+    },
+    switchAccount: (acc) => {
+        dispatch(actions.switchAccount(acc))
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatusBar)
+export default connect(mapStateToProps, mapDispatchToProps)(StatusBar, AccountSelector)

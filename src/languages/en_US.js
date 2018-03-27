@@ -690,6 +690,8 @@ export default
                     "mvPrice": "Price",
                     "PortfolioAssessment": "Portfolio Assessment",
                     "mvMargin": "Margin",
+                    "internal": "Internal",
+                    "exchange": "Exchange",
 
                     // Stock Movement Heart language
                     "TranID":"Tran ID",
