@@ -156,7 +156,8 @@ export default
                 "depositwithdraw": "Deposit/Withdraw",
                 "depositwithdrawim": "Deposit/Withdraw IM",
                 "depositwithdrawstatus": "Money Transfer Status",
-                "depositwithdrawhistory": "Money Transfer History"
+                "depositwithdrawhistory": "Money Transfer History",
+                "cpcashdwhistory": "CP Cash DW"
             },
             "searchbar": {
                 "search": "Search",
@@ -742,7 +743,7 @@ export default
                     "seriesId":"Series ID ",
                     "marketId":"Market ID ",
                     "bs":"Buy/Sell",
-                    "isOutstanding":"is Outstanding",
+                    "isOutstanding":"Is Outstanding",
                     "tradePrice":"Trade Price",
                     "ccy":"CCY",
                     "marketprice":"Market ",

@@ -24,7 +24,7 @@ class PortfolioFS extends Component {
 
         this.state = {
             pageIndex: 1,
-            activeKey: 1,
+            activeKey: 2,
 
             cpdwCol: [
                 {
@@ -1009,7 +1009,7 @@ class PortfolioFS extends Component {
                 </Title>
                 <Body theme={this.props.theme}>
                     <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
-                        <TabItem eventKey={1} title={this._renderTitle(language.portfolio.tab.cpdw, 1)} >
+                        {/* <TabItem eventKey={1} title={this._renderTitle(language.portfolio.tab.cpdw, 1)} >
                             <Table 
                                 theme={theme}
                                 id={this.id}
@@ -1027,7 +1027,7 @@ class PortfolioFS extends Component {
                                 searchEnable={false}
 
                             />
-                        </TabItem>
+                        </TabItem> */}
                         <TabItem eventKey={2} title={this._renderTitle(language.portfolio.tab.openposition, 1)} >
                             <Table 
                                 theme={theme}
@@ -1068,7 +1068,7 @@ class PortfolioFS extends Component {
                             />
 
                         </TabItem>
-                        <TabItem eventKey={4} title={this._renderTitle(language.portfolio.tab.stockbalance, 1)} >
+                        {/* <TabItem eventKey={4} title={this._renderTitle(language.portfolio.tab.stockbalance, 1)} >
                             <Table 
                                 theme={theme}
                                 id={this.id}
@@ -1087,8 +1087,8 @@ class PortfolioFS extends Component {
 
                             />
 
-                        </TabItem>
-                        <TabItem eventKey={5} title={this._renderTitle(language.portfolio.tab.stockmovement, 1)} >
+                        </TabItem> */}
+                        {/* <TabItem eventKey={5} title={this._renderTitle(language.portfolio.tab.stockmovement, 1)} >
                             <Table 
                                 theme={theme}
                                 id={this.id}
@@ -1107,7 +1107,7 @@ class PortfolioFS extends Component {
 
                             />
 
-                        </TabItem>
+                        </TabItem> */}
 
                     </TabControl>
 

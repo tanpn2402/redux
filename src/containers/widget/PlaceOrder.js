@@ -311,16 +311,14 @@ class PlaceOrder extends React.Component {
     }
 
     render() {
-        let {theme, language} = this.props
+        let {theme, language, tabID, showTitle} = this.props
         let header = language.enterorder.header
         this.stockList = config.cache.stockList
-
-        let themee = this.props.theme.title
 
         let bg = "";
         let tColor= "";
 
-        if(themee == "dark") {
+        if(theme.title == "dark") {
             bg = "#474747"
             tColor = "#FFF"
         } else {
@@ -329,32 +327,28 @@ class PlaceOrder extends React.Component {
 
         }
 
-        
-        let BS = this.state.mvBS
-        // console.log(this.props)
-        let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
-        // console.log(placeOrderBg)
-        let tabActivedStyle = theme.placeorder.tabBS.active
-        // console.log(tabActivedStyle)
-        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
-        // console.log(tabActivedStyle)    
-
         let selectorStyles = {
             background: "#2159a0",
             color: "#FFF"
         } 
-        if(this.props.theme.title == "virtual") {
+        if(theme.title == "virtual") {
             selectorStyles = {
                 background: "#ee514c",
                 color: "#FFF"
             } 
         }
 
+        
+        let BS = this.state.mvBS
+        let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
+        let tabActivedStyle = theme.placeorder.tabBS.active
+        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
+
         let showTi = false
-        if(this.props.tabID == "customization") {
+        if(tabID == "customization") {
             showTi = true
-            if(this.props.showTitle != undefined) {
-                showTi =this.props.showTitle
+            if(showTitle != undefined) {
+                showTi = showTitle
             }
         }
 
@@ -372,7 +366,8 @@ class PlaceOrder extends React.Component {
 
                     {/* PLACE ORDER CONTROL */}
                     <div className="pl-subacc-control">
-                        <AccountSelector theme={theme} 
+                        <AccountSelector theme={theme}
+                            style={selectorStyles}
                             selected={this.state.mvSubAccSelected}
                             language={language} ref={n => this.tradingAccount = n} 
                             handleChange={opt => this.handleSubAccChange(opt)}/>

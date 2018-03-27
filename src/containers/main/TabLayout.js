@@ -18,6 +18,7 @@ import DepositWithdrawPage from "../desktop/view/DepositWithdrawPage"
 import CashTransHistory from "../widget/CashTransHistory"
 import OrderHistory from "../widget/OrderHistory"
 import StockStatement from "../widget/StockStatement"
+import CPCashDWHistory from "../widget/CPCashDWHistory"
 
 class CashTransHistoryContainer extends React.Component {
     
@@ -110,6 +111,36 @@ class OrderHistoryContainer extends React.Component {
         }
     }
 }
+class CPCashDWContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            defaultPageSize: 0
+        }
+    }
+
+    render() {
+        let background = this.props.theme.page.background
+        return (
+            <div ref={r => this.main = r} className="trans-history-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                {
+                    this.state.defaultPageSize != 0 ? (
+                        <CPCashDWHistory {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                    ) : null
+                }
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        if(this.main) {
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 110) / 26)
+            })
+        }
+    }
+}
 
 
 
@@ -157,6 +188,9 @@ class ServicePageContainer extends React.Component {
                 break;
             case "stockstatement": 
                 child = <StockStatementContainer {...this.props} />
+                break;
+            case "cpcashdwhistory": 
+                child = <CPCashDWContainer {...this.props} />
                 break;
 
             default: 

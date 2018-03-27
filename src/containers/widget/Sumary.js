@@ -12,6 +12,63 @@ import Select from "../commons/InputSelect"
 import * as utils from "../../utils"
 import AccountSelector from "../commons/selector/AccountSelector"
 
+class AccSumTable extends React.Component {
+
+    render() {
+        let {data, theme, header} = this.props
+        let rowOdd = theme.table.rowOdd.backgroundColor
+        let rowEven = theme.table.rowEven.backgroundColor
+        let font2 = theme.font.sub1.color
+        let tableHeader = theme.table.tableHeader
+        let widgetHeader = theme.widget.widgetHeader
+
+        return (
+            <div className="accsum-table" style={{ height: '100%', fontSize: '12px' }}>
+                <div className="_thead" style={tableHeader}>
+                    <div className="_tr">
+                        <div className="_th">{header.sumary}</div>
+                        <div className="_tr"></div>
+                    </div>
+                </div>
+        
+
+                <div className="_tbody">
+                    {
+                        data.map((d, i) => {
+                            let style = {}
+                            if (i % 2 != 0) {
+                                style = { backgroundColor: rowEven, color: font2 }
+                            } else {
+                                style = { backgroundColor: rowOdd, color: font2 }
+                            }
+
+                            let child = <div className="_td">{d.value}</div>
+                            if(d.value.internal != undefined) {
+                                child = (
+                                    <div className="_td">
+                                        <div className="accsum-internal"><span>{d.value.internal}</span></div>
+                                        <div className="accsum-exchange"><span>{d.value.exchange}</span></div>
+                                    </div>
+                                )
+                            }
+                            
+                            return (
+                                <div className="_tr" style={style} >
+                                    <div className="_th">{d.name}</div>
+                                    {child}
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
+            
+        </div>
+        )
+    }
+}
+
+
 class Sumary extends React.Component {
     constructor(props) {
         super(props)
@@ -52,32 +109,19 @@ class Sumary extends React.Component {
 
     render() {
         // console.log(this.props.accountBalanceInfoFS)
-        let {language, theme, data} = this.props
+        let {language, theme, data, tradingAccount} = this.props
         let widgetHeader = theme.widget.widgetHeader
-        let selectorStyles = {
-            background: "#2159a0",
-            color: "#FFF"
-        } 
-        if(this.props.theme.title == "virtual") {
-            selectorStyles = {
-                background: "#FFF",
-                color: "#ee514c"
-            } 
-        }
-
-        
-
 
         return (
             <Component style={{ height: "100%", position: "relative" }}>
                 <div className="sum-control" style={widgetHeader} >
-                    <div className="col-xs-2 com-title">
+                    <div className="com-title">
                         <label>{language.menu[this.id]}</label>
                     </div>
-                    <div className="col-xs-10 sum-subaccount">
+                    <div className="sum-subaccount">
                         <AccountSelector theme={theme} language={language} 
                             showDetail={false}
-                            style={selectorStyles}
+                            selected={tradingAccount}
                             handleChange={opt => this.handleSubAccChange(opt)}
                             ref={n => this.tradingAccount = n} />
                     </div>
@@ -235,14 +279,14 @@ class Sumary extends React.Component {
                 name: header.warning,
                 value: {
                     internal: <span>
-                        <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
-                        <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
-                        <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
                         </span>,
                     exchange: <span>
-                    <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
-                    <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
-                    <span>{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
                         </span>
                 }
             }, {
@@ -287,8 +331,8 @@ class Sumary extends React.Component {
             }
         ]
         let pieSize = {
-          width: 270,
-          height: 270,
+          width: 250,
+          height: 250,
         }
         
         return (
@@ -298,8 +342,7 @@ class Sumary extends React.Component {
                             <PieChart theme={theme} colors={[]} data={chartData} pieSize={pieSize}/>
                         </div>
                         <div className="acc-sum-info" >
-                            <div className="col-sm-4" style={{height: '100%',
-                                marginTop: '-35px', paddingTop: '40px'}}> 
+                            <div className="col-sm-4 info-col"> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
                                         <thead style={tableHeader}>
@@ -343,11 +386,10 @@ class Sumary extends React.Component {
                                 </div>
                             </div>
 
-                            <div className="col-sm-4" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '40px' }}>
+                            <div className="col-sm-4 info-col">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                    <div style={tableHeader}>{header.cashinfo}</div>
+                                    <div style={Object.assign({}, tableHeader, {fontWeight: "bold", padding: "4px"})}>{header.cashinfo}</div>
                                     <table className="table">
                                         <thead style={tableHeader}>
                                             <tr>
@@ -393,11 +435,10 @@ class Sumary extends React.Component {
 
                             </div>
 
-                            <div className="col-sm-4" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '40px'}}>
+                            <div className="col-sm-4 info-col">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
-                                    <div style={tableHeader}>{header.portfolioassessment}</div>
+                                    <div style={Object.assign({}, tableHeader, {fontWeight: "bold", padding: "4px"})}>{header.portfolioassessment}</div>
                                     <table className="table">
                                         <thead style={tableHeader}>
                                             <tr>
@@ -591,20 +632,18 @@ class Sumary extends React.Component {
             }
         ]
         let pieSize={
-          width:270,
-          height:270,
+            width: 250,
+            height: 250,
         }
         
         return (
                 <Body theme={this.props.theme}>
                     <div className="table-main no-header no-footer">
-                        <div className="col-xs-2" style={{height: '100%' ,
-                            marginTop: '-35px', paddingTop: '14px'}}>
+                        <div className="accsum-piechart" style={{height: '100%', marginTop: '-35px', paddingTop: '14px'}}>
                             <PieChart theme={this.props.theme} colors={[]} data={data} pieSize={pieSize}/>
                         </div>
-                        <div className="col-xs-10 acc-sum-info" >
-                            <div className="col-sm-3" style={{height: '100%',
-                                marginTop: '-35px', paddingTop: '40px'}}> 
+                        <div className="acc-sum-info" >
+                            <div className="col-sm-3 info-col"> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
                                         <thead>
@@ -640,8 +679,7 @@ class Sumary extends React.Component {
                                 </div>
                             </div>
 
-                            <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '40px' }}>
+                            <div className="col-sm-3 info-col">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">
@@ -678,8 +716,7 @@ class Sumary extends React.Component {
 
                             </div>
 
-                            <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '40px'}}>
+                            <div className="col-sm-3 info-col">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">
@@ -717,8 +754,7 @@ class Sumary extends React.Component {
                             </div>
 
 
-                            <div className="col-sm-3" style={{ height: '100%',
-                                marginTop: '-35px', paddingTop: '40px' }}>
+                            <div className="col-sm-3 info-col">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">

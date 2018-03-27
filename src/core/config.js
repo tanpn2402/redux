@@ -568,7 +568,7 @@ const config = {
 		{
 			id: 'marketinfo',
 			title: "marketinfo",
-			enabled: true,
+			enabled: false,
 			widget: [
 				{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
 				{ i: 'marketinfo', x: 0, y: 2, w: 8, h: 24, isDraggable: false, isResizable: false },
@@ -624,7 +624,8 @@ const config = {
 			widget: [
 				{ i: 'orderHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
 				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
-				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
+				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
+				{ i: 'cpcashdwhistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
 			]
 		},
 		{
@@ -634,7 +635,7 @@ const config = {
 			widget: [
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-				{ i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
+				// { i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
 				{ i: 'depositwithdrawim',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false },

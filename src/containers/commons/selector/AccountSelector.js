@@ -33,6 +33,8 @@ class AccountSelector extends React.Component {
     render() {
         let options = ["---"]
         let {theme, tradingAccounts, className, style, showDetail, showName, currentTrdAccount, selected} = this.props
+        let selectorStyles = Object.assign({}, theme.accountselector, style)
+
         if(tradingAccounts.length > 0) 
             options = tradingAccounts
         if(selected == null) {
@@ -42,7 +44,7 @@ class AccountSelector extends React.Component {
         console.log(options)
         return (
             <div className={"trd-account " + className}>
-                <div className={"select-control account-selector "} style={style}>
+                <div className={"select-control account-selector "} style={selectorStyles}>
                     <TypeAhead
                         options={options}
                         selected={selected}

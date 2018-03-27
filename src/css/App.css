@@ -2320,7 +2320,7 @@ label {
 }
 .sum-control {
     display: table;
-    width: 100%;
+    width: calc(100% - 5px);
     position: absolute;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -2331,27 +2331,61 @@ label {
     color: inherit;
     padding-left: 8px;
     padding-top: 2px;
+    float: left;
 }
-
+.sum-control > .sum-subaccount {
+    position: relative;
+    left: 125px;
+    width: calc(100% - 125px);
+}
 .accsum-internal, .accsum-exchange {
     display: inline-block;
+    text-align: right;
 }
 .accsum-exchange {
     padding-left: 10px;
     padding-right: 0px;
-    min-width: 100px;
+    min-width: 120px;
 }
 .accsum-internal {
     padding-left: 0px;
     /* padding-right: 10px; */
-    min-width: 100px;
+    min-width: 120px;
 }
 .accsum-piechart {
     float: left;
-    width: 270px;
+    width: 242px;
 }
 .acc-sum-info {
     display: flow-root;
+    height: 100%;
+}
+.acc-sum-info .info-col {
+    top: 5px;
+    height: calc(100% - 30px);
+}
+.-i:not(:last-child) {
+    padding-right: 2px;
+}
+.accsum-table ._thead {
+    font-weight: bold;
+    padding: 1px 4px;
+}
+.accsum-table ._tbody {
+    height: 100%;
+    overflow: auto;
+}
+.accsum-table ._tr {
+    display: flex;
+    align-items: center;
+    height: 24px;
+}
+.accsum-table ._th {
+    flex: 1;
+    padding-left: 5px;
+}
+.accsum-table ._td {
+    padding-right: 5px;
 }
 /* END SUMARY COMPONENT */
 
@@ -4360,12 +4394,13 @@ label {
     display: inline-block;
     color: white;
     float: right;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 16px;
     height: 100%;
+    position: relative;
+    top: 4px;
 }
 #fav-tab-container{
-    width: calc(100% - 530px);
+    width: calc(100% - 720px);
     float: left;
 }
 

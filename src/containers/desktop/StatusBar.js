@@ -123,7 +123,7 @@ class AccountSelector extends React.Component {
     }
 
     render() {
-        let {currentTrdAccount, tradingAccounts} = this.props
+        let {currentTrdAccount, tradingAccounts, style} = this.props
         let {open, list, selected} = this.state
         return (
             <div className="subacc-select">
@@ -132,6 +132,7 @@ class AccountSelector extends React.Component {
                         onChange={e => this.onChange(e.target.value)}
                         defaultValue={selected.subAccountID + " - [" + selected.subAccountName + "]"}
                         type="text"
+                        style={style}
                         ref={e => this.input = e}
                     />
                 {
@@ -301,16 +302,7 @@ class StatusBar extends React.Component {
 
         let accountType = localStorage.getItem("accountType")
 
-        let selectorStyles = {
-            background: "#2159a0",
-            color: "#FFF"
-        } 
-        if(theme.title == "virtual") {
-            selectorStyles = {
-                background: "#ee514c",
-                color: "#FFF"
-            } 
-        }
+        let selectorStyles = theme.accountselector
 
         let searchResultBox = (
             <div tabIndex="0" className="widget-search-result"
@@ -392,25 +384,6 @@ class StatusBar extends React.Component {
                         onChange={(el, state) => this.handleSwitch(el, state)}
                         wrapperClass='react-bootstrap-switch' defaultValue={accountType == "virtual"} />
                 </div>
-
-                {/* <div className="status-subacc-control">
-                    <div className="pl-sub-account">
-                        <div style={theme.font.main} className="account-name">
-                            <span>{this.state.mvSubAccSelected.subAccountName}</span>
-                        </div>
-                        <Select
-                            style={selectorStyles}
-                            key="rSubAccSelector"
-                            optionLabelPath={'subAccountID'}
-                            ref={r => this.rSubAccSelector = r}
-                            options={this.state.mvListSubAcc}
-                            selected={this.state.mvSubAccSelected}
-                            handleChange={this.handleSubAccChange.bind(this)}
-                        />
-                        
-                    </div>
-                </div> */}
-
 
                 <AccountSelector onChange={s => this.handleSubAccChange(s)} {...this.props} />
 

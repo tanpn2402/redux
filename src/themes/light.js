@@ -409,6 +409,10 @@ export default {
                 backgroundColor: "#FFF"
             }
         }
+    },
+    accountselector: {
+        background: "#2159a0",
+        color: "#FFF"
     }
 
 }

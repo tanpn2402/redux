@@ -19,9 +19,14 @@ class PortfolioPage extends React.Component {
 
 
     onSubAccountChange(value) {
-        // console.log(value)
         this.setState({
             subAccount: value
+        })
+    }
+
+    componentWillReceiveProps(nProps) {
+        this.setState({
+            subAccount: nProps.currentTrdAccount
         })
     }
 
