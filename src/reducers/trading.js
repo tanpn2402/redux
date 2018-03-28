@@ -32,7 +32,7 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-    
+        // console.log("AAAAAAAAAAAAA", state.listInstrumentToWatch)
     switch (action.type) {
         // change default instrument in trading page
         case ActionTypes.CHANGEINSTRUMENT: {
@@ -186,7 +186,7 @@ export default function(state = initialState, action) {
             let tmpIns = listAAA.length > 0 ? listAAA[0] : ""
             let tmp12 = [...new Set([...state.listInstrumentInPortfolio, ...listAAA])]
             config.cache.listInstrumentToWatch = tmp12
-            // console.log(state, config.cache.listInstrumentToWatch)
+            console.log("CCCCCCC", tmp12, listAAA, listDataTmp3)
             return Object.assign({},state,{
                 instrument: tmpIns,
                 listInstrumentToWatch: tmp12,

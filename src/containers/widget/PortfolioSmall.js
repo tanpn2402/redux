@@ -58,14 +58,19 @@ class PortfolioSmall extends React.Component {
             }
             // console.log(stockRealtimeData)
 
-            _data.push({
-                "stockCode": e.mvStockID,
-                "mvTSettled": utils.formatQty(e.mvTSettled),
-                "mvAvgPrice": utils.formatCurrency(avgPrice),
-                "mvMarketPrice": marketPrice,
-                "mvPL": utils.formatCurrency(pl),
-                "mvMarketID": e.mvMarketID
-            })
+            try {
+                if( parseInt(e.mvTSettled) > 0 ) {
+                    _data.push({
+                        "stockCode": e.mvStockID,
+                        "mvTSettled": utils.formatQty(e.mvTSettled),
+                        "mvAvgPrice": utils.formatCurrency(avgPrice),
+                        "mvMarketPrice": marketPrice,
+                        "mvPL": utils.formatCurrency(pl),
+                        "mvMarketID": e.mvMarketID
+                    })
+                }
+            } catch(ex) {}
+                
         })
         this.setState({
             data: _data
@@ -143,9 +148,9 @@ class PortfolioSmall extends React.Component {
                         getGroupHeaderProps={(data) => {
                             return {
                                 style:{
-                                    backgroundColor: "#2159a0",
+                                    backgroundColor: "#bbb7b7",
                                     width: "100%",
-                                    color: "white",
+                                    color: "#000",
                                     paddingLeft: '10px'  
                                 }
                             }

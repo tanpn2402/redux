@@ -205,8 +205,10 @@ class ServicePageContainer extends React.Component {
 
 
 const DERIVATIVES_FUNCTION = [
+    "fundTransfer",
     "depositwithdraw",
-    "depositwithdrawim"
+    "depositwithdrawim",
+    "cpcashdwhistory"
 ]
 
 const NORMAL_FUNCTION = [
@@ -215,7 +217,11 @@ const NORMAL_FUNCTION = [
     "advancePayment",
     "entitlement",
     "oddLot",
-    "loanrefund"
+    "loanrefund",
+    "stockstatement",
+    "orderHistory",
+    "cashTransHistory"
+
 ]
 
 class TabLayout extends Component {

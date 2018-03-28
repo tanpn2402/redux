@@ -821,6 +821,10 @@ class PlaceOrder extends React.Component {
             this.mvVol.focus()
             return
         }
+
+        // let {listSeries} = this.props
+        // let list = listSeries.listSeries
+        // let tmp = list.filter(e => e.id == value.mvStockCode && e.market == value.)
         
         this.showOrderConfirm()
     }
@@ -1263,6 +1267,9 @@ const mapStateToProps = (state) => {
 
         tradingAccounts: state.dologin.tradingAccounts,
         currentTrdAccount: state.dologin.currentTrdAccount,
+
+
+        listSeries: state.stock.listSeries
     }
 }
 

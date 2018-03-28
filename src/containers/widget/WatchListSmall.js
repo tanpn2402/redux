@@ -194,9 +194,9 @@ class WatchListSmall extends React.Component {
                                 getGroupHeaderProps={(data) => {
                                     return {
                                         style:{
-                                            backgroundColor: "#2159a0",
+                                            backgroundColor: "#bbb7b7",
                                             width: "100%",
-                                            color: "white",
+                                            color: "#000",
                                             paddingLeft: '10px'  
                                         },
                                         render: (props) => {
@@ -244,9 +244,9 @@ class WatchListSmall extends React.Component {
                                 getGroupHeaderProps={(data) => {
                                     return {
                                         style:{
-                                            backgroundColor: "#2159a0",
+                                            backgroundColor: "#bbb7b7",
                                             width: "100%",
-                                            color: "white",
+                                            color: "#000",
                                             paddingLeft: '10px'  
                                         },
                                         render: (props) => {

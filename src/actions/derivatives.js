@@ -3,9 +3,20 @@ import {showMessageBox, showFlashPopup} from './notification';
 import {showPopup} from './popup';
 import * as api from '../api/fsapi';
 import * as ACTION from '../api/action_name';
-
+import * as utils from "../utils"
+import {updateDerivativeData, getDerivativeList} from "./trading"
 const URL = "localhost:3000/FSServer/"
 // PHAI SINH
+
+const derivativeList = {
+    id: "",
+    listSeries: [
+        {id: "VN30F1804", name: "VN30F1804", market: "VNFE", ceil: 1227.1, ref: 1146.9, floor: 1066.7},
+        {id: "VN30F1805", name: "VN30F1805", market: "VNFE", ceil: 1234.8, ref: 1154.1, floor: 1073.4},
+        {id: "VN30F1806", name: "VN30F1806", market: "VNFE", ceil: 1241.3, ref: 1160.1, floor: 1078.9},
+        {id: "VN30F1809", name: "VN30F1809", market: "VNFE", ceil: 1263.6, ref: 1181.0, floor: 1098.4},
+    ]
+}
 
 export function getFSSubAccount() {
     return (dispatch) => {
@@ -25,20 +36,53 @@ export function getFSSubAccount() {
 
 export function getFSSeries() {
 
-    return (dispatch) => {
-        api.post("getfsseries", { }, dispatch,
-            function (response) {
-                console.log(response)
+    // return (dispatch) => {
+    //     api.post("getfsseries", { }, dispatch,
+    //         function (response) {
+    //             console.log(response)
                 
-                return {
-                    type: ActionTypes.GETFSSERIES,
-                    data: response
-                }
-            },
-            function (err) {
-                console.log(err)
-            })
+    //             return {
+    //                 type: ActionTypes.GETFSSERIES,
+    //                 data: response
+    //             }
+    //         },
+    //         function (err) {
+    //             console.log(err)
+    //         })
+    // }
+
+    let a = function() {
+        return {
+            type: ActionTypes.GETFSSERIES,
+            data: derivativeList
+        }
     }
+
+    let b = function(dispatch) {
+        return dispatch => {
+            dispatch(getDerivativeList(derivativeList.listSeries))
+            dispatch(broadcastFSRealtimeData(derivativeList, dispatch))
+        }
+    }
+
+    return dispatch => {
+        dispatch( a()  )
+        dispatch( b() )
+    }
+}
+
+function broadcastFSRealtimeData(list, dispatch) {
+
+    // let a = function() {
+        let listSeries = list.listSeries
+        let marIndex = utils.randomInt(listSeries.length)
+        console.log(listSeries[marIndex])
+
+        return  dispatch(updateDerivativeData(listSeries[marIndex]))
+        
+    // }
+
+    // setInterval(a, 4000)
 }
 
 export function enterFSOrder(params, authParams) {
@@ -366,15 +410,12 @@ export function VNRP102ClosePositionEnquiry(params) {
     }
 }
 
-export function orderEnquiryFS(data) {
-    data.tradingAccount = {}
-    data.tradingAccount.accountSeq = 1
-    data.tradingAccount.subAccountID = "100002"
-    
+export function orderEnquiryFS(p) {
+   
     let params = {
-        clientID : "100002",
-        tradingAccSeq: parseInt(data.tradingAccount.accountSeq),
-        subAccountID: data.tradingAccount.subAccountID,
+        clientID : p.subAccountID,
+        tradingAccSeq: parseInt(p.accountSeq),
+        subAccountID: p.subAccountID,
         version : "",
         language : "",
         sessionID : "",

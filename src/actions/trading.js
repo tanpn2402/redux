@@ -301,7 +301,6 @@ export function updateWatchlistData(data) {
 
 // this action for test
 export function getListStockInWatchList() {
-
     let insList = "ACB,ALT,AVS,B82,CCM,EID,SHB,VNM,"
     
     let marketList = "HA,HA,HA,HA,HA,HA,HA,HO,"
@@ -309,13 +308,13 @@ export function getListStockInWatchList() {
     let insArray = insList.split(",")
     let marketArr = marketList.split(",")
     insArray.splice(-1,1)
-    console.log(insArray)
+    // console.log("CCCCCC", insArray)
     let tmp = genDefaultData(insArray, marketArr )
-    console.log(tmp)
+    // console.log("CCCCCC", tmp)
     let stockData  = tmp.map(e => {
         return convertFromItradeVarToMDS(e)
     })
-    console.log(stockData)
+    // console.log("CCCCCC", stockData)
     let list = insArray.map((e, i)=> {
         return {
             mvStockCode: e,
@@ -413,17 +412,17 @@ const dataDe = {
 }
 // UPDATE WATLIST DATA
 export function updateDerivativeData(data) {
-    let marIndex = utils.randomInt(derivativeList.length)
-    let stockCode = derivativeList[marIndex]
-    let market = "HOSE DERIVATIVES"
+    // let marIndex = utils.randomInt(derivativeList.length)
+    // let stockCode = derivativeList[marIndex]
+    // let market = "VNFE"
 
     data = {
-        mvStockCode: stockCode,
-        mvMarket: market,
+        mvStockCode: data.id,
+        mvMarket: data.market,
 
-        mvCeiling: dataDe[stockCode].ceil,
-        mvFloor: dataDe[stockCode].floor,
-        mvReferences: dataDe[stockCode].ref,
+        mvCeiling: data.ceil,
+        mvFloor: data.floor,
+        mvReferences: data.ref,
 
         mvBidPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvBidPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
@@ -461,23 +460,20 @@ export function updateDerivativeData(data) {
     return {
         type: ActionTypes.UPDATEDERIVATIVEDATA,
         data: data,
-        symbol: stockCode
+        symbol: data.mvStockCode
     }
 }
 // Derivatives
-export function getDerivativeList() {
-
-    let list = derivativeList
-    // let _tmp = genDefaultData(list, ["HOSE DERIVATIVES", "HOSE DERIVATIVES", "HOSE DERIVATIVES", "HOSE DERIVATIVES"])
-
+export function getDerivativeList(list) {
+    console.log(list)
     let data = list.map(e => {
         return {
-            mvStockCode: e,
-            mvMarket: "HOSE DERIVATIVES",
+            mvStockCode: e.id,
+            mvMarket: e.market,
     
-            mvCeiling: dataDe[e].ceil,
-            mvFloor: dataDe[e].floor,
-            mvReferences: dataDe[e].ref,
+            mvCeiling: e.ceil,
+            mvFloor: e.floor,
+            mvReferences: e.ref,
     
             mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
             mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
@@ -509,10 +505,10 @@ export function getDerivativeList() {
             mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
         }
     })
-
+    
     return {
         type: ActionTypes.GETDERIVATIVELIST,
-        list: list,
+        list: list.map(e => e.id),
         data: data
     }
 }

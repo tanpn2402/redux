@@ -38,7 +38,7 @@ class AccountSelector extends React.Component {
         if(tradingAccounts.length > 0) 
             options = tradingAccounts
         if(selected == null) {
-            selected = currentTrdAccount
+            this.state.selected = currentTrdAccount
         }
 
         console.log(options)
@@ -59,7 +59,7 @@ class AccountSelector extends React.Component {
                     }
                     {
                         showDetail ? <span className="info-icon">
-                                <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance()}></span>
+                                <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance(selected)}></span>
                             </span> : null
                     }
                 </div>
@@ -67,9 +67,11 @@ class AccountSelector extends React.Component {
         )
     }
 
-    showAccBalance() {
+    showAccBalance(selected) {
         this.props.showAccBalance({
-            data: {},
+            data: {
+                tradingAccount: selected,
+            },
             title: this.props.language.menu.accountbalance ,
             language: this.props.language,
             theme: this.props.theme,

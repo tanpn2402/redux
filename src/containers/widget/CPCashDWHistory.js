@@ -204,11 +204,11 @@ class CPCashDWHistory extends Component {
                 <Body theme={theme}>
                     <Table 
                         theme={theme}
-                        id={this.id}
+                        id={"portfolio"}
                         language={language}
 
                         pageSize={this.defaultPageSize}
-                        columns={this.state.cpdwCol}
+                        columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={data.slice( (this.state.pageIndex -1)*this.defaultPageSize, this.state.pageIndex*this.defaultPageSize)}
 

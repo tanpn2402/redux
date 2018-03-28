@@ -427,13 +427,22 @@ class OrderJournal extends Component {
     }
 
     componentDidMount() {
-        this.props.onSearch(this.param)
+        let {currentTrdAccount} = this.props
+        console.log(currentTrdAccount)
+        this.props.onSearch(this.param, {
+            subAccountID: currentTrdAccount.subAccountID,
+            accountSeq: currentTrdAccount.accountSeq
+        })
         // this.props.orderEnquiryFS(this.param)
     }   
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.updateOrderJournal != this.props.updateOrderJournal) {
-            this.props.onSearch(this.param)
+            let {currentTrdAccount} = this.props
+            this.props.onSearch(this.param, {
+                subAccountID: currentTrdAccount.subAccountID,
+                accountSeq: currentTrdAccount.accountSeq
+            })
         }
     }
 
@@ -552,7 +561,11 @@ class OrderJournal extends Component {
         this.state.pageIndex = pageIndex
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.props.onSearch(this.param, !this.props.reload)
+        let {currentTrdAccount} = this.props
+        this.props.onSearch(this.param, {
+            subAccountID: currentTrdAccount.subAccountID,
+            accountSeq: currentTrdAccount.accountSeq
+        })
     }
 
     onSearch(param) {
@@ -567,15 +580,21 @@ class OrderJournal extends Component {
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
 
-        this.props.onSearch(this.param)
+        let {currentTrdAccount} = this.props
+        this.props.onSearch(this.param, {
+            subAccountID: currentTrdAccount.subAccountID,
+            accountSeq: currentTrdAccount.tradingAccSeq
+        })
     }
 
     updateView() {
         this.rowSelected = []
-        this.props.onSearch(this.param)
+        let {currentTrdAccount} = this.props
+        this.props.onSearch(this.param, {
+            subAccountID: currentTrdAccount.subAccountID,
+            accountSeq: currentTrdAccount.accountSeq
+        })
     }
-
-
 }
 
 OrderJournal.defaultProps = {
@@ -604,16 +623,17 @@ const mapStateToProps = (state) => {
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
 
-        updateOrderJournal: state.orderjournal.updateOrderJournal
+        updateOrderJournal: state.orderjournal.updateOrderJournal,
+        currentTrdAccount: state.dologin.currentTrdAccount
 
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
 
-    onSearch: (param, reload) => {
+    onSearch: (param, fsParams) => {
         dispatch(actions.clearOrderEnquiryData())
-        dispatch(actions.getEnquiry(param, reload))
+        dispatch(actions.getEnquiry(param))
         dispatch(actions.orderEnquiryFS(param))
     },
     getStockInfo: (param) => {
