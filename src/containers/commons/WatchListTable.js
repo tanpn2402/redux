@@ -1106,30 +1106,29 @@ class WatchListTable extends React.Component {
     render() {
 
         
-
+        let {theme, language, listInstrumentInWatchList} = this.props
 
         return (
             <DataTable
-                theme={this.props.theme}
+                theme={theme}
                 id="watchlist"
                 columns={this.state.columns}
                 tableData={this.state.realtimeData}
                 onRowSelected={(param) => this.onRowSelected(param)}
-                language={this.props.language}
+                language={language}
                 onCellClick={this.onCellClick.bind(this)}
                 pivot={['market']}
                 getPivotRowProps={(props) => {
                     return {
-                        style: {
-                            backgroundColor: "#969696",
+                        style: Object.assign({}, theme.table.pivotRow, {
                             borderLeft: "none",
                             borderRight: "none",
                             justifyContent: "left"
-                        }
+                        })
                     }
                 }}
                 pageIndex={this.state.pageIndex}
-                totalPage={Math.ceil(this.props.listInstrumentInWatchList.length/15)}
+                totalPage={Math.ceil(listInstrumentInWatchList.length/15)}
                 onPageChange={this.onPageChange.bind(this)}
 
                 searchActions={[]}

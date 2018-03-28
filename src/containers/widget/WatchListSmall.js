@@ -11,6 +11,9 @@ import {TabControl, TabItem} from "../commons/TabControl"
 import RecommendTable from "./RecommendTable"
 import {Icon}   from "react-fa"
 
+
+import DataTable from '../commons/table/index'
+
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 const MODE_PERCENT = "percent"
@@ -193,12 +196,7 @@ class WatchListSmall extends React.Component {
                                 }}
                                 getGroupHeaderProps={(data) => {
                                     return {
-                                        style:{
-                                            backgroundColor: "#bbb7b7",
-                                            width: "100%",
-                                            color: "#000",
-                                            paddingLeft: '10px'  
-                                        },
+                                        style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"}),
                                         render: (props) => {
                                             return (
                                                 <span className="wl-index">
@@ -243,12 +241,7 @@ class WatchListSmall extends React.Component {
                                 }}
                                 getGroupHeaderProps={(data) => {
                                     return {
-                                        style:{
-                                            backgroundColor: "#bbb7b7",
-                                            width: "100%",
-                                            color: "#000",
-                                            paddingLeft: '10px'  
-                                        },
+                                        style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"}),
                                         render: (props) => {
                                             return (
                                                 <span className="wl-index">

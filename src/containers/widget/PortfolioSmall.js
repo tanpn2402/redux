@@ -147,12 +147,7 @@ class PortfolioSmall extends React.Component {
                         }}
                         getGroupHeaderProps={(data) => {
                             return {
-                                style:{
-                                    backgroundColor: "#bbb7b7",
-                                    width: "100%",
-                                    color: "#000",
-                                    paddingLeft: '10px'  
-                                }
+                                style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"})
                             }
                         }}
                         onCellClick={(e, rowData, cellData)=> this.onRowClick(e, rowData, cellData)}

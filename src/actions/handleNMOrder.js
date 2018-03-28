@@ -373,7 +373,7 @@ function showOrderConfirm(value, language, theme) {
         language: language,
         pin: value.pin,
         tradingAccount: value.tradingAccount,
-        tradingType: value.tradingType
+        tradingType: "NORMAL"
     }
     console.log(data)
     

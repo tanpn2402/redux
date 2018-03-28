@@ -371,51 +371,51 @@ class OrderJournal extends Component {
 
 
     render() {
+        let {theme, language, data, stockList} = this.props
         let buttonAction = [
-            <button style={this.props.theme.searchbar.default.button} type="button" className="hks-btn"
-                onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
+            <button style={theme.searchbar.default.button} type="button" className="hks-btn"
+                onClick={() => this.handleCancelOrderChecked()}>{language.button.CTTCancel}</button>,
         ]
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} widgetID= 'orderjournal'
-                    theme={this.props.theme}
-                    language={this.props.language}
+                    theme={theme}
+                    language={language}
                     columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
-                    {this.props.language.menu[this.id]}
+                    {language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={theme}>
                     <Table
-                        theme={this.props.theme}
+                        theme={theme}
                         id={this.id}
-                        language={this.props.language}
+                        language={language}
                         onRowSelected={this.onRowSelected.bind(this)}
 
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
                         filterable={this.state.filterable}
-                        tableData={this.props.data.mvOrderBeanList}
+                        tableData={data.mvOrderBeanList}
                         pivot={['market']}
                         getPivotRowProps={(props) => {
                             return {
-                                style: {
-                                    backgroundColor: "#969696",
+                                style: Object.assign({}, theme.table.pivotRow, {
                                     borderLeft: "none",
                                     borderRight: "none",
                                     justifyContent: "left"
-                                }
+                                })
                             }
                         }}
                         
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
-                        totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+                        totalPage={Math.ceil(data.mvTotalOrders / this.defaultPageSize)}
 
                         searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
                         searchMobileParams={["mvStatus"]}
                         searchActions={buttonAction}
-                        searchData={{ stockList: this.props.stockList }}
+                        searchData={{ stockList: stockList }}
                         searchDefaultValues={{ mvStatus: this.param.mvStatus }}
                         onSearch={this.onSearch.bind(this)}
 
