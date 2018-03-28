@@ -1,5 +1,5 @@
 export const BROADCASTURL = {
-    BROADCAST_UPDATE_ORDER: "/ITradePushServer/comet/:clientID"
+    BROADCAST_UPDATE_ORDER: "ITradePushServer/comet/:clientID"
 }
 
 export const BROADCASTTAG = {

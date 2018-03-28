@@ -45,8 +45,15 @@ class CancelOrder extends Component {
     }
     onCancelSubmit() {
         var authParams = this.auth.getParam()
+        var mvMarketID = this.props.data.data[0].mvMarketID
+        
+        if(mvMarketID == "VNFE") {
+            this.props.onCancelFSOrder(this.props.data, this.props.language)
+        } else {
+            this.props.onCancelSubmit(this.props.data, authParams, this.props.language)
+        }
 
-        this.props.onCancelSubmit(this.props.data, authParams, this.props.language)
+            
         this.props.onHide()
     }
 
@@ -54,6 +61,22 @@ class CancelOrder extends Component {
     _renderForOneOrder(props, language) {
         var tmp = props.data.data[0]
         var data = [
+            {
+                Header: p => {
+                    return (
+                        <span>
+                            <span style={{marginRight: "5px"}}>{language.enterorder.header.subaccount}:</span>
+                            <span>{tmp.mvClientID}</span>
+                        </span>
+                    )
+                },
+                Cell: p => {
+                    return (
+                        <span>
+                        </span>
+                    )
+                }
+            },
             {
                 header: "market",
                 value: tmp.mvMarketID
@@ -168,6 +191,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onCancelSubmit: (param, language, authParams) => {
         dispatch(actions.onCancelSubmit(param, language, authParams))
     },
+    onCancelFSOrder: (param, language) => {
+        dispatch(actions.cancelFSOrder(param, language))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CancelOrder)

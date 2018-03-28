@@ -1,7 +1,10 @@
-import {SERVER, PORT, POST, GET, DELETE, LOGIN, HEADERS, HEADERSCK, PUT} from "./serverconfig"
+import {/*SERVER, */ PORT, POST, GET, DELETE, LOGIN, HEADERS, HEADERSCK, PUT} from "./serverconfig"
+
+
+const SERVER = "http://192.168.150.251:9090/"
 
 export function getServerUrl() {
-    return SERVER + PORT
+    return SERVER
 }
 export async function FetchAPI(id, JsonData, method) {
     var url = SERVER + "iTradeMAS/" + id

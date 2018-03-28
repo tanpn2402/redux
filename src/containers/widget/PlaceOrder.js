@@ -157,8 +157,9 @@ class PlaceOrder extends React.Component {
 
             // update account
             let subAccounts = this.state.mvListSubAcc.filter(e => e.investorType == "DERIVATIVES")
-            if(subAccounts.length > 0 && this.state.mvSubAccSelected.investorType != "DERIVATIVES" ||
-                this.state.mvSubAccSelected.investorType == undefined) 
+
+            if((subAccounts.length > 0 && this.state.mvSubAccSelected.investorType != "DERIVATIVES") ||
+                (subAccounts.length > 0 && this.state.mvSubAccSelected.investorType == undefined) )
             {
                 this.setState({
                     mvSubAccSelected: subAccounts[0]
@@ -171,13 +172,9 @@ class PlaceOrder extends React.Component {
 
             this.mvLending.value("---")
             this.mvBuyingPower.value("---")
-            
-            
         }
         else {
 
-            // console.log(portfolioData)
-            // remove previous instrument if it not in watchlist and not in portfolio list
             if(listInstrumentInWatchList.indexOf(mvStockSelected.stockCode) < 0 && 
                 portfolioData.filter(e => e.mvStockID == mvStockSelected.stockCode).length < 1) 
             {
@@ -738,7 +735,8 @@ class PlaceOrder extends React.Component {
             this.state.mvMarketID = orderDefault.mvMarketID
             this.state.mvStockSelected = {
                 stockCode: orderDefault.mvStockCode,
-                stockName: orderDefault.mvStockName
+                stockName: orderDefault.mvStockName,
+                mvMarketID: orderDefault.mvMarketID
             }
 
             this.setValue({
@@ -767,7 +765,7 @@ class PlaceOrder extends React.Component {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
 
-            if(orderDefault.mvStockCode.length > 3) {
+            if(orderDefault.mvMarketID == "VNFE") {
                 this.switchTradingAcc(true)
             } else {
                 this.switchTradingAcc(false)
@@ -781,8 +779,10 @@ class PlaceOrder extends React.Component {
     }
 
     switchTradingAcc(isDerivatives) {
+        
         if(isDerivatives) {
             let tmp = this.state.mvListSubAcc.filter(e => e.type == "DERIVATIVES")
+            console.log(isDerivatives)
             if(tmp.length > 0) {
                 this.setState({
                     mvSubAccSelected: tmp[0],
@@ -822,11 +822,76 @@ class PlaceOrder extends React.Component {
             return
         }
 
-        // let {listSeries} = this.props
-        // let list = listSeries.listSeries
-        // let tmp = list.filter(e => e.id == value.mvStockCode && e.market == value.)
+        let {listSeries} = this.props
+        let price = this.mvPrice.getValue()
+        let list = listSeries.listSeries
         
-        this.showOrderConfirm()
+
+        if (isNaN(price) || parseInt(price) === 0) {
+            this.mvPrice.focus()
+            (this.props.showMessageBox(language.messagebox.title.error, language.messagebox.message.enterPrice))
+            return
+        } else if (price < 0) {
+            this.mvPrice.focus()
+            (this.props.showMessageBox(language.messagebox.title.error, language.messagebox.message.priceNegative))
+            return
+        }
+
+        let tmp = list.filter(e => e.id == value.mvStockCode)
+        if(tmp.length > 0) {
+            let s = tmp[0]
+            try {
+                if(parseFloat(s.ceil) < parseFloat(price) || parseFloat(s.floor) > parseFloat(price) ) {
+                    var errorMsg = language.messagebox.message.invaliedPriceOutRange;
+                    errorMsg = errorMsg
+                        .replace('from_value', Utils.formatCurrency(s.floor))
+                        .replace('to_value', Utils.formatCurrency(s.ceil))
+    
+                    this.mvPrice.focus()
+                    this.props.showMessageBox(language.messagebox.title.error, errorMsg)
+                    return
+                }
+            } catch(ex) {
+               return
+            }
+
+        }
+        
+        this.props.handleFSOrder(
+        {
+            symbol: state.mvStockSelected.stockCode,
+            symbolName: state.mvStockSelected.stockName,
+            
+            quantity: this.mvVol.getValue(),
+            volume: this.mvVol.getValue(),
+            lotSize: state.mvStockSelected.lotSize,
+            orderType: state.mvOrderTypeSelected.value,
+
+            ceil: store.stockInfoBean == null ? null : store.stockInfoBean.mvCeiling,
+            floor: store.stockInfoBean == null ? null : store.stockInfoBean.mvFloor,
+
+            price: this.mvPrice.readonly() ? undefined : this.mvPrice.getValue(),
+
+            marketID: state.mvStockSelected.mvMarketID,
+
+            bs: state.mvBS.slice(0,1),
+            settleAcc: state.mvSettlementAccSelected,
+            temporaryFee: value.mvTemporaryFee,
+
+            grossAmt: value.mvGrossAmt,
+            bankID: value.mvBankID,
+            bankACID: value.mvBankACID,
+            expiryDate: undefined,
+
+            lending: value.mvLending,
+            buyingPower: value.mvBuyPower,
+            netFee: value.mvNetFee,
+
+            pin: this.refPIN.value,
+            tradingAccount: state.mvSubAccSelected,
+            tradingType: state.tradingType,
+        }, language, this.props.theme, this)
+    
     }
 
     handleSubmit(e) {
@@ -835,7 +900,9 @@ class PlaceOrder extends React.Component {
         var value = this.value
         var store = this.store
         var language = this.props.language
-        // console.log(state.mvOrderTypeSelected)
+
+
+        console.log(state.mvSubAccSelected, state.mvStockSelected)
 
         if(state.mvSubAccSelected.investorType == "DERIVATIVES") {
             if(state.mvStockSelected.mvMarketID != "VNFE") {
@@ -844,40 +911,43 @@ class PlaceOrder extends React.Component {
                 return
             } else {
                 // enterFSOrder
-                this.props.handleFSOrder(
-                    {
-                        symbol: state.mvStockSelected.stockCode,
-                        symbolName: state.mvStockSelected.stockName,
+                // this.props.handleFSOrder(
+                //     {
+                //         symbol: state.mvStockSelected.stockCode,
+                //         symbolName: state.mvStockSelected.stockName,
                         
-                        quantity: this.mvVol.getValue(),
-                        volume: this.mvVol.getValue(),
-                        lotSize: state.mvStockSelected.lotSize,
-                        orderType: state.mvOrderTypeSelected.value,
+                //         quantity: this.mvVol.getValue(),
+                //         volume: this.mvVol.getValue(),
+                //         lotSize: state.mvStockSelected.lotSize,
+                //         orderType: state.mvOrderTypeSelected.value,
 
-                        ceil: store.stockInfoBean == null ? null : store.stockInfoBean.mvCeiling,
-                        floor: store.stockInfoBean == null ? null : store.stockInfoBean.mvFloor,
+                //         ceil: store.stockInfoBean == null ? null : store.stockInfoBean.mvCeiling,
+                //         floor: store.stockInfoBean == null ? null : store.stockInfoBean.mvFloor,
 
-                        price: this.mvPrice.readonly() ? undefined : this.mvPrice.getValue(),
+                //         price: this.mvPrice.readonly() ? undefined : this.mvPrice.getValue(),
 
-                        marketID: state.mvStockSelected.mvMarketID,
+                //         marketID: state.mvStockSelected.mvMarketID,
 
-                        bs: state.mvBS.slice(0,1),
-                        settleAcc: state.mvSettlementAccSelected,
-                        temporaryFee: value.mvTemporaryFee,
+                //         bs: state.mvBS.slice(0,1),
+                //         settleAcc: state.mvSettlementAccSelected,
+                //         temporaryFee: value.mvTemporaryFee,
 
-                        grossAmt: value.mvGrossAmt,
-                        bankID: value.mvBankID,
-                        bankACID: value.mvBankACID,
-                        expiryDate: undefined,
+                //         grossAmt: value.mvGrossAmt,
+                //         bankID: value.mvBankID,
+                //         bankACID: value.mvBankACID,
+                //         expiryDate: undefined,
 
-                        lending: value.mvLending,
-                        buyingPower: value.mvBuyPower,
-                        netFee: value.mvNetFee,
+                //         lending: value.mvLending,
+                //         buyingPower: value.mvBuyPower,
+                //         netFee: value.mvNetFee,
 
-                        pin: this.refPIN.value,
-                        tradingAccount: state.mvSubAccSelected,
-                        tradingType: state.tradingType,
-                    }, language, this.props.theme, this)
+                //         pin: this.refPIN.value,
+                //         tradingAccount: state.mvSubAccSelected,
+                //         tradingType: state.tradingType,
+                //     }, language, this.props.theme, this)
+                // return
+
+                this.submitDerivativeOrder()
                 return
 
             }
@@ -1300,7 +1370,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 
 
-
+    showMessageBox: (t, m) => {
+        dispatch(actions.showMessageBox(t,m))
+    },
 
 
     /////

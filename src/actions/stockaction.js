@@ -9,11 +9,9 @@ const stockList = { "mvIsEnableMultiMarket": true, "mvResult": null, "stockSearc
 
 
 export function stockSearch(param) {
-    // console.log(param)
     return function (dispatch) {
         api.post('stockSearch.action', param, dispatch, 
         function(response) {
-            // console.log("AAAAAAAAAAAAA", response)
             if(response == undefined || response.stockSearchList.length < 0) {
                 return (dispath) => dispatch(stockSearch(param))
             } else {
@@ -27,16 +25,11 @@ export function stockSearch(param) {
             }
         },
         function(err) {
-            // console.log("FAILLLLLLLLLL STOCK SEARCHHHHH")
             return (dispatch) => dispatch(stockSearch(param))
         })
 
         dispatch(fsAction.getFSSeries())
     }
-}
-
-function stockListResponse(response) {
-    
 }
 
 export function getStockWatchInfo(stockInfo) {

@@ -11,10 +11,10 @@ const URL = "localhost:3000/FSServer/"
 const derivativeList = {
     id: "",
     listSeries: [
-        {id: "VN30F1804", name: "VN30F1804", market: "VNFE", ceil: 1227.1, ref: 1146.9, floor: 1066.7},
-        {id: "VN30F1805", name: "VN30F1805", market: "VNFE", ceil: 1234.8, ref: 1154.1, floor: 1073.4},
-        {id: "VN30F1806", name: "VN30F1806", market: "VNFE", ceil: 1241.3, ref: 1160.1, floor: 1078.9},
-        {id: "VN30F1809", name: "VN30F1809", market: "VNFE", ceil: 1263.6, ref: 1181.0, floor: 1098.4},
+        {id: "VN30F201804", name: "VN30F201804", market: "VNFE", ceil: 1227.1, ref: 1146.9, floor: 1066.7},
+        {id: "VN30F201805", name: "VN30F201805", market: "VNFE", ceil: 1234.8, ref: 1154.1, floor: 1073.4},
+        {id: "VN30F201806", name: "VN30F201806", market: "VNFE", ceil: 1241.3, ref: 1160.1, floor: 1078.9},
+        {id: "VN30F201809", name: "VN30F201809", market: "VNFE", ceil: 1263.6, ref: 1181.0, floor: 1098.4},
     ]
 }
 
@@ -140,7 +140,7 @@ export function enterFSOrder(params, authParams) {
             // success
             let orderID = res.orderId
             if(orderID == null) {
-                dispatch(showFlashPopup("Error", "Order sent fail!"))
+                dispatch(showFlashPopup("Error", res.errorMessage + " (" + res.errorCode + ")"))
             } else {
                 dispatch(showFlashPopup("Success", "Order " + orderID + " updated: " + params.symbol))
             }
@@ -152,53 +152,114 @@ export function enterFSOrder(params, authParams) {
     }
 }
 
-export function cancelFSOrder(params) {
-    params = {
-        clientID : "",
-        tradingAccSeq : "",
-        subAccountID : "",
-        version : "",
-        language : "",
-        sessionID : "",
-        deviceID : "",
-        osVersion : "",
-        orderInfo : ""
+export function cancelFSOrder(params, language) {
+    // params is Array Obj
+    return function(dispatch) {
+
+        params.map(p => {
+            let _params = {
+                clientID : p.mvClientID,
+                tradingAccSeq : p.mvAccountSeq,
+                subAccountID : p.mvSubAccountID,
+                version : "",
+                language : "",
+                sessionID : "",
+                deviceID : "",
+                osVersion : "",
+                orderInfo : {
+                    bs: p.mvBS,
+                    marketId: p.mvMarketID,
+                    seriesId: p.mvStockCode,
+                    validity: "Day",
+                    orderType: p.mvOrderType,
+                    commodityName: "",
+                    orderId: p.mvOrderID,
+                    orderGroupId: p.mvOrderGroupID
+        
+                }
+            }
+
+            api.post("cancelOrder", _params, dispatch, 
+                function(res) {
+                    // success
+                    console.log(res)
+
+                    if(!res) {
+                        return {
+                            type: 0
+                        }
+                    }
+                },
+                function(err) {
+                    //  err
+                })
+            })
+
     }
 }
 
-export function modifyFSOrder(params) {
+export function modifyFSOrder(params, language) {
+    // params is JSON Object
     params = {
-        clientID : "",
-        tradingAccSeq : "",
-        subAccountID : "",
+        clientID : params.mvClientID,
+        tradingAccSeq : params.mvAccountSeq,
+        subAccountID : params.mvSubAccountID,
         version : "",
         language : "",
         sessionID : "",
         deviceID : "",
         osVersion : "",
-        orderInfo : "",
-        price : "",
-        position : "",
-        qty : "",
-        Inactive : "",
-        StopOrder : "",
-        AuctionOrder : "",
-        TPlus1 : "",
-        minQty : "",
-        stopPrice : "",
-        stopType : "",
-        confirmExceedTradingLimit : "",
-        confirmExceedDerivation : "",
-        confirmMaxVolume : "",
-        confirmMarginCall : "",
-        confirmExceedDerivationForStopPrice : "",
-        confirmExceedPositionWarningLevel1 : "",
-        confirmExceedPositionWarningLevel2 : "",
-        confirmExceedOpenInterestWarningLevel1 : "",
-        confirmExceedOpenInterestWarningLevel2 : "",
-        validity : "",
-        validitydate : "",
-        checkLimitByPassWarning : "",
+        orderInfo : {
+            bs: params.mvBS,
+            marketId: params.mvMarketID,
+            seriesId: params.mvStockCode,
+            validity: "Day",
+            orderType: params.mvOrderType,
+            commodityName: "",
+            orderId: params.mvOrderID,
+            orderGroupId: params.mvOrderGroupID
+
+        },
+        price: parseFloat(params.newPrice),
+        position: "O",   // O open, L liquidate, C close
+        qty: parseInt(params.newVolume),
+        Inactive: false,
+        StopOrder: false,
+        AuctionOrder: false,
+        TPlus1: false,
+        minQty: 0,
+        stopPrice: 0,
+        stopType: "N",   // N, D, U, S, T, V, E
+        confirmExceedTradingLimit: false,
+        confirmExceedDerivation: false,
+        confirmMaxVolume: false,
+        confirmMarginCall: false,
+        confirmExceedDerivationForStopPrice: false,
+        confirmExceedPositionWarningLevel1: false,
+        confirmExceedPositionWarningLevel2: false,
+        confirmExceedOpenInterestWarningLevel1: false,
+        confirmExceedOpenInterestWarningLevel2: false,
+        validity: "Day",
+        validitydate: "",
+        checkLimitByPassWarning: false
+    }
+
+
+    return dispatch => {
+        api.post("modifyOrder", params, dispatch, 
+        function(res) {
+            // success
+            console.log(res)
+
+            if(!res) {
+                return {
+                    type: 0
+                }
+            }
+        },
+        function(err) {
+            //  err
+        })
     }
 }
 
@@ -234,26 +295,26 @@ export function cpCashDWTS(params) {
     }
 }
 
-export function orderHistoryEnquiryFS(data) {
-
-    data.tradingAccount = {}
-    data.tradingAccount.accountSeq = 1
-    data.tradingAccount.subAccountID = "100002"
+export function orderHistoryEnquiryFS(p) {
+    let subAccount = p.subAccount
+    if(subAccount == undefined) {
+        return {
+            type: 0
+        }
+    }
 
     let params = {
-        clientID : "100002",
-        tradingAccSeq: parseInt(data.tradingAccount.accountSeq),
-        subAccountID: data.tradingAccount.subAccountID,
+        clientID : subAccount.subAccountID,
+        tradingAccSeq: parseInt(subAccount.accountSeq),
+        subAccountID: subAccount.subAccountID,
         version: "",
         language: "",
         sessionID: "",
         sessionID: "",
         osVersion: "",
         Status : "", 
-        orderdate: "",
+        // orderdate: "",
     }
-
-    console.log(params)
 
     return dispatch => {
         api.post("orderHistoryEnquiry", params, dispatch, 
@@ -411,11 +472,17 @@ export function VNRP102ClosePositionEnquiry(params) {
 }
 
 export function orderEnquiryFS(p) {
-   
+    let subAccount = p.subAccount
+    if(subAccount == undefined) {
+        return {
+            type: 0
+        }
+    }
+
     let params = {
-        clientID : p.subAccountID,
-        tradingAccSeq: parseInt(p.accountSeq),
-        subAccountID: p.subAccountID,
+        clientID : subAccount.subAccountID,
+        tradingAccSeq: parseInt(subAccount.accountSeq),
+        subAccountID: subAccount.subAccountID,
         version : "",
         language : "",
         sessionID : "",
@@ -423,29 +490,6 @@ export function orderEnquiryFS(p) {
         osVersion : "",
         Status : "",   
     }
-
-    /*
-    
-    Pending_Approval
-    Ready_To_Send
-    Outstanding
-    Sending
-    Notified
-    Rejected
-    Filled
-    Cancelled
-    Inactive
-    Killed
-    Fill_And_Kill
-    Queue
-    Stop_Ready
-    Stop_Sent
-    Stop_Failed
-    Stop_Inactive
-    AOC_Cancelled
-
-    */
-    console.log(params)
 
     return dispatch => {
         api.post("orderEnquiry", params, dispatch, 
@@ -484,7 +528,9 @@ export function orderEnquiryFS(p) {
                         "mvCancelQty": "100",
                         "mvCancelQtyValue": "100",
                         "mvChannelID": "INT",
-                        "mvClientID": "C080001",
+                        "mvClientID": subAccount.subAccountID,
+                        "mvSubAccountID": subAccount.subAccountID,
+                        "mvAccountSeq": subAccount.accountSeq,
                         "mvClientRemarks": "",
                         "mvContactPhone": "",
                         "mvCreateTime": "",
@@ -659,7 +705,6 @@ export function cashBalanceEnquiry(params) {
         api.post("cashBalanceEnquiry", p, dispatch, 
             function(res) {
                 // success
-               
                 if(!res) {
                     return {
                         type: 0

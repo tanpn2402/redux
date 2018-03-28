@@ -41,6 +41,10 @@ class AccountSelector extends React.Component {
             this.state.selected = currentTrdAccount
         }
 
+        if(selected == null) {
+            selected = {}
+        }
+
         console.log(options)
         return (
             <div className={"trd-account " + className}>

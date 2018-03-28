@@ -426,22 +426,26 @@ class OrderJournal extends Component {
 
     }
 
+    getFSAccount(tradingAccounts) {
+        let t = tradingAccounts.filter( e=> e.investorType == "DERIVATIVES")
+        if(t.length > 0) {
+            return t[0]
+        } else {
+            return undefined
+        }
+    }
+
     componentDidMount() {
-        let {currentTrdAccount} = this.props
-        console.log(currentTrdAccount)
         this.props.onSearch(this.param, {
-            subAccountID: currentTrdAccount.subAccountID,
-            accountSeq: currentTrdAccount.accountSeq
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
         })
-        // this.props.orderEnquiryFS(this.param)
     }   
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.updateOrderJournal != this.props.updateOrderJournal) {
             let {currentTrdAccount} = this.props
             this.props.onSearch(this.param, {
-                subAccountID: currentTrdAccount.subAccountID,
-                accountSeq: currentTrdAccount.accountSeq
+                subAccount: this.getFSAccount(nextProps.tradingAccounts)
             })
         }
     }
@@ -533,22 +537,11 @@ class OrderJournal extends Component {
         }
     }
 
-    showPopup() {
-        // get all row selected
-        this.setState({
-            lgShow: true
-        });
-        this.title = this.props.language.orderjournal.popup.title.cancel
-        this.popupType = 'CANCELORDER'
-    }
-
     onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-
-        // console.log(this.state.columns)
     }
 
     onToggleFilter(value) {
@@ -563,8 +556,7 @@ class OrderJournal extends Component {
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
         let {currentTrdAccount} = this.props
         this.props.onSearch(this.param, {
-            subAccountID: currentTrdAccount.subAccountID,
-            accountSeq: currentTrdAccount.accountSeq
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
         })
     }
 
@@ -582,8 +574,7 @@ class OrderJournal extends Component {
 
         let {currentTrdAccount} = this.props
         this.props.onSearch(this.param, {
-            subAccountID: currentTrdAccount.subAccountID,
-            accountSeq: currentTrdAccount.tradingAccSeq
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
         })
     }
 
@@ -591,30 +582,13 @@ class OrderJournal extends Component {
         this.rowSelected = []
         let {currentTrdAccount} = this.props
         this.props.onSearch(this.param, {
-            subAccountID: currentTrdAccount.subAccountID,
-            accountSeq: currentTrdAccount.accountSeq
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
         })
     }
 }
 
 OrderJournal.defaultProps = {
     defaultPageSize: 15
-}
-
-function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {
-    let tmp = 0
-    if (mvBSValue == 'B') {
-        tmp = mvNetAmtValue - mvGrossAmt
-    } else {
-        tmp = mvGrossAmt - mvNetAmtValue
-    }
-    return utils.currencyShowFormatter(tmp)
-}
-
-function headerRenderer(component, id, text) {
-    return (
-        <div id={id} onMouseLeave={e => component.handleOnMouseLeave(e)} onMouseEnter={e => component.handleOnMouseEnter(e)} onMouseDown={e => component.handleOnMouseDown(e)} onMouseUp={(e) => component.handleOnMouseUp(e)} >{text}</div>
-    )
 }
 
 const mapStateToProps = (state) => {
@@ -624,7 +598,7 @@ const mapStateToProps = (state) => {
         menuid: state.orderjournal.menuid,
 
         updateOrderJournal: state.orderjournal.updateOrderJournal,
-        currentTrdAccount: state.dologin.currentTrdAccount
+        tradingAccounts: state.dologin.tradingAccounts
 
     }
 }
@@ -634,7 +608,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (param, fsParams) => {
         dispatch(actions.clearOrderEnquiryData())
         dispatch(actions.getEnquiry(param))
-        dispatch(actions.orderEnquiryFS(param))
+        dispatch(actions.orderEnquiryFS(fsParams))
     },
     getStockInfo: (param) => {
         //dispatch(actions.getstockInfo(param))

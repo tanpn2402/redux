@@ -1,8 +1,7 @@
-import { POST, PUT, GET, LOGIN, DELETE, FSSERVER, /*SERVER, */HEADERSCK } from './serverconfig';
+import { POST, PUT, GET, LOGIN, DELETE, FSSERVER, SERVER, HEADERSCK } from './serverconfig';
 import { showMessageBox } from '../actions/notification'
 
 
-const SERVER = "http://192.168.120.12:3000/"
 export function get(action, param, dispatch, successHandler, failHandler) {
 	return (fetchAPI(action, param, GET)).then(response => response).then(parseData => {
 		dispatch(successHandler(parseData))

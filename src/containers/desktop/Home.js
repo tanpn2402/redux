@@ -9,7 +9,7 @@ import {getLanguage, getTheme, replaceURL } from '../../utils'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
 import * as marketData from '../../api/marketdata'
 
-
+import { SERVER } from "../../api/serverconfig";
 import * as broadCast from '../../api/broadcastapi'
 import {BROADCASTURL, BROADCASTTAG} from "../../api/broadcasturl"
 
@@ -141,7 +141,7 @@ class Home extends Component {
 
     broadCast() {
         let me = this
-        let socket = broadCast.broadcast("http://192.168.1.226:3000" + 
+        let socket = broadCast.broadcast(SERVER + 
             replaceURL(BROADCASTURL.BROADCAST_UPDATE_ORDER, {"clientID": localStorage.getItem("clientID") })
             , 
             function(res){

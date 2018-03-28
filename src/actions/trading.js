@@ -475,9 +475,9 @@ export function getDerivativeList(list) {
             mvFloor: e.floor,
             mvReferences: e.ref,
     
-            mvBidPrice1: utils.round(85 + parseFloat(Math.random().toFixed(2)), 1),
-            mvBidPrice2: utils.round(75 + parseFloat(Math.random().toFixed(2)), 1),
-            mvBidPrice3: utils.round(65 + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
+            mvBidPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
     
             mvBidVol1: utils.randomInt(100),
             mvBidVol2: utils.randomInt(100),
