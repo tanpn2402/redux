@@ -1,11 +1,9 @@
 const { ActionTypes } = require('../core/constants');
 
 const initialState = {
-  enquiryorder: {
-    mvOrderBeanList: [],
-    mvTotalOrders: 0,
-    mvTotalTaxFee: "0"
-  },
+
+  orderList: [],
+  totalOrder: 0,
 
   genmodifyorder: {
     mvGenModifyOrderBean: {},
@@ -19,29 +17,28 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.ENQUIRYORDER:
+
       let list = action.data.mvOrderBeanList === null ? [] : action.data.mvOrderBeanList
-      list = list.concat(state.enquiryorder.mvOrderBeanList)
+      list = list.concat(state.orderList)
       action.data.mvOrderBeanList = list
-    console.log(list)
+      
       return Object.assign({}, state, {
-        enquiryorder: action.data
+        orderList: list,
+        totalOrder: action.data.mvTotalOrders
       });
 
     case ActionTypes.ORDERENQUIRYFS:
-    console.log(action.data)
-      let list1 = action.data.concat(state.enquiryorder.mvOrderBeanList)
-      // state.enquiryorder.mvTotalOrders = list1.length
-     console.log(list1)
-      let a = state.enquiryorder
-      a.mvOrderBeanList = list1
 
+      let list1 = action.data.concat(state.orderList)
 
       return Object.assign({}, state, {
-        enquiryorder: a
+        orderList: list1,
+        totalOrder: action.data.length + state.totalOrder
       })
     case ActionTypes.RESETENQUIRYORDERDATA:
       return Object.assign({}, state, {
-        enquiryorder: {mvOrderBeanList: [], mvTotalOrders: 0}
+        orderList: [],
+        totalOrder: 0
       })
 
     case ActionTypes.GENMODIFYORDER:

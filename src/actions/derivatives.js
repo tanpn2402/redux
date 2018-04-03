@@ -11,26 +11,53 @@ const URL = "localhost:3000/FSServer/"
 const derivativeList = {
     id: "",
     listSeries: [
-        {id: "VN30F201804", name: "VN30F201804", market: "VNFE", ceil: 1227.1, ref: 1146.9, floor: 1066.7},
-        {id: "VN30F201805", name: "VN30F201805", market: "VNFE", ceil: 1234.8, ref: 1154.1, floor: 1073.4},
-        {id: "VN30F201806", name: "VN30F201806", market: "VNFE", ceil: 1241.3, ref: 1160.1, floor: 1078.9},
-        {id: "VN30F201809", name: "VN30F201809", market: "VNFE", ceil: 1263.6, ref: 1181.0, floor: 1098.4},
+        {id: "VN30F1801", name: "VN30F1801", market: "VNFE", ceil: 1088.1, ref: 1146.9, floor: 945.9},
+        {id: "VN30F1803", name: "VN30F1803", market: "VNFE", ceil: 1048.6, ref: 1154.1, floor: 911.4},
+        {id: "VN30F1804", name: "VN30F1804", market: "VNFE", ceil: 1187.7, ref: 1160.1, floor: 1032.3},
+        // {id: "VN30F1805", name: "VN30F1805", market: "VNFE", ceil: 1197.3, ref: 1160.1, floor: 1040.7},
+        {id: "VN30F1806", name: "VN30F1806", market: "VNFE", ceil: 1197.3, ref: 1160.1, floor: 1040.7},
+        {id: "VN30F1809", name: "VN30F1809", market: "VNFE", ceil: 1225.1, ref: 1181.0, floor: 1064.9},
     ]
 }
 
 export function getFSSubAccount() {
-    return (dispatch) => {
-        api.post("getsubaccount", { clientID: localStorage.getItem("clientID") }, dispatch,
-            function (response) {
+    // return (dispatch) => {
+    //     api.post("getsubaccount", { clientID: localStorage.getItem("clientID") }, dispatch,
+    //         function (response) {
                 
-                return {
-                    type: ActionTypes.GETFSSUBACCOUNT,
-                    listAccounts: response.listAccounts
-                }
-            },
-            function (err) {
-                console.log(err)
-            })
+    //             return {
+    //                 type: ActionTypes.GETFSSUBACCOUNT,
+    //                 listAccounts: response.listAccounts
+    //             }
+    //         },
+    //         function (err) {
+    //             console.log(err)
+    //         })
+    // }
+
+    let clientFSID = localStorage.getItem("clientFSID")
+    if(clientFSID) {
+        return {
+            type: ActionTypes.GETFSSUBACCOUNT,
+            listAccounts: 
+                [ {
+                  "investorGroupID" : "KOREAN",
+                  "aeID" : "ALEX",
+                  "productID" : "HKS",
+                  "subAccountName" : "Derivatives Account",
+                  "subAccountID" : clientFSID + "8",
+                  "tradingAccSeq" : "1",
+                  "enableMargin" : "N",
+                  "investorClassID" : "NORMAL.01",
+                  "accountSeq" : "1",
+                  "investorType" : "DERIVATIVES"
+                } ]
+            
+        }
+    } else {
+        return {
+            type: 0
+        }
     }
 }
 
@@ -89,7 +116,7 @@ export function enterFSOrder(params, authParams) {
     console.log(params)
 
     params = {
-        clientID: localStorage.getItem("clientID"),
+        clientID: params.tradingAccount.subAccountID,
         tradingAccSeq: parseInt(params.tradingAccount.accountSeq),
         subAccountID: params.tradingAccount.subAccountID,
         version: "",
@@ -103,7 +130,7 @@ export function enterFSOrder(params, authParams) {
             seriesId: params.mvStockCode,
             validity: "Day",
             orderType: params.mvOrderType,
-            commodityName: ""
+            commodityName: "VN30F"
         },
         price: parseFloat(params.mvPrice),
         position: "O",   // O open, L liquidate, C close
@@ -142,7 +169,7 @@ export function enterFSOrder(params, authParams) {
             if(orderID == null) {
                 dispatch(showFlashPopup("Error", res.errorMessage + " (" + res.errorCode + ")"))
             } else {
-                dispatch(showFlashPopup("Success", "Order " + orderID + " updated: " + params.symbol))
+                dispatch(showFlashPopup("Success", "Order " + orderID + " updated: " + params.orderInfo.seriesId))
             }
                 
         },
@@ -154,12 +181,14 @@ export function enterFSOrder(params, authParams) {
 
 export function cancelFSOrder(params, language) {
     // params is Array Obj
+    console.log(params)
+    let data = params.data
     return function(dispatch) {
 
-        params.map(p => {
+        data.map(p => {
             let _params = {
                 clientID : p.mvClientID,
-                tradingAccSeq : p.mvAccountSeq,
+                tradingAccSeq : parseInt(p.mvAccountSeq),
                 subAccountID : p.mvSubAccountID,
                 version : "",
                 language : "",
@@ -169,7 +198,7 @@ export function cancelFSOrder(params, language) {
                 orderInfo : {
                     bs: p.mvBS,
                     marketId: p.mvMarketID,
-                    seriesId: p.mvStockCode,
+                    seriesId: p.mvStockID,
                     validity: "Day",
                     orderType: p.mvOrderType,
                     commodityName: "",
@@ -202,7 +231,7 @@ export function modifyFSOrder(params, language) {
     // params is JSON Object
     params = {
         clientID : params.mvClientID,
-        tradingAccSeq : params.mvAccountSeq,
+        tradingAccSeq : parseInt(params.mvAccountSeq),
         subAccountID : params.mvSubAccountID,
         version : "",
         language : "",
@@ -212,7 +241,7 @@ export function modifyFSOrder(params, language) {
         orderInfo : {
             bs: params.mvBS,
             marketId: params.mvMarketID,
-            seriesId: params.mvStockCode,
+            seriesId: params.mvStockID,
             validity: "Day",
             orderType: params.mvOrderType,
             commodityName: "",

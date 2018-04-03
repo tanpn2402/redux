@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, Checkbox } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
@@ -373,6 +373,7 @@ class PlaceOrder extends React.Component {
                             <span style={theme.font.main}>PIN</span>
                             <Input key="refPIN" type="password" ref={ref => this.refPIN =  ref} 
                                 defaultValue={""} style={{textAlign: "center"}} tabIndex={-1}/>
+                            <Checkbox inline>{header.savepin}</Checkbox>
                         </div>
                     </div>
                     <div className="pl-tab-control">

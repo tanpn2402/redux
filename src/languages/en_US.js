@@ -79,7 +79,9 @@ export default
                     "TRIG": "Trigger Order",
                     "CPD": "Completed",
                     "PXP": "Partially Expired",
-                    "FLL": "Fully Filled"
+                    "FLL": "Fully Filled",
+                    "PSB": "Pending",
+                    "ACK": "Queue"
                 },
                 "filter": {
                     "toggle": "Toggle Filter"
@@ -230,6 +232,7 @@ export default
                 "mvCurrency": "Currency",
                 "mvTxnType": "Transaction Type",
                 "mvTransStatus": "Transaction Status",
+                "mvSubAccount": "Sub Account",
 
                 "CURRENCY_ALL": "ALL",
                 "CURRENCY_HKD": "HKS",
@@ -912,7 +915,8 @@ export default
                     "commissionFees": "Commission Fees",
                     "usable": "Usable",
                     "subaccount": "Sub Acc. ID",
-                    "accname": "Name"
+                    "accname": "Name",
+                    "savepin": "Save PIN"
                 },
                 "data": {
                     "Buy": "Buy",

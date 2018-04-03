@@ -300,83 +300,83 @@ export function updateWatchlistData(data) {
 }
 
 // this action for test
-export function getListStockInWatchList() {
-    let insList = "ACB,ALT,AVS,B82,CCM,EID,SHB,VNM,"
-    
-    let marketList = "HA,HA,HA,HA,HA,HA,HA,HO,"
-    
-    let insArray = insList.split(",")
-    let marketArr = marketList.split(",")
-    insArray.splice(-1,1)
-    // console.log("CCCCCC", insArray)
-    let tmp = genDefaultData(insArray, marketArr )
-    // console.log("CCCCCC", tmp)
-    let stockData  = tmp.map(e => {
-        return convertFromItradeVarToMDS(e)
-    })
-    // console.log("CCCCCC", stockData)
-    let list = insArray.map((e, i)=> {
-        return {
-            mvStockCode: e,
-            mvMarket: marketArr[i]
-        }
-    })
-
-    return {
-        type: ActionTypes.GETLISTSTOCKINWATCHLIST,
-        list: list,
-        stockData: stockData
-    }
-
-}
-
-
 // export function getListStockInWatchList() {
-//     let cliendID = localStorage.getItem("clientID")
-//     // cliendID = "C080001"
-//     if(cliendID == undefined) {
-//         console.log("Not find clientId in localstorage")
+//     let insList = "ACB,ALT,AVS,B82,CCM,EID,SHB,VNM,"
+    
+//     let marketList = "HA,HA,HA,HA,HA,HA,HA,HO,"
+    
+//     let insArray = insList.split(",")
+//     let marketArr = marketList.split(",")
+//     insArray.splice(-1,1)
+//     // console.log("CCCCCC", insArray)
+//     let tmp = genDefaultData(insArray, marketArr )
+//     // console.log("CCCCCC", tmp)
+//     let stockData  = tmp.map(e => {
+//         return convertFromItradeVarToMDS(e)
+//     })
+//     // console.log("CCCCCC", stockData)
+//     let list = insArray.map((e, i)=> {
 //         return {
-//             type: 0
+//             mvStockCode: e,
+//             mvMarket: marketArr[i]
 //         }
-//     } else {
-//         let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
-//         return (dispatch) => {
-            
-//             itradeapi.mdsPOST(url, {} , dispatch,
-//                 function (response) {
-//                     console.log(response)
+//     })
 
-//                     let insList = response.mvInstrumentList
-//                     let marketList = response.mvMarketList
-//                     let stockData = response.mvStockData.map(e => {
-//                         return convertFromItradeVarToMDS(e)
-//                     })
-
-//                     let insArray = insList.split(",")
-//                     let marketArr = marketList.split(",")
-                    
-//                     insArray.splice(-1,1)
-//                     let list = insArray.map((e, i)=> {
-//                         return {
-//                             mvStockCode: e,
-//                             mvMarket: marketArr[i]
-//                         }
-//                     })
-
-//                     return {
-//                         type: ActionTypes.GETLISTSTOCKINWATCHLIST,
-//                         list: list,
-//                         stockData: stockData
-//                     }
-                    
-//                 },
-//                 function (err) {
-//                     console.log(err)
-//                 })
-//         }
+//     return {
+//         type: ActionTypes.GETLISTSTOCKINWATCHLIST,
+//         list: list,
+//         stockData: stockData
 //     }
+
 // }
+
+
+export function getListStockInWatchList() {
+    let cliendID = localStorage.getItem("clientID")
+    // cliendID = "C080001"
+    if(cliendID == undefined) {
+        console.log("Not find clientId in localstorage")
+        return {
+            type: 0
+        }
+    } else {
+        let url = ACTION.GETLISTSTOCKINWATCHLIST.replace("{clientID}", cliendID)
+        return (dispatch) => {
+            
+            itradeapi.mdsPOST(url, {} , dispatch,
+                function (response) {
+                    console.log(response)
+
+                    let insList = response.mvInstrumentList
+                    let marketList = response.mvMarketList
+                    let stockData = response.mvStockData.map(e => {
+                        return convertFromItradeVarToMDS(e)
+                    })
+
+                    let insArray = insList.split(",")
+                    let marketArr = marketList.split(",")
+                    
+                    insArray.splice(-1,1)
+                    let list = insArray.map((e, i)=> {
+                        return {
+                            mvStockCode: e,
+                            mvMarket: marketArr[i]
+                        }
+                    })
+
+                    return {
+                        type: ActionTypes.GETLISTSTOCKINWATCHLIST,
+                        list: list,
+                        stockData: stockData
+                    }
+                    
+                },
+                function (err) {
+                    console.log(err)
+                })
+        }
+    }
+}
 
 const derivativeList = [
     "VN30F1803",

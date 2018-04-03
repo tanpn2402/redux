@@ -1,4 +1,6 @@
 import { ActionTypes } from '../core/constants';
+import { iTradeSERVER, FSSERVER } from "../api/serverconfig"
+
 
 const initialState = {
     loginResult: {
@@ -26,6 +28,7 @@ const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.DOLOGINACTION:
+        
             return Object.assign({}, state, {
                 loginResult: action.loginResult,
             });
@@ -34,6 +37,9 @@ export default function(state = initialState, action) {
             
             let acctradinglist = action.tradingAccount == undefined ? 
                 state.tradingAccounts : action.tradingAccount.mvTradingAccountBean.tradingAccountSelection
+            
+            // add prefix for call api to server
+            acctradinglist.map(e => e.prefix = iTradeSERVER)
                 
             return Object.assign({}, state, {
                 loginStatus: action.status,
@@ -46,7 +52,11 @@ export default function(state = initialState, action) {
 
         case ActionTypes.GETFSSUBACCOUNT:
             let list = action.listAccounts == undefined ? [] : action.listAccounts
+            // add prefix for call api to server
+            list.map(e => e.prefix = FSSERVER)
+            console.log(list)
             let acctrading1 = state.tradingAccounts.concat(list)
+            console.log(acctrading1)
             return Object.assign({}, state, {
                 tradingAccounts: acctrading1
             })

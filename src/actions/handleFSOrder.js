@@ -48,7 +48,7 @@ function showConfirm(value, language, theme) {
         mvStockCode: value.symbol,
         mvStockName: value.symbolName,
         mvPrice: value.price,
-        mvVolume: value.quantity,
+        mvVolume: value.volume,
         mvOrderType: value.orderType,
         mvGrossAmt: value.grossAmt,
         mvExpireDate: moment().format("dd/MM/yyyy"),

@@ -45,6 +45,7 @@ export default class SearchBar extends React.Component {
             this.StockList = [{stockCode: "ALL", stockName: "ALL"}, ...stockList === undefined ? [] : stockList]
         
         this.ActionType = this.props.data.actionType
+        this.SubAccount = this.props.data.subAccount
 
         this.parameter = {
             'mvStatus': false,
@@ -56,7 +57,8 @@ export default class SearchBar extends React.Component {
             'mvStartDate': false,
             'mvEndDate': false,
             'mvLending': false,
-            'mvActionType': false
+            'mvActionType': false,
+            'mvSubAccount': false
         }
         this.state = {
             default: {
@@ -69,7 +71,8 @@ export default class SearchBar extends React.Component {
                 'mvStartDate': "",
                 'mvEndDate': "",
                 'mvLending': "",
-                'mvActionType': ""
+                'mvActionType': "",
+                'mvSubAccount': ""
             }
         }
 
@@ -86,7 +89,9 @@ export default class SearchBar extends React.Component {
             'mvStartDate': (id, props)  => <SearchDate ref={r => this.ref.mvStartDate = r} {...props} id={id} prefix="" /> ,
             'mvEndDate': (id, props)    => <SearchDate ref={r => this.ref.mvEndDate = r} {...props} id={id} prefix="" /> ,
             'mvLending': (id, props)    => <LendingControl ref={r => this.ref.mvLending = r} {...props} id={id} /> ,
-            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix="ACTIONLIST_ISSUE_"/> 
+            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix="ACTIONLIST_ISSUE_"/> ,
+
+            'mvSubAccount': (id, props)     => <SubAccountSelector ref={r => this.ref.mvSubAccount = r} {...props} id={id} data={this.SubAccount} default={this.state.default.mvSubAccount}/> ,
         }
 
         this.ref = {}
@@ -284,7 +289,7 @@ class SelectorStock extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("AAAAAA",nextProps )
+        // console.log("AAAAAA",nextProps )
         if(nextProps.data.length > 0)
         {
             if(nextProps.default != undefined) {
@@ -396,4 +401,51 @@ class LendingControl extends React.Component {
         return this.input.value
     }
 
+}
+
+class SubAccountSelector extends React.Component {
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            value: props.default
+        }
+    }
+
+    componentWillMount() {
+        console.log(this.props)
+    
+        
+    }
+    componentWillUpdate() {
+        
+    }
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let language = this.props.language
+        
+        let font3 = this.props.theme.font.sub2.color
+        return (
+            <FormGroup controlId={id}>
+                <ControlLabel style={{ color: font3 }}>{language[this.props.id]}</ControlLabel>
+                    {'   '}
+                <Select
+                    options={this.props.data}
+                    selected={this.state.value}
+                    handleChange={this.onChange.bind(this)}
+                    optionLabelPath={"subAccountID"}
+                    showClear={false}
+                />
+            </FormGroup>
+        )
+
+    }
+
+    getValue() {
+        return this.state.value.subAccountID
+    }
+
+    onChange(option) {
+        this.setState({value: option})
+    }
 }

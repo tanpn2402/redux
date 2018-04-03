@@ -568,7 +568,7 @@ const config = {
 		{
 			id: 'marketinfo',
 			title: "marketinfo",
-			enabled: false,
+			enabled: true,
 			widget: [
 				{ i: 'tradeheader', x: 0, y: 0, w: 8, h: 2, isDraggable: false, isResizable: false },
 				{ i: 'marketinfo', x: 0, y: 2, w: 8, h: 24, isDraggable: false, isResizable: false },

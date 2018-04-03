@@ -854,6 +854,7 @@ label {
 .pagecontent-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 .pagecontent.management,
 .pagecontent.transhistory {
@@ -1396,7 +1397,8 @@ label {
 #notification-wrapper {
     position: absolute;
     right: 0;
-    margin-right: 15px;
+    height: 100%;
+    /* margin-right: 15px; */
 }
 /*END NOTIFICATION*/
 /*FLASH POPUP*/
@@ -1406,7 +1408,8 @@ label {
     float: right;
     position: relative;
     z-index: 5;
-    overflow-y: hidden;
+    overflow-y: auto;
+    height: 100%;
 }
 .flashpopup-child {
     border-radius: 2px;
@@ -2320,7 +2323,7 @@ label {
 }
 .sum-control {
     display: table;
-    width: calc(100% - 5px);
+    width: calc(100% - 0px);
     position: absolute;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -2335,8 +2338,15 @@ label {
 }
 .sum-control > .sum-subaccount {
     position: relative;
-    left: 125px;
-    width: calc(100% - 125px);
+    left: 244px;
+    width: calc(100% - 250px);
+}
+.sum-control > .sum-subaccount >.trd-account {
+    position: absolute;
+    width: 100%;
+}
+.sum-control > .sum-subaccount >.trd-account > .select-control {
+    height: 22px;
 }
 .accsum-internal, .accsum-exchange {
     display: inline-block;
@@ -4222,7 +4232,7 @@ label {
     float: right;
 }
 .bidask-td.core {
-    width: 110px !important;
+    width: 130px !important;
     border-left-width: 0px !important;
 }
 .bidask-td.status {
@@ -4281,6 +4291,9 @@ label {
     display: inline-block;
     width: 70px;
     margin: 0 5px;
+}
+.pl-pin > .checkbox-inline {
+    margin-left: 15px;
 }
 /* END PLACE ORDER */
 /* Slider Format */

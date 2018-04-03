@@ -231,8 +231,8 @@ class PortfolioFS extends Component {
                     accessor: "isOutstanding",
                     minWidth: 100,
                     maxWidth: 200,
-                    skip: false,
-                    show: true,
+                    skip: true,
+                    show: false,
                     background: props.theme.table.colText
                 },
                 {
@@ -272,7 +272,7 @@ class PortfolioFS extends Component {
                     background: props.theme.table.colNumber
                 },
                 {
-                    id: "tradePL",
+                    id: "floatingPL",
                     accessor: "floatingPL",
                     minWidth: 100,
                     maxWidth: 200,
@@ -358,8 +358,8 @@ class PortfolioFS extends Component {
                     accessor: "isOutstanding",
                     minWidth: 100,
                     maxWidth: 200,
-                    skip: false,
-                    show: true,
+                    skip: true,
+                    show: false,
                     background: props.theme.table.colText
                 },
                 {

@@ -36,7 +36,7 @@ export function post(action, param, dispatch, successHandler, failHandler) {
 };
 
 async function fetchAPI(action, jsonData, method) {
-    let url = SERVER + FSSERVER + action
+    let url = SERVER + FSSERVER + "/" + action
     if (method === GET || method === POST || method === LOGIN || method === DELETE) {
         let data = JSON.stringify(jsonData);
         return new Promise((resolve, reject) => {
@@ -45,8 +45,7 @@ async function fetchAPI(action, jsonData, method) {
                 headers: HEADERSCK,
                 credentials: 'include',
                 body: data
-            })
-            response.then(res => {
+            }).then(res => {
                 if (res.ok) {
                     res.json().then(resolve).catch(reject)
                 } else {

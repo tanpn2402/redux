@@ -75,7 +75,7 @@ class ClientSumary extends React.Component {
                 <h4 style={theme.font.sub1} class="trd-binding">{header.profitLoss}</h4>
                 <strong className=""><span style={style}>{props["profitLoss"]}</span></strong>
                 <span style={{whiteSpace: "pre"}}>{"   "}</span>
-                <strong className=""><span style={style}>{props["PLPercent"] + "%"}</span></strong>
+                <strong className=""><span style={style}>{(props["PLPercent"] || 0) + "%"}</span></strong>
             </div>
         )
     }

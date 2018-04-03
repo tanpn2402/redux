@@ -15,7 +15,7 @@ export default
                 "mobile": "mobile",
                 "orderhistory": "Lịch sử lệnh",
                 "social": "Social",
-                "marketinfo": "Market Information"
+                "marketinfo": "Thông tin Chứng khoán"
             },
             "setting": {
                 "language": {
@@ -79,7 +79,9 @@ export default
                     "TRIG": "Lệnh điều kiện",
                     "CPD": "Khớp toàn bộ",
                     "PXP": "Hết hiệu lực một phần",
-                    "FLL": "Khớp toàn bộ"
+                    "FLL": "Khớp toàn bộ",
+                    "PSB": "Chờ xác nhận",
+                    "ACK": "Chờ khớp"
                 },
                 "filter": {
                     "toggle": "Bộ lọc"
@@ -153,9 +155,11 @@ export default
                 "tradehistory": "Khớp lệnh theo thời gian",
                 "recommendation": "Đề nghị",
                 "derivatives": "Phái sinh",
-                "depositwithdraw": "Deposit/Withdraw IM",
+                "depositwithdraw": "Deposit/Withdraw",
+                "depositwithdrawim": "Deposit/Withdraw IM",
                 "depositwithdrawstatus": "Money Transfer Status",
-                "depositwithdrawhistory": "Money Transfer History"
+                "depositwithdrawhistory": "Money Transfer History",
+                "cpcashdwhistory": "Nộp rút tiền lên VSD"
             },
             "searchbar": {
                 "search": "Tìm kiếm",
@@ -226,6 +230,7 @@ export default
                 "mvStatus": "Trạng thái lệnh",
                 "mvMarket": "Sàn",
                 "mvCurrency": "Đơn vị tiền tệ",
+                "mvSubAccount": "Tiểu khoản",
                 
                 "CURRENCY_ALL": "Tất cả",
                 "CURRENCY_HKD": "HKS",
@@ -659,11 +664,13 @@ export default
                     "mvPrice": "Giá",
                     "PortfolioAssessment": "Đánh giá tài sản",
                     "mvMargin": "Kí quỹ",
+                    "internal": "Tại công ty",
+                    "exchange": "Tại VSD",
 
                     
                     // Stock Movement Heart language
-                    "TranID":"Tran ID",
-                    "TranDate":"Tran Date",
+                    "TranID":"Mã GD",
+                    "TranDate":"Ngày GD",
                     "InputDate":"Input Date",
                     "ClientID":"Client ID",
                     "TradingAccSeq":"Trading Acc Seq",
@@ -706,34 +713,36 @@ export default
 
 
                     // Open Position
-                    "orderGroupId":"Order Group ID",
-                    "seriesId":"Series ID ",
-                    "marketId":"Market ID ",
-                    "bs":"Buy/Sell",
+                    "orderGroupId":"Số hiệu lệnh",
+                    "seriesId":"Mã HĐ ",
+                    "marketId":"Thị trường",
+                    "bs":"Mua/Bán",
                     "isOutstanding":"is Outstanding",
-                    "tradePrice":"Trade Price",
-                    "ccy":"CCY",
-                    "marketprice":"Market ",
-                    "tradePL":"Trade PL",
-                    "long":"Long",
-                    "short":"Short",
-                    "net":"Net",
-                    "broadName":"Commodity Name",
+                    "tradePrice":"Giá GD",
+                    "ccy":"Đơn vị tiền tệ",
+                    "marketprice":"Giá TT ",
+                    "tradePL":"Lãi lỗ vị thế đóng",
+                    "floatingPL": "Lãi lỗ vị thế mở",
+                    "long":"Vị thế mua",
+                    "short":"Vị thế bán",
+                    "net":"Ròng",
+                    "broadName":"Loại hợp đồng",
 
                     // Close Position
-                    "orderGroupId":"Order Group ID",
-                    "seriesId":"Series ID ",
-                    "marketId":"Market ID ",
-                    "bs":"Buy/Sell",
+                    "orderGroupId":"Số hiệu lệnh",
+                    "seriesId":"Mã HĐ ",
+                    "marketId":"Thị trường",
+                    "bs":"Mua/Bán",
                     "isOutstanding":"is Outstanding",
-                    "tradePrice":"Trade Price",
-                    "ccy":"CCY",
-                    "marketprice":"Market ",
-                    "tradePL":"Trade PL",
-                    "long":"Long",
-                    "short":"Short",
-                    "net":"Net",
-                    "broadName":"Commodity Name",
+                    "tradePrice":"Giá GD",
+                    "ccy":"Đơn vị tiền tệ",
+                    "marketprice":"Giá TT ",
+                    "tradePL":"Lãi lỗ vị thế đóng",
+                    "floatingPL": "Lãi lỗ vị thế mở",
+                    "long":"Vị thế mua",
+                    "short":"Vị thế bán",
+                    "net":"Ròng",
+                    "broadName":"Loại hợp đồng",
 
                     //Stock Balance
                     "MarketID":"Market ID",
@@ -749,16 +758,16 @@ export default
 
                     //CP Deposit WithDrawal
                     "txnID":"Txn ID",
-                    "tranDate":"Tran Date ",
+                    "tranDate":"Ngày GD",
                     "inputDate":"Input Date",
-                    "counterPartyAccountID":"Counter Party Account ID ",
-                    "counterPartyAccountName":"Counter Party Account Name",
+                    "counterPartyAccountID":"Mã ký quỹ",
+                    "counterPartyAccountName":"Tên ký quỹ",
                     "brokerID":"Broker ID ",
                     "brokerName":"Broker Name",
                     "txnTypeID":"Txn Type ID ",
                     "txnTypeDesc":"Txn Type Desc ",
-                    "bankID":"Bank ID ",
-                    "bankShortName":"Bank Short Name ",
+                    "bankID":"Mã ngân hàng",
+                    "bankShortName":"Tên ngân hàng",
                     "accountCode":"Account Code ",
                     "chequeNumber":"Cheque Numbe",
                     "currencyID":"Currency ID ",
@@ -766,18 +775,45 @@ export default
                     "csettled":"CSettled",
                     "otherType":"Other Type",
                     "movementID":"Movement ID",
-                },
-                // "header": {
-                //     "InstrumentID": "Mã CK",
-                //     "InstrumentName": "Tên chứng khoán",
-                //     "MarketID": "Sàn",
-                //     "Currency": "Đơn vị tiền tệ",
-                //     "LedgerBalance": "Ledger Balance",
-                //     "UsableBalance": "Usable Balance",
-                //     "RefPrice": "Ref.Price",
-                //     "RefMarketValue": "Ref.MarketValue",
 
-                // }
+                    //Derivatives Account
+                    "accountbalance":"Số dư",
+                    "commission":"Phí giao dịch",
+                    "fee":"Phí khác",
+                    "interest":"Lãi tiền gửi",
+                    "extloan":"Nợ",
+                    "deliveryamt":"Gía trị chuyển giao",
+                    "floatingpl": "Lãi lỗ vị thế mở ",
+                    "tradingpl":"đóng",
+                    "totalpl":"Tổng lãi / lỗ",
+                    "reserv":"Tiền tối thiểu giữ lại",
+                    "marginable":"Tiền tối đa nộp lên VSD",
+                    "rccall":"Call tiền giữ tại công ty",
+                    "noncash":"CK ký quĩ có thể rút",
+                    
+                    //assetDataArr
+                    "validnoncash":"Ký quỹ CK có hiệu lực",
+                    "totalvalue":"Tổng tài sản",
+                    "maxvalidnoncash":"Giá trị ký quỹ CK tối đa",
+                    "cashwithdraw":"Số tiền có thể rút",
+                    "ee":"Sức mua",
+                
+                    //marginDataArr
+                    "initialmargin":"Ký quỹ ban đầu",
+                    "spreadmargin":"Ký quỹ song hành",
+                    "deliverymargin":"Ký quỹ chuyển giao vật chất",
+                    "marginreq":"Ký quỹ yêu cầu",
+                    "accountratio":"TỶ lệ sử dung tài sản",
+                    "warning":"Tỷ lệ cảnh báo 1/2/3",
+                    "margincall": "Lệnh gọi ký quỹ"
+                },
+                "tab": {
+                    "cpdw": "Nộp rút tiền lên VSD",
+                    "openposition": "Vị thế mở",
+                    "closeposition": "Vị thế đóng",
+                    "stockbalance": "Số dư chứng khoán",
+                    "stockmovement": "Luồng nộp/rút CK"
+                }
             },
             "assetallocation":{
                 "header": {
@@ -849,7 +885,10 @@ export default
                     "netAmt": "Net Amt",
                     "availQty": "Avail Qty",
                     "commissionFees": "Commission Fees",
-                    "usable": "Tài sản"
+                    "usable": "Tài sản",
+                    "subaccount": "Tiểu khoản",
+                    "accname": "Tên TK",
+                    "savepin": "Lưu PIN"
                 },
                 "data": {
                     "Buy": "Buy",
@@ -960,7 +999,11 @@ export default
                     "foreigner": "NN",
                     "total": "Tổng",
                     "Nominal": "Nominal",
-                    "netchange": "Thay đổi"
+                    "netchange": "Thay đổi",
+                    "brokersum": "Broker Sum",
+                    "order": "Order",
+                    "tradebook": "Trade Book",
+                    "stockinfo": "Stock Info"
                 }
             },
             "avaiblemarginlist": {
@@ -1570,24 +1613,24 @@ export default
             },
             "deposit": {
                 "header": {
-                    "type": "Type",
-                    "deposit": "Deposit",
-                    "withdraw": "Withdraw",
-                    "depositable": "Depositable",
-                    "withdrawable": "Withdrawable",
-                    "amount": "Amount",
-                    "remark": "Remark",
+                    "type": "Loại giao dịch",
+                    "deposit": "Nộp",
+                    "withdraw": "Rút",
+                    "depositable": "Số tiền có thể nộp",
+                    "withdrawable": " Số tiền có thể rút",
+                    "amount": "Số tiền",
+                    "remark": "Ghi chú",
 
-                    "no": "No",
-                    "requesttime": "Request Time",
-                    "beneficiaryname": "Beneficiary",
-                    "beneficiaryaccount": "Beneficiary Account",
-                    "transferamount": "Transfer Amount",
-                    "transfertype": "Transfer Type",
-                    "transferfee": "Transfer Fee",
-                    "status": "Status",
-                    "detail": "Detail",
-                    "action": "Action"
+                    "no": "STT",
+                    "requesttime": "Thời gian yêu cầu",
+                    "beneficiaryname": "Người thụ hưởng",
+                    "beneficiaryaccount": "Tài khoản thụ hưởng",
+                    "transferamount": "Tiền chuyển nhượng",
+                    "transfertype": "Loại chuyển nhượng",
+                    "transferfee": "Phí chuyển nhượng",
+                    "status": "Trạng thái",
+                    "detail": "Chi tiết",
+                    "action": "Thao tác"
 
                 }
             },

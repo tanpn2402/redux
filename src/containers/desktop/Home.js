@@ -71,7 +71,7 @@ class Home extends Component {
         // this.props.getTradeLogDataOfStock("ACB", "HO")
         // this.props.getTradeLogDataOfStock("VNM", "HO")
         
-        this.props.checkSession(this.handleCheckSessionID)
+        // this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
 
 
@@ -151,6 +151,22 @@ class Home extends Component {
                     switch(res.actionid) {
                         case BROADCASTTAG.TOPIC_HKSFO_ORDER_ENQUIRY: 
                             me.props.updateOrderJournal(res.data, getLanguage(config.cache.lang).page); break;
+                        default: break;
+                    }
+                }
+            })
+
+
+        let socket2 = broadCast.broadcast(SERVER + 
+            replaceURL(BROADCASTURL.BROADCAST_UPDATE_ORDER, {"clientID": localStorage.getItem("clientFSID") + "8" })
+            , 
+            function(res){
+                if(res != null) {
+                    switch(res.actionid) {
+                        case BROADCASTTAG.HSIFO_ORDERENQUIRY: 
+                            console.log(res)
+                            me.props.updateOrderJournal(res.data, getLanguage(config.cache.lang).page); break;
+                            break;
                         default: break;
                     }
                 }

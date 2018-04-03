@@ -121,7 +121,7 @@ class LoginForm extends Component {
         let language = getLanguage(this.state.mvLanguage.id).page
         let configLang = config.language
         
-
+        console.log(this.props)
         let userForm;
         if(this.loginMethod == "subAccount") {
             userForm = <FormGroup>
@@ -129,7 +129,7 @@ class LoginForm extends Component {
                                 {language.login.subaccount}
                             </div>
                             <Col xs={8}>
-                                <input type="text" defaultValue="077" autoComplete="off"
+                                <input type="text" defaultValue="100003" autoComplete="off"
                                 name="username" className="hks-input border" ref={node => { this.subAccount = node }} />
                             </Col>
                         </FormGroup>
@@ -140,7 +140,7 @@ class LoginForm extends Component {
                                 {language.login.username}
                             </div>
                             <Col xs={8}>
-                                <input type="text" defaultValue="077" autoComplete="off"
+                                <input type="text" defaultValue="100003" autoComplete="off"
                                 name="username" className="hks-input border" ref={node => { this.username = node }} />
                             </Col>
                         </FormGroup>
@@ -151,7 +151,7 @@ class LoginForm extends Component {
                                 {language.login.clientid}
                             </div>
                             <Col xs={8}>
-                                <input type="text" defaultValue="077" autoComplete="off"
+                                <input type="text" defaultValue="100003" autoComplete="off"
                                 name="username" className="hks-input border" ref={node => { this.clientID = node }} />
                             </Col>
                         </FormGroup>

@@ -207,7 +207,7 @@ class WatchListSmall extends React.Component {
                                                     </span>
 
                                                     <span className="index-stat">
-                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 2 }</span></span>
+                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 3 }</span></span>
                                                         <span  style={theme.bindingdata.nochange}><Icon name="caret-down" /> <span>{props["mvMarket"] == "HO" ? 76 : props["mvMarket"] == "HA" ? 70 : 0 }</span></span>
                                                         <span  style={theme.bindingdata.down}><Icon name="square" /> <span>{props["mvMarket"] == "HO" ? 202 : props["mvMarket"] == "HA" ? 88 : 2 }</span></span>                                         
                                                     </span>

@@ -298,8 +298,8 @@ class Sumary extends React.Component {
             }
         ]
 
-        let rowOdd = theme.table.rowOdd.backgroundColor
-        let rowEven = theme.table.rowEven.backgroundColor
+        let rowOdd = {}
+        let rowEven = {}
         let font2 = theme.font.sub1.color
         let tableHeader = theme.table.tableHeader
         let widgetHeader = theme.widget.widgetHeader
@@ -516,7 +516,7 @@ class Sumary extends React.Component {
                 value: utils.currencyShowFormatter(d.profitLoss)
             }, {
                 name: this.props.language.portfolio.header.PLPercent,
-                value: d.PLPercent + "%"
+                value: (d.PLPercent || 0) + "%"
             }
         ]
         var data2 = [
@@ -598,8 +598,8 @@ class Sumary extends React.Component {
             }
         ]
         let theme = this.props.theme
-        let rowOdd = theme.table.rowOdd.backgroundColor
-        let rowEven = theme.table.rowEven.backgroundColor
+        let rowOdd = {}
+        let rowEven = {}
         let font2 = theme.font.sub1.color
         let tableHeader = theme.table.tableHeader
         let widgetHeader = theme.widget.widgetHeader

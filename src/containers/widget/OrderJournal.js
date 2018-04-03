@@ -57,25 +57,25 @@ class OrderJournal extends Component {
                         } else {
                             var child = []
                             if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                
                                     child.push(
                                         <button className="hks-btn sm btn-cancel-order" type="button"
                                             onClick={() => this.handleCancelOrder(props.original)}>
                                             <span className="glyphicon glyphicon-remove"></span>
                                         </button>
                                     )
-                                }
+                                
                             }
 
                             if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                                
                                     child.push(
                                         <button className="hks-btn sm btn-modify" type="button"
                                             onClick={() => this.handleModifyOrder(props.original)}>
                                             <span className="glyphicon glyphicon-edit"></span>
                                         </button>
                                     )
-                                }
+                                
                             }
 
                             return (
@@ -353,7 +353,7 @@ class OrderJournal extends Component {
             start: 0,
             limit: this.defaultPageSize,
             mvStartTime: "01/01/2001",
-            mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+            mvEndTime: moment(new Date()).format("DD/MM/YYYY")
         }
     }
 
@@ -371,12 +371,18 @@ class OrderJournal extends Component {
 
 
     render() {
-        let {theme, language, data, stockList} = this.props
+        let {theme, language, totalOrder, orderList, stockList, tradingAccounts} = this.props
         let buttonAction = [
             <button style={theme.searchbar.default.button} type="button" className="hks-btn"
                 onClick={() => this.handleCancelOrderChecked()}>{language.button.CTTCancel}</button>,
         ]
+        // console.log("REEEEE")
 
+        // let tmp = Object.assign({}, tradingAccounts)
+        // tmp.unshift({
+        //     subAccountID: "ALL"
+        // })
+        
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} widgetID= 'orderjournal'
@@ -396,7 +402,7 @@ class OrderJournal extends Component {
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
                         filterable={this.state.filterable}
-                        tableData={data.mvOrderBeanList}
+                        tableData={orderList}
                         pivot={['market']}
                         getPivotRowProps={(props) => {
                             return {
@@ -410,7 +416,7 @@ class OrderJournal extends Component {
                         
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
-                        totalPage={Math.ceil(data.mvTotalOrders / this.defaultPageSize)}
+                        totalPage={Math.ceil(totalOrder / this.defaultPageSize)}
 
                         searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
                         searchMobileParams={["mvStatus"]}
@@ -516,8 +522,8 @@ class OrderJournal extends Component {
                 checkboxes[i].checked = current;
             }
             if (current)
-                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ?
-                    this.props.data.mvOrderBeanList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
+                this.rowSelected = this.props.orderList !== undefined ?
+                    this.props.orderList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
             else
                 this.rowSelected = []
         }
@@ -593,7 +599,9 @@ OrderJournal.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        data: state.orderjournal.enquiryorder,
+        orderList: state.orderjournal.orderList,
+        totalOrder: state.orderjournal.totalOrder,
+
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
 

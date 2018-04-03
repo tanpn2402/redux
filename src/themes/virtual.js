@@ -143,7 +143,7 @@ export default {
             color: '#000000'
         },
         pivotRow: {
-            background: '#bbb7b7',
+            background: '#d6c7c7',
             color: '#000',
             fontWeight: 'normal'
         },
