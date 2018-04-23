@@ -781,6 +781,7 @@ export default
                     "broadName":"Loại hợp đồng",
                     "askAvgPrice": "Giá TB khớp bán",
                     "bidAvgPrice": "Giá TB khớp mua",
+                    "marginPercent": "% Kí quỹ",
 
                     //Stock Balance
                     "MarketID":"Market ID",

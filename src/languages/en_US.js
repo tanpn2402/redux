@@ -804,6 +804,7 @@ export default
                     "marketprice":"Market Price",
                     "floatingPL": "Floating PL",
                     "tradePL": "Trade PL",
+                    "marginPercent": "% Margin",
                     "long":"Long",
                     "short":"Short",
                     "net":"Net",

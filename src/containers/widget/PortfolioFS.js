@@ -267,6 +267,16 @@ class PortfolioFS extends Component {
                     Cell: props => Utils.currencyShowFormatter(props.value)
                 },
                 {
+                    id: "marginPercent",
+                    accessor: "marginPercent",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: props => <span>{(props.value) + "%"}</span>
+                },
+                {
                     id: "long",
                     accessor: "_long",
                     minWidth: 100,
@@ -819,6 +829,12 @@ class PortfolioFS extends Component {
                 case 1: return clientPortfolio.counterPartyDWList == null ? [] : clientPortfolio.counterPartyDWList
                 case 2: 
                     tmp = clientPortfolio.openPositionSummaryList == null ? [] : clientPortfolio.openPositionSummaryList
+                    let totalMarketPrice = 0
+                    tmp.map( (e) => {
+                            console.log(e)
+                            totalMarketPrice += (e.marketprice * e.net)
+                        })
+                    
                     data = tmp.map(e => {
                         for (var key in e.orderInfo) {
                             if (e.orderInfo.hasOwnProperty(key)) {
@@ -826,7 +842,7 @@ class PortfolioFS extends Component {
                             }
                         }
                         delete e.orderInfo
-
+                        e.marginPercent = Utils.round(parseFloat( (e.net * e.marketprice) / totalMarketPrice ) * 100, 2)
                         return e
                     })
                     return data
@@ -850,7 +866,7 @@ class PortfolioFS extends Component {
         }
 
         let data = get()
-        // console.log(data)
+        console.log(data)
         return data == null ? [] : data
     }
 
