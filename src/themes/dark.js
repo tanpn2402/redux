@@ -115,7 +115,7 @@ export default {
             color: '#FFF'
         },
         pivotRow: {
-            backgroundColor: '#0644a8',
+            backgroundColor: '#403e3e',
             color: '#FFF',
             fontWeight: 'normal'
         },
@@ -382,6 +382,10 @@ export default {
                 backgroundColor: "#FFF"
             }
         }
+    },
+    accountselector: {
+        background: "#2159a0",
+        color: "#FFF"
     }
 
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
 import Body from '../commons/WidgetBody'
-import Table from '../commons/DataTable'
+import Table from '../commons/table/index'
 import * as Utils from '../../utils'
 import { button } from 'react-bootstrap'
 import moment from "moment"
@@ -14,6 +14,15 @@ class OrderJournal extends Component {
         this.state = {
             columns: [
                 {
+                    id: 'market',
+                    accessor: 'mvMarketID',
+                    minWidth: 80,
+                    maxWidth: 90,
+                    show: true,
+                    skip: false,
+                    
+                },
+                {
                     id: 'cb',
                     maxWidth: 50,
                     width: 40,
@@ -23,13 +32,13 @@ class OrderJournal extends Component {
 
                         } else {
                             if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                // if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
                                     return (
                                         <input type='checkbox' style={{ }}
                                             className={this.id + "-row-checkbox"}
                                             onChange={() => { this.onRowSelected(props.original) }} />
                                     )
-                                }
+                                // }
                             }
                         }
                     },
@@ -48,25 +57,25 @@ class OrderJournal extends Component {
                         } else {
                             var child = []
                             if (props.original.mvShowCancelIcon !== null && props.original.mvShowCancelIcon === 'Y') {
-                                if (props.original.mvCancelIcon && props.original.mvCancelIcon != '') {
+                                
                                     child.push(
                                         <button className="hks-btn sm btn-cancel-order" type="button"
                                             onClick={() => this.handleCancelOrder(props.original)}>
                                             <span className="glyphicon glyphicon-remove"></span>
                                         </button>
                                     )
-                                }
+                                
                             }
 
                             if (props.original.mvShowModifyIcon !== null && props.original.mvShowModifyIcon === 'Y') {
-                                if (props.original.mvModifyIcon && props.original.mvModifyIcon != '') {
+                                
                                     child.push(
                                         <button className="hks-btn sm btn-modify" type="button"
                                             onClick={() => this.handleModifyOrder(props.original)}>
                                             <span className="glyphicon glyphicon-edit"></span>
                                         </button>
                                     )
-                                }
+                                
                             }
 
                             return (
@@ -81,36 +90,6 @@ class OrderJournal extends Component {
                     skip: true,
                     mobile: false
                 },
-                // {
-                //     id: 'Detail',
-                //     maxWidth: 200,
-                //     width: 80,
-                //     sortable: false,
-                //     Cell: props => {
-                //         if (props.aggregated) {
-
-                //         } else {
-                //             var child = []
-                //             child.push(
-                //                 <button className="hks-btn sm btn-detail" type="button"
-                //                     onClick={() => this.handleDetailOrder(props.original)}>
-                //                     <span className="glyphicon glyphicon-folder-open"></span>
-                //                 </button>
-                //             )
-
-                //             return (
-                //                 <div style={{ display: "table", height: '100%', width: '100%' }}>
-                //                     <div style={{ display: 'table-cell', verticalAlign: 'middle' }} >
-                //                         {
-                //                             child
-                //                         }
-                //                     </div>
-                //                 </div>)
-                //         }
-                //     },
-                //     skip: true,
-                //     mobile: false
-                // },
                 {
                     id: 'stockid',
                     accessor: 'mvStockID',
@@ -118,12 +97,18 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     reorderable: false,
-                    background: props.theme.table.colText
+                    background: props.theme.table.colText,
+                    Aggregated: props => {
+                        return <span></span>
+                    }
                 },
                 {
                     id: 'buysell',
                     accessor: 'mvBS',
                     width: 60,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
                             
@@ -149,10 +134,24 @@ class OrderJournal extends Component {
                 {
                     id: 'price',
                     accessor: 'mvPrice',
-                    Cell: props =>  Utils.formatCurrency(props.value),
+                    Cell: props =>  {
+                        if(props.aggregated) {
+                            
+                        } else {
+                            if(props.original.mvMarketID == "VNFE") {
+                                return (parseInt(props.value))
+                            } else {
+                                return (Utils.formatCurrency(props.value))
+                            }
+                        }
+                        
+                    },
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                         
                 },
@@ -163,6 +162,9 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -172,6 +174,9 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -181,6 +186,9 @@ class OrderJournal extends Component {
                     width: 100,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
@@ -190,12 +198,18 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     background: props.theme.number.col2
                 },
                 {
                     id: 'status',
                     accessor: 'mvStatus',
                     width: 120,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
@@ -212,6 +226,9 @@ class OrderJournal extends Component {
                 {
                     id: 'ordertype',
                     accessor: 'mvOrderType',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
@@ -229,6 +246,9 @@ class OrderJournal extends Component {
                     id: 'feetax',
                     width: 90,
                     skip: false,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         var result=0
                         if (props.aggregated) {
@@ -248,14 +268,17 @@ class OrderJournal extends Component {
                 {
                     id: 'bankid',
                     accessor: 'mvBankID',
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                     Cell: props => {
                         if (props.aggregated) {
 
                         } else {
                             let text = props.original.mvBankID
-                        if(text === null){
-                            return ''
-                        }
+                            if(text === null){
+                                return ''
+                            }
                         }
                     },
                     width: 80,
@@ -268,19 +291,30 @@ class OrderJournal extends Component {
                     width: 80,
                     skip: false,
                     show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                 },
                 {
                     id: 'rejectreason',
                     accessor: 'mvRejectReason',
                     width: 80,
-                    Cell: props => {
-                      let text=this.props.language.orderjournal.reject
-                      if (props.original.mvRejectReason != "")
-                      return (
-                          <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(props.original.mvRejectReasonDetail)}>
-                            {text}
-                          </div>
-                      )
+                    Aggregated: props => {
+                        return <span></span>
+                    },
+                    Cell: p => {
+                        if (p.aggregated) {
+
+                        } else {
+                            let text=props.language.orderjournal.reject
+                            if (p.original.mvRejectReason != "")
+                                return (
+                                    <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(p.original.mvRejectReasonDetail)}>
+                                        {text}
+                                    </div>
+                                )
+                            else return <span></span>
+                        }
                     },
                     skip: false,
                     show: true,
@@ -292,20 +326,25 @@ class OrderJournal extends Component {
                     skip: true,
                     show: false,
                     Cell: props => {
-                        return (
-                            <div>
-                                <button className="hks-btn btn-cancel-order" onClick={e => this.onCancelOrder(props)}>
-                                    <span className="glyphicon glyphicon-remove"></span>
-                                    {this.props.language.button.cancel}
-                                </button>
-                                <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
-                                    <span className="glyphicon glyphicon-pencil"></span>
-                                    {this.props.language.button.modify}
-                                </button>
-                            </div>
-                        )
+                        if (props.aggregated) {
+
+                        } else {
+                            return (
+                                <div>
+                                    <button className="hks-btn btn-cancel-order" onClick={e => this.onCancelOrder(props)}>
+                                        <span className="glyphicon glyphicon-remove"></span>
+                                        {this.props.language.button.cancel}
+                                    </button>
+                                    <button className="hks-btn btn-modify" onClick={e => this.onModifyOrder(props)}>
+                                        <span className="glyphicon glyphicon-pencil"></span>
+                                        {this.props.language.button.modify}
+                                    </button>
+                                </div>
+                            )
+                        }
                     }
                 }
+                
 
             ],
             pageIndex: 1,
@@ -326,6 +365,8 @@ class OrderJournal extends Component {
             limit: this.defaultPageSize,
             mvStartTime: "01/01/2001",
             mvEndTime: moment(new Date()).format("DD/MM/YYYY"),
+
+            mvSubAccount: props.currentTrdAccount
         }
     }
 
@@ -343,41 +384,56 @@ class OrderJournal extends Component {
 
 
     render() {
+        let {theme, language, totalOrder, orderList, stockList, tradingAccounts, currentTrdAccount} = this.props
         let buttonAction = [
-            <button style={this.props.theme.searchbar.default.button} type="button" className="hks-btn"
-                onClick={() => this.handleCancelOrderChecked()}>{this.props.language.button.CTTCancel}</button>,
+            <button style={theme.searchbar.default.button} type="button" className="hks-btn"
+                onClick={() => this.handleCancelOrderChecked()}>{language.button.CTTCancel}</button>,
         ]
+        // console.log("REEEEE")
+
+        let tmp = tradingAccounts.slice(0)
+        console.log(currentTrdAccount, tmp, this.param)
 
         return (
             <div style={{ height: '100%', position: 'relative' }}>
                 <Title filterable={this.state.filterable} id={this.id} widgetID= 'orderjournal'
-                    theme={this.props.theme}
-                    language={this.props.language}
+                    theme={theme}
+                    language={language}
                     columns={this.state.columns} onToggleFilter={(e) => this.onToggleFilter(e)}
                     onChangeStateColumn={this.onChangeStateColumn.bind(this)}>
-                    {this.props.language.menu[this.id]}
+                    {language.menu[this.id]}
                 </Title>
-                <Body theme={this.props.theme}>
+                <Body theme={theme}>
                     <Table
-                        theme={this.props.theme}
+                        theme={theme}
                         id={this.id}
-                        language={this.props.language}
+                        language={language}
                         onRowSelected={this.onRowSelected.bind(this)}
 
                         pageSize={this.defaultPageSize}
                         columns={this.state.columns}
                         filterable={this.state.filterable}
-                        tableData={this.props.data.mvOrderBeanList}
-
+                        tableData={orderList}
+                        pivot={['market']}
+                        getPivotRowProps={(props) => {
+                            return {
+                                style: Object.assign({}, theme.table.pivotRow, {
+                                    borderLeft: "none",
+                                    borderRight: "none",
+                                    justifyContent: "left"
+                                })
+                            }
+                        }}
+                        
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}
-                        totalPage={Math.ceil(this.props.data.mvTotalOrders / this.defaultPageSize)}
+                        totalPage={Math.ceil(totalOrder / this.defaultPageSize)}
 
-                        searchParams={['mvStatus', 'mvOrderType', 'mvBuysell']}
+                        searchParams={["mvSubAccount", 'mvStatus', 'mvOrderType', 'mvBuysell']}
                         searchMobileParams={["mvStatus"]}
                         searchActions={buttonAction}
-                        searchData={{ stockList: this.props.stockList }}
-                        searchDefaultValues={{ mvStatus: this.param.mvStatus }}
+                        searchData={{ stockList: stockList, subAccount: tmp }}
+                        searchDefaultValues={{ mvStatus: this.param.mvStatus, mvBuysell: this.param.mvOrderBS, mvOrderType: this.param.mvOrderType, mvSubAccount: currentTrdAccount }}
                         onSearch={this.onSearch.bind(this)}
 
                     />
@@ -387,16 +443,30 @@ class OrderJournal extends Component {
 
     }
 
-    componentDidMount() {
-        this.props.onSearch(this.param)
-
+    getFSAccount(tradingAccounts) {
+        let t = tradingAccounts.filter( e=> e.investorType == "DERIVATIVES")
+        if(t.length > 0) {
+            return t[0]
+        } else {
+            return undefined
+        }
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         columns: 
-    //     })
-    // }
+    componentDidMount() {
+        this.enquiry()
+        // this.props.onSearch(this.param, {
+        //     subAccount: this.getFSAccount(this.props.tradingAccounts)
+        // })
+    }   
+
+    componentWillReceiveProps(nextProps) {
+        // if(nextProps.updateOrderJournal != this.props.updateOrderJournal) {
+        //     let {currentTrdAccount} = this.props
+        //     this.props.onSearch(this.param, {
+        //         subAccount: this.getFSAccount(nextProps.tradingAccounts)
+        //     })
+        // }
+    }
 
     handleCancelOrderChecked(e) {
 
@@ -456,29 +526,6 @@ class OrderJournal extends Component {
     }
 
 
-    // handleOnMouseDown(e) { // begin dragging
-    //     let idA = e.target.id
-    //     let result = this.state.columns.findIndex((column) => {
-    //         return column.id == idA
-    //     })
-    //     this.indexA = result != -1 ? result : 0
-    // }
-
-    // handleOnMouseUp(e) { // end dragging
-    //     let idB = e.target.id
-    //     let result = this.state.columns.findIndex((column) => {
-    //         return column.id == idB
-    //     })
-    //     this.indexB = result != -1 ? result : 0
-    //     let arr = this.state.columns.slice()
-    //     let a = arr[this.indexA]
-    //     arr[this.indexA] = arr[this.indexB]
-    //     arr[this.indexB] = a
-    //     this.setState({
-    //         columns: arr
-    //     })
-    // }
-
     onRowSelected(param) {
         if (param === 'ALL') {
             var current = document.getElementById(this.id + '-cb-all').checked
@@ -487,8 +534,8 @@ class OrderJournal extends Component {
                 checkboxes[i].checked = current;
             }
             if (current)
-                this.rowSelected = this.props.data.mvOrderBeanList !== undefined ?
-                    this.props.data.mvOrderBeanList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
+                this.rowSelected = this.props.orderList !== undefined ?
+                    this.props.orderList.filter(el => el.mvShowCancelIcon !== null && el.mvShowCancelIcon === 'Y') : []
             else
                 this.rowSelected = []
         }
@@ -508,22 +555,11 @@ class OrderJournal extends Component {
         }
     }
 
-    showPopup() {
-        // get all row selected
-        this.setState({
-            lgShow: true
-        });
-        this.title = this.props.language.orderjournal.popup.title.cancel
-        this.popupType = 'CANCELORDER'
-    }
-
     onChangeStateColumn(e) {
         const id = e.target.id
         this.setState({
             columns: this.state.columns.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
         });
-
-        // console.log(this.state.columns)
     }
 
     onToggleFilter(value) {
@@ -536,10 +572,12 @@ class OrderJournal extends Component {
         this.state.pageIndex = pageIndex
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
-        this.props.onSearch(this.param, !this.props.reload)
+
+        this.enquiry()
     }
 
     onSearch(param) {
+        console.log(param)
         this.param['mvStatus'] = param.mvStatus
         if (param.mvOrderType) {
             this.param['mvOrderType'] = param.mvOrderType
@@ -550,51 +588,66 @@ class OrderJournal extends Component {
 
         this.param['page'] = this.state.pageIndex
         this.param['start'] = (this.state.pageIndex - 1) * this.param['limit']
+        this.param["mvSubAccount"] = param.mvSubAccount
 
-        this.props.onSearch(this.param)
+        this.enquiry()
+    }
+
+
+    enquiry(subAcc) {
+        
+        if(this.param.mvSubAccount && this.param.mvSubAccount.investorType == "DERIVATIVES") {
+            this.props.enquiryFSOrder({ 
+                subAccount: this.param.mvSubAccount,
+                status: this.param.mvStatus
+             })
+        } else {
+            this.props.enquiryOrder(this.param)
+        }
     }
 
     updateView() {
         this.rowSelected = []
-        this.props.onSearch(this.param)
+        let {currentTrdAccount} = this.props
+        this.props.onSearch(this.param, {
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
+        })
     }
-
-
 }
 
 OrderJournal.defaultProps = {
     defaultPageSize: 15
 }
 
-function feeTaxParser(utils, mvBSValue, mvNetAmtValue, mvGrossAmt) {
-    let tmp = 0
-    if (mvBSValue == 'B') {
-        tmp = mvNetAmtValue - mvGrossAmt
-    } else {
-        tmp = mvGrossAmt - mvNetAmtValue
-    }
-    return utils.currencyShowFormatter(tmp)
-}
-
-function headerRenderer(component, id, text) {
-    return (
-        <div id={id} onMouseLeave={e => component.handleOnMouseLeave(e)} onMouseEnter={e => component.handleOnMouseEnter(e)} onMouseDown={e => component.handleOnMouseDown(e)} onMouseUp={(e) => component.handleOnMouseUp(e)} >{text}</div>
-    )
-}
-
 const mapStateToProps = (state) => {
     return {
-        data: state.orderjournal.enquiryorder,
+        orderList: state.orderjournal.orderList,
+        totalOrder: state.orderjournal.totalOrder,
+
         modifyData: state.orderjournal.dataresult,
         menuid: state.orderjournal.menuid,
+
+        updateOrderJournal: state.orderjournal.updateOrderJournal,
+        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount,
 
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
 
-    onSearch: (param, reload) => {
-        dispatch(actions.getEnquiry(param, reload))
+    onSearch: (param, fsParams) => {
+        dispatch(actions.clearOrderEnquiryData())
+        dispatch(actions.getEnquiry(param))
+        dispatch(actions.orderEnquiryFS(fsParams))
+    },
+    enquiryFSOrder: (param) => { 
+        dispatch(actions.clearOrderEnquiryData())
+        dispatch(actions.orderEnquiryFS(param)) 
+    },
+    enquiryOrder: (param) => { 
+        dispatch(actions.clearOrderEnquiryData())
+        dispatch(actions.getEnquiry(param)) 
     },
     getStockInfo: (param) => {
         //dispatch(actions.getstockInfo(param))
@@ -604,6 +657,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     showPopup: (param) => {
         dispatch(actions.showPopup(param))
+    },
+    orderEnquiryFS: (param) => {
+        dispatch(actions.orderEnquiryFS(param))
     }
 
 })

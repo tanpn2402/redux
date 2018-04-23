@@ -11,6 +11,9 @@ import {TabControl, TabItem} from "../commons/TabControl"
 import RecommendTable from "./RecommendTable"
 import {Icon}   from "react-fa"
 
+
+import DataTable from '../commons/table/index'
+
 const MODE_CHANGE = "change"
 const MODE_VOL = "volume"
 const MODE_PERCENT = "percent"
@@ -193,12 +196,7 @@ class WatchListSmall extends React.Component {
                                 }}
                                 getGroupHeaderProps={(data) => {
                                     return {
-                                        style:{
-                                            backgroundColor: "#2159a0",
-                                            width: "100%",
-                                            color: "white",
-                                            paddingLeft: '10px'  
-                                        },
+                                        style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"}),
                                         render: (props) => {
                                             return (
                                                 <span className="wl-index">
@@ -209,7 +207,7 @@ class WatchListSmall extends React.Component {
                                                     </span>
 
                                                     <span className="index-stat">
-                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 2 }</span></span>
+                                                        <span  style={theme.bindingdata.up}><Icon name="caret-up" /> <span>{props["mvMarket"] == "HO" ? 138 : props["mvMarket"] == "HA" ? 58 : 3 }</span></span>
                                                         <span  style={theme.bindingdata.nochange}><Icon name="caret-down" /> <span>{props["mvMarket"] == "HO" ? 76 : props["mvMarket"] == "HA" ? 70 : 0 }</span></span>
                                                         <span  style={theme.bindingdata.down}><Icon name="square" /> <span>{props["mvMarket"] == "HO" ? 202 : props["mvMarket"] == "HA" ? 88 : 2 }</span></span>                                         
                                                     </span>
@@ -243,12 +241,7 @@ class WatchListSmall extends React.Component {
                                 }}
                                 getGroupHeaderProps={(data) => {
                                     return {
-                                        style:{
-                                            backgroundColor: "#2159a0",
-                                            width: "100%",
-                                            color: "white",
-                                            paddingLeft: '10px'  
-                                        },
+                                        style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"}),
                                         render: (props) => {
                                             return (
                                                 <span className="wl-index">

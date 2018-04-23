@@ -11,9 +11,10 @@ import Table from '../commons/DataTable'
 import * as Utils from '../../utils'
 import config from '../../core/config'
 import {TabControl, TabItem} from "../commons/TabControl"
+import * as utils from "../../utils"
 
 
-class AccountInfo extends Component {
+class AccountInfoSC extends Component {
 	constructor(props) {
 		super(props)
 		this.defaultPageSize = 20
@@ -597,33 +598,7 @@ class AccountInfo extends Component {
 								onSearch={() => {}}
 								searchEnable={false}
 
-							/>
-                            
-							{/* <div>
-								<div className="table-main" style={{ paddingTop: '51px' }}>
-									<Table
-										theme={this.props.theme}
-										key={this.id}
-										id={this.id}
-										columns={this.state.columns}
-										defaultPageSize={this.defaultPageSize}
-										data={this.props.stock.mvStockBalanceInfo.slice(
-											(this.state.pageIndex - 1) * this.defaultPageSize,
-											this.state.pageIndex * this.defaultPageSize)}
-									/>
-								</div>
-
-								<div className="table-footer" style={tableFooter}>
-									<Pagination theme={this.props.theme}
-										pageIndex={this.state.pageIndex}
-										totalRecord={Math.ceil(this.props.stock.mvStockBalanceInfo.length / this.defaultPageSize)}
-										onPageChange={this.onPageChange.bind(this)}
-										onNextPage={this.onNextPage.bind(this)}
-										onPrevPage={this.onPrevPage.bind(this)}
-									/>
-								</div>
-							</div> */}
-                            
+							/>            
                         </TabItem>
                         <TabItem eventKey={3} title={language.accountinfo.title.overduedebt} disabled>
                             
@@ -658,8 +633,6 @@ class AccountInfo extends Component {
                             
                         </TabItem>
                         {/* <TabItem eventKey={4} title={language.accountinfo.title.upcomingduedebt} disabled>
-                            
-				
 							<div className="table-responsive" style={{ height: '100%' }}>
 								<table className="table">
 									<tbody >
@@ -744,13 +717,361 @@ class AccountInfo extends Component {
 	}
 }
 
+class AccountInfoFS extends Component {
+	constructor(props) {
+		super(props)
+		this.defaultPageSize = 20
+		this.state = {
+			activeKey: 1
+		}
+		this.id = "accountinfo"
+	}
+
+	getFSData(id) {
+        let data = this.props.accountBalanceInfoFS
+        if(data == undefined || data.length < 1) {
+            return {}
+        }
+
+        data = data[0][id]
+        
+        return data == undefined ? {} : data
+	}
+	
+	render() {
+
+		let {language, theme, data} = this.props
+        let header = language.portfolio.header
+
+        var accSumaryData = this.getFSData("accountSummary")
+        var accSumaryDataArr = [
+            {
+                name: header.accountbalance,
+                value: utils.currencyShowFormatter(accSumaryData.accountBalance)
+            }, {
+                name: header.commission + "/" + header.fee,
+                value: {
+                    internal: utils.currencyShowFormatter(accSumaryData.commission),
+                    exchange: utils.currencyShowFormatter(accSumaryData.fee)
+                }
+            }, {
+                name: header.interest,
+                value: utils.currencyShowFormatter(accSumaryData.interest)
+            }, {
+                name: header.extloan,
+                value: utils.currencyShowFormatter(accSumaryData.extLoan)
+            }, {
+                name: header.deliveryamt,
+                value: utils.currencyShowFormatter(accSumaryData.deliveryAmount)
+            }, {
+                name: header.floatingpl + "/" + header.tradingpl,
+                value: {
+                    internal: utils.currencyShowFormatter(accSumaryData.floatingPL),
+                    exchange: utils.currencyShowFormatter(accSumaryData.tradingPL)
+                }
+            }, {
+                name: header.totalpl,
+                value: utils.currencyShowFormatter(accSumaryData.totalPL)
+            }, {
+                name: header.reserv + "/" + header.marginable,
+                value: {
+                    internal: utils.currencyShowFormatter(accSumaryData.depositable),
+                    exchange: utils.currencyShowFormatter(accSumaryData.marginable)
+                }
+            },{
+                name: header.rccall,
+                value: utils.currencyShowFormatter(accSumaryData.rccall)
+            },  {
+                name: header.cash + "/" + header.noncash,
+                value: {
+                    internal: utils.currencyShowFormatter(accSumaryData.cashDrawable),
+                    exchange: utils.currencyShowFormatter(accSumaryData.nonCashDrawableRCCall)
+                }
+            }
+        ]
+
+        var exchangeAssets = this.getFSData("exchangeAssets")
+        var internalAssets = this.getFSData("internalAssets")
+        var assetDataArr = [
+            {
+                name: header.cash,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.cash),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.cash)
+                }
+            }, {
+                name: header.validnoncash,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.validNonCash),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.validNonCash)
+                }
+            }, {
+                name: header.totalvalue,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.totalValue),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.totalValue)
+                }
+            }, {
+                name: header.maxvalidnoncash,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.maxValidNonCash),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.maxValidNonCash)
+                }
+            }, {
+                name: header.cashwithdraw,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.cashWithdrawable),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.cashWithdrawable)
+                }
+            }, {
+                name: header.ee,
+                value: {
+                    internal: utils.currencyShowFormatter(internalAssets.ee),
+                    exchange: utils.currencyShowFormatter(exchangeAssets.ee)
+                }
+            }
+        ]
+
+        var exchangeMargin = this.getFSData("exchangeMargin")
+        var internalMargin = this.getFSData("internalMargin")
+        var marginDataArr = [
+            {
+                name: header.initialmargin,
+                value: utils.currencyShowFormatter(internalMargin.initialMargin)
+            }, {
+                name: header.spreadmargin,
+                value: {
+                    internal: utils.currencyShowFormatter(internalMargin.spreadMargin),
+                    exchange: utils.currencyShowFormatter(exchangeMargin.spreadMargin)
+                }
+            }, {
+                name: header.deliverymargin,
+                value: utils.currencyShowFormatter(internalMargin.deliveryMargin)
+            }, {
+                name: header.marginreq,
+                value: {
+                    internal: utils.currencyShowFormatter(internalMargin.marginRequirement),
+                    exchange: utils.currencyShowFormatter(exchangeMargin.marginRequirement)
+                }
+            }, {
+                name: header.accountratio,
+                value: {
+                    internal: utils.currencyShowFormatter(internalMargin.accountRatio),
+                    exchange: utils.currencyShowFormatter(exchangeMargin.accountRatio)
+                }
+            }, {
+                name: header.warning,
+                value: {
+                    internal: <span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        </span>,
+                    exchange: <span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        <span className="-i">{utils.currencyShowFormatter(internalMargin.accountRatio)}</span>
+                        </span>
+                }
+            }, {
+                name: header.margincall,
+                value: {
+                    internal: utils.currencyShowFormatter(internalMargin.marginCall),
+                    exchange: utils.currencyShowFormatter(exchangeMargin.marginCall)
+                }
+            }
+        ]
+
+        let rowOdd = theme.table.rowOdd.backgroundColor
+        let rowEven = theme.table.rowEven.backgroundColor
+        let font2 = theme.font.sub1.color
+        let tableHeader = theme.table.tableHeader
+		let widgetHeader = theme.widget.widgetHeader
+
+		
+		return (
+			<div id={this.id}>
+				<Title language={language} theme={theme}  widgetID={'accountinfo'}>
+					{language.menu[this.id]}
+				</Title>
+
+				<Body theme={theme}>
+					<TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={theme}>
+                        <TabItem eventKey={1} title={header.sumary} >
+								<div className="table-responsive accountinfofs" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">   
+                                        <thead style={tableHeader}>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            {
+                                                accSumaryDataArr.map((d, i) => {
+                                                    let style = {}
+                                                    if (i % 2 != 0) {
+                                                        style = { backgroundColor: rowEven, color: font2 }
+                                                    } else {
+                                                        style = { backgroundColor: rowOdd, color: font2 }
+                                                    }
+
+                                                    let child = <td>{d.value}</td>
+                                                    if(d.value.internal != undefined) {
+                                                        child = (
+                                                            <td>
+                                                                <div className="accsum-internal"><span>{d.value.internal}</span></div>
+                                                                <div className="accsum-exchange"><span>{d.value.exchange}</span></div>
+                                                            </td>
+                                                        )
+                                                    }
+                                                    
+                                                    return (
+                                                        <tr style={style} >
+                                                            <th>{d.name}</th>
+                                                            {child}
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+						</TabItem>
+						<TabItem eventKey={2} title={header.cashinfo} >
+						<div className="table-responsive accountinfofs" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">
+                                        <thead style={tableHeader}>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div className="accsum-internal"><span>{header.internal}</span></div>
+                                                    <div className="accsum-exchange"><span>{header.exchange}</span></div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                assetDataArr.map((d, i) => {
+                                                    let style = {}
+                                                    if (i % 2 != 0) {
+                                                        style = { backgroundColor: rowEven, color: font2 }
+                                                    } else {
+                                                        style = { backgroundColor: rowOdd, color: font2 }
+                                                    }
+
+                                                    let child = <td>{d.value}</td>
+                                                    if(d.value.internal != undefined) {
+                                                        child = (
+                                                            <td>
+                                                                <div className="accsum-internal"><span>{d.value.internal}</span></div>
+                                                                <div className="accsum-exchange"><span>{d.value.exchange}</span></div>
+                                                            </td>
+                                                        )
+                                                    }
+                                                    
+                                                    return (
+                                                        <tr style={style} >
+                                                            <th>{d.name}</th>
+                                                            {child}
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+						</TabItem>
+						<TabItem eventKey={3} title={header.portfolioassessment} >
+								
+
+								<div className="table-responsive accountinfofs" style={{ height: '100%', fontSize: '12px' }}>
+                                    <table className="table">
+                                        <thead style={tableHeader}>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div className="accsum-internal"><span>{header.internal}</span></div>
+                                                    <div className="accsum-exchange"><span>{header.exchange}</span></div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            {
+                                                marginDataArr.map((d, i) => {
+                                                    let style = {}
+                                                    if (i % 2 != 0) {
+                                                        style = { backgroundColor: rowEven, color: font2 }
+                                                    } else {
+                                                        style = { backgroundColor: rowOdd, color: font2 }
+                                                    }
+
+                                                    let child = <td>{d.value}</td>
+                                                    if(d.value.internal != undefined) {
+                                                        child = (
+                                                            <td>
+                                                                <div className="accsum-internal"><span>{d.value.internal}</span></div>
+                                                                <div className="accsum-exchange"><span>{d.value.exchange}</span></div>
+                                                            </td>
+                                                        )
+                                                    }
+                                                    
+                                                    return (
+                                                        <tr style={style} >
+                                                            <th>{d.name}</th>
+                                                            {child}
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+						</TabItem>
+					</TabControl>
+				</Body>
+			</div>
+		)
+	}
+
+	onTabChange(key) {
+		this.setState({
+			activeKey: key
+		})
+	}
+
+	componentDidMount() {
+		let tradingAccount = this.props.data.tradingAccount
+		this.props.cashBalanceEnquiry({
+			tradingAccSeq : parseInt(tradingAccount.accountSeq),
+			subAccountID : tradingAccount.subAccountID
+		})
+	}
+}
+
+class AccountInfo extends Component {
+	render() {
+		let tradingAccount = this.props.data.tradingAccount
+
+		if(tradingAccount.investorType == "DERIVATIVES") {
+			return <AccountInfoFS {...this.props} />
+		} else {
+			return <AccountInfoSC {...this.props} />
+		}
+	}
+}
+
+
+
 const mapStateToProps = (state) => {
 	return {
 		accountBalanceBank: state.accountinfo.accountBalanceBank,
 		accountBalance: state.accountinfo.accountBalance,
 		overdueDebt: state.accountinfo.overdueDebt,
 		upcomingDebt: state.accountinfo.upcomingDebt,
-		stock: state.accountinfo.stock
+		stock: state.accountinfo.stock,
+
+		accountBalanceInfoFS: state.portfolio.accountBalanceInfoFS
 	}
 }
 
@@ -770,6 +1091,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 	getUpComingDebt: (upcomingbebtparams) => {
 		dispatch(actions.getUpComingDebt(upcomingbebtparams))
 	},
+	cashBalanceEnquiry: (params) => {dispatch( actions.cashBalanceEnquiry(params) )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo)

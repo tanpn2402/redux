@@ -31,7 +31,7 @@ class FlashPopup extends Component {
                 {
                     this.state.listMessage.map(message => {
                         return (
-                            <div className="flashpopup-child" id={'flashpopup-' + message.id} style={{ opacity: '1',  }}>
+                            <div key={'flashpopup-key-' + message.id} className="flashpopup-child" id={'flashpopup-' + message.id} style={{ opacity: '1',  }}>
                                 <p>{message.message}</p>
                             </div>
                         )

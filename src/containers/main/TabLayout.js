@@ -12,10 +12,13 @@ import EntitlementPage from "../desktop/view/EntitlementPage"
 import FundTransferPage from "../desktop/view/FundTransferPage"
 import LoanRefundPage from "../desktop/view/LoanRefundPage"
 import OddLotPage from "../desktop/view/OddLotPage"
+import DepositWithdrawIMPage from "../desktop/view/DepositWithdrawIMPage"
+import DepositWithdrawPage from "../desktop/view/DepositWithdrawPage"
 
 import CashTransHistory from "../widget/CashTransHistory"
 import OrderHistory from "../widget/OrderHistory"
 import StockStatement from "../widget/StockStatement"
+import CPCashDWHistory from "../widget/CPCashDWHistory"
 
 class CashTransHistoryContainer extends React.Component {
     
@@ -108,6 +111,36 @@ class OrderHistoryContainer extends React.Component {
         }
     }
 }
+class CPCashDWContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            defaultPageSize: 0
+        }
+    }
+
+    render() {
+        let background = this.props.theme.page.background
+        return (
+            <div ref={r => this.main = r} className="trans-history-page" style={{height: "100%", backgroundColor: background.backgroundColor}}>
+                {
+                    this.state.defaultPageSize != 0 ? (
+                        <CPCashDWHistory {...this.props} defaultPageSize={this.state.defaultPageSize}/>
+                    ) : null
+                }
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        if(this.main) {
+            this.setState({
+                defaultPageSize: Math.floor((this.main.offsetHeight - 110) / 26)
+            })
+        }
+    }
+}
 
 
 
@@ -139,6 +172,12 @@ class ServicePageContainer extends React.Component {
             case "loanrefund": 
                 child = <LoanRefundPage {...this.props}/>
                 break;
+            case "depositwithdraw": 
+                child = <DepositWithdrawPage {...this.props}/>
+                break;
+            case "depositwithdrawim": 
+                child = <DepositWithdrawIMPage {...this.props}/>
+                break;
 
 
             case "cashTransHistory": 
@@ -149,6 +188,9 @@ class ServicePageContainer extends React.Component {
                 break;
             case "stockstatement": 
                 child = <StockStatementContainer {...this.props} />
+                break;
+            case "cpcashdwhistory": 
+                child = <CPCashDWContainer {...this.props} />
                 break;
 
             default: 
@@ -161,11 +203,33 @@ class ServicePageContainer extends React.Component {
     }
 }
 
+
+const DERIVATIVES_FUNCTION = [
+    "fundTransfer",
+    "depositwithdraw",
+    "depositwithdrawim",
+    "cpcashdwhistory"
+]
+
+const NORMAL_FUNCTION = [
+    "fundTransfer",
+    "advancePaymentBank",
+    "advancePayment",
+    "entitlement",
+    "oddLot",
+    "loanrefund",
+    "stockstatement",
+    "orderHistory",
+    "cashTransHistory"
+
+]
+
 class TabLayout extends Component {
     constructor(props){
         super(props)
         
         var tabs = config.tabbar.filter(el => el.id === this.props.tabID )
+        console.log(tabs)
         if(tabs.length > 0){
             this.tabbar = tabs[0].widget
             
@@ -203,15 +267,21 @@ class TabLayout extends Component {
 
 
     render() {
-        let language = this.props.language
+        let {language, theme, currentTrdAccount} = this.props
         let activeTab = this.state.activeTab
         let layout = [this.tabbar.filter(e => e.i === activeTab)[0]]
 
-        let background = this.props.theme.page.background
-        let scrollStyle = this.props.theme.scrolling
+        let background = theme.page.background
+        let scrollStyle = theme.scrolling
 
-        let tabStyles = this.props.theme.tabcontrol
-        // console.log(tabStyles)
+        let tabStyles = theme.tabcontrol
+        
+
+        let accountType = "N"
+        if(currentTrdAccount.investorType == "DERIVATIVES") {
+            accountType = "FS"
+        }
+        
 
         return (
             <div style={{height: "100%"}}>
@@ -226,16 +296,32 @@ class TabLayout extends Component {
                             <nav className='vertical-align-middle'>
                                 {
                                     this.tabbar.map(tab => {
-                                        
-                                        return ( 
-                                            <div key={tab.id} className={'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')}
-                                                onClick={e=> this.onTabClick(tab.i)}
-                                                style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                        console.log(tab)
+                                        let className = 'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')
+                                        if(accountType == "FS") {
+                                            className += (DERIVATIVES_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                            return ( 
+                                                <div key={tab.id} className={className}
+                                                    onClick={e=> this.onTabClick(tab.i, e)}
+                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                
+                                                        {language.menu[tab.i]}
+                                                        
+                                                </div>
+                                            )
+                                        } else {
+                                            className += (NORMAL_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                            return ( 
+                                                <div key={tab.id} className={className}
+                                                    onClick={e=> this.onTabClick(tab.i, e)}
+                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                
+                                                        {language.menu[tab.i]}
+                                                        
+                                                </div>
+                                            )
+                                        }
                                             
-                                                    {language.menu[tab.i]}
-                                                    
-                                            </div>
-                                        )
                                     })
                                 }
                                 
@@ -255,11 +341,18 @@ class TabLayout extends Component {
         )
     }
 
-    onTabClick(subTabID){
-        this.props.onTabClick(this.props.tabID, subTabID)
-        this.setState({
-            activeTab: subTabID
-        })
+    onTabClick(subTabID, e){
+        if(e.target.classList.contains("disabled")) {
+            let {currentTrdAccount, language} = this.props
+            this.props.showMsg(this.props.language.messagebox.title.info, 
+                ("Please switch to " + ( (currentTrdAccount.investorType == "DERIVATIVES") ? "Nornal" : "DERIVATIVES") + " Account!"))
+        } else {
+            this.props.onTabClick(this.props.tabID, subTabID)
+            this.setState({
+                activeTab: subTabID
+            })
+        }
+            
     }
 
     onTabSlideClick(i){
@@ -276,12 +369,14 @@ class TabLayout extends Component {
 const mapStateToProps = (state) => {
     return {
         subTabID: state.menuSelected.subTabID,
+        currentTrdAccount: state.dologin.currentTrdAccount,
     }
 }
 const mapDispatchToProps = (dispatch, props) => ({
     onTabClick: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID));
-    }
+    },
+    showMsg: (title, msg) => {dispatch(actions.showMessageBox(title, msg))},
 })
 
 

@@ -1,6 +1,7 @@
 import * as api from '../api/web_service_api'
 import * as ACTION from '../api/action_name'
 import {showMessageBox, showFlashPopup} from './notification'
+import * as fsAPI from '../api/fsapi';
 
 const { ActionTypes } = require('../core/constants');
 
@@ -83,9 +84,12 @@ export function onCancelSubmit(param, authParams, language) {
             // auth card matrix fail -> recreate card matrix serial number
         } else {                                        
             if(response.mvReturnResult == "success"){
-                me.updateView()
-                return function (dispatch) {
-                    dispatch(showFlashPopup(language.messagebox.title.info, language.orderjournal.message.cancelSuccess))
+                // me.updateView()
+                // return function (dispatch) {
+                //     dispatch(showFlashPopup(language.messagebox.title.info, language.orderjournal.message.cancelSuccess))
+                // }
+                return {
+                    type: 1
                 }
 
             }
@@ -187,21 +191,6 @@ export function onModifySubmit(param, newPrice, newQty, authParams, language, me
     var successHandler = function(response){
         if(response.returnCode != 0) {
 
-            // auth card matrix fail -> recreate card matrix serial number
-
-            // Ext.Msg.alert(OrsEntrustAuthenMsg.message.error, OrsEntrustAuthenMsg.message.returnError[mvJSON.returnCode]);
-            // cmdOk.disabled = false;
-            // serial1 = TTLUtils.createAuthenCardString();
-            // serial2 = TTLUtils.createAuthenCardString();
-                    
-            // newModifySerialNo = serial1 + "|" + serial2;
-                    
-            // seriNo1.innerHTML = '<b>['+ serial1.split('|')[0] +']</b>';
-            // seriNo2.innerHTML = '<b>['+ serial2.split('|')[0] +']</b>';
-                    
-            // answerNo1.setValue("");
-            // answerNo2.setValue("");
-
             return (dispatch) => {
                 dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.returnError[response.returnCode]))
             }
@@ -210,9 +199,12 @@ export function onModifySubmit(param, newPrice, newQty, authParams, language, me
             //console.log(language)                                 
             if(response.mvReturnResult == "success"){
                 // modify success
-                me.updateView()
-                return (dispatch) => {
-                    dispatch(showMessageBox(language.messagebox.title.info, language.orderjournal.message.modifySucces))
+                // me.updateView()
+                // return (dispatch) => {
+                //     dispatch(showMessageBox(language.messagebox.title.info, language.orderjournal.message.modifySucces))
+                // }
+                return {
+                    type: 1
                 }
                 
             }else if(response.mvReturnResult == "ModifyOrderFail"){
@@ -247,4 +239,48 @@ function getModifyOrderFailInfo(language){
             }
         )
     }    
+}
+
+function updateView(data) {
+
+    let params = {
+        clientID : localStorage.getItem("clientFSID") + "8",
+        tradingAccSeq: parseInt(1),
+        subAccountID: localStorage.getItem("clientFSID") + "8",
+        version : "",
+        language : "",
+        sessionID : "",
+        deviceID : "",
+        osVersion : "",
+        Status : ""
+    }
+
+    return dispatch => {
+        fsAPI.post("orderEnquiry", params, dispatch, 
+            function(res) {
+                return {
+                    type: ActionTypes.UPDATEORDERJOURNAL,
+                    data,
+                    list: res.orderEnquireInfoList
+                }
+            }
+        )
+    }
+}
+
+export function updateOrder(data, language) {
+    let orderStatus = data.status
+    
+    return (dispatch) => {
+        dispatch(showFlashPopup(language.messagebox.title.info, 
+            language.orderjournal.message.updateOrder.replace("{orderid}", data.orderGroupID).replace("{status}", language.orderstatus[orderStatus]) ))
+
+        dispatch(updateView(data))
+    }
+}
+
+export function clearOrderEnquiryData() {
+    return {
+        type: ActionTypes.RESETENQUIRYORDERDATA
+    }
 }

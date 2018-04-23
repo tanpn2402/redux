@@ -3,6 +3,7 @@ import * as ACTION from '../api/action_name'
 import config from '../core/config'
 import {showMessageBox, showFlashPopup} from './notification'
 import {showPopup} from './popup'
+import {enterFSOrder} from "./derivatives"
 const { ActionTypes } = require('../core/constants');
 
 export function genEnterOrder(){
@@ -46,9 +47,15 @@ export function enterOrderSubmit(language, params, authParams){
                 }
             } else {
                 // success
-                return function (dispatch) {
-                    dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
+                // return function (dispatch) {
+                //     dispatch(showFlashPopup(language.messagebox.title.info, 'Ordered successfully !'))
+                // }
+
+                return {
+                    type: 1
                 }
+
+                
                 // return function (dispatch) {
                 //     dispatch(showPopup({
                 //         data: response,
@@ -149,55 +156,47 @@ export function setDefaultOrderParams(params) {
 }
 
 
+
+
+function enterNormalOrder(data, authParams) {
+    var params = {
+        "mvBS": data.mvBS,
+        "mvStockCode": data.mvStockCode,
+        "mvLending": "" + data.mvLending,
+        "mvBuyingPower": data.mvBuyPower,
+        "mvOrderTypeValue": data.mvOrderType,
+        "mvQuantity": data.mvVolume,
+        "mvPrice": data.mvPrice,
+        "mvGrossAmt": data.mvGrossAmt,
+        "mvNetFee": data.mvNetFee,
+        "mvMarketID": data.mvMarketID,
+        //"refId": "",
+        "mvWaitOrder": data.mvExpireChecked ? "on" : "off",
+        "mvGoodTillDate": data.mvExpireChecked ? data.mvExpireDate : '',
+        "mvAfterServerVerification": "Y",
+        "mvBankID": data.mvBankID,
+        "mvBankACID": data.mvBankACID,
+    }
+
+    return dispatch => {
+        dispatch(enterOrderSubmit(data.language, params, authParams))
+    }
+}
+
+export function enterOrder(data, authParams) {
+    if(data.tradingType == "DERIVATIVES") {
+        return dispatch => {
+            dispatch(enterFSOrder(data, authParams))
+        }
+    } else {
+        return dispatch => {
+            dispatch(enterNormalOrder(data, authParams))
+        }
+    }
+}
+
 // DERIVATE
 export function enterorderFS(language, params, pin, tradingAcc) {
 
-    params = Object.assign({
-        clientID: localStorage.getItem("clientID"),
-        tradingAccSeq: tradingAcc.accountSeq,
-        subAccountID: tradingAcc.subAccountID,
-        version: "",
-        language: "",
-        seessionID: "",
-        deviceID: "",
-        osVersion: "",
-        orderInfo: {
-            bs: "B",
-            marketId: "",
-            seriesId: "",
-            orderId: "",
-            orderGroupId: ""
-        },
-        price: 0,
-        position: "",   // O open, L liquidate, C close
-        qty: 0,
-        Inactive: "",
-        StopOrder: "",
-        AuctionOrder: "",
-        TPlus1: "",
-        minQty: "",
-        stopPrice: "",
-        stopType: "",
-        confirmExceedTradingLimit: "",
-        confirmExceedDerivation: "",
-        confirmMaxVolume: "",
-        confirmMarginCall: "",
-        confirmExceedDerivationForStopPrice: "",
-        confirmLowerDerivation: "",
-        confirmLowerDerivationForStopPrice: "",
-        confirmExceedPositionWarningLevel1: "",
-        confirmExceedPositionWarningLevel2: "",
-        confirmExceedOpenInterestWarningLevel1: "",
-        confirmExceedOpenInterestWarningLevel2: "",
-        validity: "",
-        orderType: "",      // L, M, A, C, K
-        validitydate: "",
-        checkLimitByPassWarning: ""
-    }, params)
-
-    console.log(params)
-
-    return function (dispatch) {
-        dispatch(showFlashPopup(language.messagebox.title.info, 'Order sent !'))
-    }
+    
 }

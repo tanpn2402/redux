@@ -45,9 +45,21 @@ class ModifyOrder extends Component {
 
     onModifySubmit() {
         var authParams = this.auth.getParam()
+        var mvMarketID = this.props.data.data.mvMarketID
 
-        this.props.onModifySubmit(this.props.genModifyOrderData.mvGenModifyOrderBean, 
-            this.mvNewPrice.getValue(), this.mvNewQuantity.getValue(), authParams, this.props.language, this.props.data.me)
+        if(mvMarketID == "VNFE") {
+            let data = this.props.data.data
+            data.newPrice = this.mvNewPrice.getValue()
+            data.newVolume = this.mvNewQuantity.getValue()
+            this.props.onModifyFSOrder(data, this.props.language)
+        } else {
+            this.props.onModifySubmit(
+                this.props.genModifyOrderData.mvGenModifyOrderBean, 
+                this.mvNewPrice.getValue(), this.mvNewQuantity.getValue(), 
+                authParams, this.props.language, this.props.data.me)
+        }
+
+            
 
         this.props.onHide()
     }
@@ -56,7 +68,12 @@ class ModifyOrder extends Component {
     }
 
     componentDidMount(){
-        this.props.genModifyOrder(this.paramGenModifyOrder)
+        var mvMarketID = this.props.data.data.mvMarketID
+        if(mvMarketID == "VNFE") {
+            
+        } else {
+            this.props.genModifyOrder(this.paramGenModifyOrder)
+        }
     }
 
     onPriceChange(value) {
@@ -73,12 +90,29 @@ class ModifyOrder extends Component {
         var mvGenModifyOrderBean = this.props.genModifyOrderData.mvGenModifyOrderBean
         var language = this.props.language
         var price = data.mvPrice
-        try{
+        try {
             price = parseInt(data.mvPrice)
-        }catch(e){}
+        } catch(e){}
+
         var tmp = this.props.data.data
         
         var data = [
+            {
+                Header: p => {
+                    return (
+                        <span>
+                            <span style={{marginRight: "5px"}}>{language.enterorder.header.subaccount}:</span>
+                            <span>{tmp.mvClientID}</span>
+                        </span>
+                    )
+                },
+                Cell: p => {
+                    return (
+                        <span>
+                        </span>
+                    )
+                }
+            },
             {
                 header: "market",
                 value: tmp.mvMarketID
@@ -157,6 +191,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => ({
     onModifySubmit: (param, newPrice, newQty, authParams, language, me) => {
         dispatch(actions.onModifySubmit(param, newPrice, newQty, authParams, language, me))
+    },
+    onModifyFSOrder: (param, language) => {
+        dispatch(actions.modifyFSOrder(param, language))
     },
     genModifyOrder: (param) => {
         dispatch(actions.genModifyOrder(param))

@@ -324,6 +324,9 @@ label {
     height: 22px;
     background-color: transparent;
 }
+.ReactTable .rt-tr {
+    position: relative;
+}
 .ReactTable .rt-tr>.rt-resizable-header {
     padding: 5px 0;
     border-right: 1px solid rgba(187, 186, 186, .3);
@@ -851,6 +854,7 @@ label {
 .pagecontent-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 .pagecontent.management,
 .pagecontent.transhistory {
@@ -1031,7 +1035,46 @@ label {
     bottom: 30px;
 }
 
-
+.subacc-select {
+    position: relative;
+    width: 210px;
+    border-radius: 2px;
+    font-size: 14px;
+    float: right;
+    top: 3px;
+}
+.subacc-input {
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: inherit;
+    border: none;
+    
+}
+.subacc-list {
+    position: absolute;
+    width: 100%;
+    background-color: #FFF;
+    box-shadow: 2px 2px 2px 0px #0000006e;
+    border: 1px solid #ccc;
+}
+.subacc-item {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    justify-content: left;
+    padding-left: 4px;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.subacc-item:hover {
+    background-color: #0000006e;
+    cursor: pointer;
+}
 /*END STATUS BAR*/
 /*HEADER*/
 #pageheader {
@@ -1354,7 +1397,8 @@ label {
 #notification-wrapper {
     position: absolute;
     right: 0;
-    margin-right: 15px;
+    height: 100%;
+    /* margin-right: 15px; */
 }
 /*END NOTIFICATION*/
 /*FLASH POPUP*/
@@ -1364,7 +1408,8 @@ label {
     float: right;
     position: relative;
     z-index: 5;
-    overflow-y: hidden;
+    overflow-y: auto;
+    height: 100%;
 }
 .flashpopup-child {
     border-radius: 2px;
@@ -1689,8 +1734,8 @@ label {
     }
     .scrolling-tabs-main.tab-layout .tabs-item.disabled{
         /* background-color: #eee1e2;
-        color: #c5b3b3;
-        cursor: not-allowed; */
+        color: #c5b3b3; */
+        cursor: not-allowed;
     }
     .hks-btn.btn-tab-reload {
         padding: 0 5px;
@@ -2278,7 +2323,7 @@ label {
 }
 .sum-control {
     display: table;
-    width: 100%;
+    width: calc(100% - 0px);
     position: absolute;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -2289,6 +2334,68 @@ label {
     color: inherit;
     padding-left: 8px;
     padding-top: 2px;
+    float: left;
+}
+.sum-control > .sum-subaccount {
+    position: relative;
+    left: 244px;
+    width: calc(100% - 250px);
+}
+.sum-control > .sum-subaccount >.trd-account {
+    position: absolute;
+    width: 100%;
+}
+.sum-control > .sum-subaccount >.trd-account > .select-control {
+    height: 22px;
+}
+.accsum-internal, .accsum-exchange {
+    display: inline-block;
+    text-align: right;
+}
+.accsum-exchange {
+    padding-left: 10px;
+    padding-right: 0px;
+    min-width: 120px;
+}
+.accsum-internal {
+    padding-left: 0px;
+    /* padding-right: 10px; */
+    min-width: 120px;
+}
+.accsum-piechart {
+    float: left;
+    width: 242px;
+}
+.acc-sum-info {
+    display: flow-root;
+    height: 100%;
+}
+.acc-sum-info .info-col {
+    top: 5px;
+    height: calc(100% - 30px);
+}
+.-i:not(:last-child) {
+    padding-right: 2px;
+}
+.accsum-table ._thead {
+    font-weight: bold;
+    padding: 1px 4px;
+}
+.accsum-table ._tbody {
+    height: 100%;
+    overflow: auto;
+}
+.accsum-table ._tr {
+    display: flex;
+    align-items: center;
+    height: 24px;
+}
+.accsum-table ._th {
+    flex: 1;
+    padding-left: 5px;
+}
+.accsum-table ._td {
+    padding-right: 5px;
 }
 /* END SUMARY COMPONENT */
 
@@ -2968,6 +3075,30 @@ label {
 .tether-element {
     z-index: 5;
 }
+
+.trd-account {
+    position: relative;
+}
+.trd-account .select-control.account-selector {
+    max-width: 110px;
+    border-radius: 0px;
+    background-color: #ef514b;
+    color: #fff;
+    float: left;    
+    z-index: 1;
+    position: relative;
+}
+.trd-account .account-name {
+    position: relative;
+    top: 2px;
+    left: 4px;
+}
+.trd-account .info-icon {
+    position: relative;
+    top: 1px;
+    left: 10px;
+    cursor: pointer;
+}
 /* END SELECT CONTROL */
 
 /* Table-dragNdrop */
@@ -3419,6 +3550,9 @@ label {
     left: 0 !important;
     bottom: 0 !important;
 }
+.accountinfofs tbody td, .accountinfofs thead td {
+    text-align: right;
+}
 /* END ACCOUNT BALACNCE POPUP */
 
 /* FOR DESKTOP */
@@ -3795,6 +3929,7 @@ label {
 .wl-index .index-name {
     min-width: 110px;
     display: inline-block;
+    text-align: left;
 }
 /* end  */
 
@@ -4097,7 +4232,7 @@ label {
     float: right;
 }
 .bidask-td.core {
-    width: 110px !important;
+    width: 130px !important;
     border-left-width: 0px !important;
 }
 .bidask-td.status {
@@ -4143,32 +4278,9 @@ label {
     display: flow-root;
     padding: 2px 0;
 }
-.pl-sub-account {
+.pl-subacc-control .trd-account {
     float: left;
     width: calc(50% - 10px);
-}
-.pl-sub-account > .account-name {
-    position: relative;
-    float: right;
-    top: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    width: calc(100% - 112px);
-}
-.pl-sub-account > .select-control {
-    border-radius: 0 !important;
-    width: 107px;
-    font-size: 12px;
-    height: 24px;
-    color: #FFF;
-    background: #2159a0;
-}
-.pl-sub-account .info-icon {
-    position: relative;
-    cursor: pointer;
-    float: right;
-    right: 4px;
-    font-size: 14px;
 }
 .pl-pin {
     float: right;
@@ -4179,6 +4291,9 @@ label {
     display: inline-block;
     width: 70px;
     margin: 0 5px;
+}
+.pl-pin > .checkbox-inline {
+    margin-left: 15px;
 }
 /* END PLACE ORDER */
 /* Slider Format */
@@ -4295,12 +4410,13 @@ label {
     display: inline-block;
     color: white;
     float: right;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 16px;
     height: 100%;
+    position: relative;
+    top: 4px;
 }
 #fav-tab-container{
-    width: calc(100% - 530px);
+    width: calc(100% - 720px);
     float: left;
 }
 
@@ -4537,6 +4653,43 @@ input[type=number] {
     height: 464px;
 }
 .fundtransfer-page .table-container {
+    height: 100%;
+}
+
+.depositwithdraw-page {
+    padding-top: 5px;
+}
+.depositwithdraw-page .panel-container,
+.depositwithdraw-page .table-status-container {
+    height: 300px;
+}
+.depositwithdraw-page .panel-container {
+    float: left;
+    width: 400px;
+}
+.depositwithdraw-page .table-status-container {
+    float: right;
+    width: calc(100% - 400px);
+    padding: 2px;
+    height: 100%;
+}
+.depositwithdraw-page .row.history-panel {
+    height: calc(100% - 300px);
+}
+
+.depositwithdrawim-page {
+    padding-top: 5px;
+}
+
+.depositwithdrawim-page .panel-container {
+    float: left;
+    width: 400px;
+    height: 350px;
+}
+.depositwithdrawim-page .table-status-container {
+    float: right;
+    width: calc(100% - 400px);
+    padding: 2px;
     height: 100%;
 }
 

@@ -71,7 +71,8 @@ class DesktopTable extends React.Component {
 									language={this.props.language.searchbar}
 									theme={this.props.theme}
 									data={this.props.searchData}
-									param={this.props.searchParams} />
+									param={this.props.searchParams}
+									defaultParams={this.props.searchDefaultValues} />
 							</div>
 						)
 				}
@@ -419,10 +420,10 @@ class DataTable extends React.Component {
 				expandList: expandList
 			})
 
-			console.log(this.state.expandList)
+			// console.log(this.state.expandList)
 
 		} else {
-			console.log("aa")
+			// console.log("aa")
 			expandList[index[0]] = !expandList[index[0]]
 			this.setState({
 				list: expandList
@@ -436,13 +437,7 @@ class DataTable extends React.Component {
 			this.props.onCellClick(state, rowInfo, column, instance)
 		}
 	}
-	// handleOnMouseEnter(e) {
-	// 	if (e.target.id == this.colA.object.id || this.colA.object.id == undefined) return
-	// 	e.target.style = 'color: white; background-color: black;'
-	// }
-	// handleOnMouseLeave(e) {
-	// 	e.target.style = ''this.props.id == 'portfolio' ? this.props.columns : 
-	// }
+	
 
 
 	// COLUMN INFO EXTRACTOR

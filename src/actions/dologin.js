@@ -8,20 +8,91 @@ import $ from 'jquery';
 import config from '../core/config';
 import { showMessageBox } from './notification';
 import { getLanguage } from '../utils';
+import * as fsAction from "./derivatives";
 
-export function doLogin(params) {
-    console.log(params)
-    return (dispatch) => {
-        return api.login(ACTION.DOLOGIN, params, dispatch,
-            function (responseForLogin) {
-                if(responseForLogin && responseForLogin.success) {
-                    localStorage.setItem("clientID", params.mvClientID.substring(3, params.mvClientID.length))
-                     
-                }
+import * as tanpn from "../api/fetch"
+
+let isFSDone = false
+let isNODone = false
+let fsLoginRes = null
+
+let fsclientID = ""
+let clientID = ""
+
+function loginDone(id, res, params) {
+    if(id == "FS") {
+        isFSDone = true
+        fsLoginRes = res
+        if(isNODone) {
+
+       
+            if(res && res.sessionID) {
+                console.log("FSSSSSSSSSSSSS")
+                localStorage.setItem("clientFSID", params.clientID)
                 return {
                     type: ActionTypes.DOLOGINACTION,
-                    loginResult: responseForLogin
+                    loginResult: {
+                        mvMessage: res.errorMessage,
+                        needChangePwd: "",
+                        success: true
+                    }
                 }
+            } else {
+                return {
+                    type: ActionTypes.DOLOGINACTION,
+                    loginResult: {
+                        mvMessage: res.errorMessage,
+                        needChangePwd: "",
+                        success: false
+                    }
+                }
+            }
+        } else {
+            return {
+                type: 0
+            }
+        }
+    } else {
+        isNODone = true
+        if(isFSDone) {
+            if(res && res.success) {
+                localStorage.setItem("clientID", params.mvClientID.substring(3, params.mvClientID.length))
+            }
+
+            if(fsLoginRes && fsLoginRes.sessionID) {
+                localStorage.setItem("clientFSID", fsclientID)
+                return {
+                    type: ActionTypes.DOLOGINACTION,
+                    loginResult: {
+                        mvMessage: fsLoginRes.errorMessage,
+                        needChangePwd: "",
+                        success: true
+                    }
+                }
+            } else {
+                return {
+                    type: ActionTypes.DOLOGINACTION,
+                    loginResult: {
+                        mvMessage: fsLoginRes.errorMessage,
+                        needChangePwd: "",
+                        success: false
+                    }
+                }
+            }
+        } else {
+            return {
+                type: 0
+            }
+        }
+    }
+}
+
+export function doLogin(params) {
+    return (dispatch) => {
+        tanpn.post("FSServer", "dologin", {clientID: params.mvClientID, password: params.mvPassword}, dispatch,
+            function (responseForLogin) {
+                fsclientID = params.mvClientID
+                dispatch(loginDone("FS", responseForLogin, {clientID: params.mvClientID, password: params.mvPassword}))
             },
             function (err) {
                 // login ERROR
@@ -29,7 +100,22 @@ export function doLogin(params) {
                     type: ActionTypes.DOLOGINACTION,
                     loginResult: err
                 }
-            })
+            }
+        )
+
+        api.login(ACTION.DOLOGIN, {mvClientID: "077C080001", mvPassword: "123456", securitycode: "", language: "en_US"}, dispatch,
+            function (responseForLogin) {
+                clientID = "077C080001"
+                dispatch(loginDone("NO", responseForLogin, {mvClientID: "077C080001", mvPassword: "123456", securitycode: "", language: "en_US"}))
+            },
+            function (err) {
+                // login ERROR
+                return {
+                    type: ActionTypes.DOLOGINACTION,
+                    loginResult: err
+                }
+            }
+        )
     }
 }
 
@@ -60,16 +146,68 @@ export function doLogout(id) {
     }
 }
 
-export function checkAuth() {
+
+function checkAuthFS(dispatch) {
+    return (dispatch) => {
+        tanpn.get("FSServer", "checksession", {}, dispatch,
+            function (res) {
+                console.log(res)
+                if(res && res.success == true) {
+                    let subaccount = {  
+                        "mvTradingAccountBean":{  
+                        "baseCCY":"VND",
+                        "clientID":"",
+                        "clientName":"",
+                        "fullName":"",
+                        "isHouse":"",
+                        "tradingAccountSelection":[  
+                            {  
+                                "investorGroupID":"KOREAN",
+                                "aeID":"ALEX",
+                                "productID":"HKS",
+                                "subAccountName":"Derivates Account",
+                                "subAccountID": localStorage.getItem("clientID"),
+                                "enableMargin":"N",
+                                "tradingAccSeq":"1",
+                                "investorClassID":"NORMAL.01",
+                                "investorType": "DERIVATIVES",
+                                "accountSeq":"1"
+                            }
+                            ]
+                        }
+                    }
+
+                    return {
+                        type: ActionTypes.CHECKAUTH,
+                        userSavedData: {},
+                        userService: {},
+                        tradingAccount: subaccount,
+                        status: "SUCCESS",
+                    }
+                } else {
+                    return {
+                        type: ActionTypes.CHECKAUTH,
+                        status: "FAIL"
+                    }
+                }
+                    
+            },
+            function (err) {
+                // login ERROR
+                return {
+                    type: ActionTypes.CHECKAUTH,
+                    status: "ERROR"
+                }
+            }
+        )
+    }
+}
+
+export function checkAuthNO(dispatch) {
     var params = {
         mvTimelyUpdate: "N",
         key: (new Date()).getTime()
     }
-
-    // return {
-    //     type: ActionTypes.CHECKAUTH,
-    //     status: "SUCCESS",
-    // }
 
     return (dispatch) => {
         api.post(ACTION.CHECKSESSION, params, dispatch,
@@ -219,6 +357,9 @@ export function checkAuth() {
                                             status: "SUCCESS",
                                         }
                                     })
+                            
+                                // dispatch to derivates actions
+                                dispatch(fsAction.getFSSubAccount())
                             }
 
                             
@@ -242,6 +383,20 @@ export function checkAuth() {
             })
     }
 }
+
+export function checkAuth() {
+    
+    // return {
+    //     type: ActionTypes.CHECKAUTH,
+    //     status: "SUCCESS",
+    // }
+    return dispatch => {
+        // dispatch(checkAuthFS(dispatch))
+        dispatch(checkAuthNO(dispatch))
+    }
+}
+
+
 
 export function checkSession(handleCheckSessionID) {
     return (dispatch) => {
@@ -316,5 +471,13 @@ function responseCheckSession(response, id) {
         return {
             type: 1
         }
+    }
+}
+
+
+export function switchAccount(account) {
+    return {
+        type: ActionTypes.SWITCHACCOUNT,
+        account
     }
 }

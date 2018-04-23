@@ -5,9 +5,13 @@ import Header from './Header'
 import MenuNav from './MenuNav'
 import MainContent from './MainContent'
 import config from '../../core/config'
-import {getLanguage, getTheme } from '../../utils'
+import {getLanguage, getTheme, replaceURL } from '../../utils'
 import * as atmosphereAPI from '../../api/atmosphereAPI'
 import * as marketData from '../../api/marketdata'
+
+import { SERVER } from "../../api/serverconfig";
+import * as broadCast from '../../api/broadcastapi'
+import {BROADCASTURL, BROADCASTTAG} from "../../api/broadcasturl"
 
 class Home extends Component {
     /*
@@ -21,6 +25,7 @@ class Home extends Component {
 
 
         this.interval = this.interval.bind(this)
+        this.broadCast = this.broadCast.bind(this)
     }
 
     componentWillMount(){
@@ -66,10 +71,18 @@ class Home extends Component {
         // this.props.getTradeLogDataOfStock("ACB", "HO")
         // this.props.getTradeLogDataOfStock("VNM", "HO")
         
-        this.props.checkSession(this.handleCheckSessionID)
+        // this.props.checkSession(this.handleCheckSessionID)
         this.onSubscribeToServer()
+
+
         this.props.getListStockInWatchList()
-        this.props.getDerivativeList()
+
+
+        
+        // this.props.getDerivativeList()
+
+
+        this.broadCast()
     }
 
     componentWillUnmount() {
@@ -77,8 +90,8 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // this.onUnSubcribe()
-        // this.onSubscribeToServer()
+        
+        
     }
 
     onSubscribeToServer() {
@@ -122,7 +135,42 @@ class Home extends Component {
         // this.props.updateWatchlistData()
         this.props.updateTradeLog()
         this.props.updateMarketData()
-        this.props.updateDerivativeData()
+        // this.props.updateDerivativeData()
+    }
+
+
+    broadCast() {
+        let me = this
+        let socket = broadCast.broadcast(SERVER + 
+            replaceURL(BROADCASTURL.BROADCAST_UPDATE_ORDER, {"clientID": localStorage.getItem("clientID") })
+            , 
+            function(res){
+                // console.log(res, res.actionid, BROADCASTTAG.TOPIC_HKSFO_ORDER_ENQUIRY)
+
+                if(res != null) {
+                    switch(res.actionid) {
+                        case BROADCASTTAG.TOPIC_HKSFO_ORDER_ENQUIRY: 
+                            me.props.updateOrderJournal(res.data, getLanguage(config.cache.lang).page); break;
+                        default: break;
+                    }
+                }
+            })
+
+
+        let socket2 = broadCast.broadcast(SERVER + 
+            replaceURL(BROADCASTURL.BROADCAST_UPDATE_ORDER, {"clientID": localStorage.getItem("clientFSID") + "8" })
+            , 
+            function(res){
+                if(res != null) {
+                    switch(res.actionid) {
+                        case BROADCASTTAG.HSIFO_ORDERENQUIRY: 
+                            console.log(res)
+                            me.props.updateOrderJournal(res.data, getLanguage(config.cache.lang).page); break;
+                            break;
+                        default: break;
+                    }
+                }
+            })
     }
 }
 
@@ -149,8 +197,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     getMarketData: () => { dispatch(actions.getMarketData()) },
 
     // derivative
-    getDerivativeList: () => { dispatch(actions.getDerivativeList()) },
-    updateDerivativeData: () => { dispatch(actions.updateDerivativeData()) },
+    // getDerivativeList: () => { dispatch(actions.getDerivativeList()) },
+    // updateDerivativeData: () => { dispatch(actions.updateDerivativeData()) },
 
 
     // test
@@ -161,6 +209,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     changeTab: (tabID, subTabID) => {
         dispatch(actions.onTabClick(tabID, subTabID))
     },
+
+    // update order journal
+    updateOrderJournal: (data, language) => {dispatch(actions.updateOrder(data, language))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

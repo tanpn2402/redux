@@ -195,15 +195,7 @@ class OrderHistory extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            
-        });
-    }
-
-
     render() {
-        console.log('adsdsd')
         var data = this.props.historyOrder.mvOrderBeanList
         return (
             <div style={{ height: "100%", position: "relative" }}>
@@ -244,6 +236,15 @@ class OrderHistory extends Component {
 
     }
 
+    getFSAccount(tradingAccounts) {
+        let t = tradingAccounts.filter( e=> e.investorType == "DERIVATIVES")
+        if(t.length > 0) {
+            return t[0]
+        } else {
+            return undefined
+        }
+    }
+
     onToggleFilter(value) {
         this.setState((prevState) => {
             return { filterable: !prevState.filterable }
@@ -251,14 +252,18 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        this.props.onSearch(this.params)
+        this.props.onSearch(this.params, {
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
+        })
     }
 
     onPageChange(page) {
         this.state.pageIndex = page
         this.params["page"] = this.state.pageIndex
         this.params["start"] = (this.state.pageIndex - 1) * this.params["limit"]
-        this.props.onSearch(this.params)
+        this.props.onSearch(this.params, {
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
+        })
     }
 
     onSearch(param) {
@@ -271,7 +276,9 @@ class OrderHistory extends Component {
         this.params["mvStartTime"] = param["mvStartDate"]
         this.params["mvEndTime"] = param["mvEndDate"]
         
-        this.props.onSearch(this.params)
+        this.props.onSearch(this.params, {
+            subAccount: this.getFSAccount(this.props.tradingAccounts)
+        })
     }
 
     onChangeStateColumn(e) {
@@ -299,12 +306,14 @@ OrderHistory.defaultProps = {
 const mapStateToProps = (state) => {
     return {
         historyOrder: state.orderhistory.historyOrder,
+        tradingAccounts: state.dologin.tradingAccounts
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: (param, reload) => {
-        dispatch(actions.enquiryOrderHistory(param, reload))
+    onSearch: (SCparam, FSparam) => {
+        dispatch(actions.enquiryOrderHistory(SCparam))
+        dispatch(actions.orderHistoryEnquiryFS(FSparam))
     },
     onExportExcel: (param) => {
         dispatch(actions.exportOrderHistory(param))

@@ -1,13 +1,33 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../../actions'
 import ClientSumary from "../../widget/ClientSumary"
 import Portfolio from "../../widget/Portfolio"
 import Sumary from "../../widget/Sumary"
 
+import PortfolioFS from "../../widget/PortfolioFS"
+import SumaryFS from "../../widget/SumaryFS"
 
-
-export default class PortfolioPage extends React.Component {
+class PortfolioPage extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            subAccount: props.currentTrdAccount
+        }
+    }
+
+
+    onSubAccountChange(value) {
+        this.setState({
+            subAccount: value
+        })
+    }
+
+    componentWillReceiveProps(nProps) {
+        this.setState({
+            subAccount: nProps.currentTrdAccount
+        })
     }
 
     render(){
@@ -19,10 +39,16 @@ export default class PortfolioPage extends React.Component {
                     <ClientSumary {...this.props} />
                 </div>
                 <div className="row sumary-container">
-                    <Sumary {...this.props} />
+                    <Sumary {...this.props} 
+                        onSubAccountChange={v => this.onSubAccountChange(v)} 
+                        tradingAccount={this.state.subAccount}/>
                 </div>
                 <div className="row portfolio-container">
-                    <Portfolio {...this.props} />
+                    {
+                        this.state.subAccount.investorType == "DERIVATIVES" ? 
+                        <PortfolioFS {...this.props} tradingAccount={this.state.subAccount} /> :
+                        <Portfolio {...this.props} />
+                    }
                 </div>
             </div>
         )
@@ -30,6 +56,18 @@ export default class PortfolioPage extends React.Component {
 
   
 }
+const mapStateToProps = (state) => {
+    return {
+        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount
+    }
+}
 
+const mapDispatchToProps = (dispatch, props) => ({
+
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PortfolioPage)
 
 

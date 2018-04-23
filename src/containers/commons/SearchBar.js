@@ -34,6 +34,7 @@ export default class SearchBar extends React.Component {
             "R"
         ]
         this.OrderStatusList = config.orderstatus
+        this.OrderFSStatusList = config.orderfsstatus
         this.MarketList = ["ALL", ...config.marketid]
         this.TransTypeList = ["ALL",  ...config.transtype]
 
@@ -45,6 +46,7 @@ export default class SearchBar extends React.Component {
             this.StockList = [{stockCode: "ALL", stockName: "ALL"}, ...stockList === undefined ? [] : stockList]
         
         this.ActionType = this.props.data.actionType
+        this.SubAccount = this.props.data.subAccount
 
         this.parameter = {
             'mvStatus': false,
@@ -56,7 +58,8 @@ export default class SearchBar extends React.Component {
             'mvStartDate': false,
             'mvEndDate': false,
             'mvLending': false,
-            'mvActionType': false
+            'mvActionType': false,
+            'mvSubAccount': false
         }
         this.state = {
             default: {
@@ -69,9 +72,14 @@ export default class SearchBar extends React.Component {
                 'mvStartDate': "",
                 'mvEndDate': "",
                 'mvLending': "",
-                'mvActionType': ""
-            }
+                'mvActionType': "",
+                'mvSubAccount': ""
+            },
+
+
+            reload: false
         }
+        
 
         this.state.default = Object.assign(this.state.default, this.props.defaultParams)
 
@@ -86,7 +94,11 @@ export default class SearchBar extends React.Component {
             'mvStartDate': (id, props)  => <SearchDate ref={r => this.ref.mvStartDate = r} {...props} id={id} prefix="" /> ,
             'mvEndDate': (id, props)    => <SearchDate ref={r => this.ref.mvEndDate = r} {...props} id={id} prefix="" /> ,
             'mvLending': (id, props)    => <LendingControl ref={r => this.ref.mvLending = r} {...props} id={id} /> ,
-            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix="ACTIONLIST_ISSUE_"/> 
+            'mvActionType': (id, props) => <Selector ref={r => this.ref.mvActionType = r} {...props} id={id} data={this.ActionType} prefix="ACTIONLIST_ISSUE_"/> ,
+
+            'mvSubAccount': (id, props)     => <SubAccountSelector ref={r => this.ref.mvSubAccount = r} {...props} 
+                onSubAccountChange={o => this.onSubAccountChange(o)}
+                id={id} data={this.SubAccount} default={this.state.default.mvSubAccount}/> ,
         }
 
         this.ref = {}
@@ -94,10 +106,31 @@ export default class SearchBar extends React.Component {
         // console.log(this.props)
     }
 
+    onSubAccountChange(option) {
+        if(option.investorType == "DERIVATIVES") {
+            this.components["mvStatus"] = (id, props) => <Selector key={new Date().getTime() + 1} ref={r => this.ref.mvStatus = r} {...props} id={id} data={this.OrderFSStatusList} prefix=""/>
+            this.components["mvBuysell"] = (id, props) => <InvisiableElememt key={new Date().getTime() + 2} ref={r => this.ref.mvBuysell = r}></InvisiableElememt>
+            this.components["mvOrderType"] = (id, props) => <InvisiableElememt key={new Date().getTime() + 3} ref={r => this.ref.mvOrderType = r}></InvisiableElememt>
+        } else {
+            this.components["mvStatus"] = (id, props) => <Selector key={new Date().getTime() + 2 } ref={r => this.ref.mvStatus = r} {...props} id={id} data={this.OrderStatusList} prefix=""/>
+            this.components["mvBuysell"] = (id, props) => <Selector key={new Date().getTime() + 3} ref={r => this.ref.mvBuysell = r} {...props} id={id} data={this.BSList} prefix="BS_"/>
+            this.components["mvOrderType"] = (id, props) => <Selector key={new Date().getTime() + 4} ref={r => this.ref.mvOrderType = r} {...props} id={id} data={this.OrderTypeList} prefix="ORDERTYPE_"/>
+        }
+
+        this.setState({
+            reload: !this.state.reload
+        })
+    }
+
     onSearch() {
         let result = {}
         this.props.param.map(e => {
-            result[e] = this.ref[e].getValue()
+            try {
+                result[e] = this.ref[e].getValue()
+            }
+            catch(e) {
+                console.log("EXCEPTION", e)
+            }
         })
         // console.log(result)
         this.props.onSearch(result)
@@ -115,7 +148,7 @@ export default class SearchBar extends React.Component {
 
     render() {
         let scrollBtnStyle = this.props.theme.scrolling.button
-        // console.log("SEARCH BAR")
+        console.log("SEARCH BAR", this.props)
         return (
             <Form className='form-inline search-bar' id={this.props.id + "form-search"}>
 
@@ -214,10 +247,19 @@ class Selector extends React.Component {
             })
         })
 
-        if(this.data.length > 0)
+        console.log(this.props)
+
+        if(this.props.defaultParams[this.props.id] != undefined ) {
+            this.state.value = {
+                label: language[prefix + this.props.defaultParams[this.props.id]],
+                value: this.props.defaultParams[this.props.id]
+            }
+        }else if(this.data.length > 0) {
             this.state.value = this.data[0]
+        }
     }
     componentWillUpdate() {
+        console.log(this.props)
         this.data = []
         let language = this.props.language
         let prefix = this.props.prefix
@@ -258,6 +300,16 @@ class Selector extends React.Component {
     }
 }
 
+class InvisiableElememt extends React.Component {
+    render() {
+        return <span></span>
+    }
+
+    getValue() {
+        return null
+    }
+}
+
 class SelectorStock extends React.Component {
     constructor(props) {
         super(props)
@@ -284,7 +336,7 @@ class SelectorStock extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("AAAAAA",nextProps )
+        // console.log("AAAAAA",nextProps )
         if(nextProps.data.length > 0)
         {
             if(nextProps.default != undefined) {
@@ -396,4 +448,53 @@ class LendingControl extends React.Component {
         return this.input.value
     }
 
+}
+
+class SubAccountSelector extends React.Component {
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            value: props.default
+        }
+    }
+
+    componentWillMount() {
+        // console.log(this.props)
+    
+        
+    }
+    componentWillUpdate() {
+        
+    }
+    render() {
+        let id = this.props.id + "-" + new Date().getTime()
+        let language = this.props.language
+        // console.log(this.state, this.props)
+        let font3 = this.props.theme.font.sub2.color
+        return (
+            <FormGroup controlId={id}>
+                <ControlLabel style={{ color: font3 }}>{language[this.props.id]}</ControlLabel>
+                    {'   '}
+                <Select
+                    options={this.props.data}
+                    selected={this.state.value}
+                    handleChange={this.onChange.bind(this)}
+                    optionLabelPath={"subAccountID"}
+                    showClear={false}
+                />
+            </FormGroup>
+        )
+
+    }
+
+    getValue() {
+        return this.state.value
+    }
+
+    onChange(option) {
+        this.setState({value: option})
+
+        this.props.onSubAccountChange(option)
+    }
 }

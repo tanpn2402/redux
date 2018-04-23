@@ -116,100 +116,290 @@ export function formatDate(input, interval) {
 }
 
 export function statusRenderer(text, status) {
+    
     switch (status) {
         case 'NEW': // new
             return (
-                <div style={{ backgroundColor: '#30d6b4', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#30d6b4', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CAN': // canceled
             return (
-                <div style={{ backgroundColor: '#de6fa2', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#de6fa2', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'REJ': // rejected 
             return (
-                <div style={{ backgroundColor: '#da5555', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#da5555', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FEX'://Fully Executed
             return (
-                <div style={{ backgroundColor: '#1b5041', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#1b5041', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PEX':  // 
             return (
-                <div style={{ backgroundColor: '#49dcb1', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#49dcb1', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'FLL': // fully filled
             return (
-                <div style={{ backgroundColor: '#96ff96', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#96ff96', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WA':  // waiting
             return (
-                <div style={{ backgroundColor: '#a0a0a0', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#a0a0a0', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'Q':   // queue
             return (
-                <div style={{ backgroundColor: '#ffc87d', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WC':  // waiting cancle
             return (
-                <div style={{ backgroundColor: '#ffc87d', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#ffc87d', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'WM':
             return (
-                <div style={{ backgroundColor: '#6b5a19', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#6b5a19', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'IAT':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'SND':
             return (
-                <div style={{ backgroundColor: '#aafac8', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#aafac8', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'EXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'PXP':
             return (
-                <div style={{ backgroundColor: '#5a5a5a', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#5a5a5a', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'TRIG':
             return (
-                <div style={{ backgroundColor: '#95c623', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#95c623', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
         case 'CPD':
             return (
-                <div style={{ backgroundColor: '#c3772e', color: '#FFF', width: '100%' }}>
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "PSB": 
+            return (
+                <div style={{ backgroundColor: '#ffffb4', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+
+        // FON
+        case "PSB": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "ACK": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "SOI": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "IAV": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "SOR": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "PAP": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "PAI": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "STB": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "WRN": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "BIX": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "BPM": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "BMS": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "BSS": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "REJ": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "CAN": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "KLL": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "FLL": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "MPA": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "MPS": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "MSD": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "WRR": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "CPD": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "EXP": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "PXP": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+
+        case "PEX": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "CON": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "COI": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "OCO": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "OCI": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
+                    {text}
+                </div>
+            )
+        case "ALF": 
+            return (
+                <div style={{ backgroundColor: '#c3772e', color: '#000', width: '100%' }}>
                     {text}
                 </div>
             )
@@ -322,3 +512,16 @@ export function formatCurrency(num, q){
     }
     
 }
+
+
+export function replaceURL(url, param = {}) {
+
+    let tmp = url   
+    for (const key of Object.keys(param)) {
+        tmp = tmp.replace(":" + key, param[key])
+    }
+
+    return tmp
+}
+
+

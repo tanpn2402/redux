@@ -411,6 +411,25 @@ const config = {
 		'INACTIVE',
 		'EXPIRED',
 	],
+	orderfsstatus: [
+		"ALL",
+		'Filled',
+		'Fill_And_Kill',
+		'Pending_Approval',
+		'Ready_To_Send',
+		'Stop_Sent',
+		'Sending',
+		'Notified',
+		'Outstanding',
+		'Queue',
+		'Rejected',
+		'Cancelled',
+		'Killed',
+		'Stop_Ready',
+		'Stop_Failed',
+		'Stop_Inactive',
+		'AOC_Cancelled'
+	],
 
 	transtype: [
 		'SCAXW',
@@ -624,7 +643,8 @@ const config = {
 			widget: [
 				{ i: 'orderHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
 				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
-				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
+				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
+				{ i: 'cpcashdwhistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
 			]
 		},
 		{
@@ -634,6 +654,8 @@ const config = {
 			widget: [
 
 				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
+				// { i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
+				{ i: 'depositwithdrawim',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
 				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false },
 				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
@@ -861,6 +883,7 @@ const config = {
 		chartData: {},
 		defaultTab: '',
 		defaultSubTab: '',
+		queueOrders: {}
 	},
 	maxFav: 1000,
 	tableColReorder: [],

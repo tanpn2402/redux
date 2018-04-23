@@ -21,8 +21,27 @@ class EnterOrderConfirm extends Component{
         var language = this.props.language
         var buttonStyle = this.props.theme.button
         var tableStyle = this.props.theme.popup.table
-
+        var tradingAccount = tmp.tradingAccount
+        tradingAccount = tradingAccount == undefined ? {} : tradingAccount
         var data = [
+            {
+                Header: p => {
+                    return (
+                        <span>
+                            <span style={{marginRight: "5px"}}>{language.enterorder.header.subaccount}:</span>
+                            <span>{tradingAccount.subAccountID}</span>
+                        </span>
+                    )
+                },
+                Cell: p => {
+                    return (
+                        <span>
+                            <span style={{marginRight: "5px"}}>{language.enterorder.header.accname}:</span>
+                            <span>{tradingAccount.subAccountName}</span>
+                        </span>
+                    )
+                }
+            },
             {
                 header: "market",
                 value: tmp.mvMarketID
@@ -34,6 +53,10 @@ class EnterOrderConfirm extends Component{
             {
                 header: "stockName",
                 value: tmp.mvStockName
+            },
+            {
+                header: "ordertype",
+                value: tmp.mvOrderType
             },
             {
                 header: "price",
@@ -72,44 +95,9 @@ class EnterOrderConfirm extends Component{
     submit(e){
         
         var data = this.props.data
-        var params = {
-            "mvBS": data.mvBS,
-            "mvStockCode": data.mvStockCode,
-            "mvLending": "" + data.mvLending,
-            "mvBuyingPower": data.mvBuyPower,
-            "mvOrderTypeValue": data.mvOrderType,
-            "mvQuantity": data.mvVolume,
-            "mvPrice": data.mvPrice,
-            "mvGrossAmt": data.mvGrossAmt,
-            "mvNetFee": data.mvNetFee,
-            "mvMarketID": data.mvMarketID,
-            //"refId": "",
-            "mvWaitOrder": data.mvExpireChecked ? "on" : "off",
-            "mvGoodTillDate": data.mvExpireChecked ? data.mvExpireDate : '',
-            "mvAfterServerVerification": "Y",
-            "mvBankID": data.mvBankID,
-            "mvBankACID": data.mvBankACID,
-        }
-
-        //console.log(params)
         var authParams = this.auth.getParam()
-        
-        if(data.tradingType == "DERIVATIVES") {
-            this.props.enterDerivativeOrder(data.language, {
-                orderInfo: {
-                    bs: data.mvBS,
-                    marketId: "VNFE",
-                    seriesId: data.mvStockCode,
-                    // orderId: "",
-                    // orderGroupId: ""
-                },
-                price: data.mvPrice,
-                qty: data.mvVolume,
-            }, data.pin, data.tradingAccount)
-        } else {
-            this.props.enterOrderSubmit(data.language, params, authParams)
-        }
-
+    
+        this.props.onEnterOrder(data, authParams)
         this.props.onHide()
     }
 }
@@ -122,12 +110,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    enterOrderSubmit: (lang, params, authParams) => {
-        dispatch(actions.enterOrderSubmit(lang, params, authParams))
-    },
-    enterDerivativeOrder: (lang, params, pin, tradingAccount) => {
-        dispatch(actions.enterorderFS(lang, params, pin, tradingAccount))
-    },
+    onEnterOrder: (a,b) => {dispatch(actions.enterOrder(a,b))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrderConfirm)

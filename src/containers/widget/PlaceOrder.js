@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Radio, Table, Col, Button, Modal, Checkbox } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import Title from '../commons/WidgetTitle'
@@ -15,6 +15,13 @@ import Select from "../commons/InputSelect"
 import Input from "../commons/Input"
 import * as Log from "../../logger/TTLLog"
 import Component from "../commons/Component"
+import {handleNMOrder} from "../../actions/handleNMOrder"
+
+
+import AccountSelector from "../commons/selector/AccountSelector"
+
+
+
 const { Contants } = require('../../core/constants')
 
 const TRADINGTYPE = {
@@ -53,8 +60,8 @@ class PlaceOrder extends React.Component {
             mvSettlementAccSelected: null,
 
             //sub account
-            mvListSubAcc: props.tradingAccount.tradingAccountSelection,
-            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+            mvListSubAcc: props.tradingAccounts,
+            mvSubAccSelected: props.currentTrdAccount,
 
             tradingType: TRADINGTYPE.NORMAL,
         }
@@ -84,7 +91,7 @@ class PlaceOrder extends React.Component {
             mvBankID: null,
 
             mvSettlementAccSelected: null,
-            mvSubAccSelected: props.tradingAccount.tradingAccountSelection[0],
+            mvSubAccSelected: props.currentTrdAccount,
 
             tradingType: TRADINGTYPE.NORMAL,
         }
@@ -125,10 +132,49 @@ class PlaceOrder extends React.Component {
         if( options.stockCode == mvStockSelected.stockCode && options.mvMarketID == mvStockSelected.mvMarketID ) {
             // selected same instrument
             return
-        } else {
+        } else if(options.mvMarketID == "VNFE") {
+            // selected fs series
+            var marketID = options.mvMarketID
+            var stockCode = options.stockCode
+            var stockName = options.stockName
 
-            // console.log(portfolioData)
-            // remove previous instrument if it not in watchlist and not in portfolio list
+            
+            this.setState({
+                mvStockSelected: options,
+                mvMarketID: marketID,
+                tradingType: TRADINGTYPE.DERIVATIVES
+            })
+            this.setValue({
+                mvStockCode: stockCode,
+                mvStockName: stockName,
+                mvMarketID: marketID,
+                tradingType: TRADINGTYPE.DERIVATIVES
+            })
+
+            // update order type
+            this.props.setDefaultOrderParams(this.value)
+            this.getOrderTypeList(this.props.genEnterOrderData)
+
+            // update account
+            let subAccounts = this.state.mvListSubAcc.filter(e => e.investorType == "DERIVATIVES")
+
+            if((subAccounts.length > 0 && this.state.mvSubAccSelected.investorType != "DERIVATIVES") ||
+                (subAccounts.length > 0 && this.state.mvSubAccSelected.investorType == undefined) )
+            {
+                this.setState({
+                    mvSubAccSelected: subAccounts[0]
+                })
+            }
+
+
+            this.refStockName.value(stockName)
+            this.refMarketID.value(marketID)
+
+            this.mvLending.value("---")
+            this.mvBuyingPower.value("---")
+        }
+        else {
+
             if(listInstrumentInWatchList.indexOf(mvStockSelected.stockCode) < 0 && 
                 portfolioData.filter(e => e.mvStockID == mvStockSelected.stockCode).length < 1) 
             {
@@ -143,13 +189,26 @@ class PlaceOrder extends React.Component {
 
             this.setState({
                 mvStockSelected: options,
-                mvMarketID: marketID
+                mvMarketID: marketID,
+                tradingType: TRADINGTYPE.NORMAL
             })
             this.setValue({
                 mvStockCode: stockCode,
                 mvStockName: stockName,
-                mvMarketID: marketID
+                mvMarketID: marketID,
+                tradingType: TRADINGTYPE.NORMAL
             })
+
+            // update account
+            let subAccounts = this.state.mvListSubAcc.filter(e => e.investorType != "DERIVATIVES" || e.investorType == undefined)
+            if(subAccounts.length > 0 && this.state.mvSubAccSelected.investorType == "DERIVATIVES") 
+            {
+                this.setState({
+                    mvSubAccSelected: subAccounts[0]
+                })
+            }
+
+
             this.refStockName.value(stockName)
             this.refMarketID.value(marketID)
             this.getStockInfo(stockCode, marketID, bsValue)
@@ -249,15 +308,14 @@ class PlaceOrder extends React.Component {
     }
 
     render() {
-        let header = this.props.language.enterorder.header
+        let {theme, language, tabID, showTitle} = this.props
+        let header = language.enterorder.header
         this.stockList = config.cache.stockList
-
-        let themee = this.props.theme.title
 
         let bg = "";
         let tColor= "";
 
-        if(themee == "dark") {
+        if(theme.title == "dark") {
             bg = "#474747"
             tColor = "#FFF"
         } else {
@@ -266,32 +324,28 @@ class PlaceOrder extends React.Component {
 
         }
 
-        let theme = this.props.theme
-        let BS = this.state.mvBS
-        // console.log(this.props)
-        let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
-        // console.log(placeOrderBg)
-        let tabActivedStyle = theme.placeorder.tabBS.active
-        // console.log(tabActivedStyle)
-        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
-        // console.log(tabActivedStyle)    
-
         let selectorStyles = {
             background: "#2159a0",
             color: "#FFF"
         } 
-        if(this.props.theme.title == "virtual") {
+        if(theme.title == "virtual") {
             selectorStyles = {
                 background: "#ee514c",
                 color: "#FFF"
             } 
         }
 
+        
+        let BS = this.state.mvBS
+        let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
+        let tabActivedStyle = theme.placeorder.tabBS.active
+        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
+
         let showTi = false
-        if(this.props.tabID == "customization") {
+        if(tabID == "customization") {
             showTi = true
-            if(this.props.showTitle != undefined) {
-                showTi =this.props.showTitle
+            if(showTitle != undefined) {
+                showTi = showTitle
             }
         }
 
@@ -309,29 +363,17 @@ class PlaceOrder extends React.Component {
 
                     {/* PLACE ORDER CONTROL */}
                     <div className="pl-subacc-control">
-                        <div className="pl-sub-account">
-                            <div style={theme.font.main} className="account-name">
-                                <span>{this.state.mvSubAccSelected.subAccountName}</span>
-                                <span className="info-icon">
-                                    <span className="glyphicon glyphicon-info-sign" onClick={e => this.showAccBalance()}></span>
-                                </span>
-                            </div>
-                            <Select
-                                style={selectorStyles}
-                                key="rSubAccSelector"
-                                optionLabelPath={'subAccountID'}
-                                ref={r => this.rSubAccSelector = r}
-                                options={this.state.mvListSubAcc}
-                                selected={this.state.mvSubAccSelected}
-                                handleChange={this.handleSubAccChange.bind(this)}
-                            />
-                            
-                        </div>
+                        <AccountSelector theme={theme}
+                            style={selectorStyles}
+                            selected={this.state.mvSubAccSelected}
+                            language={language} ref={n => this.tradingAccount = n} 
+                            handleChange={opt => this.handleSubAccChange(opt)}/>
                         <span style={theme.font.main} className="sep"></span>
                         <div className="pl-pin">
                             <span style={theme.font.main}>PIN</span>
                             <Input key="refPIN" type="password" ref={ref => this.refPIN =  ref} 
                                 defaultValue={""} style={{textAlign: "center"}} tabIndex={-1}/>
+                            <Checkbox inline>{header.savepin}</Checkbox>
                         </div>
                     </div>
                     <div className="pl-tab-control">
@@ -694,7 +736,8 @@ class PlaceOrder extends React.Component {
             this.state.mvMarketID = orderDefault.mvMarketID
             this.state.mvStockSelected = {
                 stockCode: orderDefault.mvStockCode,
-                stockName: orderDefault.mvStockName
+                stockName: orderDefault.mvStockName,
+                mvMarketID: orderDefault.mvMarketID
             }
 
             this.setValue({
@@ -723,7 +766,7 @@ class PlaceOrder extends React.Component {
                 this.getStockInfo(orderDefault.mvStockCode, orderDefault.mvMarketID, orderDefault.mvBS.slice(0, 1))
             }
 
-            if(orderDefault.mvStockCode.length > 3) {
+            if(orderDefault.mvMarketID == "VNFE") {
                 this.switchTradingAcc(true)
             } else {
                 this.switchTradingAcc(false)
@@ -737,8 +780,10 @@ class PlaceOrder extends React.Component {
     }
 
     switchTradingAcc(isDerivatives) {
+        
         if(isDerivatives) {
             let tmp = this.state.mvListSubAcc.filter(e => e.type == "DERIVATIVES")
+            console.log(isDerivatives)
             if(tmp.length > 0) {
                 this.setState({
                     mvSubAccSelected: tmp[0],
@@ -756,221 +801,107 @@ class PlaceOrder extends React.Component {
         }
     }
 
-    submitDerivativeOrder() {
-
-        var state = this.state
-        var value = this.value
-        var store = this.store
-        var language = this.props.language
-    
-        if (value.mvStockCode == "") {
-            this.props.onShowMessageBox(language.messagebox.title.error,
-                language.messagebox.message.enterStockCode)
-
-            return
-        }
-
-        if (isNaN(value.mvVol) || parseInt(value.mvVol) == 0) {
-            this.props.onShowMessageBox(language.messagebox.title.note,
-                language.messagebox.message.enterQty)
-
-            this.mvVol.focus()
-            return
-        }
-        
-        this.showOrderConfirm()
-    }
-
     handleSubmit(e) {
         e.preventDefault()
-        if(this.state.tradingType == TRADINGTYPE.DERIVATIVES) {
-            this.submitDerivativeOrder()
-            return
-        }
         var state = this.state
         var value = this.value
         var store = this.store
         var language = this.props.language
-    
-        if (value.mvStockCode == "") {
-            this.props.onShowMessageBox(language.messagebox.title.error,
-                language.messagebox.message.enterStockCode)
 
-            return
-        }
-
-        if (isNaN(value.mvVol) || parseInt(value.mvVol) == 0) {
-            this.props.onShowMessageBox(language.messagebox.title.note,
-                language.messagebox.message.enterQty)
-
-            this.mvVol.focus()
-            return
-        } else {
-
-            var lotSize = state.mvStockSelected.lotSize
-            var orderType = value.mvOrderType
-            var volume = value.mvVol
-            
-            var errorMsg = ''
-            if (volume % lotSize > 0 && orderType !== language.enterorder.value.OTLOddLot) {
-                errorMsg = language.messagebox.message.invalidLotSize;
-                errorMsg = errorMsg.replace("{0}", lotSize);
-
-                this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-
-                this.mvVol.focus()
-                return
-            }
-            else if (volume % lotSize > 0 && orderType === language.enterorder.value.OTLOddLot && volume >= lotSize) {
-                errorMsg = language.messagebox.message.invalidLotSizeOddLot;
-                errorMsg = errorMsg.replace("{0}", lotSize);
-
-                this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-
-
-                this.mvVol.focus()
-                return
-            }
-        }
-        
-        if (!this.mvPrice.readonly()) {
-            var price = value.mvPrice
-            if (isNaN(price) || parseInt(price) === 0) {
-                this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.enterPrice)
-                this.mvPrice.focus()
-                return
-            } else if (price < 0) {
-                this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.priceNegative)
-                this.mvPrice.focus()
+        if(state.mvSubAccSelected.investorType == "DERIVATIVES") {
+            if(state.mvStockSelected.mvMarketID != "VNFE") {
+                this.props.onShowMessageBox(language.messagebox.title.info,
+                    "Please choose Security account!")
                 return
             } else {
-                if(store.stockInfoBean == null) {
-                    var errorMsg = language.messagebox.message.placeOrderFailed;
-                    this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-                    return
-                } else {
-                    var floor = parseFloat(store.stockInfoBean.mvFloor);
-                    var ceil = parseFloat(store.stockInfoBean.mvCeiling);
-    
-                    if (!value.mvExpireChecked) {
-                        if (ceil != 0 && floor != 0) {
-                            if (price > ceil || price < floor) {
-                                var errorMsg = language.messagebox.message.invaliedPriceOutRange;
-                                errorMsg = errorMsg.replace('from_value', floor).replace('to_value', ceil);
-    
-                                this.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-    
-                                this.mvPrice.focus()
-                                return
-                            }
-                        }
-                    }
-                }
-                
+                // enterFSOrder
 
-                // var result = Utils.checkStepPrice(price, me.marketIDHidden.getValue(), true, me.symbolInfo.spreadTableCode);
-                // if(result != ""){
-                //     Ext.MessageBox.alert(messageBox.title.error, result);
-                //     return false;
-                // }
+                let {listSeries} = this.props
+                let list = listSeries.listSeries
+                let tmp = list.filter(e => e.id == value.mvStockCode)
+                console.log(tmp)
+
+                this.props.handleFSOrder(
+                    {
+                        symbol: state.mvStockSelected.stockCode,
+                        symbolName: state.mvStockSelected.stockName,
+                        
+                        volume: this.mvVol.getValue(),
+                        lotSize: state.mvStockSelected.lotSize,
+                        orderType: state.mvOrderTypeSelected.value,
+
+                        ceil: tmp.length > 0 ? tmp[0].ceil : undefined,
+                        floor: tmp.length > 0 ? tmp[0].floor : undefined,
+
+                        price: this.mvPrice.readonly() ? undefined : this.mvPrice.getValue(),
+
+                        marketID: state.mvStockSelected.mvMarketID,
+
+                        bs: state.mvBS.slice(0,1),
+                        settleAcc: state.mvSettlementAccSelected,
+                        temporaryFee: value.mvTemporaryFee,
+
+                        grossAmt: value.mvGrossAmt,
+                        bankID: value.mvBankID,
+                        bankACID: value.mvBankACID,
+                        expiryDate: undefined,
+
+                        lending: value.mvLending,
+                        buyingPower: value.mvBuyPower,
+                        netFee: value.mvNetFee,
+
+                        pin: this.refPIN.value,
+                        tradingAccount: state.mvSubAccSelected,
+                        tradingType: state.tradingType,
+                    }, language, this.props.theme, this)
+                return
+            }
+        } else {
+            if(state.mvStockSelected.mvMarketID == "VNFE") {
+                this.props.onShowMessageBox(language.messagebox.title.info,
+                    "Please choose Derivatives account!")
+                return
+            } else {
+                // enter normal Order
+                this.props.handleNMOrder({
+                    symbol: state.mvStockSelected.stockCode,
+                    symbolName: state.mvStockSelected.stockName,
+                    
+                    quantity: this.mvVol.getValue(),
+                    volume: this.mvVol.getValue(),
+                    lotSize: state.mvStockSelected.lotSize,
+                    orderType: state.mvOrderTypeSelected.value,
+
+                    ceil: store.stockInfoBean == null ? null : store.stockInfoBean.mvCeiling,
+                    floor: store.stockInfoBean == null ? null : store.stockInfoBean.mvFloor,
+
+                    price: this.mvPrice.readonly() ? undefined : this.mvPrice.getValue(),
+
+                    marketID: state.mvStockSelected.mvMarketID,
+
+                    bs: state.mvBS.slice(0,1),
+                    settleAcc: state.mvSettlementAccSelected,
+                    temporaryFee: value.mvTemporaryFee,
+
+                    grossAmt: value.mvGrossAmt,
+                    bankID: value.mvBankID,
+                    bankACID: value.mvBankACID,
+                    expiryDate: undefined,
+
+                    lending: value.mvLending,
+                    buyingPower: value.mvBuyPower,
+                    netFee: value.mvNetFee,
+
+                    pin: this.refPIN.value,
+                    tradingAccount: state.mvSubAccSelected,
+                    tradingType: state.tradingType,
+
+
+                }, language, this.props.theme, this)
+                return
+
             }
         }
-
-        var me = this
-        // check time order
-        // console.log(value.mvMarketID, value.mvOrderType, value.mvExpireChecked)
-
-        this.checkTimeOrder(value.mvMarketID, value.mvOrderType, value.mvExpireChecked,
-            function () {
-                var ceil = store.stockInfoBean.mvCeiling;
-                var floor = store.stockInfoBean.mvFloor;
-
-                var bs = value.mvBS.slice(0, 1)
-                var priceValue = !me.mvPrice.readonly() ? value.mvPrice : ceil;
-                var quantity = value.mvVol
-                var netFee = 0;
-                if (value.mvFeeRate !== '') {
-                    netFee = Utils.numUnFormat(value.mvFeeRate, ',');
-                }
-                // console.log('SUCCESS FIRST', ceil, floor, priceValue, quantity, netFee, state.mvSettlementAccSelected)
-                console.log("checkTimeOrder", me.value)
-                me.checkOrderBalanceStatus(state.mvSettlementAccSelected, bs, value.mvStockCode,
-                    value.mvMarketID, priceValue, quantity, netFee,
-                    function () {
-                        var param = {
-                            mvBS: value.mvBS.slice(0, 1),
-                            mvStockCode: value.mvStockCode,
-                            mvMarketID: value.mvMarketID,
-                            mvPrice: value.mvPrice,
-                            mvQuantity: value.mvVol,
-                            mvOrderTypeValue: value.mvOrderType,
-                            mvGoodTillDate: value.mvExpireDate.format("ddd MMM DD YYYY HH:mm:ss ZZ"),
-                            mvGrossAmt: value.mvGrossAmt,
-                            mvBankID: value.mvBankID,
-                            mvBankACID: value.mvBankACID,
-                        }
-
-                        console.log('SUCCESS SECOND -> VERIFY ORDER', param)
-                        api.fetch(ACTION.VERIFYORDER, param, 'POST',
-                            function (result) {//success
-
-                                try {
-                                    if (result.mvResult == "SESSION_EXPIRED") {
-                                        //sessionExpired();
-                                        return;
-                                    }
-                                    if (result.mvResult == "MULTI_USERS_LOGIN") {
-                                        //multiUsersLogin();
-                                        return;
-                                    }
-
-                                    if (result.mvResult == "SYSTEM_MAINTENANCE") {
-                                        //systemMaintenance();
-                                        return;
-                                    }
-
-                                    if (result.mvReturnCode == 30013) {
-                                        //Ext.Msg.alert(error.FAILED_TITLE, messageBox.message.disablePlaceOrderMarket +  action.result.mvResult );
-                                        return;
-                                    }
-                                    // console.log('SUCCESS THIRD', param)
-                                    me.showOrderConfirm()   // end of way
-                                }
-                                catch (e) { }
-                                finally { }
-
-                            },
-                            function (json) {//fail    
-                                console.log('FAIL THIRD', param)
-                                api.fetch(ACTION.ENTERORDERFAIL, { key: '' + (new Date()).getTime() }, 'POST', function (result) {
-                                    if (result.mvResult == "SESSION_EXPIRED") {
-                                        //sessionExpired();
-                                        return;
-                                    }
-                                    if (result.mvResult == "MULTI_USERS_LOGIN") {
-                                        //multiUsersLogin();
-                                        return;
-                                    }
-                                    if (result.mvResult == "SYSTEM_MAINTENANCE") {
-                                        //systemMaintenance();
-                                        return;
-                                    }
-                                });
-                            }
-                        )
-
-                    },
-                    function () { // fail Handler
-                        console.log('FAIL SECOND')
-
-                    }
-                )
-
-            },
-            function () { // fail Handler
-                console.log('FAIL FIRST')
-            }
-        )
     }
 
     handleResetForm() {
@@ -1104,7 +1035,8 @@ class PlaceOrder extends React.Component {
             "HO" : ["OTLO","OTATO","OTATC","OTMP"],
             "HA" : ["OTLO","OTMOK","OTMAK","OTMTL","OTLOddLot","OTATC"],
             "OTC" : ["OTLO","OTLOddLot"],
-            "UNKNOWN": ["OTLO","OTATC","OTATO"]
+            "UNKNOWN": ["OTLO","OTATC","OTATO"],
+            "VNFE": ["OTLO","OTATO","OTATC","OTMOK","OTMAK","OTMTL",],
             
         }
 
@@ -1278,201 +1210,11 @@ class PlaceOrder extends React.Component {
         })
     }
 
-    //----------------
-    checkTimeOrder(marketID, orderType, expiryChecked, successHandler, failHandler) {
-        console.log("checkTimeOrder ", marketID, orderType, expiryChecked)
-        if (expiryChecked) {
-            successHandler()
-            return
-        }
-
-        var me = this
-        this.getMarketStatus(marketID,
-            function (response) {
-                var t = response.mvMarketStatus;
-                var enableEnterTime = response.canEnterOrder
-                var language = me.props.language
-                var errorMsg = ''
-                if (marketID == 'HO') {
-                    if ((t != "T1" && t != "T2" && t != "T3") && (enableEnterTime != "true")) {
-                        errorMsg = language.messagebox.message.marketClose_HO
-                    } else {
-                        if (orderType == "O" && (t == "T2" || t == "T3")) {
-                            errorMsg = language.messagebox.message.invalidTime_ATO
-                        }
-
-                    }
-
-
-                } else {
-                    if (t == null || t == "13") {
-                        if (marketID == 'HA') {
-                            errorMsg = language.messagebox.message.marketClose_HNX
-                        } else
-                            if (marketID == 'OTC') {
-                                errorMsg = language.messagebox.message.marketClose_UPCOM
-                            }
-                    }
-                }
-                if (errorMsg !== '') {
-                    me.props.onShowMessageBox(language.messagebox.title.error, errorMsg)
-                    failHandler()
-                    return
-                }
-
-                successHandler()
-
-            }, failHandler
-        )
-    }
-
-    //-------------
-    getMarketStatus(marketID, successHandler, failHandler) {
-        var param = {
-            "mvMarketID": marketID,
-            "key": new Date().getTime()
-        }
-        api.fetch(ACTION.QUERYMARKETSTATUSINFO, param, 'POST', successHandler, failHandler)
-    }
-
-    //-------------
-    getSymbolInfo(stockCode, marketID, bs, enableGetStockInfo, actionStockInfo, successHandler, failHandler) {
-
-        var param = {
-            "mvInstrument": stockCode,
-            "mvMarketId": marketID,
-            "mvBS": bs,
-            "key": new Date().getTime(),
-            "mvEnableGetStockInfo": enableGetStockInfo,
-            "mvAction": actionStockInfo
-        }
-        api.fetch(ACTION.STOCKINFO, param, 'POST', successHandler, failHandler);
-    }
-
-    //-------------
-    checkOrderBalanceStatus(settleAcc, bs, stockCode, mvMarketID, price, pQty, temporaryFee, successHandler, failHandler) {
-        
-        var p = parseFloat(price);
-        var qty = parseFloat(pQty);
-        var buyVol = qty * p;
-        var language = this.props.language
-        var me = this
-        console.log('checkOrderBalanceStatus', settleAcc, bs, stockCode, mvMarketID, price, pQty, temporaryFee)
-        // check buying power when user buy CK
-        if (bs == 'B') {
-            // If bank account
-            if (settleAcc != null) {
-
-                var buyingPowerd = parseFloat(settleAcc.mvBalance);
-                var temporaryFeeAmount = buyVol * temporaryFee / 100;
-                if (buyingPowerd + temporaryFeeAmount < buyVol) {
-
-                    this.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeCash)
-
-                    failHandler();
-                } else {
-                    successHandler();
-                }
-            } else {
-                // If has no bank
-                var mvActionStockInfo = "BP";
-                var mvEnableGetStockInfo = "N";
-                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo,
-                    function (json) { //success
-                        var buyingPower1 = parseFloat(Utils.numUnFormat(json.mvStockInfoBean.mvBuyingPowerd));
-                        var marPer = json.mvStockInfoBean.mvMarginPercentage;
-                        var nominal = json.mvStockInfoBean.mvNomial;
-                        if (marPer && marPer != "null") {
-                            marPer = parseFloat(Utils.numUnFormat(marPer));
-                        } else {
-                            marPer = 0;
-                        }
-                        if (nominal && nominal != "null") {
-                            nominal = parseFloat(Utils.numUnFormat(nominal));
-                            if (nominal == 0) {
-                                nominal = p;
-                            }
-                        } else {
-                            nominal = p;
-                        }
-
-                        var temporaryFeeAmount = buyVol * temporaryFee / 100;
-                        if (buyingPower1 + qty * nominal * marPer / 100 + temporaryFeeAmount < buyVol) {
-                            me.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeCash)
-                            failHandler();
-                        } else {
-                            successHandler();
-                        }
-                    },
-                    function (err) {
-                        console.log(err)
-                        failHandler()
-                    }
-                )
-            }
-        }
-        else
-            if (bs == 'S') {
-                var mvActionStockInfo = "SI";
-                var mvEnableGetStockInfo = "N";
-                this.getSymbolInfo(stockCode, mvMarketID, bs, mvEnableGetStockInfo, mvActionStockInfo,
-                    function (json) { // success
-
-                        var usableStock1 = parseFloat(Utils.numUnFormat(json.mvStockInfoBean.mvUsable));
-                        if (qty > usableStock1) {
-                            me.props.onShowMessageBox(language.messagebox.title.error, language.messagebox.message.lakeStock)
-                            failHandler();
-                        } else {
-                            successHandler();
-                        }
-                    },
-                    failHandler
-                )
-            }
-
-    }
-
-    //------------
-    showOrderConfirm() {
-        var value = this.value
-        var state = this.state
-        var data = {
-            mvStockCode: value.mvStockCode,
-            mvStockName: value.mvStockName,
-            mvPrice: value.mvPrice,
-            mvVolume: value.mvVol,
-            mvOrderType: value.mvOrderType,
-            mvGrossAmt: value.mvGrossAmt,
-            mvExpireDate: value.mvExpireDate.format(Contants.dateFormat),
-            mvExpireChecked: value.mvExpireChecked,
-            mvNetFee: value.mvNetFee,
-            mvLending: value.mvLending,
-            mvBuyPower: value.mvBuyPower,
-            mvMarketID: value.mvMarketID,
-            mvBankACID: value.mvBankACID,
-            mvBankID: value.mvBankID,
-            mvBS: value.mvBS.slice(0, 1),
-            language: this.props.language,
-            pin: this.refPIN.value,
-            tradingAccount: this.state.mvSubAccSelected,
-            tradingType: this.state.tradingType
-        }
-        console.log(data)
-        this.props.showOrderConfirm({
-            data: data,
-            title: this.props.language.enterorder.popup.title.replace('{0}', value.mvBS.slice(0, 1) === 'B' ?
-                this.props.language.enterorder.header.buy :
-                this.props.language.enterorder.header.sell),
-            language: this.props.language,
-            theme: this.props.theme,
-            id: 'enterorderconfirm',
-            authcard: false
-        })
-    }
-
+ 
+   
     //-------------------
     showAccBalance() {
-        this.props.showOrderConfirm({
+        this.props.showAccBalance({
             data: {},
             title: this.props.language.menu.accountbalance ,
             language: this.props.language,
@@ -1498,7 +1240,11 @@ const mapStateToProps = (state) => {
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
         portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
 
-        tradingAccount: state.dologin.tradingAccount
+        tradingAccounts: state.dologin.tradingAccounts,
+        currentTrdAccount: state.dologin.currentTrdAccount,
+
+
+        listSeries: state.stock.listSeries
     }
 }
 
@@ -1509,9 +1255,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onShowMessageBox: (type, message) => {
         dispatch(actions.showMessageBox(type, message))
     },
-    showOrderConfirm: (param) => {
-        dispatch(actions.showPopup(param))
-    },
+    
     setDefaultOrderParams: (params) => {
         dispatch(actions.setDefaultOrderParams(params))
     },
@@ -1525,6 +1269,20 @@ const mapDispatchToProps = (dispatch, props) => ({
     changeInstrument: (ins) => { dispatch(actions.changeInstrument(ins)) },
     addInstrumentToWatch: (ins, market) => { dispatch(actions.addInstrumentToWatch(ins, market)) },
     removeInstrumentFromWatch: (ins, market) => { dispatch(actions.removeInstrumentFromWatch(ins, market)) },
+
+    showAccBalance: (param) => {
+        dispatch(actions.showPopup(param))
+    },
+
+
+    showMessageBox: (t, m) => {
+        dispatch(actions.showMessageBox(t,m))
+    },
+
+
+    /////
+    handleNMOrder: (value, language, theme, node) => { dispatch(actions.handleNMOrder(value, language, theme, node)) },
+    handleFSOrder: (value, language, theme, node) => { dispatch(actions.handleFSOrder(value, language, theme, node)) },
 
 })
 
