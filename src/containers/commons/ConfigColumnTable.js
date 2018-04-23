@@ -121,7 +121,7 @@ export default class ConfigColumnTable extends React.Component {
                 onMouseDown={e => e.stopPropagation()}>
                 <div className='checkbox'>
                     <label style={{ width: '100%' }} className='dropdown-item-column'>
-                        <input type='checkbox' id={item.id} defaultChecked='true'
+                        <input type='checkbox' id={item.id} defaultChecked={item.show}
                             readOnly='false' onChange={this.props.onChangeStateColumn} />
                         <span style={{ lineHeight: '2.2' }} className='dropdown-item-column'>{this.props.language[this.props.id] ? this.props.language[this.props.id].header[item.id]:''}</span>
                     </label>

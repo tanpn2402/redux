@@ -374,6 +374,7 @@ export default
                     "stockid": "Mã CK",
                     "buysell": "Mua/Bán",
                     "orderID": "Order ID",
+                    "inputtime": "Thời gian",
 
                     // for popup table
                     "market": "Sàn",
@@ -778,22 +779,8 @@ export default
                     "short":"Vị thế bán",
                     "net":"Ròng",
                     "broadName":"Loại hợp đồng",
-
-                    // Close Position
-                    "orderGroupId":"Số hiệu lệnh",
-                    "seriesId":"Mã HĐ ",
-                    "marketId":"Thị trường",
-                    "bs":"Mua/Bán",
-                    "isOutstanding":"is Outstanding",
-                    "tradePrice":"Giá GD",
-                    "ccy":"Đơn vị tiền tệ",
-                    "marketprice":"Giá TT ",
-                    "tradePL":"Lãi lỗ vị thế đóng",
-                    "floatingPL": "Lãi lỗ vị thế mở",
-                    "long":"Vị thế mua",
-                    "short":"Vị thế bán",
-                    "net":"Ròng",
-                    "broadName":"Loại hợp đồng",
+                    "askAvgPrice": "Giá TB khớp bán",
+                    "bidAvgPrice": "Giá TB khớp mua",
 
                     //Stock Balance
                     "MarketID":"Market ID",

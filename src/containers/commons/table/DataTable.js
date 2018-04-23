@@ -2,6 +2,7 @@ import React from "react"
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 import Config from '../../../core/config'
+import * as util from "../../../utils"
 
 export default class DataTable extends React.Component {
 	constructor(props) {
@@ -237,6 +238,39 @@ export default class DataTable extends React.Component {
 							style: noDataDisplay
 						}
 					}}
+					defaultSortMethod={(a, b, desc) => {
+						// console.log(typeof b)
+						// force null and undefined to the bottom
+						a = (a === null || a === undefined) ? -Infinity : a
+						b = (b === null || b === undefined) ? -Infinity : b
+						// force any string values to lowercase
+						let tmp1 = parseFloat(util.numUnFormat(a))
+						if(isNaN(tmp1)) {
+							a = typeof a === 'string' ? a.toLowerCase() : a
+						} else {
+							a = tmp1
+						}
+						
+
+						let tmp2 = parseFloat(util.numUnFormat(b))
+						if(isNaN(tmp2)) {
+							b = typeof b === 'string' ? b.toLowerCase() : b
+						} else {
+							b = tmp2
+						}
+						
+						// console.log(a,  b)
+						// Return either 1 or -1 to indicate a sort priority
+						if (a > b) {
+						  return 1
+						}
+						if (a < b) {
+						  return -1
+						}
+						// returning 0 or undefined will use any subsequent column sorting methods or the row index as a tiebreaker
+						return 0
+					}}
+					defaultSorted={this.props.defaultSorted}
 					expanded={this.state.expandList}
 					onExpandedChange={(newExpanded, index, event) => this.handleExpand(newExpanded, index, event)}
 					pivotBy={this.props.pivot}

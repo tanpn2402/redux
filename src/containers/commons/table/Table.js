@@ -36,6 +36,7 @@ export default class Table extends React.Component {
 						onRowSelected={this.onRowSelected.bind(this)}
 						maxRows={this.props.maxRows}
 						onCellClick={this.props.onCellClick}
+						defaultSorted={this.props.defaultSorted}
 					/>
 				</div>
 
@@ -141,5 +142,8 @@ Table.defaultProps = {
 	id: "",
 	theme: [],
 	language: [],
+
+	//
+	defaultSorted: []
 
 }

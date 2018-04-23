@@ -26,15 +26,14 @@ export function numUnFormat(v, s) {
     return tam;
 }
 
-export function currencyShowFormatter(original, separator, language) {
+export function currencyShowFormatter(original, separator = ",", currencyUnit = mvCurrencyUnit, language) {
 
     var original = numUnFormat(original, ",") * mvCurrencyUnit; //chuyen sang don vi dong
     if (!original || isNaN(original)
         || (original == "")) {
         original = 0;
     }
-    separator = separator || ",";							//dau phan cach hang nghin voi hang tram
-
+    
     var m = /(\d+)(?:(\.\d+)|)/.exec(original + ""), x = m[1].length > 3 ? m[1].length % 3
         : 0;
     var n = parseFloat(m[1]).toFixed(0);

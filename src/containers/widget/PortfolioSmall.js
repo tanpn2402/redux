@@ -6,202 +6,326 @@ import moment from "moment"
 import config from "../../core/config"
 import Component from "../commons/Component"
 import * as utils from "../../utils"
+import Table from '../commons/table/index'
+import ConfigColumnTable from "../commons/ConfigColumnTable"
+import $ from "jquery"
 
 class PortfolioSmall extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            data : [
-                
-            ]
-        }
-        this.pivot = "mvMarketID"
-    }
-
-    fillColor(props, accessor) {
-        
-        let theme = this.props.theme.bindingdata
-        let style = theme.nochange
-
-        if(props["mvPL"] > 0) {
-            style = theme.up
-        } else if(props["mvPL"] < 0) {
-            style = theme.down
-        }
-
-        let content = props[accessor]
-        if(accessor == "mvAvgPrice" || accessor == "mvMarketPrice" || accessor == "mvPL") {
-            content = utils.formatCurrency(content)
-        } else if(accessor == "mvTSettled" ) {
-            content = utils.formatQty(content)
-        }
-
-
-        let child = <span style={style}>{content}</span>
-        return child
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log(nextProps)
-        let _data = new Array()
-        nextProps.porfolioBeanList.mvPortfolioBeanList.map(e=>{
-            // console.log(e)
-            let avgPrice = e.mvAvgPrice
-            let marketPrice = e.mvMarketPrice
-            let pl = e.mvPL
-            let stockRealtimeData = nextProps.listInstrumentData.filter(el => el.mvStockCode == e.mvStockID)
-            
-            if(stockRealtimeData.length > 0) {
-                marketPrice = stockRealtimeData[0].mvMatchPrice
-                pl = utils.round(utils.numUnFormat(e.mvTSettled) * ( marketPrice - utils.numUnFormat(avgPrice) ), 1)
-            }
-            // console.log(stockRealtimeData)
-
-            try {
-                if( parseInt(e.mvTSettled) > 0 ) {
-                    _data.push({
-                        "stockCode": e.mvStockID,
-                        "mvTSettled": utils.formatQty(e.mvTSettled),
-                        "mvAvgPrice": utils.formatCurrency(avgPrice),
-                        "mvMarketPrice": marketPrice,
-                        "mvPL": utils.formatCurrency(pl),
-                        "mvMarketID": e.mvMarketID
-                    })
+            positionCol: [
+                {
+                    id: "orderGroupId",
+                    accessor: "orderGroupId",
+                    minWidth: 80,
+                    maxWidth: 150,
+                    skip: true,
+                    show: false,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderValue(p, "orderGroupId")
+                },
+                {
+                    id: "seriesId",
+                    accessor: "seriesId",
+                    minWidth: 80,
+                    maxWidth: 150,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderValue(p, "seriesId")
+                },
+                {
+                    id: "marketId",
+                    accessor: "marketId",
+                    minWidth: 80,
+                    maxWidth: 150,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderValue(p, "marketId")
+                },
+                {
+                    id: "isOutstanding",
+                    accessor: "isOutstanding",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: true,
+                    show: false,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderValue(p, "isOutstanding")
+                },
+                {
+                    id: "tradePrice",
+                    accessor: "tradePrice",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderPrice(p, "tradePrice")
+                },
+                {
+                    id: "ccy",
+                    accessor: "ccy",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: true,
+                    show: false,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderQty(p, "ccy")
+                },
+                {
+                    id: "marketprice",
+                    accessor: "marketprice",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderPrice(p, "marketprice")
+                },
+                {
+                    id: "askAvgPrice",
+                    accessor: "askAvgPrice",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderPrice(p, "askAvgPrice")
+                },
+                {
+                    id: "bidAvgPrice",
+                    accessor: "bidAvgPrice",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderPrice(p, "bidAvgPrice")
+                },
+                {
+                    id: "floatingPL",
+                    accessor: "floatingPL",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: true,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderPL(p, "floatingPL")
+                },
+                {
+                    id: "long",
+                    accessor: "_long",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: false,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderQty(p, "_long")
+                },
+                {
+                    id: "short",
+                    accessor: "_short",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: false,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderQty(p, "_short")
+                },
+                {
+                    id: "net",
+                    accessor: "net",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: false,
+                    background: props.theme.table.colNumber,
+                    Cell: p => this.renderQty(p, "net")
+                },
+                {
+                    id: "broadName",
+                    accessor: "broadName",
+                    minWidth: 100,
+                    maxWidth: 200,
+                    skip: false,
+                    show: false,
+                    background: props.theme.table.colText,
+                    Cell: p => this.renderValue(p)
                 }
-            } catch(ex) {}
-                
-        })
-        this.setState({
-            data: _data
-        })
+            ],
 
+            data: [],
+
+            pageIndex: 1
+        }
+
+        this.id = "portfolio"
+        this.defaultPageSize = 10
         
+    }
+
+   
+    renderValue(props, accessor) {
+        return (<span className="por-sm-series" data-symbol={props.original.seriesId}>{props.value}</span>)
+    }
+
+    renderQty(props, accessor) {
+        return (<span className="por-sm-series" data-symbol={props.original.seriesId}>{utils.quantityShowFormatter(props.value)}</span>)
+    }
+
+    renderPrice(props, accessor) {
+        return (<span className="por-sm-series" data-symbol={props.original.seriesId}>{utils.currencyShowFormatter(props.value)}</span>)
+    }
+
+    renderPL(props, accessor) {
+        let pl = parseFloat(props.original.marketprice) - parseFloat(props.original.bidAvgPrice)
+        let styles = this.props.theme.bindingdata
+
+        let style = pl == 0 ? styles.nochange : pl > 0 ? styles.up : styles.down
+
+        return (
+            <span className="por-sm-series" data-symbol={props.original.seriesId} style={style}>
+                { (pl > 0 ? "+" : "") + utils.currencyShowFormatter(pl)} 
+            </span>
+        )
+    }
+
+    getData() {
+        let {clientPortfolio} = this.props
+        let get = () => {
+            let data = []
+            let tmp  = clientPortfolio.openPositionSummaryList == null ? [] : clientPortfolio.openPositionSummaryList
+            data = tmp.map(e => {
+                for (var key in e.orderInfo) {
+                    if (e.orderInfo.hasOwnProperty(key)) {
+                        e[key] = e.orderInfo[key]
+                    }
+                }
+                delete e.orderInfo
+
+                return e
+            })
+            return data
+        }
+
+        let data = get()
+        return data == null ? [] : data
     }
 
     render() {
-        let currency = "VND"
-        let language = this.props.language.portfolio.header
-        let header = [
-            {
-                title: language.mvMarketID,
-                style: {width: "55px"},
-                bodyStyle: {width: "55px"},
-                accessor: "mvMarket",
-                cell: p => { return <span></span> }
-            },
-            {
-                title: language.mvStockID,
-                style: {width: "55px"},
-                bodyStyle: {width: "55px"},
-                accessor: "stockCode",
-            },
-            {
-                title: language.mvTSettled,
-                style: {width: "calc(24% - 25px)", textAlign: "right"},
-                bodyStyle: {width: "calc(24% - 25px)", textAlign: "right"},
-                accessor: "mvTSettled",
-                // cell: props => {
-                //     return this.fillColor(props, "mvTSettled")
-                // }
-            },
-            {
-                title: language.mvAvgPrice,
-                style: {width: "calc(18% - 25px)", textAlign: "right"},
-                bodyStyle: {width: "calc(18% - 25px)", textAlign: "right"},
-                accessor: "mvAvgPrice",
-                // cell: props => {
-                //     return this.fillColor(props, "mvAvgPrice")
-                // }
-            },
-            {
-                title: language.mvMarketPrice,
-                style: {width: "calc(18% - 25px)", textAlign: "right"},
-                bodyStyle: {width: "calc(18% - 25px)", textAlign: "right"},
-                accessor: "mvMarketPrice",
-                cell: props => {
-                    return this.fillColor(props, "mvMarketPrice")
-                }
-            },
-            {
-                title: language.mvPL,
-                style: {width: "calc(28% - 35px)", textAlign: "right", paddingRight: "10px"},
-                bodyStyle: {width: "calc(28% - 35px)", textAlign: "right"},
-                accessor: "mvPL",
-                cell: props => {
-                    return this.fillColor(props, "mvPL")
-                }
-            },
-        ]
-
-        let theme = this.props.theme
+        let {theme, language} = this.props
+        let data = this.getData()
+        this.state.data = data
 
         return (
             <Component className="trd-body" theme={theme}>
-                <label style={theme.font.main} className="por-sm-title">{this.props.language.menu.portfolio}</label>
+                <div className="por-sm-header">
+                    <label style={theme.font.main} className="por-sm-title">{this.props.language.menu.portfolio}</label>
+                    <ConfigColumnTable
+                        id={this.id}
+                        columns={this.state.positionCol}
+                        filterEnabled={false}
+                        language={language}
+                        onChangeStateColumn={this.onChangeStateColumn.bind(this)}
+                        onToggleFilter={(e) => { }} />
+                </div>
                 <div className="por-sm-table">
-                    <TTLTable data={this.state.data} header={header} theme={this.props.theme} pivot={this.pivot}
-                        getTHeaderProps={(theader)=> {
-                            // console.log(theader)
+                    <Table 
+                        theme={theme}
+                        id={this.id}
+                        language={language}
 
-                        }}
-                        getGroupHeaderProps={(data) => {
-                            return {
-                                style: Object.assign({}, theme.table.pivotRow, {paddingLeft: "10px"})
-                            }
-                        }}
-                        onCellClick={(e, rowData, cellData)=> this.onRowClick(e, rowData, cellData)}
-                    />
+                        pageSize={this.defaultPageSize}
+                        columns={this.state.positionCol}
+                        filterable={false}
+                        tableData={data.slice( (this.state.pageIndex -1)*this.defaultPageSize, this.state.pageIndex*this.defaultPageSize)}
+
+                        pageIndex={this.state.pageIndex}
+                        onPageChange={this.onPageChange.bind(this)}
+                        totalPage={Math.ceil(data.length / this.defaultPageSize)}
+
+                        searchEnable={false}
+                        footerEnable={false}
+                        />
                 </div>
             </Component>
         )
     }
 
-    onRowClick(e, rowData, cellData) {
-        let stock = config.cache.stockList.filter(s => s.stockCode == rowData.stockCode)
-       
-        if(stock.length > 0 && rowData.mvTSettled != 0) {
-           
-            let qty = rowData.mvTSettled
-            let marketPrice = rowData.mvMarketPrice
-            let avgPrice = rowData.mvAvgPrice
+    onPageChange(pageIndex) {
+        this.setState({ pageIndex: pageIndex });
+    }
 
-
-            let price = utils.numUnFormat(rowData.mvMarketPrice)
-            if(cellData.accessor == "mvAvgPrice") price = utils.numUnFormat(rowData.mvAvgPrice)
-            
-            let tmp = stock[0]
-            this.props.setDefaultOrderParams({
-                mvBS: "SELL",
-                mvStockCode: tmp.stockCode,
-                mvStockName: tmp.stockName,
-                mvMarketID: tmp.mvMarketID,
-                mvQty: qty,
-                mvPrice: price
-            })
-        }
+    onChangeStateColumn(e) {
+        const id = e.target.id
+        this.setState({
+            positionCol: this.state.positionCol.map(el => el.id === id ? Object.assign(el, { show: !el.show }) : el)
+        });
     }
 
     componentDidMount() {
-        let params = {
-            mvLastAction: 'AccountInfo',
-            mvChildLastAction: 'AccountInfo',
-            key: (new Date()).getTime(),
-        }
-        this.props.getPorfolio(params)
+        // let params = {
+        //     mvLastAction: 'AccountInfo',
+        //     mvChildLastAction: 'AccountInfo',
+        //     key: (new Date()).getTime(),
+        // }
+        // this.props.getPorfolio(params)
+
+
+        console.log(this.props)
+        // for Derivatives account
+        this.props.clientPortfolioEnquiryFS({
+            tradingAccSeq : parseInt(this.props.currentTrdAccount.accountSeq),
+            subAccountID : this.props.currentTrdAccount.subAccountID
+        })
+    }
+
+    componentDidUpdate() {
+        let sefl = this,
+            data = this.state.data
+        $(".por-sm-series")
+        .mouseenter(function(e) {
+            $(this).parent().parent().addClass("-hover")
+        })
+        .mouseleave(function(e){
+            $(this).parent().parent().removeClass("-hover")
+        })
+        .click(function(e) {
+            let symbol = e.target.getAttribute("data-symbol")
+            let t = data.filter(e => e.seriesId == symbol)
+            console.log(symbol, t)
+            if(t.length > 0) {
+                let bs = t[0]._long > t[0]._short ? "BUY" : "SELL"
+                sefl.props.setDefaultOrderParams({
+                    mvBS: bs,
+                    mvStockCode: t[0].seriesId,
+                    mvStockName: t[0].seriesId,
+                    mvMarketID: t[0].marketId,
+                    mvQty: bs == "SELL" ? t[0]._short : t[0]._long,
+                    mvPrice: t[0].bidAvgPrice
+                })
+            }
+        })
     }
 }
 const mapStateToProps = (state) => {
     return {
-        instrument: state.trading.instrument,
-        porfolioBeanList: state.trading.portfolioData,
-        listInstrumentData: state.trading.listInstrumentData
+        clientPortfolio: state.portfolio.clientPortfolio,
+
+        currentTrdAccount: state.dologin.currentTrdAccount,
+        tradingAccounts: state.dologin.tradingAccounts,
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
     getPorfolio: (params) => { dispatch(actions.getPorfolio(params)) },
     setDefaultOrderParams: (params) => { dispatch(actions.setDefaultOrderParams(params)) },
+
+    clientPortfolioEnquiryFS:(param) => { dispatch(actions.clientPortfolioEnquiryFS(param)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PortfolioSmall)

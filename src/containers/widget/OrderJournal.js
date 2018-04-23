@@ -14,15 +14,6 @@ class OrderJournal extends Component {
         this.state = {
             columns: [
                 {
-                    id: 'market',
-                    accessor: 'mvMarketID',
-                    minWidth: 80,
-                    maxWidth: 90,
-                    show: true,
-                    skip: false,
-                    
-                },
-                {
                     id: 'cb',
                     maxWidth: 50,
                     width: 40,
@@ -103,6 +94,16 @@ class OrderJournal extends Component {
                     }
                 },
                 {
+                    id: 'market',
+                    accessor: 'mvMarketID',
+                    background: props.theme.table.colText,
+                    minWidth: 80,
+                    maxWidth: 90,
+                    show: true,
+                    skip: false,
+                    
+                },
+                {
                     id: 'buysell',
                     accessor: 'mvBS',
                     width: 60,
@@ -141,7 +142,7 @@ class OrderJournal extends Component {
                             if(props.original.mvMarketID == "VNFE") {
                                 return (parseInt(props.value))
                             } else {
-                                return (Utils.formatCurrency(props.value))
+                                return (Utils.currencyShowFormatter(props.value))
                             }
                         }
                         
@@ -158,7 +159,7 @@ class OrderJournal extends Component {
                 {
                     id: 'quantity',
                     accessor: 'mvQty',
-                    Cell: props =>  Utils.formatQty(props.value),
+                    Cell: props =>  Utils.quantityShowFormatter(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -170,7 +171,7 @@ class OrderJournal extends Component {
                 {
                     id: 'pendingQty',
                     accessor: 'mvPendingQty',
-                    Cell: props =>  Utils.formatQty(props.value),
+                    Cell: props =>  Utils.quantityShowFormatter(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -182,7 +183,7 @@ class OrderJournal extends Component {
                 {
                     id: 'executedQty',
                     accessor: 'mvPendingQty',
-                    Cell: props =>  Utils.formatQty(props.value),
+                    Cell: props =>  Utils.quantityShowFormatter(props.value),
                     width: 100,
                     skip: false,
                     show: true,
@@ -194,7 +195,7 @@ class OrderJournal extends Component {
                 {
                     id: 'avgprice',
                     accessor: 'mvAvgPriceValue',
-                    Cell: props =>  Utils.formatCurrency(props.value),
+                    Cell: props =>  Utils.currencyShowFormatter(props.value),
                     width: 80,
                     skip: false,
                     show: true,
@@ -259,7 +260,7 @@ class OrderJournal extends Component {
                              
                             else
                                 result=props.original.mvGrossAmt - props.original.mvNetAmtValue
-                            return  Utils.formatCurrency( Math.round(result*1000)/1000 )
+                            return  Utils.currencyShowFormatter( Math.round(result*1000)/1000 )
                         }
                     },
                     show: true,
@@ -282,8 +283,8 @@ class OrderJournal extends Component {
                         }
                     },
                     width: 80,
-                    skip: false,
-                    show: true,
+                    skip: true,
+                    show: false,
                 },
                 {
                     id: 'expirydate',
@@ -319,6 +320,16 @@ class OrderJournal extends Component {
                     skip: false,
                     show: true,
                     mobile: false
+                },
+                {
+                    id: 'inputtime',
+                    accessor: 'mvInputTime',
+                    width: 80,
+                    skip: false,
+                    show: true,
+                    Aggregated: props => {
+                        return <span></span>
+                    },
                 },
                 {
                     id: 'mobileaction',
@@ -414,16 +425,17 @@ class OrderJournal extends Component {
                         columns={this.state.columns}
                         filterable={this.state.filterable}
                         tableData={orderList}
-                        pivot={['market']}
-                        getPivotRowProps={(props) => {
-                            return {
-                                style: Object.assign({}, theme.table.pivotRow, {
-                                    borderLeft: "none",
-                                    borderRight: "none",
-                                    justifyContent: "left"
-                                })
-                            }
-                        }}
+                        defaultSorted={[{id: "inputtime", desc: true}]}
+                        // pivot={['market']}
+                        // getPivotRowProps={(props) => {
+                        //     return {
+                        //         style: Object.assign({}, theme.table.pivotRow, {
+                        //             borderLeft: "none",
+                        //             borderRight: "none",
+                        //             justifyContent: "left"
+                        //         })
+                        //     }
+                        // }}
                         
                         pageIndex={this.state.pageIndex}
                         onPageChange={this.onPageChange.bind(this)}

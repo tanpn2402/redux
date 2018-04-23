@@ -190,7 +190,7 @@ class PortfolioFS extends Component {
                     background: props.theme.table.colText
                 }
             ],
-            openposCol: [
+            position: [
                 {
                     id: "orderGroupId",
                     accessor: "orderGroupId",
@@ -219,14 +219,6 @@ class PortfolioFS extends Component {
                     background: props.theme.table.colText
                 },
                 {
-                    id: "bs",
-                    accessor: "bs",
-                    minWidth: 60,
-                    maxWidth: 110,
-                    skip: false,
-                    show: true,
-                },
-                {
                     id: "isOutstanding",
                     accessor: "isOutstanding",
                     minWidth: 100,
@@ -242,7 +234,8 @@ class PortfolioFS extends Component {
                     maxWidth: 200,
                     skip: false,
                     show: true,
-                    background: props.theme.table.colNumber
+                    background: props.theme.table.colNumber,
+                    Cell: props => Utils.currencyShowFormatter(props.value)
                 },
                 {
                     id: "ccy",
@@ -260,16 +253,8 @@ class PortfolioFS extends Component {
                     maxWidth: 200,
                     skip: false,
                     show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "tradePrice",
-                    accessor: "tradePrice",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
+                    background: props.theme.table.colNumber,
+                    Cell: props => Utils.currencyShowFormatter(props.value)
                 },
                 {
                     id: "floatingPL",
@@ -278,7 +263,8 @@ class PortfolioFS extends Component {
                     maxWidth: 200,
                     skip: false,
                     show: true,
-                    background: props.theme.table.colNumber
+                    background: props.theme.table.colNumber,
+                    Cell: props => Utils.currencyShowFormatter(props.value)
                 },
                 {
                     id: "long",
@@ -317,133 +303,7 @@ class PortfolioFS extends Component {
                     background: props.theme.table.colText
                 }
             ],
-            closeposCol: [
-                {
-                    id: "orderGroupId",
-                    accessor: "orderGroupId",
-                    minWidth: 80,
-                    maxWidth: 150,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colText
-                },
-                {
-                    id: "seriesId",
-                    accessor: "seriesId",
-                    minWidth: 80,
-                    maxWidth: 150,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colText
-                },
-                {
-                    id: "marketId",
-                    accessor: "marketId",
-                    minWidth: 80,
-                    maxWidth: 150,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colText
-                },
-                {
-                    id: "bs",
-                    accessor: "bs",
-                    minWidth: 60,
-                    maxWidth: 110,
-                    skip: false,
-                    show: true,
-                },
-                {
-                    id: "isOutstanding",
-                    accessor: "isOutstanding",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: true,
-                    show: false,
-                    background: props.theme.table.colText
-                },
-                {
-                    id: "tradePrice",
-                    accessor: "tradePrice",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "ccy",
-                    accessor: "ccy",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colText
-                },
-                {
-                    id: "marketprice",
-                    accessor: "marketprice",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "tradePrice",
-                    accessor: "tradePrice",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "tradePL",
-                    accessor: "floatingPL",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "long",
-                    accessor: "_long",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "short",
-                    accessor: "_short",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "net",
-                    accessor: "net",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colNumber
-                },
-                {
-                    id: "broadName",
-                    accessor: "broadName",
-                    minWidth: 100,
-                    maxWidth: 200,
-                    skip: false,
-                    show: true,
-                    background: props.theme.table.colText
-                }
-            ],
+
             stockbalCol: [
                 {
                     id: "MarketID",
@@ -951,7 +811,7 @@ class PortfolioFS extends Component {
 
     getData() {
         let {clientPortfolio} = this.props
-        console.log(clientPortfolio)
+        // console.log(clientPortfolio)
         let get = () => {
             let data = []
             let tmp = []
@@ -990,7 +850,7 @@ class PortfolioFS extends Component {
         }
 
         let data = get()
-        console.log(data)
+        // console.log(data)
         return data == null ? [] : data
     }
 
@@ -1035,7 +895,7 @@ class PortfolioFS extends Component {
                                 language={language}
 
                                 pageSize={this.defaultPageSize}
-                                columns={this.state.openposCol}
+                                columns={this.state.position}
                                 filterable={this.state.filterable}
                                 tableData={data.slice( (this.state.pageIndex -1)*this.defaultPageSize, this.state.pageIndex*this.defaultPageSize)}
 
@@ -1055,7 +915,7 @@ class PortfolioFS extends Component {
                                 language={language}
 
                                 pageSize={this.defaultPageSize}
-                                columns={this.state.closeposCol}
+                                columns={this.state.position}
                                 filterable={this.state.filterable}
                                 tableData={data.slice( (this.state.pageIndex -1)*this.defaultPageSize, this.state.pageIndex*this.defaultPageSize)}
 

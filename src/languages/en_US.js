@@ -376,6 +376,7 @@ export default
                     "stockid": "Symbol",
                     "buysell": "B/S",
                     "orderID": "Order ID",
+                    "inputtime": "Time",
 
                     // for popup table
                     "market": "Market",
@@ -792,7 +793,7 @@ export default
                     "SettleInstrumentByDesc":"Settle Instrument By Desc",
 
 
-                    // Open Position
+                    // Open Position && Close Position
                     "orderGroupId":"Order Group ID",
                     "seriesId":"Series ID ",
                     "marketId":"Market ID ",
@@ -800,27 +801,15 @@ export default
                     "isOutstanding":"Is Outstanding",
                     "tradePrice":"Trade Price",
                     "ccy":"CCY",
-                    "marketprice":"Market ",
-                    "tradePL":"Trade PL",
+                    "marketprice":"Market Price",
+                    "floatingPL": "Floating PL",
+                    "tradePL": "Trade PL",
                     "long":"Long",
                     "short":"Short",
                     "net":"Net",
                     "broadName":"Commodity Name",
-
-                    // Close Position
-                    "orderGroupId":"Order Group ID",
-                    "seriesId":"Series ID ",
-                    "marketId":"Market ID ",
-                    "bs":"Buy/Sell",
-                    "isOutstanding":"is Outstanding",
-                    "tradePrice":"Trade Price",
-                    "ccy":"CCY",
-                    "marketprice":"Market ",
-                    "tradePL":"Trade PL",
-                    "long":"Long",
-                    "short":"Short",
-                    "net":"Net",
-                    "broadName":"Commodity Name",
+                    "askAvgPrice": "Ask Avg Price",
+                    "bidAvgPrice": "Bid Avg Price",
 
                     //Stock Balance
                     "MarketID":"Market ID",

@@ -4058,10 +4058,30 @@ label {
 
 /* PORTFOLIO SMALL TABLE */
 .por-sm-table {
-    height: calc(100% - 25px);
+    height: calc(100% - 26px);
     padding-right: 1px;
     padding-left: 1px;
 
+}
+.por-sm-table .table-main.no-header.no-footer {
+    height: 100%;
+}
+.por-sm-table .table-main .rt-tr.-hover {
+    font-weight: 600;
+}
+.por-sm-series {
+    width: 100%;
+}
+/* .por-sm-header {
+
+} */
+.por-sm-header .dropdown-container {
+    display: inline-block;
+    float: right;
+}
+.por-sm-header .dropdown-container .dropdown-display {
+    background-color: transparent;
+    color: #999;
 }
 .por-sm-title {
     padding-top: 4px !important;
