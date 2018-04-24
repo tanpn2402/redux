@@ -428,30 +428,30 @@ export function updateDerivativeData(data) {
         mvBidPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvBidPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
 
-        mvBidVol1: utils.randomInt(100),
-        mvBidVol2: utils.randomInt(100),
-        mvBidVol3: utils.randomInt(100),
+        mvBidVol1: utils.randomInt(1, 10),
+        mvBidVol2: utils.randomInt(1, 10),
+        mvBidVol3: utils.randomInt(1, 10),
 
         mvMatchPrice: utils.round(utils.randomInt(1060, 1200)+ parseFloat(Math.random().toFixed(2)), 1),
-        mvMatchVol: utils.randomInt(1, 100),
+        mvMatchVol: utils.randomInt(1, 10),
         mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
         mvMatchVolTotal: utils.randomInt(1, 100),
 
         mvOfferPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvOfferPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvOfferPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
-        mvOfferVol1: utils.randomInt(100),
-        mvOfferVol2: utils.randomInt(100),
-        mvOfferVol3: utils.randomInt(100),
+        mvOfferVol1: utils.randomInt(1, 10),
+        mvOfferVol2: utils.randomInt(1, 10),
+        mvOfferVol3: utils.randomInt(1, 10),
 
         mvOpen: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvHigh: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvLow: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvNomial: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
 
-        mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
-        mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
-        mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
+        mvForeignForBuy: utils.randomInt(1400, 1600) + 12,
+        mvForeignForSell: utils.randomInt(1100, 1500) + 34,
+        mvForeignForRoom: utils.randomInt(1000, 1600) + 14
     }
 
     // console.log("UPDATE", data)
@@ -479,30 +479,30 @@ export function getDerivativeList(list) {
             mvBidPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvBidPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
     
-            mvBidVol1: utils.randomInt(100),
-            mvBidVol2: utils.randomInt(100),
-            mvBidVol3: utils.randomInt(100),
+            mvBidVol1: utils.randomInt(1, 10),
+            mvBidVol2: utils.randomInt(1, 10),
+            mvBidVol3: utils.randomInt(1, 10),
     
             mvMatchPrice: utils.round(utils.randomInt(1060, 1200)+ parseFloat(Math.random().toFixed(2)), 1),
-            mvMatchVol: utils.randomInt(1, 100),
+            mvMatchVol: utils.randomInt(1, 10),
             mvMatchUpDown: utils.round(1 + parseFloat(Math.random().toFixed(2)), 1),
             mvMatchVolTotal: utils.randomInt(1, 100),
     
             mvOfferPrice1: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvOfferPrice2: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvOfferPrice3: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
-            mvOfferVol1: utils.randomInt(100),
-            mvOfferVol2: utils.randomInt(100),
-            mvOfferVol3: utils.randomInt(100),
+            mvOfferVol1: utils.randomInt(1, 10),
+            mvOfferVol2: utils.randomInt(1, 10),
+            mvOfferVol3: utils.randomInt(1, 10),
     
             mvOpen: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvHigh: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvLow: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvNomial: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
     
-            mvForeignForBuy: utils.round(56 + parseFloat(Math.random().toFixed(2)), 1),
-            mvForeignForSell: utils.round(69 + parseFloat(Math.random().toFixed(2)), 1),
-            mvForeignForRoom: utils.round(11 + parseFloat(Math.random().toFixed(2)), 1)
+            mvForeignForBuy: utils.randomInt(1400, 1600) + 12,
+            mvForeignForSell: utils.randomInt(1100, 1500) + 34,
+            mvForeignForRoom: utils.randomInt(1000, 1600) + 14
         }
     })
     

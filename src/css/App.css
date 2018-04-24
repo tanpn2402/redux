@@ -4202,8 +4202,7 @@ label {
     width: 20%;
     text-align: center;
     padding-right: 0 !important;
-    padding-left: 0 !important;  
-    font-weight: bold;  
+    padding-left: 0 !important; 
 }
 .bidask-td.right {
     width: 40%;
@@ -4260,7 +4259,7 @@ label {
     border-right-width: 0px !important;
 }
 .bidask-td.status .match-price {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
     cursor: pointer;
 }
