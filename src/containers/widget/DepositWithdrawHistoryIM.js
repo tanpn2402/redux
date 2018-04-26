@@ -134,6 +134,7 @@ class DepositWithdrawHistory extends Component {
                         onPageChange={this.onPageChange.bind(this)}
 
                         searchParams={['mvStartDate']}
+                        onSearch={this.onSearch.bind(this)}
                         searchEnable={true}
                         searchMobileParams={[]}
                         searchDefaultValues={{}}
@@ -141,6 +142,10 @@ class DepositWithdrawHistory extends Component {
                 </Body>
             </div>
         )
+    }
+
+    onSearch(params) {
+
     }
 
     onPageChange(page) {

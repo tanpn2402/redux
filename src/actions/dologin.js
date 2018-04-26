@@ -32,7 +32,7 @@ function loginDone(id, res, params) {
                 return {
                     type: ActionTypes.DOLOGINACTION,
                     loginResult: {
-                        mvMessage: res.errorMessage,
+                        mvMessage: "",
                         needChangePwd: "",
                         success: true
                     }
@@ -89,19 +89,21 @@ function loginDone(id, res, params) {
 
 export function doLogin(params) {
     return (dispatch) => {
-        tanpn.post("FSServer", "dologin", {clientID: params.mvClientID, password: params.mvPassword}, dispatch,
-            function (responseForLogin) {
-                fsclientID = params.mvClientID
-                dispatch(loginDone("FS", responseForLogin, {clientID: params.mvClientID, password: params.mvPassword}))
-            },
-            function (err) {
-                // login ERROR
-                return {
-                    type: ActionTypes.DOLOGINACTION,
-                    loginResult: err
-                }
-            }
-        )
+        // tanpn.post("FSServer", "dologin", {clientID: params.mvClientID, password: params.mvPassword}, dispatch,
+        //     function (responseForLogin) {
+        //         fsclientID = params.mvClientID
+        //         dispatch(loginDone("FS", responseForLogin, {clientID: params.mvClientID, password: params.mvPassword}))
+        //     },
+        //     function (err) {
+        //         // login ERROR
+        //         return {
+        //             type: ActionTypes.DOLOGINACTION,
+        //             loginResult: err
+        //         }
+        //     }
+        // )
+        fsclientID = params.mvClientID
+        dispatch(loginDone("FS", {sessionID: "123", errorMessage: ""}, {clientID: params.mvClientID, password: params.mvPassword}))
 
         api.login(ACTION.DOLOGIN, {mvClientID: "077C080001", mvPassword: "123456", securitycode: "", language: "en_US"}, dispatch,
             function (responseForLogin) {
@@ -334,7 +336,7 @@ export function checkAuthNO(dispatch) {
                                                         type: ActionTypes.CHECKAUTH,
                                                         userSavedData: responseForGetUserData,
                                                         userService: responseForGetCustomerService,
-                                                        tradingAccount: responseForTradingAcc,
+                                                        // tradingAccount: responseForTradingAcc,
                                                         status: "SUCCESS",
                                                     }
                                                 },
@@ -343,7 +345,7 @@ export function checkAuthNO(dispatch) {
                                                     return {
                                                         type: ActionTypes.CHECKAUTH,
                                                         userSavedData: responseForGetUserData,
-                                                        tradingAccount: responseForTradingAcc,
+                                                        // tradingAccount: responseForTradingAcc,
                                                         status: "SUCCESS",
                                                     }
                                                 })

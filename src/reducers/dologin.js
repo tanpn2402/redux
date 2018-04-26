@@ -36,10 +36,9 @@ export default function(state = initialState, action) {
         case ActionTypes.CHECKAUTH:
             
             let acctradinglist = action.tradingAccount == undefined ? 
-                state.tradingAccounts : action.tradingAccount.mvTradingAccountBean.tradingAccountSelection
-            
-            // add prefix for call api to server
-            acctradinglist.map(e => e.prefix = iTradeSERVER)
+                [] : action.tradingAccount.mvTradingAccountBean.tradingAccountSelection
+
+                acctradinglist = acctradinglist.concat(state.tradingAccounts)
                 
             return Object.assign({}, state, {
                 loginStatus: action.status,
@@ -47,16 +46,14 @@ export default function(state = initialState, action) {
                 userService: action.userService,
 
                 currentTrdAccount: acctradinglist[0],
-                tradingAccounts: acctradinglist.concat(state.tradingAccounts)
+                tradingAccounts: acctradinglist
             });
 
         case ActionTypes.GETFSSUBACCOUNT:
             let list = action.listAccounts == undefined ? [] : action.listAccounts
-            // add prefix for call api to server
-            list.map(e => e.prefix = FSSERVER)
-            console.log(list)
+            
             let acctrading1 = state.tradingAccounts.concat(list)
-            console.log(acctrading1)
+            // console.log(acctrading1)
             return Object.assign({}, state, {
                 tradingAccounts: acctrading1
             })

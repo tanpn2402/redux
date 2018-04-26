@@ -186,10 +186,10 @@ export default
                 "tradehistory": "Khớp lệnh theo thời gian",
                 "recommendation": "Đề nghị",
                 "derivatives": "Phái sinh",
-                "depositwithdraw": "Deposit/Withdraw",
-                "depositwithdrawim": "Deposit/Withdraw IM",
+                "depositwithdraw": "Nộp/Rút tiền",
+                "depositwithdrawim": "Nộp/Rút tiền lên VSD",
                 "depositwithdrawstatus": "Money Transfer Status",
-                "depositwithdrawhistory": "Money Transfer History",
+                "depositwithdrawhistory": "Lịch sử luồng tiền",
                 "cpcashdwhistory": "Nộp rút tiền lên VSD"
             },
             "searchbar": {
@@ -920,14 +920,15 @@ export default
                     "netfee": "Phí tạm tính",
                     "expirydate": "Lệnh đến hạn",
                     "goodTill": "Good Till",
-                    "grossAmt": "Gross Amount",
+                    "grossAmt": "Giá trị thuần",
                     "netAmt": "Net Amt",
                     "availQty": "Avail Qty",
                     "commissionFees": "Commission Fees",
                     "usable": "Tài sản",
                     "subaccount": "Tiểu khoản",
                     "accname": "Tên TK",
-                    "savepin": "Lưu PIN"
+                    "savepin": "Lưu PIN",
+                    "maximum": "KL dự kiến"
                 },
                 "data": {
                     "Buy": "Buy",
@@ -1855,7 +1856,7 @@ export default
                 "no": "No",
                 "buy": "Mua",
                 "sell": "Bán",
-                "reset": "Reset",
+                "reset": "Đặt lại",
                 "sure": "Sure",
                 "confirmModify": "Đồng ý sửa",
                 "confirmCancel": "Đồng ý hủy",

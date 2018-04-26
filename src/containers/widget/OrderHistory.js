@@ -312,7 +312,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: (SCparam, FSparam) => {
-        dispatch(actions.enquiryOrderHistory(SCparam))
+        // dispatch(actions.enquiryOrderHistory(SCparam))
         dispatch(actions.orderHistoryEnquiryFS(FSparam))
     },
     onExportExcel: (param) => {

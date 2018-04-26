@@ -97,7 +97,7 @@ class EnterOrderConfirm extends Component{
         var data = this.props.data
         var authParams = this.auth.getParam()
     
-        this.props.onEnterOrder(data, authParams)
+        this.props.onEnterOrder(data, authParams, this.props.language)
         this.props.onHide()
     }
 }
@@ -110,7 +110,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onEnterOrder: (a,b) => {dispatch(actions.enterOrder(a,b))}
+    onEnterOrder: (a,b,c) => {dispatch(actions.enterOrder(a,b,c))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnterOrderConfirm)

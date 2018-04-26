@@ -99,6 +99,17 @@ class Input extends React.Component {
             this.rButton2.style.width = this.rInputControl.offsetHeight - 2 + "px"
             this.rButton2.style.height = this.rInputControl.offsetHeight - 2 + "px"
         }
+
+        if(this.props.value) {
+            this.rInput.value = this.props.value
+        }
+    }
+
+    componentDidUpdate() {
+        console.log(this.props)
+        if(this.props.value) {
+            this.rInput.value = this.props.value
+        }
     }
 
     handleButtonInputClick(value) {

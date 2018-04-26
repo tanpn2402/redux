@@ -166,6 +166,7 @@ class Sumary extends React.Component {
                 value: utils.currencyShowFormatter(accSumaryData.accountBalance)
             }, {
                 name: header.commission + "/" + header.fee,
+                // Name: () => <div><span>{header.commission + "/"}</span><span>{header.fee}</span></div>,
                 value: {
                     internal: utils.currencyShowFormatter(accSumaryData.commission),
                     exchange: utils.currencyShowFormatter(accSumaryData.fee)
@@ -181,6 +182,7 @@ class Sumary extends React.Component {
                 value: utils.currencyShowFormatter(accSumaryData.deliveryAmount)
             }, {
                 name: header.floatingpl + "/" + header.tradingpl,
+                // Name: () => <div><span>{header.floatingpl + "/"}</span><span>{header.tradingpl}</span></div>,
                 value: {
                     internal: utils.currencyShowFormatter(accSumaryData.floatingPL),
                     exchange: utils.currencyShowFormatter(accSumaryData.tradingPL)
@@ -190,6 +192,7 @@ class Sumary extends React.Component {
                 value: utils.currencyShowFormatter(accSumaryData.totalPL)
             }, {
                 name: header.reserv + "/" + header.marginable,
+                // Name: () => <div><span>{header.reserv + "/"}</span><span>{header.marginable}</span></div>,
                 value: {
                     internal: utils.currencyShowFormatter(accSumaryData.depositable),
                     exchange: utils.currencyShowFormatter(accSumaryData.marginable)
@@ -199,6 +202,7 @@ class Sumary extends React.Component {
                 value: utils.currencyShowFormatter(accSumaryData.rccall)
             },  {
                 name: header.cash + "/" + header.noncash,
+                // Name: () => <div><div><span>{header.cash + "/"}</span></div><div><span>{header.noncash}</span></div></div>,
                 value: {
                     internal: utils.currencyShowFormatter(accSumaryData.cashDrawable),
                     exchange: utils.currencyShowFormatter(accSumaryData.nonCashDrawableRCCall)
@@ -342,7 +346,7 @@ class Sumary extends React.Component {
                             <PieChart theme={theme} colors={[]} data={chartData} pieSize={pieSize}/>
                         </div>
                         <div className="acc-sum-info" >
-                            <div className="col-sm-4 info-col"> 
+                            <div className="col-sm-4 info-col acc-sumary"> 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <table className="table">   
                                         <thead style={tableHeader}>
@@ -374,7 +378,11 @@ class Sumary extends React.Component {
                                                     
                                                     return (
                                                         <tr style={style} >
-                                                            <th>{d.name}</th>
+                                                            <th>
+                                                                {
+                                                                    d.Name == undefined ? d.name : d.Name()
+                                                                }
+                                                            </th>
                                                             {child}
                                                         </tr>
                                                     )
@@ -386,7 +394,7 @@ class Sumary extends React.Component {
                                 </div>
                             </div>
 
-                            <div className="col-sm-4 info-col">
+                            <div className="col-sm-4 info-col acc-bal-info">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <div style={Object.assign({}, tableHeader, {fontWeight: "bold", padding: "4px"})}>{header.cashinfo}</div>
@@ -435,7 +443,7 @@ class Sumary extends React.Component {
 
                             </div>
 
-                            <div className="col-sm-4 info-col">
+                            <div className="col-sm-4 info-col port-assessment">
 
                                 <div className="table-responsive" style={{ height: '100%', fontSize: '12px' }}>
                                     <div style={Object.assign({}, tableHeader, {fontWeight: "bold", padding: "4px"})}>{header.portfolioassessment}</div>

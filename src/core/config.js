@@ -643,7 +643,7 @@ const config = {
 			widget: [
 				{ i: 'orderHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
 				{ i: 'cashTransHistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
-				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 },
+				{ i: 'stockstatement', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1, enabled: false },
 				{ i: 'cpcashdwhistory', x: 0, y: 0, w: 8,  minH: 20, maxH: 30, isDraggable: false, isResizable: false, tab:1 }
 			]
 		},
@@ -653,14 +653,14 @@ const config = {
 			enabled: true,
 			widget: [
 
-				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-				// { i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
-				{ i: 'depositwithdrawim',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
-				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false },
-				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false },
-				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-				{ i: 'oddLot', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false },
-				{ i: 'loanrefund',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false},
+				{ i: 'fundTransfer', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false, enabled: true },
+				// { i: 'depositwithdraw',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false, enabled: false},
+				{ i: 'depositwithdrawim',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false, enabled: true},
+				{ i: 'advancePaymentBank', x: 0, y: 0, w: 10, h: 16, isDraggable: false, isResizable: false, enabled: false },
+				{ i: 'advancePayment', x: 0, y: 0, w: 8, h: 16, isDraggable: false, isResizable: false, enabled: false },
+				{ i: 'entitlement', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false , enabled: false},
+				{ i: 'oddLot', x: 0, y: 0, w: 8, h: 20, isDraggable: false, isResizable: false, enabled: false },
+				{ i: 'loanrefund',  x:0, y:0, w: 8, h: 20, isDraggable: false, isResizable: false, enabled: false},
 
 			]
 		},

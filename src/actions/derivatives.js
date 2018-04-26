@@ -6,6 +6,7 @@ import * as ACTION from '../api/action_name';
 import * as utils from "../utils"
 import {updateDerivativeData, getDerivativeList} from "./trading"
 import config from "../core/config"
+import moment from "moment"
 const URL = "localhost:3000/FSServer/"
 // PHAI SINH
 
@@ -113,7 +114,7 @@ function broadcastFSRealtimeData(list, dispatch) {
     // setInterval(a, 4000)
 }
 
-export function enterFSOrder(params, authParams) {
+export function enterFSOrder(params, authParams, language) {
     console.log(params)
 
     params = {
@@ -166,12 +167,17 @@ export function enterFSOrder(params, authParams) {
         api.post("enterOrder", params, dispatch, 
         function(res) {
             // success
-            let orderID = res.orderId
-            if(orderID == null) {
-                dispatch(showFlashPopup("Error", res.errorMessage + " (" + res.errorCode + ")"))
+            if(res == null) {
+                dispatch(showMessageBox(language.messagebox.title.error, language.messagebox.message.systemMaintain))
             } else {
-                dispatch(showFlashPopup("Success", "Order " + orderID + " updated: " + params.orderInfo.seriesId))
+                let orderID = res.orderId
+                if(orderID == null) {
+                    dispatch(showFlashPopup(language.messagebox.title.error, res.errorMessage + " (" + res.errorCode + ")"))
+                } else {
+                    dispatch(showFlashPopup(language.messagebox.title.success, "Order " + orderID + " updated: " + params.orderInfo.seriesId))
+                }
             }
+            
                 
         },
         function(err) {
@@ -577,7 +583,7 @@ export function orderEnquiryFS(p) {
                         "mvHoldConfirmQty": "",
                         "mvHostId": "",
                         "mvInActive": "",
-                        "mvInputTime": "08:59:33",
+                        "mvInputTime": moment(e.tradetime).format("HH:mm:ss"),
                         "mvInstrumentId": "",
                         "mvInstrumentShortName": "",
                         "mvInvestorClassId": "",

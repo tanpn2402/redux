@@ -137,7 +137,10 @@ export default class SearchBar extends React.Component {
     }
 
     componentWillMount() {
-
+        if(this.props.data.subAccount) {
+            this.onSubAccountChange(this.props.data.subAccount[0])
+        }
+        
        
     }
 

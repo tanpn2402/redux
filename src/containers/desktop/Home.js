@@ -75,7 +75,7 @@ class Home extends Component {
         this.onSubscribeToServer()
 
 
-        this.props.getListStockInWatchList()
+        // this.props.getListStockInWatchList()
 
 
         
@@ -103,12 +103,12 @@ class Home extends Component {
         } else {
             console.log("Start subcribe on clientId = " + socketID )
 
-            atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
-                if (stockJsonResponse != null) {
+            // atmosphereAPI.subscribe(socketID, ((stockJsonResponse) => {
+            //     if (stockJsonResponse != null) {
                     
-                    this.props.updateWatchlistData(stockJsonResponse)
-                }
-            }).bind(this))
+            //         this.props.updateWatchlistData(stockJsonResponse)
+            //     }
+            // }).bind(this))
 
 
             // marketData.subscribe(socketID, ((stockJsonResponse) => {

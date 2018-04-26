@@ -82,17 +82,17 @@ class BidAskTable extends React.Component {
         else if(refPrice > matchPrice) {
             style = theme.down
             percent = <span style={{color: style.color}} className="trd-binding">{"" + percent + "%"}</span>
-            change = <span style={{color: style.color}} className="trd-binding">{"-" + change + ""}</span>
+            change = <span style={{color: style.color}} className="trd-binding">{"-" + utils.currencyShowFormatter(change) + ""}</span>
             className = "decrease"
         }
         else if(refPrice < matchPrice) {
             style = theme.up
             percent = <span style={{color: style.color}} className="trd-binding">{"" + percent + "%"}</span>
-            change = <span style={{color: style.color}} className="trd-binding">{"+" + change + ""}</span>
+            change = <span style={{color: style.color}} className="trd-binding">{"+" + utils.currencyShowFormatter(change) + ""}</span>
             className = "increase"
         } else {
             percent = <span style={{color: style.color}} className="trd-binding">{percent + "%"}</span>
-            change = <span style={{color: style.color}} className="trd-binding">{change + ""}</span>
+            change = <span style={{color: style.color}} className="trd-binding">{utils.currencyShowFormatter(change) + ""}</span>
         }
 
         return <div>{change}

@@ -449,9 +449,9 @@ export function updateDerivativeData(data) {
         mvLow: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
         mvNomial: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
 
-        mvForeignForBuy: utils.randomInt(1400, 1600) + 12,
-        mvForeignForSell: utils.randomInt(1100, 1500) + 34,
-        mvForeignForRoom: utils.randomInt(1000, 1600) + 14
+        mvForeignForBuy: utils.randomInt(1, 10) ,   
+        mvForeignForSell: utils.randomInt(1, 15) ,
+        mvForeignForRoom: utils.randomInt(1, 14) 
     }
 
     // console.log("UPDATE", data)
@@ -500,9 +500,9 @@ export function getDerivativeList(list) {
             mvLow: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
             mvNomial: utils.round(utils.randomInt(1060, 1200) + parseFloat(Math.random().toFixed(2)), 1),
     
-            mvForeignForBuy: utils.randomInt(1400, 1600) + 12,
-            mvForeignForSell: utils.randomInt(1100, 1500) + 34,
-            mvForeignForRoom: utils.randomInt(1000, 1600) + 14
+            mvForeignForBuy: utils.randomInt(1, 10) ,
+            mvForeignForSell: utils.randomInt(1, 15) ,
+            mvForeignForRoom: utils.randomInt(1, 14) 
         }
     })
     

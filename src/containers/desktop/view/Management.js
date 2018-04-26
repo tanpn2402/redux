@@ -13,6 +13,7 @@ class Management extends Component {
     }	
 
     render(){
+        console.log(this.props)
         return(
             <TabLayout theme={this.props.theme} language={this.props.language} 
                 tabID={this.props.tabID} subTab={this.props.subTab}/>

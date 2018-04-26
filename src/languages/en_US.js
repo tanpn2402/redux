@@ -957,7 +957,8 @@ export default
                     "usable": "Usable",
                     "subaccount": "Sub Acc. ID",
                     "accname": "Name",
-                    "savepin": "Save PIN"
+                    "savepin": "Save PIN",
+                    "maximum": "Maximum"
                 },
                 "data": {
                     "Buy": "Buy",

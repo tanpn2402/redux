@@ -159,7 +159,7 @@ class BidAsk extends React.Component {
                     </span>
                     
                 </div>
-                <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
+                {/* <TabControl activeKey={this.state.activeKey} onTabChange={this.onTabChange.bind(this)} theme={this.props.theme}>
                     <TabItem eventKey={1} title={this._renderTitle(header.order, 1)} >
                         <BidAskTable theme={theme} language={this.props.language} instrument={this.state.mvStockSelected} />
                     </TabItem>
@@ -170,7 +170,8 @@ class BidAsk extends React.Component {
                     </TabItem>
                     <TabItem eventKey={4} title={this._renderTitle(header.tradebook, 4)} >
                     </TabItem>
-                </TabControl>
+                </TabControl> */}
+                <BidAskTable theme={theme} language={this.props.language} instrument={this.state.mvStockSelected} />
 
                     
             </Component>

@@ -308,7 +308,7 @@ class OrderJournal extends Component {
 
                         } else {
                             let text=props.language.orderjournal.reject
-                            if (p.original.mvRejectReason != "")
+                            if (p.original.mvRejectReason != "" && p.original.mvRejectReasonDetail != "")
                                 return (
                                     <div className='rejectReason' style={{color:'blue'}} onClick={() => this.handleReject(p.original.mvRejectReasonDetail)}>
                                         {text}

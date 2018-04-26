@@ -17,16 +17,16 @@ export function handleFSOrder(value, language, theme, node) {
         return dispatch => {dispatch(showMessageBox(title.error, message.enterQty))}
     }
 
-    if (isNaN(value.price) || parseInt(value.price) === 0) {
-        node.mvPrice.focus()
-        return dispatch => {dispatch(showMessageBox(title.error, message.enterPrice))}
-    } else if (value.price < 0) {
-        node.mvPrice.focus()
-        return dispatch => {dispatch(showMessageBox(title.error, message.priceNegative))}
+    if(value.orderType == "L") {
+        if (isNaN(value.price) || parseInt(value.price) === 0) {
+            node.mvPrice.focus()
+            return dispatch => {dispatch(showMessageBox(title.error, message.enterPrice))}
+        } else if (value.price < 0) {
+            node.mvPrice.focus()
+            return dispatch => {dispatch(showMessageBox(title.error, message.priceNegative))}
+        }
     }
-
-
- 
+    
     if(parseFloat(value.ceil) < parseFloat(value.price) || parseFloat(value.floor) > parseFloat(value.price) ) {
         var errorMsg = message.invaliedPriceOutRange;
         errorMsg = errorMsg

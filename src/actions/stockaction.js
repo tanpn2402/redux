@@ -10,23 +10,23 @@ const stockList = { "mvIsEnableMultiMarket": true, "mvResult": null, "stockSearc
 
 export function stockSearch(param) {
     return function (dispatch) {
-        api.post('stockSearch.action', param, dispatch, 
-        function(response) {
-            if(response == undefined || response.stockSearchList.length < 0) {
-                return (dispath) => dispatch(stockSearch(param))
-            } else {
-                let tmp = response
-                // tmp.stockSearchList = tmp.stockSearchList.concat(derivativeList)
+        // api.post('stockSearch.action', param, dispatch, 
+        // function(response) {
+        //     if(response == undefined || response.stockSearchList.length < 0) {
+        //         return (dispath) => dispatch(stockSearch(param))
+        //     } else {
+        //         let tmp = response
+        //         // tmp.stockSearchList = tmp.stockSearchList.concat(derivativeList)
                 
-                return {
-                    type: ActionTypes.STOCKSEARCH,
-                    stockList:tmp
-                }   
-            }
-        },
-        function(err) {
-            return (dispatch) => dispatch(stockSearch(param))
-        })
+        //         return {
+        //             type: ActionTypes.STOCKSEARCH,
+        //             stockList:tmp
+        //         }   
+        //     }
+        // },
+        // function(err) {
+        //     return (dispatch) => dispatch(stockSearch(param))
+        // })
 
         dispatch(fsAction.getFSSeries())
     }

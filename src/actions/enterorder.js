@@ -183,14 +183,14 @@ function enterNormalOrder(data, authParams) {
     }
 }
 
-export function enterOrder(data, authParams) {
+export function enterOrder(data, authParams, language) {
     if(data.tradingType == "DERIVATIVES") {
         return dispatch => {
-            dispatch(enterFSOrder(data, authParams))
+            dispatch(enterFSOrder(data, authParams, language))
         }
     } else {
         return dispatch => {
-            dispatch(enterNormalOrder(data, authParams))
+            dispatch(enterNormalOrder(data, authParams, language))
         }
     }
 }

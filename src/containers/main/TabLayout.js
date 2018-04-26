@@ -208,7 +208,10 @@ const DERIVATIVES_FUNCTION = [
     "fundTransfer",
     "depositwithdraw",
     "depositwithdrawim",
-    "cpcashdwhistory"
+    "cpcashdwhistory",
+    "stockstatement",
+    "orderHistory",
+    "cashTransHistory"
 ]
 
 const NORMAL_FUNCTION = [
@@ -296,30 +299,32 @@ class TabLayout extends Component {
                             <nav className='vertical-align-middle'>
                                 {
                                     this.tabbar.map(tab => {
-                                        console.log(tab)
-                                        let className = 'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')
-                                        if(accountType == "FS") {
-                                            className += (DERIVATIVES_FUNCTION.includes(tab.i) ? "" : " disabled")
-                                            return ( 
-                                                <div key={tab.id} className={className}
-                                                    onClick={e=> this.onTabClick(tab.i, e)}
-                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
-                                                
-                                                        {language.menu[tab.i]}
-                                                        
-                                                </div>
-                                            )
-                                        } else {
-                                            className += (NORMAL_FUNCTION.includes(tab.i) ? "" : " disabled")
-                                            return ( 
-                                                <div key={tab.id} className={className}
-                                                    onClick={e=> this.onTabClick(tab.i, e)}
-                                                    style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
-                                                
-                                                        {language.menu[tab.i]}
-                                                        
-                                                </div>
-                                            )
+                                        
+                                        if(tab.enabled || tab.enabled == undefined) {
+                                            let className = 'tabs-item ' + (tab.i === activeTab ? 'actived' : 'normal')
+                                            if(accountType == "FS") {
+                                                className += (DERIVATIVES_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                                return ( 
+                                                    <div key={tab.id} className={className}
+                                                        onClick={e=> this.onTabClick(tab.i, e)}
+                                                        style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                    
+                                                            {language.menu[tab.i]}
+                                                            
+                                                    </div>
+                                                )
+                                            } else {
+                                                className += (NORMAL_FUNCTION.includes(tab.i) ? "" : " disabled")
+                                                return ( 
+                                                    <div key={tab.id} className={className}
+                                                        onClick={e=> this.onTabClick(tab.i, e)}
+                                                        style={tab.i === activeTab ? tabStyles.active : tabStyles.normal}>
+                                                    
+                                                            {language.menu[tab.i]}
+                                                            
+                                                    </div>
+                                                )
+                                            }
                                         }
                                             
                                     })

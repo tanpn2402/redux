@@ -2376,6 +2376,11 @@ label {
 }
 .-i:not(:last-child) {
     padding-right: 2px;
+    padding-left: 2px;
+    border-right: 1px solid #ccc;
+}
+.-i:last-child {
+    padding-left: 2px;
 }
 .accsum-table ._thead {
     font-weight: bold;
@@ -2396,6 +2401,14 @@ label {
 }
 .accsum-table ._td {
     padding-right: 5px;
+}
+.acc-bal-info .accsum-exchange,
+.port-assessment .accsum-exchange {
+    color: #3cd47f;
+}
+.acc-bal-info .accsum-internal,
+.port-assessment .accsum-internal {
+    color: #8500ff;
 }
 /* END SUMARY COMPONENT */
 
@@ -2968,13 +2981,22 @@ label {
     background-color: #cec69f;
 }
 
-.input-control.readOnly {
+.input-control.readOnly, .input-control.readOnly input:focus {
     background: #ccc !important;
 }
 .input-control.readOnly button {
     background-color: #d0d0d0;
     outline: none;
-    border-color: #d0d0d0;
+    color: #989898;
+    border-color: #989898;
+}
+.input-control.readOnly button:active {
+    outline: none;
+    box-shadow: none;
+    border-color: #989898;
+}
+.input-control.readOnly button:hover {
+    color: #989898;
 }
 .input-control.showOnly {
     background-color: transparent !important;
@@ -4199,7 +4221,7 @@ label {
     width: 40%;
 }
 .bidask-td.mid {
-    width: 20%;
+    width: 26%;
     text-align: center;
     padding-right: 0 !important;
     padding-left: 0 !important; 
@@ -4259,7 +4281,7 @@ label {
     border-right-width: 0px !important;
 }
 .bidask-td.status .match-price {
-    font-size: 26px;
+    font-size: 1.9em;
     font-weight: bold;
     cursor: pointer;
 }
@@ -4571,14 +4593,14 @@ input[type=number] {
     padding-left: 0px;
 }
 .bidask-container, .wl-sm-container {
-    height: 239px;
+    height: 205px;
 }
 .placeorder-container, .portfolio-sm-container {
     height: 250px;
     padding-top: 0px;
 }
 .trd-orderjournal-container {
-    height: calc(100% - 240px - 250px);
+    height: calc(100% - 240px - 215px);
     min-height: 180px;
     padding: 2px;
     padding-top: 0px;

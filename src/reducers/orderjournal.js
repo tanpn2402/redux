@@ -1,5 +1,6 @@
 import config from "../core/config";
 import * as fetch from "../api/fetch";
+import moment from "moment";
 const { ActionTypes } = require('../core/constants');
 
 
@@ -253,7 +254,7 @@ function updateOrderJournal(state, action) {
                 "mvHoldConfirmQty": "",
                 "mvHostId": "",
                 "mvInActive": "",
-                "mvInputTime": "08:59:33",
+                "mvInputTime": moment(e.tradetime).format("HH:mm:ss"),
                 "mvInstrumentId": "",
                 "mvInstrumentShortName": "",
                 "mvInvestorClassId": "",
