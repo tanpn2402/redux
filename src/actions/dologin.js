@@ -105,10 +105,10 @@ export function doLogin(params) {
         fsclientID = params.mvClientID
         dispatch(loginDone("FS", {sessionID: "123", errorMessage: ""}, {clientID: params.mvClientID, password: params.mvPassword}))
 
-        api.login(ACTION.DOLOGIN, {mvClientID: "077C080001", mvPassword: "123456", securitycode: "", language: "en_US"}, dispatch,
+        api.login(ACTION.DOLOGIN, {mvClientID: "077C081111", mvPassword: "123456", securitycode: "", language: "en_US"}, dispatch,
             function (responseForLogin) {
-                clientID = "077C080001"
-                dispatch(loginDone("NO", responseForLogin, {mvClientID: "077C080001", mvPassword: "123456", securitycode: "", language: "en_US"}))
+                clientID = "077C081111"
+                dispatch(loginDone("NO", responseForLogin, {mvClientID: "077C081111", mvPassword: "123456", securitycode: "", language: "en_US"}))
             },
             function (err) {
                 // login ERROR

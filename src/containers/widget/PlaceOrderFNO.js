@@ -281,47 +281,28 @@ class PlaceOrderFNO extends React.Component {
             } 
         }
 
-        
         let BS = this.state.mvBS
         let placeOrderBg = theme.placeorder.background[BS.toLowerCase()]
         let tabActivedStyle = theme.placeorder.tabBS.active
-        tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
-
         let showTi = false
-        if(tabID == "customization") {
-            showTi = true
-            if(showTitle != undefined) {
-                showTi = showTitle
+        try {
+            
+            tabActivedStyle["backgroundColor"] = placeOrderBg.backgroundColor
+
+            
+            if(tabID == "customization") {
+                showTi = true
+                if(showTitle != undefined) {
+                    showTi = showTitle
+                }
             }
+        } catch(e) {
+            
         }
 
         return (
 
-            <Component style={{ height: "100%", position: "relative" }} id={this.id} theme={theme}>                 
-                {
-                    showTi ? 
-                        <Title language={this.props.language} theme={theme} widgetID= 'placeorder'>
-                            {this.props.language.menu['placeorder']}
-                        </Title>
-                        : null
-                }
-                <Body theme={theme} className={showTi ? 'title': 'no-title'}>
-
-                    {/* PLACE ORDER CONTROL */}
-                    <div className="pl-subacc-control">
-                        <AccountSelector theme={theme}
-                            style={selectorStyles}
-                            selected={this.state.mvSubAccSelected}
-                            language={language} ref={n => this.tradingAccount = n} 
-                            handleChange={opt => this.handleSubAccChange(opt)}/>
-                        <span style={theme.font.main} className="sep"></span>
-                        <div className="pl-pin">
-                            <span style={theme.font.main}>PIN</span>
-                            <Input key="refPIN" type="password" ref={ref => this.refPIN =  ref} 
-                                defaultValue={""} style={{textAlign: "center"}} tabIndex={-1}/>
-                            <Checkbox inline>{header.savepin}</Checkbox>
-                        </div>
-                    </div>
+            <React.Fragment>
                     <div className="pl-tab-control">
                         <span style={BS=="BUY"?tabActivedStyle:theme.placeorder.tabBS.normal} 
                             className={this.state.mvBS==="BUY"?"pl-tab active":"pl-tab" } id="tabBuy" 
@@ -637,8 +618,7 @@ class PlaceOrderFNO extends React.Component {
                         {/* End Right Column */}
                         
                     </div>
-                </Body>
-            </Component>
+            </React.Fragment>
         )
     }
     componentDidMount() {
@@ -933,23 +913,16 @@ class PlaceOrderFNO extends React.Component {
     }
 
 }
-/* For PErcentage Component*/
-const percentages=[25,50,75,100];
-const listPercentage=percentages.map((percentage)=>
-   <li className="percentage">{percentage}%</li>
-);
+
 /*************************/
 const mapStateToProps = (state) => {
     return {
         genEnterOrderData: state.enterOrder.genEnterOrder,
         orderDefault: state.enterOrder.orderDefaultParams,
         accountBalance: state.accountinfo.accountBalance,
-        tabID: state.menuSelected.tabID,
+        
         listInstrumentInWatchList: state.trading.listInstrumentInWatchList,
         portfolioData: state.trading.portfolioData.mvPortfolioBeanList,
-
-        tradingAccounts: state.dologin.tradingAccounts,
-        currentTrdAccount: state.dologin.currentTrdAccount,
 
 
         listSeries: state.stock.listSeries,

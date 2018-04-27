@@ -7,7 +7,7 @@ import AdvanceBankPanel from './AdvanceBankPanel'
 import MatchOrderBankList from './MatchOrderBankList'
 import * as Utils from '../../utils'
 
-var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin')
+// var PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin')
 var _ = require('lodash')
 var WidthProvider = require('react-grid-layout').WidthProvider
 var ResponsiveReactGridLayout  = require('react-grid-layout').Responsive
